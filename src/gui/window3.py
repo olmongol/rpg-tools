@@ -8,17 +8,16 @@ This module contains all needed classes/functions to build up a GUI with Tk and
 Python 3.x 
 
 \author Marcus Schwamberger
-\email mongol@nld.ds.mpg.de
+\email marcus@lederzeug.de
 \date (c) 2012
 \version 0.1 alpha
 '''
 
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2012 " + __author__
-__institute__ = "Max-Planck-Institute\nof Dynamics & Selforganisation "
-__email__ = "mongol@nld.ds.mpg.de"
+__email__ = "marcus@lederzeug.de"
 __version__ = "0.1 alpha"
-__me__ = "ADaManT XML Profile Generator"
+__me__ = "Tkinter package box for Python 3"
 
 from toolbox.lang import *
 from tkinter.filedialog import *

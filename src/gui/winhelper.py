@@ -7,7 +7,7 @@
 
 \date (C) 2012
 \author Marcus Schwamberger
-\email mongol@nld.ds.mpg.de
+\email marcus@lederzeug.de
 \version 0.5.4 alpha
 
 '''

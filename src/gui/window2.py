@@ -17,7 +17,7 @@ __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015 " + __author__
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.5.5 alpha"
-__me__ = "A Tkinter window tool package"
+__me__ = "A Tkinter window tool package for Python 2"
 
 import os
 import sys
@@ -237,7 +237,6 @@ class MainWindow(blankWindow):
         self.about = "%s\nVersion %s\n\n%s\n%s\n%s" % (__me__,
                                                       __version__,
                                                       __copyright__,
-                                                      __institute__,
                                                       __email__)
         self.msg = messageWindow()
         self.msg.showinfo(self.about)
