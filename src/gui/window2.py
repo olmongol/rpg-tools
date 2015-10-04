@@ -8,17 +8,16 @@ This module contains all needed classes/functions to build up a GUI
 with Tk and Python 2.6+ 
 
 \author Marcus Schwamberger
-\email mongol@nld.ds.mpg.de
-\date (c) 2012
-\version 0.5.5 alpha
+\email Marcus@lederzeug.de
+\date (c) 2015
+\version 1.0a
 '''
 
 __author__ = "Marcus Schwamberger"
-__copyright__ = "(C) 2012 " + __author__
-__institute__ = "Max-Planck-Institute\nof Dynamics & Selforganisation "
-__email__ = "mongol@nld.ds.mpg.de"
+__copyright__ = "(C) 2015 " + __author__
+__email__ = "marcus@lederzeug.de"
 __version__ = "0.5.5 alpha"
-__me__ = "ADaManT XML Profile Generator"
+__me__ = "A Tkinter window tool package"
 
 import os
 import sys
