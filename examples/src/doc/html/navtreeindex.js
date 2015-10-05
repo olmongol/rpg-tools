@@ -1,0 +1,19 @@
+var NAVTREEINDEX =
+{
+"index.html":[],
+"pages.html":[0],
+"todo.html":[0,0],
+"annotated.html":[1,0],
+"classgui_1_1window2_1_1blankWindow.html":[1,0,0],
+"classgui_1_1window2_1_1mainWindow.html":[1,0,1],
+"classgui_1_1window2_1_1messageWindow.html":[1,0,2],
+"classgui_1_1window2_1_1optWindow.html":[1,0,3],
+"classes.html":[1,1],
+"hierarchy.html":[1,2],
+"functions.html":[1,3,0],
+"functions_func.html":[1,3,1],
+"files.html":[2,0],
+"language_8py.html":[2,0,0],
+"logtools_8py.html":[2,0,1],
+"ostools_8py.html":[2,0,2]
+};
