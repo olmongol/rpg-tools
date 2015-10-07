@@ -147,12 +147,14 @@ class MainWindow(blankWindow):
                 the moment, only English (en, default value) and German 
                 (de) are supported. 
     '''
-    def __init__(self, lang = 'en', storepath = None):
+    def __init__(self, lang = 'en', title = "Main Window", storepath = None):
         """
         Class constructor
         \param lang The chosen language for window's and button's 
                     texts. At the moment, only English (en, default 
                     value) and German (de) are supported. 
+        \param title title of the window
+        \param storepath path where things like options have to be stored
         """
         if storepath == None:
             self.mypath = os.path.expanduser('~')
@@ -162,13 +164,18 @@ class MainWindow(blankWindow):
         self.picpath = "./gui/pic/"
         self.lang = lang
         blankWindow.__init__(self, self.lang)
-        self.window.title(wintitle['main'][self.lang])
+        self.window.title(title)
         Label(self.window, width = 40).pack()
         self.__addFileMenu()
         self.__addOptionMenu()
         self.__addHelpMenu()
-
-        self.mask = [txtwin['xml_files'][self.lang],
+        
+        """
+        \todo self.mask has to be checked and modified
+        """
+        self.mask = [txtwin['csv_files'][self.lang],
+                     txtwin['exp_files'][self.lang],
+                     txtwin['xml_files'][self.lang],
                      txtwin['all_files'][self.lang]
                     ]        
         
@@ -196,10 +203,10 @@ class MainWindow(blankWindow):
             self.xml.readStrucXML(self.__filein)
             
         self.window.destroy()
-        self.window = inputWin(lang = self.lang,
-                               xmlcontent = self.xml.dic,
-                               filename = self.__filein,
-                               storepath = self.mypath)
+#        self.window = inputWin(lang = self.lang,
+#                               xmlcontent = self.xml.dic,
+#                               filename = self.__filein,
+#                               storepath = self.mypath)
 
     def __openStrJmp(self):
         """

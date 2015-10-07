@@ -129,7 +129,6 @@ class blankWindow(object):
         self.about = "%s\nVersion %s\n\n%s\n%s\n%s" % (__me__,
                                                       __version__,
                                                       __copyright__,
-                                                      __institute__,
                                                       __email__)
         self.msg = messageWindow()
         self.msg.showinfo(self.about)

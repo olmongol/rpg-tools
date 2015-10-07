@@ -1,5 +1,6 @@
 '''
 \file confbox.py
+\package toolbox
 
 A toolbox of things to handle config files. 
 

@@ -31,7 +31,8 @@ def checkVersion():
 version = checkVersion()
 
 if version == 2:
-    import window2 as window
+#    import window2 as window
+    import window as window
 elif version == 3:
     from . import window3 as window
 else:

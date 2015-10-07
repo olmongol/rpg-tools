@@ -10,6 +10,7 @@
 \email marcus@lederzeug.de
 
 '''
-import ConfigParser as CP
-import gui.window2
+#import ConfigParser as CP
+from gui.window import *
 
+mywindow = MainWindow(lang = "de", title = "EP Calculator")

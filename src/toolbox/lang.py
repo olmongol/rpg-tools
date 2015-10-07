@@ -5,7 +5,7 @@
 # \brief multi language support library for Adamant XML sheet Creator 
 #
 # Here are all the things implemented that are needed for the switching of 
-# language in the ADaManT XML sheet generator. So this file consists mainly 
+# language in the  XML sheet generator. So this file consists mainly 
 # of dictionary structures.
 #
 # \author Marcus Schwamberger
@@ -18,8 +18,8 @@
 '''
 This holds general screen messages.
 '''
-screenmesg = {'welcome'     : {'de' : "Willkommen beim ADaManT Profil Generator",
-                               'en' : "Welcome at the ADaManT profile generator",
+screenmesg = {'welcome'     : {'de' : "Willkommen",
+                               'en' : "Welcome",
                                },
               'wrongver'    : {'de' : 'Falsche Python-Version!!',
                                'en' : 'Wrong Python version!!',
@@ -192,15 +192,15 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                      'en' : {'lang' : 'preferences',
                              }
                      },
-           'help'  :{'de' : {'about' : '\xc3\x9cber ADaManT',
+           'help'  :{'de' : {'about' : '\xc3\x9cber ',
                              'page'  : '\xc3\x9cber diese Seite',
                              'win'   : '\xc3\x9cber dieses Fenster',
-                             'global' : 'ADaManT Handbuch',
+                             'global' : ' Handbuch',
                              },
-                     'en' : {'about' : 'about ADaManT',
+                     'en' : {'about' : 'about ',
                              'page'  : 'about this page',
                              'win'   : 'about this window',
-                             'global' : 'ADaManT handbook',
+                             'global' : ' handbook',
                              },
                      },
            'edit'  : {'de' : {'prj'  : 'Projekt bearbeiten',
@@ -231,6 +231,12 @@ txtwin = {'all_files' : {'de' : ("alle Dateien", '.*'),
                          },
           'gif_files' : {'de' : ('GIF-Dateien', '.gif'),
                          'en' : ('GIF files', '.gif')
+                         },
+          'csv_files' : {'de' : ('CSV-Dateien', '.csv'),
+                         'en' : ('CSV files', '.csv')
+                         },
+          'exp_files' : {'de' : ('EP Datei', '.exp'),
+                         'en' : ('EP file', '.exp')
                          }
           }
 
@@ -252,23 +258,23 @@ shortcut = {'de' : 'Deutsch',
 '''
 this are the titles of the windows-
 '''
-wintitle = {'opt_lang' : {'de' : 'ADaManT Spracheinstellungen',
-                          'en' : 'ADaManT Language Settings',
+wintitle = {'opt_lang' : {'de' : ' Spracheinstellungen',
+                          'en' : ' Language Settings',
                           },
-            'main'     : {'de' : 'ADaManT Profil-Generator',
-                          'en' : 'ADaManT Profile Generator',
+            'main'     : {'de' : ' Profil-Generator',
+                          'en' : ' Profile Generator',
                           },
-            'edit'     : {'de' : 'ADaManT Profil Editor',
-                          'en' : 'ADaManT Profile Editor',
+            'edit'     : {'de' : ' Profil Editor',
+                          'en' : ' Profile Editor',
                           },
-            'struc_elem' : {'de' : 'ADaManT Struktur-Element-Editor',
-                            'en' : 'ADaManT editor for structual elements',
+            'struc_elem' : {'de' : ' Struktur-Element-Editor',
+                            'en' : ' editor for structual elements',
                             },
-            'meta_1' :{'de' : 'ADaManT Metadaten-Felder Editor',
-                       'en' : 'ADaManT meta data editor',
+            'meta_1' :{'de' : ' Metadaten-Felder Editor',
+                       'en' : ' meta data editor',
                        },
-            'meta_2' : {'de' : 'ADaManT Metadatenfeldkonfiguration',
-                        'en' : 'ADaManT meta data field configuration'}
+            'meta_2' : {'de' : ' Metadatenfeldkonfiguration',
+                        'en' : ' meta data field configuration'}
             }
 
 '''
