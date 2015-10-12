@@ -17,7 +17,7 @@ from Tkinter import *
 from ImageTk import *
 from tkFileDialog import *
 from toolbox.xmlbox import *
-from toolbox.xmltools import *
+# from toolbox.xmltools import *
 from toolbox.lang import *
 from toolbox.globaltools import *
 from toolbox.logbox import *
