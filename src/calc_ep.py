@@ -17,7 +17,7 @@ __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015 " + __author__
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.5.5 alpha"
-__me__ = "A MERS/RM EP Caltulator for Python 2"
+__me__ = "A MERS/RM EP Calculator for Python 2"
 
 class MainWindow(blankWindow):
     """
