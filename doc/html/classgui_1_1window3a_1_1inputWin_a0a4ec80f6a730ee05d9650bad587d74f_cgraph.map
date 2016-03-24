@@ -1,9 +1,0 @@
-<map id="createWinStruc" name="createWinStruc">
-<area shape="rect" id="node2" href="$classgui_1_1window2_1_1inputWin.html#a5b692eed21fa55437412a5baacf3edef" title="This method transfers the selected structure elements to the list. " alt="" coords="179,5,325,46"/>
-<area shape="rect" id="node3" href="$classgui_1_1window2_1_1inputWin.html#a34310a5d4476a362d67ba1cd0c7c7843" title="This method removes selected items from the list of chosen structure elements. " alt="" coords="179,70,325,111"/>
-<area shape="rect" id="node4" href="$classgui_1_1window2_1_1inputWin.html#a828b5dea7eb4de8dbfafc33ea2a1a354" title="Method for the NEXT (step) button. " alt="" coords="179,135,325,177"/>
-<area shape="rect" id="node5" href="$classgui_1_1window2_1_1attribWin.html#a828b5dea7eb4de8dbfafc33ea2a1a354" title="This method collects data of the current window and starts the window for generating functional depen..." alt="" coords="178,201,326,242"/>
-<area shape="rect" id="node6" href="$classgui_1_1window2_1_1connectElem.html#a828b5dea7eb4de8dbfafc33ea2a1a354" title="This method closes the currend window object and opens a metaWin object for the next step of the gene..." alt="" coords="166,266,338,307"/>
-<area shape="rect" id="node7" href="$classgui_1_1window2_1_1metaWin.html#a828b5dea7eb4de8dbfafc33ea2a1a354" title="opens the next window to define the attributes of the meta data fields. " alt="" coords="178,331,326,373"/>
-<area shape="rect" id="node8" href="$classgui_1_1window2_1_1inputWin.html#a3111788a1691acb92e389908b31c8533" title="This method adds items from a comma separated list to the chosen structure list. " alt="" coords="179,397,325,438"/>
-</map>
