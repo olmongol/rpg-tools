@@ -7,7 +7,7 @@ A toolbox of things to handle config files.
 \author Marcus Schwamberger
 \date (c) 2012
 \version 0.5.2 alpha
-\email mongol@nld.ds.mpg.de
+\email marcus@lederzeug.de
 '''
 import os
 import rpgtoolbox.globaltools as rpgtools

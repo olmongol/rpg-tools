@@ -9,9 +9,9 @@
 This module holds some nice small helper functions like I/O things.
 
 \author Marcus Schwamberger
-\date (c) 2012
+\date (c) 2012-2016
 \version 0.5.4 alpha
-\email mongol@nld.ds.mpg.de
+\email marcus@lederzeug.de
 '''
 
 __msg__ = {'ERR_NO_DATA'     : "ERROR: no data to compute :(",

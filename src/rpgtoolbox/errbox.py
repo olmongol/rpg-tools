@@ -5,14 +5,14 @@
 \brief A box full of error classes
 
 
-\date (C) 2012
+\date (C) 2012-2016
 \author Marcus Schwamberger
-\email mongol@nld.ds.mpg.de
+\email marcus@lederzeug.de
 \version 0.1 alpha
 '''
-class adamantXML(Exception):
+class raisedError(Exception):
     """
-    \class adamantXML
+    \class raisedError
     Objects of this class will be raised in case of errors with XML files used 
     for ADaMant.
     \param value the value to be given to the error handler (e.g., message)
