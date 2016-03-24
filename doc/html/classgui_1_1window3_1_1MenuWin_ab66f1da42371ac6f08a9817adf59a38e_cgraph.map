@@ -1,6 +1,0 @@
-<map id="addHelp" name="addHelp">
-<area shape="rect" id="node2" href="$classgui_1_1window3_1_1MenuWin.html#a2e91f76cce6e9b7a03830202f45aecf0" title="This method opens a help window with the first steps howtos. " alt="" coords="188,5,263,32"/>
-<area shape="rect" id="node3" href="$classgui_1_1window3_1_1MenuWin.html#a4b810e6adc7d147eaa8edb45dd5891ca" title="This method opens a context help window where the user may get more detailed help information about t..." alt="" coords="180,56,271,83"/>
-<area shape="rect" id="node4" href="$classcalc__ep_1_1MainWindow.html#ad4f4bbba4c4a628d0a35195b093d6049" title="This method just opens a message window with the basic information about the PROGRAM (like version an..." alt="" coords="123,107,327,133"/>
-<area shape="rect" id="node5" href="$classgui_1_1window3_1_1MenuWin.html#ad4f4bbba4c4a628d0a35195b093d6049" title="This method just opens a message window with the basic information about the ADaManT XML Generator (l..." alt="" coords="185,157,265,184"/>
-</map>
