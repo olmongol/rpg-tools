@@ -12,13 +12,14 @@
 \version 0.3
 '''
 #import ConfigParser as CP
+import Tkinter
 from gui.window import *
 from rpgtoolbox.lang import *
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015 " + __author__
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.5.5 alpha"
-__me__ = "A MERS/RM EP Calculator for Python 2"
+__me__ = "A MERS/RM EP Calculator for Python 2.x"
 
 class MainWindow(blankWindow):
     """
@@ -60,7 +61,7 @@ class MainWindow(blankWindow):
         set picture for the window background of the main window
         """
         self.__canvas = Canvas(self.window, width = '8.0c', height = '8.5c')
-        __background = PhotoImage(file = self.picpath + 'axpg-logo.gif')       
+        __background = PhotoImage(file = self.picpath + 'skeleton.gif')       
         self.__canvas.create_image(0, 0, image = __background, anchor = NW)
         self.__canvas.pack()
         
@@ -84,7 +85,7 @@ class MainWindow(blankWindow):
                               menu = self.filemenu)
         self.filemenu.add_command(label = submenu['file'][self.lang]['new'],
                                   command = self.__newFile)
-        self.filemenu.add_command(label = submenu['file'][self.lang]['open_struc'],
+        self.filemenu.add_command(label = submenu['file'][self.lang]['open'],
                                   command = self.__openFile)
 
         self.filemenu.add_separator()
@@ -117,7 +118,7 @@ class MainWindow(blankWindow):
         self.menu.add_cascade(label = txtmenu['menu_opt'][self.lang],
                               menu = self.optmenu)
         self.optmenu.add_command(label = submenu['opts'][self.lang]['lang'],
-                                 command = self.optWin)        
+                                 command = self.__optWin)        
         
     def __optWin(self):
         '''

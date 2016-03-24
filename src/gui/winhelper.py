@@ -11,8 +11,8 @@
 \version 0.5.4 alpha
 
 '''
-from toolbox.globaltools import *
-from toolbox.lang import *
+from rpgtoolbox.globaltools import *
+from rpgtoolbox.lang import *
 
 import sys
 
