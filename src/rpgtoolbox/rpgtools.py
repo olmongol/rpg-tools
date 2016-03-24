@@ -2,13 +2,16 @@
 '''
 \file rpgtools.py
 \package rpgtoolbox.rpgtools
-\brief This module contains different functions like dices.
+\brief RPG helpful functions
+This module contains some helpful functions for role-playing games like:
+\li dice
 
 
-\date (C) 2015
+\date (C) 2015-2016
+\license GNU V3.0
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
-
+\version 0.1
 '''
 import random
 
