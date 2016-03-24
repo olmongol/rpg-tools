@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML><HEAD></HEAD><BODY>
+<OBJECT type="text/site properties">
+<param name="FrameName" value="right">
+</OBJECT>
+<UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classgui_1_1window2_1_1blankWindow.html#abdb15af3bddb428242b5299b2086846f"><param name="Name" value="__addMenu"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classgui_1_1window2_1_1mainWindow.html#aba31902186de9c54cc3cba810c1f3634"><param name="Name" value="_addFileMenu"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classgui_1_1window2_1_1mainWindow.html#a67ef40998197523b8ce51ec49aa57b94"><param name="Name" value="_addHelpMenu"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classgui_1_1window2_1_1blankWindow.html#a4ee1d61778a5f333181141deb7331ea7"><param name="Name" value="_helpAbout"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classgui_1_1window2_1_1mainWindow.html#ab88021b976d074d30b5fdc8561f72192"><param name="Name" value="_newFile"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classgui_1_1window2_1_1blankWindow.html#ad51169b5913ff8b94876194ea8aae18e"><param name="Name" value="_notdoneyet"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classgui_1_1window2_1_1mainWindow.html#ac47f719d35c8244134cff4710a4d249a"><param name="Name" value="_openFile"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classgui_1_1window2_1_1mainWindow.html#a1d1d8399c211ab2c39ead212fa6c8407"><param name="Name" value="_saveFile"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classgui_1_1window2_1_1mainWindow.html#a1ffc3abf49be025d4db556ac63a17399"><param name="Name" value="_saveFileAs"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classgui_1_1window2_1_1blankWindow.html"><param name="Name" value="gui::window2::blankWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classgui_1_1window2_1_1blankWindow.html#abdb15af3bddb428242b5299b2086846f"><param name="Name" value="__addMenu"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classgui_1_1window2_1_1blankWindow.html#a4ee1d61778a5f333181141deb7331ea7"><param name="Name" value="_helpAbout"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classgui_1_1window2_1_1blankWindow.html#ad51169b5913ff8b94876194ea8aae18e"><param name="Name" value="_notdoneyet"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classgui_1_1window2_1_1mainWindow.html"><param name="Name" value="gui::window2::mainWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classgui_1_1window2_1_1mainWindow.html#aba31902186de9c54cc3cba810c1f3634"><param name="Name" value="_addFileMenu"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classgui_1_1window2_1_1mainWindow.html#a67ef40998197523b8ce51ec49aa57b94"><param name="Name" value="_addHelpMenu"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classgui_1_1window2_1_1mainWindow.html#ab88021b976d074d30b5fdc8561f72192"><param name="Name" value="_newFile"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classgui_1_1window2_1_1mainWindow.html#ac47f719d35c8244134cff4710a4d249a"><param name="Name" value="_openFile"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classgui_1_1window2_1_1mainWindow.html#a1d1d8399c211ab2c39ead212fa6c8407"><param name="Name" value="_saveFile"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classgui_1_1window2_1_1mainWindow.html#a1ffc3abf49be025d4db556ac63a17399"><param name="Name" value="_saveFileAs"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classgui_1_1window2_1_1messageWindow.html"><param name="Name" value="gui::window2::messageWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classgui_1_1window2_1_1messageWindow.html#a96cedc16e980eef3f1fb0412418201c6"><param name="Name" value="showinfo"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classgui_1_1window2_1_1messageWindow.html#a96cedc16e980eef3f1fb0412418201c6"><param name="Name" value="showinfo"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="todo.html"><param name="Name" value="Todo List"></OBJECT>
+</UL>
+</BODY>
+</HTML>

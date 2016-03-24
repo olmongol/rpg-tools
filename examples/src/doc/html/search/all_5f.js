@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['_5f_5faddmenu',['__addMenu',['../classgui_1_1window2_1_1blankWindow.html#abdb15af3bddb428242b5299b2086846f',1,'gui::window2::blankWindow']]],
+  ['_5fadddata',['_addData',['../classgui_1_1window2_1_1mainWindow.html#adce23e84928f330db51647c12cf18a22',1,'gui::window2::mainWindow']]],
+  ['_5faddeditmenu',['_addEditMenu',['../classgui_1_1window2_1_1mainWindow.html#a0c149717ce106ef13e42a04055a55d57',1,'gui::window2::mainWindow']]],
+  ['_5faddfilemenu',['_addFileMenu',['../classgui_1_1window2_1_1mainWindow.html#aba31902186de9c54cc3cba810c1f3634',1,'gui::window2::mainWindow._addFileMenu()'],['../classgui_1_1window2_1_1optWindow.html#aba31902186de9c54cc3cba810c1f3634',1,'gui::window2::optWindow._addFileMenu()']]],
+  ['_5faddhelpmenu',['_addHelpMenu',['../classgui_1_1window2_1_1blankWindow.html#a67ef40998197523b8ce51ec49aa57b94',1,'gui::window2::blankWindow._addHelpMenu()'],['../classgui_1_1window2_1_1mainWindow.html#a67ef40998197523b8ce51ec49aa57b94',1,'gui::window2::mainWindow._addHelpMenu()'],['../classgui_1_1window2_1_1optWindow.html#a67ef40998197523b8ce51ec49aa57b94',1,'gui::window2::optWindow._addHelpMenu()']]],
+  ['_5faddoptmenu',['_addOptMenu',['../classgui_1_1window2_1_1mainWindow.html#a0f158fe2e69dc8e906ea1e93df4397fe',1,'gui::window2::mainWindow']]],
+  ['_5fbasicopts',['_basicOpts',['../classgui_1_1window2_1_1mainWindow.html#a6f03f407dd1c49e85437af18b46df69a',1,'gui::window2::mainWindow']]],
+  ['_5fcheckopts',['_checkOpts',['../classgui_1_1window2_1_1optWindow.html#a5d355464940badfea4734a52190bfbc7',1,'gui::window2::optWindow']]],
+  ['_5fclosewindow',['_closeWindow',['../classgui_1_1window2_1_1optWindow.html#a5d2809680f561c4d498b27120a0adbaa',1,'gui::window2::optWindow']]],
+  ['_5feditdata',['_editData',['../classgui_1_1window2_1_1mainWindow.html#a04fc4444b5b361369b1bc1d4d6ad5f77',1,'gui::window2::mainWindow']]],
+  ['_5fgraphopts',['_graphOpts',['../classgui_1_1window2_1_1mainWindow.html#a145120f6dbe3e701fd55520b2cad767c',1,'gui::window2::mainWindow']]],
+  ['_5fhelpabout',['_helpAbout',['../classgui_1_1window2_1_1blankWindow.html#a4ee1d61778a5f333181141deb7331ea7',1,'gui::window2::blankWindow']]],
+  ['_5fhelpcontext',['_helpContext',['../classgui_1_1window2_1_1mainWindow.html#af2014cc8d689aeb13bac00fa905b0538',1,'gui::window2::mainWindow']]],
+  ['_5fnewfile',['_newFile',['../classgui_1_1window2_1_1mainWindow.html#ab88021b976d074d30b5fdc8561f72192',1,'gui::window2::mainWindow']]],
+  ['_5fnotdoneyet',['_notdoneyet',['../classgui_1_1window2_1_1blankWindow.html#ad51169b5913ff8b94876194ea8aae18e',1,'gui::window2::blankWindow']]],
+  ['_5fopenfile',['_openFile',['../classgui_1_1window2_1_1mainWindow.html#ac47f719d35c8244134cff4710a4d249a',1,'gui::window2::mainWindow']]],
+  ['_5foutputopts',['_outputOpts',['../classgui_1_1window2_1_1mainWindow.html#a3e593c0bc9bef8082dc3d9e90498ae10',1,'gui::window2::mainWindow']]],
+  ['_5fplotgraph',['_plotGraph',['../classgui_1_1window2_1_1mainWindow.html#aa1cf74d1d90e70790e77d7865535e153',1,'gui::window2::mainWindow']]],
+  ['_5freadcfg',['_readCfg',['../classgui_1_1window2_1_1mainWindow.html#acc2bf9439798e939fbfbb414e6406b97',1,'gui::window2::mainWindow']]],
+  ['_5fremovedata',['_removeData',['../classgui_1_1window2_1_1mainWindow.html#a64c00769449e39362a38721688554e33',1,'gui::window2::mainWindow']]],
+  ['_5fsavefile',['_saveFile',['../classgui_1_1window2_1_1mainWindow.html#a1d1d8399c211ab2c39ead212fa6c8407',1,'gui::window2::mainWindow']]],
+  ['_5fsavefileas',['_saveFileAs',['../classgui_1_1window2_1_1mainWindow.html#a1ffc3abf49be025d4db556ac63a17399',1,'gui::window2::mainWindow']]],
+  ['_5fsaveopts',['_saveOpts',['../classgui_1_1window2_1_1optWindow.html#a3d7a5345f604f41ff6563f73376434bf',1,'gui::window2::optWindow']]]
+];

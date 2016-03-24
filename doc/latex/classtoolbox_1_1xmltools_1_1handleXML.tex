@@ -1,0 +1,143 @@
+\hypertarget{classtoolbox_1_1xmltools_1_1handleXML}{\section{handle\-X\-M\-L Class Reference}
+\label{classtoolbox_1_1xmltools_1_1handleXML}\index{handle\-X\-M\-L@{handle\-X\-M\-L}}
+}
+
+
+This class offers methods to convert dictionaries to X\-M\-L and back.  
+
+
+
+
+Inherits object.
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classtoolbox_1_1xmltools_1_1handleXML_a29f4e8d9e54dd2f8f4e757c7109389ea}{gen\-X\-M\-L}
+\begin{DoxyCompactList}\small\item\em This method creates X\-M\-L code from a given dictionary. \end{DoxyCompactList}\item 
+def \hyperlink{classtoolbox_1_1xmltools_1_1handleXML_a8d5db9769db31d5a6c2dbde08fe0e895}{read\-Meta\-X\-M\-L}
+\begin{DoxyCompactList}\small\item\em This method reads out a X\-M\-L file which holds the Adamant meta data field structure and converts it into a dictionary. \end{DoxyCompactList}\item 
+def \hyperlink{classtoolbox_1_1xmltools_1_1handleXML_a5c33619e8ac6dcbed7fe8b1497736582}{read\-Struc\-X\-M\-L}
+\begin{DoxyCompactList}\small\item\em This method reads a X\-M\-L file which holds a Adamant functional data structure and converts the content into a dictionary. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class offers methods to convert dictionaries to X\-M\-L and back. 
+
+It also is able to read X\-M\-L-\/\-Files or save them. 
+\begin{DoxyParams}{Parameters}
+{\em lang} & supported language for information \\
+\hline
+{\em xmlstruct} & X\-M\-L structure in a dictionary. \\
+\hline
+{\em filename} & Name of the file where the X\-M\-L data shall be read from or written to. \\
+\hline
+{\em linkfile} & name of a linked structure X\-M\-L file. \\
+\hline
+{\em action} & type of the I\-O action\-: read or write. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classtoolbox_1_1xmltools_1_1handleXML_a29f4e8d9e54dd2f8f4e757c7109389ea}{\index{toolbox\-::xmltools\-::handle\-X\-M\-L@{toolbox\-::xmltools\-::handle\-X\-M\-L}!gen\-X\-M\-L@{gen\-X\-M\-L}}
+\index{gen\-X\-M\-L@{gen\-X\-M\-L}!toolbox::xmltools::handleXML@{toolbox\-::xmltools\-::handle\-X\-M\-L}}
+\subsubsection[{gen\-X\-M\-L}]{\setlength{\rightskip}{0pt plus 5cm}def gen\-X\-M\-L (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{structure = {\ttfamily None}, }
+\item[{}]{filename = {\ttfamily None}, }
+\item[{}]{dtype = {\ttfamily \char`\"{}structure\char`\"{}}, }
+\item[{}]{fnmeta = {\ttfamily None}}
+\end{DoxyParamCaption}
+)}}\label{classtoolbox_1_1xmltools_1_1handleXML_a29f4e8d9e54dd2f8f4e757c7109389ea}
+
+
+This method creates X\-M\-L code from a given dictionary. 
+
+The X\-M\-L code will be returned and saved into a file if a file name is given. 
+\begin{DoxyParams}{Parameters}
+{\em structure} & A dictionary containing the X\-M\-L structure and the tag names. \\
+\hline
+{\em filename} & Name (and path) of the file where the X\-M\-L code shall be stored in. \\
+\hline
+{\em dtype} & This holds the information whether a 'structure' or a 'metadata' file will be saved. \\
+\hline
+{\em fn\-\_\-meta} & If a meta data file shall be saved this contains the linked structure X\-M\-L file name. \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{classtoolbox_1_1xmltools_1_1handleXML_a29f4e8d9e54dd2f8f4e757c7109389ea_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{classtoolbox_1_1xmltools_1_1handleXML_a29f4e8d9e54dd2f8f4e757c7109389ea_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classtoolbox_1_1xmltools_1_1handleXML_a8d5db9769db31d5a6c2dbde08fe0e895}{\index{toolbox\-::xmltools\-::handle\-X\-M\-L@{toolbox\-::xmltools\-::handle\-X\-M\-L}!read\-Meta\-X\-M\-L@{read\-Meta\-X\-M\-L}}
+\index{read\-Meta\-X\-M\-L@{read\-Meta\-X\-M\-L}!toolbox::xmltools::handleXML@{toolbox\-::xmltools\-::handle\-X\-M\-L}}
+\subsubsection[{read\-Meta\-X\-M\-L}]{\setlength{\rightskip}{0pt plus 5cm}def read\-Meta\-X\-M\-L (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{filename = {\ttfamily None}}
+\end{DoxyParamCaption}
+)}}\label{classtoolbox_1_1xmltools_1_1handleXML_a8d5db9769db31d5a6c2dbde08fe0e895}
+
+
+This method reads out a X\-M\-L file which holds the Adamant meta data field structure and converts it into a dictionary. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & Path and file name of the X\-M\-L file return dic A dictionary that holds the data with the right stucture \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{classtoolbox_1_1xmltools_1_1handleXML_a8d5db9769db31d5a6c2dbde08fe0e895_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classtoolbox_1_1xmltools_1_1handleXML_a5c33619e8ac6dcbed7fe8b1497736582}{\index{toolbox\-::xmltools\-::handle\-X\-M\-L@{toolbox\-::xmltools\-::handle\-X\-M\-L}!read\-Struc\-X\-M\-L@{read\-Struc\-X\-M\-L}}
+\index{read\-Struc\-X\-M\-L@{read\-Struc\-X\-M\-L}!toolbox::xmltools::handleXML@{toolbox\-::xmltools\-::handle\-X\-M\-L}}
+\subsubsection[{read\-Struc\-X\-M\-L}]{\setlength{\rightskip}{0pt plus 5cm}def read\-Struc\-X\-M\-L (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{filename = {\ttfamily None}}
+\end{DoxyParamCaption}
+)}}\label{classtoolbox_1_1xmltools_1_1handleXML_a5c33619e8ac6dcbed7fe8b1497736582}
+
+
+This method reads a X\-M\-L file which holds a Adamant functional data structure and converts the content into a dictionary. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & Path and file containing the X\-M\-L code \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+dic A dictionary with the right structure 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{xmltools_8py}{xmltools.\-py}\end{DoxyCompactItemize}

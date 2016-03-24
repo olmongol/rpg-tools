@@ -1,0 +1,6 @@
+<map id="createWinStruc" name="createWinStruc">
+<area shape="rect" id="node2" href="$classgui_1_1window2_1_1inputWin.html#a5b692eed21fa55437412a5baacf3edef" title="This method transfers the selected structure elements to the list. " alt="" coords="167,5,254,32"/>
+<area shape="rect" id="node3" href="$classgui_1_1window2_1_1inputWin.html#a34310a5d4476a362d67ba1cd0c7c7843" title="This method removes selected items from the list of chosen structure elements. " alt="" coords="165,56,256,83"/>
+<area shape="rect" id="node4" href="$classgui_1_1window2_1_1inputWin.html#a828b5dea7eb4de8dbfafc33ea2a1a354" title="Method for the NEXT (step) button. " alt="" coords="171,107,251,133"/>
+<area shape="rect" id="node5" href="$classgui_1_1window2_1_1inputWin.html#a3111788a1691acb92e389908b31c8533" title="This method adds items from a comma separated list to the chosen structure list. " alt="" coords="169,157,252,184"/>
+</map>
