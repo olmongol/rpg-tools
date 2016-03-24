@@ -5,14 +5,15 @@
 \brief This is a little tool for calculating EPs for MERS/RM
 
 
-\date (C) 2015
+\date (C) 2015-2016
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
-
+\license GNU V3.0
+\version 0.3
 '''
 #import ConfigParser as CP
 from gui.window import *
-from toolbox.lang import *
+from rpgtoolbox.lang import *
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015 " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -118,9 +119,9 @@ class MainWindow(blankWindow):
         self.optmenu.add_command(label = submenu['opts'][self.lang]['lang'],
                                  command = self.optWin)        
         
-    def optWin(self):
+    def __optWin(self):
         '''
-        Opens an option window and closes the main window.
+        Opens an options window and closes the main window.
         '''
         self.window.destroy()
         self.notdoneyet()

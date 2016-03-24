@@ -1,13 +1,23 @@
 var files =
 [
     [ "Backpack.py", "Backpack_8py.html", null ],
-    [ "confbox.py", "confbox_8py.html", "confbox_8py" ],
-    [ "errbox.py", "errbox_8py.html", [
-      [ "adamantXML", "classtoolbox_1_1errbox_1_1adamantXML.html", null ]
+    [ "calc_ep.py", "calc__ep_8py.html", "calc__ep_8py" ],
+    [ "rpgToolDefinitions/epcalcdefs.py", "rpgToolDefinitions_2epcalcdefs_8py.html", null ],
+    [ "helptools.py", "helptools_8py.html", "helptools_8py" ],
+    [ "itemshop.py", "itemshop_8py.html", null ],
+    [ "MERSTables.py", "MERSTables_8py.html", [
+      [ "Magic", "classrpgToolDefinitions_1_1MERSTables_1_1Magic.html", null ]
     ] ],
-    [ "globaltools.py", "globaltools_8py.html", "globaltools_8py" ],
-    [ "lang.py", "lang_8py.html", "lang_8py" ],
-    [ "logbox.py", "logbox_8py.html", "logbox_8py" ],
+    [ "rpgtools.py", "rpgtools_8py.html", "rpgtools_8py" ],
+    [ "window.py", "window_8py.html", [
+      [ "attribWin", "classgui_1_1window_1_1attribWin.html", "classgui_1_1window_1_1attribWin" ],
+      [ "blankWindow", "classgui_1_1window_1_1blankWindow.html", "classgui_1_1window_1_1blankWindow" ],
+      [ "confWindow", "classgui_1_1window_1_1confWindow.html", "classgui_1_1window_1_1confWindow" ],
+      [ "inputWin", "classgui_1_1window_1_1inputWin.html", "classgui_1_1window_1_1inputWin" ],
+      [ "MainWindow", "classgui_1_1window_1_1MainWindow.html", "classgui_1_1window_1_1MainWindow" ],
+      [ "messageWindow", "classgui_1_1window_1_1messageWindow.html", "classgui_1_1window_1_1messageWindow" ],
+      [ "metaWin", "classgui_1_1window_1_1metaWin.html", "classgui_1_1window_1_1metaWin" ]
+    ] ],
     [ "window2.py", "window2_8py.html", [
       [ "attribMetaWin", "classgui_1_1window2_1_1attribMetaWin.html", "classgui_1_1window2_1_1attribMetaWin" ],
       [ "attribWin", "classgui_1_1window2_1_1attribWin.html", "classgui_1_1window2_1_1attribWin" ],

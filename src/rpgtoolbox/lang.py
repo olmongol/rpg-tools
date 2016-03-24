@@ -2,24 +2,28 @@
 
 ## \file lang.py
 #
-# \brief multi language support library for Adamant XML sheet Creator 
+# \brief multi language support library for rpg-tools 
 #
 # Here are all the things implemented that are needed for the switching of 
-# language in the ADaManT XML sheet generator. So this file consists mainly 
+# language in the rpg-tools. So this file consists mainly 
 # of dictionary structures.
-#
+# Currently supported languages are:
+# \li English
+# \li Deutsch
+# \attention At the moment just Linux/Unix is supported
 # \author Marcus Schwamberger
-# \email mongol@nld.ds.mpg.de
-# \date (c) 2012
-# \version 0.5.2 alpha
+# \email marcus@lederzeug.de
+# \date (c) 2015-2016
+# \version 0.2 
+# \license GNU V3.0
 #
 # \todo check for German special characters.
 
 '''
 This holds general screen messages.
 '''
-screenmesg = {'welcome'     : {'de' : "Willkommen beim ADaManT Profil Generator",
-                               'en' : "Welcome at the ADaManT profile generator",
+screenmesg = {'welcome'     : {'de' : "Willkommen bei den RPG-Tools",
+                               'en' : "Welcome at the RPG tools",
                                },
               'wrongver'    : {'de' : 'Falsche Python-Version!!',
                                'en' : 'Wrong Python version!!',
@@ -156,35 +160,18 @@ txtmenu = {'help'          : {'de' : 'Hilfe',
 This holds the texts of the submenu cascades.
 '''
 submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
-                          'open_struc' : 'Strukturdatei \xc3\xb6ffnen',
-                          'open_meta' : 'Metadatendatei \xc3\xb6ffnen',
-                          'open_saj' : 'Struktur \xc3\xb6ffnen --> zu Meta'\
-                                       + ' springen',
                           'close' : 'Datei schliessen',
                           'new'   : 'Neue Datei',
                           'save'  : 'Datei speichern',
                           'sv_as' : 'Datei speichern unter...',
                           'quit'  : 'Beenden',
-                          'save_meta' : 'Speichere Metadatendatei',
-                          'save_struc' : 'Speichere Strukturdatei',
-                          'sv_as_meta' : 'Metadatendatei speichern unter...',
-                          'sv_as_struc' : 'Strukturdatei speichern unter...',
-                          'next' : 'Weiter zum n\xc3\xa4chsten Schritt',
                           },
                     'en':{'open'  : 'Open file',
-                          'open_struc' : 'Open structure file',
-                          'open_meta' : 'Open meta data file',
-                          'open_saj' : 'Open structure --> jump to meta',
                           'close' : 'Close file',
                           'new'   : 'New file',
                           'save'  : 'Save file',
                           'sv_as' : 'Save as',
                           'quit'  : 'Quit',
-                          'save_meta' : 'Save meta data file',
-                          'save_struc' : 'Save structure file',
-                          'sv_as_meta' : 'Save meta data file as',
-                          'sv_as_struc' : 'Save structure file as',
-                          'next' : 'Go on to the next step',
                           },
                     },
            'opts'  :{'de' : {'lang' : 'Einstellungen',
@@ -192,45 +179,38 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                      'en' : {'lang' : 'preferences',
                              }
                      },
-           'help'  :{'de' : {'about' : '\xc3\x9cber ADaManT',
+           'help'  :{'de' : {'about' : '\xc3\x9cber rpg-tools',
                              'page'  : '\xc3\x9cber diese Seite',
                              'win'   : '\xc3\x9cber dieses Fenster',
-                             'global' : 'ADaManT Handbuch',
+                             'global' : 'Handbuch',
                              },
-                     'en' : {'about' : 'about ADaManT',
+                     'en' : {'about' : 'about rpg-tools',
                              'page'  : 'about this page',
                              'win'   : 'about this window',
-                             'global' : 'ADaManT handbook',
+                             'global' : 'handbook',
                              },
                      },
-           'edit'  : {'de' : {'prj'  : 'Projekt bearbeiten',
-                              'proc' : 'Prozedur bearbeiten',
-                              'exp'  : 'Experiment bearbeiten',
-                              'fset' : 'Fileset bearbeiten',
-                              'data' : 'Exp. Dateien bearbeiten',
-                              'prog' : 'Programme bearbeiten',
+           'edit'  : {'de' : {'edt'  : 'bearbeiten',
                               },
-                      'en'  :{'prj'  : 'edit project',
-                              'proc' : 'edit procedure',
-                              'exp'  : 'edit experiment',
-                              'fset' : 'edit fileset',
-                              'data' : 'edit exp. data files',
-                              'prog' : 'edit programs',
+                      'en'  :{'edt'  : 'edit',
                                },
                       },
            }
 
 '''
-this holds the content of chosable filetypes while open/close files.
+this holds the content of choosable filetypes while open/close files.
 '''
 txtwin = {'all_files' : {'de' : ("alle Dateien", '.*'),
                          'en' : ("all files", '.*'),
                          },
-         'xml_files'  : {'de' : ('XML-Dateien', '.xml'),
-                         'en' : ('XML files', '.xml'),
+         'exp_files'  : {'de' : ('EXP-Dateien', '.exp'),
+                         'en' : ('EXP files', '.exp'),
                          },
-          'gif_files' : {'de' : ('GIF-Dateien', '.gif'),
-                         'en' : ('GIF files', '.gif')
+          'txt_files' : {'de' : ('Text-Dateien', '.txt'),
+                         'en' : ('Text files', '.txt')
+                         },
+          'csv_files' : {'de' : ('CSV Dateien', '.csv'),
+                         'en' : ('CSV files', 'csv')
                          }
           }
 
