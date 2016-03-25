@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-## \file lang.py
+# \package rpgtoolbox
+# \file lang.py
 #
 # \brief multi language support library for rpg-tools 
 #
@@ -10,7 +11,9 @@
 # Currently supported languages are:
 # \li English
 # \li Deutsch
-# \attention At the moment just Linux/Unix is supported
+#
+# \attention At the moment just Linux/Unix is supported!
+#
 # \author Marcus Schwamberger
 # \email marcus@lederzeug.de
 # \date (c) 2015-2016
@@ -260,8 +263,7 @@ wintitle = {'opt_lang' : {'de' : 'Spracheinstellungen',
                           },
             'mers_charg' : {'de' : 'MERS Charaktergenerator',
                             'en' : 'MERP Character Generator'
-                            },
-            
+                           },
             }
 
 '''
@@ -273,6 +275,33 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die XML-Dateien',
           'log_path' : {'de' : 'Pfad zu den Log-Dateien',
                         'en' : 'Path of the log files',
                         },
+          'db_type'  : {'de' : 'Datenbanktyp',
+                         'en' : 'Type of data base',
+                         },
+          'db_host'  : {'de' : 'DB Host',
+                        'en' : 'DB host',
+                        },
+          'db_port'  : {'de' : 'DB Port',
+                        'en' : 'DB port'
+                        },
+          'db_name'  : {'de' : 'DB Benutzer',
+                        'en' : 'DB user'
+                        },
+          'db_pass'  : {'de' : 'DB Passwort',
+                        'en' : 'DB paasword'
+                        },
+          'add_elem' : {'de' :'Zus\xc3\xa4tzliche Elemente (Komma getrennte Liste)',
+                       'en' : 'additional elements (comma separated list)',
+                       },
+          'connect'  : {'de' : 'Verbinden',
+                       'en' : 'connect',
+                       },
+          'update'   : {'de' : 'aktualisieren',
+                       'en' : 'update',
+                       },
+          'cancel'   : {'de' : 'Abbrechen',
+                        'en' : 'Cancel',
+                      },
           'preview' : {'de' : 'Vorschau',
                        'en' : 'preview',
                        },

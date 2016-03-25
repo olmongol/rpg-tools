@@ -33,8 +33,8 @@ version = checkVersion()
 if version == 2:
 #    import window2 as window
     import window as window
-elif version == 3:
-    from . import window3 as window
+#elif version == 3:
+#    from . import window3 as window
 else:
-    print('Version of Python interpreter not supported!')
+    print('Version of Python interpreter not supported yet!')
     exit(1)

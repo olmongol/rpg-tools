@@ -1,13 +1,16 @@
 #!/usr/bin/env python
 '''
-\file /home/mongol/git/rpg-tools/src/rpgToolDefinitions/epcalcdefs.py
+\file epcalcdefs.py
 \package rpgToolDefinitions.epcalcdefs
-\brief DEfinitions for EP-Calculator
 
+\brief Definitions for EP-Calculator
+This module contains predefined variables, lists, etc. for the EP calculator. 
 
-\date (C) 2015
+\date (C) 2015-2016
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
+\license GNU V3.0
+\version 0.1
 
 '''
 maneuvres = {'routine' : {'de' : 'Routine',

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 '''
-\package toolbox
+\package rpgtoolbox
 \file globaltools.py
 
 \brief a bunch of nice global tools.

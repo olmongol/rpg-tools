@@ -192,5 +192,140 @@ class MainWindow(blankWindow):
         self.msg = messageWindow()
         self.msg.showinfo(self.about)
     
-      
+class confWindow(blankWindow):
+    """
+    This class builds a window for selecting and saving options of 
+    ADaManT. For now it is just choosing the language for menus and 
+    dialogues. 
+    \param lang Laguage which shall be used in messages and menus.
+    """
+    def __init__(self, lang = 'en'):
+        """
+        Class constructor
+        \param lang Laguage which shall be used in messages and menus
+        """
+        self.lang = lang
+        blankWindow.__init__(self, self.lang)
+        self.window.title(wintitle['opt_lang'][self.lang])
+        self.wert = StringVar()
+        self.index = sortIndex(shortcut)
+        self.__buildWinRadio()
+
+    def __buildWinRadio(self):
+        """
+        This private method builds the option's window with radio 
+        buttons of supported languages dynamically. 
+        \todo switch language chooser from radio buttons to pull-down 
+              menu
+        \todo Switch from pack() to .grid()
+        """
+        self.sto_path = StringVar()
+        self.log_path = StringVar()
+        self._cnf = chkCfg()
+        
+        if 'path' in self._cnf.cnfparam.keys():
+            self.sto_path.set(self._cnf.cnfparam['path'])
+        else:
+            self.sto_path.set(home)
+            
+        if 'lang' in self._cnf.cnfparam.keys():
+            
+            if self._cnf.cnfparam['lang'] != self.lang:
+                self.lang = self._cnf.cnfparam['lang']
+        
+        if 'log' in self._cnf.cnfparam.keys():
+            self.log_path.set(self._cnf.cnfparam['log'])
+        else:
+            self.log_path = "/tmp/"
+            
+        Label(master = self.window,
+              width = 25
+              ).pack()
+              
+        self.rb = {}
+        
+        for key in self.index:
+            self.rb[key] = Radiobutton(master = self.window,
+                           text = shortcut[key],
+                           variable = self.wert,
+                           value = key
+                           ) 
+            
+            if key == self.lang:
+                self.rb[key].select()
+            
+            self.rb[key].pack()
+            
+        Label(master = self.window,
+              width = 35
+              ).pack()
+              
+        Label(master = self.window,
+              width = 35,
+              text = labels['cfg_path'][self.lang] 
+              ).pack()
+
+        Entry(master = self.window,
+              width = 35,
+              textvariable = self.sto_path
+              ).pack()
+        
+        Label(master = self.window,
+              width = 35
+              ).pack()
+        Label(master = self.window,
+              width = 35,
+              text = labels['log_path'][self.lang]
+              ).pack()
+        Entry(master = self.window,
+              width = 35,
+              textvariable = self.log_path
+              ).pack()      
+        Button(self.window,
+               text = txtbutton['but_sav'][self.lang],
+               width = 15,
+               command = self.__save).pack()
+        
+        Button(self.window,
+               text = txtbutton['but_clos'][self.lang],
+               width = 15,
+               command = self.__closewin).pack()
+        
+    def chosenLang(self):
+        """
+        A public method which return the string value of the chosen 
+        language.
+        """
+        return self.wert.get()
+    
+    def __save(self):
+        """
+        A method for saving options in the user directory.
+        """
+        self.lang = self.wert.get()
+        self.path = self.sto_path.get()
+        self.log = self.log_path.get()
+        
+        if  self.path[-1:] != '/':
+            self.path += '/'
+        
+        if self.log[-1:] != '/':
+            self.log += '/'
+            
+        self.cont = {'lang' : self.lang,
+                     'path' : self.path,
+                     'log'  : self.log
+                     }
+        self._cnf.saveCnf(path = self.path, content = self.cont)
+        self.msg = messageWindow()
+        self.msg.showinfo(processing['saved'][self.lang] + '\n' + shortcut[self.lang])
+        
+    def __closewin(self):
+        """
+        A method for closing the window and opening the main window.
+        """
+        self.path = self.sto_path.get()
+        self.window.destroy()
+        self.window = MainWindow(self.lang, self.path)
+     
 mywindow = MainWindow(lang = "de", title = "EP Calculator")

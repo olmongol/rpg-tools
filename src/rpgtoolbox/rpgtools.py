@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 '''
+\package rpgtoolbox
 \file rpgtools.py
 \package rpgtoolbox.rpgtools
 \brief RPG helpful functions

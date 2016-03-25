@@ -292,7 +292,7 @@ class MainWindow(blankWindow):
 class confWindow(blankWindow):
     """
     This class builds a window for selecting and saving options of 
-    ADaManT. For now it is just chosing the language for menus and 
+    ADaManT. For now it is just choosing the language for menus and 
     dialogues. 
     \param lang Laguage which shall be used in messages and menus.
     """

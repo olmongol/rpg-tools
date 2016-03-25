@@ -1,4 +1,5 @@
 '''
+\package rpgtoolbox
 \file confbox.py
 
 A toolbox of things to handle config files. 

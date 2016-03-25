@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 '''
+\package rpgtoolbox
 \file errbox.py
 
 \brief A box full of error classes
