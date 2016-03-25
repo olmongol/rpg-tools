@@ -13,8 +13,8 @@
 class raisedError(Exception):
     """
     \class raisedError
-    Objects of this class will be raised in case of errors with XML files used 
-    for ADaMant.
+    Objects of this class will be raised in case of errors with files used 
+    for rpg-tools.
     \param value the value to be given to the error handler (e.g., message)
     """
     def __init__(self, value):

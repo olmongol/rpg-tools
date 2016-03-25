@@ -165,6 +165,7 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                           'save'  : 'Datei speichern',
                           'sv_as' : 'Datei speichern unter...',
                           'quit'  : 'Beenden',
+                          'export' : 'Exportieren'
                           },
                     'en':{'open'  : 'Open file',
                           'close' : 'Close file',
@@ -172,6 +173,7 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                           'save'  : 'Save file',
                           'sv_as' : 'Save as',
                           'quit'  : 'Quit',
+                          'export' : 'Export'
                           },
                     },
            'opts'  :{'de' : {'lang' : 'Einstellungen',
@@ -220,6 +222,9 @@ some processing messages
 processing = {'saved' : {'de' : 'Gespeichert...',
                          'en' : 'Saved...',
                          },
+              'exported' : {'de' : 'Export abgeschlossen.',
+                            'en' : 'export finished.'
+                            }
             }
 
 '''
@@ -232,23 +237,31 @@ shortcut = {'de' : 'Deutsch',
 '''
 this are the titles of the windows-
 '''
-wintitle = {'opt_lang' : {'de' : 'ADaManT Spracheinstellungen',
-                          'en' : 'ADaManT Language Settings',
+wintitle = {'opt_lang' : {'de' : 'Spracheinstellungen',
+                          'en' : 'Language Settings',
                           },
-            'main'     : {'de' : 'ADaManT Profil-Generator',
-                          'en' : 'ADaManT Profile Generator',
+            'main'     : {'de' : 'Rollenspiel Werkzeuge',
+                          'en' : 'RPG Tools',
                           },
-            'edit'     : {'de' : 'ADaManT Profil Editor',
-                          'en' : 'ADaManT Profile Editor',
+            'edit'     : {'de' : 'Editor',
+                          'en' : 'Editor',
                           },
-            'struc_elem' : {'de' : 'ADaManT Struktur-Element-Editor',
-                            'en' : 'ADaManT editor for structual elements',
+            'backpack' : {'de' : 'Rucksack',
+                          'en' : 'Backpack'
+                          },
+            'item_store' : {'de' : 'Kramladen',
+                            'en' : 'Item Store'
                             },
-            'meta_1' :{'de' : 'ADaManT Metadaten-Felder Editor',
-                       'en' : 'ADaManT meta data editor',
-                       },
-            'meta_2' : {'de' : 'ADaManT Metadatenfeldkonfiguration',
-                        'en' : 'ADaManT meta data field configuration'}
+            'calc_exp' : {'de' : 'EP Rechner',
+                          'en' : 'EP Calculator'
+                          },
+            'rm_charg' : {'de' : 'RM Charaktergenerator',
+                          'en' : 'RM Character Generator'
+                          },
+            'mers_charg' : {'de' : 'MERS Charaktergenerator',
+                            'en' : 'MERP Character Generator'
+                            },
+            
             }
 
 '''
@@ -260,24 +273,6 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die XML-Dateien',
           'log_path' : {'de' : 'Pfad zu den Log-Dateien',
                         'en' : 'Path of the log files',
                         },
-          'default_c' : {'de' : 'Standartauswahl',
-                         'en' : 'standard selection',
-                         },
-          'select_c' : {'de' : 'getroffene/geladene Auswahl',
-                        'en' : 'selected/loaded choice',
-                        },
-          'add_elem' :{'de' :'Zus\xc3\xa4tzliche Elemente (Komma getrennte Liste)',
-                       'en' : 'additional elements (comma separated list)',
-                       },
-          'sel_root' :{'de' : 'Root-Element festlegen',
-                       'en' : 'select root element',
-                       },
-          'sel_par' : {'de' : '\xc3\x9cbergeordnetes Element',
-                       'en' : 'parent element',
-                       },
-          'sel_child' : {'de' : 'Untergeordnete(s) Element(e)',
-                         'en' : 'child element(s)',
-                         },
           'preview' : {'de' : 'Vorschau',
                        'en' : 'preview',
                        },
@@ -373,63 +368,29 @@ infomsg = {'help_info' : {'de' : 'F\xc3\xbcr eine genauere Information '\
 '''
 Descriptions of the default structure elements.
 '''
-s_elem_def = { 'PROJECT' : {'de' : 'PROJECT: Dieses Strukturelement be'\
-                                   'schreibt f\xc3\xbcr gew\xc3\xb6hnlich die'\
-                                   ' oberste '\
-                                   'Ebene der Datenstruktur. Anschaulich '\
-                                   'ist hiermit das Gesamtprojekt gemeint, '\
-                                   'in dem die Daten erhoben wurden.',
-                            'en' : 'PROJECT: This element of structure means '\
-                                   'usually the highest level of the data '\
-                                   'structure. Desciptively, it means the '\
-                                   'whole project where the data were'\
-                                   ' generated.',
+s_elem_def = { 'CRITICAL' : {'de' : 'Ausgeteilte kritische Treffer',
+                            'en' : 'Made critical hits',
                            },
-              'PROCEDURE' :{'de' : 'PROCEDURE: Hiermit ist eine allgemeinere '\
-                                   'Herangehensweise gemeint, die dann letzten'\
-                                   ' Endes zu EXPERIMENTen f\xc3\xbchrt.',
-                            'en' : 'PROCEDURE: This means a more general '\
-                                   'approach which leads last but not least to'\
-                                   'different types of EXPERIMENTs.',
+              'HITS' :{'de' : 'Erhaltene Trefferpunkte',
+                            'en' : 'Gained hit points.',
                             },
-              'EXPERIMENT' : {'de' : 'EXPERIMENT: Dieses Strukturelement be'\
-                                     'schreibt das tats\xc3\xa4chliche Experiment,'\
-                                     'in dem Daten erzeugt werden.',
-                              'en': 'EPERIMENT: This element of structure '\
-                                    'really stands for an experiment where '\
-                                    'data are raised.',
+              'H_CRITS' : {'de' : 'Erhaltene kritische Treffer',
+                              'en': 'Gained criticals',
                               },
-              'PERSON' :{'de' : 'PERSON: Dieses ELement steht f\xc3\xbcr Personen,'\
-                                'die mit einem Strukturlevel z.B. EXPERIMENT '\
-                                'in Zusammenhang stehen.',
-                         'en' : 'PERSON: This element stands for persons who'\
-                                'are connected to a structure level, e.g. '\
-                                'EXPERIMENT.',
+              'SPELL' :{'de' : 'Stufe angewendeter Zauber',
+                         'en' : 'Level of used spell',
                          },
-              'PROGRAM' : {'de' : 'PROGRAM: Diese Element steht f\xc3\xbcr Programm-'\
-                                  'Dateien, die z.B. zum Erzeugen oder Aus'\
-                                  'werten von Daten benutzt wurden.',
-                           'en' : 'PROGRAM: This element stands for program '\
-                                  'files which were used, e.g. for generating '\
-                                  'or examining data.',
+              'MANEUVER' : {'de' : 'Erfolgreiche Manoever',
+                           'en' : 'Successful maneuver.',
                            },
-              'DATAFILE' : {'de' : 'DATAFILE: Hiermit wird ein Struturelement '\
-                                   'f\xc3\xbcr Datendateien beschrieben. Dabei ist '\
-                                   'es nicht wichtig welcher Art die Daten'\
-                                   ' sind.',
-                            'en' : 'DATAFILE: This describes an element of '\
-                                   'structure for data files. It is not '\
-                                   'important what kind of data they hold.',
+              'TRAVEL' : {'de' : 'Reisestrecke',
+                            'en' : 'Traveled distance',
                             },
-              'FILESET' : {'de' : 'FILESET: Steht f\xc3\xbcr S\xc3\xa4tze von Dateien, die'\
-                                  ' zusammengeh\xc3\xb6ren.',
-                           'en' : 'FILESET: This stands for sets of files which'\
-                                  'belong to each other.',
+              'KILLED' : {'de' : 'Getoetete Gegner',
+                           'en' : 'Killed enemies/monster',
                            },
-              'ANIMAL' : {'de' : 'ANIMAL: Beschreibt die Tierart, die '\
-                                  'f\xc3\xbcr die Datenerhebung verwendet wurde.',
-                          'en' : 'ANIMAL: That type of animal used for getting'\
-                                 ' the experimental data.',
+              'INDIVIDUAL' : {'de' : 'Individuelle Punkte.',
+                          'en' : 'Individual EPs.',
                           },
               }
 

@@ -46,6 +46,7 @@ class MainWindow(blankWindow):
         
         self.picpath = "./gui/pic/"
         self.lang = lang
+        self.myfile = "MyRPG.exp"
         blankWindow.__init__(self, self.lang)
         self.window.title(title)
         Label(self.window, width = 60).pack()
@@ -87,6 +88,10 @@ class MainWindow(blankWindow):
                                   command = self.__newFile)
         self.filemenu.add_command(label = submenu['file'][self.lang]['open'],
                                   command = self.__openFile)
+        self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
+                                  command = self.__saveFile)
+        self.filemenu.add_command(label = submenu['file'][self.lang]['sv_as'],
+                                  command = self.__saveFile)
 
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['quit'],
@@ -110,6 +115,25 @@ class MainWindow(blankWindow):
         self.__filein = askopenfilename(filetypes = self.mask,
                                         initialdir = self.mypath)
         
+    def __saveFile(self):
+        '''
+        This method opens a file dialogue window (Tk) for saving the results 
+        of the EP calculation into an EXP file.
+        '''
+        self.notdoneyet()
+        
+    def __saveCSV(self):
+        '''
+        This method saves the entered data as CSV file
+        '''
+        self.notdoneyet()
+        
+    def __openCSV(self):
+        '''
+        This method opens an existing EP CSV file.
+        '''
+        self.notdoneyet()
+         
     def __addOptionMenu(self):
         """
         This method adds an option/preferences menu to the menu bar.
