@@ -269,8 +269,8 @@ wintitle = {'opt_lang' : {'de' : 'Spracheinstellungen',
 '''
 labels for window elements (labels, listboxes etc.)
 '''
-labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die XML-Dateien',
-                        'en' : 'Path where to store the XML files',
+labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei',
+                        'en' : 'Path where to store the config file',
                         },
           'log_path' : {'de' : 'Pfad zu den Log-Dateien',
                         'en' : 'Path of the log files',

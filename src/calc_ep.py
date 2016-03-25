@@ -15,6 +15,8 @@
 import Tkinter
 from gui.window import *
 from rpgtoolbox.lang import *
+from rpgtoolbox.confbox import *
+
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015 " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -149,8 +151,8 @@ class MainWindow(blankWindow):
         Opens an options window and closes the main window.
         '''
         self.window.destroy()
-        self.notdoneyet()
-#        self.window = confWindow(self.lang)        
+#        print self.lang
+        self.window = confWindow(self.lang)        
         
     def __addMenu(self):
         '''
@@ -185,7 +187,7 @@ class MainWindow(blankWindow):
         information about the PROGRAM (like version and 
         copyright)
         '''
-        self.about = "%s\nVersion %s\n\n%s\n%s\n%s" % (__me__,
+        self.about = "%s\nVersion %s\n\n%s\n%s\n" % (__me__,
                                                       __version__,
                                                       __copyright__,
                                                       __email__)
@@ -205,6 +207,7 @@ class confWindow(blankWindow):
         \param lang Laguage which shall be used in messages and menus
         """
         self.lang = lang
+        print self.lang
         blankWindow.__init__(self, self.lang)
         self.window.title(wintitle['opt_lang'][self.lang])
         self.wert = StringVar()
@@ -221,7 +224,7 @@ class confWindow(blankWindow):
         """
         self.sto_path = StringVar()
         self.log_path = StringVar()
-        self._cnf = chkCfg()
+        self._cnf = chkCfg(path = './data/', lang = self.lang)
         
         if 'path' in self._cnf.cnfparam.keys():
             self.sto_path.set(self._cnf.cnfparam['path'])
@@ -229,14 +232,15 @@ class confWindow(blankWindow):
             self.sto_path.set(home)
             
         if 'lang' in self._cnf.cnfparam.keys():
-            
+
             if self._cnf.cnfparam['lang'] != self.lang:
                 self.lang = self._cnf.cnfparam['lang']
         
         if 'log' in self._cnf.cnfparam.keys():
             self.log_path.set(self._cnf.cnfparam['log'])
+            
         else:
-            self.log_path = "/tmp/"
+            self.log_path.set("/tmp/")
             
         Label(master = self.window,
               width = 25
@@ -273,14 +277,17 @@ class confWindow(blankWindow):
         Label(master = self.window,
               width = 35
               ).pack()
+              
         Label(master = self.window,
               width = 35,
               text = labels['log_path'][self.lang]
               ).pack()
+              
         Entry(master = self.window,
               width = 35,
               textvariable = self.log_path
               ).pack()      
+        
         Button(self.window,
                text = txtbutton['but_sav'][self.lang],
                width = 15,
@@ -301,6 +308,7 @@ class confWindow(blankWindow):
     def __save(self):
         """
         A method for saving options in the user directory.
+        \todo variables to store have to be completed/adapted
         """
         self.lang = self.wert.get()
         self.path = self.sto_path.get()
@@ -313,10 +321,13 @@ class confWindow(blankWindow):
             self.log += '/'
             
         self.cont = {'lang' : self.lang,
-                     'path' : self.path,
-                     'log'  : self.log
+                     'datapath' : self.path,
+                     'logpath'  : self.log
                      }
-        self._cnf.saveCnf(path = self.path, content = self.cont)
+        self._cnf.saveCnf(path = self.path,
+                          filename = 'rpgtools.conf',
+                          content = self.cont)
+        
         self.msg = messageWindow()
         self.msg.showinfo(processing['saved'][self.lang] + '\n' + shortcut[self.lang])
         
@@ -327,5 +338,93 @@ class confWindow(blankWindow):
         self.path = self.sto_path.get()
         self.window.destroy()
         self.window = MainWindow(self.lang, self.path)
+
+class inputWin(blankWindow):
+    """
+    Objects of this class type are windows for input the wanted data 
+    structure. A exp structure will be build of the input. 
+    \param lang This parameter holds the language chosen for the menus 
+                and messages. Default value is 'en'.
+    \param filename this holds the filename of a read exp file holding 
+                    the functional structure.
+    \param storepath the path where the XML files shall be stored in.
+    """
+    def __init__(self,
+                 lang = 'en',
+                 xmlcontent = {},
+                 filename = None,
+                 storepath = None):
+        """
+        Constructor
+        \param lang This parameter holds the language chosen for the 
+                    menus and messages. Default value is 'en'
+        \param xmlcontent a dictionary holding the XML structure/tags
+        \param filename this holds the filename and path of a read XML 
+                        file containing the functional structure.
+        \param storepath the path where the XML files shall be stored 
+                         in.
+        """
+        self.lang = lang
+        self.xmlcont = xmlcontent
+        self.fname = filename
+        
+        if self.fname != "" and self.fname != None:
+            self._last = getLast(string = self.fname, sep = "/")
+        
+        else:
+            self._last = ""
+            
+        self.mypath = storepath
+        blankWindow.__init__(self, self.lang)
+       
+        self.window.title(wintitle['edit'][self.lang] + " - " + self._last)
+        
+        self.filemenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
+                              menu = self.filemenu)
+        self.filemenu.add_separator()
+        self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
+                                  command = self.__closewin)
+        self._addHelpMenu()
+        self.createWinStruc()
+    
+    def notdoneyet(self):
+        """
+        Most important dummy method!
+        """
+        self._info = messageWindow()
+        self._info.showinfo("inputWin: this feature is not done yet!",
+                            "SOOOORRRRYYY")    
+        print "inputWin: this feature is not done yet!"
+         
+    def __closewin(self):
+        """
+        Method for closing the window and opening the main window.
+        """
+        self.window.destroy()
+        self.window = MainWindow(self.lang, self.mypath)
+        
+    def _addHelpMenu(self):
+        """
+        This method adds additional functions to the help menu
+        """    
+        self.helpmenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['help'][self.lang],
+                              menu = self.helpmenu)
+        self._templist = {'not done': self.notdoneyet()
+                         }
+        for key in s_elem_def:
+            self.com = self._templist[key]
+            self.helpmenu.add_command(label = key,
+                                      command = self.com)
+        del(self._templist)
+        del(key)
+        
+        self.helpmenu.add_separator()
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['page'],
+                                  command = self._showPage)
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
+                                  command = self._helpAbout)  
+
      
 mywindow = MainWindow(lang = "de", title = "EP Calculator")

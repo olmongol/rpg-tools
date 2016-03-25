@@ -23,30 +23,91 @@ cfgopts = {'lang' :'''
 # Supported are: (de, en)
 #-------------------------------------------------------------------------------
 ''',
-           'path' : '''
+           'datapath' : '''
 #-------------------------------------------------------------------------------
 # path is the default storage path for generated CSV files
 #-------------------------------------------------------------------------------
 ''',
-            'log' : '''
+            'logpath' : '''
 #-------------------------------------------------------------------------------
 # path where the log files shall be stored
 #-------------------------------------------------------------------------------
 ''',
-            'db' : '''  
+            'logcount' : '''  
+#-------------------------------------------------------------------------------
+# Number of maximum log files stored. Default: 3
+#-------------------------------------------------------------------------------
+''',
+            'logfile' : '''  
+#-------------------------------------------------------------------------------
+# Name of the log file. Default: rpgtools.log
+#-------------------------------------------------------------------------------
+''',
+            'logsize' : '''  
+#-------------------------------------------------------------------------------
+# Maximum size of a log file. Default: 1 M
+#-------------------------------------------------------------------------------
+''',
+            'loglevel' : '''  
+#-------------------------------------------------------------------------------
+# Loglevel. Default: error
+# Available: debug, info, warning, error, critical
+#-------------------------------------------------------------------------------
+''',
+            'db_type' : '''  
 #-------------------------------------------------------------------------------
 # Database type: CSV, MySQL, SQLLite  
 # Actually only CSV is supported
 #-------------------------------------------------------------------------------
-'''
+''',
+            'db_host' : '''  
+#-------------------------------------------------------------------------------
+# Address of database host. Default: localhost
+# The use of databases is actually not supported
+#-------------------------------------------------------------------------------
+''',
+            'db_name' : '''  
+#-------------------------------------------------------------------------------
+# Name of the used database. Default: rpgtools
+# The use of databases is actually not supported
+#-------------------------------------------------------------------------------
+''',
+            'db_port' : '''  
+#-------------------------------------------------------------------------------
+# Database port. Default: 3306 (MySQL
+# The use of databases is actually not supported
+#-------------------------------------------------------------------------------
+''',
+            'db_user' : '''  
+#-------------------------------------------------------------------------------
+# Database user. Default rpgtools
+# The use of databases is actually not supported
+#-------------------------------------------------------------------------------
+''',
+            'db_passwd' : '''  
+#-------------------------------------------------------------------------------
+# Password of database user. Default: secred
+# The use of databases is actually not supported
+#-------------------------------------------------------------------------------
+''',
+
            }
 
 ##defval
 # holds default values for a configuration file.
 defval = {'lang' : 'en',
-          'path' : '~',
-          'log'  : '/tmp/',
-          'db'   : 'csv'
+          'datapath' : './data',
+          'logpath'  : '/tmp/',
+          'logcount' : 5,
+          'logsize'  : '1 M',
+          'logfile'  : 'rpgtools.log',
+          'loglevel' : 'error',
+          'db_type'  : 'csv',
+          'db_host'  : 'localhost',
+          'db_port'  : 3306,
+          'db_user'  : 'rpgtools',
+          'db_passwd': 'secred',
+          'calc_type': 'simple',
           
           }
 
@@ -61,7 +122,7 @@ class chkCfg(object):
     '''
 
 
-    def __init__(self, path = None, filename = "default.conf",
+    def __init__(self, path = './data/', filename = "default.conf",
                  lang = 'en', exp = '=', comment = '#'):
         '''
         Constructor
@@ -108,9 +169,11 @@ class chkCfg(object):
                 self.createDefault(path = home, logpath = home)
         else:
             self.__exists = rpgtools.checkFiles(self.path, self.fn)
-            
-            if self._exists[self.fn]:
+
+            if self.__exists[self.fn]:
+
                 self._fcon = rpgtools.readFile(self.path, self.fn, 'r')
+
             else:
 #                raise IOError(errmsg['no_file'][self.lang])
                 self.createDefault(path = home, logpath = home)
@@ -203,7 +266,7 @@ class chkCfg(object):
         else:
             self.result += errmsg['fine_cfg'][self.lang]
            
-    def saveCnf(self, path = None, filename = '.axgk', content = None):
+    def saveCnf(self, path = None, filename = '.conf', content = None):
         """
         This method writes config data into a file
         \param path path to the config file

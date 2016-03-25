@@ -121,15 +121,30 @@ def checkFiles(path = './', file_list = []):
     if os.name == 'posix' and path[-1] != '/':
         path += '/'
     if os.path.exists(path):
-        for key in file_list:
-            if os.path.isfile(path + key):
-                result[key] = True
-            else:
-                result[key] = False
+        
+        if type(file_list) == type([]):
+        
+            for key in file_list:
+            
+                if os.path.isfile(path + key):
+                    result[key] = True
+                
+                else:
+                    result[key] = False
+        
+        elif type(file_list) == type(""):
+        
+            if os.path.isfile(path + file_list):
+                result[file_list] = True
+        
+        else:
+            result[str(file_list)] = False
+    
     else:
         result = {'path' : False}
     
     return result
+    
         
 def sortIndex(dic = {}):
     """
