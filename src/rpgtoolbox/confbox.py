@@ -6,9 +6,10 @@ A toolbox of things to handle config files.
 
 
 \author Marcus Schwamberger
-\date (c) 2012
+\date (c) 2012-2016
 \version 0.5.2 alpha
 \email marcus@lederzeug.de
+\license GNU V3.0
 '''
 import os
 import rpgtoolbox.globaltools as rpgtools
@@ -120,8 +121,7 @@ class chkCfg(object):
     def createDefault(self, path = None, filename = "default.conf",
                       logpath = None, exp = '=', comment = '#'):
         '''
-        This method creates a default configuration file for the ADaManT XML
-        Generator Kit.
+        This method creates a default configuration file for the rpg-tools.
         
         \param path Path to the config file
         \param filname name of the config file
@@ -142,7 +142,7 @@ class chkCfg(object):
             
         self._content = """
 ################################################################################
-# ADaManT configuration file
+# rpg-tools configuration file
 ################################################################################
 \n\n"""
         for key in cfgopts:
