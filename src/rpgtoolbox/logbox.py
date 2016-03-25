@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 '''
+\package rpgtoolbox
 \file logbox.py
 
 \brief a module with logging tools
@@ -27,8 +28,8 @@ KB = 1024
 """size of MB"""
 MB = KB ** 2
 
-def createLogger(logger = 'ADaManT-Logger', loglvl = 'debug', logsize = '2 MB',
-                 count = 5, logpath = '/var/log/', logfile = 'adamant-xml.log'):
+def createLogger(logger = 'rpg-Logger', loglvl = 'debug', logsize = '2 MB',
+                 count = 5, logpath = '/var/log/', logfile = 'rpg-tools.log'):
     """
     \brief this function builds a full usable logging object with handler.
     This builds a logging object and a logging handler which will be 

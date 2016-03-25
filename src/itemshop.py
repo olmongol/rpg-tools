@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 '''
-\package rpgtoolbox
 \file itemshop.py
-\brief Buying tool for characters equipment
+\brief Buying tool for character's equipment
 
 With this tool players can buy stuff for their characters. Bought stuff may be 
 saved as CSV file or can be transfered directly to SCs backpack...
@@ -11,6 +10,7 @@ saved as CSV file or can be transfered directly to SCs backpack...
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
 \version 1.0
+\license GNU V3.0
 '''
 
 import csv

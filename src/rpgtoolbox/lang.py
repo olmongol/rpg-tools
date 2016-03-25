@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-## \file lang.py
+# \package rpgtoolbox
+# \file lang.py
 #
 # \brief multi language support library for rpg-tools 
 #
@@ -10,7 +11,9 @@
 # Currently supported languages are:
 # \li English
 # \li Deutsch
-# \attention At the moment just Linux/Unix is supported
+#
+# \attention At the moment just Linux/Unix is supported!
+#
 # \author Marcus Schwamberger
 # \email marcus@lederzeug.de
 # \date (c) 2015-2016
@@ -232,23 +235,15 @@ shortcut = {'de' : 'Deutsch',
 '''
 this are the titles of the windows-
 '''
-wintitle = {'opt_lang' : {'de' : 'ADaManT Spracheinstellungen',
-                          'en' : 'ADaManT Language Settings',
+wintitle = {'opt_lang' : {'de' : 'Spracheinstellungen',
+                          'en' : 'Language Settings',
                           },
-            'main'     : {'de' : 'ADaManT Profil-Generator',
-                          'en' : 'ADaManT Profile Generator',
+            'main'     : {'de' : 'Rollenspiel Werkzeuge',
+                          'en' : 'RPG Toolbox',
                           },
-            'edit'     : {'de' : 'ADaManT Profil Editor',
-                          'en' : 'ADaManT Profile Editor',
+            'edit'     : {'de' : 'Editor',
+                          'en' : 'Editor',
                           },
-            'struc_elem' : {'de' : 'ADaManT Struktur-Element-Editor',
-                            'en' : 'ADaManT editor for structual elements',
-                            },
-            'meta_1' :{'de' : 'ADaManT Metadaten-Felder Editor',
-                       'en' : 'ADaManT meta data editor',
-                       },
-            'meta_2' : {'de' : 'ADaManT Metadatenfeldkonfiguration',
-                        'en' : 'ADaManT meta data field configuration'}
             }
 
 '''
@@ -260,24 +255,33 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die XML-Dateien',
           'log_path' : {'de' : 'Pfad zu den Log-Dateien',
                         'en' : 'Path of the log files',
                         },
-          'default_c' : {'de' : 'Standartauswahl',
-                         'en' : 'standard selection',
+          'db_type'  : {'de' : 'Datenbanktyp',
+                         'en' : 'Type of data base',
                          },
-          'select_c' : {'de' : 'getroffene/geladene Auswahl',
-                        'en' : 'selected/loaded choice',
+          'db_host'  : {'de' : 'DB Host',
+                        'en' : 'DB host',
                         },
-          'add_elem' :{'de' :'Zus\xc3\xa4tzliche Elemente (Komma getrennte Liste)',
+          'db_port'  : {'de' : 'DB Port',
+                        'en' : 'DB port'
+                        },
+          'db_name'  : {'de' : 'DB Benutzer',
+                        'en' : 'DB user'
+                        },
+          'db_pass'  : {'de' : 'DB Passwort',
+                        'en' : 'DB paasword'
+                        },
+          'add_elem' : {'de' :'Zus\xc3\xa4tzliche Elemente (Komma getrennte Liste)',
                        'en' : 'additional elements (comma separated list)',
                        },
-          'sel_root' :{'de' : 'Root-Element festlegen',
-                       'en' : 'select root element',
+          'connect'  : {'de' : 'Verbinden',
+                       'en' : 'connect',
                        },
-          'sel_par' : {'de' : '\xc3\x9cbergeordnetes Element',
-                       'en' : 'parent element',
+          'update'   : {'de' : 'aktualisieren',
+                       'en' : 'update',
                        },
-          'sel_child' : {'de' : 'Untergeordnete(s) Element(e)',
-                         'en' : 'child element(s)',
-                         },
+          'cancel'   : {'de' : 'Abbrechen',
+                        'en' : 'Cancel',
+                      },
           'preview' : {'de' : 'Vorschau',
                        'en' : 'preview',
                        },
