@@ -10,6 +10,15 @@
 \email marcus@lederzeug.de
 \license GNU V3.0
 \version 0.3
+
+\todo design edit window: Critical Hits
+\todo design edit window: Killed Monsters
+\todo design edit window: used spells
+\todo design: enter/save/load character list/party
+\todo design: successful maneuvers
+\todo design: traveled distance
+\todo design: individual EPs
+
 '''
 #import ConfigParser as CP
 import Tkinter
@@ -53,6 +62,7 @@ class MainWindow(blankWindow):
         self.window.title(title)
         Label(self.window, width = 60).pack()
         self.__addFileMenu()
+        self.__addEditMenu()
         self.__addOptionMenu()
         self.__addHelpMenu()
         
@@ -135,7 +145,57 @@ class MainWindow(blankWindow):
         This method opens an existing EP CSV file.
         '''
         self.notdoneyet()
-         
+        
+    def __addEditMenu(self):
+        '''
+        This method adds an edit menu to the menu bar
+        \todo add all entries.
+        '''
+        self.edtmenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['menu_edit'][self.lang],
+                              menu = self.edtmenu)
+        self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_char'],
+                                 command = self.__edcharWin)
+        self.edtmenu.add_separator()
+        self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_fight'],
+                                 command = self.__edfightWin)
+        self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_other'],
+                                  command = self.__edotherWin)
+        self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_indiv'],
+                                  command = self.__indivWin)
+        self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_calc'],
+                                 command = self.__edcalcWin)
+    
+    def __edcharWin(self):
+        '''
+        Generating a window for editing Characters/Character lists/Parties
+        '''
+        self.notdoneyet()
+        
+    def __edfightWin(self):    
+        '''
+        Editing all Hits/Crits/Killed Monsters for calculating EPs
+        '''
+        self.notdoneyet()
+        
+    def __edotherWin(self):
+        '''
+        Editing all for traveled distance, spells, maneuvers
+        '''
+        self.notdoneyet()    
+        
+    def __indivWin(self):
+        '''
+        Calculating and distributing pool for individual EPs. 
+        '''
+        self.notdoneyet()
+        
+    def __edcalcWin(self):
+        '''
+        Calculating and displaying the whole EPs for the RPG party.
+        '''
+        self.notdoneyet()    
+        
     def __addOptionMenu(self):
         """
         This method adds an option/preferences menu to the menu bar.
