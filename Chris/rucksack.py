@@ -1,11 +1,9 @@
 #!/usr/bin/env python
 '''
 \file rucksack.py
-\brief This is a simple tool to keep track of a character's backpack
+\brief Rucksackverwaltung
 
-With this tool you are able to keep track of all the items and the money a
-pen & paper RPG character is carrying. To make it work as an "Online Shop" you
-need to set up a MySQL data base.
+Rucksackverwaltung mit Shopsystem
 
 \date (C) 2015
 \author Christian Wunderlich
