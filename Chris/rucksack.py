@@ -18,7 +18,7 @@ Erst mal zum rumspielen
 
 import csv
 
-with open('./Data/shop.csv', 'r') as csvfile:
+with open('./Data/shopKategorien.csv', 'r') as csvfile:
     shopdir = csv.reader(csvfile, delimiter=',', quotechar='"')
     for row in shopdir:
         print(', '.join(row))
