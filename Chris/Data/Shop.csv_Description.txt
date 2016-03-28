@@ -1,0 +1,21 @@
+Erklärung der Spalten in shop.csv
+
+Name: Selbsterklärend. Name des gespeicherten Gegenstandes
+
+Gewicht: Gewicht in Gramm
+
+Preis: Preis in Zinnstücken
+
+Staubarin:
+Hinweis auf die Größe des Objektes. Soll verhindern das man ein Pferd in einen Rucksack steckt.
+Aktuelle Reihenfolge:
+
+Beutel,
+Tasche,
+Rucksack,
+Mensch,
+Pferd,
+Wagen, (Entspricht auch Boot)
+Haus,
+Schiff, (Entspricht auch Lagerhalle)
+Welt,
