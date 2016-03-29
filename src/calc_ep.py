@@ -25,11 +25,14 @@ import Tkinter
 from gui.window import *
 from rpgtoolbox.lang import *
 from rpgtoolbox.confbox import *
+from rpgtoolbox import logbox as log
+from rpgToolDefinitions.epcalcdefs import maneuvres 
 
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015 " + __author__
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.5.5 alpha"
+__license__ = "GNU V3.0"
 __me__ = "A MERS/RM EP Calculator for Python 2.x"
 
 class MainWindow(blankWindow):
@@ -52,9 +55,11 @@ class MainWindow(blankWindow):
         """
         if storepath == None:
             self.mypath = os.path.expanduser('~')
+            logger.debug('Set storepath to home dir')
         else:
             self.mypath = storepath
-        
+            logger.info('storepath set to %s' % (storepath))
+            
         self.picpath = "./gui/pic/"
         self.lang = lang
         self.myfile = "MyRPG.exp"
@@ -211,7 +216,6 @@ class MainWindow(blankWindow):
         Opens an options window and closes the main window.
         '''
         self.window.destroy()
-#        print self.lang
         self.window = confWindow(self.lang)        
         
     def __addMenu(self):
@@ -234,6 +238,7 @@ class MainWindow(blankWindow):
         self.helpmenu.add_separator()
         self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
                                   command = self.helpAbout)
+        
     def helpHandbook(self):
         """
         This method will show the ADaManT Handbook
@@ -250,6 +255,7 @@ class MainWindow(blankWindow):
         self.about = "%s\nVersion %s\n\n%s\n%s\n" % (__me__,
                                                       __version__,
                                                       __copyright__,
+                                                      __license__,
                                                       __email__)
         self.msg = messageWindow()
         self.msg.showinfo(self.about)
@@ -384,6 +390,7 @@ class confWindow(blankWindow):
                      'datapath' : self.path,
                      'logpath'  : self.log
                      }
+        logger.debug('lang=%s\ndatapath=%s\nlogpath=%s' % (self.lang, self.path, self.log))
         self._cnf.saveCnf(path = self.path,
                           filename = 'rpgtools.conf',
                           content = self.cont)
@@ -411,21 +418,21 @@ class inputWin(blankWindow):
     """
     def __init__(self,
                  lang = 'en',
-                 xmlcontent = {},
+                 csvcontent = {},
                  filename = None,
                  storepath = None):
         """
         Constructor
         \param lang This parameter holds the language chosen for the 
                     menus and messages. Default value is 'en'
-        \param xmlcontent a dictionary holding the XML structure/tags
+        \param csvcontent a dictionary holding the information of CSV
         \param filename this holds the filename and path of a read XML 
                         file containing the functional structure.
         \param storepath the path where the XML files shall be stored 
                          in.
         """
         self.lang = lang
-        self.xmlcont = xmlcontent
+        self.csvcont = csvcontent
         self.fname = filename
         
         if self.fname != "" and self.fname != None:
@@ -486,5 +493,57 @@ class inputWin(blankWindow):
         self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
                                   command = self._helpAbout)  
 
-     
+class epSheet(object):
+    '''
+    Class for calculating EP sheets
+    '''  
+    def __init__(self, charList = None):
+        '''
+        Class constructor.
+        \param charList Should be a dictionary with the structure: player --> 
+                        Character --> EP categories
+        '''
+                
+        self.charList = charList
+        '''
+        \variable self.__epcat
+        A dictionary holding all EP categories. If a single number is shown it 
+        means the number of the category thing. 
+        If there is a tuple it means: first number is the count and the second 
+        the level. 
+        '''
+        self.__epcat = {'gained hitpoints' : 0,
+                        'gained criticals' : {'T' : 0,
+                                              'A' : 0,
+                                              'B' : 0,
+                                              'C' : 0,
+                                              'D' : 0,
+                                              'E' : 0
+                                              },
+                        'criticals' : {'A' : [0, 0],
+                                       'B' : [0, 0],
+                                       'C' : [0, 0],
+                                       'D' : [0, 0],
+                                       'E' : [0, 0]
+                                       },
+                        'killed' : [[0, 0]],
+                        'spells' : 0,
+                        'maneuver' : {} ,
+                        'traveled km' : 0,
+                        'individual EP' : 0
+                        }
+                        
+        for lvl in maneuvres.keys():
+            self.__epcat['maneuver'][lvl] = 0
+        logger.debug('epSheet: self__epcat set')
+        
+                
+    
+    def notdoneyet(self):
+        '''
+        Most important dummy function.
+        '''
+        print "Sorry this feature is not done yet!! :("
+  
+logger = log.createLogger('rpg', 'debug', '1 MB', 1, './')
 mywindow = MainWindow(lang = "de", title = "EP Calculator")
