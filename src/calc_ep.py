@@ -26,7 +26,7 @@ from gui.window import *
 from rpgtoolbox.lang import *
 from rpgtoolbox.confbox import *
 from rpgtoolbox import logbox as log
-from rpgToolDefinitions.epcalcdefs import maneuvres 
+from rpgToolDefinitions.epcalcdefs import *
 
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015 " + __author__
