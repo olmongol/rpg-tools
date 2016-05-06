@@ -17,7 +17,8 @@ from ImageTk import *
 from tkFileDialog import *
 from rpgtoolbox.lang import *
 from rpgtoolbox.globaltools import *
-from rpgtoolbox.logbox import *
+#from rpgtoolbox.logbox import *
+from rpgtoolbox import logbox as log
 from rpgtoolbox.errbox import *
 from rpgtoolbox.confbox import *
 from gui.winhelper import AutoScrollbar
@@ -29,7 +30,7 @@ __email__ = "marcus@lederzeug.de"
 __version__ = "0.5.5 alpha"
 __me__ = "A RPG tool package for Python 2.x"
 
-
+logger = log.createLogger('window', 'debug', '1 MB', 1, './')
 
 class messageWindow(object):
     """
@@ -44,7 +45,7 @@ class messageWindow(object):
         """
         self.lang = lang
         self.window = Toplevel()
-        self.logger = createLogger(logpath = '/tmp/')
+#        self.logger = log.createLogger(logpath = '/tmp/')
 
     def showinfo(self, message = '', title = 'Info'):
         """
@@ -119,7 +120,7 @@ class blankWindow(object):
     def _helpAbout(self):
         '''
         This method just opens a message window with the basic 
-        information about the ADaManT XML Generator (like version and 
+        information about the rpg-tools XML Generator (like version and 
         copyright)
         '''
         self.about = "%s\nVersion %s\n\n%s\n%s\n%s" % (__me__,
@@ -202,6 +203,14 @@ class MainWindow(blankWindow):
             
         self.window.destroy()
         
+    def __saveFile(self):
+        """
+        This method will save a file.
+        \todo mainWindow.__saveFile has to be implemented 
+        """
+        self.notdoneyet()
+        
+        
     def __newFile(self):
         """
         This method opens a new window for generation of a new 
@@ -215,7 +224,7 @@ class MainWindow(blankWindow):
     def helpAbout(self):
         '''
         This method just opens a message window with the basic 
-        information about the ADaManT XML Generator (like version and 
+        information about the rpg-tools (like version and 
         copyright)
         '''
         self.about = "%s\nVersion %s\n\n%s\n%s" % (__me__,
@@ -250,10 +259,10 @@ class MainWindow(blankWindow):
                               menu = self.filemenu)
         self.filemenu.add_command(label = submenu['file'][self.lang]['new'],
                                   command = self.__newFile)
-        self.filemenu.add_command(label = submenu['file'][self.lang]['open_struc'],
+        self.filemenu.add_command(label = submenu['file'][self.lang]['open'],
                                   command = self.__openFile)
-        self.filemenu.add_command(label = submenu['file'][self.lang]['open_saj'],
-                                  command = self.__openStrJmp)
+        self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
+                                  command = self.__saveFile)
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['quit'],
                                   command = self.window.destroy)
@@ -282,17 +291,16 @@ class MainWindow(blankWindow):
                                   command = self.helpAbout)
     def helpHandbook(self):
         """
-        This method will show the ADaManT Handbook
-        \todo this needs to be implemented
+        This method will show the rpgbox Handbook
+        \todo helpHandbook needs to be implemented
         """
         self.notdoneyet()
-        
-      
+    
 
 class confWindow(blankWindow):
     """
     This class builds a window for selecting and saving options of 
-    ADaManT. For now it is just choosing the language for menus and 
+    rpg-tools. For now it is just choosing the language for menus and 
     dialogues. 
     \param lang Laguage which shall be used in messages and menus.
     """
@@ -318,12 +326,12 @@ class confWindow(blankWindow):
         """
         self.sto_path = StringVar()
         self.log_path = StringVar()
-        self._cnf = chkCfg()
+        self._cnf = chkCfg(path = "./")
         
         if 'path' in self._cnf.cnfparam.keys():
             self.sto_path.set(self._cnf.cnfparam['path'])
         else:
-            self.sto_path.set(home)
+            self.sto_path.set("./data")
             
         if 'lang' in self._cnf.cnfparam.keys():
             
@@ -414,6 +422,7 @@ class confWindow(blankWindow):
                      'log'  : self.log
                      }
         self._cnf.saveCnf(path = self.path, content = self.cont)
+        logger.debug("window.__save: saved conf to %s" % (self.path))
         self.msg = messageWindow()
         self.msg.showinfo(processing['saved'][self.lang] + '\n' + shortcut[self.lang])
         
@@ -423,7 +432,8 @@ class confWindow(blankWindow):
         """
         self.path = self.sto_path.get()
         self.window.destroy()
-        self.window = MainWindow(self.lang, self.path)
+        logger.debug('window.py: lang-%s path-%s' % (self.lang, self.path))
+        self.window = MainWindow(lang = self.lang, storepath = self.path)
         
 class inputWin(blankWindow):
     """

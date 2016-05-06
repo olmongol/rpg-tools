@@ -119,6 +119,7 @@ class chkCfg(object):
     '''
     These Objects reads out a given config file and store the content of the
     configuration in a dictionary.
+    \todo read default config file if it exists in the same directory
     '''
 
 
@@ -160,15 +161,16 @@ class chkCfg(object):
         self._fcon = []
         
         if path == None:
-            self.__exists = rpgtools.checkFiles(home, [self.fn])
+            self.__exists = rpgtools.checkFiles(None, [self.fn])
             
             if self.__exists[self.fn]:
-                self._fcon = rpgtools.readFile(home, self.fn, 'r')
+                self._fcon = rpgtools.readFile(None, self.fn, 'r')
+#                logger.debug('confbox: read config file')
             else:
 #                raise IOError(errmsg['no_file'][self.lang])
-                self.createDefault(path = home, logpath = home)
+                self.createDefault()
         else:
-            self.__exists = rpgtools.checkFiles(self.path, self.fn)
+            self.__exists = rpgtools.checkFiles(self.path, [self.fn])
 
             if self.__exists[self.fn]:
 
@@ -176,13 +178,13 @@ class chkCfg(object):
 
             else:
 #                raise IOError(errmsg['no_file'][self.lang])
-                self.createDefault(path = home, logpath = home)
+                self.createDefault()
                 
         self.cnfparam = rpgtools.array2dict(self._fcon, self.exp, self.com)
         
         
-    def createDefault(self, path = None, filename = "default.conf",
-                      logpath = None, exp = '=', comment = '#'):
+    def createDefault(self, path = ".", filename = "default.conf",
+                      logpath = "/tmp", exp = '=', comment = '#'):
         '''
         This method creates a default configuration file for the rpg-tools.
         
@@ -196,13 +198,6 @@ class chkCfg(object):
         self.fn = filename
         self.exp = exp
         self.com = comment
-        
-        if self.path == None:
-            self.path = home
-            
-        if self.logpath == None:
-            self.logpath = home    
-            
         self._content = """
 ################################################################################
 # rpg-tools configuration file
@@ -212,7 +207,7 @@ class chkCfg(object):
             self._content += cfgopts[key]
             self._content += key + " = " + defval[key]
             
-        self._fp = open(home + '/' + self.fn, 'w')
+        self._fp = open(self.path + '/' + self.fn, 'w')
         self._fp.write(self._content)
         self._fp.close()
         
@@ -266,7 +261,7 @@ class chkCfg(object):
         else:
             self.result += errmsg['fine_cfg'][self.lang]
            
-    def saveCnf(self, path = None, filename = '.conf', content = None):
+    def saveCnf(self, path = None, filename = 'default.conf', content = None):
         """
         This method writes config data into a file
         \param path path to the config file
@@ -285,12 +280,12 @@ class chkCfg(object):
             if content != {}:
             
                 if self.path == None:
-                    self.path = home
+                    self.path = "."
                 
                 for param in content:
                     self.fc += param + " = " + content[param] + '\n'
                     
-                self.fp = open(home + '/' + self.fn, 'w')
+                self.fp = open(self.path + '/' + self.fn, 'w')
                 self.fp.write(self.fc)
                 self.fp.close()
                     

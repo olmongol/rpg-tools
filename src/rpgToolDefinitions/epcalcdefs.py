@@ -52,7 +52,7 @@ maneuvres = {'routine' : {'de' : 'Routine',
              
              }
 
-def getEPCrit(level = 0, crit = "T", charhit = False):
+def getEPCrit(level = 0, crit = "A", charhit = False):
     '''
     This function returns the EP for a gained or provoked critical hit.
     \param level level of the hit monster/enemy
