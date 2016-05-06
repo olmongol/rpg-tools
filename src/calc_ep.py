@@ -44,7 +44,7 @@ class MainWindow(blankWindow):
     \param title title of the window
     \param storepath path where things like options have to be stored    
     """
-    def __init__(self, lang = 'en', title = "Main Window", storepath = None):
+    def __init__(self, lang = 'en', storepath = None, title = "Main Window"):
         """
         Class constructor
         \param lang The chosen language for window's and button's 
@@ -54,6 +54,7 @@ class MainWindow(blankWindow):
         \param storepath path where things like options have to be stored
         """
         if storepath == None:
+            
             self.mypath = os.path.expanduser('~')
             logger.debug('Set storepath to home dir')
         else:
@@ -252,7 +253,7 @@ class MainWindow(blankWindow):
         information about the PROGRAM (like version and 
         copyright)
         '''
-        self.about = "%s\nVersion %s\n\n%s\n%s\n" % (__me__,
+        self.about = "%s\nVersion %s\n\n%s\n%s\n%s" % (__me__,
                                                       __version__,
                                                       __copyright__,
                                                       __license__,
@@ -295,7 +296,7 @@ class confWindow(blankWindow):
         if 'path' in self._cnf.cnfparam.keys():
             self.sto_path.set(self._cnf.cnfparam['path'])
         else:
-            self.sto_path.set(home)
+            self.sto_path.set("./data")
             
         if 'lang' in self._cnf.cnfparam.keys():
 
@@ -502,8 +503,7 @@ class epSheet(object):
         Class constructor.
         \param charList Should be a dictionary with the structure: player --> 
                         Character --> EP categories
-        '''
-                
+        '''    
         self.charList = charList
         '''
         \variable self.__epcat
@@ -535,6 +535,7 @@ class epSheet(object):
                         
         for lvl in maneuvres.keys():
             self.__epcat['maneuver'][lvl] = 0
+            
         logger.debug('epSheet: self__epcat set')
         
                 
@@ -546,4 +547,4 @@ class epSheet(object):
         print "Sorry this feature is not done yet!! :("
   
 logger = log.createLogger('rpg', 'debug', '1 MB', 1, './')
-mywindow = MainWindow(lang = "de", title = "EP Calculator")
+mywindow = MainWindow(lang = "de", title = "EP Calculator", storepath = "./data")
