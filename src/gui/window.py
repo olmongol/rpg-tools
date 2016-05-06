@@ -17,7 +17,8 @@ from ImageTk import *
 from tkFileDialog import *
 from rpgtoolbox.lang import *
 from rpgtoolbox.globaltools import *
-from rpgtoolbox.logbox import *
+#from rpgtoolbox.logbox import *
+from rpgtoolbox import logbox as log
 from rpgtoolbox.errbox import *
 from rpgtoolbox.confbox import *
 from gui.winhelper import AutoScrollbar
@@ -29,7 +30,7 @@ __email__ = "marcus@lederzeug.de"
 __version__ = "0.5.5 alpha"
 __me__ = "A RPG tool package for Python 2.x"
 
-
+logger = log.createLogger('window', 'debug', '1 MB', 1, './')
 
 class messageWindow(object):
     """
@@ -44,7 +45,7 @@ class messageWindow(object):
         """
         self.lang = lang
         self.window = Toplevel()
-        self.logger = createLogger(logpath = '/tmp/')
+#        self.logger = log.createLogger(logpath = '/tmp/')
 
     def showinfo(self, message = '', title = 'Info'):
         """
@@ -325,7 +326,7 @@ class confWindow(blankWindow):
         """
         self.sto_path = StringVar()
         self.log_path = StringVar()
-        self._cnf = chkCfg()
+        self._cnf = chkCfg(path = "./")
         
         if 'path' in self._cnf.cnfparam.keys():
             self.sto_path.set(self._cnf.cnfparam['path'])
@@ -421,6 +422,7 @@ class confWindow(blankWindow):
                      'log'  : self.log
                      }
         self._cnf.saveCnf(path = self.path, content = self.cont)
+        logger.debug("window.__save: saved conf to %s" % (self.path))
         self.msg = messageWindow()
         self.msg.showinfo(processing['saved'][self.lang] + '\n' + shortcut[self.lang])
         
@@ -430,7 +432,7 @@ class confWindow(blankWindow):
         """
         self.path = self.sto_path.get()
         self.window.destroy()
-#        logger.debug('window.py: lang-%s path-%s' % (self.lang, self.path))
+        logger.debug('window.py: lang-%s path-%s' % (self.lang, self.path))
         self.window = MainWindow(lang = self.lang, storepath = self.path)
         
 class inputWin(blankWindow):

@@ -547,4 +547,4 @@ class epSheet(object):
         print "Sorry this feature is not done yet!! :("
   
 logger = log.createLogger('rpg', 'debug', '1 MB', 1, './')
-mywindow = MainWindow(lang = "de", title = "EP Calculator", storepath = "./data")
+mywindow = MainWindow(lang = "de", title = "EP Calculator", storepath = "./")
