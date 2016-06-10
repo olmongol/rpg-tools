@@ -6,7 +6,7 @@
 
 
 \date (C) 2015
-\author mongol
+\author Marcus Schwambeger
 \email marcus@lederzeug.de
 
 '''
@@ -327,22 +327,29 @@ class confWindow(blankWindow):
         self.sto_path = StringVar()
         self.log_path = StringVar()
         self._cnf = chkCfg(path = "./")
+        print self.cnf
+        logger.debug("__buildWindRadio " + self._cnf)
         
         if 'path' in self._cnf.cnfparam.keys():
             self.sto_path.set(self._cnf.cnfparam['path'])
         else:
             self.sto_path.set("./data")
             
+        logger.debug(self.sto_path)
+        
         if 'lang' in self._cnf.cnfparam.keys():
             
             if self._cnf.cnfparam['lang'] != self.lang:
                 self.lang = self._cnf.cnfparam['lang']
-        
+                
+        logger.debug(self.lang)
+
         if 'log' in self._cnf.cnfparam.keys():
             self.log_path.set(self._cnf.cnfparam['log'])
         else:
             self.log_path = "/tmp/"
             
+        logger.debug(self.log_path)
         Label(master = self.window,
               width = 25
               ).pack()
