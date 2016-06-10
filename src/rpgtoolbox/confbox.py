@@ -15,6 +15,9 @@ import os
 import rpgtoolbox.globaltools as rpgtools
 from rpgtoolbox.lang import *
 
+defaultconfigpath = "conf/"
+defaultconfigfile = "rpg-tools.cfg"
+
 ## cfgopts
 # holds allowed configuration options and their descriptions
 cfgopts = {'lang' :'''
@@ -107,8 +110,8 @@ defval = {'lang' : 'en',
           'db_port'  : 3306,
           'db_user'  : 'rpgtools',
           'db_passwd': 'secred',
+          'db_name'  : 'rpgtools',
           'calc_type': 'simple',
-          
           }
 
 ## home
@@ -123,7 +126,7 @@ class chkCfg(object):
     '''
 
 
-    def __init__(self, path = './data/', filename = "default.conf",
+    def __init__(self, path = defaultconfigpath, filename = defaultconfigfile,
                  lang = 'en', exp = '=', comment = '#'):
         '''
         Constructor
@@ -135,9 +138,10 @@ class chkCfg(object):
         \param comment The used comment character; default is '#' for a comment
                        structure like '# this is a comment!'                  
         '''
+        print path + filename
         self.__cfg2dic(path, filename, lang, exp, comment)
 
-    def __cfg2dic(self, path = None, filename = 'default.conf', lang = 'en', \
+    def __cfg2dic(self, path = None, filename = defaultconfigfile, lang = 'en', \
                   exp = '=', comment = '#', logpath = None):
         '''
         This method reads out a config file and stores the data into a 
@@ -183,7 +187,7 @@ class chkCfg(object):
         self.cnfparam = rpgtools.array2dict(self._fcon, self.exp, self.com)
         
         
-    def createDefault(self, path = ".", filename = "default.conf",
+    def createDefault(self, path = defaultconfigpath, filename = defaultconfigfile,
                       logpath = "/tmp", exp = '=', comment = '#'):
         '''
         This method creates a default configuration file for the rpg-tools.
@@ -205,15 +209,16 @@ class chkCfg(object):
 \n\n"""
         for key in cfgopts:
             self._content += cfgopts[key]
-            self._content += key + " = " + defval[key]
+            self._content += key + " = " + str(defval[key])
             
         self._fp = open(self.path + '/' + self.fn, 'w')
         self._fp.write(self._content)
         self._fp.close()
         
-    def _coCfg(self, lang):
+    def _coCfg(self, lang = 'en'):
         """
         This method checks whether all configurational parameter are set.
+        \param lang contains the language that is chosen.
         """
         self.lang = lang
         self._keys_cf = self.cnfparam.keys()
@@ -261,7 +266,7 @@ class chkCfg(object):
         else:
             self.result += errmsg['fine_cfg'][self.lang]
            
-    def saveCnf(self, path = None, filename = 'default.conf', content = None):
+    def saveCnf(self, path = None, filename = defaultconfigfile, content = "Error 40"):
         """
         This method writes config data into a file
         \param path path to the config file
