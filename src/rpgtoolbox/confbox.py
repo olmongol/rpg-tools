@@ -279,7 +279,7 @@ class chkCfg(object):
         self.fn = filename
         self.cont = content
         self.fc = ''
-        
+        print "SaveCnf: content -", content
         if type(content) == type({}):
             
             if content != {}:

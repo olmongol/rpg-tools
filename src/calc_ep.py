@@ -59,7 +59,7 @@ class MainWindow(blankWindow):
             logger.debug('Set storepath to home dir')
         else:
             self.mypath = storepath
-            logger.info('storepath set to %s' % (storepath))
+            logger.info('mainwindow: storepath set to %s' % (storepath))
             
         self.picpath = "./gui/pic/"
         self.lang = lang
@@ -120,9 +120,11 @@ class MainWindow(blankWindow):
         functional structure.
         """
         self.window.destroy()
+        logger.debug("newfile ", self.mypath)
         self.window = inputWin(lang = self.lang,
                                filename = None,
                                storepath = self.mypath)
+        
 
     def __openFile(self):
         """
@@ -391,7 +393,7 @@ class confWindow(blankWindow):
                      'datapath' : self.path,
                      'logpath'  : self.log
                      }
-        logger.debug('lang=%s\ndatapath=%s\nlogpath=%s' % (self.lang, self.path, self.log))
+        logger.debug('SAVE; lang=%s\ndatapath=%s\nlogpath=%s' % (self.lang, self.path, self.log))
         self._cnf.saveCnf(path = self.path,
                           filename = 'rpgtools.conf',
                           content = self.cont)
