@@ -14,8 +14,14 @@ Language support exists for:
 \email marcus@lederzeug.de
 \version 1.0
 '''
-import argparse
+import argparse, locale
 from rpgtoolbox.rpgtools import dice
+
+lang = locale.getdefaultlocale()[0][:2]
+supported = ('de', 'en')
+
+if lang not in supported:
+    lang = 'en'
 
 itemTypes = {'1-40': {'de': 'Runenpapier',
                       'en': 'Rune paper'
@@ -424,25 +430,41 @@ spellLists = {'1-2' : {'Offene Essenz': {'de': 'Fluch',
               
               }
 
+header = {'de' : "Magische Gegenstaende:\n----------------------\n\n",
+          'en' : "Magical Items:\n--------------\n\n"}
 
 
-
-
+helptext = {'number' : {'de' : 'Anzahl der zu erzeugenden Gegenstaende',
+                        'en' : 'Number of items to generate'
+                        },
+            'type' : {'de' : 'bestimmter Typ: \n40 Runenpapier \n65 Trank\n70 Taegl. I\n' + 
+                      '75 Taegl. II\n80 Taegl. III\n85 Taegl. IV\n94 Stab\n98 Rute\n99 Stecken',
+                      'en' : 'specific type: \n40 Rune Paper \n65 Trank \n70 Daily I \n' + 
+                      '75 Daily II \n80 Daily III \n85 Daily IV \n 94 Wand \n98 Rod \n99 Pole'
+                      },
+            'out' : {'de' : "Name der Ausgabedatei",
+                     'en' : 'Name of the output file'},
+            'language' : {'de' : "zu verwendende Sprache",
+                          'en' : 'used output language'},
+            'finished' : {'de' : 'Datei erstellt: ',
+                          'en' : 'Created file: '
+                          }
+            }
 parser = argparse.ArgumentParser(description = "Magical Items Creator")
 parser.add_argument('-n', '--number', action = 'store', type = int, default = 1,
-                    help = 'Anzahl der zu erzeugenden Gegenstaende')
+                    help = helptext['number'][lang])
 parser.add_argument('-t', '--type', type = int, default = 0,
-                    help = 'bestimmter Typ: \n40 Runenpapier \n65 Trank\n70 Taegl. I\n' + 
-                    '75 Taegl. II\n80 Taegl. III\n85 Taegl. IV\n94 Stab\n98 Rute\n99 Stecken')
-parser.add_argument('-o', '--out', default = "magicItems.txt", help = "Name der Ausgabedatei")
-parser.add_argument('-l', '--language', default = "de", help = "zu verwendende Sprache")
+                    help = helptext['type'][lang])
+parser.add_argument('-o', '--out', default = "magicItems.txt", help = helptext['out'][lang])
+parser.add_argument('-l', '--language', default = "de", help = helptext['language'][lang])
 
 args = parser.parse_args()
-n = args.number
+n = args.number + 1
 t = args.type
 fn = args.out
 lang = args.language
-fcontent = "Magische Gegenstaende:\n----------------------\n\n"
+
+fcontent = header[lang]
 
 for i in range(1, n):
     
@@ -533,5 +555,5 @@ fp = open(fn, "w")
 fp.write(fcontent)
 fp.close()
 
-print "Datei %s erstellt!" % (fn)              
+print helptext['finished'][lang] + fn              
     
