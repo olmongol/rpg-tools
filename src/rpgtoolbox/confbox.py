@@ -2,7 +2,7 @@
 \package rpgtoolbox
 \file confbox.py
 
-A toolbox of things to handle config files. 
+A toolbox of things to handle config files.
 
 
 \author Marcus Schwamberger
@@ -22,7 +22,7 @@ defaultconfigfile = "rpg-tools.cfg"
 # holds allowed configuration options and their descriptions
 cfgopts = {'lang' :'''
 #-------------------------------------------------------------------------------
-# The parameter lang describes the used language. 
+# The parameter lang describes the used language.
 # Supported are: (de, en)
 #-------------------------------------------------------------------------------
 ''',
@@ -36,58 +36,58 @@ cfgopts = {'lang' :'''
 # path where the log files shall be stored
 #-------------------------------------------------------------------------------
 ''',
-            'logcount' : '''  
+            'logcount' : '''
 #-------------------------------------------------------------------------------
 # Number of maximum log files stored. Default: 3
 #-------------------------------------------------------------------------------
 ''',
-            'logfile' : '''  
+            'logfile' : '''
 #-------------------------------------------------------------------------------
 # Name of the log file. Default: rpgtools.log
 #-------------------------------------------------------------------------------
 ''',
-            'logsize' : '''  
+            'logsize' : '''
 #-------------------------------------------------------------------------------
 # Maximum size of a log file. Default: 1 M
 #-------------------------------------------------------------------------------
 ''',
-            'loglevel' : '''  
+            'loglevel' : '''
 #-------------------------------------------------------------------------------
 # Loglevel. Default: error
 # Available: debug, info, warning, error, critical
 #-------------------------------------------------------------------------------
 ''',
-            'db_type' : '''  
+            'db_type' : '''
 #-------------------------------------------------------------------------------
-# Database type: CSV, MySQL, SQLLite  
+# Database type: CSV, MySQL, SQLLite
 # Actually only CSV is supported
 #-------------------------------------------------------------------------------
 ''',
-            'db_host' : '''  
+            'db_host' : '''
 #-------------------------------------------------------------------------------
 # Address of database host. Default: localhost
 # The use of databases is actually not supported
 #-------------------------------------------------------------------------------
 ''',
-            'db_name' : '''  
+            'db_name' : '''
 #-------------------------------------------------------------------------------
 # Name of the used database. Default: rpgtools
 # The use of databases is actually not supported
 #-------------------------------------------------------------------------------
 ''',
-            'db_port' : '''  
+            'db_port' : '''
 #-------------------------------------------------------------------------------
 # Database port. Default: 3306 (MySQL
 # The use of databases is actually not supported
 #-------------------------------------------------------------------------------
 ''',
-            'db_user' : '''  
+            'db_user' : '''
 #-------------------------------------------------------------------------------
 # Database user. Default rpgtools
 # The use of databases is actually not supported
 #-------------------------------------------------------------------------------
 ''',
-            'db_passwd' : '''  
+            'db_passwd' : '''
 #-------------------------------------------------------------------------------
 # Password of database user. Default: secred
 # The use of databases is actually not supported
@@ -133,28 +133,28 @@ class chkCfg(object):
         \param path Path to the config file
         \param filename Name of the config file
         \param lang used language for messages
-        \param exp Expression used in the config file. Default is '=' for 
-                   expressions like \e('<cnfparam> = <value>') 
+        \param exp Expression used in the config file. Default is '=' for
+                   expressions like \e('<cnfparam> = <value>')
         \param comment The used comment character; default is '#' for a comment
-                       structure like '# this is a comment!'                  
+                       structure like '# this is a comment!'
         '''
-        print path + filename
+        print "chkCfg: %s/%s"%(path,filename)
         self.__cfg2dic(path, filename, lang, exp, comment)
 
-    def __cfg2dic(self, path = None, filename = defaultconfigfile, lang = 'en', \
+    def __cfg2dic(self, path = defaultconfigpath, filename = defaultconfigfile, lang = 'en', \
                   exp = '=', comment = '#', logpath = None):
         '''
-        This method reads out a config file and stores the data into a 
+        This method reads out a config file and stores the data into a
         dictionary named \e cnfparam.
         \param path Path to the config file
         \param logpath path for the log files
         \param filename Name of the config file
         \param lang used language for messages
-        \param exp Expression used in the config file. Default is '=' for 
+        \param exp Expression used in the config file. Default is '=' for
                    expressions like <cnfparam> = <value>
         \param comment The used comment character; default is '#' for a comment
-                       structure like '# this is a comment!' 
-        
+                       structure like '# this is a comment!'
+
         '''
         self.lang = lang
         self.logpath = logpath
@@ -163,12 +163,12 @@ class chkCfg(object):
         self.exp = exp
         self.com = comment
         self._fcon = []
-        
+
         if path == None:
-            self.__exists = rpgtools.checkFiles(None, [self.fn])
-            
+            self.__exists = rpgtools.checkFiles('./', [self.fn])
+
             if self.__exists[self.fn]:
-                self._fcon = rpgtools.readFile(None, self.fn, 'r')
+                self._fcon = rpgtools.readFile('./', self.fn, 'r')
 #                logger.debug('confbox: read config file')
             else:
 #                raise IOError(errmsg['no_file'][self.lang])
@@ -183,15 +183,15 @@ class chkCfg(object):
             else:
 #                raise IOError(errmsg['no_file'][self.lang])
                 self.createDefault()
-                
+
         self.cnfparam = rpgtools.array2dict(self._fcon, self.exp, self.com)
-        
-        
+        print "chkCfg: self.cnfparam ",self.cnfparam.keys()
+
     def createDefault(self, path = defaultconfigpath, filename = defaultconfigfile,
                       logpath = "/tmp", exp = '=', comment = '#'):
         '''
         This method creates a default configuration file for the rpg-tools.
-        
+
         \param path Path to the config file
         \param filname name of the config file
         \param exp expression for evaluate parameters
@@ -210,11 +210,11 @@ class chkCfg(object):
         for key in cfgopts:
             self._content += cfgopts[key]
             self._content += key + " = " + str(defval[key])
-            
+
         self._fp = open(self.path + '/' + self.fn, 'w')
         self._fp.write(self._content)
         self._fp.close()
-        
+
     def _coCfg(self, lang = 'en'):
         """
         This method checks whether all configurational parameter are set.
@@ -223,56 +223,56 @@ class chkCfg(object):
         self.lang = lang
         self._keys_cf = self.cnfparam.keys()
         self._keys_op = cfgopts.keys()
-        
+
         self._allowed = []
         self._not_allowed = []
         self._not_set = []
         self.result = ''
-        
+
         if self._keys_cf != self._keys_op:
-        
+
             for key in self._keys_op:
 
                 if key in self._keys_cf:
                     self._allowed.append(key)
                 else:
                     self._not_set.append(key)
-            
+
             for key in self._keys_cf:
-                
+
                 if key not in self._keys_op:
                     self._not_allowed.append(key)
-            
+
             if self._not_allowed != []:
                 self.result += errmsg['wr_cfg'][self.lang] + '\n+\n'
                 i = 1
-                
+
                 for key in self._not_allowed:
                     self.result += "%3d. %s" % (i, key) + '\n'
                     i += 1
-                
+
                 self.result += '\n\n'
-                
+
             if self._not_set != []:
                 self.result += errmsg['mis_cfg'][self.lang] + '\n\n'
                 i = 1
-                
+
                 for key in self._not_set:
                     self.result += "%3d. %s" % (i, key) + '\n'
                     i += 1
-                    
+
                 self.result += '\n\n'
-                
+
         else:
             self.result += errmsg['fine_cfg'][self.lang]
-           
-    def saveCnf(self, path = None, filename = defaultconfigfile, content = "Error 40"):
+
+    def saveCnf(self, path = defaultconfigpath, filename = defaultconfigfile, content = "Error 40"):
         """
         This method writes config data into a file
         \param path path to the config file
         \param filename name of the config file
         \param content holds the content which shall be written to the config
-                       file. The used type for this should be a dictionary of 
+                       file. The used type for this should be a dictionary of
                        the following structure: {'config_param' : value}
         """
         self.path = path
@@ -281,16 +281,16 @@ class chkCfg(object):
         self.fc = ''
         print "SaveCnf: content -", content
         if type(content) == type({}):
-            
+
             if content != {}:
-            
+
                 if self.path == None:
                     self.path = "."
-                
+
                 for param in content:
                     self.fc += param + " = " + content[param] + '\n'
-                    
+
                 self.fp = open(self.path + '/' + self.fn, 'w')
                 self.fp.write(self.fc)
                 self.fp.close()
-                    
+
