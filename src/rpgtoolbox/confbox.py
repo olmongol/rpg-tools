@@ -169,23 +169,24 @@ class chkCfg(object):
 
             if self.__exists[self.fn]:
                 self._fcon = rpgtools.readFile('./', self.fn, 'r')
+                self.cnfparam = rpgtools.array2dict(self._fcon, self.exp, self.com)
 #                logger.debug('confbox: read config file')
             else:
 #                raise IOError(errmsg['no_file'][self.lang])
                 self.createDefault()
+                self.cnfparam = defval
         else:
             self.__exists = rpgtools.checkFiles(self.path, [self.fn])
 
             if self.__exists[self.fn]:
 
                 self._fcon = rpgtools.readFile(self.path, self.fn, 'r')
-
+                self.cnfparam = rpgtools.array2dict(self._fcon, self.exp, self.com)
             else:
 #                raise IOError(errmsg['no_file'][self.lang])
                 self.createDefault()
+                self.cnfparam = defval
 
-        self.cnfparam = rpgtools.array2dict(self._fcon, self.exp, self.com)
-        print "chkCfg: self.cnfparam ",self.cnfparam.keys()
 
     def createDefault(self, path = defaultconfigpath, filename = defaultconfigfile,
                       logpath = "/tmp", exp = '=', comment = '#'):
@@ -214,6 +215,7 @@ class chkCfg(object):
         self._fp = open(self.path + '/' + self.fn, 'w')
         self._fp.write(self._content)
         self._fp.close()
+
 
     def _coCfg(self, lang = 'en'):
         """
