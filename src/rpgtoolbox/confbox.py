@@ -138,7 +138,6 @@ class chkCfg(object):
         \param comment The used comment character; default is '#' for a comment
                        structure like '# this is a comment!'
         '''
-        print "chkCfg: %s/%s"%(path,filename)
         self.__cfg2dic(path, filename, lang, exp, comment)
 
     def __cfg2dic(self, path = defaultconfigpath, filename = defaultconfigfile, lang = 'en', \
@@ -281,7 +280,7 @@ class chkCfg(object):
         self.fn = filename
         self.cont = content
         self.fc = ''
-        print "SaveCnf: content -", content
+
         if type(content) == type({}):
 
             if content != {}:

@@ -57,17 +57,15 @@ class MainWindow(blankWindow):
 
             self.mypath = os.path.expanduser('~')
             logger.debug('Set storepath to %s' % (storepath))
+            
         else:
             self.mypath = storepath
-            logger.info('mainwindow: storepath set to %s' % (storepath))
+            logger.debug('mainwindow: storepath set to %s' % (storepath))
 
         self.picpath = "./gui/pic/"
-#         self.__mycnf =chkCfg()
         self.lang = lang
-#         self.lang = self.__mycnf.cnfparam['lang']
-#         print "self.lang:",self.lang
-#
         self.myfile = "MyRPG.exp"
+        
         blankWindow.__init__(self, self.lang)
         self.window.title(title)
         Label(self.window, width = 60).pack()
@@ -124,7 +122,7 @@ class MainWindow(blankWindow):
         functional structure.
         """
         self.window.destroy()
-        logger.debug("newfile ", self.mypath)
+        logger.debug("newfile: %s " % (self.mypath))
         self.window = inputWin(lang = self.lang,
                                filename = None,
                                storepath = self.mypath)
@@ -297,8 +295,6 @@ class confWindow(blankWindow):
         self.sto_path = StringVar()
         self.log_path = StringVar()
         self._cnf = chkCfg(lang = self.lang)
-#         logger.debug("buildWin: ", self._cnf.cnfparam['datapath'])
-        print self._cnf.cnfparam.keys()
 
         if 'path' in self._cnf.cnfparam.keys():
             self.sto_path.set(self._cnf.cnfparam['datapath'])
@@ -434,9 +430,9 @@ class inputWin(blankWindow):
         \param lang This parameter holds the language chosen for the
                     menus and messages. Default value is 'en'
         \param csvcontent a dictionary holding the information of CSV
-        \param filename this holds the filename and path of a read XML
+        \param filename this holds the filename and path of a read data
                         file containing the functional structure.
-        \param storepath the path where the XML files shall be stored
+        \param storepath the path where the data files shall be stored
                          in.
         """
         self.lang = lang
@@ -460,9 +456,68 @@ class inputWin(blankWindow):
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
                                   command = self.__closewin)
+       
+        self.edtmenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['menu_edit'][self.lang],
+                                  menu = self.filemenu) 
+        self.edtmenu.add_cascade(label = submenu['edit'][self.lang]['ed_char'],
+                                 command = self.__editchar)
+        self.edtmenu.add_separator()
+        self.edtmenu.add_cascade(label = submenu['edit'][self.lang]['ed_fight'],
+                                 command = self.__epfight)
+        self.edtmenu.add_cascade(label = submenu['edit'][self.lang]['ed_other'],
+                                 command = self.__epother)
+        self.edtmenu.add_cascade(label = submenu['edit'][self.lang]['ed_indiv'],
+                                 command = self.__epindiv)
+        self.edtmenu.add_cascade(label = submenu['edit'][self.lang]['ed_calc'],
+                                 command = self.__epcalc)
+        self.edtmenu.add_separator()
+        self.edtmenu.add_cascade(label = submenu['edit'][self.lang]['ed_sim'])
+        
         self._addHelpMenu()
         self.createWinStruc()
 
+    def __editchar(self):
+        '''
+        Method to create/edit a character for the EP sheet.
+        \todo editchar is to be implemented
+        '''
+        self.notdoneyet()
+        
+    def __epfight(self):
+        '''
+        Method to calculate EPs from a fight (hits and criticals)
+        \todo epfight has to be implemented
+        '''    
+        self.notdoneyet()
+        
+    def __epother(self):
+        '''
+        Method to calculate EPs from Spells, maneuvers, travel.
+        \todo epother hast tob be implemented
+        '''
+        self.notdoneyet()
+        
+    def __epindiv(self):
+        '''
+        Method for adding invidiual EPs 
+        \todo epindiv has to be implemented
+        '''
+        self.notdoneyet()
+        
+    def __epcalc(self):
+        '''
+        Method to finalize EP calculation for a single gaming date
+        \todo epcalc has to be implemented
+        '''
+    
+    def __fightsim(self):
+        '''
+        Method for simulating a fight and calculate potential EPs
+        '''
+        self.notdoneyet()
+        
+        
     def notdoneyet(self):
         """
         Most important dummy method!
@@ -511,13 +566,13 @@ class epSheet(object):
         \param charList Should be a dictionary with the structure: player -->
                         Character --> EP categories
         '''
-        self.charList = charList
+        self.__charList = charList
         '''
         \variable self.__epcat
         A dictionary holding all EP categories. If a single number is shown it
         means the number of the category thing.
         If there is a tuple it means: first number is the count and the second
-        the level.
+        the level of enemy.
         '''
         self.__epcat = {'gained hitpoints' : 0,
                         'gained criticals' : {'T' : 0,
@@ -535,25 +590,40 @@ class epSheet(object):
                                        },
                         'killed' : [[0, 0]],
                         'spells' : 0,
-                        'maneuver' : {} ,
+                        'maneuver' : {'routine' : 0,
+                                      'v_easy'  : 0,
+                                      'easy'    : 0,
+                                      'medium'  : 0,
+                                      'heavy'   : 0,
+                                      'v_heavy' : 0,
+                                      'extreme' : 0,
+                                      'folly'   : 0,
+                                      'absurd'  : 0
+                                      } ,
                         'traveled km' : 0,
                         'individual EP' : 0
                         }
 
-        for lvl in maneuvres.keys():
-            self.__epcat['maneuver'][lvl] = 0
+#        for lvl in maneuvres.keys():
+#            self.__epcat['maneuver'][lvl] = 0
 
-        logger.debug('epSheet: self__epcat set')
+#        logger.debug('epSheet: self__epcat set')
 
-
-
+        self.party = {}
+        
+        for sc in self.__charList:
+            self.party[sc] = self.__epcat
+            
+        logger.debug('epSheet: self.party initialzed')
+        
+        
     def notdoneyet(self):
         '''
         Most important dummy function.
         '''
         print "Sorry this feature is not done yet!! :("
 
-logger = log.createLogger('rpg', 'debug', '1 MB', 1, './')
-mycnf =chkCfg()
-print "mycnf: ",mycnf.cnfparam.keys()
-mywindow = MainWindow(lang = mycnf.cnfparam['lang'], title = "EP Calculator", storepath = mycnf.cnfparam['datapath'])
+if __name__ == '__main__':
+    logger = log.createLogger('rpg', 'debug', '1 MB', 1, './')
+    mycnf = chkCfg()
+    mywindow = MainWindow(lang = mycnf.cnfparam['lang'], title = "EP Calculator", storepath = mycnf.cnfparam['datapath'])
