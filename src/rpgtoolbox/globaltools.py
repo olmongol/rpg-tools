@@ -12,6 +12,7 @@ This module holds some nice small helper functions like I/O things.
 \date (c) 2012-2016
 \version 0.5.4 alpha
 \email marcus@lederzeug.de
+\todo checkout whether all functions are really needed for this project.
 '''
 
 __msg__ = {'ERR_NO_DATA'     : "ERROR: no data to compute :(",
@@ -24,8 +25,8 @@ __msg__ = {'ERR_NO_DATA'     : "ERROR: no data to compute :(",
 
 import os
 import os.path
-
-
+import logbox as log
+logger = log.createLogger('global', 'warning', '1 MB', 1, './' , 'globaltools.log')
 
 def readFile(path = './', file_name = None, mode = 'r'):
     '''
@@ -40,10 +41,12 @@ def readFile(path = './', file_name = None, mode = 'r'):
     '''
 
     if mode != 'r' and mode != 'rb':
+        logger.warning('readFile: %s' % (__msg__['ERR_WRONG_MODE']))
         return(__msg__['ERR_WRONG_MODE'])
 
     if file_name == None:
         print(__msg__['ERR_NO_FILENAME'])
+        logger.error('readFile: %s' % (__msg__['ERR_NO_FILENAME']))
         return(__msg__['ERR_NO_FILENAME'])
 
     if os.name == 'posix' or os.name == 'mac':
@@ -56,11 +59,14 @@ def readFile(path = './', file_name = None, mode = 'r'):
     fp = open(path + file_name, mode)
     content = fp.readlines()
     fp.close()
+    logger.debug('readFile %s' % (path + file_name))
     
     for i in range(len(content)):
         content[i] = content[i].strip('\n')
     
+    logger.debug('readFile: cleaned file content')
     return content
+
 
 def writeFile(path = './', file_name = 'output', data = None, mode = 'w'):
     '''
@@ -77,31 +83,40 @@ def writeFile(path = './', file_name = 'output', data = None, mode = 'w'):
     '''
 
     if mode != 'w' and mode != 'wb':
+        logger.warning('writeFile: %s' % (__msg__['ERR_WRONG_MODE']))
         return __msg__['ERR_WRONG_MODE']
+    
     if data == None:
         print __msg__['ERR_NO_DATA']
+        logger.error('writeFile: %s' % (__msg__['ERR_NO_DATA']))
         return __msg__['ERR_NO_DATA']
 
     if type(data) == type([]):
         content = ""
+    
         for key in data:
             content = content + str(key) + '\n'
+    
     elif type(data) == type(""):
         content = data
+    
     elif type(data) == type(1) or type(data) == type(1.1):
         content = str(data)
+    
     else:
+        logger.error('writeFile: %s' % (__msg__['ERR_WRONG_TYPE']))
         print __msg__['ERR_WRONG_TYPE']
         return __msg__['ERR_WRONG_TYPE']
     
     if os.name == 'posix' or os.name == 'mac':
+    
         if path[-1] != '/' and file_name[1:] != '/':
             path = path + '\\'
 
     f = open(path + file_name, mode)
     f.write(content)
     f.close()
-
+    logger.info('writeFile: %s' % (__msg__['OK']))
     return __msg__['OK']
 
 def checkFiles(path = './', file_list = []):
@@ -256,43 +271,43 @@ def countElem (elem = '', alist = []):
     return counter
 
 
-def findLoops(struc = {}, elem = '', way = [], result = []):
-    '''
-    This function looks for loops in a tree structure. The given dictionary
-    must have the following structure dic[struc_item]['subelem']. It runs
-    recusively through the structure tree.
-    Further it will change the global variable \e loops.
-    \param struc tree in a dictionary which shall be searched for loop 
-                 structures.
-    \param elem element of the structure tree where to start the search for
-                loops.
-    \param way  The path which were actually run through in the tree.
-    \param result contains loops as a list of tuples.
-    \bug this function finds sometimes loops where no loops are... it 
-         seems to concern multiple links to leaves...
-    '''
-    myway = way
-    mytree = struc
-    
-    for key in mytree[elem]['subelem']:
-
-        if key == []:
-            pass
-        
-        else:
-            
-            if countElem(key, myway) < 1:
-                myway.append(key)
-                findLoops(mytree, key, myway, result)
-                myway.pop()
-                
-            else:
-                
-                if key in mytree[myway[-1]]['subelem']:
-                    result.append((list(myway), key))
-                
-                break
-    return result
+#def findLoops(struc = {}, elem = '', way = [], result = []):
+#    '''
+#    This function looks for loops in a tree structure. The given dictionary
+#    must have the following structure dic[struc_item]['subelem']. It runs
+#    recusively through the structure tree.
+#    Further it will change the global variable \e loops.
+#    \param struc tree in a dictionary which shall be searched for loop 
+#                 structures.
+#    \param elem element of the structure tree where to start the search for
+#                loops.
+#    \param way  The path which were actually run through in the tree.
+#    \param result contains loops as a list of tuples.
+#    \bug this function finds sometimes loops where no loops are... it 
+#         seems to concern multiple links to leaves...
+#    '''
+#    myway = way
+#    mytree = struc
+#    
+#    for key in mytree[elem]['subelem']:
+#
+#        if key == []:
+#            pass
+#        
+#        else:
+#            
+#            if countElem(key, myway) < 1:
+#                myway.append(key)
+#                findLoops(mytree, key, myway, result)
+#                myway.pop()
+#                
+#            else:
+#                
+#                if key in mytree[myway[-1]]['subelem']:
+#                    result.append((list(myway), key))
+#                
+#                break
+#    return result
 
 def asciLoops(way = [], element = ""):
     '''

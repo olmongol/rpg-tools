@@ -51,6 +51,21 @@ maneuvres = {'routine' : {'de' : 'Routine',
                           }
              
              }
+param_char = {'Player' : {'de' : 'Spieler',
+                          'en' : 'player',
+                          },
+              'char' : {'de' : 'Charaktername',
+                        'en' : 'Character',
+                        },
+              'exp' : {'de' : 'Erfahrungspunkte',
+                       'en' : 'Experience Points',
+                       },
+              'lvl' : {'de' : 'Stufe',
+                       'en' : 'Level'
+                       }
+              }
+
+
 
 def getEPCrit(level = 0, crit = "A", charhit = False):
     '''

@@ -10,10 +10,9 @@ This module consists of functions to handle a logging.
 \date (C) 2012-2016
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
-\version 0.4.1 alpha
+\version 0.4
 '''
 
-#import logging
 import logging.handlers
 
 """Debugging level"""
@@ -27,6 +26,8 @@ LEVEL = {'debug'    : logging.DEBUG,
 KB = 1024
 """size of MB"""
 MB = KB ** 2
+"""size of GB"""
+GB = MB ** 2
 
 def createLogger(logger = 'rpg-Logger', loglvl = 'debug', logsize = '2 MB',
                  count = 5, logpath = '/var/log/', logfile = 'rpg-tools.log'):
@@ -39,8 +40,8 @@ def createLogger(logger = 'rpg-Logger', loglvl = 'debug', logsize = '2 MB',
     @param logger  Name of logger object; default 'ADaManT-Logger'
     @param loglvl  Logging level, may be (debug, info, warning, error, critical);
                    default: debug
-    @param logsize default: 2 MB, may be KB or MB. The max. size is 100 MB. If 
-                   set on a higher value the log size will be set to 100 MB 
+    @param logsize default: 2 MB, may be KB, MB or GB. The max. size is 10 GB. If 
+                   set on a higher value the log size will be set to 10 GB 
                    automatically.
     @param count   number of log files to be stored
     @param logpath path to log files; default is  '/var/log/'
@@ -61,11 +62,13 @@ def createLogger(logger = 'rpg-Logger', loglvl = 'debug', logsize = '2 MB',
         logsize[0] = int(logsize[0]) * MB
     elif 'KB' in logsize[1].upper():
         logsize[0] = int(logsize[0]) * KB
+    elif 'GB' in logsize[1].upper():
+        logsize[0] = int(logsize[0]) * GB
     else:
         logsize[0] = 100 * KB
     
-    if logsize[0] > 100 * MB:
-        logsize[0] = 100 * MB
+    if logsize[0] > 10 * GB:
+        logsize[0] = 10 * GB
     
     handler = logging.handlers.RotatingFileHandler(logfile,
                                                    maxBytes = logsize[0],
