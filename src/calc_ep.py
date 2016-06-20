@@ -482,6 +482,7 @@ class inputWin(blankWindow):
         Method to create/edit a character for the EP sheet.
         \todo editchar is to be implemented
         '''
+        
         self.notdoneyet()
         
     def __epfight(self):

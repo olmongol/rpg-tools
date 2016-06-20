@@ -2,10 +2,10 @@
 '''
 \file window.py
 \package gui.window
-\brief 
+\brief Some classes for GUI
 
 
-\date (C) 2015
+\date (C) 2015 - 2016
 \author Marcus Schwambeger
 \email marcus@lederzeug.de
 
@@ -25,9 +25,9 @@ from gui.winhelper import AutoScrollbar
 from gui.winhelper import InfoCanvas
 
 __author__ = "Marcus Schwamberger"
-__copyright__ = "(C) 2015 " + __author__
+__copyright__ = "(C) 2015-2016 " + __author__
 __email__ = "marcus@lederzeug.de"
-__version__ = "0.5.5 alpha"
+__version__ = "0.6 alpha"
 __me__ = "A RPG tool package for Python 2.x"
 
 logger = log.createLogger('window', 'debug', '1 MB', 1, './')
