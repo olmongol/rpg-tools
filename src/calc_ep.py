@@ -57,7 +57,7 @@ class MainWindow(blankWindow):
 
             self.mypath = os.path.expanduser('~')
             logger.debug('Set storepath to %s' % (storepath))
-            
+
         else:
             self.mypath = storepath
             logger.debug('mainwindow: storepath set to %s' % (storepath))
@@ -65,7 +65,7 @@ class MainWindow(blankWindow):
         self.picpath = "./gui/pic/"
         self.lang = lang
         self.myfile = "MyRPG.exp"
-        
+
         blankWindow.__init__(self, self.lang)
         self.window.title(title)
         Label(self.window, width = 60).pack()
@@ -246,7 +246,7 @@ class MainWindow(blankWindow):
 
     def helpHandbook(self):
         """
-        This method will show the ADaManT Handbook
+        This method will show the rpg-tools Handbook
         \todo this needs to be implemented
         """
         self.notdoneyet()
@@ -268,7 +268,7 @@ class MainWindow(blankWindow):
 class confWindow(blankWindow):
     """
     This class builds a window for selecting and saving options of
-    ADaManT. For now it is just choosing the language for menus and
+    rpg-tools. For now it is just choosing the language for menus and
     dialogues.
     \param lang Laguage which shall be used in messages and menus.
     """
@@ -456,10 +456,10 @@ class inputWin(blankWindow):
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
                                   command = self.__closewin)
-       
+
         self.edtmenu = Menu(master = self.menu)
         self.menu.add_cascade(label = txtmenu['menu_edit'][self.lang],
-                                  menu = self.filemenu) 
+                                  menu = self.filemenu)
         self.edtmenu.add_cascade(label = submenu['edit'][self.lang]['ed_char'],
                                  command = self.__editchar)
         self.edtmenu.add_separator()
@@ -473,7 +473,7 @@ class inputWin(blankWindow):
                                  command = self.__epcalc)
         self.edtmenu.add_separator()
         self.edtmenu.add_cascade(label = submenu['edit'][self.lang]['ed_sim'])
-        
+
         self._addHelpMenu()
         self.createWinStruc()
 
@@ -484,41 +484,41 @@ class inputWin(blankWindow):
         '''
         
         self.notdoneyet()
-        
+
     def __epfight(self):
         '''
         Method to calculate EPs from a fight (hits and criticals)
         \todo epfight has to be implemented
-        '''    
+        '''
         self.notdoneyet()
-        
+
     def __epother(self):
         '''
         Method to calculate EPs from Spells, maneuvers, travel.
         \todo epother hast tob be implemented
         '''
         self.notdoneyet()
-        
+
     def __epindiv(self):
         '''
-        Method for adding invidiual EPs 
+        Method for adding invidiual EPs
         \todo epindiv has to be implemented
         '''
         self.notdoneyet()
-        
+
     def __epcalc(self):
         '''
         Method to finalize EP calculation for a single gaming date
         \todo epcalc has to be implemented
         '''
-    
+
     def __fightsim(self):
         '''
         Method for simulating a fight and calculate potential EPs
         '''
         self.notdoneyet()
-        
-        
+
+
     def notdoneyet(self):
         """
         Most important dummy method!
@@ -611,13 +611,13 @@ class epSheet(object):
 #        logger.debug('epSheet: self__epcat set')
 
         self.party = {}
-        
+
         for sc in self.__charList:
             self.party[sc] = self.__epcat
-            
+
         logger.debug('epSheet: self.party initialzed')
-        
-        
+
+
     def notdoneyet(self):
         '''
         Most important dummy function.
