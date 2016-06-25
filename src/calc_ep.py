@@ -557,65 +557,18 @@ class inputWin(blankWindow):
         self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
                                   command = self._helpAbout)
 
+
 class epSheet(object):
     '''
     Class for calculating EP sheets
     '''
-    def __init__(self, charList = None):
-        '''
-        Class constructor.
-        \param charList Should be a dictionary with the structure: player -->
-                        Character --> EP categories
-        '''
-        self.__charList = charList
-        '''
-        \variable self.__epcat
-        A dictionary holding all EP categories. If a single number is shown it
-        means the number of the category thing.
-        If there is a tuple it means: first number is the count and the second
-        the level of enemy.
-        '''
-        self.__epcat = {'gained hitpoints' : 0,
-                        'gained criticals' : {'T' : 0,
-                                              'A' : 0,
-                                              'B' : 0,
-                                              'C' : 0,
-                                              'D' : 0,
-                                              'E' : 0
-                                              },
-                        'criticals' : {'A' : [0, 0],
-                                       'B' : [0, 0],
-                                       'C' : [0, 0],
-                                       'D' : [0, 0],
-                                       'E' : [0, 0]
-                                       },
-                        'killed' : [[0, 0]],
-                        'spells' : 0,
-                        'maneuver' : {'routine' : 0,
-                                      'v_easy'  : 0,
-                                      'easy'    : 0,
-                                      'medium'  : 0,
-                                      'heavy'   : 0,
-                                      'v_heavy' : 0,
-                                      'extreme' : 0,
-                                      'folly'   : 0,
-                                      'absurd'  : 0
-                                      } ,
-                        'traveled km' : 0,
-                        'individual EP' : 0
-                        }
-
-#        for lvl in maneuvres.keys():
-#            self.__epcat['maneuver'][lvl] = 0
-
-#        logger.debug('epSheet: self__epcat set')
-
+    def __init__(self, charList = ['Digger the Dwarf']):
         self.party = {}
 
-        for sc in self.__charList:
-            self.party[sc] = self.__epcat
+        for pchar in charList:
+            self.party[pchar] = epchr
 
-        logger.debug('epSheet: self.party initialzed')
+        logger.debug('epSheet: self.party initialized')
 
 
     def notdoneyet(self):
@@ -623,6 +576,8 @@ class epSheet(object):
         Most important dummy function.
         '''
         print "Sorry this feature is not done yet!! :("
+
+
 
 if __name__ == '__main__':
     logger = log.createLogger('rpg', 'debug', '1 MB', 1, './')
