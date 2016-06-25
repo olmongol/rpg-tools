@@ -62,9 +62,42 @@ param_char = {'Player' : {'de' : 'Spieler',
                        },
               'lvl' : {'de' : 'Stufe',
                        'en' : 'Level'
-                       }
+                       },
+              'party' : {'de' : 'Charaktergruppe',
+                         'en' : 'PC group'
+                         }
               }
-
+##\var epchr
+# A dictionary holding the structure for tacking track of things worth EPs
+epchr = {'gained hitpoints' : 0,
+        'gained criticals' : {'T' : 0,
+                              'A' : 0,
+                              'B' : 0,
+                              'C' : 0,
+                              'D' : 0,
+                              'E' : 0
+                              },
+        'criticals' : {'A' : [0, 0],
+                       'B' : [0, 0],
+                       'C' : [0, 0],
+                       'D' : [0, 0],
+                       'E' : [0, 0]
+                       },
+        'killed' : [[0, 0]],
+        'spells' : 0,
+        'maneuver' : {'routine' : 0,
+                      'v_easy'  : 0,
+                      'easy'    : 0,
+                      'medium'  : 0,
+                      'heavy'   : 0,
+                      'v_heavy' : 0,
+                      'extreme' : 0,
+                      'folly'   : 0,
+                      'absurd'  : 0
+                      } ,
+        'traveled km' : 0,
+        'individual EP' : 0
+        }
 
 
 def getEPCrit(level = 0, crit = "A", charhit = False):
