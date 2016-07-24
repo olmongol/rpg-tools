@@ -15,15 +15,17 @@ import sys
 from Tkinter import *
 from ImageTk import *
 from tkFileDialog import *
+from ttk import *
 from rpgtoolbox.lang import *
 from rpgtoolbox.globaltools import *
-#from rpgtoolbox.logbox import *
 from rpgtoolbox import logbox as log
 from rpgtoolbox.errbox import *
 from rpgtoolbox.confbox import *
+from rpgtoolbox.rpgtools import getLvl
 from gui.winhelper import AutoScrollbar
 from gui.winhelper import InfoCanvas
 from gui.window import *
+from createMagicItems import lang
 
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-2016 " + __author__
@@ -179,7 +181,11 @@ class MainWindow(blankWindow):
         '''
         Generating a window for editing Characters/Character lists/Parties
         '''
-        self.notdoneyet()
+        print "MainWindow edcharWin"
+        
+        self.window.destroy()
+        self.window = edtchrWin(self.lang)
+#        self.notdoneyet()
 
     def __edfightWin(self):
         '''
@@ -198,6 +204,8 @@ class MainWindow(blankWindow):
         Calculating and distributing pool for individual EPs.
         '''
         self.notdoneyet()
+#        self.window.destroy()
+#        self.window = inputWin(self.lang)
 
     def __edcalcWin(self):
         '''
@@ -474,14 +482,14 @@ class inputWin(blankWindow):
         self.edtmenu.add_cascade(label = submenu['edit'][self.lang]['ed_sim'])
 
         self._addHelpMenu()
-        self.createWinStruc()
+#        self.create_imageteWinStruc()
 
     def __editchar(self):
         '''
         Method to create/edit a character for the EP sheet.
         \todo editchar is to be implemented
         '''
-        
+        print "input win -->  editchar"
         self.notdoneyet()
 
     def __epfight(self):
@@ -533,6 +541,229 @@ class inputWin(blankWindow):
         """
         self.window.destroy()
         self.window = MainWindow(self.lang, self.mypath)
+
+    def _addHelpMenu(self):
+        """
+        This method adds additional functions to the help menu
+        """
+        self.helpmenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['help'][self.lang],
+                              menu = self.helpmenu)
+        self._templist = {'not done': self.notdoneyet()
+                         }
+        for key in s_elem_def:
+            self.com = self._templist[key]
+            self.helpmenu.add_command(label = key,
+                                      command = self.com)
+        del(self._templist)
+        del(key)
+
+        self.helpmenu.add_separator()
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['page'],
+                                  command = self._showPage)
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
+                                  command = self._helpAbout)
+
+class edtchrWin(blankWindow):
+    '''
+    Window class to generate/edit player character values.    
+    '''
+    def __init__(self, lang = 'en', storepath = './data'):
+        '''
+        \param lang Choosen display language (default en)
+        \param storepath Path to store data (default: ./data)
+        '''
+        
+        self.lang = lang
+        self.spath = storepath
+        
+        blankWindow.__init__(self, lang = self.lang)
+        
+        self.window.title(wintitle['calc_exp'][self.lang] + " - Chars")
+        self.filemenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
+                              menu = self.filemenu)
+        self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
+                                  command = self.notdoneyet)
+        self.filemenu.add_separator()
+        self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
+                                  command = self.__closewin)       
+        
+        self.groups = readCSV(self.spath + '/groups.csv')
+        self.stat = readCSV(self.spath + '/statistics.csv')
+        self.charlist = []
+        self.playerlist = []
+        
+        for lmnt in self.stat:
+            self.charlist.append(lmnt['Name'])
+            self.playerlist.append(lmnt['Player'])
+            
+        self.grouplist = []
+        
+        for lmnt in self.groups:
+            if lmnt['Group'] not in self.grouplist:
+                self.grouplist.append(lmnt['Group'])
+            
+        self.__createWinStruc()    
+        
+            
+    def __createWinStruc(self):
+        """
+        This method creates the window structure with list and message 
+        boxes. The created window is for reading, generating and 
+        editing of elements of the functional structure.
+        """
+
+        self._cboxes = {'Name'  : self.charlist,
+                       'Group'  : self.grouplist,
+                       'Player' : self.playerlist,
+                       }
+       
+        labels = self.stat[0].keys()
+        labels.append("Group")
+        labels.sort()      
+        
+        self._fields = {}
+
+        r = 1
+        self._set = {}
+        
+        for l in labels:
+            l = l.strip(' \n')
+            self._set[l] = ""
+            Label(master = self.window,
+                  width = 20,
+                  text = csvlabels[l][self.lang]
+                  ).grid(row = r, column = 0)            
+            
+            if l in ['Name', 'Group', 'Player']:
+
+#                self._fields[l] = Combobox(master = self.window,
+#                                           width = 30,
+#                                           textvariable = self._set[l],
+#                                           values = self._cboxes[l]
+#                                           ).grid(row = r, column = 1)
+                self._fields[l] = Combobox(master = self.window,
+                                           width = 30,
+                                           textvariable = self._set[l],
+                                           values = self._cboxes[l]
+                                           )
+                self._fields[l].grid(row = r, column = 1)
+            else:
+                self._fields[l] = Entry(master = self.window,
+                                        textvariable = self._set[l],
+                                        width = 32
+                                        )
+                self._fields[l].grid(row = r, column = 1)
+
+            r += 1
+            
+        Button(master = self.window,
+              text = txtbutton['but_take'][self.lang],
+              command = self._addItems
+              ).grid(row = 0, column = 1)    
+              
+        Button(master = self.window,
+              text = txtbutton['but_refr'][self.lang],
+              command = self._refrItems
+              ).grid(row = 0, column = 0)                         
+                    
+    def _refrItems(self):
+        '''
+        Refreshes selected data sets
+        \todo has to be implemented
+        '''
+#        self._set['Name'] = self._fields['Name'].get()
+        dummy = self._fields['Name'].get()
+#        dummy = self._set['Name']
+#        self._set['Name'] = dummy
+        for i in range(0, len(self.stat)):
+#            print "%s --> %s", (self._set['Name'], self.stat[i]['Name'])
+#            print self._set['Name']
+#            print dummy
+#            if self.stat[i]['Name'] == self._set['Name']:
+            if self.stat[i]['Name'] == dummy:
+                for k in self.stat[i].keys():
+                    self._fields[k].delete(0, END)
+                    self._fields[k].insert(0, self.stat[i][k])
+                    self._set[k] = self.stat[i][k]
+                break
+            else:
+                
+                for k in self.stat[i].keys():
+                    self._set[k] = self._fields[k].get()
+                    
+        for lmnt in self.groups:
+            if lmnt['Name'] == self._set['Name']:
+                self._set['Group'] = lmnt['Group']
+                self._fields['Group'].delete(0, END)
+                self._fields['Group'].insert(0, lmnt['Group'])
+                break
+            else:
+                self._set['Group'] = self._fields['Group'].get()
+            
+                    
+        for k in self._set.keys():  
+            print (k, self._set[k]) 
+        print "*********************"
+        
+        
+    def _addItems(self):
+        '''
+        Adding new charaters to the list
+        \todo csv saving has to be implemented
+        \bug there are data missing while writing new dataset to file
+        '''   
+        print "addItems"
+        for k in self._set.keys():  
+            print (k, self._set[k]) 
+        print "=============== "
+        dummy = self._set['Name']
+        
+        for i in range(0, len(self.groups)):
+            if dummy == self.groups[i]['Name']:
+                self.groups[i]['Group'] = self._set['Group']
+                del(self._set['Group'])
+                break
+                
+        if 'Group' in self._set.keys():
+            self.groups.append({'Name' : dummy, 'Group': self._set['Group']})
+            self.grouplist.append(self._set['Group'])
+            del(self._set['Group'])
+ 
+        for i in range(0, len(self.stat)):
+            if dummy == self.stat[i]['Name']:
+                for k in self.stat[i].keys():
+                    self.stat[i][k] = self._set[k]
+                self.playerlist.append(self._set['Player'])
+                self.charlist.append(dummy)
+                del(self._set['Name'])
+                break
+            
+        if 'Name' in self._set.keys():
+            self.stat.append(self._set)
+
+        writeCSV(self.spath + "/statistics.csv", self.stat)
+        logger.info("epwin: wrote statistics.csv")
+        writeCSV(self.spath + "/groups.csv", self.groups)
+        logger.info("epwin: wrote groups.csv")
+        
+
+    def notdoneyet(self):
+        """
+        Most important dummy method!
+        """
+        self._info = messageWindow()
+        self._info.showinfo("inputWin: this feature is not done yet!",
+                            "SOOOORRRRYYY")
+        print "inputWin: this feature is not done yet!"
+
+    def __closewin(self):
+        """
+        Method for closing the window and opening the main window.
+        """
+        self.window.destroy()
+        self.window = MainWindow(self.lang, self.spath)
 
     def _addHelpMenu(self):
         """

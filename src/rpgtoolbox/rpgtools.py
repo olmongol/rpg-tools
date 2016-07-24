@@ -31,3 +31,21 @@ def dice(sides = 6, number = 1):
         result.append(roll)
         i += 1
     return result
+
+def getLvl(ep = 10000):
+    '''
+    This function calculates the level of a MERP/RM character.
+    \param ep experience point of the character
+    \return level of character as integer ValueError
+    '''
+    if ep <= 50000:
+        lvl = ep / 10000
+    elif ep > 50000 and ep <= 150000:
+        lvl = (ep - 50000) / 20000 + 5  
+    elif ep > 150000 and ep <= 300000:
+        lvl = (ep - 150000) / 30000 + 10
+    elif ep > 300000 and ep <= 500000:
+        lvl = (ep - 300000) / 40000 + 15
+    else:
+        lvl = (ep - 500000) / 50000 + 20
+    return lvl

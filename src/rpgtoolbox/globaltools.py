@@ -26,6 +26,8 @@ __msg__ = {'ERR_NO_DATA'     : "ERROR: no data to compute :(",
 import os
 import os.path
 import logbox as log
+import csv
+
 logger = log.createLogger('global', 'warning', '1 MB', 1, './' , 'globaltools.log')
 
 def readFile(path = './', file_name = None, mode = 'r'):
@@ -315,7 +317,7 @@ def asciLoops(way = [], element = ""):
     'asci'.
     \param way the way which was run through when the loop was found
     \param element the element which causes the loop
-    \retval a string containing the asci display of the loop 
+    \retval a string containing the as display of the loop 
     '''
     result = ""
     for key in way:
@@ -355,3 +357,32 @@ def getLast(string = "/", sep = '/'):
     dummy = string.split(sep)
     return str(dummy[-1].split())
     
+def readCSV(fname = "test.csv"):
+    '''
+    This function reads a CSV file and returns a dictionary
+    \param fname name (and path) of the CSV file
+    \retval result a list containing dictionaries with keys from CSV header line
+    '''
+    result = []
+    with open(fname) as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            result.append(row)
+    csvfile.close()        
+    return result
+
+def writeCSV(fname = "test.csv", cont = [{'Spam' : 'Ham'}, {'Spam':'eggs'}]):
+    '''
+    This function creates a CSV file from a given list of dictionaries
+    \param fname file name of the CSV
+    \param cont list of dictionaries
+    '''
+    header = cont[0].keys()
+    with open(fname, 'w') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames = header)
+        
+        writer.writeheader()
+        for myrow in cont:
+            writer.writerow(myrow)
+            
+    csvfile.close()

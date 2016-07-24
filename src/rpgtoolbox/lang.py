@@ -448,5 +448,42 @@ screentext = {'label' : {'de' : 'Bezeichnung',
              'dbtype' : {'de' : 'Datenbanktyp',
                          'en' : 'database type',
                          },
+             'new' : {'de' : 'Neu',
+                      'en' : 'New'
+                      },
+             }
+csvlabels = {'Name' : {'de' : "Charaktername",
+                       'en' : "character name"
+                       },
+             'Gender' : {'de' : "Geschlecht",
+                         'en' : "gender"
+                         },
+             'female' : {'de' : 'weiblich',
+                         'en' : 'female'
+                         },
+             'male' : {'de' : 'm\xc3\xa4nnlich',
+                       'en' : 'male'
+                       },
+             'EP' :{'de' : 'Erfahrungspunkte',
+                    'en' : 'experience points'
+                    },
+             'Player' : {'de' : 'Spieler',
+                         'en' : 'player'
+                         },
+             'Date' : {'de' : 'Datum',
+                       'en' : 'date'
+                       },
+             'Profession' : {'de' : 'Beruf',
+                             'en' : 'profession'
+                             },
+             'Race' : {'de' : 'Rasse',
+                       'en' : 'race'
+                       },
+             'Culture' : {'de' : 'Volk',
+                          'en' : 'culture'
+                          },
+             'Group' : {'de' : 'Gruppe',
+                        'en' : 'group'
+                        },
              
              }
