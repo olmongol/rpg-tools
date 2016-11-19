@@ -9,7 +9,7 @@
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
 \license GNU V3.0
-\version 0.3
+\version 0.3.1
 
 \todo design edit window: Critical Hits
 \todo design edit window: Killed Monsters
@@ -31,9 +31,9 @@ from rpgToolDefinitions.epcalcdefs import *
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015 " + __author__
 __email__ = "marcus@lederzeug.de"
-__version__ = "0.5.5 alpha"
+__version__ = "0.3.1"
 __license__ = "GNU V3.0"
-__me__ = "A MERS/RM EP Calculator for Python 2.x"
+__me__ = "A MERS/RM EP Calculator for Python 2.7"
 
 
 class epSheet(object):
