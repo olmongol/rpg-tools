@@ -39,7 +39,9 @@ progressionType = {'standard_cat'   : (-15, 2, 1, 0.5, 0),
                    'PP_ment_elves'  : (0, 6, 5, 4, 3),
                    'PP_ment_halfelves' : (0, 7, 5, 4, 3),
                    'PP_ment_dwarves' : (0, 3, 2, 1, 1),
-                   'PP_ment_halflings' : (0, 2, 1, 1, 1)
+                   'PP_ment_halflings' : (0, 2, 1, 1, 1),
+                   'skill_only' : (0, 1, 1, 0.5, 0),
+                   'null' : (0, 0, 0, 0, 0)
                    } 
 
 ##
@@ -59,7 +61,8 @@ raceAbilities = {'Common Men': {'Ag' : 0,
                                 'Ment' : 0,
                                 'Pois' : 0,
                                 'Dis' : 0,
-                                'BGO' : 6
+                                'BGO' : 6,
+                                'Hobby Ranks': 12,
                                 },
                  'Mixed Men' : {'Ag' : 0,
                                 'Co' : 2,
@@ -76,7 +79,8 @@ raceAbilities = {'Common Men': {'Ag' : 0,
                                 'Ment' : 0,
                                 'Pois' : 0,
                                 'Dis' : 0,
-                                'BGO' : 5
+                                'BGO' : 5,
+                                'Hobby Ranks': 12,
                                 },
                  'High Men' :  {'Ag' :-2,
                                 'Co' : 4,
@@ -93,7 +97,8 @@ raceAbilities = {'Common Men': {'Ag' : 0,
                                 'Ment' :-5,
                                 'Pois' : 0,
                                 'Dis' : 0,
-                                'BGO' : 4
+                                'BGO' : 4,
+                                'Hobby Ranks': 10,
                                 },
                  'Wood Elves': {'Ag' : 4,
                                 'Co' : 0,
@@ -110,7 +115,8 @@ raceAbilities = {'Common Men': {'Ag' : 0,
                                 'Ment' :-5,
                                 'Pois' : 10,
                                 'Dis' : 100,
-                                'BGO' : 4
+                                'BGO' : 4,
+                                'Hobby Ranks': 10,
                                 },
                  'Grey Elves' : {'Ag' : 2,
                                 'Co' : 0,
@@ -127,7 +133,8 @@ raceAbilities = {'Common Men': {'Ag' : 0,
                                 'Ment' :-5,
                                 'Pois' : 10,
                                 'Dis' : 100,
-                                'BGO' : 3
+                                'BGO' : 3,
+                                'Hobby Ranks': 8,
                                 },
                  'High Elves' : {'Ag' : 2,
                                 'Co' : 0,
@@ -144,7 +151,8 @@ raceAbilities = {'Common Men': {'Ag' : 0,
                                 'Ment' :-5,
                                 'Pois' : 10,
                                 'Dis' : 100,
-                                'BGO' : 2
+                                'BGO' : 2,
+                                'Hobby Ranks': 6,
                                 },
                  'Half Elves' : {'Ag' : 2,
                                 'Co' : 2,
@@ -161,7 +169,8 @@ raceAbilities = {'Common Men': {'Ag' : 0,
                                 'Ment' :-5,
                                 'Pois' : 0,
                                 'Dis' : 50,
-                                'BGO' : 4
+                                'BGO' : 4,
+                                'Hobby Ranks': 10,
                                 },
                  'Dwarves' : {'Ag' :-2,
                                 'Co' : 6,
@@ -178,7 +187,8 @@ raceAbilities = {'Common Men': {'Ag' : 0,
                                 'Ment' : 40,
                                 'Pois' : 20,
                                 'Dis' : 15,
-                                'BGO' : 5
+                                'BGO' : 5,
+                                'Hobby Ranks': 12,
                                 },
                  'Haflings' : {'Ag' : 6,
                                 'Co' : 6,
@@ -195,10 +205,78 @@ raceAbilities = {'Common Men': {'Ag' : 0,
                                 'Ment' : 40,
                                 'Pois' : 30,
                                 'Dis' : 15,
-                                'BGO' : 5
+                                'BGO' : 5,
+                                'Hobby Ranks': 12,
                                 },
                  }
 
+def DPCostSpells(skill = 0, listtype = "Own Realm Own Base List", sutype = "pure", no = 1):
+    '''
+    Returns Developing Points Costs of Spell Lists. This is just needed if payed with variable DP costs for spell lists.
+    \param skill skill rank in that Spell List
+    \param listtype List type of the Spell List
+    \param sutype Spell User Type (pure, hybrid, semi, non).
+    \param no number of Spell Lists developed this level
+    \todo this function has to be implemented fully but it is not urgent.
+    '''
+    costs = "N/A"
+    factor = 1
+    
+    if 5 < no < 11:
+        factor *= 2
+    
+    elif no > 10:
+        factor *= 4
+        
+    if listtype == "Own Realm Own Base List":
+    
+        if sutype == "pure":
+            costs = [3, 3, 3]
+        
+        elif sutype == "hybrid":
+            costs = [3, 3, 3]
+        
+        elif sutype == "semi":
+            costs = [6, 6, 6]
+    
+    elif listtype == "Own Realm Open List":
+    
+        if sutype == "pure":
+        
+            if skill < 21:
+                costs = [4, 4, 4]
+            
+            else:
+                costs = [6, 6, 6]
+        
+        elif sutype == "hybrid":
+        
+            if skill < 11:   
+                costs = [4, 4, 4]
+            
+            elif 10 < skill < 16:
+                costs = [6, 6, 6]
+            
+            elif 16 < skill < 21:
+                costs = [8, 8]
+            
+            else:
+                costs = (12)
+        
+        elif sutype == "semi":
+        
+            if skill < 11:
+                costs = [8, 8]
+            elif 10 < skill < 16:
+                costs = [12]
+            elif 15 < skill < 21:
+                costs = [18] 
+            else:
+                costs = [25]
+                    
+    return costs
+    
+    
 def bonus(rank = 0, cat = 0, profession = 0, special = 0, progression = progressionType['standard_cat']):
     '''
     This function returns the cumulative Bonus of a category or skill.

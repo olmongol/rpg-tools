@@ -638,11 +638,6 @@ class edtchrWin(blankWindow):
             
             if l in ['Name', 'Group', 'Player']:
 
-#                self._fields[l] = Combobox(master = self.window,
-#                                           width = 30,
-#                                           textvariable = self._set[l],
-#                                           values = self._cboxes[l]
-#                                           ).grid(row = r, column = 1)
                 self._fields[l] = Combobox(master = self.window,
                                            width = 30,
                                            textvariable = self._set[l],
@@ -673,16 +668,12 @@ class edtchrWin(blankWindow):
         Refreshes selected data sets
         \todo has to be implemented
         '''
-#        self._set['Name'] = self._fields['Name'].get()
         dummy = self._fields['Name'].get()
-#        dummy = self._set['Name']
-#        self._set['Name'] = dummy
+
         for i in range(0, len(self.stat)):
-#            print "%s --> %s", (self._set['Name'], self.stat[i]['Name'])
-#            print self._set['Name']
-#            print dummy
-#            if self.stat[i]['Name'] == self._set['Name']:
+        
             if self.stat[i]['Name'] == dummy:
+            
                 for k in self.stat[i].keys():
                     self._fields[k].delete(0, END)
                     self._fields[k].insert(0, self.stat[i][k])
@@ -694,11 +685,13 @@ class edtchrWin(blankWindow):
                     self._set[k] = self._fields[k].get()
                     
         for lmnt in self.groups:
+            
             if lmnt['Name'] == self._set['Name']:
                 self._set['Group'] = lmnt['Group']
                 self._fields['Group'].delete(0, END)
                 self._fields['Group'].insert(0, lmnt['Group'])
                 break
+            
             else:
                 self._set['Group'] = self._fields['Group'].get()
             
