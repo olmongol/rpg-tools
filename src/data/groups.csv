@@ -1,4 +1,10 @@
-Character,Lvl,Group
-Istarion,1,grp1
-Eldaron,5,grp1
-Digger,2,grp2
+Group,Name
+grp1,Istarion
+grp1,Eldaron
+grp2,Digger
+grp2,Jaleta
+grp1,dfdsfsdfs
+,
+grp3,Harkes
+grp3,Harkesdd
+grp1,Goron
