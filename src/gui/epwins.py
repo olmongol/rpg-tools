@@ -451,7 +451,8 @@ class inputWin(blankWindow):
 
         else:
             self._last = ""
-
+        
+#        self.window = Tk()
         self.mypath = storepath
         blankWindow.__init__(self, self.lang)
 
@@ -460,6 +461,10 @@ class inputWin(blankWindow):
         self.filemenu = Menu(master = self.menu)
         self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
                               menu = self.filemenu)
+        self.filemenu.add_command(label = submenu['file'][self.lang]['new_char'],
+                                  command = self.__createchar)
+        self.filemenu.add_command(label = submenu['file'][self.lang]['new_grp'],
+                                  command = self.__creategroup)
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
                                   command = self.__closewin)
@@ -483,10 +488,28 @@ class inputWin(blankWindow):
 
         self._addHelpMenu()
 #        self.create_imageteWinStruc()
+        self.window.mainloop()
 
+    def __createchar(self):
+        '''
+        Method to create a new character
+        \todo createchar has to be implemented
+        '''
+        print "input win --> createchar"
+        self.notdoneyet()
+        
+    def __creategroup(self):
+        '''
+        Method to create a now character party/group
+        \todo chreategroup has to be implemented
+        '''
+        print "input win --> ccreategroup"
+        self.notdoneyet()
+        
+        
     def __editchar(self):
         '''
-        Method to create/edit a character for the EP sheet.
+        Method to edit a character for the EP sheet.
         \todo editchar is to be implemented
         '''
         print "input win -->  editchar"

@@ -1,11 +1,18 @@
 #!/usr/bin/env python
 '''
-\file calc_ep.py
-\package calc_ep
-\brief This is a little tool for calculating EPs for MERS/RM
+\file rm_char_tools.py
+\package rm_char_tools.py
+\brief This is a little tool for creating and keeping track of Role Master Characters
 
+This tool handles
+\li Creation of new RM characters
+\li Creation and keeping track of RM character parties to select specific information to GM
+\li level development of characters (simple character history included)
+\li Calculation of EPs 
+\li Export characters/party infomation as JSON, LaTex, PDF
+\li Buying/keeping track of character's equipment & treasures
 
-\date (C) 2015-2016
+\date (C) 2015-2017
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
 \license GNU V3.0
@@ -18,7 +25,8 @@
 \todo design: successful maneuvers
 \todo design: traveled distance
 \todo design: individual EPs
-
+\todo design: Export functions
+\todo design: Equipment, Shop, Treasures (Chris) 
 '''
 #import ConfigParser as CP
 import Tkinter
@@ -29,7 +37,7 @@ from rpgtoolbox import logbox as log
 from rpgToolDefinitions.epcalcdefs import *
 
 __author__ = "Marcus Schwamberger"
-__copyright__ = "(C) 2015 " + __author__
+__copyright__ = "(C) 2017 " + __author__
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.3.1"
 __license__ = "GNU V3.0"
