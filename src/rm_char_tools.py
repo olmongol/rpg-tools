@@ -29,12 +29,12 @@ This tool handles
 \todo design: Equipment, Shop, Treasures (Chris) 
 '''
 #import ConfigParser as CP
-import Tkinter
+#import Tkinter
 from gui.epwins import *
 from rpgtoolbox.lang import *
 from rpgtoolbox.confbox import *
 from rpgtoolbox import logbox as log
-from rpgToolDefinitions.epcalcdefs import *
+#from rpgToolDefinitions.epcalcdefs import *
 
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2017 " + __author__
@@ -43,25 +43,6 @@ __version__ = "0.3.1"
 __license__ = "GNU V3.0"
 __me__ = "A MERS/RM EP Calculator for Python 2.7"
 
-
-class epSheet(object):
-    '''
-    Class for calculating EP sheets
-    '''
-    def __init__(self, charList = ['Digger the Dwarf']):
-        self.party = {}
-
-        for pchar in charList:
-            self.party[pchar] = epchr
-
-        logger.debug('epSheet: self.party initialized')
-
-
-    def notdoneyet(self):
-        '''
-        Most important dummy function.
-        '''
-        print "Sorry this feature is not done yet!! :("
 
 
 

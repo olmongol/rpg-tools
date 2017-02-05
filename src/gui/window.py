@@ -5,7 +5,7 @@
 \brief Some classes for GUI
 
 
-\date (C) 2015 - 2016
+\date (C) 2015 - 2017
 \author Marcus Schwambeger
 \email marcus@lederzeug.de
 
@@ -18,11 +18,11 @@ from rpgtoolbox.lang import *
 from rpgtoolbox import logbox as log
 
 __author__ = "Marcus Schwamberger"
-__copyright__ = "(C) 2015-2016 " + __author__
+__copyright__ = "(C) 2015-2017 " + __author__
 __email__ = "marcus@lederzeug.de"
 __version__ = "1.0"
 __license__ = "GNU V3.0"
-__me__ = "A RPG tool package for Python 2.x"
+__me__ = "A RPG tool package for Python 2.7"
 
 logger = log.createLogger('window', 'warning', '1 MB', 1, './')
 
@@ -119,15 +119,24 @@ class blankWindow(object):
         '''
         self.about = "%s\nVersion %s\n\n%s\n%s\n%s" % (__me__,
                                                       __version__,
+                                                      __license__,
                                                       __copyright__,
                                                       __email__)
         self.msg = messageWindow()
         self.msg.showinfo(self.about)
-    
-    def notdoneyet(self):
+        
+    def handbook(self, chapter = "handbook"):
+        '''
+        This method will call call a specific chapter from the handbook of 
+        rm_char_tools.
+        \todo handbook has to be implemented
+        '''
+        self.notdoneyet("handbook chapter %s" % (chapter))
+        
+    def notdoneyet(self, txt = "feature"):
         '''
         a simple dummy method for not yet implemented methods
         '''
         self._info = messageWindow()
-        self._info.showinfo("This feature is not done yet!",
+        self._info.showinfo("This %s is not done yet!" % (txt),
                             "SOOOORRRRYYY")        

@@ -5,7 +5,7 @@
 \brief Windows classes for epcalc gui
 
 
-\date (C) 2016
+\date (C) 2017
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
 
@@ -25,14 +25,13 @@ from rpgtoolbox.rpgtools import getLvl
 from gui.winhelper import AutoScrollbar
 from gui.winhelper import InfoCanvas
 from gui.window import *
-from createMagicItems import lang
 
 __author__ = "Marcus Schwamberger"
-__copyright__ = "(C) 2015-2016 " + __author__
+__copyright__ = "(C) 2015-2017 " + __author__
 __email__ = "marcus@lederzeug.de"
 __version__ = "1.0"
 __license__ = "GNU V3.0"
-__me__ = "A RPG tool package for Python 2.x"
+__me__ = "A RPG tool package for Python 2.7"
 
 logger = log.createLogger('window', 'debug', '1 MB', 1, './')
 
@@ -89,14 +88,7 @@ class MainWindow(blankWindow):
 
         self.window.mainloop()
 
-    def notdoneyet(self):
-        """
-        An IMPORTANT dummy for methods which are not implemented yet ;-)
-        """
-        print("MainWindow: not done yet")
-        self._info = messageWindow()
-        self._info.showinfo("MainWindow: this feature is not done yet!",
-                        "SOOOORRRRYYY")
+
 
     def __addFileMenu(self):
         """
@@ -143,7 +135,7 @@ class MainWindow(blankWindow):
         This method opens a file dialogue window (Tk) for saving the results
         of the EP calculation into an EXP file.
         '''
-        self.notdoneyet()
+        self.notdoneyet("'saveFile'")
 
     def __saveCSV(self):
         '''
@@ -445,7 +437,8 @@ class inputWin(blankWindow):
         self.lang = lang
         self.csvcont = csvcontent
         self.fname = filename
-
+        self.picpath = "./gui/pic/"
+        
         if self.fname != "" and self.fname != None:
             self._last = getLast(string = self.fname, sep = "/")
 
@@ -471,32 +464,51 @@ class inputWin(blankWindow):
 
         self.edtmenu = Menu(master = self.menu)
         self.menu.add_cascade(label = txtmenu['menu_edit'][self.lang],
-                                  menu = self.filemenu)
-        self.edtmenu.add_cascade(label = submenu['edit'][self.lang]['ed_char'],
+                                  menu = self.edtmenu)
+        self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_char'],
                                  command = self.__editchar)
         self.edtmenu.add_separator()
-        self.edtmenu.add_cascade(label = submenu['edit'][self.lang]['ed_fight'],
+        self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_fight'],
                                  command = self.__epfight)
-        self.edtmenu.add_cascade(label = submenu['edit'][self.lang]['ed_other'],
+        self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_other'],
                                  command = self.__epother)
-        self.edtmenu.add_cascade(label = submenu['edit'][self.lang]['ed_indiv'],
+        self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_indiv'],
                                  command = self.__epindiv)
-        self.edtmenu.add_cascade(label = submenu['edit'][self.lang]['ed_calc'],
+        self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_calc'],
                                  command = self.__epcalc)
         self.edtmenu.add_separator()
-        self.edtmenu.add_cascade(label = submenu['edit'][self.lang]['ed_sim'])
+        self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_sim'],
+                                 command = self.__fightsim)
 
-        self._addHelpMenu()
-#        self.create_imageteWinStruc()
+        self.helpmenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['menu_help'][self.lang],
+                              menu = self.helpmenu)
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['page'],
+                                 command = self.__helppage)
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['global'],
+                                 command = self.__helpglobal)
+        self.helpmenu.add_separator()
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
+                                 command = self._helpAbout)
+ 
+        """
+        set picture for the window background of the main window
+        """
+        self.__canvas = Canvas(self.window, width = '7.8c', height = '8.5c')
+        __background = PhotoImage(file = self.picpath + 'dragon.gif')
+        self.__canvas.create_image(0, 0, image = __background, anchor = NW)
+        self.__canvas.pack()
+               
         self.window.mainloop()
 
+        
     def __createchar(self):
         '''
         Method to create a new character
         \todo createchar has to be implemented
         '''
         print "input win --> createchar"
-        self.notdoneyet()
+        self.notdoneyet('chreatechar')
         
     def __creategroup(self):
         '''
@@ -504,7 +516,7 @@ class inputWin(blankWindow):
         \todo chreategroup has to be implemented
         '''
         print "input win --> ccreategroup"
-        self.notdoneyet()
+        self.notdoneyet('creategroup')
         
         
     def __editchar(self):
@@ -513,50 +525,49 @@ class inputWin(blankWindow):
         \todo editchar is to be implemented
         '''
         print "input win -->  editchar"
-        self.notdoneyet()
+        self.notdoneyet('editchar')
 
+    def __editgrp(self):
+        '''
+        Method to edit a character group and keep track on it
+        \todo editgrp has to be implemented
+        '''
+        self.notdoneyet("editgrp")
+        
     def __epfight(self):
         '''
         Method to calculate EPs from a fight (hits and criticals)
         \todo epfight has to be implemented
         '''
-        self.notdoneyet()
+        self.notdoneyet('epfight')
 
     def __epother(self):
         '''
         Method to calculate EPs from Spells, maneuvers, travel.
-        \todo epother hast tob be implemented
+        \todo epother has to be implemented
         '''
-        self.notdoneyet()
+        self.notdoneyet('epother')
 
     def __epindiv(self):
         '''
-        Method for adding invidiual EPs
+        Method for adding invidual EPs
         \todo epindiv has to be implemented
         '''
-        self.notdoneyet()
+        self.notdoneyet('epindiv')
 
     def __epcalc(self):
         '''
         Method to finalize EP calculation for a single gaming date
         \todo epcalc has to be implemented
         '''
-
+        self.notdoneyet('epcalc')
+          
     def __fightsim(self):
         '''
         Method for simulating a fight and calculate potential EPs
+        \todo fightsim has to be implemented
         '''
-        self.notdoneyet()
-
-
-    def notdoneyet(self):
-        """
-        Most important dummy method!
-        """
-        self._info = messageWindow()
-        self._info.showinfo("inputWin: this feature is not done yet!",
-                            "SOOOORRRRYYY")
-        print "inputWin: this feature is not done yet!"
+        self.notdoneyet('fightsim')
 
     def __closewin(self):
         """
@@ -565,27 +576,44 @@ class inputWin(blankWindow):
         self.window.destroy()
         self.window = MainWindow(self.lang, self.mypath)
 
-    def _addHelpMenu(self):
+    def __helppage(self):
         """
-        This method adds additional functions to the help menu
+        Method for help on this page.
+        \todo helppage has to be implemented
         """
-        self.helpmenu = Menu(master = self.menu)
-        self.menu.add_cascade(label = txtmenu['help'][self.lang],
-                              menu = self.helpmenu)
-        self._templist = {'not done': self.notdoneyet()
-                         }
-        for key in s_elem_def:
-            self.com = self._templist[key]
-            self.helpmenu.add_command(label = key,
-                                      command = self.com)
-        del(self._templist)
-        del(key)
-
-        self.helpmenu.add_separator()
-        self.helpmenu.add_command(label = submenu['help'][self.lang]['page'],
-                                  command = self._showPage)
-        self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
-                                  command = self._helpAbout)
+        self.notdoneyet("helppage")
+        
+    def __helpglobal(self):
+        """
+        Method to call the handbook as help for this page
+        """
+        self.handbook("chapter %s" % (wintitle['edit'][self.lang]))
+        
+#    def _addHelpMenu(self):
+#        """
+#        This method adds additional functions to the help menu
+#        """
+#        self.helpmenu = Menu(master = self.menu)
+#        self.menu.add_cascade(label = txtmenu['help'][self.lang],
+#                              menu = self.helpmenu)
+#        self._templist = {'not done': self.notdoneyet()
+#                         }
+#        for key in s_elem_def:
+#            
+#            if key not in self._templist:
+#                self._templist[key] = self.notdoneyet(key)
+#            
+#            self.com = self._templist[key]
+#            self.helpmenu.add_command(label = key,
+#                                      command = self.com)
+#        del(self._templist)
+#        del(key)
+#
+#        self.helpmenu.add_separator()
+#        self.helpmenu.add_command(label = submenu['help'][self.lang]['page'],
+#                                  command = self._showPage)
+#        self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
+#                                  command = self._helpAbout)
 
 class edtchrWin(blankWindow):
     '''
@@ -764,15 +792,6 @@ class edtchrWin(blankWindow):
         writeCSV(self.spath + "/groups.csv", self.groups)
         logger.info("epwin: wrote groups.csv")
         
-
-    def notdoneyet(self):
-        """
-        Most important dummy method!
-        """
-        self._info = messageWindow()
-        self._info.showinfo("inputWin: this feature is not done yet!",
-                            "SOOOORRRRYYY")
-        print "inputWin: this feature is not done yet!"
 
     def __closewin(self):
         """

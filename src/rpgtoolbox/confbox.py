@@ -11,14 +11,14 @@ A toolbox of things to handle config files.
 \email marcus@lederzeug.de
 \license GNU V3.0
 '''
-import os
+import os, locale
 import rpgtoolbox.globaltools as rpgtools
 from rpgtoolbox.lang import *
 from cairosvg.surface.path import path
 
 defaultconfigpath = "conf/"
 defaultconfigfile = "rpg-tools.cfg"
-
+defaultlang = locale.getdefaultlocale()[0][:2]
 ## cfgopts
 # holds allowed configuration options and their descriptions
 cfgopts = {'lang' :'''

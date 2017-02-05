@@ -51,7 +51,7 @@ maneuvres = {'routine' : {'de' : 'Routine',
                           }
              
              }
-param_char = {'Player' : {'de' : 'Spieler',
+param_char = {'player' : {'de' : 'Spieler',
                           'en' : 'player',
                           },
               'char' : {'de' : 'Charaktername',
@@ -64,7 +64,7 @@ param_char = {'Player' : {'de' : 'Spieler',
                        'en' : 'Level'
                        },
               'party' : {'de' : 'Charaktergruppe',
-                         'en' : 'PC group'
+                         'en' : 'Group of Characters'
                          }
               }
 ##\var epchr

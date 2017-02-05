@@ -3,7 +3,7 @@
 # \package rpgtoolbox
 # \file lang.py
 #
-# \brief multi language support library for rpg-tools 
+# \brief multi language support module for rpg-tools 
 #
 # Here are all the things implemented that are needed for the switching of 
 # language in the rpg-tools. So this file consists mainly 
@@ -16,11 +16,12 @@
 #
 # \author Marcus Schwamberger
 # \email marcus@lederzeug.de
-# \date (c) 2015-2016
-# \version 0.2 
+# \date (c) 2015-2017
+# \version 0.3 
 # \license GNU V3.0
 #
 # \todo check for German special characters.
+# \todo clean up the code!!!
 
 '''
 This holds general screen messages.
@@ -83,62 +84,68 @@ txtbutton = {'but_ok'   : {'de' : 'OK',
              'but_next' :{'de' : 'Weiter',
                           'en' : 'next',
                           },
+             'but_back' : {'de' : 'Zur\xc3\xbcck',
+                           'en' : 'back',
+                           },
              'but_prev' : {'de' : 'Zur\xc3\xbcck',
                            'en' : 'back'},
              'but_refr' : {'de' : 'zeigen/auffrischen',
                            'en' : 'show/refresh'},
              'but_take' : {'de' : '\xc3\x9cbernehmen',
                            'en' : 'take over'},
-             'but_sel_root' : {'de' : 'Root-Element festlegen',
-                               'en' : 'confirm root element',
-                               },
-             'but_rem_root' : {'de' : 'Root-Element entfernen',
-                               'en' : 'remove root element',
-                               },
-             'but_cre_link' : {'de' : 'Verkn\xc3\xbcpfung erstellen',
-                               'en' : 'create link',
-                               },
-             'but_rem_link' : {'de' : 'Verkn\xc3\xbcpfung l\xc3\xb6schen',
-                               'en' : 'delete link',
-                               },
-             'but_save_exit' : {'de' : 'Speichern und schliessen',
-                                'en' : 'save and exit',
-                                },
-             'but_save_next' : {'de' : 'Speichern und weiter',
-                                'en' : 'save and next',
-                                },
-             'but_add_meta' : {'de' : 'Metadatenfeld  hinzuf\xc3\xbcgen',
-                               'en' : 'add meta data field',
-                              },
-             'but_rem_meta' : {'de' : 'Metadatenfeld(er) entfernen',
-                               'en' : 'remove meta data field(s)',
-                               },
-             'but_show_graph' : {'de' : 'Struktur plotten',
-                                 'en' : 'plot structure'
-                                 },
+#             'but_sel_root' : {'de' : 'Root-Element festlegen',
+#                               'en' : 'confirm root element',
+#                               },
+#             'but_rem_root' : {'de' : 'Root-Element entfernen',
+#                               'en' : 'remove root element',
+#                               },
+#             'but_cre_link' : {'de' : 'Verkn\xc3\xbcpfung erstellen',
+#                               'en' : 'create link',
+#                               },
+#             'but_rem_link' : {'de' : 'Verkn\xc3\xbcpfung l\xc3\xb6schen',
+#                               'en' : 'delete link',
+#                               },
+#             'but_save_exit' : {'de' : 'Speichern und schliessen',
+#                                'en' : 'save and exit',
+#                                },
+#             'but_save_next' : {'de' : 'Speichern und weiter',
+#                                'en' : 'save and next',
+#                                },
+#             'but_add_meta' : {'de' : 'Metadatenfeld  hinzuf\xc3\xbcgen',
+#                               'en' : 'add meta data field',
+#                              },
+#             'but_rem_meta' : {'de' : 'Metadatenfeld(er) entfernen',
+#                               'en' : 'remove meta data field(s)',
+#                               },
+#             'but_show_graph' : {'de' : 'Struktur plotten',
+#                                 'en' : 'plot structure'
+#                                 },
              }
 
 '''
 This holds the texts of the main menu bar
 '''
-txtmenu = {'help'          : {'de' : 'Hilfe',
+txtmenu = {'menu_help'     : {'de' : 'Hilfe',
                               'en' : 'Help',
                               },
-           'hlp_about'     : {'de' : '\xc3\x9cber',
-                              'en' : 'About',
+           'help'     : {'de' : 'Hilfe',
+                              'en' : 'Help',
                               },
-           'hlp_first'     : {'de' : 'Erste Schritte',
-                              'en' : 'first steps',
-                              },
-           'hlp_context'   : {'de' : 'Kontexthilfe',
-                              'en' : 'context help',
-                              },
-           'but_ok'        : {'de' : 'OK',
-                              'en' : 'ok',
-                              },
-           'but_quit'      : {'de' : 'Schliessen',
-                              'en' : 'quit',
-                              },
+        'hlp_about'     : {'de' : '\xc3\x9cber',
+                           'en' : 'About',
+                           },
+        'hlp_first'     : {'de' : 'Erste Schritte',
+                           'en' : 'first steps',
+                           },
+        'hlp_context'   : {'de' : 'Kontexthilfe',
+                           'en' : 'context help',
+                           },
+        'but_ok'        : {'de' : 'OK',
+                           'en' : 'ok',
+                           },
+        'but_quit'      : {'de' : 'Schliessen',
+                           'en' : 'quit',
+                           },
            'menu_edit'     : {'de' : 'Bearbeiten',
                               'en' : 'Edit',
                               },
@@ -148,15 +155,15 @@ txtmenu = {'help'          : {'de' : 'Hilfe',
            'menu_opt'      : {'de' : 'Optionen',
                               'en' : 'options',
                               },
-           'menu_new_prof' : {'de' : 'Ne\xc3\xbcs Profil',
-                              'en' : 'New profile',
-                              },
-           'menu_add_proc' : {'de' : 'Ne\xc3\xbc Prozedur hinzuf\xc3\xbcgen',
-                              'en' : 'Add new procedure',
-                              },
-           'menu_add_exp'  : {'de' : 'Ne\xc3\xbcs Experiment hinzuf\xc3\xbcgen',
-                              'en' : 'Add new experiment',
-                              },
+#           'menu_new_prof' : {'de' : 'Ne\xc3\xbcs Profil',
+#                              'en' : 'New profile',
+#                              },
+#           'menu_add_proc' : {'de' : 'Ne\xc3\xbc Prozedur hinzuf\xc3\xbcgen',
+#                              'en' : 'Add new procedure',
+#                              },
+#           'menu_add_exp'  : {'de' : 'Ne\xc3\xbcs Experiment hinzuf\xc3\xbcgen',
+#                              'en' : 'Add new experiment',
+#                              },
           }
 
 '''
@@ -235,7 +242,10 @@ txtwin = {'all_files' : {'de' : ("alle Dateien", '.*'),
                          },
           'csv_files' : {'de' : ('CSV Dateien', '.csv'),
                          'en' : ('CSV files', 'csv')
-                         }
+                         },
+          'json_files': {'de' : ('JSON Dateien', '.json'),
+                         'en' : ('JSON files', '.json')
+                         },
           }
 
 '''
@@ -287,6 +297,7 @@ wintitle = {'opt_lang' : {'de' : 'Spracheinstellungen',
 
 '''
 labels for window elements (labels, listboxes etc.)
+\todo clean up!!
 '''
 labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei',
                         'en' : 'Path where to store the config file',
@@ -326,13 +337,13 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
                        },
           }
 
-'''
-Elements of  OptionMenus which shall be shown but not choosen.
-'''
-ommsg = {'sel_struc' :{'de' : 'Strukturelement w\xc3\xa4hlen',
-                       'en' : 'select element of structure',
-                       },
-         }
+#'''
+#Elements of  OptionMenus which shall be shown but not choosen.
+#'''
+#ommsg = {'sel_struc' :{'de' : 'Strukturelement w\xc3\xa4hlen',
+#                       'en' : 'select element of structure',
+#                       },
+#         }
 '''
 Error messages
 '''
@@ -375,71 +386,37 @@ infomsg = {'help_info' : {'de' : 'F\xc3\xbcr eine genauere Information '\
                                  'Hilfe-Men\xc3\xbc klicken.',
                           'en' : 'For a more detailed information about the '\
                                  'default elements please click the help menu.',
-                          },
-           'help_selem' : {'de' : 'Das Feld STANDARTAUSWAHL zeigt die Struktur'\
-                                  'elemente, die als gundlegende Vorgaben vor'\
-                                  'geschlagen werden.\n\n'\
-                                  'Mit dem Button "--->>" werden ausgew\xc3\xa4hlte '\
-                                  'Elemente aus diesem Feld in das Feld GETROF'\
-                                  'FENE/GELADENE AUSWAHL kopiert. Alles, was in'\
-                                  ' diesem Feld ist, wird auch in den weiteren '\
-                                  'Arbeitsschritten verwendet.\n\n'\
-                                  'Am unteren Rand findet sich ein Eingabefeld,'\
-                                  'in dem man eine Komma-separierte Liste mit '\
-                                  'weiteren Strukturelementen eingeben und '\
-                                  'hinzuf\xc3\xbcgen kann.\n\n'\
-                                  'Ist soweit alles fertig, geht es mit dem '\
-                                  'WEITER-Button zum n\xc3\xa4chsten Arbeitsschritt.'
-                                  ,
-                           'en' : 'The field STANDARD SELECTION shows elements '\
-                                  'of structure which are proposed to be basic.\n\n'\
-                                  'The button "--->>" copies selected items to '\
-                                  'the field SELECTED/LOADED CHOICE. Every item '\
-                                  'in there will be used in the following steps.\n\n'\
-                                  'On the lower border there is an entry field '\
-                                  'were additional elements of structure can be '\
-                                  'entered and added.\n\n'\
-                                  'When everything is fine and finished so far '\
-                                  'the NEXT button takes you to the next step.',
-                           },
-           'help_back_but' : {'de' : 'Der Zur\xc3\xbcck-Button bringt einem zum'\
-                                     ' vohergehenden Fenster. Einstellungen, '\
-                                     'die im aktuellen Fenster gemacht wurden,'\
-                                     ' gehen dabei allerdings verloren.',
-                              'en' : 'The Back button brings you back to the'
-                                     ' last window. But clicking it will cancel'\
-                                     ' all the editing you might have done in the'\
-                                     ' current window.'},
+                         }
            }
 
 
 '''
 Descriptions of the default structure elements.
 '''
-s_elem_def = { 'CRITICAL' : {'de' : 'Ausgeteilte kritische Treffer',
+s_elem_def = {'CRITICAL' : {'de' : 'Ausgeteilte kritische Treffer',
                             'en' : 'Made critical hits',
                            },
-              'HITS' :{'de' : 'Erhaltene Trefferpunkte',
+              'HITS'     : {'de' : 'Erhaltene Trefferpunkte',
                             'en' : 'Gained hit points.',
                             },
-              'H_CRITS' : {'de' : 'Erhaltene kritische Treffer',
-                              'en': 'Gained criticals',
-                              },
-              'SPELL' :{'de' : 'Stufe angewendeter Zauber',
-                         'en' : 'Level of used spell',
-                         },
+              'H_CRITS'  : {'de' : 'Erhaltene kritische Treffer',
+                            'en': 'Gained criticals',
+                           },
+              'SPELL'    : {'de' : 'Stufe angewendeter Zauber',
+                            'en' : 'Level of used spell',
+                           },
               'MANEUVER' : {'de' : 'Erfolgreiche Manoever',
                            'en' : 'Successful maneuver.',
                            },
-              'TRAVEL' : {'de' : 'Reisestrecke',
-                            'en' : 'Traveled distance',
+              'TRAVEL'   : {'de' : 'Reisestrecke',
+                           'en' : 'Traveled distance',
                             },
-              'KILLED' : {'de' : 'Getoetete Gegner',
-                           'en' : 'Killed enemies/monster',
-                           },
+              'KILLED'   : {'de' : 'Getoetete Gegner',
+                            'en' : 'Killed enemies/monster',
+                            },
               'INDIVIDUAL' : {'de' : 'Individuelle Punkte.',
-                          'en' : 'Individual EPs.',
-                          },
+                              'en' : 'Individual EPs.',
+                             },
               }
 
 '''
