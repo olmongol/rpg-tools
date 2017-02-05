@@ -508,8 +508,10 @@ class inputWin(blankWindow):
         \todo createchar has to be implemented
         '''
         print "input win --> createchar"
-        self.notdoneyet('chreatechar')
-        
+#        self.notdoneyet('chreatechar')
+        self.window = genAttrWin(lang = self.lang,
+                                 storepath = self.mypath)
+       
     def __creategroup(self):
         '''
         Method to create a now character party/group
@@ -589,31 +591,6 @@ class inputWin(blankWindow):
         """
         self.handbook("chapter %s" % (wintitle['edit'][self.lang]))
         
-#    def _addHelpMenu(self):
-#        """
-#        This method adds additional functions to the help menu
-#        """
-#        self.helpmenu = Menu(master = self.menu)
-#        self.menu.add_cascade(label = txtmenu['help'][self.lang],
-#                              menu = self.helpmenu)
-#        self._templist = {'not done': self.notdoneyet()
-#                         }
-#        for key in s_elem_def:
-#            
-#            if key not in self._templist:
-#                self._templist[key] = self.notdoneyet(key)
-#            
-#            self.com = self._templist[key]
-#            self.helpmenu.add_command(label = key,
-#                                      command = self.com)
-#        del(self._templist)
-#        del(key)
-#
-#        self.helpmenu.add_separator()
-#        self.helpmenu.add_command(label = submenu['help'][self.lang]['page'],
-#                                  command = self._showPage)
-#        self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
-#                                  command = self._helpAbout)
 
 class edtchrWin(blankWindow):
     '''
@@ -821,3 +798,40 @@ class edtchrWin(blankWindow):
                                   command = self._showPage)
         self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
                                   command = self._helpAbout)
+
+
+class genAttrWin(blankWindow):
+    '''
+    A window class for generating name, race, profession and attributes of a new
+    character.
+    '''
+    def __init__(self, lang = 'en', storepath = './data'):
+        '''
+        \param lang Choosen display language (default en)
+        \param storepath Path to store data (default: ./data)
+        '''
+        
+        self.lang = lang
+        self.spath = storepath
+        
+        blankWindow.__init__(self, lang = self.lang)
+        
+        self.window.title(wintitle['rm_charg'][self.lang] + " - Attributes")
+        self.filemenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
+                              menu = self.filemenu)
+        self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
+                                  command = self.notdoneyet)
+        self.filemenu.add_separator()
+        self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
+                                  command = self.__closewin)   
+        
+        
+        
+        
+    def __closewin(self):
+        """
+        Method for closing the window and opening the main window.
+        """
+        self.window.destroy()
+#        self.window = MainWindow(self.lang, self.spath)

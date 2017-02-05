@@ -133,6 +133,13 @@ class blankWindow(object):
         '''
         self.notdoneyet("handbook chapter %s" % (chapter))
         
+    def __closewin(self):
+        """
+        Method for closing the window and opening the main window.
+        """
+        self.window.destroy()
+             
+        
     def notdoneyet(self, txt = "feature"):
         '''
         a simple dummy method for not yet implemented methods
