@@ -8,7 +8,7 @@
 \date (C) 2015 - 2017
 \author Marcus Schwambeger
 \email marcus@lederzeug.de
-
+\version 1.0
 '''
 from Tkinter import *
 from ImageTk import *

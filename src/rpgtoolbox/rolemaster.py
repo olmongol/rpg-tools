@@ -10,8 +10,8 @@ This package holds RM specific tools like Charakter Skill Progression.
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
 \version 1.0
-\date 2016
-\copyright 2016 Marcus Schwamberger
+\date 2017
+\copyright 2017 Marcus Schwamberger
 '''
 import rpgToolDefinitions.helptools.dice as dice
 

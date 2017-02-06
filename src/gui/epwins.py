@@ -8,7 +8,7 @@
 \date (C) 2017
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
-
+\version 1.0
 '''
 import os
 import sys
@@ -71,6 +71,7 @@ class MainWindow(blankWindow):
         Label(self.window, width = 60).pack()
         self.__addFileMenu()
         self.__addEditMenu()
+        self.__addGMMenu()
         self.__addOptionMenu()
         self.__addHelpMenu()
 
@@ -87,7 +88,6 @@ class MainWindow(blankWindow):
         self.__canvas.pack()
 
         self.window.mainloop()
-
 
 
     def __addFileMenu(self):
@@ -179,6 +179,13 @@ class MainWindow(blankWindow):
         self.window = edtchrWin(self.lang)
 #        self.notdoneyet()
 
+    def _edtgrpWin(self):
+        """
+        Opens a window for editing character parties
+        \todo edtgrpWin has to be implemented
+        """
+        self.notdoneyet("edtgrpWin")
+        
     def __edfightWin(self):
         '''
         Editing all Hits/Crits/Killed Monsters for calculating EPs
@@ -205,6 +212,35 @@ class MainWindow(blankWindow):
         '''
         self.notdoneyet()
 
+    def __addGMMenu(self):
+        """
+        This method adds a Gamemaster Menu for generating special stuff like
+        treasures or magical items.
+        """
+        self.gmmenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['menu_gm'][self.lang],
+                              menu = self.gmmenu)
+        self.gmmenu.add_command(label = submenu['items'][self.lang]['treasure'],
+                                command = self.__createTreasure)
+        self.gmmenu.add_command(label = submenu['items'][self.lang]['magical'],
+                                command = self.__createMagic)
+        
+    
+    def __createTreasure(self):
+        """
+        This method opens a window for treasure generation.
+        \todo createTreasure has to be implemented
+        """
+        self.notdoneyet("createTreasure")
+        
+    def __createMagic(self):
+        """
+        This method opens a window for generation of magical items
+        \todo createMagic has to be implemented
+        """
+        self.notdoneyet("createMagic")
+    
+    
     def __addOptionMenu(self):
         """
         This method adds an option/preferences menu to the menu bar.

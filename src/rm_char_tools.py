@@ -27,6 +27,8 @@ This tool handles
 \todo design: individual EPs
 \todo design: Export functions
 \todo design: Equipment, Shop, Treasures (Chris) 
+\todo integrate magical item generator into project (Aiko)
+\todo integrate (and program) treasure generator (Aiko)
 '''
 #import ConfigParser as CP
 #import Tkinter

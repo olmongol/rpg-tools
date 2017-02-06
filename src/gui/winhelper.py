@@ -5,10 +5,10 @@
 \brief collection of helper tools for building Tk() windows/apps
 
 
-\date (C) 2012
+\date (C) 2012 - 2017
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
-\version 0.5.4 alpha
+\version 1.0
 
 '''
 from rpgtoolbox.globaltools import *
