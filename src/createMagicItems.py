@@ -3,7 +3,7 @@
 \file /home/mongol/git/rpg-tools/src/createMagicItems.py
 \package createMagicItems
 \brief This little program creates a random list of magical items 
-Base of this are the MERS/MERP rules to create a random list of magic items. It 
+Base of this are the \b MERS/MERP rules to create a random list of magic items. It 
 It is possible to fixate the type item of by command line option. 
 Language support exists for:
 \li German (default)

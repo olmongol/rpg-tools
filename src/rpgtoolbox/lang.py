@@ -23,6 +23,10 @@
 # \todo check for German special characters.
 # \todo clean up the code!!!
 
+supportedrpg = {'de' : ("MERS", "RoleMaster"),
+                'en' : ('MERP', 'RoleMaster')
+                }
+
 '''
 This holds general screen messages.
 '''
@@ -107,7 +111,7 @@ txtmenu = {'menu_help'     : {'de' : 'Hilfe',
            'help'          : {'de' : 'Hilfe',
                               'en' : 'Help',
                               },
-           'hlp_about'     : {'de' : '\xc3\x9cber',
+           'hlp_about'     : {'de' : 'über',
                               'en' : 'About',
                               },
            'hlp_first'     : {'de' : 'Erste Schritte',

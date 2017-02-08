@@ -1,4 +1,5 @@
 #!/bin/env python
+# -*- coding: utf-8 -*-
 '''
 \package rpgtoolbox.rolemaster
 \file /home/mongol/git/rpg-tools/src/rpgtoolbox/rolemaster.py
@@ -15,6 +16,122 @@ This package holds RM specific tools like Charakter Skill Progression.
 '''
 import rpgToolDefinitions.helptools.dice as dice
 
+races = {'de' : ['gewöhnliche Menschen', 'vermischte Menschen', 'Hochmenschen',
+                 "Waldelben", "Grauelben", "Hochelben",
+                 "Halbelben", "Zwerge (Kuduk)", "Halblinge (Hobbits)"],
+         'en' : ['Common Men', 'Mixed Men', 'High Men', 'Wood Elves', 'Gray Elves',
+                 'High Elves', 'Half Elves', 'Dwarves', 'Halflings']
+         }
+
+labels = {'de' : {'race' : 'Rasse',
+                  'prof' : 'Beruf',
+                  'name' : 'Name',
+                  'realm' : 'Magiebereich',
+                  'stats' : 'Attribute',
+                  'skin' : 'Hautfarbe',
+                  'culture' : 'Volk',
+                  'gender' : 'Geschlecht',
+                  'player' : 'Spieler',
+                  'ep' : 'Erfahrungspunkte',
+                  'eye' : 'Augenfarbe',
+                  'hair' : 'Haar',
+                  'height' : 'Größe',
+                  'weight' : 'Gewicht',
+                  'look' : 'Aussehen',
+                  'ap age' : 'scheinbares Alter',
+                  'age' : 'tatsächliches Alter',
+                  'parents' : 'Eltern',
+                  'partner' : 'Partner',
+                  'siblings' : 'Geschwister',
+                  'kids' : 'Kinder',
+                  'home' : 'Heimatort',
+                  'god' : 'Gottheit',
+                  'souvereign' : 'Herrscher',
+                  'Ag' : 'Gewandtheit',
+                  'Co' : 'Konstitution',
+                  'Me' : 'Gedächnis',
+                  'Re' : 'Denkvermögen',
+                  'SD' : 'Selbstdisziplin',
+                  'Em' : 'Empathie',
+                  'In' : 'Intuition',
+                  'Pr' : 'Austrahlung',
+                  'Qu' : 'Schnelligkeit',
+                  'St' : 'Stärke',
+                  'RRM' : 'Widerstandswurfmodifikatoren',
+                  'RRChan' : 'WW Leitmagie',
+                  'RREss' : 'WW Essenzmagie',
+                  'RRMent' : 'WW Mentalismus',
+                  'RRArc' : 'WW Arkane Magie',
+                  'RRC/E' : 'WW Leit/Essenz',
+                  'RRC/M' : 'WW Leit/Ment',
+                  'RRE/M' : 'WW Essenz/Ment',
+                  'RRDisease' :'WW Krankheiten',
+                  'RRPoison' : "WW Gift",
+                  'RRFear' : 'WW Furcht',
+                  'AT' : 'Rüstungsklasse',
+                  'MAP' : 'Fernkampfabzug',
+                  'MMP' : 'Bewegungseinschränkung',
+                  'DB' : 'Defensivbonus',
+                  'shield' : 'Schildbonus',
+                  'total' : 'Gesamt',
+                  'Adrenal': "besondere Verteidigung",
+                  'DP' : 'Entwicklungspunkte',
+                  },
+          'en' :{'race' : 'Race',
+                  'prof' : 'Profession',
+                  'name' : 'Name',
+                  'realm' : 'Magic Raalm',
+                  'stats' : 'Attributes',
+                  'skin' : 'Skin Color',
+                  'culture' : 'Culture',
+                  'gender' : 'Gender',
+                  'player' : 'Player',
+                  'ep' : 'Experience Points',
+                  'eye' : 'Eye Color',
+                  'hair' : 'Hair',
+                  'height' : 'Height',
+                  'weight' : 'Weight',
+                  'look' : 'Look',
+                  'ap age' : 'apparent Age',
+                  'age' : 'current Age',
+                  'parents' : 'Parents',
+                  'partner' : 'Partner',
+                  'siblings' : 'Siblings',
+                  'kids' : 'Children',
+                  'home' : 'Home Town',
+                  'god' : 'Deity',
+                  'souvereign' : 'Souvereign',
+                  'Ag' : 'Agility',
+                  'Co' : 'Constitution',
+                  'Me' : 'Memory',
+                  'Re' : 'REasoning',
+                  'SD' : 'Self Disziplin',
+                  'Em' : 'Empathy',
+                  'In' : 'Intuition',
+                  'Pr' : 'Presence',
+                  'Qu' : 'Quickness',
+                  'St' : 'Strength',
+                  'RRM' : 'Resistance Rolls Modifiers',
+                  'RRChan' : 'RR Channeling',
+                  'RREss' : 'RR Essence',
+                  'RRMent' : 'RR Mentalism',
+                  'RRArc' : 'RR Arcane Magic',
+                  'RRC/E' : 'RR Chan/Ess',
+                  'RRC/M' : 'RR Chan/Ment',
+                  'RRE/M' : 'RR Ess/Ment',
+                  'RRDisease' :'RR Disease',
+                  'RRPoison' : "RR Poison",
+                  'RRFear' : 'RR Fear',
+                  'AT' : 'Armor Type',
+                  'MAP' : 'Missle Attack Penalty',
+                  'MMP' : 'Movement Maneuver Penalty',
+                  'DB' : 'Defensive Bonus',
+                  'shield' : 'Shield Bonus',
+                  'total' : 'Total',
+                  'Adrenal': "Adrenal Defense",
+                  'DP' : 'Development Points',
+                  },
+          }
 ##
 # This holds the different Cat/Skill/BD/PP development
 progressionType = {'standard_cat'   : (-15, 2, 1, 0.5, 0),
@@ -285,6 +402,7 @@ def bonus(rank = 0, cat = 0, profession = 0, special = 0, progression = progress
     \param profession profession bonus if any
     \param special special Bonus if any
     \param progression concerned progression type, e.g. Standard for categories
+    \return the skill rank bonus
     '''
     
     result = cat + profession + special
@@ -345,5 +463,4 @@ def statbonus(statvalue = 20):
         result = int(round((statvalue - 95) * 2))
             
     return result
-#if __name__ == '__main__':
-#    pass
+

@@ -313,12 +313,30 @@ class confWindow(blankWindow):
         \param lang Laguage which shall be used in messages and menus
         """
         self.lang = lang
+        self._cnf = chkCfg(lang = self.lang)
+        
         blankWindow.__init__(self, self.lang)
         self.window.title(wintitle['opt_lang'][self.lang])
         self.wert = StringVar()
         self.index = sortIndex(shortcut)
+        self.__buildOptMenu()
         self.__buildWinRadio()
 
+    def __buildOptMenu(self):
+        """
+        This private method builds an option menu button in the option's window
+        to make a choice between the used supported RPGs.
+        """
+        self.RPG = StringVar()
+        if 'rpg' in self._cnf.cnfparam.keys():
+            self.RPG.set(self._cnf.cnfparam['rpg'])
+        else:
+            self.RPG.set('Rolemaster')
+        
+        self.optMenu = apply(OptionMenu, (self.window, self.RPG) + tuple(supportedrpg[self.lang]))
+        self.optMenu.grid(column = 0, row = 0)
+        
+        
     def __buildWinRadio(self):
         """
         This private method builds the option's window with radio
@@ -329,7 +347,6 @@ class confWindow(blankWindow):
         """
         self.sto_path = StringVar()
         self.log_path = StringVar()
-        self._cnf = chkCfg(lang = self.lang)
 
         if 'path' in self._cnf.cnfparam.keys():
             self.sto_path.set(self._cnf.cnfparam['datapath'])
@@ -347,61 +364,69 @@ class confWindow(blankWindow):
         else:
             self.log_path.set("/tmp/")
 
-        Label(master = self.window,
-              width = 25
-              ).pack()
+#        Label(master = self.window,
+#              width = 25
+#              ).pack()
 
         self.rb = {}
-
+        i = 1
         for key in self.index:
             self.rb[key] = Radiobutton(master = self.window,
-                           text = shortcut[key],
-                           variable = self.wert,
-                           value = key
-                           )
+                                       text = shortcut[key],
+                                       variable = self.wert,
+                                       value = key
+                                       )
 
             if key == self.lang:
                 self.rb[key].select()
 
-            self.rb[key].pack()
+#            self.rb[key].pack()
+            self.rb[key].grid(column = 0, row = i)
+            i += 1 
 
+        i += 1
         Label(master = self.window,
               width = 35
-              ).pack()
-
+              ).grid(column = 0, row = i)
+        
+        i += 1
         Label(master = self.window,
               width = 35,
               text = labels['cfg_path'][self.lang]
-              ).pack()
+              ).grid(column = 0, row = i)
 
+        i += 1
         Entry(master = self.window,
               width = 35,
               textvariable = self.sto_path
-              ).pack()
-
+              ).grid(column = 0, row = i)
+              
+        i += 1
         Label(master = self.window,
               width = 35
-              ).pack()
-
+              ).grid(column = 0, row = i)
+        
+        i += 1
         Label(master = self.window,
               width = 35,
               text = labels['log_path'][self.lang]
-              ).pack()
-
+              ).grid(column = 0, row = i)
+        i += 1      
         Entry(master = self.window,
               width = 35,
               textvariable = self.log_path
-              ).pack()
-
+              ).grid(column = 0, row = i)
+        
+        i += 1
         Button(self.window,
                text = txtbutton['but_sav'][self.lang],
                width = 15,
-               command = self.__save).pack()
-
+               command = self.__save).grid(column = 0, row = i)
+        i += 1       
         Button(self.window,
                text = txtbutton['but_clos'][self.lang],
                width = 15,
-               command = self.__closewin).pack()
+               command = self.__closewin).grid(column = 0, row = i)
 
     def chosenLang(self):
         """
@@ -418,6 +443,7 @@ class confWindow(blankWindow):
         self.lang = self.wert.get()
         self.path = self.sto_path.get()
         self.log = self.log_path.get()
+        self.crpg = self.RPG.get()
 
         if  self.path[-1:] != '/':
             self.path += '/'
@@ -427,7 +453,8 @@ class confWindow(blankWindow):
 
         self.cont = {'lang'     : self.lang,
                      'datapath' : self.path,
-                     'logpath'  : self.log
+                     'logpath'  : self.log,
+                     'rpg'      : self.crpg
                      }
         logger.debug('SAVE: lang=%s; datapath=%s; logpath=%s' % (self.lang, self.path, self.log))
         self._cnf.saveCnf(path = './conf',
@@ -440,6 +467,7 @@ class confWindow(blankWindow):
     def __closewin(self):
         """
         A method for closing the window and opening the main window.
+        \todo give RPG type to main window
         """
         self.path = self.sto_path.get()
         self.window.destroy()
