@@ -1,35 +1,38 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# \package rpgtoolbox
-# \file lang.py
-#
-# \brief multi language support module for rpg-tools 
-#
-# Here are all the things implemented that are needed for the switching of 
-# language in the rpg-tools. So this file consists mainly 
-# of dictionary structures.
-# Currently supported languages are:
-# \li English
-# \li Deutsch
-#
-# \attention At the moment just Linux/Unix is supported!
-#
-# \author Marcus Schwamberger
-# \email marcus@lederzeug.de
-# \date (c) 2015-2017
-# \version 0.3 
-# \license GNU V3.0
-#
-# \todo check for German special characters.
-# \todo clean up the code!!!
 
+'''
+\package rpgtoolbox.lang
+\file lang.py
+
+\brief multi language support module for rpg-tools 
+
+Here are all the things implemented that are needed for the switching of 
+language in the rpg-tools. So this file consists mainly 
+of dictionary structures.
+Currently supported languages are:
+\li English
+\li Deutsch
+
+\attention At the moment just Linux/Unix is supported!
+
+\author Marcus Schwamberger
+\email marcus@lederzeug.de
+\date (c) 2015-2017
+\version 0.3 
+\license GNU V3.0
+
+\todo check for German special characters.
+\todo clean up the code!!!
+'''
+##
+# Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
                 'en' : ('MERP', 'RoleMaster')
                 }
 
-'''
-This holds general screen messages.
-'''
+##
+#This holds general screen messages.
 screenmesg = {'welcome'     : {'de' : "Willkommen bei den RPG-Tools",
                                'en' : "Welcome at the RPG tools",
                                },
@@ -58,9 +61,8 @@ screenmesg = {'welcome'     : {'de' : "Willkommen bei den RPG-Tools",
                                },
               }
 
-'''
-This holds the texts written on buttons.
-'''
+##
+#This holds the texts written on buttons.
 txtbutton = {'but_ok'   : {'de' : 'OK',
                            'en' : 'ok',
                            },
@@ -100,11 +102,14 @@ txtbutton = {'but_ok'   : {'de' : 'OK',
              'but_take' : {'de' : '\xc3\x9cbernehmen',
                            'en' : 'take over'
                            },
+             'but_roll' :{'de' : 'Würfeln',
+                          'en' : 'roll dice'
+                          },
              }
 
-'''
-This holds the texts of the main menu bar
-'''
+##
+#This holds the texts of the main menu bar mixed up with button labels
+#\todo it has to be clearly seperated menu and buttons
 txtmenu = {'menu_help'     : {'de' : 'Hilfe',
                               'en' : 'Help',
                               },
@@ -143,9 +148,8 @@ txtmenu = {'menu_help'     : {'de' : 'Hilfe',
                               },
           }
 
-'''
-This holds the texts of the submenu cascades.
-'''
+##
+#This holds the texts of the submenu cascades.
 submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                           'close' : 'Datei schliessen',
                           'new'   : 'Neue Datei',
@@ -221,9 +225,8 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                       }
            }
 
-'''
-this holds the content of choosable filetypes while open/close files.
-'''
+##
+#This holds the content of selectable  file types while open/close files.
 txtwin = {'all_files' : {'de' : ("alle Dateien", '.*'),
                          'en' : ("all files", '.*'),
                          },
@@ -241,9 +244,8 @@ txtwin = {'all_files' : {'de' : ("alle Dateien", '.*'),
                          },
           }
 
-'''
-some processing messages
-'''
+##
+#some processing messages
 processing = {'saved' : {'de' : 'Gespeichert...',
                          'en' : 'Saved...',
                          },
@@ -252,16 +254,14 @@ processing = {'saved' : {'de' : 'Gespeichert...',
                             }
             }
 
-'''
-language shortcuts
-'''
+##
+#language shortcuts / supported languages
 shortcut = {'de' : 'Deutsch',
             'en' : 'English',
             }
 
-'''
-this are the titles of the windows-
-'''
+##
+#these are the titles of the windows
 wintitle = {'opt_lang' : {'de' : 'Spracheinstellungen',
                           'en' : 'Language Settings',
                           },
@@ -288,10 +288,9 @@ wintitle = {'opt_lang' : {'de' : 'Spracheinstellungen',
                            },
             }
 
-'''
-labels for window elements (labels, listboxes etc.)
-\todo clean up!!
-'''
+##
+#labels for window elements (labels, listboxes etc.)
+#\todo clean up!!
 labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei',
                         'en' : 'Path where to store the config file',
                         },
@@ -311,7 +310,7 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
                         'en' : 'DB user'
                         },
           'db_pass'  : {'de' : 'DB Passwort',
-                        'en' : 'DB paasword'
+                        'en' : 'DB password'
                         },
           'add_elem' : {'de' :'Zus\xc3\xa4tzliche Elemente (Komma getrennte Liste)',
                        'en' : 'additional elements (comma separated list)',
@@ -330,16 +329,9 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
                        },
           }
 
-#'''
-#Elements of  OptionMenus which shall be shown but not choosen.
-#'''
-#ommsg = {'sel_struc' :{'de' : 'Strukturelement w\xc3\xa4hlen',
-#                       'en' : 'select element of structure',
-#                       },
-#         }
-'''
-Error messages
-'''
+
+##
+#Error messages
 errmsg = {'no_file' : {'de' : 'Datei existiert nicht!',
                        'en' : 'File does not exists!',
                        },
@@ -370,9 +362,8 @@ errmsg = {'no_file' : {'de' : 'Datei existiert nicht!',
           }
 
 
-'''
-simply some info messages for the help window
-'''
+##
+#simply some info messages for the help window
 infomsg = {'help_info' : {'de' : 'F\xc3\xbcr eine genauere Information '\
                                  '\xc3\xbcber die '\
                                  'einzelnen Standardelemente bitte auf das '\
@@ -383,9 +374,8 @@ infomsg = {'help_info' : {'de' : 'F\xc3\xbcr eine genauere Information '\
            }
 
 
-'''
-Descriptions of the default structure elements.
-'''
+##
+#Descriptions of the default elements for calculating EPs from.
 s_elem_def = {'CRITICAL' : {'de' : 'Ausgeteilte kritische Treffer',
                             'en' : 'Made critical hits',
                            },
@@ -412,22 +402,26 @@ s_elem_def = {'CRITICAL' : {'de' : 'Ausgeteilte kritische Treffer',
                              },
               }
 
-'''
-attributes for structure elements
-'''
-screentext = {'label' : {'de' : 'Bezeichnung',
-                          'en' : 'name',
-                          },
-             'type'  : {'de' : 'Art des Vorkommens',
-                        'en' : 'kind of occurence',
-                        },
-             'dbtype' : {'de' : 'Datenbanktyp',
-                         'en' : 'database type',
-                         },
-             'new' : {'de' : 'Neu',
-                      'en' : 'New'
-                      },
-             }
+#'''
+#attributes for structure elements
+#'''
+#screentext = {'label' : {'de' : 'Bezeichnung',
+#                          'en' : 'name',
+#                          },
+#             'type'  : {'de' : 'Art des Vorkommens',
+#                        'en' : 'kind of occurence',
+#                        },
+#             'dbtype' : {'de' : 'Datenbanktyp',
+#                         'en' : 'database type',
+#                         },
+#             'new' : {'de' : 'Neu',
+#                      'en' : 'New'
+#                      },
+#             }
+
+##
+# csvlabels contains some values for characters
+# \deprecated contains some values for characters (not needed yet)
 csvlabels = {'Name' : {'de' : "Charaktername",
                        'en' : "character name"
                        },

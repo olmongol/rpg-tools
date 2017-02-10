@@ -14,7 +14,7 @@ This package holds RM specific tools like Charakter Skill Progression.
 \date 2017
 \copyright 2017 Marcus Schwamberger
 '''
-import rpgToolDefinitions.helptools.dice as dice
+#import rpgToolDefinitions.helptools.dice as dice
 
 races = {'de' : ['gewöhnliche Menschen', 'vermischte Menschen', 'Hochmenschen',
                  "Waldelben", "Grauelben", "Hochelben",
@@ -22,6 +22,9 @@ races = {'de' : ['gewöhnliche Menschen', 'vermischte Menschen', 'Hochmenschen',
          'en' : ['Common Men', 'Mixed Men', 'High Men', 'Wood Elves', 'Gray Elves',
                  'High Elves', 'Half Elves', 'Dwarves', 'Halflings']
          }
+
+stats = ['Ag', 'Co', 'Me', 'Re', 'SD', 'Em', 'In', 'Pr', 'Qu', 'St']
+
 
 labels = {'de' : {'race' : 'Rasse',
                   'prof' : 'Beruf',
@@ -76,6 +79,7 @@ labels = {'de' : {'race' : 'Rasse',
                   'total' : 'Gesamt',
                   'Adrenal': "besondere Verteidigung",
                   'DP' : 'Entwicklungspunkte',
+                  'BGO': 'Hintergrundoptionen',
                   },
           'en' :{'race' : 'Race',
                   'prof' : 'Profession',
@@ -130,6 +134,7 @@ labels = {'de' : {'race' : 'Rasse',
                   'total' : 'Total',
                   'Adrenal': "Adrenal Defense",
                   'DP' : 'Development Points',
+                  'BGO' : 'Background Options',
                   },
           }
 ##
@@ -173,11 +178,11 @@ raceAbilities = {'Common Men': {'Ag' : 0,
                                 'Pr' : 0,
                                 'Qu' : 0,
                                 'St' : 2,
-                                'Ess' : 0,
-                                'Chan' : 0,
-                                'Ment' : 0,
-                                'Pois' : 0,
-                                'Dis' : 0,
+                                'RREss' : 0,
+                                'RRChan' : 0,
+                                'RRMent' : 0,
+                                'RRPoison' : 0,
+                                'RRDisease' : 0,
                                 'BGO' : 6,
                                 'Hobby Ranks': 12,
                                 },
@@ -191,11 +196,11 @@ raceAbilities = {'Common Men': {'Ag' : 0,
                                 'Pr' : 2,
                                 'Qu' : 0,
                                 'St' : 2,
-                                'Ess' : 0,
-                                'Chan' : 0,
-                                'Ment' : 0,
-                                'Pois' : 0,
-                                'Dis' : 0,
+                                'RREss' : 0,
+                                'RRChan' : 0,
+                                'RRMent' : 0,
+                                'RRPoison' : 0,
+                                'RRDisease' : 0,
                                 'BGO' : 5,
                                 'Hobby Ranks': 12,
                                 },
@@ -209,11 +214,11 @@ raceAbilities = {'Common Men': {'Ag' : 0,
                                 'Pr' : 4,
                                 'Qu' :-2,
                                 'St' : 4,
-                                'Ess' :-5,
-                                'Chan' :-5,
-                                'Ment' :-5,
-                                'Pois' : 0,
-                                'Dis' : 0,
+                                'RREss' :-5,
+                                'RRChan' :-5,
+                                'RRMent' :-5,
+                                'RRPoison' : 0,
+                                'RRDisease' : 0,
                                 'BGO' : 4,
                                 'Hobby Ranks': 10,
                                 },
@@ -227,11 +232,11 @@ raceAbilities = {'Common Men': {'Ag' : 0,
                                 'Pr' : 2,
                                 'Qu' : 2,
                                 'St' : 0,
-                                'Ess' :-5,
-                                'Chan' :-5,
-                                'Ment' :-5,
-                                'Pois' : 10,
-                                'Dis' : 100,
+                                'RREss' :-5,
+                                'RRChan' :-5,
+                                'RRMent' :-5,
+                                'RRPoison' : 10,
+                                'RRDisease' : 100,
                                 'BGO' : 4,
                                 'Hobby Ranks': 10,
                                 },
@@ -245,11 +250,11 @@ raceAbilities = {'Common Men': {'Ag' : 0,
                                 'Pr' : 4,
                                 'Qu' : 4,
                                 'St' : 0,
-                                'Ess' :-5,
-                                'Chan' :-5,
-                                'Ment' :-5,
-                                'Pois' : 10,
-                                'Dis' : 100,
+                                'RREss' :-5,
+                                'RRChan' :-5,
+                                'RRMent' :-5,
+                                'RRPoison' : 10,
+                                'RRDisease' : 100,
                                 'BGO' : 3,
                                 'Hobby Ranks': 8,
                                 },
@@ -263,11 +268,11 @@ raceAbilities = {'Common Men': {'Ag' : 0,
                                 'Pr' : 6,
                                 'Qu' : 6,
                                 'St' : 0,
-                                'Ess' :-5,
-                                'Chan' :-5,
-                                'Ment' :-5,
-                                'Pois' : 10,
-                                'Dis' : 100,
+                                'RREss' :-5,
+                                'RRChan' :-5,
+                                'RRMent' :-5,
+                                'RRPoison' : 10,
+                                'RRDisease' : 100,
                                 'BGO' : 2,
                                 'Hobby Ranks': 6,
                                 },
@@ -281,11 +286,11 @@ raceAbilities = {'Common Men': {'Ag' : 0,
                                 'Pr' : 4,
                                 'Qu' : 4,
                                 'St' : 2,
-                                'Ess' :-5,
-                                'Chan' :-5,
-                                'Ment' :-5,
-                                'Pois' : 0,
-                                'Dis' : 50,
+                                'RREss' :-5,
+                                'RRChan' :-5,
+                                'RRMent' :-5,
+                                'RRPoison' : 0,
+                                'RRDisease' : 50,
                                 'BGO' : 4,
                                 'Hobby Ranks': 10,
                                 },
@@ -299,11 +304,11 @@ raceAbilities = {'Common Men': {'Ag' : 0,
                                 'Pr' :-4,
                                 'Qu' :-2,
                                 'St' : 2,
-                                'Ess' : 40,
-                                'Chan' : 0,
-                                'Ment' : 40,
-                                'Pois' : 20,
-                                'Dis' : 15,
+                                'RREss' : 40,
+                                'RRChan' : 0,
+                                'RRMent' : 40,
+                                'RRPoison' : 20,
+                                'RRDisease' : 15,
                                 'BGO' : 5,
                                 'Hobby Ranks': 12,
                                 },
@@ -317,11 +322,11 @@ raceAbilities = {'Common Men': {'Ag' : 0,
                                 'Pr' :-6,
                                 'Qu' : 4,
                                 'St' :-8,
-                                'Ess' : 50,
-                                'Chan' : 0,
-                                'Ment' : 40,
-                                'Pois' : 30,
-                                'Dis' : 15,
+                                'RREss' : 50,
+                                'RRChan' : 0,
+                                'RRMent' : 40,
+                                'RRPoison' : 30,
+                                'RRDisease' : 15,
                                 'BGO' : 5,
                                 'Hobby Ranks': 12,
                                 },
@@ -393,7 +398,54 @@ def DPCostSpells(skill = 0, listtype = "Own Realm Own Base List", sutype = "pure
                     
     return costs
     
+def choseProfession(lang = 'en'):
+    '''
+    This function reads the ProfBonus.csv and delivers a structured dictionary 
+    for further computation.
+    \param lang chosen language - at the moment there is just English supported
+    \retval professions  a dictionary: 
+    \li 1 lvl <professions> 
+    \li 2.lvl: Prime Stats (list), Profession Bonusses (dict, 3. lvl), 
+          Realm (string)
+    \li 3. (Profession Bonusses) \<Skill Category\> : int
+    \todo implement German language support 
+    '''
     
+    # Just until German Language Support is implemented 
+    if lang != "en":
+        lang = "en"
+        
+    filename = "../data/default/ProfBonus_%s.csv" % (lang)
+    fp = open(filename, "r")
+    content = fp.readlines()
+    fp.close()
+    professions = {}
+    key = content[0].strip('\n').split(',')
+    
+    for i in range(1, len(content)):
+        dummy = content[i].strip('\n').split(',')
+        professions[dummy[0]] = {}
+        
+        for j in range(1, len(key)):
+            
+            if ';' in dummy[j]:
+                professions[dummy[0]][key[j]] = dummy[j].split(';')
+            
+            else:
+                professions[dummy[0]][key[j]] = dummy[j]
+    
+    for prof in professions.keys():
+        dummy = {}
+    
+        for bonus in professions[prof]['Profession Bonusses']:
+            dummy2 = bonus.split(';')
+            dummy[dummy2[0]] = int(dummy2[1])
+            
+        professions[prof]['Profession Bonusses'] = dict(dummy)
+        
+    
+    
+        
 def bonus(rank = 0, cat = 0, profession = 0, special = 0, progression = progressionType['standard_cat']):
     '''
     This function returns the cumulative Bonus of a category or skill.

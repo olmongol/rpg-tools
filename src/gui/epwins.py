@@ -10,6 +10,7 @@
 \email marcus@lederzeug.de
 \version 1.0
 '''
+import random
 import os
 import sys
 from Tkinter import *
@@ -25,6 +26,8 @@ from rpgtoolbox.rpgtools import getLvl
 from gui.winhelper import AutoScrollbar
 from gui.winhelper import InfoCanvas
 from gui.window import *
+from rpgtoolbox.rolemaster import stats
+from Cython.Compiler.Naming import self_cname
 
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-2017 " + __author__
@@ -44,7 +47,7 @@ class MainWindow(blankWindow):
     \param title title of the window
     \param storepath path where things like options have to be stored
     """
-    def __init__(self, lang = 'en', storepath = None, title = "Main Window"):
+    def __init__(self, lang = 'en', storepath = None, title = "Main Window", char = None):
         """
         Class constructor
         \param lang The chosen language for window's and button's
@@ -52,6 +55,7 @@ class MainWindow(blankWindow):
                     value) and German (de) are supported.
         \param title title of the window
         \param storepath path where things like options have to be stored
+        \param char Character as JSON
         """
         if storepath == None:
 
@@ -65,6 +69,7 @@ class MainWindow(blankWindow):
         self.picpath = "./gui/pic/"
         self.lang = lang
         self.myfile = "MyRPG.exp"
+        self.char = char
 
         blankWindow.__init__(self, self.lang)
         self.window.title(title)
@@ -350,6 +355,7 @@ class confWindow(blankWindow):
 
         if 'path' in self._cnf.cnfparam.keys():
             self.sto_path.set(self._cnf.cnfparam['datapath'])
+  
         else:
             self.sto_path.set("./data")
 
@@ -364,12 +370,9 @@ class confWindow(blankWindow):
         else:
             self.log_path.set("/tmp/")
 
-#        Label(master = self.window,
-#              width = 25
-#              ).pack()
-
         self.rb = {}
         i = 1
+     
         for key in self.index:
             self.rb[key] = Radiobutton(master = self.window,
                                        text = shortcut[key],
@@ -380,7 +383,6 @@ class confWindow(blankWindow):
             if key == self.lang:
                 self.rb[key].select()
 
-#            self.rb[key].pack()
             self.rb[key].grid(column = 0, row = i)
             i += 1 
 
@@ -427,6 +429,7 @@ class confWindow(blankWindow):
                text = txtbutton['but_clos'][self.lang],
                width = 15,
                command = self.__closewin).grid(column = 0, row = i)
+               
 
     def chosenLang(self):
         """
@@ -573,7 +576,8 @@ class inputWin(blankWindow):
         '''
         print "input win --> createchar"
 #        self.notdoneyet('chreatechar')
-        self.window = genAttrWin(lang = self.lang,
+        self.window.destroy()
+        self.window3 = genAttrWin(lang = self.lang,
                                  storepath = self.mypath)
        
     def __creategroup(self):
@@ -869,18 +873,40 @@ class genAttrWin(blankWindow):
     A window class for generating name, race, profession and attributes of a new
     character.
     '''
-    def __init__(self, lang = 'en', storepath = './data'):
+    def __init__(self, lang = 'en', storepath = './data', rpg = "RoleMaster"):
         '''
         \param lang Choosen display language (default en)
         \param storepath Path to store data (default: ./data)
         '''
         
+        if rpg == "RoleMaster":
+            from rpgtoolbox import rolemaster as rm
+
+        else:
+            self.notdoneyet("support for %s" % (rpg))
+
+        self.character = {}
         self.lang = lang
         self.spath = storepath
-        
+        self.stats = {}
+        self.__count = 0
+#        self.__keys=['player','name','prof','race','realm']+stats
         blankWindow.__init__(self, lang = self.lang)
+
+            
         
+
         self.window.title(wintitle['rm_charg'][self.lang] + " - Attributes")
+        self.showno = IntVar()
+        self.showno.set(600)
+        
+        for a in ['player', 'name', 'prof', 'race', 'realm']:
+            self.stats[a] = StringVar()
+            
+        for a in rm.stats:
+            self.stats[a] = IntVar()
+            self.stats[a].set(0)      
+              
         self.filemenu = Menu(master = self.menu)
         self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
                               menu = self.filemenu)
@@ -889,13 +915,69 @@ class genAttrWin(blankWindow):
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
                                   command = self.__closewin)   
+   
+
+                    
+        Label(master = self.window,
+              width = 25,
+              text = rm.labels[self.lang]['player']
+              ).grid(column = 0, row = 0, columnspan = 2)    
+    
+        Entry(master = self.window,
+              width = 35,
+              textvariable = self.stats['player'],
+              ).grid(column = 2, row = 0, columnspan = 2)
+                        
+        Button(master = self.window,
+               text = txtbutton['but_roll'][self.lang],
+               command = self.rollDice).grid(column = 4, row = 0)
         
+        Label(master = self.window,
+              text = rm.labels[self.lang]['DP'],
+              ).grid(column = 5, row = 0)
+        Message(master = self.window,
+                 width = 35,
+                 textvariable = self.showno
+                 ).grid(column = 6, row = 0)
         
+        self.window.mainloop()
+
+    def dice(self, sides = 6, number = 1):
+        '''
+        This function delivers the result of a dice roll as a list.
+        \param sides number of sides of the used dice
+        \param number number of used dices/rolls
+        \retval result sum of the dice rolls
+        '''
+        i = 0
+        result = 0
+        
+        while i < number:
+            roll = random.randint(1, sides)
+            result += roll
+            i += 1
+        return result
+
+    def rollDice(self):
+        """
+        Creates the pool for stat generation
+        \todo rollDice has to be implemented
+        """
+        self.__count += 1
+        if 0 < self.__count < 4:
+            self.result = 600 + self.dice(10, 10)
+            print self.result
+            self.showno.set(self.result)
+        
+
+    def __nextWin(self):
+        """
+        Method that opens the next step window
+        \todo nextWin has to be implemented
+        """   
+        self.notdoneyet('nextWin')
         
         
     def __closewin(self):
-        """
-        Method for closing the window and opening the main window.
-        """
         self.window.destroy()
-#        self.window = MainWindow(self.lang, self.spath)
+        self.window = MainWindow(lang = self.lang, char = self.character)

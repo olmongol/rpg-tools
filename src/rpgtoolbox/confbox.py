@@ -14,7 +14,7 @@ A toolbox of things to handle config files.
 import os, locale
 import rpgtoolbox.globaltools as rpgtools
 from rpgtoolbox.lang import *
-from cairosvg.surface.path import path
+#from cairosvg.surface.path import path
 
 defaultconfigpath = "conf/"
 defaultconfigfile = "rpg-tools.cfg"
@@ -102,6 +102,7 @@ cfgopts = {'lang' :'''
 defval = {'lang' : 'en',
           'datapath' : './data',
           'logpath'  : '/tmp/',
+          'rpg'      : 'RoleMaster',
           'logcount' : 5,
           'logsize'  : '1M',
           'logfile'  : 'rpgtools.log',
