@@ -402,22 +402,6 @@ s_elem_def = {'CRITICAL' : {'de' : 'Ausgeteilte kritische Treffer',
                              },
               }
 
-#'''
-#attributes for structure elements
-#'''
-#screentext = {'label' : {'de' : 'Bezeichnung',
-#                          'en' : 'name',
-#                          },
-#             'type'  : {'de' : 'Art des Vorkommens',
-#                        'en' : 'kind of occurence',
-#                        },
-#             'dbtype' : {'de' : 'Datenbanktyp',
-#                         'en' : 'database type',
-#                         },
-#             'new' : {'de' : 'Neu',
-#                      'en' : 'New'
-#                      },
-#             }
 
 ##
 # csvlabels contains some values for characters

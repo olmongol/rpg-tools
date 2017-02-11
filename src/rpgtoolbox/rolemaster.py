@@ -25,7 +25,13 @@ races = {'de' : ['gewöhnliche Menschen', 'vermischte Menschen', 'Hochmenschen',
 
 stats = ['Ag', 'Co', 'Me', 'Re', 'SD', 'Em', 'In', 'Pr', 'Qu', 'St']
 
-
+realms = {'en': ('choice', 'Essence', 'Channeling', 'Mentalism',
+                 'Channeling;Mentalism', 'Channeling;Essence',
+                 'Essence;Mentalism'),
+          'de': ('wählbar', 'Essenz', 'Leitmagie', 'Mentalismus',
+                 'Leitmagie;Mentalismus', 'Leitmagie;Essenz',
+                 'Essenz;Mentalismus'),
+          }
 labels = {'de' : {'race' : 'Rasse',
                   'prof' : 'Beruf',
                   'name' : 'Name',
@@ -409,13 +415,14 @@ def choseProfession(lang = 'en'):
           Realm (string)
     \li 3. (Profession Bonusses) \<Skill Category\> : int
     \todo implement German language support 
+    \bug doesn't work correctly. It has to be checked separately!!
     '''
     
     # Just until German Language Support is implemented 
     if lang != "en":
         lang = "en"
         
-    filename = "../data/default/ProfBonus_%s.csv" % (lang)
+    filename = "./data/default/ProfBonus_%s.csv" % (lang)
     fp = open(filename, "r")
     content = fp.readlines()
     fp.close()
@@ -438,10 +445,12 @@ def choseProfession(lang = 'en'):
         dummy = {}
     
         for bonus in professions[prof]['Profession Bonusses']:
-            dummy2 = bonus.split(';')
+            dummy2 = bonus.split(':')
             dummy[dummy2[0]] = int(dummy2[1])
             
         professions[prof]['Profession Bonusses'] = dict(dummy)
+        
+    return professions
         
     
     

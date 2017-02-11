@@ -885,24 +885,25 @@ class genAttrWin(blankWindow):
         else:
             self.notdoneyet("support for %s" % (rpg))
 
+        
         self.character = {}
         self.lang = lang
         self.spath = storepath
+        self.profs = rm.choseProfession(self.lang)
+        proflist = self.profs.keys()
         self.stats = {}
         self.__count = 0
 #        self.__keys=['player','name','prof','race','realm']+stats
         blankWindow.__init__(self, lang = self.lang)
-
-            
-        
-
         self.window.title(wintitle['rm_charg'][self.lang] + " - Attributes")
         self.showno = IntVar()
         self.showno.set(600)
+        dummy = ['player', 'name', 'prof', 'race', 'realm']
         
-        for a in ['player', 'name', 'prof', 'race', 'realm']:
+        for a in dummy:
             self.stats[a] = StringVar()
-            
+        
+        self.stats['race'].set(rm.races[self.lang][0])    
         for a in rm.stats:
             self.stats[a] = IntVar()
             self.stats[a].set(0)      
@@ -917,7 +918,6 @@ class genAttrWin(blankWindow):
                                   command = self.__closewin)   
    
 
-                    
         Label(master = self.window,
               width = 25,
               text = rm.labels[self.lang]['player']
@@ -935,12 +935,94 @@ class genAttrWin(blankWindow):
         Label(master = self.window,
               text = rm.labels[self.lang]['DP'],
               ).grid(column = 5, row = 0)
+              
         Message(master = self.window,
                  width = 35,
                  textvariable = self.showno
                  ).grid(column = 6, row = 0)
         
+        Label(master = self.window,
+              width = 25,
+              text = rm.labels[self.lang]['name']
+              ).grid(column = 0, row = 1, columnspan = 2)    
+    
+        Entry(master = self.window,
+              width = 35,
+              textvariable = self.stats['name'],
+              ).grid(column = 2, row = 1, columnspan = 2)    
+              
+        Label(master = self.window,
+              width = 25,
+              text = rm.labels[self.lang]['race']
+              ).grid(column = 4, row = 1, columnspan = 2)    
+        
+
+        self.optMenu1 = OptionMenu(self.window,
+                                   self.stats['race'],
+                                   *rm.races[self.lang])
+        self.optMenu1.grid(column = 6, row = 1, columnspan = 2, sticky = "ew")
+        
+        Label(master = self.window,
+              width = 25,
+              text = rm.labels[self.lang]['prof']
+              ).grid(column = 0, row = 2, columnspan = 2)         
+        
+        self.optMenu2 = OptionMenu(self.window,
+                                   self.stats['prof'],
+                                   *proflist,
+                                   command = self.__setRealm)
+        self.optMenu2.grid(column = 2, row = 2, columnspan = 2, sticky = "ew")        
+        
+        Label(master = self.window,
+              width = 25,
+              text = rm.labels[self.lang]['realm']
+              ).grid(column = 4, row = 2, columnspan = 2)         
+        
+        self.optMenu3 = OptionMenu(self.window,
+                                   self.stats['realm'],
+                                   *rm.realms[self.lang],
+                                   command = self.__chkRealm)
+        self.optMenu3.grid(column = 6, row = 2, columnspan = 2, sticky = "ew")
+        
+        
+                
         self.window.mainloop()
+    
+    def __chkRealm(self, event):
+        '''
+        This method checks whether the right magic realm is chosen for the 
+        selected profession
+        \param event object event given by OptionMenu but not used 
+        '''
+        testr = self.stats['realm'].get()
+        testp = self.stats['prof'].get()
+        if type(self.profs[testp]['Realm']) == type(''):
+        
+            if testr != self.profs[testp]['Realm'] and self.profs[testp]['Realm'] != "choice":
+                self.stats['realm'].set(self.profs[testp]['Realm'])
+        
+        elif type(self.profs[testp]['Realm']) == type([]):
+            
+            if len(self.profs[testp]['Realm']) == 2:
+            
+                if testr != str(self.profs[testp]['Realm'][0] + ';' + self.profs[testp]['Realm'][1]):
+                    self.stats['realm'].set(self.profs[testp]['Realm'][0] + ';' + self.profs[testp]['Realm'][1])
+            
+            else:                                      
+                if testr != str(self.profs[testp]['Realm'][0]):
+                    self.stats['realm'].set(self.profs[testp]['Realm'][0])
+            
+            
+    def __setRealm(self, event):
+        '''
+        Sets the connected Realm if profession is chosen
+        \todo has to be implemented
+        '''
+        
+        
+        self.notdoneyet("setRealm")
+
+
 
     def dice(self, sides = 6, number = 1):
         '''
@@ -970,6 +1052,11 @@ class genAttrWin(blankWindow):
             self.showno.set(self.result)
         
 
+    def __collectData(self, event):
+        '''
+        This Method collects and saves all entered/chosen data from this window.
+        '''
+        self.notdoneyet('collectData')
     def __nextWin(self):
         """
         Method that opens the next step window
