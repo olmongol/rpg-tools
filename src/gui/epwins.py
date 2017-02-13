@@ -891,7 +891,18 @@ class genAttrWin(blankWindow):
         self.spath = storepath
         self.profs = rm.choseProfession(self.lang)
         proflist = self.profs.keys()
+        ##
+        # holds player, name, profession, race, realm and temp stats
         self.stats = {}
+        ##
+        # holds potential stats (maximum values)
+        self.pots = {}
+        # holds special stats if any
+        self.specs = {}
+        self.__race = {}
+        self.__labels = {}
+        self.__totals = {}
+        self.__std = {}
         self.__count = 0
 #        self.__keys=['player','name','prof','race','realm']+stats
         blankWindow.__init__(self, lang = self.lang)
@@ -902,12 +913,26 @@ class genAttrWin(blankWindow):
         
         for a in dummy:
             self.stats[a] = StringVar()
+            
         
         self.stats['race'].set(rm.races[self.lang][0])    
         for a in rm.stats:
             self.stats[a] = IntVar()
             self.stats[a].set(0)      
-              
+            self.pots[a] = IntVar()
+            self.pots[a].set(0)
+            self.specs[a] = IntVar()
+            self.specs[a].set(0)
+            self.__labels[a] = StringVar()
+            self.__labels[a].set(rm.labels[self.lang][a])
+            self.__race[a] = IntVar()
+            self.__race[a].set(0)
+            self.__std[a] = IntVar()
+            self.__std[a].set(0)
+            self.__totals[a] = IntVar()
+            self.__totals[a].set(0)
+            
+            
         self.filemenu = Menu(master = self.menu)
         self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
                               menu = self.filemenu)
@@ -930,16 +955,18 @@ class genAttrWin(blankWindow):
                         
         Button(master = self.window,
                text = txtbutton['but_roll'][self.lang],
+               width = 15,
                command = self.rollDice).grid(column = 4, row = 0)
         
         Label(master = self.window,
               text = rm.labels[self.lang]['DP'],
-              ).grid(column = 5, row = 0)
+              ).grid(column = 5, row = 0, columnspan = 2)
               
         Message(master = self.window,
                  width = 35,
-                 textvariable = self.showno
-                 ).grid(column = 6, row = 0)
+                 textvariable = self.showno,
+                 font = "bold"
+                 ).grid(column = 7, row = 0)
         
         Label(master = self.window,
               width = 25,
@@ -952,7 +979,7 @@ class genAttrWin(blankWindow):
               ).grid(column = 2, row = 1, columnspan = 2)    
               
         Label(master = self.window,
-              width = 25,
+              width = 15,
               text = rm.labels[self.lang]['race']
               ).grid(column = 4, row = 1, columnspan = 2)    
         
@@ -974,7 +1001,7 @@ class genAttrWin(blankWindow):
         self.optMenu2.grid(column = 2, row = 2, columnspan = 2, sticky = "ew")        
         
         Label(master = self.window,
-              width = 25,
+              width = 15,
               text = rm.labels[self.lang]['realm']
               ).grid(column = 4, row = 2, columnspan = 2)         
         
@@ -984,10 +1011,131 @@ class genAttrWin(blankWindow):
                                    command = self.__chkRealm)
         self.optMenu3.grid(column = 6, row = 2, columnspan = 2, sticky = "ew")
         
-        
+        Label (master = self.window,
+               width = 15,
+               relief = RIDGE,
+               font = "bold",
+               text = rm.labels[self.lang]['stats']
+               ).grid(column = 0, row = 3, sticky = "ew")
+               
+        Label (master = self.window,
+               width = 10,
+               relief = RIDGE,
+               font = "bold",
+               text = rm.labels[self.lang]['short']
+               ).grid(column = 1, row = 3)       
+               
+        Label (master = self.window,
+               width = 10,
+               relief = RIDGE,
+               font = "bold",
+               text = "Temp"
+               ).grid(column = 2, row = 3, sticky = "ew")
+               
+        Label (master = self.window,
+               width = 10,
+               relief = RIDGE,
+               font = "bold",
+               text = "Pot"
+               ).grid(column = 3, row = 3, sticky = "ew")
+               
+        Label (master = self.window,
+               width = 10,
+               relief = RIDGE,
+               font = "bold",
+               text = rm.labels[self.lang]['race']
+               ).grid(column = 4, row = 3, sticky = "ew")
                 
+        Label (master = self.window,
+               width = 10,
+               relief = RIDGE,
+               font = "bold",
+               text = "Spec"
+               ).grid(column = 5, row = 3, sticky = "ew")
+               
+        Label (master = self.window,
+               width = 10,
+               relief = RIDGE,
+               font = "bold",
+               text = "Std"
+               ).grid(column = 6, row = 3, sticky = "ew")
+
+        Label (master = self.window,
+               width = 10,
+               relief = RIDGE,
+               font = "bold",
+               text = rm.labels[self.lang]['total']
+               ).grid(column = 7, row = 3, sticky = "ew")        
+        
+        i = 4
+        
+        for s in rm.stats:
+            Label(master = self.window,
+                  width = 15,
+                  textvariable = self.__labels[s]
+                 ).grid(column = 0, row = i, sticky = "ew")
+                 
+            Label(master = self.window,
+                  text = s  # momentary only English shortcuts
+                  ).grid(column = 1, row = i, sticky = "ew")
+                  
+            Entry(master = self.window,
+                   width = 10,
+                   textvariable = self.stats[s]
+                   ).grid(column = 2, row = i)
+            
+            Message(master = self.window,
+                    width = 10,
+                    textvariable = self.pots[s],
+                    ).grid(column = 3, row = i)
+            Message(master = self.window,
+                    width = 10,
+                    textvariable = self.__race[s],
+                    ).grid(column = 4, row = i)
+
+            Message(master = self.window,
+                    width = 10,
+                    textvariable = self.__std[s],
+                    ).grid(column = 5, row = i) 
+            Entry(master = self.window,
+                  width = 10,
+                  textvariable = self.specs[s]
+                  ).grid(column = 6, row = i)                   
+            
+            Message(master = self.window,
+                    width = 10,
+                    font = "bold",
+                    textvariable = self.__std[s],
+                    ).grid(column = 7, row = i)         
+                    
+            i += 1
+        
+        Button(master = self.window,
+               text = txtbutton['but_calc'][self.lang],
+               width = 15,
+               command = self.__calcBonus).grid(column = 0, row = i)
+
+        Button(master = self.window,
+               text = txtbutton['but_next'][self.lang],
+               width = 10,
+               command = self.rollDice).grid(column = 7, row = i)  
+                                           
         self.window.mainloop()
     
+    def __nextStep(self):
+        '''
+        Creates next Window, saves and transmits data
+        \todo has to be implemented
+        '''
+        self.notdoneyet('__nextStep')
+
+    def __calcBonus(self):
+        '''
+        Totals and update all bonusses
+        '''
+        self.notdoneyet('__calcBonus')
+        
+        
     def __chkRealm(self, event):
         '''
         This method checks whether the right magic realm is chosen for the 
@@ -996,21 +1144,21 @@ class genAttrWin(blankWindow):
         '''
         testr = self.stats['realm'].get()
         testp = self.stats['prof'].get()
-        if type(self.profs[testp]['Realm']) == type(''):
+#        if type(self.profs[testp]['Realm']) == type(''):
+#        
+        if testr != self.profs[testp]['Realm'] and self.profs[testp]['Realm'] != "choice":
+            self.stats['realm'].set(self.profs[testp]['Realm'])
         
-            if testr != self.profs[testp]['Realm'] and self.profs[testp]['Realm'] != "choice":
-                self.stats['realm'].set(self.profs[testp]['Realm'])
-        
-        elif type(self.profs[testp]['Realm']) == type([]):
-            
-            if len(self.profs[testp]['Realm']) == 2:
-            
-                if testr != str(self.profs[testp]['Realm'][0] + ';' + self.profs[testp]['Realm'][1]):
-                    self.stats['realm'].set(self.profs[testp]['Realm'][0] + ';' + self.profs[testp]['Realm'][1])
-            
-            else:                                      
-                if testr != str(self.profs[testp]['Realm'][0]):
-                    self.stats['realm'].set(self.profs[testp]['Realm'][0])
+#        elif type(self.profs[testp]['Realm']) == type([]):
+#            
+#            if len(self.profs[testp]['Realm']) == 2:
+#            
+#                if testr != str(self.profs[testp]['Realm'][0] + ';' + self.profs[testp]['Realm'][1]):
+#                    self.stats['realm'].set(self.profs[testp]['Realm'][0] + ';' + self.profs[testp]['Realm'][1])
+#            
+#            else:                                      
+#                if testr != str(self.profs[testp]['Realm'][0]):
+#                    self.stats['realm'].set(self.profs[testp]['Realm'][0])
             
             
     def __setRealm(self, event):
@@ -1018,9 +1166,10 @@ class genAttrWin(blankWindow):
         Sets the connected Realm if profession is chosen
         \todo has to be implemented
         '''
+        testp = self.stats['prof'].get()    
+        self.stats['realm'].set(self.profs[testp]['Realm'])
         
-        
-        self.notdoneyet("setRealm")
+#        self.notdoneyet("setRealm")
 
 
 
@@ -1043,7 +1192,6 @@ class genAttrWin(blankWindow):
     def rollDice(self):
         """
         Creates the pool for stat generation
-        \todo rollDice has to be implemented
         """
         self.__count += 1
         if 0 < self.__count < 4:

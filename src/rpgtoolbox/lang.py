@@ -105,6 +105,9 @@ txtbutton = {'but_ok'   : {'de' : 'OK',
              'but_roll' :{'de' : 'Würfeln',
                           'en' : 'roll dice'
                           },
+             'but_calc' :{'de' : "Berechnen",
+                          'en' : 'calculate'
+                          },
              }
 
 ##

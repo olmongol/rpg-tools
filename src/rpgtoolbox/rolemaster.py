@@ -25,12 +25,13 @@ races = {'de' : ['gewöhnliche Menschen', 'vermischte Menschen', 'Hochmenschen',
 
 stats = ['Ag', 'Co', 'Me', 'Re', 'SD', 'Em', 'In', 'Pr', 'Qu', 'St']
 
+
 realms = {'en': ('choice', 'Essence', 'Channeling', 'Mentalism',
-                 'Channeling;Mentalism', 'Channeling;Essence',
-                 'Essence;Mentalism'),
+                 ['Channeling', 'Mentalism'], ['Channeling', 'Essence'],
+                 ['Essence', 'Mentalism']),
           'de': ('wählbar', 'Essenz', 'Leitmagie', 'Mentalismus',
-                 'Leitmagie;Mentalismus', 'Leitmagie;Essenz',
-                 'Essenz;Mentalismus'),
+                 ['Leitmagie', 'Mentalismus'], ['Leitmagie', 'Essenz'],
+                 ['Essenz', 'Mentalismus']),
           }
 labels = {'de' : {'race' : 'Rasse',
                   'prof' : 'Beruf',
@@ -86,6 +87,8 @@ labels = {'de' : {'race' : 'Rasse',
                   'Adrenal': "besondere Verteidigung",
                   'DP' : 'Entwicklungspunkte',
                   'BGO': 'Hintergrundoptionen',
+                  'stats' : "Attribute",
+                  'short' : 'Abk.',
                   },
           'en' :{'race' : 'Race',
                   'prof' : 'Profession',
@@ -141,6 +144,8 @@ labels = {'de' : {'race' : 'Rasse',
                   'Adrenal': "Adrenal Defense",
                   'DP' : 'Development Points',
                   'BGO' : 'Background Options',
+                  'stats' : 'Attributes',
+                  'short' : 'Short',
                   },
           }
 ##
