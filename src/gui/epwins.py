@@ -27,7 +27,6 @@ from gui.winhelper import AutoScrollbar
 from gui.winhelper import InfoCanvas
 from gui.window import *
 from rpgtoolbox.rolemaster import stats
-from Cython.Compiler.Naming import self_cname
 
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-2017 " + __author__
@@ -891,6 +890,7 @@ class genAttrWin(blankWindow):
         self.spath = storepath
         self.profs = rm.choseProfession(self.lang)
         proflist = self.profs.keys()
+        rmraces = rm.races[self.lang]
         ##
         # holds player, name, profession, race, realm and temp stats
         self.stats = {}
@@ -904,18 +904,20 @@ class genAttrWin(blankWindow):
         self.__totals = {}
         self.__std = {}
         self.__count = 0
-#        self.__keys=['player','name','prof','race','realm']+stats
+        self.__rmstats = rm.stats
+        
         blankWindow.__init__(self, lang = self.lang)
         self.window.title(wintitle['rm_charg'][self.lang] + " - Attributes")
         self.showno = IntVar()
-        self.showno.set(600)
+        self.showno.set(660)
+        self.points = 660
         dummy = ['player', 'name', 'prof', 'race', 'realm']
         
         for a in dummy:
             self.stats[a] = StringVar()
             
         
-        self.stats['race'].set(rm.races[self.lang][0])    
+#        self.stats['race'].set(rm.races[self.lang][0])    
         for a in rm.stats:
             self.stats[a] = IntVar()
             self.stats[a].set(0)      
@@ -986,7 +988,8 @@ class genAttrWin(blankWindow):
 
         self.optMenu1 = OptionMenu(self.window,
                                    self.stats['race'],
-                                   *rm.races[self.lang])
+                                   *rmraces,
+                                   command = self.__setRBonus)
         self.optMenu1.grid(column = 6, row = 1, columnspan = 2, sticky = "ew")
         
         Label(master = self.window,
@@ -1080,32 +1083,34 @@ class genAttrWin(blankWindow):
                   ).grid(column = 1, row = i, sticky = "ew")
                   
             Entry(master = self.window,
-                   width = 10,
+                   width = 15,
                    textvariable = self.stats[s]
                    ).grid(column = 2, row = i)
             
             Message(master = self.window,
-                    width = 10,
+                    width = 25,
                     textvariable = self.pots[s],
                     ).grid(column = 3, row = i)
-            Message(master = self.window,
-                    width = 10,
-                    textvariable = self.__race[s],
-                    ).grid(column = 4, row = i)
-
-            Message(master = self.window,
-                    width = 10,
-                    textvariable = self.__std[s],
-                    ).grid(column = 5, row = i) 
-            Entry(master = self.window,
-                  width = 10,
-                  textvariable = self.specs[s]
-                  ).grid(column = 6, row = i)                   
             
             Message(master = self.window,
-                    width = 10,
-                    font = "bold",
+                    width = 15,
+                    textvariable = self.__race[s],
+                    ).grid(column = 4, row = i)
+            
+            Entry(master = self.window,
+                  width = 15,
+                  textvariable = self.specs[s]
+                  ).grid(column = 5, row = i)
+            
+            Message(master = self.window,
+                    width = 25,
                     textvariable = self.__std[s],
+                    ).grid(column = 6, row = i) 
+            
+            Message(master = self.window,
+                    width = 25,
+                    font = "bold",
+                    textvariable = self.__totals[s],
                     ).grid(column = 7, row = i)         
                     
             i += 1
@@ -1121,7 +1126,8 @@ class genAttrWin(blankWindow):
                command = self.rollDice).grid(column = 7, row = i)  
                                            
         self.window.mainloop()
-    
+       
+       
     def __nextStep(self):
         '''
         Creates next Window, saves and transmits data
@@ -1133,9 +1139,67 @@ class genAttrWin(blankWindow):
         '''
         Totals and update all bonusses
         '''
-        self.notdoneyet('__calcBonus')
+        self.__statBonus()
+        used = 0
+
+#        self.__setPStats()
         
+        for s in self.__rmstats:
+            total = self.__race[s].get() + self.specs[s].get() + self.__std[s].get()
+            self.__totals[s].set(total)
+            stat = self.stats[s].get()
+            used += stat
+            self.pots[s].set(self.__creatPot(stat))
+
+        if used > self.points:
+            self.showno.set(self.points - used)
+            messageWindow(self.lang).showinfo(errmsg['too_much_stats'][self.lang])
         
+        self.showno.set(self.points - used)
+            
+    def __setPStats(self):
+        '''
+        Sets the primary stats for a profession
+        '''    
+        testp = self.stats['prof'].get()
+        primestats = self.profs[testp]['Prime Stats']
+        
+        for s in self.__rmstats:
+            dummy = self.__labels[s].get()
+            dummy = dummy.strip(" ()+*")
+            
+            if s in primestats:
+                self.__labels[s].set(dummy + ' (+)')
+                
+                if self.stats[s].get() < 90:
+                    self.stats[s].set(90)
+                
+            elif s + '*' in primestats:
+                self.__labels[s].set(dummy + ' (+)(*)')
+                
+                if self.stats[s].get() < 90:
+                    self.stats[s].set(90)
+            
+            else:
+                self.__labels[s].set(dummy)
+                
+                if self.stats[s].get() < 20:
+                    self.stats[s].set(20)
+            
+            potstat = self.__creatPot(self.stats[s].get())
+            self.pots[s].set(potstat)
+                        
+        self.__calcBonus()
+                 
+    def __statBonus(self):
+        '''
+        Sets/calculates standard stat bonus
+        '''
+        from rpgtoolbox.rolemaster import statbonus
+        for s in self.__rmstats:
+            value = self.stats[s].get()
+            self.__std[s].set(statbonus(value))
+                
     def __chkRealm(self, event):
         '''
         This method checks whether the right magic realm is chosen for the 
@@ -1144,35 +1208,184 @@ class genAttrWin(blankWindow):
         '''
         testr = self.stats['realm'].get()
         testp = self.stats['prof'].get()
-#        if type(self.profs[testp]['Realm']) == type(''):
-#        
+
         if testr != self.profs[testp]['Realm'] and self.profs[testp]['Realm'] != "choice":
             self.stats['realm'].set(self.profs[testp]['Realm'])
+        self.__setPStats()
+        self.__calcBonus()
+            
+    def __setRBonus(self, event):
+        '''
+        This method sets the races bonusses 
+        \param event object event given by OptionMenu but not used 
+        \todo has to be implemented
+        '''
+        from rpgtoolbox import rolemaster as rm
+        race = self.stats['race'].get()
+        pos = rm.races[self.lang].index(race)
+        race = rm.races['en'][pos]
         
-#        elif type(self.profs[testp]['Realm']) == type([]):
-#            
-#            if len(self.profs[testp]['Realm']) == 2:
-#            
-#                if testr != str(self.profs[testp]['Realm'][0] + ';' + self.profs[testp]['Realm'][1]):
-#                    self.stats['realm'].set(self.profs[testp]['Realm'][0] + ';' + self.profs[testp]['Realm'][1])
-#            
-#            else:                                      
-#                if testr != str(self.profs[testp]['Realm'][0]):
-#                    self.stats['realm'].set(self.profs[testp]['Realm'][0])
-            
-            
+        for a in rm.stats:
+            self.__race[a].set(rm.raceAbilities[race][a])
+        
     def __setRealm(self, event):
         '''
         Sets the connected Realm if profession is chosen
-        \todo has to be implemented
+        \param event object event given by OptionMenu but not used 
+        \todo has to set the marker for realm stat(s)
         '''
         testp = self.stats['prof'].get()    
         self.stats['realm'].set(self.profs[testp]['Realm'])
+        self.__setPStats()
         
-#        self.notdoneyet("setRealm")
+    def __creatPot(self, temp = 20, fixed = False):
+        '''
+        This method creates a potential stat from a temporary stat.
+        \param temp value of the temporary stat
+        \param fixed a parameter that turns the fixed creation mode on/off
+        \retval result the resulting potential stat value
+        '''
+        
+        result = 1
+        if temp < 20: 
+            self.msg = messageWindow(self.lang)
+            self.msg.showinfo(errmsg['wrnong_stat'][self.lang], "Error")
+            result = 0
 
+        elif 19 < temp < 25:
+        
+            if not fixed:
+                result = 20 + self.dice(10, 8)
+            
+            else:
+                result = temp + 44
+        
+        elif 24 < temp < 35:
+        
+            if not fixed:
+                result = 30 + self.dice(10, 7)
+           
+            else:
+                result = temp + 39
+        
+        elif 34 < temp < 45:
+        
+            if not fixed:
+                result = 40 + self.dice(10, 6)
+           
+            else:
+                result = temp + 33
+        
+        elif 44 < temp < 55:
+        
+            if not fixed:
+                result = 50 + self.dice(10, 5)
+            
+            else: 
+                result = temp + 28
+        
+        elif 54 < temp < 65:
+        
+            if not fixed:
+                result = 60 + self.dice(10, 4)
+            
+            else:
+                result = temp + 22
+        
+        elif 64 < temp < 75:
+        
+            if not fixed:
+                result = 70 + self.dice(10, 3)
 
+            else: 
+                result = temp + 17
+        
+        elif 74 < temp < 85:
+        
+            if not fixed:
+                result = 80 + self.dice(10, 2)
+            
+            else:
+                result = temp + 11
+        
+        elif 84 < temp < 92:
+        
+            if not fixed:
+                result = 90 + self.dice(10, 1)
+            
+            else:
+                result = temp + 6
+        
+        elif temp == 92:
+        
+            if not fixed:
+                result = temp - 1 + self.dice(9, 1)
+            
+            else:
+                result = temp + 5
+        
+        elif temp == 93:
+            
+            if not fixed:
+                result = temp - 1 + self.dice(8, 1)
+        
+            else: 
+                result = temp + 4
+        
+        elif temp == 94:
 
+            if not fixed:
+                result = temp - 1 + self.dice(7, 1)
+            
+            else:
+                result = temp + 4
+        
+        elif temp == 95:
+        
+            if not fixed:
+                result = temp - 1 + self.dice(6, 1)
+            
+            else:
+                result = temp + 3
+        
+        elif temp == 96:
+        
+            if not fixed:
+                result = temp - 1 + self.dice(5, 1)
+            
+            else:
+                result = temp + 3
+        
+        elif temp == 97:
+        
+            if not fixed:
+                result = temp - 1 + self.dice(4, 1)
+            
+            else:
+                result = temp + 2
+        
+        elif temp == 98:
+        
+            if not fixed:
+                result = temp - 1 + self.dice(3, 1)
+            
+            else: 
+                result = temp + 2
+        
+        elif 98 < temp:
+        
+            if not fixed:
+                result = temp - 1 + self.dice(2, 1)
+            
+            else:
+                result = temp + 1
+            
+        if result < temp:
+            result = temp
+            
+        return result
+    
+    
     def dice(self, sides = 6, number = 1):
         '''
         This function delivers the result of a dice roll as a list.
@@ -1194,10 +1407,12 @@ class genAttrWin(blankWindow):
         Creates the pool for stat generation
         """
         self.__count += 1
+        
         if 0 < self.__count < 4:
-            self.result = 600 + self.dice(10, 10)
-            print self.result
-            self.showno.set(self.result)
+            result = 600 + self.dice(10, 10)
+            self.showno.set(result)
+            
+        self.points = self.showno.get()
         
 
     def __collectData(self, event):

@@ -361,6 +361,18 @@ errmsg = {'no_file' : {'de' : 'Datei existiert nicht!',
                         'en' : 'The belonging stucture file has to be\n'\
                                 'loaded first!',
                         },
+          'wrong_stat' : {'de' : 'Falscher Attributswert: \n\n'\
+                                 'er muss mindestens 20 bei normalen und 90 bei \n'\
+                                 'primären Attributen (+) betragen!',
+                          'en' : 'Wrong attibute value:\n\n'\
+                                 'it must have a min of 20 concerning standard and\n'\
+                                 '90 concerning primary attributes (+)!'
+                          },
+          'too_much_stats':{'de' : 'Die vorhandenen Punkte für Attribute wurden überschritten.\n'\
+                                 'Bitte die Temp. Werte reduzieren!',
+                          'en' : 'Used too much points for attributes. Plese reduce values of\n'\
+                                 'Temp. Stats!'
+                          }
 
           }
 

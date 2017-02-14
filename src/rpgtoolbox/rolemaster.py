@@ -16,10 +16,10 @@ This package holds RM specific tools like Charakter Skill Progression.
 '''
 #import rpgToolDefinitions.helptools.dice as dice
 
-races = {'de' : ['gewöhnliche Menschen', 'vermischte Menschen', 'Hochmenschen',
+races = {'de' : ['normale Menschen', 'vermischte Menschen', 'Hochmenschen',
                  "Waldelben", "Grauelben", "Hochelben",
                  "Halbelben", "Zwerge (Kuduk)", "Halblinge (Hobbits)"],
-         'en' : ['Common Men', 'Mixed Men', 'High Men', 'Wood Elves', 'Gray Elves',
+         'en' : ['Common Men', 'Mixed Men', 'High Men', 'Wood Elves', 'Grey Elves',
                  'High Elves', 'Half Elves', 'Dwarves', 'Halflings']
          }
 
@@ -323,7 +323,7 @@ raceAbilities = {'Common Men': {'Ag' : 0,
                                 'BGO' : 5,
                                 'Hobby Ranks': 12,
                                 },
-                 'Haflings' : {'Ag' : 6,
+                 'Halflings' : {'Ag' : 6,
                                 'Co' : 6,
                                 'Me' : 0,
                                 'Re' : 0,
