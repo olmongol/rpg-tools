@@ -1135,6 +1135,7 @@ class genAttrWin(blankWindow):
         '''
         self.notdoneyet('__nextStep')
 
+
     def __calcBonus(self):
         '''
         Totals and update all bonusses
@@ -1190,6 +1191,7 @@ class genAttrWin(blankWindow):
             self.pots[s].set(potstat)
                         
         self.__calcBonus()
+           
                  
     def __statBonus(self):
         '''
