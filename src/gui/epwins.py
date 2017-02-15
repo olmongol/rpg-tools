@@ -895,7 +895,6 @@ class genAttrWin(blankWindow):
         ## \var self.spath
         # storage path for character data file
         self.spath = storepath
-        print self.spath
         if self.spath[-1] != "/":
             self.spath += "/"
         
@@ -1166,6 +1165,10 @@ class genAttrWin(blankWindow):
         '''
         if self.points != self.__used:
             messageWindow(self.lang).showinfo(errmsg['stats_dp'][self.lang])
+        elif self.stats['player'].get() == "":
+            messageWindow(self.lang).showinfo(errmsg['player'][self.lang])
+        elif self.stats['name'].get() == "":
+            messageWindow(self.lang).showinfo(errmsg['name'][self.lang])
         else:
             self.__collectData()
             self.notdoneyet('__nextStep')

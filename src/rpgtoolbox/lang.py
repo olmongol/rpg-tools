@@ -333,7 +333,7 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
 
 
 ##\var errmsg
-#Error messages for all oportunities 
+#Error messages for all opportunities 
 errmsg = {'no_file' : {'de' : 'Datei existiert nicht!',
                        'en' : 'File does not exists!',
                        },
@@ -377,6 +377,12 @@ errmsg = {'no_file' : {'de' : 'Datei existiert nicht!',
                         'en' : 'The developing points for the attributes are not zero!\n'\
                                'Correct that and it goes on.'
                         },
+          'player' : {'de' : "Bitte Spielernamen eingeben",
+                     'en' : "Please enter player's name",
+                     },
+          'name' : {'de' : "Bitte einen Charakternamen eingeben",
+                    'en' : "Please enter a character name"
+                    },
 
           }
 
