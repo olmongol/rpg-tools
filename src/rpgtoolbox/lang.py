@@ -22,16 +22,15 @@ Currently supported languages are:
 \version 0.3 
 \license GNU V3.0
 
-\todo check for German special characters.
 \todo clean up the code!!!
 '''
-##
+## \var supportedrpg
 # Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
                 'en' : ('MERP', 'RoleMaster')
                 }
 
-##
+## \var screenmesg
 #This holds general screen messages.
 screenmesg = {'welcome'     : {'de' : "Willkommen bei den RPG-Tools",
                                'en' : "Welcome at the RPG tools",
@@ -61,7 +60,7 @@ screenmesg = {'welcome'     : {'de' : "Willkommen bei den RPG-Tools",
                                },
               }
 
-##
+## \var txtbutton
 #This holds the texts written on buttons.
 txtbutton = {'but_ok'   : {'de' : 'OK',
                            'en' : 'ok',
@@ -110,7 +109,7 @@ txtbutton = {'but_ok'   : {'de' : 'OK',
                           },
              }
 
-##
+## \var txtmenu
 #This holds the texts of the main menu bar mixed up with button labels
 #\todo it has to be clearly seperated menu and buttons
 txtmenu = {'menu_help'     : {'de' : 'Hilfe',
@@ -151,7 +150,7 @@ txtmenu = {'menu_help'     : {'de' : 'Hilfe',
                               },
           }
 
-##
+## \var submenu
 #This holds the texts of the submenu cascades.
 submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                           'close' : 'Datei schliessen',
@@ -228,7 +227,7 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                       }
            }
 
-##
+## \var txtwin
 #This holds the content of selectable  file types while open/close files.
 txtwin = {'all_files' : {'de' : ("alle Dateien", '.*'),
                          'en' : ("all files", '.*'),
@@ -247,7 +246,7 @@ txtwin = {'all_files' : {'de' : ("alle Dateien", '.*'),
                          },
           }
 
-##
+## \var processing
 #some processing messages
 processing = {'saved' : {'de' : 'Gespeichert...',
                          'en' : 'Saved...',
@@ -257,13 +256,13 @@ processing = {'saved' : {'de' : 'Gespeichert...',
                             }
             }
 
-##
+## \var shortcut
 #language shortcuts / supported languages
 shortcut = {'de' : 'Deutsch',
             'en' : 'English',
             }
 
-##
+##\var wintitle
 #these are the titles of the windows
 wintitle = {'opt_lang' : {'de' : 'Spracheinstellungen',
                           'en' : 'Language Settings',
@@ -291,7 +290,7 @@ wintitle = {'opt_lang' : {'de' : 'Spracheinstellungen',
                            },
             }
 
-##
+## \var labels
 #labels for window elements (labels, listboxes etc.)
 #\todo clean up!!
 labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei',
@@ -333,7 +332,7 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
           }
 
 
-##
+##\var errmsg
 #Error messages
 errmsg = {'no_file' : {'de' : 'Datei existiert nicht!',
                        'en' : 'File does not exists!',
@@ -377,7 +376,7 @@ errmsg = {'no_file' : {'de' : 'Datei existiert nicht!',
           }
 
 
-##
+##\var infomsg
 #simply some info messages for the help window
 infomsg = {'help_info' : {'de' : 'F\xc3\xbcr eine genauere Information '\
                                  '\xc3\xbcber die '\
@@ -389,7 +388,7 @@ infomsg = {'help_info' : {'de' : 'F\xc3\xbcr eine genauere Information '\
            }
 
 
-##
+##\var s_elem_def
 #Descriptions of the default elements for calculating EPs from.
 s_elem_def = {'CRITICAL' : {'de' : 'Ausgeteilte kritische Treffer',
                             'en' : 'Made critical hits',
@@ -418,8 +417,8 @@ s_elem_def = {'CRITICAL' : {'de' : 'Ausgeteilte kritische Treffer',
               }
 
 
-##
-# csvlabels contains some values for characters
+##\var csvlabels 
+# contains some values for characters
 # \deprecated contains some values for characters (not needed yet)
 csvlabels = {'Name' : {'de' : "Charaktername",
                        'en' : "character name"

@@ -11,7 +11,7 @@
 \version 1.0
 '''
 from Tkinter import *
-from ImageTk import *
+#from ImageTk import *
 from tkFileDialog import *
 from rpgtoolbox.lang import *
 #from rpgtoolbox.logbox import *

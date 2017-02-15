@@ -884,27 +884,51 @@ class genAttrWin(blankWindow):
         else:
             self.notdoneyet("support for %s" % (rpg))
 
-        
+        ## \var self.character
+        # the attribute where to store the character data in as 'JSON'
         self.character = {}
+        ## \var self.lang
+        # used language
         self.lang = lang
+        ## \var self.spath
+        # storage path for character data file
         self.spath = storepath
+        ## \var self.profs
+        # a dictionary/JSON structure where a profession specific data (read from 
+        # a CSV file) is stored in 
         self.profs = rm.choseProfession(self.lang)
+        ## \var proflist
+        # list of all available professions
         proflist = self.profs.keys()
+        ## \var rmraces
+        # a list of all the RoleMaster races
         rmraces = rm.races[self.lang]
-        ##
+        ## \var self.stats
         # holds player, name, profession, race, realm and temp stats
         self.stats = {}
-        ##
+        ## \var self.pots
         # holds potential stats (maximum values)
         self.pots = {}
+        ## \var self.specs
         # holds special stats if any
         self.specs = {}
+        ## \var self.__race
+        # holds race stats bonuses
         self.__race = {}
         self.__labels = {}
+        ## \var self..__totals
+        # holds total stat bonusses
         self.__totals = {}
+        ## \var self.__std
+        #  holds standard stat bonusses
         self.__std = {}
         self.__count = 0
+        ##\var self.__rmstats
+        # list of all stats' short cuts in English
         self.__rmstats = rm.stats
+        ##\var self.__rangeOK
+        # just for check up whether the stats are in the correct ranges
+        self.__rangeOK = True
         
         blankWindow.__init__(self, lang = self.lang)
         self.window.title(wintitle['rm_charg'][self.lang] + " - Attributes")
@@ -916,8 +940,6 @@ class genAttrWin(blankWindow):
         for a in dummy:
             self.stats[a] = StringVar()
             
-        
-#        self.stats['race'].set(rm.races[self.lang][0])    
         for a in rm.stats:
             self.stats[a] = IntVar()
             self.stats[a].set(0)      
@@ -1123,7 +1145,7 @@ class genAttrWin(blankWindow):
         Button(master = self.window,
                text = txtbutton['but_next'][self.lang],
                width = 10,
-               command = self.rollDice).grid(column = 7, row = i)  
+               command = self.__nextStep).grid(column = 7, row = i)  
                                            
         self.window.mainloop()
        
@@ -1141,23 +1163,43 @@ class genAttrWin(blankWindow):
         Totals and update all bonusses
         '''
         self.__statBonus()
-        used = 0
+        self.__used = 0
 
-#        self.__setPStats()
-        
         for s in self.__rmstats:
             total = self.__race[s].get() + self.specs[s].get() + self.__std[s].get()
             self.__totals[s].set(total)
             stat = self.stats[s].get()
-            used += stat
+            self.__used += stat
             self.pots[s].set(self.__creatPot(stat))
 
-        if used > self.points:
-            self.showno.set(self.points - used)
+        if self.__used > self.points:
+            self.showno.set(self.points - self.__used)
             messageWindow(self.lang).showinfo(errmsg['too_much_stats'][self.lang])
         
-        self.showno.set(self.points - used)
+        self.showno.set(self.points - self.__used)
+        self.__testStats()
             
+    def __testStats(self):
+        '''
+        This checks the temp value of the  stats and warns if they are correct.
+        '''     
+        testp = self.stats['prof'].get()
+        primestats = self.profs[testp]['Prime Stats']
+        self.__rangeOK = True
+        
+        for s in self.__rmstats:
+            if self.stats[s.strip('*')].get() < 20:
+                self.__rangeOK = False
+                self.stats[s.strip('*')].set(20)
+                messageWindow(self.lang).showinfo(errmsg['wrong_stat'][self.lang] + "\n%s --> 20" % s)
+        
+        for s in primestats:
+            
+            if self.stats[s.strip('*')].get() < 90:
+                self.__rangeOK = False
+                self.stats[s.strip('*')].set(90)
+                messageWindow(self.lang).showinfo(errmsg['wrong_stat'][self.lang] + "\ns %s --> 90 " % s)
+             
     def __setPStats(self):
         '''
         Sets the primary stats for a profession
@@ -1234,7 +1276,6 @@ class genAttrWin(blankWindow):
         '''
         Sets the connected Realm if profession is chosen
         \param event object event given by OptionMenu but not used 
-        \todo has to set the marker for realm stat(s)
         '''
         testp = self.stats['prof'].get()    
         self.stats['realm'].set(self.profs[testp]['Realm'])
@@ -1249,12 +1290,8 @@ class genAttrWin(blankWindow):
         '''
         
         result = 1
-        if temp < 20: 
-            self.msg = messageWindow(self.lang)
-            self.msg.showinfo(errmsg['wrnong_stat'][self.lang], "Error")
-            result = 0
 
-        elif 19 < temp < 25:
+        if 19 < temp < 25:
         
             if not fixed:
                 result = 20 + self.dice(10, 8)
@@ -1422,14 +1459,12 @@ class genAttrWin(blankWindow):
         This Method collects and saves all entered/chosen data from this window.
         '''
         self.notdoneyet('collectData')
-    def __nextWin(self):
-        """
-        Method that opens the next step window
-        \todo nextWin has to be implemented
-        """   
-        self.notdoneyet('nextWin')
         
+       
         
     def __closewin(self):
+        '''
+        A method to destroy the currend window and go back to MainWindow.
+        '''
         self.window.destroy()
         self.window = MainWindow(lang = self.lang, char = self.character)

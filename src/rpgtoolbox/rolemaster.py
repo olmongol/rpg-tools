@@ -14,18 +14,20 @@ This package holds RM specific tools like Charakter Skill Progression.
 \date 2017
 \copyright 2017 Marcus Schwamberger
 '''
-#import rpgToolDefinitions.helptools.dice as dice
-
+##\var races
+# just a dictionary for translation of the races' names
 races = {'de' : ['normale Menschen', 'vermischte Menschen', 'Hochmenschen',
                  "Waldelben", "Grauelben", "Hochelben",
                  "Halbelben", "Zwerge (Kuduk)", "Halblinge (Hobbits)"],
          'en' : ['Common Men', 'Mixed Men', 'High Men', 'Wood Elves', 'Grey Elves',
                  'High Elves', 'Half Elves', 'Dwarves', 'Halflings']
          }
-
+##\var stats
+# the English shortcuts/indices for stats
 stats = ['Ag', 'Co', 'Me', 'Re', 'SD', 'Em', 'In', 'Pr', 'Qu', 'St']
 
-
+##\var realms
+# a dictionary for translating the names of magic realms
 realms = {'en': ('choice', 'Essence', 'Channeling', 'Mentalism',
                  ['Channeling', 'Mentalism'], ['Channeling', 'Essence'],
                  ['Essence', 'Mentalism']),
@@ -33,6 +35,8 @@ realms = {'en': ('choice', 'Essence', 'Channeling', 'Mentalism',
                  ['Leitmagie', 'Mentalismus'], ['Leitmagie', 'Essenz'],
                  ['Essenz', 'Mentalismus']),
           }
+##\var labels
+# a variety of labels, most of them for a character sheet
 labels = {'de' : {'race' : 'Rasse',
                   'prof' : 'Beruf',
                   'name' : 'Name',
@@ -148,7 +152,7 @@ labels = {'de' : {'race' : 'Rasse',
                   'short' : 'Short',
                   },
           }
-##
+##\var progressionType
 # This holds the different Cat/Skill/BD/PP development
 progressionType = {'standard_cat'   : (-15, 2, 1, 0.5, 0),
                    'standard_skill' : (-15, 3, 2, 1, 0.5),
@@ -177,7 +181,7 @@ progressionType = {'standard_cat'   : (-15, 2, 1, 0.5, 0),
                    'null' : (0, 0, 0, 0, 0)
                    } 
 
-##
+##\var raceAbilities
 # Race bonusses for stats, RR and BGO
 raceAbilities = {'Common Men': {'Ag' : 0,
                                 'Co' : 0,
@@ -351,6 +355,7 @@ def DPCostSpells(skill = 0, listtype = "Own Realm Own Base List", sutype = "pure
     \param sutype Spell User Type (pure, hybrid, semi, non).
     \param no number of Spell Lists developed this level
     \todo this function has to be implemented fully but it is not urgent.
+    \deprecated this function may be deprecated because this is solved by CSV
     '''
     costs = "N/A"
     factor = 1
@@ -420,7 +425,6 @@ def choseProfession(lang = 'en'):
           Realm (string)
     \li 3. (Profession Bonusses) \<Skill Category\> : int
     \todo implement German language support 
-    \bug doesn't work correctly. It has to be checked separately!!
     '''
     
     # Just until German Language Support is implemented 
@@ -516,15 +520,20 @@ def statbonus(statvalue = 20):
     statvalue = float(statvalue)
     
     if 0 < statvalue <= 10:
-        result = int(round((statvalue - 21) / 2))
+        result = int(round((statvalue - 21) / 2)) 
+        
     elif 10 < statvalue < 31:
         result = int(round((statvalue - 33) / 5))
+        
     elif 30 < statvalue < 70:
         result = 0
+        
     elif 69 < statvalue < 90:
         result = int(round((statvalue - 67) / 5))
+        
     elif 89 < statvalue < 101:
         result = int(round((statvalue - 81) / 2))
+        
     else:
         result = int(round((statvalue - 95) * 2))
             
