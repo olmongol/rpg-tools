@@ -333,7 +333,7 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
 
 
 ##\var errmsg
-#Error messages
+#Error messages for all oportunities 
 errmsg = {'no_file' : {'de' : 'Datei existiert nicht!',
                        'en' : 'File does not exists!',
                        },
@@ -371,7 +371,12 @@ errmsg = {'no_file' : {'de' : 'Datei existiert nicht!',
                                  'Bitte die Temp. Werte reduzieren!',
                           'en' : 'Used too much points for attributes. Plese reduce values of\n'\
                                  'Temp. Stats!'
-                          }
+                          },
+          'stats_dp' : {'de' : 'Der Entwicklungspunktestand für die Attribute ist nicht Null!\n'\
+                                'Bringe ihn auf Null und dann geht es hier weiter.',
+                        'en' : 'The developing points for the attributes are not zero!\n'\
+                               'Correct that and it goes on.'
+                        },
 
           }
 

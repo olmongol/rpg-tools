@@ -671,7 +671,9 @@ class edtchrWin(blankWindow):
         
         self.lang = lang
         self.spath = storepath
-        
+        if self.spath[-1] != "/":
+            self.spath += "/"
+            
         blankWindow.__init__(self, lang = self.lang)
         
         self.window.title(wintitle['calc_exp'][self.lang] + " - Chars")
@@ -893,6 +895,10 @@ class genAttrWin(blankWindow):
         ## \var self.spath
         # storage path for character data file
         self.spath = storepath
+        print self.spath
+        if self.spath[-1] != "/":
+            self.spath += "/"
+        
         ## \var self.profs
         # a dictionary/JSON structure where a profession specific data (read from 
         # a CSV file) is stored in 
@@ -915,6 +921,9 @@ class genAttrWin(blankWindow):
         ## \var self.__race
         # holds race stats bonuses
         self.__race = {}
+        ##\var self.__rr
+        # holds all resistance roll bonusses
+        self.__rr = {}
         self.__labels = {}
         ## \var self..__totals
         # holds total stat bonusses
@@ -1155,8 +1164,12 @@ class genAttrWin(blankWindow):
         Creates next Window, saves and transmits data
         \todo has to be implemented
         '''
-        self.notdoneyet('__nextStep')
-
+        if self.points != self.__used:
+            messageWindow(self.lang).showinfo(errmsg['stats_dp'][self.lang])
+        else:
+            self.__collectData()
+            self.notdoneyet('__nextStep')
+            
 
     def __calcBonus(self):
         '''
@@ -1260,15 +1273,22 @@ class genAttrWin(blankWindow):
             
     def __setRBonus(self, event):
         '''
-        This method sets the races bonusses 
+        This method sets the races bonusses , the race based RR bonusses, 
+        Background Options and Hobby Ranks. 
         \param event object event given by OptionMenu but not used 
-        \todo has to be implemented
         '''
         from rpgtoolbox import rolemaster as rm
         race = self.stats['race'].get()
         pos = rm.races[self.lang].index(race)
         race = rm.races['en'][pos]
         
+        for i in rm.raceAbilities[race].keys():
+            if "RR" in i:
+                self.__rr[i] = rm.raceAbilities[race][i]
+                
+        self.character['BGO'] = rm.raceAbilities[race]['BGO']
+        self.character['Hobby Ranks'] = rm.raceAbilities[race]['Hobby Ranks']
+
         for a in rm.stats:
             self.__race[a].set(rm.raceAbilities[race][a])
         
@@ -1454,17 +1474,52 @@ class genAttrWin(blankWindow):
         self.points = self.showno.get()
         
 
-    def __collectData(self, event):
+    def __collectData(self):
         '''
         This Method collects and saves all entered/chosen data from this window.
         '''
-        self.notdoneyet('collectData')
+        from rpgtoolbox import rolemaster as rm
+        import json
+        for key in ['player', 'name', 'prof', 'race', 'realm']:
+            self.character[key] = self.stats[key].get()
+            
+        race = rm.races['en'][rm.races[self.lang].index(self.character['race'])]    
+        
+        for stat in self.__rmstats:
+            self.character[stat] = {}
+            self.character[stat]['name'] = rm.labels[self.lang][stat]
+            self.character[stat]['temp'] = self.stats[stat].get()
+            self.character[stat]['pot'] = self.pots[stat].get()
+            self.character[stat]['race'] = self.__race[stat].get()
+            self.character[stat]['spec'] = self.specs[stat].get()
+            self.character[stat]['std'] = self.__std[stat].get()
+            self.character[stat]['total'] = self.__totals[stat].get()
+            
+        self.character['RREss'] = self.character['Em']['total'] * 3 + rm.raceAbilities[race]['RREss']
+        self.character['RRChan'] = self.character['In']['total'] * 3 + rm.raceAbilities[race]['RRChan']
+        self.character['RRMent'] = self.character['Pr']['total'] * 3 + rm.raceAbilities[race]['RRMent']
+        self.character['RRArc'] = self.character['Pr']['total'] + self.character['Em']['total'] + self.character['In']['total']
+        self.character['RRC/E'] = self.character['In']['total'] + self.character['Em']['total'] + (rm.raceAbilities[race]['RREss'] + rm.raceAbilities[race]['RRChan']) / 2
+        self.character['RRC/M'] = self.character['In']['total'] + self.character['Pr']['total'] + (rm.raceAbilities[race]['RRMent'] + rm.raceAbilities[race]['RRChan']) / 2
+        self.character['RRE/M'] = self.character['Pr']['total'] + self.character['Em']['total'] + (rm.raceAbilities[race]['RREss'] + rm.raceAbilities[race]['RRMent']) / 2
+        self.character['RRDisease'] = self.character['Co']['total'] * 3 + rm.raceAbilities[race]['RRDisease']
+        self.character['RRPoison'] = self.character['Co']['total'] * 3 + rm.raceAbilities[race]['RRPoison']
+        self.character['RRFear'] = self.character["SD"]['total'] * 3
+        
+        if not os.path.exists(self.spath + self.character['player']):
+            os.mkdir(self.spath + self.character['player'])
+        else:
+            with open(self.spath + self.character['player'] + '/' + self.character['name'] + ".json", "w") as outfile:
+                json.dump(self.character, outfile, sort_keys = True, indent = 4, ensure_ascii = False)
+
+            messageWindow(self.lang).showinfo(processing['saved'][self.lang] + "\n%s" % (self.spath + self.character['player'] + '/' + self.character['name'] + ".json"))
+#        self.notdoneyet('collectData')
         
        
         
     def __closewin(self):
         '''
-        A method to destroy the currend window and go back to MainWindow.
+        A method to destroy the current window and go back to MainWindow.
         '''
         self.window.destroy()
         self.window = MainWindow(lang = self.lang, char = self.character)

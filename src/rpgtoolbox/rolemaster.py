@@ -35,6 +35,9 @@ realms = {'en': ('choice', 'Essence', 'Channeling', 'Mentalism',
                  ['Leitmagie', 'Mentalismus'], ['Leitmagie', 'Essenz'],
                  ['Essenz', 'Mentalismus']),
           }
+##\var magicstats
+# holds the magic attribute on the same index as the lists in realms
+magicstats = ("", "Em", "In", "Pr", ['In', 'Pr'], ['In', 'Em'], ['Em', 'Pr'])
 ##\var labels
 # a variety of labels, most of them for a character sheet
 labels = {'de' : {'race' : 'Rasse',
