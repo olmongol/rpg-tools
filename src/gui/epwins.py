@@ -915,7 +915,7 @@ class genAttrWin(blankWindow):
         # holds potential stats (maximum values)
         self.pots = {}
         ## \var self.specs
-        # holds special stats if any
+        # holds special stats if anyrger 
         self.specs = {}
         ## \var self.__race
         # holds race stats bonuses
@@ -1265,6 +1265,7 @@ class genAttrWin(blankWindow):
         This method checks whether the right magic realm is chosen for the 
         selected profession
         \param event object event given by OptionMenu but not used 
+        \bug potential cause for false DP calculations
         '''
         testr = self.stats['realm'].get()
         testp = self.stats['prof'].get()
@@ -1483,6 +1484,7 @@ class genAttrWin(blankWindow):
         '''
         from rpgtoolbox import rolemaster as rm
         import json
+        
         for key in ['player', 'name', 'prof', 'race', 'realm']:
             self.character[key] = self.stats[key].get()
             
@@ -1508,17 +1510,74 @@ class genAttrWin(blankWindow):
         self.character['RRDisease'] = self.character['Co']['total'] * 3 + rm.raceAbilities[race]['RRDisease']
         self.character['RRPoison'] = self.character['Co']['total'] * 3 + rm.raceAbilities[race]['RRPoison']
         self.character['RRFear'] = self.character["SD"]['total'] * 3
+        self.character['purse'] = {'GP' : 2,
+                                  'SP' : 0,
+                                  'CP' : 0,
+                                  'TP' : 0,
+                                  'IP' : 0}
+        self.character['exp'] = 10000
+        self.character['lvl'] = 1
+        
+        self.__addCatnSkills()
         
         if not os.path.exists(self.spath + self.character['player']):
             os.mkdir(self.spath + self.character['player'])
+       
         else:
             with open(self.spath + self.character['player'] + '/' + self.character['name'] + ".json", "w") as outfile:
                 json.dump(self.character, outfile, sort_keys = True, indent = 4, ensure_ascii = False)
 
             messageWindow(self.lang).showinfo(processing['saved'][self.lang] + "\n%s" % (self.spath + self.character['player'] + '/' + self.character['name'] + ".json"))
-#        self.notdoneyet('collectData')
+    
+    def __addCatnSkills(self):
+        '''
+        This method adds skill categories and skills to the character's dictionary
+        '''
+        fp = open("%s/default/Skills_%s.csv" % (self.spath, self.lang))
+        content = fp.readlines()
+        fp.close()
         
-       
+        if '\n' in content:
+            content.remove('\n')
+        
+        for i in range(0, len(content)):
+            content[i] = content[i].strip('\n\t ').split(',')
+        
+        skillcat = {}
+        
+        for i in range(1, len(content)):
+            skillcat[content[i][0]] = {content[0][2] : content[i][2],
+                                     content[0][1] : {},
+                                     'spec bonus' :0
+                                     }
+            for pb in self.profs[self.character['prof']]['Profession Bonusses'].keys():
+                 
+                if pb in content[i][0]:
+                    skillcat[content[i][0]]['prof bonus'] = self.profs[self.character['prof']]['Profession Bonusses'][pb]
+                
+                else:
+                    skillcat[content[i][0]]['prof bonus'] = 0
+                       
+            for skill in content[i][1].split(';'):
+
+                skillcat[content[i][0]][content[0][1]] = {skill : {'stats' : {},
+                                                                   content[0][2] : content[i][2],
+                                                                   'rank' : 0,
+                                                                   'prof bonus' : 0,
+                                                                   'spec bonus' : 0,
+                                                                   'dpc' : ""
+                                                                  }
+                                                          }
+                
+                for pb in self.profs[self.character['prof']]['Profession Bonusses'].keys():
+                 
+                    if pb in content[i][0]:
+                        skillcat[content[i][0]][content[0][1]][skill]['prof bonus'] = self.profs[self.character['prof']]['Profession Bonusses'][pb]
+
+                
+                
+        self.character['cat'] = skillcat
+        
         
     def __closewin(self):
         '''
@@ -1526,3 +1585,37 @@ class genAttrWin(blankWindow):
         '''
         self.window.destroy()
         self.window = MainWindow(lang = self.lang, char = self.character)
+
+class priorizeWeaponsWin(blankWindow):
+    """
+    This is the class for a window object to chose the priority of weapon skills
+    at the character's generation. It will also set the category and skill ranks 
+    during adolescence.
+    """
+    def __init__(self, lang = 'en', storepath = "./data", title = "Main Window", char = None):
+        """
+        Class constructor
+        \param lang The chosen language for window's and button's
+                    texts. At the moment, only English (en, default
+                    value) and German (de) are supported.
+        \param title title of the window
+        \param storepath path where things like options have to be stored
+        \param char Character as JSON
+        """
+        if storepath == None:
+
+            self.mypath = os.path.expanduser('~') + "/data"
+            logger.debug('Set storepath to %s' % (storepath)) + "/data"
+
+        else:
+            self.mypath = storepath
+            logger.debug('mainwindow: storepath set to %s' % (storepath))
+
+        self.picpath = "./gui/pic/"
+        self.lang = lang
+        self.myfile = "MyRPG.exp"
+        self.char = char
+
+        blankWindow.__init__(self, self.lang)
+        self.window.title(title)
+    
