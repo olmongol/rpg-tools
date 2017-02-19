@@ -1527,8 +1527,14 @@ class genAttrWin(blankWindow):
             with open(self.spath + self.character['player'] + '/' + self.character['name'] + ".json", "w") as outfile:
                 json.dump(self.character, outfile, sort_keys = True, indent = 4, ensure_ascii = False)
 
-            messageWindow(self.lang).showinfo(processing['saved'][self.lang] + "\n%s" % (self.spath + self.character['player'] + '/' + self.character['name'] + ".json"))
-    
+#            messageWindow(self.lang).showinfo(processing['saved'][self.lang] + "\n%s" % (self.spath + self.character['player'] + '/' + self.character['name'] + ".json"))
+            messageWindow(self.lang).showinfo("%s\n%s%s/%s.json" % (processing['saved'][self.lang],
+                                                                    self.spath,
+                                                                    self.character['player'],
+                                                                    self.character['name']
+                                                                    )
+                                              )
+            
     def __addCatnSkills(self):
         '''
         This method adds skill categories and skills to the character's dictionary
@@ -1548,16 +1554,14 @@ class genAttrWin(blankWindow):
         for i in range(1, len(content)):
             skillcat[content[i][0]] = {content[0][2] : content[i][2],
                                      content[0][1] : {},
-                                     'spec bonus' :0
+                                     'spec bonus' :0,
+                                     'prof bonus' :0
                                      }
             for pb in self.profs[self.character['prof']]['Profession Bonusses'].keys():
                  
                 if pb in content[i][0]:
                     skillcat[content[i][0]]['prof bonus'] = self.profs[self.character['prof']]['Profession Bonusses'][pb]
                 
-                else:
-                    skillcat[content[i][0]]['prof bonus'] = 0
-                       
             for skill in content[i][1].split(';'):
 
                 skillcat[content[i][0]][content[0][1]] = {skill : {'stats' : {},
