@@ -4,9 +4,9 @@ Armor - Light,St/St/Ag,Standard
 Armor - Medium,St/St/Ag,Standard
 Artistic - Active,Pr/Em/Ag,Standard
 Artistic - Passive,Em/In/Pr,Standard
-Artistic - Brawn,St/Co/Ag,Standard
+Athletic - Brawn,St/Co/Ag,Standard
 Athletic - Endurance,Co/Ag/St,Standard
-Athletic - Gymnastic,Ag/Ag/Qu,Standard
+Athletic - Gymnastics,Ag/Ag/Qu,Standard
 Awareness - Perception,In/In/SD,Skill Only
 Awareness - Searching,In/Re/SD,Standard
 Awareness - Senses,In/SD/In,Standard
@@ -34,7 +34,7 @@ Science/Analytic - Basic,Re/Me/Re,Standard
 Science/Analytic - Specialised,Re/Me/Re,Null
 Self Control,SD/SD/Pr,Standard
 Special Attacks,St/Ag/SD,Null
-Special Defences,,Null
+Special Defenses,,Null
 Spells - Arcane Open Lists,,Null
 Spells - Other Realm Base Lists,,Null
 Spells - Other Realm Close Lists,,Null

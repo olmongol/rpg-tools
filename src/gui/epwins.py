@@ -27,6 +27,7 @@ from gui.winhelper import AutoScrollbar
 from gui.winhelper import InfoCanvas
 from gui.window import *
 from rpgtoolbox.rolemaster import stats
+from skilcattest import skillcat
 
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-2017 " + __author__
@@ -86,8 +87,8 @@ class MainWindow(blankWindow):
         """
         set picture for the window background of the main window
         """
-        self.__canvas = Canvas(self.window, width = '8.0c', height = '8.5c')
-        __background = PhotoImage(file = self.picpath + 'skeleton.gif')
+        self.__canvas = Canvas(self.window, width = '11.0c', height = '13.0c')
+        __background = PhotoImage(file = self.picpath + 'demon.gif')
         self.__canvas.create_image(0, 0, image = __background, anchor = NW)
         self.__canvas.pack()
 
@@ -1171,8 +1172,8 @@ class genAttrWin(blankWindow):
             messageWindow(self.lang).showinfo(errmsg['name'][self.lang])
         else:
             self.__collectData()
-            self.notdoneyet('__nextStep')
-            
+#            self.window.destroy()
+#            self.window3 = priorizeWeaponsWin(self.lang, self.spath, self.character)
 
     def __calcBonus(self):
         '''
@@ -1526,19 +1527,16 @@ class genAttrWin(blankWindow):
         else:
             with open(self.spath + self.character['player'] + '/' + self.character['name'] + ".json", "w") as outfile:
                 json.dump(self.character, outfile, sort_keys = True, indent = 4, ensure_ascii = False)
+            self.window.destroy()
+            self.window3 = priorizeWeaponsWin(self.lang, self.spath, self.character)
 
-#            messageWindow(self.lang).showinfo(processing['saved'][self.lang] + "\n%s" % (self.spath + self.character['player'] + '/' + self.character['name'] + ".json"))
-            messageWindow(self.lang).showinfo("%s\n%s%s/%s.json" % (processing['saved'][self.lang],
-                                                                    self.spath,
-                                                                    self.character['player'],
-                                                                    self.character['name']
-                                                                    )
-                                              )
-            
+    
     def __addCatnSkills(self):
         '''
         This method adds skill categories and skills to the character's dictionary
+        \bug Adding the Spell's Realm stats to the Spells categories does not work
         '''
+        from rpgtoolbox import rolemaster as rm
         fp = open("%s/default/Skills_%s.csv" % (self.spath, self.lang))
         content = fp.readlines()
         fp.close()
@@ -1561,24 +1559,60 @@ class genAttrWin(blankWindow):
                  
                 if pb in content[i][0]:
                     skillcat[content[i][0]]['prof bonus'] = self.profs[self.character['prof']]['Profession Bonusses'][pb]
-                
+            
+            skillcat[content[i][0]][content[0][1]] = {}    
+            
             for skill in content[i][1].split(';'):
-
-                skillcat[content[i][0]][content[0][1]] = {skill : {'stats' : {},
-                                                                   content[0][2] : content[i][2],
+                skillcat[content[i][0]][content[0][1]][skill] = {content[0][2] : content[i][2],
                                                                    'rank' : 0,
                                                                    'prof bonus' : 0,
                                                                    'spec bonus' : 0,
                                                                    'dpc' : ""
                                                                   }
-                                                          }
                 
                 for pb in self.profs[self.character['prof']]['Profession Bonusses'].keys():
                  
                     if pb in content[i][0]:
                         skillcat[content[i][0]][content[0][1]][skill]['prof bonus'] = self.profs[self.character['prof']]['Profession Bonusses'][pb]
-
+        
+        del(content)
+        
+        #buggy have to think about it ....
+        fp = open('%s/default/SkillCat_%s.csv' % (self.spath, self.lang), 'r')
+        content = fp.readlines()
+        fp.close()
+          
+        content[0] = content[0].strip("\n").split(',')
+        
+        for  i in range(1, len(content)):
+            content[i] = content[i].strip('\n').split(',')
+            
+            if content[i][0] not in skillcat.keys():
+                skillcat[content[i][0]] = {}
+                skillcat[content[i][0]]['Skill'] = {}
+     
+    # this does not work.... have to think about XXX            
+            if rm.catnames[self.lang]['spells'] in content[i][0]:
+                temp = []
+                if type(self.character['realm']) == type([]):
+                    
+                    for r in self.character['realm']:
+                        temp.apend(rm.realmstats[self.lang][r])
+                else:
+                    temp.append(rm.realmstats[self.lang][self.character['realm']])
+                    temp.append(rm.realmstats[self.lang][self.character['realm']])
+                    
+                skillcat[content[i][0]][content[0][1]] = []
+                skillcat[content[i][0]]["Skill"][content[0][1]] = []
                 
+                skillcat[content[i][0]][content[0][1]] = temp
+                skillcat[content[i][0]]["Skill"][content[0][1]] = temp
+            else:         
+                skillcat[content[i][0]][content[0][1]] = content[i][1].split('/')
+                skillcat[content[i][0]]["Skill"][content[0][1]] = content[i][1].split('/')
+            
+            skillcat[content[i][0]][content[0][2]] = content[i][2]
+            skillcat[content[i][0]]["Skill"][content[0][2]] = content[i][2]
                 
         self.character['cat'] = skillcat
         
@@ -1596,7 +1630,7 @@ class priorizeWeaponsWin(blankWindow):
     at the character's generation. It will also set the category and skill ranks 
     during adolescence.
     """
-    def __init__(self, lang = 'en', storepath = "./data", title = "Main Window", char = None):
+    def __init__(self, lang = 'en', storepath = "./data", char = None):
         """
         Class constructor
         \param lang The chosen language for window's and button's
@@ -1607,7 +1641,6 @@ class priorizeWeaponsWin(blankWindow):
         \param char Character as JSON
         """
         if storepath == None:
-
             self.mypath = os.path.expanduser('~') + "/data"
             logger.debug('Set storepath to %s' % (storepath)) + "/data"
 
@@ -1618,8 +1651,32 @@ class priorizeWeaponsWin(blankWindow):
         self.picpath = "./gui/pic/"
         self.lang = lang
         self.myfile = "MyRPG.exp"
-        self.char = char
+        self.character = char
 
         blankWindow.__init__(self, self.lang)
-        self.window.title(title)
-    
+        self.window.title(wintitle['rm_create'][self.lang])
+        self.filemenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
+                              menu = self.filemenu)
+        self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
+                                  command = self.notdoneyet)
+        self.filemenu.add_separator()
+        self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
+                                  command = self.__closewin)
+        
+        
+        self.window.mainloop()  
+        
+    def __nextStep(self, event):
+        '''
+        Opens the next window to modify categories and skills
+        \todo has to be implemented
+        '''
+        self.notdoneyet('__nextStep')
+        
+    def __closewin(self):
+        '''
+        A method to destroy the current window and go back to MainWindow.
+        '''
+        self.window.destroy()
+        self.window = MainWindow(lang = self.lang, char = self.character)

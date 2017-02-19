@@ -14,6 +14,10 @@ This package holds RM specific tools like Charakter Skill Progression.
 \date 2017
 \copyright 2017 Marcus Schwamberger
 '''
+catnames = {'de' : {'spells' : "Zauber"},
+            'en' : {'spells' : "Spells"},
+            }
+
 ##\var races
 # just a dictionary for translation of the races' names
 races = {'de' : ['normale Menschen', 'vermischte Menschen', 'Hochmenschen',
@@ -25,6 +29,16 @@ races = {'de' : ['normale Menschen', 'vermischte Menschen', 'Hochmenschen',
 ##\var stats
 # the English shortcuts/indices for stats
 stats = ['Ag', 'Co', 'Me', 'Re', 'SD', 'Em', 'In', 'Pr', 'Qu', 'St']
+
+realmstats = {'de' : {'Essenz' : 'Em',
+                      'Leitmagie' : 'In',
+                      'Mentalismus' : 'Pr'
+                      },
+              'en' : {'Essence' : 'Em',
+                      'Channeling' : 'In',
+                      'Mentalism' : 'Pr'
+                      },
+              }
 
 ##\var realms
 # a dictionary for translating the names of magic realms
@@ -98,7 +112,8 @@ labels = {'de' : {'race' : 'Rasse',
                   'short' : 'Abk.',
                   'skill' : 'Talent',
                   'rank' : 'Stufe',
-                  'lvl' : 'Stufe'
+                  'lvl' : 'Stufe',
+                  'prio' : "Priorität"
                   },
           'en' :{'race' : 'Race',
                   'prof' : 'Profession',
@@ -158,7 +173,8 @@ labels = {'de' : {'race' : 'Rasse',
                   'short' : 'Short',
                   'skill' : 'Skill',
                   'rank' : 'Rank',
-                  'lvl' : 'Level'
+                  'lvl' : 'Level',
+                  'prio' : 'Priority'
                   },
           }
 ##\var progressionType

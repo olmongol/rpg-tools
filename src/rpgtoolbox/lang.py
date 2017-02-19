@@ -288,6 +288,9 @@ wintitle = {'opt_lang' : {'de' : 'Spracheinstellungen',
             'mers_charg' : {'de' : 'MERS Charaktergenerator',
                             'en' : 'MERP Character Generator'
                            },
+            'rm_create' : {'de' : "RM Charaktergenerierung",
+                           'en' : 'RM Character Builder'
+                           },
             }
 
 ## \var labels

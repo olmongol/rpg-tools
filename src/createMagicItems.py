@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#-*- coding:utf-8 -*-
 '''
 \file /home/mongol/git/rpg-tools/src/createMagicItems.py
 \package createMagicItems
