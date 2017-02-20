@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 '''
 \file gui/epWins.py
 \package gui.epWins
@@ -27,7 +29,6 @@ from gui.winhelper import AutoScrollbar
 from gui.winhelper import InfoCanvas
 from gui.window import *
 from rpgtoolbox.rolemaster import stats
-from skilcattest import skillcat
 
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-2017 " + __author__
@@ -1577,7 +1578,6 @@ class genAttrWin(blankWindow):
         
         del(content)
         
-        #buggy have to think about it ....
         fp = open('%s/default/SkillCat_%s.csv' % (self.spath, self.lang), 'r')
         content = fp.readlines()
         fp.close()
@@ -1591,28 +1591,24 @@ class genAttrWin(blankWindow):
                 skillcat[content[i][0]] = {}
                 skillcat[content[i][0]]['Skill'] = {}
      
-    # this does not work.... have to think about XXX            
-            if rm.catnames[self.lang]['spells'] in content[i][0]:
+            # this does not work.... have to think about XXX            
+            skillcat[content[i][0]][content[0][2]] = content[i][2]
+            skillcat[content[i][0]]["Skill"][content[0][2]] = content[i][2]
+            skillcat[content[i][0]][content[0][1]] = content[i][1].split('/')
+            skillcat[content[i][0]]["Skill"][content[0][1]] = content[i][1].split('/')                
+            
+            if rm.catnames[self.lang]['spells'] in content[i][0][:7]:
                 temp = []
                 if type(self.character['realm']) == type([]):
                     
                     for r in self.character['realm']:
                         temp.apend(rm.realmstats[self.lang][r])
-                else:
+                elif self.character['realm'] != "choice":
                     temp.append(rm.realmstats[self.lang][self.character['realm']])
                     temp.append(rm.realmstats[self.lang][self.character['realm']])
-                    
-                skillcat[content[i][0]][content[0][1]] = []
-                skillcat[content[i][0]]["Skill"][content[0][1]] = []
                 
                 skillcat[content[i][0]][content[0][1]] = temp
                 skillcat[content[i][0]]["Skill"][content[0][1]] = temp
-            else:         
-                skillcat[content[i][0]][content[0][1]] = content[i][1].split('/')
-                skillcat[content[i][0]]["Skill"][content[0][1]] = content[i][1].split('/')
-            
-            skillcat[content[i][0]][content[0][2]] = content[i][2]
-            skillcat[content[i][0]]["Skill"][content[0][2]] = content[i][2]
                 
         self.character['cat'] = skillcat
         
@@ -1646,11 +1642,9 @@ class priorizeWeaponsWin(blankWindow):
 
         else:
             self.mypath = storepath
-            logger.debug('mainwindow: storepath set to %s' % (storepath))
+            logger.debug('priorizeWeaponsWin: storepath set to %s' % (storepath))
 
-        self.picpath = "./gui/pic/"
         self.lang = lang
-        self.myfile = "MyRPG.exp"
         self.character = char
 
         blankWindow.__init__(self, self.lang)
@@ -1663,10 +1657,22 @@ class priorizeWeaponsWin(blankWindow):
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
                                   command = self.__closewin)
-        
+        self.__addHelpMenu()
+        self.__getWeaponCats()
         
         self.window.mainloop()  
         
+    def __getWeaponCats(self):
+        '''
+        Extracts the weapon categories from character 
+        '''
+        from rpgtoolbox.rolemaster import catnames
+        self.weaponcats = []
+        
+        for cat in self.character['cat'].keys():
+            if catnames[self.lang]['weapon'] in cat:
+                self.weaponcats.append(cat)
+    
     def __nextStep(self, event):
         '''
         Opens the next window to modify categories and skills
@@ -1680,3 +1686,30 @@ class priorizeWeaponsWin(blankWindow):
         '''
         self.window.destroy()
         self.window = MainWindow(lang = self.lang, char = self.character)
+        
+    def __addHelpMenu(self):
+        """
+        This methods defines a help menu.
+        """
+        self.helpmenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['help'][self.lang],
+                              menu = self.helpmenu)
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['global'],
+                              command = self._helpPriorize)
+        self.helpmenu.add_separator()
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
+                                  command = self._helpAbout)
+        
+    def _helpPriorize(self):
+        '''
+        Opens a message window with help text
+        '''
+        helptext = {'de': 'Die Priorisierung der Waffenfertigkeiten ist wichtig für\n'
+                         + 'die Steigerungskosten und mögliche Anzahl der Steigerungen.\n'
+                         + '1 ist die höchste und 7 die geringste Priorität.',
+                   'en' : 'It is important to priorize the weapon categoies because of\n'
+                         + 'developing costs and levels possible to develop.\n'
+                         + '1 is the highest priority and 7 the lowest.'
+                   }
+        helper = messageWindow()
+        helper.showinfo(helptext[self.lang], 'Info')

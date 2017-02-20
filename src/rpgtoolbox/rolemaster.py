@@ -14,8 +14,12 @@ This package holds RM specific tools like Charakter Skill Progression.
 \date 2017
 \copyright 2017 Marcus Schwamberger
 '''
-catnames = {'de' : {'spells' : "Zauber"},
-            'en' : {'spells' : "Spells"},
+catnames = {'de' : {'spells' : "Spells",
+                    'weapon' : 'weapon',
+                    },
+            'en' : {'spells' : "Spells",
+                    'weapon' : 'weapon',
+                    },
             }
 
 ##\var races
@@ -30,9 +34,9 @@ races = {'de' : ['normale Menschen', 'vermischte Menschen', 'Hochmenschen',
 # the English shortcuts/indices for stats
 stats = ['Ag', 'Co', 'Me', 'Re', 'SD', 'Em', 'In', 'Pr', 'Qu', 'St']
 
-realmstats = {'de' : {'Essenz' : 'Em',
-                      'Leitmagie' : 'In',
-                      'Mentalismus' : 'Pr'
+realmstats = {'de' : {'Essence' : 'Em',
+                      'Channeling' : 'In',
+                      'Mentalism' : 'Pr'
                       },
               'en' : {'Essence' : 'Em',
                       'Channeling' : 'In',
