@@ -15,10 +15,10 @@ This package holds RM specific tools like Charakter Skill Progression.
 \copyright 2017 Marcus Schwamberger
 '''
 catnames = {'de' : {'spells' : "Spells",
-                    'weapon' : 'weapon',
+                    'weapon' : 'Weapon',
                     },
             'en' : {'spells' : "Spells",
-                    'weapon' : 'weapon',
+                    'weapon' : 'Weapon',
                     },
             }
 

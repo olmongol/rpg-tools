@@ -1536,6 +1536,7 @@ class genAttrWin(blankWindow):
         '''
         This method adds skill categories and skills to the character's dictionary
         \bug Adding the Spell's Realm stats to the Spells categories does not work
+        \bug Some key problems if 2 realms a related
         '''
         from rpgtoolbox import rolemaster as rm
         fp = open("%s/default/Skills_%s.csv" % (self.spath, self.lang))
@@ -1599,10 +1600,12 @@ class genAttrWin(blankWindow):
             
             if rm.catnames[self.lang]['spells'] in content[i][0][:7]:
                 temp = []
+                if  '[' in self.character['realm']:
+                    self.character['realm'] = self.character['realm'].strip("'[ ]\n").split("', '")
                 if type(self.character['realm']) == type([]):
                     
                     for r in self.character['realm']:
-                        temp.apend(rm.realmstats[self.lang][r])
+                        temp.append(rm.realmstats[self.lang][r])
                 elif self.character['realm'] != "choice":
                     temp.append(rm.realmstats[self.lang][self.character['realm']])
                     temp.append(rm.realmstats[self.lang][self.character['realm']])
@@ -1636,6 +1639,9 @@ class priorizeWeaponsWin(blankWindow):
         \param storepath path where things like options have to be stored
         \param char Character as JSON
         """
+        from rpgtoolbox.rolemaster import catnames
+        self.__catnames = catnames
+        
         if storepath == None:
             self.mypath = os.path.expanduser('~') + "/data"
             logger.debug('Set storepath to %s' % (storepath)) + "/data"
@@ -1658,26 +1664,90 @@ class priorizeWeaponsWin(blankWindow):
         self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
                                   command = self.__closewin)
         self.__addHelpMenu()
+        
+        
         self.__getWeaponCats()
+        self.__buildWin()
         
         self.window.mainloop()  
         
+    def __buildWin(self):
+        '''
+        Sets up all the needed Widgets in the window
+        '''
+        self.__prio = {}
+        self.__optWdg = {}
+        
+        for i in range(1, 8):
+            self.__prio["%s - %d" % (self.__catnames[self.lang]['weapon'], i)] = StringVar()
+            
+            Label(master = self.window,
+                  width = 15,
+                  text = "Prio #%d %s" % (i, self.__catnames[self.lang]['weapon'])
+                  ).grid(column = 0, row = i)    
+        
+
+            self.__optWdg[str(i)] = OptionMenu(self.window,
+                                               self.__prio["%s - %d" % (self.__catnames[self.lang]['weapon'], i)],
+                                               *self.weaponcats,
+                                               command = self.__getPrio)
+            self.__optWdg[str(i)].config(width = 50)
+            self.__optWdg[str(i)].grid(column = 1, row = i, sticky = "W")
+         
+        Button(master = self.window,
+               text = txtbutton['but_next'][self.lang],
+               width = 10,
+               command = self.__nextStep).grid(column = 1, row = i + 1, sticky = "E")         
+        
+    def __getPrio(self, event):
+        '''
+        This generates the priority list by the chosen priorities.
+        \param event has to be catched but is not used
+        '''
+        self.__priolist = []
+        self.__block = False
+        
+        for i in range(1, 8):
+            dummy = self.__prio["%s - %d" % (self.__catnames[self.lang]['weapon'], i)].get()
+            
+            if dummy not in self.__priolist:
+                self.__priolist.append(dummy)
+            
+            elif dummy in self.__priolist and i < 7:
+                self.__block = True
+                msg = messageWindow()
+                msg.showinfo(errmsg['double'][self.lang], "Info")
+                break
+            
+        if not self.__block:
+            fp = open('./data/default/CatDPC_%s.csv' % self.lang, 'r')
+            content = fp.readlines()
+            fp.close()
+            
+            j = 1
+            
+            for i in range(len(content) - 7, len(content)):
+                content[i] = content[i].replace("%s - %d" % (self.__catnames[self.lang]['weapon'], j),
+                                              self.__priolist[j - 1])
+            # XXX hier geht es noch weiter...
+                
+                
     def __getWeaponCats(self):
         '''
         Extracts the weapon categories from character 
         '''
-        from rpgtoolbox.rolemaster import catnames
         self.weaponcats = []
         
         for cat in self.character['cat'].keys():
-            if catnames[self.lang]['weapon'] in cat:
+            if self.__catnames[self.lang]['weapon'] in cat:
                 self.weaponcats.append(cat)
     
-    def __nextStep(self, event):
+    def __nextStep(self):
         '''
         Opens the next window to modify categories and skills
         \todo has to be implemented
         '''
+        self.__getPrio()
         self.notdoneyet('__nextStep')
         
     def __closewin(self):
@@ -1704,10 +1774,10 @@ class priorizeWeaponsWin(blankWindow):
         '''
         Opens a message window with help text
         '''
-        helptext = {'de': 'Die Priorisierung der Waffenfertigkeiten ist wichtig für\n'
+        helptext = {'de': 'Die Priorisierung der Waffenfertigkeiten ist wichtig für '
                          + 'die Steigerungskosten und mögliche Anzahl der Steigerungen.\n'
                          + '1 ist die höchste und 7 die geringste Priorität.',
-                   'en' : 'It is important to priorize the weapon categoies because of\n'
+                   'en' : 'It is important to priorize the weapon categoies because of '
                          + 'developing costs and levels possible to develop.\n'
                          + '1 is the highest priority and 7 the lowest.'
                    }

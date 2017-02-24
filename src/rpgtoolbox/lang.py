@@ -386,6 +386,9 @@ errmsg = {'no_file' : {'de' : 'Datei existiert nicht!',
           'name' : {'de' : "Bitte einen Charakternamen eingeben",
                     'en' : "Please enter a character name"
                     },
+          'double' : {'de' : "Bitte nochmal kontrollieren: eine Auswahl ist doppelt!",
+                      'en' : "Please check it again: one of your choices is double!",
+                      }
 
           }
 
