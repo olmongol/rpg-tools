@@ -117,7 +117,8 @@ labels = {'de' : {'race' : 'Rasse',
                   'skill' : 'Talent',
                   'rank' : 'Stufe',
                   'lvl' : 'Stufe',
-                  'prio' : "Priorität"
+                  'prio' : "Priorität",
+                  'costs' : 'Kosten'
                   },
           'en' :{'race' : 'Race',
                   'prof' : 'Profession',
@@ -178,7 +179,8 @@ labels = {'de' : {'race' : 'Rasse',
                   'skill' : 'Skill',
                   'rank' : 'Rank',
                   'lvl' : 'Level',
-                  'prio' : 'Priority'
+                  'prio' : 'Priority',
+                  'costs' : 'Costs'
                   },
           }
 ##\var progressionType

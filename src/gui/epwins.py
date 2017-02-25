@@ -562,8 +562,8 @@ class inputWin(blankWindow):
         """
         set picture for the window background of the main window
         """
-        self.__canvas = Canvas(self.window, width = '7.8c', height = '8.5c')
-        __background = PhotoImage(file = self.picpath + 'dragon.gif')
+        self.__canvas = Canvas(self.window, width = '11.5c', height = '13.5c')
+        __background = PhotoImage(file = self.picpath + 'assassin.gif')
         self.__canvas.create_image(0, 0, image = __background, anchor = NW)
         self.__canvas.pack()
                
@@ -1643,11 +1643,11 @@ class priorizeWeaponsWin(blankWindow):
         self.__catnames = catnames
         
         if storepath == None:
-            self.mypath = os.path.expanduser('~') + "/data"
+            self.spath = os.path.expanduser('~') + "/data"
             logger.debug('Set storepath to %s' % (storepath)) + "/data"
 
         else:
-            self.mypath = storepath
+            self.spath = storepath
             logger.debug('priorizeWeaponsWin: storepath set to %s' % (storepath))
 
         self.lang = lang
@@ -1680,7 +1680,7 @@ class priorizeWeaponsWin(blankWindow):
         
         for i in range(1, 8):
             self.__prio["%s - %d" % (self.__catnames[self.lang]['weapon'], i)] = StringVar()
-            
+            self.__prio["%s - %d" % (self.__catnames[self.lang]['weapon'], i)].set("%s - %d" % (self.__catnames[self.lang]['weapon'], i))
             Label(master = self.window,
                   width = 15,
                   text = "Prio #%d %s" % (i, self.__catnames[self.lang]['weapon'])
@@ -1703,6 +1703,7 @@ class priorizeWeaponsWin(blankWindow):
         '''
         This generates the priority list by the chosen priorities.
         \param event has to be catched but is not used
+        \todo check for double priorities. If any don't proceed
         '''
         self.__priolist = []
         self.__block = False
@@ -1729,9 +1730,57 @@ class priorizeWeaponsWin(blankWindow):
             for i in range(len(content) - 7, len(content)):
                 content[i] = content[i].replace("%s - %d" % (self.__catnames[self.lang]['weapon'], j),
                                               self.__priolist[j - 1])
-            # XXX hier geht es noch weiter...
+                j += 1
+            self.__content = content    
                 
-                
+    def __buildJSON(self):
+        '''
+        Makes a JSON out of CatDPC.csv
+        Skill cat --> Profession : costs
+        '''
+        self.__catDBC = {}
+        self.__content[0] = self.__content[0].strip('\n \t').split(',')
+        
+        for i in range(1, len(self.__content[0])):
+            self.__catDBC[self.__content[0][i]] = {}
+        
+        for i in range(1, len(self.__content)):
+            self.__content[i] = self.__content[i].strip('\n').split(',')
+            self.__content[i][0] = self.__content[i][0].strip(' \t')
+
+            for j in range(1, len(self.__content[0])):
+                self.__catDBC[self.__content[0][j]][self.__content[i][0]] = self.__content[i][j]
+    
+    
+    def __addToChar(self):            
+        '''
+        This method adds the concerned developting costs to the character data structure
+        '''
+        from rpgtoolbox.rolemaster import labels
+        prof = self.character['prof']
+        
+        for skillcat in self.__catDBC[prof].keys():
+            dbcdummy = self.__catDBC[prof][skillcat].split('/')
+            for i in range(0, len(dbcdummy)):
+                dbcdummy[i] = int(dbcdummy[i])
+
+            self.character['cat'][skillcat][labels[self.lang]['costs']] = dbcdummy
+            self.character['cat'][skillcat]['Skill'][labels[self.lang]['costs']] = dbcdummy
+#            self.character['cat'][skillcat][labels[self.lang]['costs']] = self.__catDBC[prof][skillcat]
+#            self.character['cat'][skillcat][labels[self.lang]['Skill']['costs']] = self.__catDBC[prof][skillcat]
+            
+        self.saveChar()    
+
+    def saveChar(self):  
+        
+        '''
+        This method saves the character as JSON file
+        '''
+        import json
+        with open(self.spath + self.character['player'] + '/' + self.character['name'] + ".json", "w") as outfile:
+                json.dump(self.character, outfile, sort_keys = True, indent = 4, ensure_ascii = False)          
+        
+    
     def __getWeaponCats(self):
         '''
         Extracts the weapon categories from character 
@@ -1747,9 +1796,11 @@ class priorizeWeaponsWin(blankWindow):
         Opens the next window to modify categories and skills
         \todo has to be implemented
         '''
-        self.__getPrio()
-        self.notdoneyet('__nextStep')
-        
+        self.__getPrio("")
+        self.__buildJSON()
+        self.__addToChar()
+        self.window.destroy()
+        self.window2 = skillcatWin(self.lang, self.spath, self.character)
     def __closewin(self):
         '''
         A method to destroy the current window and go back to MainWindow.
@@ -1783,3 +1834,52 @@ class priorizeWeaponsWin(blankWindow):
                    }
         helper = messageWindow()
         helper.showinfo(helptext[self.lang], 'Info')
+
+
+class skillcatWin(blankWindow):
+    """
+    This is the class for a window object to chose the priority of weapon skills
+    at the character's generation. It will also set the category and skill ranks 
+    during adolescence.
+    """
+    def __init__(self, lang = 'en', storepath = "./data", char = None):
+        """
+        Class constructor
+        \param lang The chosen language for window's and button's
+                    texts. At the moment, only English (en, default
+                    value) and German (de) are supported.
+        \param title title of the window
+        \param storepath path where things like options have to be stored
+        \param char Character as JSON
+        """
+        from rpgtoolbox.rolemaster import catnames
+        self.__catnames = catnames
+        
+        if storepath == None:
+            self.spath = os.path.expanduser('~') + "/data"
+            logger.debug('Set storepath to %s' % (storepath)) + "/data"
+
+        else:
+            self.spath = storepath
+            logger.debug('priorizeWeaponsWin: storepath set to %s' % (storepath))
+
+        self.lang = lang
+        self.character = char
+        
+        blankWindow.__init__(self, self.lang)
+        self.window.title(wintitle['edit'][self.lang])
+#        self.filemenu = Menu(master = self.menu)
+#        self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
+#                              menu = self.filemenu)
+#        self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
+#                                  command = self.notdoneyet)
+#        self.filemenu.add_separator()
+#        self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
+#                                  command = self.__closewin)
+#        self.__addHelpMenu()
+#        
+#        
+#        self.__getWeaponCats()
+#        self.__buildWin()
+        
+        self.window.mainloop()  
