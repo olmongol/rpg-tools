@@ -1879,7 +1879,6 @@ class skillcatWin(blankWindow):
 #        self.__addHelpMenu()
 #        
 #        
-#        self.__getWeaponCats()
 #        self.__buildWin()
         
         self.window.mainloop()  
