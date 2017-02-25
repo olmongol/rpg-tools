@@ -30,6 +30,15 @@ races = {'de' : ['normale Menschen', 'vermischte Menschen', 'Hochmenschen',
          'en' : ['Common Men', 'Mixed Men', 'High Men', 'Wood Elves', 'Grey Elves',
                  'High Elves', 'Half Elves', 'Dwarves', 'Halflings']
          }
+
+cultures = {'de' : ['Huegelmenschen', 'Corsaren', 'Nomaden', 'Landvolk', 'Stadtmenschen',
+                   'Waldmenschen', 'Hochmenschen', 'Waldelben', 'Grauelben', 'Hochelben',
+                   'Halbelben', 'Zwerge (Kuduk)', 'Halblinge (Hobbits)'],
+           'en' : ['Hillmen', 'Mariners', 'Nomads', 'Ruralmen', 'Urbanmen', 'Woodmen',
+                   'High Men', 'Wood Elves', 'Grey Elves', 'High Elves', 'Half Elves',
+                   'Dwarves', 'Halflings'] 
+           
+           }
 ##\var stats
 # the English shortcuts/indices for stats
 stats = ['Ag', 'Co', 'Me', 'Re', 'SD', 'Em', 'In', 'Pr', 'Qu', 'St']

@@ -876,6 +876,7 @@ class genAttrWin(blankWindow):
         '''
         \param lang Choosen display language (default en)
         \param storepath Path to store data (default: ./data)
+        \todo add OptionMenu for culture choice for mixed men and common men.
         '''
         
         if rpg == "RoleMaster":
@@ -893,9 +894,11 @@ class genAttrWin(blankWindow):
         ## \var self.spath
         # storage path for character data file
         self.spath = storepath
+        
         if self.spath[-1] != "/":
             self.spath += "/"
         
+        self.__cultures = rm.cultures[self.lang][:6]
         ## \var self.profs
         # a dictionary/JSON structure where a profession specific data (read from 
         # a CSV file) is stored in 
@@ -906,6 +909,9 @@ class genAttrWin(blankWindow):
         ## \var rmraces
         # a list of all the RoleMaster races
         rmraces = rm.races[self.lang]
+        ## \var rmcultures
+        # list of available cultures
+        rmcultures = rm.cultures[self.lang]
         ## \var self.stats
         # holds player, name, profession, race, realm and temp stats
         self.stats = {}
@@ -941,7 +947,7 @@ class genAttrWin(blankWindow):
         self.showno = IntVar()
         self.showno.set(660)
         self.points = 660
-        dummy = ['player', 'name', 'prof', 'race', 'realm']
+        dummy = ['player', 'name', 'prof', 'race', 'realm', 'culture']
         
         for a in dummy:
             self.stats[a] = StringVar()
@@ -983,20 +989,16 @@ class genAttrWin(blankWindow):
               textvariable = self.stats['player'],
               ).grid(column = 2, row = 0, columnspan = 2)
                         
-        Button(master = self.window,
-               text = txtbutton['but_roll'][self.lang],
-               width = 15,
-               command = self.rollDice).grid(column = 4, row = 0)
-        
         Label(master = self.window,
-              text = rm.labels[self.lang]['DP'],
-              ).grid(column = 5, row = 0, columnspan = 2)
-              
-        Message(master = self.window,
-                 width = 35,
-                 textvariable = self.showno,
-                 font = "bold"
-                 ).grid(column = 7, row = 0)
+              width = 15,
+              text = rm.labels[self.lang]['culture']
+              ).grid(column = 4, row = 0, columnspan = 2)    
+
+        self.optMenu0 = OptionMenu(self.window,
+                                   self.stats['culture'],
+                                   *rmcultures,
+                                   command = self.__setCulture)
+        self.optMenu0.grid(column = 6, row = 0, columnspan = 2, sticky = "ew")
         
         Label(master = self.window,
               width = 25,
@@ -1012,7 +1014,6 @@ class genAttrWin(blankWindow):
               width = 15,
               text = rm.labels[self.lang]['race']
               ).grid(column = 4, row = 1, columnspan = 2)    
-        
 
         self.optMenu1 = OptionMenu(self.window,
                                    self.stats['race'],
@@ -1041,64 +1042,79 @@ class genAttrWin(blankWindow):
                                    *rm.realms[self.lang],
                                    command = self.__chkRealm)
         self.optMenu3.grid(column = 6, row = 2, columnspan = 2, sticky = "ew")
+       
+        Button(master = self.window,
+               text = txtbutton['but_roll'][self.lang],
+               width = 15,
+               command = self.rollDice).grid(column = 4, row = 3)
         
+        Label(master = self.window,
+              text = rm.labels[self.lang]['DP'],
+              ).grid(column = 5, row = 3, columnspan = 2)
+              
+        Message(master = self.window,
+                 width = 35,
+                 textvariable = self.showno,
+                 font = "bold"
+                 ).grid(column = 7, row = 3)
+                                
         Label (master = self.window,
                width = 15,
                relief = RIDGE,
                font = "bold",
                text = rm.labels[self.lang]['stats']
-               ).grid(column = 0, row = 3, sticky = "ew")
+               ).grid(column = 0, row = 4, sticky = "ew")
                
         Label (master = self.window,
                width = 10,
                relief = RIDGE,
                font = "bold",
                text = rm.labels[self.lang]['short']
-               ).grid(column = 1, row = 3)       
+               ).grid(column = 1, row = 4)       
                
         Label (master = self.window,
                width = 10,
                relief = RIDGE,
                font = "bold",
                text = "Temp"
-               ).grid(column = 2, row = 3, sticky = "ew")
+               ).grid(column = 2, row = 4, sticky = "ew")
                
         Label (master = self.window,
                width = 10,
                relief = RIDGE,
                font = "bold",
                text = "Pot"
-               ).grid(column = 3, row = 3, sticky = "ew")
+               ).grid(column = 3, row = 4, sticky = "ew")
                
         Label (master = self.window,
                width = 10,
                relief = RIDGE,
                font = "bold",
                text = rm.labels[self.lang]['race']
-               ).grid(column = 4, row = 3, sticky = "ew")
+               ).grid(column = 4, row = 4, sticky = "ew")
                 
         Label (master = self.window,
                width = 10,
                relief = RIDGE,
                font = "bold",
                text = "Spec"
-               ).grid(column = 5, row = 3, sticky = "ew")
+               ).grid(column = 5, row = 4, sticky = "ew")
                
         Label (master = self.window,
                width = 10,
                relief = RIDGE,
                font = "bold",
                text = "Std"
-               ).grid(column = 6, row = 3, sticky = "ew")
+               ).grid(column = 6, row = 4, sticky = "ew")
 
         Label (master = self.window,
                width = 10,
                relief = RIDGE,
                font = "bold",
                text = rm.labels[self.lang]['total']
-               ).grid(column = 7, row = 3, sticky = "ew")        
+               ).grid(column = 7, row = 4, sticky = "ew")        
         
-        i = 4
+        i = 5
         
         for s in rm.stats:
             Label(master = self.window,
@@ -1155,11 +1171,10 @@ class genAttrWin(blankWindow):
                                            
         self.window.mainloop()
        
-       
+      
     def __nextStep(self):
         '''
         Creates next Window, saves and transmits data
-        \todo has to be implemented
         '''
         if self.points != self.__used:
             messageWindow(self.lang).showinfo(errmsg['stats_dp'][self.lang])
@@ -1216,7 +1231,8 @@ class genAttrWin(blankWindow):
              
     def __setPStats(self):
         '''
-        Sets the primary stats for a profession
+        Sets the primary (and magic) stats for a profession
+        \todo set the magic stat for chosen realms to
         '''    
         testp = self.stats['prof'].get()
         primestats = self.profs[testp]['Prime Stats']
@@ -1247,8 +1263,33 @@ class genAttrWin(blankWindow):
             self.pots[s].set(potstat)
                         
         self.__calcBonus()
-           
-                 
+    
+    def __setCulture(self, event):
+        '''
+        Sets the right culture selection dependent on the chosen race.
+        '''
+        from rpgtoolbox.rolemaster import races, cultures 
+        from rpgtoolbox.lang import errmsg
+        
+        testc = self.stats['culture'].get()
+        testr = self.stats['race'].get()       
+        omenu = self.optMenu0.children['menu']
+        omenu.delete(0, "end")
+        
+        if testr == "" or testr == None:
+            msg = messageWindow()
+            msg.showinfo(errmsg['no_race'][self.lang], 'Info')
+        
+        elif testr in races[self.lang][:2]:
+            for cult in cultures[self.lang][:6]:
+                omenu.add_command(label = cult, command = lambda v = cult: self.stats['culture'].set(v))
+                self.stats['culture'].set("")
+                
+        else:
+            omenu.add_command(label = testr, command = lambda v = testr: self.stats['culture'].set(v))
+            self.stats['culture'].set(testr)
+            
+            
     def __statBonus(self):
         '''
         Sets/calculates standard stat bonus
@@ -1265,6 +1306,7 @@ class genAttrWin(blankWindow):
         \param event object event given by OptionMenu but not used 
         \bug potential cause for false DP calculations. It is not clear how to 
         reproduce this bug.
+        \bug  if testr != self.profs[testp]['Realm'] and self.profs[testp]['Realm'] != "choice": KeyError: ''
         '''
         testr = self.stats['realm'].get()
         testp = self.stats['prof'].get()
@@ -1294,6 +1336,8 @@ class genAttrWin(blankWindow):
 
         for a in rm.stats:
             self.__race[a].set(rm.raceAbilities[race][a])
+        
+        self.__setCulture("")
         
     def __setRealm(self, event):
         '''
@@ -1484,7 +1528,7 @@ class genAttrWin(blankWindow):
         from rpgtoolbox import rolemaster as rm
         import json
         
-        for key in ['player', 'name', 'prof', 'race', 'realm']:
+        for key in ['player', 'name', 'prof', 'race', 'realm', 'culture']:
             self.character[key] = self.stats[key].get()
             
         race = rm.races['en'][rm.races[self.lang].index(self.character['race'])]    
@@ -1749,7 +1793,8 @@ class priorizeWeaponsWin(blankWindow):
     
     def __addToChar(self):            
         '''
-        This method adds the concerned developting costs to the character data structure
+        This method adds the concerned developing costs and category/skill ranks
+        during adolescence to the character data structure (JSON).
         '''
         from rpgtoolbox.rolemaster import labels
         prof = self.character['prof']
@@ -1761,9 +1806,34 @@ class priorizeWeaponsWin(blankWindow):
 
             self.character['cat'][skillcat][labels[self.lang]['costs']] = dbcdummy
             self.character['cat'][skillcat]['Skill'][labels[self.lang]['costs']] = dbcdummy
-#            self.character['cat'][skillcat][labels[self.lang]['costs']] = self.__catDBC[prof][skillcat]
-#            self.character['cat'][skillcat][labels[self.lang]['Skill']['costs']] = self.__catDBC[prof][skillcat]
+    
+        # adding adolescence skill ranks
             
+        fp = open('./data/default/AdoRanks_%s.csv' % self.lang, "r")
+        content = fp.readlines()
+        fp.close()
+        self.__adoranks = {}
+        content[0] = content[0].strip('\n').split(',')
+        
+        for i in range(1, len(content[0])):
+            self.__adoranks[content[0][i]] = {}
+            content[i] = content[i].strip('\n').split(',')
+            content[i][0] = content[i][0].strip(' \t')
+            
+            for j in range(1, len(content[i])):
+                
+                if content[i][j][:1] != "-":
+                    self.__adoranks[content[0][i]][content[j][0]] = {"Rank": int(content[i][j])}
+                
+                    if "Skill" not in self.__adoranks[content[0][i]][content[j][0]].keys():
+                        self.__adoranks[content[0][i]][content[j][0]]['Skill'] = {}
+                    lastcat = content[j][0]
+                
+                else:
+                    self.__adoranks[content[0][i]][lastcat]['Skill'][content[j][0]] = {'Rank' : int(content[i][j])}
+        
+#        race = self.character['culture']    
+        
         self.saveChar()    
 
     def saveChar(self):  
@@ -1786,10 +1856,10 @@ class priorizeWeaponsWin(blankWindow):
             if self.__catnames[self.lang]['weapon'] in cat:
                 self.weaponcats.append(cat)
     
+        self.weaponcats.sort()
     def __nextStep(self):
         '''
         Opens the next window to modify categories and skills
-        \todo has to be implemented
         '''
         self.__getPrio("")
         self.__buildJSON()
@@ -1863,17 +1933,57 @@ class skillcatWin(blankWindow):
         
         blankWindow.__init__(self, self.lang)
         self.window.title(wintitle['edit'][self.lang])
-#        self.filemenu = Menu(master = self.menu)
-#        self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
-#                              menu = self.filemenu)
-#        self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
-#                                  command = self.notdoneyet)
-#        self.filemenu.add_separator()
-#        self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
-#                                  command = self.__closewin)
-#        self.__addHelpMenu()
-#        
-#        
-#        self.__buildWin()
+        self.filemenu = Menu(master = self.menu)
+        self.__addFileMenu()
+        self.__addHelpMenu()
+        self.__buildWin()
         
         self.window.mainloop()  
+    
+    def __addFileMenu(self):
+        '''
+        Adds a file menu  to menu bar.
+        '''
+        self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
+                              menu = self.filemenu)
+        self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
+                                  command = self.notdoneyet)
+        self.filemenu.add_separator()
+        self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
+                                  command = self.__closewin)    
+        
+        
+    def __closewin(self):
+        '''
+        A method to destroy the current window and go back to MainWindow.
+        '''
+        self.window.destroy()
+        self.window = MainWindow(lang = self.lang, char = self.character)        
+        
+        
+    def __addHelpMenu(self):
+        '''
+        Adds a help menu entry to menu bar.
+        '''
+        self.helpmenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['help'][self.lang],
+                              menu = self.helpmenu)
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['win'],
+                              command = self.__helpAWin)
+        self.helpmenu.add_separator()
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
+                                  command = self._helpAbout)    
+        
+    def __buildWin(self):
+        '''
+        Builds the window's elements.
+        \todo has to be implemented
+        '''
+        pass
+        
+    def __helpAWin(self):
+        '''
+        Help information about this window.
+        \todo has to be implemented
+        '''
+        self.notdoneyet("helpAWin")

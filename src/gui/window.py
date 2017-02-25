@@ -37,7 +37,6 @@ class messageWindow(object):
         """
         self.lang = lang
         self.window = Toplevel()
-#        self.logger = log.createLogger(logpath = '/tmp/')
 
     def showinfo(self, message = '', title = 'Info'):
         """
