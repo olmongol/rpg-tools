@@ -455,7 +455,7 @@ def choseProfession(lang = 'en'):
     \li 2.lvl: Prime Stats (list), Profession Bonusses (dict, 3. lvl), 
           Realm (string)
     \li 3. (Profession Bonusses) \<Skill Category\> : int
-    \todo implement German language support 
+    \todo implement German language support - will be handled by imported CSV files
     '''
     
     # Just until German Language Support is implemented 

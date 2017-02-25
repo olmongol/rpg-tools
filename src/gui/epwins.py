@@ -16,7 +16,7 @@ import random
 import os
 import sys
 from Tkinter import *
-from ImageTk import *
+from PIL.ImageTk import *
 from tkFileDialog import *
 from ttk import *
 from rpgtoolbox.lang import *
@@ -572,11 +572,9 @@ class inputWin(blankWindow):
         
     def __createchar(self):
         '''
-        Method to create a new character
-        \todo createchar has to be implemented
+        Method to open a new window for character creation.
         '''
-        print "input win --> createchar"
-#        self.notdoneyet('chreatechar')
+#        print "input win --> createchar"
         self.window.destroy()
         self.window3 = genAttrWin(lang = self.lang,
                                  storepath = self.mypath)
@@ -586,7 +584,7 @@ class inputWin(blankWindow):
         Method to create a now character party/group
         \todo chreategroup has to be implemented
         '''
-        print "input win --> ccreategroup"
+        print "input win --> creategroup"
         self.notdoneyet('creategroup')
         
         
@@ -802,9 +800,7 @@ class edtchrWin(blankWindow):
         
     def _addItems(self):
         '''
-        Adding new charaters to the list
-        \todo csv saving has to be implemented
-        \bug there are data missing while writing new dataset to file
+        Adding new characters to the list
         '''   
         print "addItems"
         for k in self._set.keys():  
@@ -1267,7 +1263,8 @@ class genAttrWin(blankWindow):
         This method checks whether the right magic realm is chosen for the 
         selected profession
         \param event object event given by OptionMenu but not used 
-        \bug potential cause for false DP calculations
+        \bug potential cause for false DP calculations. It is not clear how to 
+        reproduce this bug.
         '''
         testr = self.stats['realm'].get()
         testp = self.stats['prof'].get()
@@ -1535,8 +1532,6 @@ class genAttrWin(blankWindow):
     def __addCatnSkills(self):
         '''
         This method adds skill categories and skills to the character's dictionary
-        \bug Adding the Spell's Realm stats to the Spells categories does not work
-        \bug Some key problems if 2 realms a related
         '''
         from rpgtoolbox import rolemaster as rm
         fp = open("%s/default/Skills_%s.csv" % (self.spath, self.lang))
