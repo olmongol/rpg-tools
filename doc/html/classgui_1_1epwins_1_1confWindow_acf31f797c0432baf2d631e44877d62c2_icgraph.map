@@ -1,0 +1,4 @@
+<map id="gui.epwins.confWindow.chosenLang" name="gui.epwins.confWindow.chosenLang">
+<area shape="rect" id="node2" href="$classgui_1_1epwins_1_1confWindow.html#acf708d4d35ccf75cbe9bed8db10c2e2c" title="This private method builds the option&#39;s window with radio buttons of supported languages dynamically..." alt="" coords="280,5,437,47"/>
+<area shape="rect" id="node3" href="$classgui_1_1epwins_1_1confWindow.html#abf3365041c68aad40c3732e8f76fdd2c" title="This private method builds an option menu button in the option&#39;s window to make a choice between the ..." alt="" coords="485,5,643,47"/>
+</map>

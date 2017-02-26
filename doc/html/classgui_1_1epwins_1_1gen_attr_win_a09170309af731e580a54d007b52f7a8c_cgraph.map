@@ -1,0 +1,7 @@
+<map id="gui.epwins.genAttrWin.__creatPot" name="gui.epwins.genAttrWin.__creatPot">
+<area shape="rect" id="node2" href="$classgui_1_1epwins_1_1gen_attr_win.html#a1279b57d92df224cd28945129c838f75" title="This function delivers the result of a dice roll as a list. " alt="" coords="204,13,379,39"/>
+<area shape="rect" id="node3" href="$classgui_1_1epwins_1_1gen_attr_win.html#a7a721c9cfc54e14fb3be556e80220632" title="Creates the pool for stat generation. " alt="" coords="427,13,621,39"/>
+<area shape="rect" id="node4" href="$classgui_1_1epwins_1_1gen_attr_win.html#a987d2f6cd907a75be93899c7ef200897" title="This Method collects and saves all entered/chosen data from this window. " alt="" coords="669,5,820,47"/>
+<area shape="rect" id="node5" href="$classgui_1_1epwins_1_1gen_attr_win.html#a95065f3ff293400e84f228922ea261d8" title="This method adds skill categories and skills to the character&#39;s dictionary. " alt="" coords="868,5,1019,47"/>
+<area shape="rect" id="node6" href="$classgui_1_1epwins_1_1gen_attr_win.html#a0b8b6af57ac8375b837e8ec97a7a892c" title="A method to destroy the current window and go back to MainWindow. " alt="" coords="1067,5,1217,47"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="gui.epwins.confWindow.__buildWinRadio" name="gui.epwins.confWindow.__buildWinRadio">
+<area shape="rect" id="node2" href="$classgui_1_1epwins_1_1conf_window.html#a101663accf8298422c40a027c468f347" title="A method for closing the window and opening the main window. " alt="" coords="211,5,368,47"/>
+<area shape="rect" id="node3" href="$classgui_1_1epwins_1_1conf_window.html#a9079375f23e18c0b32e5f78117958e92" title="A method for saving options in the user directory. " alt="" coords="211,71,368,112"/>
+</map>

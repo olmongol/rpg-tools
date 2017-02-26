@@ -1,0 +1,8 @@
+<map id="gui.epwins.MainWindow.__addEditMenu" name="gui.epwins.MainWindow.__addEditMenu">
+<area shape="rect" id="node2" href="$classgui_1_1epwins_1_1_main_window.html#a5bf4561770ec4c480fcacbcf21c7c1b9" title="Calculating and displaying the whole EPs for the RPG party. " alt="" coords="213,5,373,47"/>
+<area shape="rect" id="node4" href="$classgui_1_1epwins_1_1_main_window.html#a86dcd567eb866b99c5848f5ad84130b9" title="Generating a window for editing Characters/Character lists/Parties. " alt="" coords="213,71,373,112"/>
+<area shape="rect" id="node5" href="$classgui_1_1epwins_1_1_main_window.html#a44cfe76882f96f87f211375e38394e60" title="Editing all Hits/Crits/Killed Monsters for calculating EPs. " alt="" coords="213,136,373,177"/>
+<area shape="rect" id="node6" href="$classgui_1_1epwins_1_1_main_window.html#af2ca295880bb6921b87f94fc1d98b913" title="Editing all for traveled distance, spells, maneuvers. " alt="" coords="213,201,373,243"/>
+<area shape="rect" id="node7" href="$classgui_1_1epwins_1_1_main_window.html#ab0dd8666e282594efd8315a13c257577" title="Calculating and distributing pool for individual EPs. " alt="" coords="213,267,373,308"/>
+<area shape="rect" id="node3" href="$classgui_1_1window_1_1blank_window.html#a2e195c439a3036f8ae4d7c92f8241679" title="a simple dummy method for not yet implemented methods " alt="" coords="421,177,651,203"/>
+</map>
