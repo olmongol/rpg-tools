@@ -17,7 +17,7 @@ from rpgtoolbox.rpgtools import dice
 
 class treasure():
     '''
-    \class treasure Creation of a treasure using the MERP/MERS tables to create a random treasure. 
+    Creation of a treasure using the MERP/MERS tables to create a random treasure. 
     '''
 
     def __init__(self, lang = ''):

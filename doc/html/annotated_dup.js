@@ -11,5 +11,7 @@ var annotated_dup =
       ] ]
     ] ],
     [ "rpgToolDefinitions", "namespacerpgToolDefinitions.html", null ],
-    [ "treasure", "classtreasure.html", null ]
+    [ "treasure", null, [
+      [ "treasure", "classtreasure_1_1treasure.html", "classtreasure_1_1treasure" ]
+    ] ]
 ];

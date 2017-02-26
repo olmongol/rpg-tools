@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['initchar',['initChar',['../namespacerpgToolDefinitions_1_1csvdef.html#a54c8ba1b72e8ce77140ff3c36a9b4ab1',1,'rpgToolDefinitions::csvdef']]]
+  ['handbook',['handbook',['../classgui_1_1window_1_1blankWindow.html#a97b3d5397af5e23d599d7c863cd5dcc9',1,'gui::window::blankWindow']]],
+  ['help',['help',['../classtreasure_1_1treasure.html#a2ebcb3d7b01a6bc82d2f749bafefcac1',1,'treasure::treasure']]],
+  ['helpabout',['helpAbout',['../classgui_1_1epwins_1_1MainWindow.html#a47661080791a6845c498ff1f0585d55f',1,'gui::epwins::MainWindow']]],
+  ['helphandbook',['helpHandbook',['../classgui_1_1epwins_1_1MainWindow.html#a2bd0687c610c9ae789d6f2f9e13dbfc8',1,'gui::epwins::MainWindow']]]
 ];

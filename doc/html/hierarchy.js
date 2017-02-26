@@ -14,5 +14,5 @@ var hierarchy =
     [ "gui.winhelper.InfoCanvas", "classgui_1_1winhelper_1_1InfoCanvas.html", null ],
     [ "rpgtoolbox.confbox.chkCfg", "classrpgtoolbox_1_1confbox_1_1chkCfg.html", null ],
     [ "rpgtoolbox.errbox.raisedError", "classrpgtoolbox_1_1errbox_1_1raisedError.html", null ],
-    [ "treasure", "classtreasure.html", null ]
+    [ "treasure.treasure", "classtreasure_1_1treasure.html", null ]
 ];

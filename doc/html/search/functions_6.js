@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['handbook',['handbook',['../classgui_1_1window_1_1blankWindow.html#a97b3d5397af5e23d599d7c863cd5dcc9',1,'gui::window::blankWindow']]],
-  ['helpabout',['helpAbout',['../classgui_1_1epwins_1_1MainWindow.html#a47661080791a6845c498ff1f0585d55f',1,'gui::epwins::MainWindow']]],
-  ['helphandbook',['helpHandbook',['../classgui_1_1epwins_1_1MainWindow.html#a2bd0687c610c9ae789d6f2f9e13dbfc8',1,'gui::epwins::MainWindow']]]
+  ['getepcrit',['getEPCrit',['../namespacerpgToolDefinitions_1_1epcalcdefs.html#abf04e7e0e98cc6f560af932d5117f716',1,'rpgToolDefinitions::epcalcdefs']]],
+  ['getlast',['getLast',['../globaltools_8py.html#a26eac5d473aed10e2965d37099bf9e5e',1,'rpgtoolbox::globaltools']]],
+  ['getlvl',['getLvl',['../namespacerpgtoolbox_1_1rpgtools.html#ae26e332def894b6089ef9c19cdf018a0',1,'rpgtoolbox::rpgtools']]]
 ];

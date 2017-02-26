@@ -190,7 +190,16 @@
       </topic>
       <topic label="rpgToolDefinitions" href="namespacerpgToolDefinitions.html">
       </topic>
-      <topic label="treasure" href="classtreasure.html"/>
+      <topic label="treasure">
+        <topic label="treasure" href="classtreasure_1_1treasure.html">
+          <topic label="findItems" href="classtreasure_1_1treasure.html#ac325cd29bdf354956f48239357640e26"/>
+          <topic label="findMoney" href="classtreasure_1_1treasure.html#af8f16c9a7a0d0b82a8011459b31e5c97"/>
+          <topic label="findTreasure" href="classtreasure_1_1treasure.html#ae3cbf2c6e9cb2f038cf92a85140c3fc0"/>
+          <topic label="help" href="classtreasure_1_1treasure.html#a2ebcb3d7b01a6bc82d2f749bafefcac1"/>
+          <topic label="magicItem" href="classtreasure_1_1treasure.html#a385fd01d5130dfb1f1b9c616b50a97f0"/>
+          <topic label="items" href="classtreasure_1_1treasure.html#a4d94ccd8b79bbb8347bdd614f289b9b7"/>
+        </topic>
+      </topic>
     </topic>
     <topic label="Class Index" href="classes.html"/>
     <topic label="Class Hierarchy" href="hierarchy.html">
@@ -208,7 +217,7 @@
       <topic label="gui.winhelper.InfoCanvas" href="classgui_1_1winhelper_1_1InfoCanvas.html"/>
       <topic label="rpgtoolbox.confbox.chkCfg" href="classrpgtoolbox_1_1confbox_1_1chkCfg.html"/>
       <topic label="rpgtoolbox.errbox.raisedError" href="classrpgtoolbox_1_1errbox_1_1raisedError.html"/>
-      <topic label="treasure" href="classtreasure.html"/>
+      <topic label="treasure.treasure" href="classtreasure_1_1treasure.html"/>
     </topic>
     <topic label="Class Members" href="functions.html">
       <topic label="All" href="functions.html"/>
@@ -302,6 +311,16 @@
       <topic label="rpgtools.py" href="rpgtools_8py.html">
         <topic label="dice" href="rpgtools_8py.html#a405b792a833748c8189ac5705edb47d5"/>
         <topic label="getLvl" href="rpgtools_8py.html#ae26e332def894b6089ef9c19cdf018a0"/>
+      </topic>
+      <topic label="treasure.py" href="treasure_8py.html">
+        <topic label="treasure" href="classtreasure_1_1treasure.html">
+          <topic label="findItems" href="classtreasure_1_1treasure.html#ac325cd29bdf354956f48239357640e26"/>
+          <topic label="findMoney" href="classtreasure_1_1treasure.html#af8f16c9a7a0d0b82a8011459b31e5c97"/>
+          <topic label="findTreasure" href="classtreasure_1_1treasure.html#ae3cbf2c6e9cb2f038cf92a85140c3fc0"/>
+          <topic label="help" href="classtreasure_1_1treasure.html#a2ebcb3d7b01a6bc82d2f749bafefcac1"/>
+          <topic label="magicItem" href="classtreasure_1_1treasure.html#a385fd01d5130dfb1f1b9c616b50a97f0"/>
+          <topic label="items" href="classtreasure_1_1treasure.html#a4d94ccd8b79bbb8347bdd614f289b9b7"/>
+        </topic>
       </topic>
       <topic label="window.py" href="window_8py.html">
         <topic label="blankWindow" href="classgui_1_1window_1_1blankWindow.html">

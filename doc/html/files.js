@@ -15,6 +15,9 @@ var files =
     [ "rm_char_tools.py", "rm__char__tools_8py.html", null ],
     [ "rolemaster.py", "rolemaster_8py.html", "rolemaster_8py" ],
     [ "rpgtools.py", "rpgtools_8py.html", "rpgtools_8py" ],
+    [ "treasure.py", "treasure_8py.html", [
+      [ "treasure", "classtreasure_1_1treasure.html", "classtreasure_1_1treasure" ]
+    ] ],
     [ "window.py", "window_8py.html", "window_8py" ],
     [ "winhelper.py", "winhelper_8py.html", "winhelper_8py" ]
 ];
