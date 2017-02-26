@@ -1667,12 +1667,15 @@ class genAttrWin(blankWindow):
             
             if rm.catnames[self.lang]['spells'] in content[i][0][:7]:
                 temp = []
+
                 if  '[' in self.character['realm']:
                     self.character['realm'] = self.character['realm'].strip("'[ ]\n").split("', '")
+                
                 if type(self.character['realm']) == type([]):
                     
                     for r in self.character['realm']:
                         temp.append(rm.realmstats[self.lang][r])
+                
                 elif self.character['realm'] != "choice":
                     temp.append(rm.realmstats[self.lang][self.character['realm']])
                     temp.append(rm.realmstats[self.lang][self.character['realm']])
@@ -1826,19 +1829,45 @@ class priorizeWeaponsWin(blankWindow):
     def __addToChar(self):            
         '''
         This method adds the concerned developing costs and category/skill ranks
-        during adolescence to the character data structure (JSON).
+        during adolescence to the character data structure (JSON). 
+        It also calculates the rank bonus for the first time.
+        \todo exchange the Progression string to list of numbers
+        \todo calc rank bonus
         '''
-        from rpgtoolbox.rolemaster import labels
+        from rpgtoolbox.rolemaster import races, labels, progressionType, rankbonus
+        ##\var prof
+        # dummy variable that holds character's profession
         prof = self.character['prof']
-        
+        ##\var crace
+        # dummy variable that holds character's race
+        crace = races['en'][races[self.lang].index(self.character['race'])]
+       
         for skillcat in self.__catDBC[prof].keys():
             dbcdummy = self.__catDBC[prof][skillcat].split('/')
+        
             for i in range(0, len(dbcdummy)):
-                dbcdummy[i] = int(dbcdummy[i])
+                if dbcdummy != "":
+                    dbcdummy[i] = int(dbcdummy[i])
 
             self.character['cat'][skillcat][labels[self.lang]['costs']] = dbcdummy
             self.character['cat'][skillcat]['Skill'][labels[self.lang]['costs']] = dbcdummy
-    
+
+# There is something going wrong with key 'Progression'
+            
+#            if self.character['cat'][skillcat]['Progression'] == "Standard":
+#                self.character['cat'][skillcat]['Progression'] = progressionType['standard cat']
+#                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType['standard skill']
+#            
+#            elif self.character['cat'][skillcat]['Progression'] == "BD":
+#                self.character['cat'][skillcat]['Progression'] = progressionType['null']
+#                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType['BD %s' % crace]
+#                
+#            elif self.character['cat'][skillcat]['Progression'][:3] == "PPD":
+#                self.character['cat'][skillcat]['Progression'] = progressionType['null']
+#                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType["%s %s" % (self.character['cat'][skillcat]['Skill']['Progression'],
+#                                                                                                     crace)
+#                                                                                          ]  
+                
         # adding adolescence skill ranks
             
         fp = open('./data/default/AdoRanks_%s.csv' % self.lang, "r")
@@ -1846,26 +1875,38 @@ class priorizeWeaponsWin(blankWindow):
         fp.close()
         self.__adoranks = {}
         content[0] = content[0].strip('\n').split(',')
+        # the loops does not work correctly
         
         for i in range(1, len(content[0])):
             self.__adoranks[content[0][i]] = {}
-            content[i] = content[i].strip('\n').split(',')
-            content[i][0] = content[i][0].strip(' \t')
+#            content[i] = content[i].strip('\n').split(',')
+#            content[i][0] = content[i][0].strip(' \t')
             
-            for j in range(1, len(content[i])):
-                
-                if content[i][j][:1] != "-":
-                    self.__adoranks[content[0][i]][content[j][0]] = {"Rank": int(content[i][j])}
-                
+            for j in range(1, len(content)):
+                content[j] = content[i].strip('\n').split(',')
+                content[j][0] = content[i][0].strip(' \t')
+                lastcat = content[j][0]
+                if content[j][0] != "-":
+                    self.__adoranks[content[0][i]][content[j][0]] = {"rank": int(content[i][j]),
+                                                                     }
+#                                                                     "rank bonus" : rankbonus(rank = int(content[i][j]),
+#                                                                                              progression = self.character['cat'][content[j][0]]['Progression']
+#                                                                                              )
+#                                                                     }
+                    
                     if "Skill" not in self.__adoranks[content[0][i]][content[j][0]].keys():
                         self.__adoranks[content[0][i]][content[j][0]]['Skill'] = {}
-                    lastcat = content[j][0]
+                    
                 
                 else:
-                    self.__adoranks[content[0][i]][lastcat]['Skill'][content[j][0]] = {'Rank' : int(content[i][j])}
-        
-#        race = self.character['culture']    
-        
+                    self.__adoranks[content[0][i]][lastcat]['Skill'][content[j][0]] = {'rank' : int(content[i][j]),
+                                                                                       }
+#                                                                                       'rank bonus' : rankbonus(rank = int(content[i][j]),
+#                                                                                                                progression = self.character['cat'][lastcat]['Skill']['Progression']
+#                                                                                                                )
+#                                                                                       }
+        from pprint import pprint
+        pprint(self.__adoranks)
         self.saveChar()    
 
     def saveChar(self):  
@@ -2054,7 +2095,7 @@ class skillcatWin(blankWindow):
         catNo = 0
         for cat in self.character['cat'].keys():
             catvalues = (cat)
-            catID[cat] = self._tree.insert("", catNo, text = cat, values = (cat,
+            catID[cat] = self.__tree.insert("", catNo, text = cat, values = (cat,
                                                                       self.character['cat']))
 
     def __selectTreeItem(self, event):

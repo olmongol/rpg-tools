@@ -55,9 +55,9 @@ realmstats = {'de' : {'Essence' : 'Em',
 
 ##\var realms
 # a dictionary for translating the names of magic realms
-realms = {'en': ('choice', 'Essence', 'Channeling', 'Mentalism',
-                 ['Channeling', 'Mentalism'], ['Channeling', 'Essence'],
-                 ['Essence', 'Mentalism']),
+realms = {'en': ('choice', 'Essence', 'Channeling', 'Ment',
+                 ['Chan', 'Ment'], ['Chan', 'Ess'],
+                 ['Ess', 'Ment']),
           'de': ('wählbar', 'Essenz', 'Leitmagie', 'Mentalismus',
                  ['Leitmagie', 'Mentalismus'], ['Leitmagie', 'Essenz'],
                  ['Essenz', 'Mentalismus']),
@@ -167,8 +167,8 @@ labels = {'de' : {'race' : 'Rasse',
                   'St' : 'Strength',
                   'RRM' : 'Resistance Rolls Modifiers',
                   'RRChan' : 'RR Channeling',
-                  'RREss' : 'RR Essence',
-                  'RRMent' : 'RR Mentalism',
+                  'RREss' : 'RR Ess',
+                  'RRMent' : 'RR Ment',
                   'RRArc' : 'RR Arcane Magic',
                   'RRC/E' : 'RR Chan/Ess',
                   'RRC/M' : 'RR Chan/Ment',
@@ -196,9 +196,8 @@ labels = {'de' : {'race' : 'Rasse',
           }
 ##\var progressionType
 # This holds the different Cat/Skill/BD/PP development
-# \todo the index expressions have to be adapted to the races!
-progressionType = {'standard_cat'   : (-15, 2, 1, 0.5, 0),
-                   'standard_skill' : (-15, 3, 2, 1, 0.5),
+progressionType = {'standard cat'   : (-15, 2, 1, 0.5, 0),
+                   'standard skill' : (-15, 3, 2, 1, 0.5),
                    'combined'       : (-30, 5, 3, 2, 0.5),
                    'BD Common Men'     : (0, 6, 4, 2, 1),
                    'BD Mixed Men'     : (0, 6, 5, 2, 1),
@@ -209,17 +208,33 @@ progressionType = {'standard_cat'   : (-15, 2, 1, 0.5, 0),
                    'BD Half Elves'  : (0, 7, 5, 3, 1),
                    'BD Dwarves (Kuduk)' : (0, 7, 4, 2, 1),
                    'BD Halflings (Hobbits)'   : (0, 6, 2, 2, 1),
-                   'PP_channeling'  : (0, 6, 5, 4, 3),
-                   'PP_ess_men'     : (0, 6, 5, 4, 3),
-                   'PP_ess_elves'   : (0, 7, 6, 5, 4),
-                   'PP_ess_halfelves' : (0, 6, 6, 4, 3),
-                   'PP_ess_dwarves' : (0, 3, 2, 1, 1),
-                   'PP_ess_halflings' : (0, 2, 1, 1, 1),
-                   'PP_ment_men'    : (0, 7, 6, 5, 4),
-                   'PP_ment_elves'  : (0, 6, 5, 4, 3),
-                   'PP_ment_halfelves' : (0, 7, 5, 4, 3),
-                   'PP_ment_dwarves' : (0, 3, 2, 1, 1),
-                   'PP_ment_halflings' : (0, 2, 1, 1, 1),
+                   'PPD Chan Common Men' : (0, 6, 5, 4, 3),
+                   'PPD Chan Mixed Men' : (0, 6, 5, 4, 3),
+                   'PPD Chan High Men'  : (0, 6, 5, 4, 3),
+                   'PPD Chan Wood Elves'  : (0, 6, 5, 4, 3),
+                   'PPD Chan Grey Elves'  : (0, 6, 5, 4, 3),
+                   'PPD Chan High Elves'  : (0, 6, 5, 4, 3),
+                   'PPD Chan Half Elves'  : (0, 6, 5, 4, 3),
+                   'PPD Chan Dwarves (Kuduk)'  : (0, 6, 5, 4, 3),
+                   'PPD Chan Halflings (Hobbits)'  : (0, 6, 5, 4, 3),
+                   'PPD Ess Common Men' : (0, 6, 5, 4, 3),
+                   'PPD Ess Mixed Men' : (0, 6, 5, 4, 3),
+                   'PPD Ess High Men' : (0, 6, 5, 4, 3),
+                   'PPD Ess Wood Elves'   : (0, 7, 6, 5, 4),
+                   'PPD Ess Grey Elves'   : (0, 7, 6, 5, 4),
+                   'PPD Ess High Elves'   : (0, 7, 6, 5, 4),
+                   'PPD Ess  Half Elves' : (0, 6, 6, 4, 3),
+                   'PPD Ess Dwarves (Kuduk)' : (0, 3, 2, 1, 1),
+                   'PPD Ess Halflings (Hobbits' : (0, 2, 1, 1, 1),
+                   'PPD Ment Common Men' : (0, 7, 6, 5, 4),
+                   'PPD Ment Mixed Men' : (0, 7, 6, 5, 4),
+                   'PPD Ment High Men' : (0, 7, 6, 5, 4),
+                   'PPD Ment Wood Elves' : (0, 6, 5, 4, 3),
+                   'PPD Ment Grey Elves' : (0, 6, 5, 4, 3),
+                   'PPD Ment High Elves' : (0, 6, 5, 4, 3),
+                   'PPD Ment Half Elves' : (0, 7, 5, 4, 3),
+                   'PPD Ment Dwarves (Kuduk)' : (0, 3, 2, 1, 1),
+                   'PPD Ment Halflings (Hobbits)' : (0, 2, 1, 1, 1),
                    'skill only' : (0, 1, 1, 0.5, 0),
                    'null' : (0, 0, 0, 0, 0)
                    } 
@@ -508,7 +523,7 @@ def choseProfession(lang = 'en'):
     
     
         
-def bonus(rank = 0, cat = 0, profession = 0, special = 0, progression = progressionType['standard_cat']):
+def rankbonus(rank = 0, cat = 0, profession = 0, special = 0, progression = progressionType['standard cat']):
     '''
     This function returns the cumulative Bonus of a category or skill.
     \param rank rank/level of category/skill
