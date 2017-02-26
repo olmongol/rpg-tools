@@ -1,0 +1,11 @@
+<map id="gui.epwins.priorizeWeaponsWin.__getWeaponCats" name="gui.epwins.priorizeWeaponsWin.__getWeaponCats">
+<area shape="rect" id="node2" href="$classgui_1_1epwins_1_1priorize_weapons_win.html#ab09a266caf01f1b068fbcc0dd704133f" title="Opens the next window to modify categories and skills. " alt="" coords="232,115,411,156"/>
+<area shape="rect" id="node3" href="$classgui_1_1epwins_1_1priorize_weapons_win.html#a8bc5473134d188efeaa1d6231ec4bff1" title="This generates the priority list by the chosen priorities. " alt="" coords="459,5,637,47"/>
+<area shape="rect" id="node4" href="$classgui_1_1epwins_1_1priorize_weapons_win.html#a5324025b799e4890aa3c3b9e3c0f48de" title="Makes a JSON out of CatDPC.csv Skill cat –&gt; Profession : costs. " alt="" coords="685,49,864,91"/>
+<area shape="rect" id="node5" href="$classgui_1_1epwins_1_1priorize_weapons_win.html#a21839144536f5936f8150794098c9bab" title="This method adds the concerned developing costs and category/skill ranks during adolescence to the ch..." alt="" coords="912,49,1091,91"/>
+<area shape="rect" id="node7" href="$classgui_1_1epwins_1_1priorize_weapons_win.html#a2810c4654232d2bd178d3ec025ca44b8" title="A method to destroy the current window and go back to MainWindow. " alt="" coords="459,173,637,215"/>
+<area shape="rect" id="node6" href="$classgui_1_1epwins_1_1priorize_weapons_win.html#a3ede3b561a002e85d9e2d6a05787f71a" title="This method saves the character as JSON file. " alt="" coords="1139,144,1317,185"/>
+<area shape="rect" id="node8" href="$classgui_1_1epwins_1_1priorize_weapons_win.html#a4340903303f46cb73ad08ab302e6e43e" title="This methods defines a help menu. " alt="" coords="685,173,864,215"/>
+<area shape="rect" id="node9" href="$classgui_1_1window_1_1blank_window.html#acf2ef03d827178baee1cf52372449677" title="This method just opens a message window with the basic information about the rpg&#45;tools XML Generator ..." alt="" coords="918,115,1085,156"/>
+<area shape="rect" id="node10" href="$classgui_1_1epwins_1_1priorize_weapons_win.html#aa65ea55c73593be7d2a8d50b068ceb88" title="Opens a message window with help text. " alt="" coords="912,180,1091,221"/>
+</map>

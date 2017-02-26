@@ -1,0 +1,13 @@
+<map id="__helpglobal" name="__helpglobal">
+<area shape="rect" id="node2" href="$classgui_1_1epwins_1_1inputWin.html#a983e3e8a3be01ffb55ce45226c0d5371" title="Method for help on this page. " alt="" coords="148,5,236,32"/>
+<area shape="rect" id="node3" href="$classgui_1_1epwins_1_1inputWin.html#a6c20cb6477ad16c8bdb83537848c6029" title="Method for closing the window and opening the main window. " alt="" coords="284,5,369,32"/>
+<area shape="rect" id="node4" href="$classgui_1_1epwins_1_1inputWin.html#a6b74c009b82236377dfc5a28514b78f3" title="Method for simulating a fight and calculate potential EPs. " alt="" coords="417,5,497,32"/>
+<area shape="rect" id="node5" href="$classgui_1_1epwins_1_1inputWin.html#a3b072c5469a5a6bcd24d4be063623228" title="Method to finalize EP calculation for a single gaming date. " alt="" coords="545,5,620,32"/>
+<area shape="rect" id="node6" href="$classgui_1_1epwins_1_1inputWin.html#adc24b1b849041d682efc729b51b02bf3" title="Method for adding invidual EPs. " alt="" coords="668,5,744,32"/>
+<area shape="rect" id="node7" href="$classgui_1_1epwins_1_1inputWin.html#aa5d35dde28dfc3838c18696238d1123a" title="Method to calculate EPs from Spells, maneuvers, travel. " alt="" coords="792,5,871,32"/>
+<area shape="rect" id="node8" href="$classgui_1_1epwins_1_1inputWin.html#a601077a6d3c76ada74d79262d115eea9" title="Method to calculate EPs from a fight (hits and criticals) " alt="" coords="919,5,993,32"/>
+<area shape="rect" id="node9" href="$classgui_1_1epwins_1_1inputWin.html#a34b31ae2e2a4d62765f25551ae2e670d" title="Method to edit a character group and keep track on it. " alt="" coords="1041,5,1116,32"/>
+<area shape="rect" id="node10" href="$classgui_1_1epwins_1_1inputWin.html#a3f805fe0de5a5293d79d5be53aa9b4c4" title="Method to edit a character for the EP sheet. " alt="" coords="1164,5,1247,32"/>
+<area shape="rect" id="node11" href="$classgui_1_1epwins_1_1inputWin.html#a497086287ff12b3587bf8b946f0dbd73" title="Method to create a now character party/group. " alt="" coords="1295,5,1399,32"/>
+<area shape="rect" id="node12" href="$classgui_1_1epwins_1_1inputWin.html#ac048357b2f6f2654d66c1f12cb4e41de" title="Method to create a new character. " alt="" coords="1447,5,1544,32"/>
+</map>

@@ -1,0 +1,16 @@
+<map id="gui.window.blankWindow._helpAbout" name="gui.window.blankWindow._helpAbout">
+<area shape="rect" id="node2" href="$classgui_1_1epwins_1_1priorize_weapons_win.html#a4340903303f46cb73ad08ab302e6e43e" title="This methods defines a help menu. " alt="" coords="220,175,399,216"/>
+<area shape="rect" id="node11" href="$classgui_1_1epwins_1_1edtchr_win.html#aea32e0c21196d50d5cb8c05d2c6cabca" title="This method adds additional functions to the help menu. " alt="" coords="237,244,382,286"/>
+<area shape="rect" id="node3" href="$classgui_1_1epwins_1_1priorize_weapons_win.html#a2810c4654232d2bd178d3ec025ca44b8" title="A method to destroy the current window and go back to MainWindow. " alt="" coords="447,170,625,211"/>
+<area shape="rect" id="node4" href="$classgui_1_1epwins_1_1priorize_weapons_win.html#ab09a266caf01f1b068fbcc0dd704133f" title="Opens the next window to modify categories and skills. " alt="" coords="673,135,852,176"/>
+<area shape="rect" id="node5" href="$classgui_1_1epwins_1_1priorize_weapons_win.html#a00e511ba50a4cf753233318c14d7595b" title="Sets up all the needed Widgets in the window. " alt="" coords="2033,60,2212,102"/>
+<area shape="rect" id="node6" href="$classgui_1_1epwins_1_1priorize_weapons_win.html#aed006c7a86078faea32721f66b7be81e" title="Extracts the weapon categories from character. " alt="" coords="900,51,1079,92"/>
+<area shape="rect" id="node7" href="$classgui_1_1epwins_1_1priorize_weapons_win.html#a3ede3b561a002e85d9e2d6a05787f71a" title="This method saves the character as JSON file. " alt="" coords="1127,51,1305,92"/>
+<area shape="rect" id="node8" href="$classgui_1_1epwins_1_1priorize_weapons_win.html#a21839144536f5936f8150794098c9bab" title="This method adds the concerned developing costs and category/skill ranks during adolescence to the ch..." alt="" coords="1353,102,1532,143"/>
+<area shape="rect" id="node9" href="$classgui_1_1epwins_1_1priorize_weapons_win.html#a5324025b799e4890aa3c3b9e3c0f48de" title="Makes a JSON out of CatDPC.csv Skill cat –&gt; Profession : costs. " alt="" coords="1580,127,1759,168"/>
+<area shape="rect" id="node10" href="$classgui_1_1epwins_1_1priorize_weapons_win.html#a8bc5473134d188efeaa1d6231ec4bff1" title="This generates the priority list by the chosen priorities. " alt="" coords="1807,127,1985,168"/>
+<area shape="rect" id="node12" href="$classgui_1_1epwins_1_1edtchr_win.html#ae679c6c7b502f4ee6852d8c26a4087f0" title="Method for closing the window and opening the main window. " alt="" coords="463,252,609,294"/>
+<area shape="rect" id="node13" href="$classgui_1_1epwins_1_1edtchr_win.html#a984b517e3889d13ceb54429975f09713" title="Adding new characters to the list. " alt="" coords="690,262,835,303"/>
+<area shape="rect" id="node14" href="$classgui_1_1epwins_1_1edtchr_win.html#a42756a0fab24c1bf9f7dc536fb4caba4" title="This method creates the window structure with list and message boxes. " alt="" coords="1143,295,1289,336"/>
+<area shape="rect" id="node15" href="$classgui_1_1epwins_1_1edtchr_win.html#a2286b27baf1640522bb6cfef06277e27" title="Refreshes selected data sets. " alt="" coords="917,320,1062,362"/>
+</map>

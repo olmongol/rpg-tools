@@ -1,0 +1,9 @@
+<map id="gui.window.blankWindow" name="gui.window.blankWindow">
+<area shape="rect" id="node2" href="$classgui_1_1epwins_1_1conf_window.html" title="This class builds a window for selecting and saving options of rpg&#45;tools. " alt="" coords="239,5,393,32"/>
+<area shape="rect" id="node3" href="$classgui_1_1epwins_1_1edtchr_win.html" title="Window class to generate/edit player character values. " alt="" coords="245,56,387,83"/>
+<area shape="rect" id="node4" href="$classgui_1_1epwins_1_1gen_attr_win.html" title="A window class for generating name, race, profession and attributes of a new character. " alt="" coords="242,107,390,133"/>
+<area shape="rect" id="node5" href="$classgui_1_1epwins_1_1input_win.html" title="Objects of this class type are windows for input the wanted data structure. " alt="" coords="249,157,383,184"/>
+<area shape="rect" id="node6" href="$classgui_1_1epwins_1_1_main_window.html" title="This is the class for the main window object. " alt="" coords="237,208,395,235"/>
+<area shape="rect" id="node7" href="$classgui_1_1epwins_1_1priorize_weapons_win.html" title="This is the class for a window object to chose the priority of weapon skills at the character&#39;s gener..." alt="" coords="216,259,416,285"/>
+<area shape="rect" id="node8" href="$classgui_1_1epwins_1_1skillcat_win.html" title="This is the class for a window object to chose the priority of weapon skills at the character&#39;s gener..." alt="" coords="243,309,389,336"/>
+</map>

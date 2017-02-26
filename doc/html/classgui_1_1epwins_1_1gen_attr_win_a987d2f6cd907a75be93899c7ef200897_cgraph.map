@@ -1,0 +1,4 @@
+<map id="gui.epwins.genAttrWin.__collectData" name="gui.epwins.genAttrWin.__collectData">
+<area shape="rect" id="node2" href="$classgui_1_1epwins_1_1gen_attr_win.html#a95065f3ff293400e84f228922ea261d8" title="This method adds skill categories and skills to the character&#39;s dictionary. " alt="" coords="204,5,355,47"/>
+<area shape="rect" id="node3" href="$classgui_1_1epwins_1_1gen_attr_win.html#a0b8b6af57ac8375b837e8ec97a7a892c" title="A method to destroy the current window and go back to MainWindow. " alt="" coords="403,5,553,47"/>
+</map>

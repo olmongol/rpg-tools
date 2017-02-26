@@ -1,0 +1,10 @@
+<map id="gui.epwins.genAttrWin.__calcBonus" name="gui.epwins.genAttrWin.__calcBonus">
+<area shape="rect" id="node2" href="$classgui_1_1epwins_1_1gen_attr_win.html#ae44176ff9c25d5b6e229174f88595981" title="This method checks whether the right magic realm is chosen for the selected profession. " alt="" coords="204,16,355,57"/>
+<area shape="rect" id="node4" href="$classgui_1_1epwins_1_1gen_attr_win.html#aef849d7214d63ddfa27e476c9a3adbe1" title="Sets the primary stats for a profession. " alt="" coords="629,72,780,113"/>
+<area shape="rect" id="node8" href="$classgui_1_1epwins_1_1gen_attr_win.html#af97e018fc8171553fc204ec3d846af08" title="Creates next Window, saves and transmits data. " alt="" coords="204,189,355,231"/>
+<area shape="rect" id="node3" href="$classgui_1_1epwins_1_1gen_attr_win.html#a7d8a53d98d21b683932cf915df38f042" title="Sets/calculates standard stat bonus. " alt="" coords="417,72,567,113"/>
+<area shape="rect" id="node5" href="$classgui_1_1epwins_1_1gen_attr_win.html#a4f55b5beabff07604399a98c7ef8f071" title="This checks the temp value of the stats and warns if they are correct. " alt="" coords="828,192,979,233"/>
+<area shape="rect" id="node6" href="$classgui_1_1epwins_1_1gen_attr_win.html#a8c4984b341ffa14758378906b43e714c" title="Sets the connected Realm if profession is chosen. " alt="" coords="828,47,979,88"/>
+<area shape="rect" id="node7" href="$classgui_1_1epwins_1_1gen_attr_win.html#a4c0fb3bcf5d50a05dca33c5318df2f22" title="This method sets the races bonusses , the race based RR bonusses, Background Options and Hobby Ranks..." alt="" coords="1027,5,1177,47"/>
+<area shape="rect" id="node9" href="$classgui_1_1epwins_1_1priorize_weapons_win.html#a00e511ba50a4cf753233318c14d7595b" title="Sets up all the needed Widgets in the window. " alt="" coords="403,189,581,231"/>
+</map>

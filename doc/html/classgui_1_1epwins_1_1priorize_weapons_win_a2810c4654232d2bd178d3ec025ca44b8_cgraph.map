@@ -1,0 +1,5 @@
+<map id="gui.epwins.priorizeWeaponsWin.__closewin" name="gui.epwins.priorizeWeaponsWin.__closewin">
+<area shape="rect" id="node2" href="$classgui_1_1epwins_1_1priorize_weapons_win.html#a4340903303f46cb73ad08ab302e6e43e" title="This methods defines a help menu. " alt="" coords="232,39,411,80"/>
+<area shape="rect" id="node3" href="$classgui_1_1window_1_1blank_window.html#acf2ef03d827178baee1cf52372449677" title="This method just opens a message window with the basic information about the rpg&#45;tools XML Generator ..." alt="" coords="465,5,631,47"/>
+<area shape="rect" id="node4" href="$classgui_1_1epwins_1_1priorize_weapons_win.html#aa65ea55c73593be7d2a8d50b068ceb88" title="Opens a message window with help text. " alt="" coords="459,71,637,112"/>
+</map>

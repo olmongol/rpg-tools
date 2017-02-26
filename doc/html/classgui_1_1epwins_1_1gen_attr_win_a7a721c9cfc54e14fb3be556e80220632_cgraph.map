@@ -1,0 +1,6 @@
+<map id="gui.epwins.genAttrWin.rollDice" name="gui.epwins.genAttrWin.rollDice">
+<area shape="rect" id="node2" href="$classgui_1_1epwins_1_1gen_attr_win.html#a987d2f6cd907a75be93899c7ef200897" title="This Method collects and saves all entered/chosen data from this window. " alt="" coords="260,5,411,47"/>
+<area shape="rect" id="node5" href="$classgui_1_1epwins_1_1gen_attr_win.html#a1279b57d92df224cd28945129c838f75" title="This function delivers the result of a dice roll as a list. " alt="" coords="248,71,423,98"/>
+<area shape="rect" id="node3" href="$classgui_1_1epwins_1_1gen_attr_win.html#a95065f3ff293400e84f228922ea261d8" title="This method adds skill categories and skills to the character&#39;s dictionary. " alt="" coords="471,5,621,47"/>
+<area shape="rect" id="node4" href="$classgui_1_1epwins_1_1gen_attr_win.html#a0b8b6af57ac8375b837e8ec97a7a892c" title="A method to destroy the current window and go back to MainWindow. " alt="" coords="669,5,820,47"/>
+</map>

@@ -1,0 +1,27 @@
+var classgui_1_1epwins_1_1_main_window =
+[
+    [ "__addEditMenu", "classgui_1_1epwins_1_1_main_window.html#ac7014784220ef3acec722229cf3655d4", null ],
+    [ "__addFileMenu", "classgui_1_1epwins_1_1_main_window.html#ad0f10338bc829c5b128ee0df9aba9063", null ],
+    [ "__addGMMenu", "classgui_1_1epwins_1_1_main_window.html#a8e66a41a3e0f540c84a72567077c88ba", null ],
+    [ "__addHelpMenu", "classgui_1_1epwins_1_1_main_window.html#ad0e661ad75a9b8d31182ed83ac482ba7", null ],
+    [ "__addMenu", "classgui_1_1epwins_1_1_main_window.html#a96154b11fa179bb2566c73b2ce909bef", null ],
+    [ "__addOptionMenu", "classgui_1_1epwins_1_1_main_window.html#a4910d0e1833380737ba8a85869329323", null ],
+    [ "__createMagic", "classgui_1_1epwins_1_1_main_window.html#a922c60cb940e75844671cbc8e224333e", null ],
+    [ "__createTreasure", "classgui_1_1epwins_1_1_main_window.html#ada438f8caaed183a8a681f0912466ce8", null ],
+    [ "__edcalcWin", "classgui_1_1epwins_1_1_main_window.html#a5bf4561770ec4c480fcacbcf21c7c1b9", null ],
+    [ "__edcharWin", "classgui_1_1epwins_1_1_main_window.html#a86dcd567eb866b99c5848f5ad84130b9", null ],
+    [ "__edfightWin", "classgui_1_1epwins_1_1_main_window.html#a44cfe76882f96f87f211375e38394e60", null ],
+    [ "__edotherWin", "classgui_1_1epwins_1_1_main_window.html#af2ca295880bb6921b87f94fc1d98b913", null ],
+    [ "__indivWin", "classgui_1_1epwins_1_1_main_window.html#ab0dd8666e282594efd8315a13c257577", null ],
+    [ "__newFile", "classgui_1_1epwins_1_1_main_window.html#a49f190ac6368f4aff5c6ff80a8262757", null ],
+    [ "__openCSV", "classgui_1_1epwins_1_1_main_window.html#a9fa66967dd63499db9e05ac3c582b21c", null ],
+    [ "__openFile", "classgui_1_1epwins_1_1_main_window.html#ac9b3945167a72b46da17e3755ca8d363", null ],
+    [ "__optWin", "classgui_1_1epwins_1_1_main_window.html#a106e764795023a5412118f48f9c82cb9", null ],
+    [ "__saveCSV", "classgui_1_1epwins_1_1_main_window.html#a15d26ae6eda1b89b2071c90f7460d9a5", null ],
+    [ "__saveFile", "classgui_1_1epwins_1_1_main_window.html#a86e07cd59c1d57e0064cbafdb03fb646", null ],
+    [ "_edtgrpWin", "classgui_1_1epwins_1_1_main_window.html#a3d948493f7729a129363b84d3f907eac", null ],
+    [ "handbook", "classgui_1_1epwins_1_1_main_window.html#a97b3d5397af5e23d599d7c863cd5dcc9", null ],
+    [ "helpAbout", "classgui_1_1epwins_1_1_main_window.html#a47661080791a6845c498ff1f0585d55f", null ],
+    [ "helpHandbook", "classgui_1_1epwins_1_1_main_window.html#a2bd0687c610c9ae789d6f2f9e13dbfc8", null ],
+    [ "notdoneyet", "classgui_1_1epwins_1_1_main_window.html#a2e195c439a3036f8ae4d7c92f8241679", null ]
+];

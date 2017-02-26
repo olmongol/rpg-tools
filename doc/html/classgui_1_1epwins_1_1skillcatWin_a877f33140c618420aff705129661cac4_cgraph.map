@@ -1,0 +1,6 @@
+<map id="gui.epwins.skillcatWin.__buildWin" name="gui.epwins.skillcatWin.__buildWin">
+<area shape="rect" id="node2" href="$classgui_1_1epwins_1_1skillcatWin.html#a734009b3a1da9c2d06a6f40f0c8a2070" title="Fills the treeview widget with skills and categories etc. " alt="" coords="203,35,352,76"/>
+<area shape="rect" id="node3" href="$classgui_1_1epwins_1_1skillcatWin.html#a215551409fe45bca7a3988540cf6fa75" title="Select an item from the treeview list. " alt="" coords="400,35,549,76"/>
+<area shape="rect" id="node4" href="$classgui_1_1epwins_1_1skillcatWin.html#a5a8e6506f76276e1e229b10cfaa4bcc5" title="Help information about this window. " alt="" coords="637,5,787,47"/>
+<area shape="rect" id="node5" href="$classgui_1_1window_1_1blankWindow.html#a2e195c439a3036f8ae4d7c92f8241679" title="a simple dummy method for not yet implemented methods " alt="" coords="597,71,827,98"/>
+</map>

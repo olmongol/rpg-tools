@@ -1,0 +1,7 @@
+<map id="gui.epwins.edtchrWin._refrItems" name="gui.epwins.edtchrWin._refrItems">
+<area shape="rect" id="node2" href="$classgui_1_1epwins_1_1edtchrWin.html#a984b517e3889d13ceb54429975f09713" title="Adding new characters to the list. " alt="" coords="199,27,344,69"/>
+<area shape="rect" id="node3" href="$classgui_1_1epwins_1_1edtchrWin.html#ae679c6c7b502f4ee6852d8c26a4087f0" title="Method for closing the window and opening the main window. " alt="" coords="392,27,537,69"/>
+<area shape="rect" id="node4" href="$classgui_1_1epwins_1_1edtchrWin.html#aea32e0c21196d50d5cb8c05d2c6cabca" title="This method adds additional functions to the help menu. " alt="" coords="585,27,731,69"/>
+<area shape="rect" id="node5" href="$classgui_1_1window_1_1blankWindow.html#a2e195c439a3036f8ae4d7c92f8241679" title="a simple dummy method for not yet implemented methods " alt="" coords="779,5,1008,32"/>
+<area shape="rect" id="node6" href="$classgui_1_1window_1_1blankWindow.html#acf2ef03d827178baee1cf52372449677" title="This method just opens a message window with the basic information about the rpg&#45;tools XML Generator ..." alt="" coords="810,57,977,98"/>
+</map>

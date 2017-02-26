@@ -1,0 +1,12 @@
+<map id="gui.epwins.inputWin.__helppage" name="gui.epwins.inputWin.__helppage">
+<area shape="rect" id="node2" href="$classgui_1_1epwins_1_1input_win.html#aaeec9732cbb08a21af683122c6fc6625" title="Method for closing the window and opening the main window. " alt="" coords="191,5,328,47"/>
+<area shape="rect" id="node3" href="$classgui_1_1epwins_1_1input_win.html#ab490c0834acffe417c1c77256b3dee16" title="Method for simulating a fight and calculate potential EPs. " alt="" coords="376,5,513,47"/>
+<area shape="rect" id="node4" href="$classgui_1_1epwins_1_1input_win.html#abfc9aacc5dc4a0deb34c6e51972ef927" title="Method to finalize EP calculation for a single gaming date. " alt="" coords="561,5,699,47"/>
+<area shape="rect" id="node5" href="$classgui_1_1epwins_1_1input_win.html#ab24b247ce2ee1dc22950a5fceb36f287" title="Method for adding invidual EPs. " alt="" coords="747,5,884,47"/>
+<area shape="rect" id="node6" href="$classgui_1_1epwins_1_1input_win.html#a50e45e0ab333f379084483926ec69deb" title="Method to calculate EPs from Spells, maneuvers, travel. " alt="" coords="932,5,1069,47"/>
+<area shape="rect" id="node7" href="$classgui_1_1epwins_1_1input_win.html#a369f3d7089b1d68a59773c80ac47dc0e" title="Method to calculate EPs from a fight (hits and criticals) " alt="" coords="1117,5,1255,47"/>
+<area shape="rect" id="node8" href="$classgui_1_1epwins_1_1input_win.html#ae18f295bdb26be49ce01c0c1a6dbf314" title="Method to edit a character group and keep track on it. " alt="" coords="1303,5,1440,47"/>
+<area shape="rect" id="node9" href="$classgui_1_1epwins_1_1input_win.html#a6db3b855a624080afa15bad44f5ee060" title="Method to edit a character for the EP sheet. " alt="" coords="1488,5,1625,47"/>
+<area shape="rect" id="node10" href="$classgui_1_1epwins_1_1input_win.html#a58d59e11371b92a7162a8acd2876590a" title="Method to create a now character party/group. " alt="" coords="1673,5,1811,47"/>
+<area shape="rect" id="node11" href="$classgui_1_1epwins_1_1input_win.html#ac5ceed0d2fd83b17766d6e6327bcf90a" title="Method to open a new window for character creation. " alt="" coords="1859,5,1996,47"/>
+</map>

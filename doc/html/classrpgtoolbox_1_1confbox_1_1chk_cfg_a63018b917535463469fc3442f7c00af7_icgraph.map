@@ -1,0 +1,5 @@
+<map id="rpgtoolbox.confbox.chkCfg.loadCnf" name="rpgtoolbox.confbox.chkCfg.loadCnf">
+<area shape="rect" id="node2" href="$classrpgtoolbox_1_1confbox_1_1chk_cfg.html#a8cdaaa44296d76a8ff0ba383d4378aca" title="This method checks whether all configurational parameter are set. " alt="" coords="273,5,449,47"/>
+<area shape="rect" id="node3" href="$classrpgtoolbox_1_1confbox_1_1chk_cfg.html#a3b1622b3653c323f95bdc271aa0307c7" title="This method creates a default configuration file for the rpg&#45;tools. " alt="" coords="497,5,709,47"/>
+<area shape="rect" id="node4" href="$classrpgtoolbox_1_1confbox_1_1chk_cfg.html#a6688303428c6968f0e493ad72d797826" title="This method reads out a config file and stores the data into a dictionary named cnfparam. " alt="" coords="757,5,933,47"/>
+</map>
