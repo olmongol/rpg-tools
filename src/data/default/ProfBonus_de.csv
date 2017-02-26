@@ -1,0 +1,21 @@
+Profession,Prime Stats,Realm,Profession Bonusses
+Fighter,St;Co,choice,Armor:10;Body Development:10;Combat Maneuvers:10;Weapon:20
+Thief,Ag;Qu,choice,Athletic - Gymnastics:5;Awareness:10;Body Development:5;Self Control:5;Subtefudge:15;Weapon:10
+Rogue,Ag;St,choice,Armor:5;Athletic - Gymnastics:5;Awareness:5;Body Development:5;Combat Maneuvers:5;Subterfudge:10;Weapon:15
+Warrior Monk,Qu;SD,choice,Athletic - Gymnastics:5;Awareness:5;Body Development:10;Martial Arts:15;Self Control:15
+Layman,,choice,Athletic:5;Awareness:5;Body Development:5;Crafts:5;Outdoor:5;Power Awareness:5;Power Manipulation:5;Self Control:5;Technical/Trade:5;Weapon:5
+Magician,Em*;Re,Essence,Directed Spells:10;Lore - Magical:10;Power Awareness:10;Power Manipulation:10;Power Point Development:5;Spells:5
+Illusionist,Em*;Re,Essence,Awareness:5;Directed Spells:5;Lore - Magical:10;Power Awareness:10;Power Manipulation:10;Power Point Development:5;Spells:5
+Cleric,In*;Me,Channeling,Awareness:5;Influence:5;Lore - Magical:5;Outdoor:5;Power Awareness:10;Power Manipulation:5;Power Point Development:5;Spells:5;Weapon:5
+Animist,In*;Me,Channeling,Awareness:5;Lore - Magical:5;Outdoor:20;Power Awareness:5;Power Manipulation:5;Power Point Development:5;Spells:5
+Mentalist,Pr*;SD,Mentalism,Awareness:5;Body Development:5;Influence:10;Lore - Magical:5;Power Awareness:5;Power Manipulation:5;Power Point Development:5;Self Control:5;Spells:5
+Lay Healer,Pr*;SD,Mentalism,Awareness:5;Body Development:10;Lore - Magical:5;Power Awareness:5;Power Manipulation:5;Power Point Development:5;Self Control:10;Spells:5
+Healer,In*;Pr*;SD,Channeling;Mentalism,Awareness:5;Body Development:10;Lore - Magical:5;Power Awareness:5;Power Manipulation:5;Power Point Development:5;Self Control:10;Spells:5
+Mystic,Em*;Pr*;SD,Essence;Mentalism,Awareness:5;Influence:5;Lore - Magical:5;Power Awareness:10;Power Manipulation:5;Power Point Development:5;Self Control:5;Spells:5;Subterfudge - Stealth:5
+Sorcerer,Em*;In*;SD,Channeling;Essence,Directed Spells:5;Lore - Magical:10;Power Awareness:10;Power Manipulation:15;Power Point Development:5;Spells:5
+Ranger,In*;Co,Channeling,Athletic:0;Awareness:10;Body Development:5;Outdoor:20;Subterfuge - Stealth:5;Weapon:5
+Paladin,In*;SD,Channeling,Athlethic:5;Armor:5;Awareness:5;Body Development:10;Combat Maneuvers:10;Power Manipulation:5;Weapon:10
+Monk,Em*;SD,Essence,Athletic - Gymnastics:5;Awareness:5;Body Development:5;Martial Arts:10;Power Awareness:5;Self Control:10;Subterfudge - Stealth:5;Weapon:5
+Dabbler,Em*;Ag,Essence,Awareness:10;Body Development:5;Influence:5;Lore - Magical:5;Power Awareness:5;Power Manipulation:5;Subterfudge:5;Urban:5;Weapon:5
+Bard,Pr*;Me,Mentalism,Artistic - Active:5;Awareness:5;Body Development:5;Communications:5;Influence:5;Lore:10;Power Awareness:5;Self Control:5;Weapon:5
+Magend,Pr*;Re,Mentalism,Awareness:10;Body Development:5;Communications:5;Influence:5;Power Awareness:5;Self Control:10;Subterfuge:5;Weapon:5

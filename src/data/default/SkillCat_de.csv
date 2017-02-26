@@ -1,0 +1,59 @@
+Category,Stats,Progression
+Armor - Heavy,St/St/Ag,Standard
+Armor - Light,St/St/Ag,Standard
+Armor - Medium,St/St/Ag,Standard
+Artistic - Active,Pr/Em/Ag,Standard
+Artistic - Passive,Em/In/Pr,Standard
+Athletic - Brawn,St/Co/Ag,Standard
+Athletic - Endurance,Co/Ag/St,Standard
+Athletic - Gymnastics,Ag/Ag/Qu,Standard
+Awareness - Perception,In/In/SD,Skill Only
+Awareness - Searching,In/Re/SD,Standard
+Awareness - Senses,In/SD/In,Standard
+Body Development,Co/Co/SD,BD
+Combat Maneuvers,Ag/Qu/SD,Combined
+Communications,Re/Me/Em,Standard
+Crafts,Ag/Me/SD,Combined
+Directed Spells,Ag/Ag/SD,Standard
+Influence,Re/Em/In,Standard
+Lore - General,Me/Me/Re,Standard
+Lore - Magical,Me/Me/RE,Standard
+Lore - Obscure,Me/Me/Re,Standard
+Lore - Technical,Me/Me/Re,Standard
+Martial Arts - Combat Maneuvers,Ag/SD/Qu,Combined
+Martial Arts - Strikes,St/St/Ag,Standard
+Martial Arts - Sweeps,Ag/Ag/St,Standard
+Outdoor Animal, Em/Em/Ag,Standard
+Outdoor Enviromental,SD/In/Me,Standard
+Power Awareness,Em/In/Pr,Standard
+Power Manipulation,Em/In/Pr,Null
+Power Point Development (Ment),Pr/Pr,PPD Ment
+Power Point Development (Ess),Em/Em,PPD Ess
+Power Point Development (Chan),In/In,PPD Chan
+Science/Analytic - Basic,Re/Me/Re,Standard
+Science/Analytic - Specialised,Re/Me/Re,Null
+Self Control,SD/SD/Pr,Standard
+Special Attacks,St/Ag/SD,Null
+Special Defenses,,Null
+Spells - Arcane Open Lists,,Null
+Spells - Other Realm Base Lists,,Null
+Spells - Other Realm Closed Lists,,Null
+Spells - Other Realm Open Lists,,Null
+Spells - Own Realm Closed Lists,,Null
+Spells - Own Realm Open Lists,,Null
+Spells - Own Realm Other Base Lists,,Null
+Spells - Own Realm Own Base Lists,,Null
+Subterfuge - Attack,Ag/SD/In,Standard
+Subterfuge - Mechanics,In/Ag/Re,Standard
+Subterfuge - Stealth,Ag/SD/In,Standard
+Technical/Trade - General,Re/Me/SD,Standard
+Technical/Trade - Professional,Re/Me/In,Null
+Technical/Trade - Vocational,Me/in/Re,Null
+Urban,In/Pr/Re,Standard
+Weapon - 1-H Concussion,St/Ag/St,Standard
+Weapon - 1-H Edged,St/Ag/St,Standard
+Weapon - 2-Handed,St/Ag/St,Standard
+Weapon - Missile,Ag/St/Ag,Standard
+Weapon - Missile Artillery,In/Ag/Re,Standard
+Weapon - Pole Arms,St/Ag/St,Standard
+Weapon - Thrown,Ag/St/Ag,Standard

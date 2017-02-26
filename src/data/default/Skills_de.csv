@@ -1,0 +1,69 @@
+Category,Skill,Progression
+Armor - Heavy,Plate,Standard
+Armor - Light,Soft Leather;Rigid Leather,Standard
+Armor - Medium,Chain,Standard
+Artistic - Active,Acting;Dancing;Mimery;Mimicry;Play Instrument+;Poetic Improvisation;Singing;Tale Telling;Ventriloquism,Standard
+Artistic - Passive,Music;Painting;Poetry;Sculpting,Standard
+Athletic - Brawn,Athletic Games (Brawn)+;Jumping;Power-striking;Power-throwing;Weight-lifting,Standard
+Athletic - Endurance,Athletic Games (Endurance)+;Distance Running;Rowing;Scaling;Sprinting;Swimming,Standard
+Athletic - Gymnastics,Athletic Games (Gymnastics)+;Acrobatics;Climbing;Contortions;Diving;Flying/Gliding;Juggling;Pole-vaulting;Rappeling;Skating;Skiing;Stilt Walking;Surfing;Tightrope-walking;Tumbling,Standard
+Awareness - Perception,Alerness;Sense Ambush,Skill only
+Awareness - Searching,Detect Traps;Lie Perceptin;Locate Hidden;Observation;Poison Perception;Reading Tracks;Surveillance;Tracking,Standard
+Awareness - Senses,Direction Sense;Reality Awareness;Situational Awareness+;Spacial Location Awareness,Sense Awareness+,Time Sense,Standard
+Body Development,Body Development,DB
+Combat Maneuvers,Adrenal Deflecting;Mounted Combat;Quickdraw;Reverse Stroke+;Subdual;Swashbuckling;Tumbling Evasion;Two-weapon Combat,Combined
+Communications, Language (spoken)+;Language (written)+;Lip Reading;Magical Languages;Signaling,Standard
+Crafts,drafting;Cooking;Fletching;Horticulture;Leather Crafts+;Metal Crafts+;Rope Mastery;Scribing;Service;Sewing/Weaving;Skinning;Stone-crafts+;Trapping;Wood-crafts+,Combined
+Directed Spells, Type of Attack+,Standard
+Influence,Bribery;Diplomacy;Duping;Interrogation;Leadership;Propaganda;Public Speaking;Seduction;Trading,Standard
+Lore - General,Culture Lore+;History+;Fauna Lore;Flora Lore;Heraldry;Philosophy;Region Lore+;Religion,Standard
+Lore - Magical,Artifact Lore;Circle Lore;Planar Lore;Spell Lore;Symbol Lore;Undead Lore;Warding Lore,Standard
+Lore - Obscure,Demon/Devil Lore,Dragon Lore,Faerie Lore,Xeno-lore+,Standard
+Lore - Technical,Herb Lore;Lock Lore;Metal Lore;Poison Lore;Stone Lore;Traiding Lore,Standard
+Martial Arts - Striking,Boxing;Strinking Degree 1;Striking Degree 2;Striking Degree 3;Striking Degree 4;Tackling,Standard
+Martial Arts - Sweeps,Blocking;Sweeps Degree 1;Sweeps Degree 2;Sweeps Degree 3;Sweeps Degree 4;Wrestling,Standard
+Outdoor - Animal,Animal Handling+;Animal Healing+;Animal Mastery+;Animal Training+;Driving+;Herding+;Riding,Standard
+Outdoor - Environmental,Caving;Foraging;Hunting;Star-gazing;Survival+,Weather Watching,Standard
+Power Awareness,Attunement;Diviniation;Power Perception;Read Runes,Standard
+Power Manipulation,Channeling;Magic Ritual;Spell Mastery+;Trancent Armor,Standard
+Power Point Development,Power Point Development,PPD
+Science/Analytic - Basic,Basic Math;Research,Standard
+Science/Analytic - Specialized,Advanced Math;Anthropology+;Alchemy;Astronomy;Biochemestry;Psychology+,Combined
+Self Control,Andrenal Balance;Adrenal Concentration;Adrenal Landing;Adrenal Leaping;Adrenal Quickness;Adrenal Speed;Adrenal Stabilization;Adrenal Strength;Cleansing Trance;Control Lycynthropy;Death Trance;Frenzy;Healing Trance;Meditation;Mnemonics;Sleep Trance;Stunned Maneuvering,Standard
+Special Attacks,Brawling;Disarm Foe (armed)+;Disarm Foe (unarmed)+; Jousting (Lancing),Combined
+Special Defenses,Adrenal Defense;Adrenal Toughness,Combined
+Combat Maneuvers,Adrenal Deflecting;Mounted Combat;Quickdraw;Reverse Stroke+;Subdual;Swashbuckling;Tumbling Evasion;Two-weapon Combat,Combined
+Communications, Language (spoken)+;Language (written)+;Lip Reading;Magical Languages;Signaling,Standard
+Crafts,drafting;Cooking;Fletching;Horticulture;Leather Crafts+;Metal Crafts+;Rope Mastery;Scribing;Service;Sewing/Weaving;Skinning;Stone-crafts+;Trapping;Wood-crafts+,Combined
+Directed Spells, Type of Attack+,Standard
+Influence,Bribery;Diplomacy;Duping;Interrogation;Leadership;Propaganda;Public Speaking;Seduction;Trading,Standard
+Lore - General,Culture Lore+;History+;Fauna Lore;Flora Lore;Heraldry;Philosophy;Region Lore+;Religion,Standard
+Lore - Magical,Artifact Lore;Circle Lore;Planar Lore;Spell Lore;Symbol Lore;Undead Lore;Warding Lore,Standard
+Lore - Obscure,Demon/Devil Lore,Dragon Lore,Faerie Lore,Xeno-lore+,Standard
+Lore - Technical,Herb Lore;Lock Lore;Metal Lore;Poison Lore;Stone Lore;Traiding Lore,Standard
+Martial Arts - Striking,Boxing;Strinking Degree 1;Striking Degree 2;Striking Degree 3;Striking Degree 4;Tackling,Standard
+Martial Arts - Sweeps,Blocking;Sweeps Degree 1;Sweeps Degree 2;Sweeps Degree 3;Sweeps Degree 4;Wrestling,Standard
+Outdoor - Animal,Animal Handling+;Animal Healing+;Animal Mastery+;Animal Training+;Driving+;Herding+;Riding,Standard
+Outdoor - Environmental,Caving;Foraging;Hunting;Star-gazing;Survival+,Weather Watching,Standard
+Power Awareness,Attunement;Diviniation;Power Perception;Read Runes,Standard
+Power Manipulation,Channeling;Magic Ritual;Spell Mastery+;Trancent Armor,Standard
+Power Point Development,Power Point Development,PPD
+Science/Analytic - Basic,Basic Math;Research,Standard
+Science/Analytic - Specialized,Advanced Math;Anthropology+;Alchemy;Astronomy;Biochemestry;Psychology+,Combined
+Self Control,Andrenal Balance;Adrenal Concentration;Adrenal Landing;Adrenal Leaping;Adrenal Quickness;Adrenal Speed;Adrenal Stabilization;Adrenal Strength;Cleansing Trance;Control Lycynthropy;Death Trance;Frenzy;Healing Trance;Meditation;Mnemonics;Sleep Trance;Stunned Maneuvering,Standard
+Special Attacks,Brawling;Disarm Foe (armed)+;Disarm Foe (unarmed)+; Jousting (Lancing),Combined
+Special Defenses,Adrenal Defense;Adrenal Toughness,Combined
+Subterfudge - Attack,Ambush;Silent Attack,Standard
+Subterfudge - Mechanics,Camouflage;Disarming Traps;Disguise;Counterfeiting;Forgery;Hiding Items;Picking Locks;Setting Traps;Trap Building;Using/Removing Poison,Standard
+Subterfudge - Stealth,Hiding;Picking Pockets;Stalking;Trickery,Standard
+Technical/Trade - General,Begging;First Aid;Gambling;Mapping;Operating Equipment;Orienteering;Sailing;Tactical Games;Using Prepared Herbs,Standard
+Technical/Trade - Professional,Adverising;Achitecture;Diagnostics+;Dowsing;Engineering+;Mechanition+;Military Organization+;Mining+;Second Aid;Surgery,Combined
+Technical/Trade - Vocational,Administration;Appraisal;Boat Pilot+;Cartography;Evaluate Armor;Evaluate Metal;Evaluate Stone;Evaluate Weapon;Gimmickry;Hypnosis;Mechanition;Midwifery;Navigation;Preparing Herbs;Preparing Poison;Siege Engineering;Tactics+,Combined
+Urban,Contacting;Mingling;Scrounging;Streetwise,Standard
+Weapon - 1-H Concussion,Weapon - 1-H Concussion+,Standard
+Weapon - 1-H Edged,Weapon - 1-H Edged+,Standard
+Weapon - 2-Handed,Weapon - 2-Handed+,Standard
+Weapon - Missile,Weapon - Missile+,Standard
+Weapon - Missile Artillery,Weapon - Missile Artillery+,Standard
+Weapon - Pole Arms,Weapon - Pole Arms+,Standard
+Weapon - Thrown,Weapon - Thrown+,Standard
