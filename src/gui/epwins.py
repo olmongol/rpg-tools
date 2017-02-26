@@ -1331,6 +1331,7 @@ class genAttrWin(blankWindow):
         \bug potential cause for false DP calculations. It is not clear how to 
         reproduce this bug.
         \bug  if testr != self.profs[testp]['Realm'] and self.profs[testp]['Realm'] != "choice": KeyError: ''
+        \bug if realm chosen before profession an error occurs (sdtout) 
         '''
         testr = self.stats['realm'].get()
         testp = self.stats['prof'].get()
