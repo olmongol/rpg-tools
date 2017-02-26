@@ -241,9 +241,12 @@ txtwin = {'all_files' : {'de' : ("alle Dateien", '.*'),
           'csv_files' : {'de' : ('CSV Dateien', '.csv'),
                          'en' : ('CSV files', 'csv')
                          },
-          'json_files': {'de' : ('JSON Dateien', '.json'),
-                         'en' : ('JSON files', '.json')
+          'json_files': {'de' : ('Charakter Dateien', '.json'),
+                         'en' : ('Character files', '.json')
                          },
+          'grp_files' : {'de' : ('Gruppen Dateien', '.grp'),
+                         'en' : ('Group files', '.grp')
+                         }
           }
 
 ## \var processing
@@ -340,11 +343,17 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
 errmsg = {'no_file' : {'de' : 'Datei existiert nicht!',
                        'en' : 'File does not exists!',
                        },
+          'wrong_type' :{'de' : 'Falscher Dateityp!',
+                         'en' : 'Wrong file type!'
+                         },
           'no_name' : {'de' : 'Kein Dateiname angegeben!',
                        'en' : 'No file name given!',
                        },
           'no_read' : {'de' : 'Datei ist nicht lesbar!',
                        'en' : 'File is not readable!',
+                       },
+          'no_data' : {'de' : 'Es wurden keine Daten eingelesen!',
+                       'en' : 'There were no data read!'
                        },
           'wr_handle' : {'de' : 'Falsche Dateizugriffsmethode',
                          'en' : 'Wrong file handler',

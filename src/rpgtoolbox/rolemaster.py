@@ -127,7 +127,8 @@ labels = {'de' : {'race' : 'Rasse',
                   'rank' : 'Stufe',
                   'lvl' : 'Stufe',
                   'prio' : "Priorität",
-                  'costs' : 'Kosten'
+                  'costs' : 'Kosten',
+                  'progress': 'Steigerung',
                   },
           'en' :{'race' : 'Race',
                   'prof' : 'Profession',
@@ -189,23 +190,25 @@ labels = {'de' : {'race' : 'Rasse',
                   'rank' : 'Rank',
                   'lvl' : 'Level',
                   'prio' : 'Priority',
-                  'costs' : 'Costs'
+                  'costs' : 'Costs',
+                  'progress' : 'Progression',
                   },
           }
 ##\var progressionType
 # This holds the different Cat/Skill/BD/PP development
+# \todo the index expressions have to be adapted to the races!
 progressionType = {'standard_cat'   : (-15, 2, 1, 0.5, 0),
                    'standard_skill' : (-15, 3, 2, 1, 0.5),
                    'combined'       : (-30, 5, 3, 2, 0.5),
-                   'BD_com_men'     : (0, 6, 4, 2, 1),
-                   'BD_mix_men'     : (0, 6, 5, 2, 1),
-                   'BD_high_men'    : (0, 7, 5, 3, 1),
-                   'BD_wood_elves'  : (0, 6, 3, 1, 1),
-                   'BD_grey_elves'  : (0, 6, 3, 2, 1),
-                   'BD_high_elves'  : (0, 7, 3, 2, 1),
-                   'BD_half_elves'  : (0, 7, 5, 3, 1),
-                   'BD_dwarves'     : (0, 7, 4, 2, 1),
-                   'BD_halflings'   : (0, 6, 2, 2, 1),
+                   'BD Common Men'     : (0, 6, 4, 2, 1),
+                   'BD Mixed Men'     : (0, 6, 5, 2, 1),
+                   'BD High Men'    : (0, 7, 5, 3, 1),
+                   'BD Wood Elves'  : (0, 6, 3, 1, 1),
+                   'BD Grey Elves'  : (0, 6, 3, 2, 1),
+                   'BD High Elves'  : (0, 7, 3, 2, 1),
+                   'BD Half Elves'  : (0, 7, 5, 3, 1),
+                   'BD Dwarves (Kuduk)' : (0, 7, 4, 2, 1),
+                   'BD Halflings (Hobbits)'   : (0, 6, 2, 2, 1),
                    'PP_channeling'  : (0, 6, 5, 4, 3),
                    'PP_ess_men'     : (0, 6, 5, 4, 3),
                    'PP_ess_elves'   : (0, 7, 6, 5, 4),
@@ -217,7 +220,7 @@ progressionType = {'standard_cat'   : (-15, 2, 1, 0.5, 0),
                    'PP_ment_halfelves' : (0, 7, 5, 4, 3),
                    'PP_ment_dwarves' : (0, 3, 2, 1, 1),
                    'PP_ment_halflings' : (0, 2, 1, 1, 1),
-                   'skill_only' : (0, 1, 1, 0.5, 0),
+                   'skill only' : (0, 1, 1, 0.5, 0),
                    'null' : (0, 0, 0, 0, 0)
                    } 
 
@@ -389,7 +392,8 @@ raceAbilities = {'Common Men': {'Ag' : 0,
 
 def DPCostSpells(skill = 0, listtype = "Own Realm Own Base List", sutype = "pure", no = 1):
     '''
-    Returns Developing Points Costs of Spell Lists. This is just needed if payed with variable DP costs for spell lists.
+    Returns Developing Points Costs of Spell Lists. This is just needed if payed 
+    with variable DP costs for spell lists.
     \param skill skill rank in that Spell List
     \param listtype List type of the Spell List
     \param sutype Spell User Type (pure, hybrid, semi, non).

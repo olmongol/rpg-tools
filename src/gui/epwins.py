@@ -29,7 +29,7 @@ from gui.winhelper import AutoScrollbar
 from gui.winhelper import InfoCanvas
 from gui.window import *
 from rpgtoolbox.rolemaster import stats
-
+import json
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-2017 " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -48,7 +48,8 @@ class MainWindow(blankWindow):
     \param title title of the window
     \param storepath path where things like options have to be stored
     """
-    def __init__(self, lang = 'en', storepath = None, title = "Main Window", char = None):
+    def __init__(self, lang = 'en', storepath = None, title = "Main Window",
+                 char = None):
         """
         Class constructor
         \param lang The chosen language for window's and button's
@@ -81,8 +82,9 @@ class MainWindow(blankWindow):
         self.__addOptionMenu()
         self.__addHelpMenu()
 
-        self.mask = [txtwin['exp_files'][self.lang],
-                    txtwin['all_files'][self.lang]
+        self.mask = [txtwin['json_files'][self.lang],
+                     txtwin['grp_files'][self.lang],
+                     txtwin['all_files'][self.lang]
                     ]
 
         """
@@ -135,25 +137,35 @@ class MainWindow(blankWindow):
         """
         self.__filein = askopenfilename(filetypes = self.mask,
                                         initialdir = self.mypath)
+        with open(self.__filein, 'r') as filecontent:
+            if self.__filein[-4:].lower() == "json":
+                self.char = json.load(filecontent)
+            elif self.__filein[-3:].lower == "grp":
+                self.grp = json.load(filecontent)
+            else:
+                msg = messageWindow()
+                msg.showinfo(errmsg['wrong_type'][self.lang])
+                pass
 
     def __saveFile(self):
         '''
         This method opens a file dialogue window (Tk) for saving the results
-        of the EP calculation into an EXP file.
+        of the EP calculation into an .json or .grp file.
+        \todo has to be implemented
         '''
         self.notdoneyet("'saveFile'")
 
-    def __saveCSV(self):
-        '''
-        This method saves the entered data as CSV file
-        '''
-        self.notdoneyet()
-
-    def __openCSV(self):
-        '''
-        This method opens an existing EP CSV file.
-        '''
-        self.notdoneyet()
+#    def __saveCSV(self):
+#        '''
+#        This method saves the entered data as CSV file
+#        '''
+#        self.notdoneyet()
+#
+#    def __openCSV(self):
+#        '''
+#        This method opens an existing EP CSV file.
+#        '''
+#        self.notdoneyet()
 
     def __addEditMenu(self):
         '''
@@ -179,10 +191,14 @@ class MainWindow(blankWindow):
         '''
         Generating a window for editing Characters/Character lists/Parties
         '''
-        print "MainWindow edcharWin"
-        
-        self.window.destroy()
-        self.window = edtchrWin(self.lang)
+        if self.char != None:
+            self.window.destroy()
+            self.window2 = skillcatWin(self.lang, self.mypath, self.char)
+            
+        else:
+            msg = messageWindow()
+            msg.showinfo(errmsg['no_data'][self.lang])
+#        self.window = edtchrWin(self.lang)
 #        self.notdoneyet()
 
     def _edtgrpWin(self):
@@ -661,7 +677,8 @@ class inputWin(blankWindow):
 
 class edtchrWin(blankWindow):
     '''
-    Window class to generate/edit player character values.    
+    Window class to generate/edit player character values.  
+    \note This may become deprecated soon...  
     '''
     def __init__(self, lang = 'en', storepath = './data'):
         '''
@@ -1174,22 +1191,25 @@ class genAttrWin(blankWindow):
       
     def __nextStep(self):
         '''
-        Creates next Window, saves and transmits data
+        Checks whether all developing points (and not more) are used and player 
+        and character names are set. If so it proceeds with collecting all data.
         '''
         if self.points != self.__used:
             messageWindow(self.lang).showinfo(errmsg['stats_dp'][self.lang])
+    
         elif self.stats['player'].get() == "":
             messageWindow(self.lang).showinfo(errmsg['player'][self.lang])
+     
         elif self.stats['name'].get() == "":
             messageWindow(self.lang).showinfo(errmsg['name'][self.lang])
+   
         else:
             self.__collectData()
-#            self.window.destroy()
-#            self.window3 = priorizeWeaponsWin(self.lang, self.spath, self.character)
 
     def __calcBonus(self):
         '''
-        Totals and update all bonusses
+        Totals and update all bonusses. If that sum is higher than the developing
+        points for the stats it raises an error message window.
         '''
         self.__statBonus()
         self.__used = 0
@@ -1210,7 +1230,9 @@ class genAttrWin(blankWindow):
             
     def __testStats(self):
         '''
-        This checks the temp value of the  stats and warns if they are correct.
+        This checks the temp value of the  stats and warns if they are correct. 
+        That means the primary have to be at least 90+ and the others not below
+        20.
         '''     
         testp = self.stats['prof'].get()
         primestats = self.profs[testp]['Prime Stats']
@@ -1267,6 +1289,8 @@ class genAttrWin(blankWindow):
     def __setCulture(self, event):
         '''
         Sets the right culture selection dependent on the chosen race.
+        If the race is set this method will adapt the list of choice concerning
+        to the chosen race.
         '''
         from rpgtoolbox.rolemaster import races, cultures 
         from rpgtoolbox.lang import errmsg
@@ -1523,7 +1547,10 @@ class genAttrWin(blankWindow):
 
     def __collectData(self):
         '''
-        This Method collects and saves all entered/chosen data from this window.
+        This method collects all data, adds them to the character's data structure
+        and saves that on disk. 
+        After that it destroys the current window and opens the window for the #
+        next creation step.
         '''
         from rpgtoolbox import rolemaster as rm
         import json
@@ -1576,6 +1603,12 @@ class genAttrWin(blankWindow):
     def __addCatnSkills(self):
         '''
         This method adds skill categories and skills to the character's dictionary
+        as well as bonus (special, profession and items)
+        \note Skills wont have a profession bonus. It is already applied to the 
+        category.
+        \todo replace progession expression with number list for ALL skills and 
+        categories
+        
         '''
         from rpgtoolbox import rolemaster as rm
         fp = open("%s/default/Skills_%s.csv" % (self.spath, self.lang))
@@ -1594,7 +1627,8 @@ class genAttrWin(blankWindow):
             skillcat[content[i][0]] = {content[0][2] : content[i][2],
                                      content[0][1] : {},
                                      'spec bonus' :0,
-                                     'prof bonus' :0
+                                     'prof bonus' :0,
+                                     'item bonus' :0
                                      }
             for pb in self.profs[self.character['prof']]['Profession Bonusses'].keys():
                  
@@ -1606,16 +1640,11 @@ class genAttrWin(blankWindow):
             for skill in content[i][1].split(';'):
                 skillcat[content[i][0]][content[0][1]][skill] = {content[0][2] : content[i][2],
                                                                    'rank' : 0,
-                                                                   'prof bonus' : 0,
+                                                                   'rank bonus' : 0,
+                                                                   'item bonus' :0,
                                                                    'spec bonus' : 0,
-                                                                   'dpc' : ""
                                                                   }
                 
-                for pb in self.profs[self.character['prof']]['Profession Bonusses'].keys():
-                 
-                    if pb in content[i][0]:
-                        skillcat[content[i][0]][content[0][1]][skill]['prof bonus'] = self.profs[self.character['prof']]['Profession Bonusses'][pb]
-        
         del(content)
         
         fp = open('%s/default/SkillCat_%s.csv' % (self.spath, self.lang), 'r')
@@ -1631,7 +1660,6 @@ class genAttrWin(blankWindow):
                 skillcat[content[i][0]] = {}
                 skillcat[content[i][0]]['Skill'] = {}
      
-            # this does not work.... have to think about XXX            
             skillcat[content[i][0]][content[0][2]] = content[i][2]
             skillcat[content[i][0]]["Skill"][content[0][2]] = content[i][2]
             skillcat[content[i][0]][content[0][1]] = content[i][1].split('/')
@@ -1693,7 +1721,11 @@ class priorizeWeaponsWin(blankWindow):
         self.character = char
 
         blankWindow.__init__(self, self.lang)
-        self.window.title(wintitle['rm_create'][self.lang])
+        self.window.title('%s - %s (%s)' % (wintitle['rm_create'][self.lang],
+                                          self.character['name'],
+                                          self.character['prof']
+                                          )
+                          )
         self.filemenu = Menu(master = self.menu)
         self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
                               menu = self.filemenu)
@@ -1857,6 +1889,8 @@ class priorizeWeaponsWin(blankWindow):
                 self.weaponcats.append(cat)
     
         self.weaponcats.sort()
+        
+        
     def __nextStep(self):
         '''
         Opens the next window to modify categories and skills
@@ -1866,6 +1900,7 @@ class priorizeWeaponsWin(blankWindow):
         self.__addToChar()
         self.window.destroy()
         self.window2 = skillcatWin(self.lang, self.spath, self.character)
+        
     def __closewin(self):
         '''
         A method to destroy the current window and go back to MainWindow.
@@ -1932,12 +1967,17 @@ class skillcatWin(blankWindow):
         self.character = char
         
         blankWindow.__init__(self, self.lang)
-        self.window.title(wintitle['edit'][self.lang])
+        self.window.title("%s - %s (%s)" % (wintitle['edit'][self.lang],
+                                         self.character['name'],
+                                         self.character['prof']
+                                         )
+                          )
         self.filemenu = Menu(master = self.menu)
         self.__addFileMenu()
         self.__addHelpMenu()
         self.__buildWin()
-        
+        self.__buildTree(
+                         )
         self.window.mainloop()  
     
     def __addFileMenu(self):
@@ -1977,9 +2017,54 @@ class skillcatWin(blankWindow):
     def __buildWin(self):
         '''
         Builds the window's elements.
+        - a frame containing:
+            1. treeview widged
+            2. vertical (auto)scrollbar linked to the treeview widget
+            3. horizontal (auto)scrollbar linked to the treeview widget
+        - Labels for specific category/skill values
+        - Entry widget for number of level ups for category/skill
+        - finalize button to make the change permanent.
+        '''
+        from rpgtoolbox.rolemaster import labels
+        self.__treeframe = Frame(width = 400, height = 600)
+        self.__treeframe.grid(column = 0, row = 0, columnspan = 7)
+       
+        self.__treecolumns = []
+        for key in ['skill', 'progress', 'costs', 'rank', 'total']:
+            self.__treecolumns.append(labels[self.lang][key]) 
+            
+        self.__tree = Treeview(columns = self.__treecolumns, show = "headings")
+        vscroll = AutoScrollbar(orient = "vertical", command = self.__tree.yview)
+        hscroll = AutoScrollbar(orient = "horizontal", command = self.__tree.xview)
+        self.__tree.configure(yscrollcommand = vscroll.set, xscrollcommand = hscroll.set)
+        self.__tree.grid(column = 0, row = 0, sticky = "NEWS", in_ = self.__treeframe)
+        vscroll.grid(column = 1, row = 0, in_ = self.__treeframe)
+        hscroll.grid(column = 0, row = 1, in_ = self.__treeframe)
+        
+    def __buildTree(self):
+        '''
+        Fills the treeview widget with skills and categories etc.
         \todo has to be implemented
         '''
-        pass
+        for col in self.__treecolumns:
+            self.__tree.heading(col, text = col.title())
+            
+        # filling content
+        catID = {}
+        catNo = 0
+        for cat in self.character['cat'].keys():
+            catvalues = (cat)
+            catID[cat] = self._tree.insert("", catNo, text = cat, values = (cat,
+                                                                      self.character['cat']))
+
+    def __selectTreeItem(self, event):
+        '''
+        Select an item from the treeview list.
+        \param event responding treeview event which is not used for anything.
+        \todo further computing of selected data
+        '''    
+        self.__curItem = self.__tree.focus()
+        print self.__tree.item(self.__curItem)
         
     def __helpAWin(self):
         '''
