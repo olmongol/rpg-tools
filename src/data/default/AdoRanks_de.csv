@@ -1,4 +1,4 @@
-Name,Huegelmenschen,Corsaren,Nomaden,Landvolk,Stadtmenschen,Waldmenschen,Hochmenschen,Waldelben,Grauelben,Hochelben,Halbelben,Zwerge (Kuduk),Halblinge (Hobbits)
+Name,Hillmen,Mariners,Nomads,Ruralmen,Urbanmen,Woodmen,High Men,Wood Elves,Grey Elves,High Elves,Half Elves,Dwarves,Halflings
 Armor - Light			,1,2,1,1,1,1,1,0,0,0,1,1,0
 -Soft Leather			,0,0,0,1,0,1,0,0,0,0,0,0,0
 -Rigid Leather			,1,2,0,1,0,0,1,0,0,0,1,1,0
@@ -42,4 +42,3 @@ Weapon - Pole Arms		,2,0,2,1,0,1,1,0,0,0,0,0,0
 -Weapon - Pole Arms+		,2,0,2,1,0,1,1,0,0,0,0,0,0
 Weapon - Thrown			,2,1,1,1,0,1,0,0,0,0,0,1,2
 -Weapon - Thrown+		,2,1,1,1,0,1,0,0,0,0,0,1,2
-

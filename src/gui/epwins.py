@@ -1235,54 +1235,57 @@ class genAttrWin(blankWindow):
         20.
         '''     
         testp = self.stats['prof'].get()
-        primestats = self.profs[testp]['Prime Stats']
-        self.__rangeOK = True
-        
-        for s in self.__rmstats:
-            if self.stats[s.strip('*')].get() < 20:
-                self.__rangeOK = False
-                self.stats[s.strip('*')].set(20)
-                messageWindow(self.lang).showinfo(errmsg['wrong_stat'][self.lang] + "\n%s --> 20" % s)
-        
-        for s in primestats:
+        if testp != "":
+            primestats = self.profs[testp]['Prime Stats']
+            self.__rangeOK = True
             
-            if self.stats[s.strip('*')].get() < 90:
-                self.__rangeOK = False
-                self.stats[s.strip('*')].set(90)
-                messageWindow(self.lang).showinfo(errmsg['wrong_stat'][self.lang] + "\ns %s --> 90 " % s)
+            for s in self.__rmstats:
+                if self.stats[s.strip('*')].get() < 20:
+                    self.__rangeOK = False
+                    self.stats[s.strip('*')].set(20)
+                    messageWindow(self.lang).showinfo(errmsg['wrong_stat'][self.lang] + "\n%s --> 20" % s)
+            
+            for s in primestats:
+                
+                if self.stats[s.strip('*')].get() < 90:
+                    self.__rangeOK = False
+                    self.stats[s.strip('*')].set(90)
+                    messageWindow(self.lang).showinfo(errmsg['wrong_stat'][self.lang] + "\ns %s --> 90 " % s)
              
     def __setPStats(self):
         '''
         Sets the primary (and magic) stats for a profession
-        \todo set the magic stat for chosen realms to
+        \todo set the magic stat for chosen realms to semi spell users
         '''    
         testp = self.stats['prof'].get()
-        primestats = self.profs[testp]['Prime Stats']
         
-        for s in self.__rmstats:
-            dummy = self.__labels[s].get()
-            dummy = dummy.strip(" ()+*")
+        if testp != "":
+            primestats = self.profs[testp]['Prime Stats']
             
-            if s in primestats:
-                self.__labels[s].set(dummy + ' (+)')
+            for s in self.__rmstats:
+                dummy = self.__labels[s].get()
+                dummy = dummy.strip(" ()+*")
                 
-                if self.stats[s].get() < 90:
-                    self.stats[s].set(90)
+                if s in primestats:
+                    self.__labels[s].set(dummy + ' (+)')
+                    
+                    if self.stats[s].get() < 90:
+                        self.stats[s].set(90)
+                    
+                elif s + '*' in primestats:
+                    self.__labels[s].set(dummy + ' (+)(*)')
+                    
+                    if self.stats[s].get() < 90:
+                        self.stats[s].set(90)
                 
-            elif s + '*' in primestats:
-                self.__labels[s].set(dummy + ' (+)(*)')
+                else:
+                    self.__labels[s].set(dummy)
+                    
+                    if self.stats[s].get() < 20:
+                        self.stats[s].set(20)
                 
-                if self.stats[s].get() < 90:
-                    self.stats[s].set(90)
-            
-            else:
-                self.__labels[s].set(dummy)
-                
-                if self.stats[s].get() < 20:
-                    self.stats[s].set(20)
-            
-            potstat = self.__creatPot(self.stats[s].get())
-            self.pots[s].set(potstat)
+                potstat = self.__creatPot(self.stats[s].get())
+                self.pots[s].set(potstat)
                         
         self.__calcBonus()
     
@@ -1332,12 +1335,13 @@ class genAttrWin(blankWindow):
         reproduce this bug.
         \bug  if testr != self.profs[testp]['Realm'] and self.profs[testp]['Realm'] != "choice": KeyError: ''
         \bug if realm chosen before profession an error occurs (sdtout) 
+        \note bug should be fixed
         '''
         testr = self.stats['realm'].get()
         testp = self.stats['prof'].get()
-
-        if testr != self.profs[testp]['Realm'] and self.profs[testp]['Realm'] != "choice":
-            self.stats['realm'].set(self.profs[testp]['Realm'])
+        if testp != "":
+            if testr != self.profs[testp]['Realm'] and self.profs[testp]['Realm'] != "choice":
+                self.stats['realm'].set(self.profs[testp]['Realm'])
         self.__setPStats()
         self.__calcBonus()
             
@@ -1779,6 +1783,9 @@ class priorizeWeaponsWin(blankWindow):
         This generates the priority list by the chosen priorities.
         \param event has to be catched but is not used
         \todo check for double priorities. If any don't proceed
+        \bug when you chose double entries:  File "/home/mongol/git/rpg-tools/src/gui/epwins.py", line 1808, in __getPrio
+        for i in range(len(content) - 7, len(content)):
+        IndexError: list index out of range
         '''
         self.__priolist = []
         self.__block = False
@@ -1786,7 +1793,7 @@ class priorizeWeaponsWin(blankWindow):
         for i in range(1, 8):
             dummy = self.__prio["%s - %d" % (self.__catnames[self.lang]['weapon'], i)].get()
             
-            if dummy not in self.__priolist:
+            if dummy not in self.__priolist and dummy != "":
                 self.__priolist.append(dummy)
             
             elif dummy in self.__priolist and i < 7:
@@ -1835,7 +1842,7 @@ class priorizeWeaponsWin(blankWindow):
         \todo exchange the Progression string to list of numbers
         \todo calc rank bonus
         '''
-        from rpgtoolbox.rolemaster import races, labels, progressionType, rankbonus
+        from rpgtoolbox.rolemaster import races, labels, progressionType, rankbonus, catnames
         ##\var prof
         # dummy variable that holds character's profession
         prof = self.character['prof']
@@ -1844,8 +1851,11 @@ class priorizeWeaponsWin(blankWindow):
         crace = races['en'][races[self.lang].index(self.character['race'])]
        
         for skillcat in self.__catDBC[prof].keys():
-            dbcdummy = self.__catDBC[prof][skillcat].split('/')
-        
+            if '/' in self.__catDBC[prof][skillcat]:
+                dbcdummy = self.__catDBC[prof][skillcat].split('/')
+            else: 
+                dbcdummy = list(self.__catDBC[prof][skillcat])
+            
             for i in range(0, len(dbcdummy)):
                 if dbcdummy != "":
                     dbcdummy[i] = int(dbcdummy[i])
@@ -1853,18 +1863,29 @@ class priorizeWeaponsWin(blankWindow):
             self.character['cat'][skillcat][labels[self.lang]['costs']] = dbcdummy
             self.character['cat'][skillcat]['Skill'][labels[self.lang]['costs']] = dbcdummy
 
-# There is something going wrong with key 'Progression'
+
+            if self.character['cat'][skillcat]['Progression'] == "Standard":
+                self.character['cat'][skillcat]['Progression'] = progressionType['standard cat']
+                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType['standard skill']
             
-#            if self.character['cat'][skillcat]['Progression'] == "Standard":
-#                self.character['cat'][skillcat]['Progression'] = progressionType['standard cat']
-#                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType['standard skill']
-#            
-#            elif self.character['cat'][skillcat]['Progression'] == "BD":
-#                self.character['cat'][skillcat]['Progression'] = progressionType['null']
-#                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType['BD %s' % crace]
-#                
-#            elif self.character['cat'][skillcat]['Progression'][:3] == "PPD":
-#                self.character['cat'][skillcat]['Progression'] = progressionType['null']
+            elif self.character['cat'][skillcat]['Progression'] == "BD":
+                self.character['cat'][skillcat]['Progression'] = progressionType['null']
+                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType['BD %s' % crace]
+            
+            elif self.character['cat'][skillcat]['Progression'].lower == "null":
+                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType['skill only'] 
+                self.character['cat'][skillcat]['Progression'] = progressionType['null']
+                
+            elif self.character['cat'][skillcat]['Progression'] == "Combined":
+                self.character['cat'][skillcat]['Progression'] = progressionType['null']
+                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType['combined']
+                
+            elif self.character['cat'][skillcat]['Progression'][:3] == "PPD":
+# There is something going wrong with key 'Progression' XXX
+# It has to do with PPD            
+                self.character['cat'][skillcat]['Progression'] = progressionType['null']
+                print "%s %s %s" % (skillcat, crace, self.character['cat'][skillcat]['Progression'])
+#                print "%s %s" % (self.character['cat'][skillcat]['Skill']['Progression'], crace)
 #                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType["%s %s" % (self.character['cat'][skillcat]['Skill']['Progression'],
 #                                                                                                     crace)
 #                                                                                          ]  
@@ -1876,36 +1897,35 @@ class priorizeWeaponsWin(blankWindow):
         fp.close()
         self.__adoranks = {}
         content[0] = content[0].strip('\n').split(',')
-        # the loops does not work correctly
         
         for i in range(1, len(content[0])):
             self.__adoranks[content[0][i]] = {}
-#            content[i] = content[i].strip('\n').split(',')
-#            content[i][0] = content[i][0].strip(' \t')
             
-            for j in range(1, len(content)):
-                content[j] = content[i].strip('\n').split(',')
-                content[j][0] = content[i][0].strip(' \t')
-                lastcat = content[j][0]
-                if content[j][0] != "-":
-                    self.__adoranks[content[0][i]][content[j][0]] = {"rank": int(content[i][j]),
-                                                                     }
-#                                                                     "rank bonus" : rankbonus(rank = int(content[i][j]),
-#                                                                                              progression = self.character['cat'][content[j][0]]['Progression']
-#                                                                                              )
-#                                                                     }
-                    
+        for j in range(1, len(content)):
+            content[j] = content[j].strip('\n').split(',')
+            content[j][0] = content[j][0].strip(' \t')
+            
+            for i in range(1, len(content[0])):
+            
+                if content[j][0][:1] != "-":
+                    self.__adoranks[content[0][i]][content[j][0]] = {"rank": int(content[j][i]),
+                                                                    "rank bonus" : rankbonus(rank = int(content[j][i]),
+                                                                                             progression = self.character['cat'][content[j][0]]['Progression']
+                                                                                             )
+                                                                    }
+                    lastcat = content[j][0]
                     if "Skill" not in self.__adoranks[content[0][i]][content[j][0]].keys():
                         self.__adoranks[content[0][i]][content[j][0]]['Skill'] = {}
                     
                 
                 else:
-                    self.__adoranks[content[0][i]][lastcat]['Skill'][content[j][0]] = {'rank' : int(content[i][j]),
-                                                                                       }
-#                                                                                       'rank bonus' : rankbonus(rank = int(content[i][j]),
-#                                                                                                                progression = self.character['cat'][lastcat]['Skill']['Progression']
-#                                                                                                                )
-#                                                                                       }
+                    self.__adoranks[content[0][i]][lastcat]['Skill'][content[j][0].strip('-')] = {'rank' : int(content[j][i]),
+                                                                                    'rank bonus' : rankbonus(rank = int(content[j][i]),
+                                                                                                             progression = self.character['cat'][lastcat]['Skill']['Progression']
+                                                                                                             )
+                                                                                    }
+                    
+        
         from pprint import pprint
         pprint(self.__adoranks)
         self.saveChar()    
