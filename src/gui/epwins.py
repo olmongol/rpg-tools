@@ -1616,7 +1616,7 @@ class genAttrWin(blankWindow):
         
         '''
         from rpgtoolbox import rolemaster as rm
-        fp = open("%s/default/Skills_%s.csv" % (self.spath, self.lang))
+        fp = open("%sdefault/Skills_%s.csv" % (self.spath, self.lang))
         content = fp.readlines()
         fp.close()
         
@@ -1809,6 +1809,10 @@ class priorizeWeaponsWin(blankWindow):
             
             j = 1
             
+            
+        ## \bug  File "/home/mongol/git/rpg-tools/src/gui/epwins.py", line 1814, in __getPrio
+        #    self.__priolist[j - 1])
+        #   IndexError: list index out of range
             for i in range(len(content) - 7, len(content)):
                 content[i] = content[i].replace("%s - %d" % (self.__catnames[self.lang]['weapon'], j),
                                               self.__priolist[j - 1])
@@ -1872,7 +1876,7 @@ class priorizeWeaponsWin(blankWindow):
                 self.character['cat'][skillcat]['Progression'] = progressionType['null']
                 self.character['cat'][skillcat]['Skill']['Progression'] = progressionType['BD %s' % crace]
             
-            elif self.character['cat'][skillcat]['Progression'].lower == "null":
+            elif self.character['cat'][skillcat]['Progression'] == "Null" or self.character['cat'][skillcat]['Progression'] == "Skill Only":
                 self.character['cat'][skillcat]['Skill']['Progression'] = progressionType['skill only'] 
                 self.character['cat'][skillcat]['Progression'] = progressionType['null']
                 
@@ -1880,15 +1884,15 @@ class priorizeWeaponsWin(blankWindow):
                 self.character['cat'][skillcat]['Progression'] = progressionType['null']
                 self.character['cat'][skillcat]['Skill']['Progression'] = progressionType['combined']
                 
-            elif self.character['cat'][skillcat]['Progression'][:3] == "PPD":
+            elif self.character['cat'][skillcat]['Progression'][:4] == "PPD ":
 # There is something going wrong with key 'Progression' XXX
 # It has to do with PPD            
                 self.character['cat'][skillcat]['Progression'] = progressionType['null']
                 print "%s %s %s" % (skillcat, crace, self.character['cat'][skillcat]['Progression'])
 #                print "%s %s" % (self.character['cat'][skillcat]['Skill']['Progression'], crace)
-#                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType["%s %s" % (self.character['cat'][skillcat]['Skill']['Progression'],
-#                                                                                                     crace)
-#                                                                                          ]  
+                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType["%s %s" % (self.character['cat'][skillcat]['Skill']['Progression'],
+                                                                                                     crace)
+                                                                                          ]  
                 
         # adding adolescence skill ranks
             
