@@ -1819,10 +1819,7 @@ class priorizeWeaponsWin(blankWindow):
             
             j = 1
             
-            
-        ## \bug  File "/home/mongol/git/rpg-tools/src/gui/epwins.py", line 1814, in __getPrio
-        #    self.__priolist[j - 1])
-        #   IndexError: list index out of range
+
             for i in range(len(content) - 7, len(content)):
                 content[i] = content[i].replace("%s - %d" % (self.__catnames[self.lang]['weapon'], j),
                                               self.__priolist[j - 1])
@@ -1853,8 +1850,8 @@ class priorizeWeaponsWin(blankWindow):
         This method adds the concerned developing costs and category/skill ranks
         during adolescence to the character data structure (JSON). 
         It also calculates the rank bonus for the first time.
-        \todo exchange the Progression string to list of numbers
-        \todo calc rank bonus
+        \bug exchange progression numbers for Power Point Development does not work 
+        \todo concentrate all PPD stats on concerned Power Point Development and delete the others 
         '''
         from rpgtoolbox.rolemaster import races, labels, progressionType, rankbonus, catnames
         ##\var prof
@@ -1893,6 +1890,9 @@ class priorizeWeaponsWin(blankWindow):
             elif self.character['cat'][skillcat]['Progression'] == "Combined":
                 self.character['cat'][skillcat]['Progression'] = progressionType['null']
                 self.character['cat'][skillcat]['Skill']['Progression'] = progressionType['combined']
+         
+                # PPD exchange does not work :( XXXX
+                
                 
             elif self.character['cat'][skillcat]['Progression'][:4] == "PPD ":        
                 self.character['cat'][skillcat]['Progression'] = progressionType['null']
@@ -1955,7 +1955,11 @@ class priorizeWeaponsWin(blankWindow):
                     self.character['cat'][cat]['Skill'][skill]['rank bonus'] = self.__adoranks[race][cat]['Skill'][skill]['rank bonus']
         
         self.saveChar()    
-
+        
+    def __setRealmCat(self):
+        print "not done yet"
+   
+    
     def saveChar(self):  
         
         '''
