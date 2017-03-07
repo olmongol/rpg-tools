@@ -20,11 +20,10 @@ Lore - General,Me/Me/Re,Standard
 Lore - Magical,Me/Me/RE,Standard
 Lore - Obscure,Me/Me/Re,Standard
 Lore - Technical,Me/Me/Re,Standard
-Martial Arts - Combat Maneuvers,Ag/SD/Qu,Combined
-Martial Arts - Strikes,St/St/Ag,Standard
+Martial Arts - Striking,St/St/Ag,Standard
 Martial Arts - Sweeps,Ag/Ag/St,Standard
-Outdoor Animal, Em/Em/Ag,Standard
-Outdoor Enviromental,SD/In/Me,Standard
+Outdoor - Animal, Em/Em/Ag,Standard
+Outdoor - Environmental,SD/In/Me,Standard
 Power Awareness,Em/In/Pr,Standard
 Power Manipulation,Em/In/Pr,Null
 Power Point Development (Ment),Pr/Pr,PPD Ment
