@@ -1678,7 +1678,8 @@ class genAttrWin(blankWindow):
             skillcat[content[i][0]][content[0][2]] = content[i][2]
             skillcat[content[i][0]]["Skill"][content[0][2]] = content[i][2]
             skillcat[content[i][0]][content[0][1]] = content[i][1].split('/')
-            skillcat[content[i][0]]["Skill"][content[0][1]] = content[i][1].split('/')                
+# this commented out code should avoid Stats in Skills
+#            skillcat[content[i][0]]["Skill"][content[0][1]] = content[i][1].split('/')                
             
             if rm.catnames[self.lang]['spells'] in content[i][0][:7]:
                 temp = []
@@ -1956,7 +1957,12 @@ class priorizeWeaponsWin(blankWindow):
         
         self.saveChar()    
         
-    def __setRealmCat(self):
+    def __setPPD(self):
+        '''
+        This sets Power Point Development and removes the category entries for the specific realms.
+        \todo has to be implemented 
+        '''
+        race = self.character
         print "not done yet"
    
     

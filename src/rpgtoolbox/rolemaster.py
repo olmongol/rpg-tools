@@ -55,13 +55,17 @@ realmstats = {'de' : {'Essence' : 'Em',
 
 ##\var realms
 # a dictionary for translating the names of magic realms
-realms = {'en': ('choice', 'Essence', 'Channeling', 'Ment',
+realms = {'en': ('choice', 'Essence', 'Channeling', 'Mentalism',
                  ['Chan', 'Ment'], ['Chan', 'Ess'],
                  ['Ess', 'Ment']),
           'de': ('wählbar', 'Essenz', 'Leitmagie', 'Mentalismus',
                  ['Leitmagie', 'Mentalismus'], ['Leitmagie', 'Essenz'],
                  ['Essenz', 'Mentalismus']),
           }
+##\var ppds
+# a lists that helps to set the right PPD progression
+ppds = ("", "PPD Ess ", "PPD Chan ", "PPD Ment ",
+        ["PPD Chan ", "PPD Ment "], ["PPD Chan ", "PPD Ess "], ["PPD Ess ", "PPD Ment "])
 ##\var magicstats
 # holds the magic attribute on the same index as the lists in realms
 magicstats = ("", "Em", "In", "Pr", ['In', 'Pr'], ['In', 'Em'], ['Em', 'Pr'])
@@ -177,7 +181,7 @@ labels = {'de' : {'race' : 'Rasse',
                   'RRPoison' : "RR Poison",
                   'RRFear' : 'RR Fear',
                   'AT' : 'Armor Type',
-                  'MAP' : 'Missle Attack Penalty',
+                  'MAP' : 'Missile Attack Penalty',
                   'MMP' : 'Movement Maneuver Penalty',
                   'DB' : 'Defensive Bonus',
                   'shield' : 'Shield Bonus',
