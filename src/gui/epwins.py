@@ -2147,13 +2147,13 @@ class skillcatWin(blankWindow):
     def __buildTree(self):
         '''
         Fills the treeview widget with skills and categories etc.
-        \todo has to be implemented
+        \todo has to be fully implemented
         '''
         for col in self.__treecolumns:
             self.__tree.heading(col, text = col.title())
             
         # filling content
-        # have to proceed here!! XXXXXX
+        self.__setPPD()
         catID = {}
         catNo = 0
         ckeys = self.character['cat'].keys()
@@ -2190,8 +2190,47 @@ class skillcatWin(blankWindow):
         self.__curItem = self.__tree.focus()
         print self.__tree.item(self.__curItem)
         
+    def __setPPD(self):
+        '''
+        This sets the Progression and Stats for Power Point Development
+        '''
+        from rpgtoolbox.rolemaster import races, realms, ppds, magicstats, progressionType, speccat
+        param = {}
+        param['realm'] = self.character['realm']
         
-    def calcRanks(self):
+        for l in races.keys():
+            
+            if self.character['race'] in races[l]:
+                param['lang'] = l
+                param['race'] = races['en'][races[l].index(self.character['race'])]
+            
+            if self.character['realm'] in realms[l]:
+                param['ppd'] = ppds[realms[l].index(self.character['realm'])]
+                param['Stats'] = magicstats[realms[l].index(self.character['realm'])]
+                
+        print param.keys()
+                
+        if type(param['ppd']) == type(''):
+            param['ppd'] = progressionType[param['ppd'] + param['race']]
+        
+        elif type(param['ppd']) == type([]):
+            
+            for i in range(0, len(param['ppd'])):
+                param['ppd'][i] = progressionType[param['ppd'][i] + param['race']]
+                
+        if param['ppd'][0] > param['ppd'][1]:
+            param['ppd'] = param['ppd'][0]
+        
+        else:
+            param['ppd'] = param['ppd'][1]
+            
+        self.character['cat'][speccat[param['lang']][1]]['Progression'] = progressionType['null']
+        self.character['cat'][speccat[param['lang']][1]]['Stats'] = param['Stats']
+        self.character['cat'][speccat[param['lang']][1]]['Skill'][speccat[param['lang']][1]]['Progression'] = param['ppd']
+        
+        
+        
+    def calcTotals(self):
         '''
         This method calculate all rank bonus of categories and skills of the character loaded.
         \todo has to be implemented

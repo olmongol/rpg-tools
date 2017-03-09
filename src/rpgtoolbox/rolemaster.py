@@ -56,8 +56,8 @@ realmstats = {'de' : {'Essence' : 'Em',
 ##\var realms
 # a dictionary for translating the names of magic realms
 realms = {'en': ('choice', 'Essence', 'Channeling', 'Mentalism',
-                 ['Chan', 'Ment'], ['Chan', 'Ess'],
-                 ['Ess', 'Ment']),
+                 ['Channeling', 'Menttalism'], ['Channeling', 'Essence'],
+                 ['Essence', 'Mentalism']),
           'de': ('wählbar', 'Essenz', 'Leitmagie', 'Mentalismus',
                  ['Leitmagie', 'Mentalismus'], ['Leitmagie', 'Essenz'],
                  ['Essenz', 'Mentalismus']),
@@ -66,6 +66,12 @@ realms = {'en': ('choice', 'Essence', 'Channeling', 'Mentalism',
 # a lists that helps to set the right PPD progression
 ppds = ("", "PPD Ess ", "PPD Chan ", "PPD Ment ",
         ["PPD Chan ", "PPD Ment "], ["PPD Chan ", "PPD Ess "], ["PPD Ess ", "PPD Ment "])
+
+
+speccat = {'en': ['Body Development', 'Power Point Development'],
+           'de': ['Body Development', 'Power Point Development'],
+           }
+
 ##\var magicstats
 # holds the magic attribute on the same index as the lists in realms
 magicstats = ("", "Em", "In", "Pr", ['In', 'Pr'], ['In', 'Em'], ['Em', 'Pr'])
@@ -227,7 +233,7 @@ progressionType = {'standard cat'   : (-15, 2, 1, 0.5, 0),
                    'PPD Ess Wood Elves'   : (0, 7, 6, 5, 4),
                    'PPD Ess Grey Elves'   : (0, 7, 6, 5, 4),
                    'PPD Ess High Elves'   : (0, 7, 6, 5, 4),
-                   'PPD Ess  Half Elves' : (0, 6, 6, 4, 3),
+                   'PPD Ess Half Elves' : (0, 6, 6, 4, 3),
                    'PPD Ess Dwarves' : (0, 3, 2, 1, 1),
                    'PPD Ess Halflings' : (0, 2, 1, 1, 1),
                    'PPD Ment Common Men' : (0, 7, 6, 5, 4),
