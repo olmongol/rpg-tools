@@ -53,6 +53,8 @@ realmstats = {'de' : {'Essence' : 'Em',
                       },
               }
 
+exceptions = ['Costs', 'Stats', 'Progression', 'rank', 'rank bonus', 'spec bonus', \
+              'item bonus']
 ##\var realms
 # a dictionary for translating the names of magic realms
 realms = {'en': ('choice', 'Essence', 'Channeling', 'Mentalism',

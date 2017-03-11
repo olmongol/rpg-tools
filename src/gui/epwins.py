@@ -1714,6 +1714,8 @@ class priorizeWeaponsWin(blankWindow):
     This is the class for a window object to chose the priority of weapon skills
     at the character's generation. It will also set the category and skill ranks 
     during adolescence.
+    \bug sometimes double chosen weapon categories cause list index errors and 
+    were not detected as doublets.
     """
     def __init__(self, lang = 'en', storepath = "./data", char = None):
         """
@@ -1820,7 +1822,6 @@ class priorizeWeaponsWin(blankWindow):
             
             j = 1
             
-
             for i in range(len(content) - 7, len(content)):
                 content[i] = content[i].replace("%s - %d" % (self.__catnames[self.lang]['weapon'], j),
                                               self.__priolist[j - 1])
@@ -1854,7 +1855,7 @@ class priorizeWeaponsWin(blankWindow):
         \bug exchange progression numbers for Power Point Development does not work 
         \todo concentrate all PPD stats on concerned Power Point Development and delete the others 
         '''
-        from rpgtoolbox.rolemaster import races, labels, progressionType, rankbonus, catnames
+        from rpgtoolbox.rolemaster import races, labels, progressionType, rankbonus, catnames, exceptions
         ##\var prof
         # dummy variable that holds character's profession
         prof = self.character['prof']
@@ -1868,39 +1869,48 @@ class priorizeWeaponsWin(blankWindow):
             else: 
                 dbcdummy = list(self.__catDBC[prof][skillcat])
             
+            skprog = ""
             for i in range(0, len(dbcdummy)):
                 if dbcdummy != "":
                     dbcdummy[i] = int(dbcdummy[i])
 
-            self.character['cat'][skillcat][labels[self.lang]['costs']] = dbcdummy
-            self.character['cat'][skillcat]['Skill'][labels[self.lang]['costs']] = dbcdummy
+            self.character['cat'][skillcat][labels["en"]['costs']] = dbcdummy
+            for s in self.character['cat'][skillcat]['Skill'].keys():
+                if s not in exceptions:
+                    self.character['cat'][skillcat]['Skill'][s][labels["en"]['costs']] = dbcdummy
 
 
             if self.character['cat'][skillcat]['Progression'] == "Standard":
                 self.character['cat'][skillcat]['Progression'] = progressionType['standard cat']
-                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType['standard skill']
-            
+#                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType['standard skill']
+                skprog = progressionType['standard skill']
+                
             elif self.character['cat'][skillcat]['Progression'] == "BD":
                 self.character['cat'][skillcat]['Progression'] = progressionType['null']
-                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType['BD %s' % crace]
+#                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType['BD %s' % crace]
+                skprog = progressionType['BD %s' % crace]
             
             elif self.character['cat'][skillcat]['Progression'] == "Null" or self.character['cat'][skillcat]['Progression'] == "Skill Only":
-                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType['skill only'] 
+#                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType['skill only'] 
                 self.character['cat'][skillcat]['Progression'] = progressionType['null']
+                skprog = progressionType['skill only']
+                
                 
             elif self.character['cat'][skillcat]['Progression'] == "Combined":
                 self.character['cat'][skillcat]['Progression'] = progressionType['null']
-                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType['combined']
-         
-                # PPD exchange does not work :( XXXX
-                
-                
-            elif self.character['cat'][skillcat]['Progression'][:4] == "PPD ":        
-                self.character['cat'][skillcat]['Progression'] = progressionType['null']
-                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType["%s %s" % (self.character['cat'][skillcat]['Skill']['Progression'],
-                                                                                                     crace)
-                                                                                          ]  
-                
+#                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType['combined']
+                skprog = progressionType['combined']
+#            elif self.character['cat'][skillcat]['Progression'][:4] == "PPD ":        
+#                self.character['cat'][skillcat]['Progression'] = progressionType['null']
+#                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType["%s %s" % (self.character['cat'][skillcat]['Skill']['Progression'],
+#                                                                                                     crace)
+#                                                                                          ]  
+            for skill in  self.character['cat'][skillcat]['Skill'].keys():
+                if skill not in exceptions:
+                    self.character['cat'][skillcat]['Skill'][skill]['Progression'] = skprog   
+        self.__setPPD()
+        self.saveChar()
+        
         # adding adolescence skill ranks
             
         fp = open('./data/default/AdoRanks_%s.csv' % self.lang, "r")
@@ -1931,9 +1941,10 @@ class priorizeWeaponsWin(blankWindow):
                 
                 else:
                     self.__adoranks[content[0][i]][lastcat]['Skill'][content[j][0].strip('-')] = {'rank' : int(content[j][i]),
-                                                                                                  'rank bonus' : rankbonus(rank = int(content[j][i]),
-                                                                                                  progression = self.character['cat'][lastcat]['Skill']['Progression']
-                                                                                                                                     )
+                                                                                                  'rank bonus' : 0,
+#                                                                                                  'rank bonus' : rankbonus(rank = int(content[j][i]),
+#                                                                                                  progression = self.character['cat'][lastcat]['Skill']['Progression']
+#                                                                                                                                     )
                                                                                                 } 
         if self.lang != "en": 
                     
@@ -1955,16 +1966,46 @@ class priorizeWeaponsWin(blankWindow):
                     self.character['cat'][cat]['Skill'][skill]['rank'] = self.__adoranks[race][cat]['Skill'][skill]['rank']
                     self.character['cat'][cat]['Skill'][skill]['rank bonus'] = self.__adoranks[race][cat]['Skill'][skill]['rank bonus']
         
+#        self.__setPPD()
         self.saveChar()    
         
     def __setPPD(self):
         '''
-        This sets Power Point Development and removes the category entries for the specific realms.
-        \todo has to be implemented 
+        This sets the Progression and Stats for Power Point Development
         '''
-        race = self.character
-        print "not done yet"
-   
+        from rpgtoolbox.rolemaster import races, realms, ppds, magicstats, progressionType, speccat
+        param = {}
+        param['realm'] = self.character['realm']
+        
+        for l in races.keys():
+            
+            if self.character['race'] in races[l]:
+                param['lang'] = l
+                param['race'] = races['en'][races[l].index(self.character['race'])]
+            
+            if self.character['realm'] in realms[l]:
+                param['ppd'] = ppds[realms[l].index(self.character['realm'])]
+                param['Stats'] = magicstats[realms[l].index(self.character['realm'])]
+                
+        print param.keys()
+                
+        if type(param['ppd']) == type(''):
+            param['ppd'] = progressionType[param['ppd'] + param['race']]
+        
+        elif type(param['ppd']) == type([]):
+            
+            for i in range(0, len(param['ppd'])):
+                param['ppd'][i] = progressionType[param['ppd'][i] + param['race']]
+                
+        if param['ppd'][0] > param['ppd'][1]:
+            param['ppd'] = param['ppd'][0]
+        
+        else:
+            param['ppd'] = param['ppd'][1]
+            
+        self.character['cat'][speccat[param['lang']][1]]['Progression'] = progressionType['null']
+        self.character['cat'][speccat[param['lang']][1]]['Stats'] = param['Stats']
+        self.character['cat'][speccat[param['lang']][1]]['Skill'][speccat[param['lang']][1]]['Progression'] = param['ppd']
     
     def saveChar(self):  
         
@@ -2063,11 +2104,7 @@ class skillcatWin(blankWindow):
             logger.debug('priorizeWeaponsWin: storepath set to %s' % (storepath))
 
         self.lang = lang
-        # just temporary set to en
-#        self.lang = "en"
         self.character = char
-        
-        
         
         blankWindow.__init__(self, self.lang)
         self.window.title("%s - %s (%s)" % (wintitle['edit'][self.lang],
@@ -2153,26 +2190,25 @@ class skillcatWin(blankWindow):
             self.__tree.heading(col, text = col.title())
             
         # filling content
-        self.__setPPD()
+#        self.__setPPD()
         catID = {}
         catNo = 0
         ckeys = self.character['cat'].keys()
         ckeys.sort()
         for cat in ckeys:
-#            catvalues = (cat)
-            ### much to do XXXXXXX
+
             if cat != None:
-                print cat
                 catID[cat] = self.__tree.insert("",
                                                 catNo,
                                                 text = cat,
                                                 values = (cat,
                                                           self.character['cat'][cat]['Progression'],
-                                                          self.character['cat'][cat][self.__rmlabels[self.lang]['costs']],
+                                                          self.character['cat'][cat][self.__rmlabels['en']['costs']],
                                                           self.character['cat'][cat]['rank'],
                                                           
                                                           )
                                                 )
+            ### much to do XXXXXXX                
 #            for skill in self.character['cat'][cat]['Skill']:
 #                self.__tree.insert(catID[cat], 
 #                                   "end", 
@@ -2190,51 +2226,52 @@ class skillcatWin(blankWindow):
         self.__curItem = self.__tree.focus()
         print self.__tree.item(self.__curItem)
         
-    def __setPPD(self):
-        '''
-        This sets the Progression and Stats for Power Point Development
-        '''
-        from rpgtoolbox.rolemaster import races, realms, ppds, magicstats, progressionType, speccat
-        param = {}
-        param['realm'] = self.character['realm']
-        
-        for l in races.keys():
-            
-            if self.character['race'] in races[l]:
-                param['lang'] = l
-                param['race'] = races['en'][races[l].index(self.character['race'])]
-            
-            if self.character['realm'] in realms[l]:
-                param['ppd'] = ppds[realms[l].index(self.character['realm'])]
-                param['Stats'] = magicstats[realms[l].index(self.character['realm'])]
-                
-        print param.keys()
-                
-        if type(param['ppd']) == type(''):
-            param['ppd'] = progressionType[param['ppd'] + param['race']]
-        
-        elif type(param['ppd']) == type([]):
-            
-            for i in range(0, len(param['ppd'])):
-                param['ppd'][i] = progressionType[param['ppd'][i] + param['race']]
-                
-        if param['ppd'][0] > param['ppd'][1]:
-            param['ppd'] = param['ppd'][0]
-        
-        else:
-            param['ppd'] = param['ppd'][1]
-            
-        self.character['cat'][speccat[param['lang']][1]]['Progression'] = progressionType['null']
-        self.character['cat'][speccat[param['lang']][1]]['Stats'] = param['Stats']
-        self.character['cat'][speccat[param['lang']][1]]['Skill'][speccat[param['lang']][1]]['Progression'] = param['ppd']
-        
-        
+#    def __setPPD(self):
+#        '''
+#        This sets the Progression and Stats for Power Point Development
+#        '''
+#        from rpgtoolbox.rolemaster import races, realms, ppds, magicstats, progressionType, speccat
+#        param = {}
+#        param['realm'] = self.character['realm']
+#        
+#        for l in races.keys():
+#            
+#            if self.character['race'] in races[l]:
+#                param['lang'] = l
+#                param['race'] = races['en'][races[l].index(self.character['race'])]
+#            
+#            if self.character['realm'] in realms[l]:
+#                param['ppd'] = ppds[realms[l].index(self.character['realm'])]
+#                param['Stats'] = magicstats[realms[l].index(self.character['realm'])]
+#                
+#        print param.keys()
+#                
+#        if type(param['ppd']) == type(''):
+#            param['ppd'] = progressionType[param['ppd'] + param['race']]
+#        
+#        elif type(param['ppd']) == type([]):
+#            
+#            for i in range(0, len(param['ppd'])):
+#                param['ppd'][i] = progressionType[param['ppd'][i] + param['race']]
+#                
+#        if param['ppd'][0] > param['ppd'][1]:
+#            param['ppd'] = param['ppd'][0]
+#        
+#        else:
+#            param['ppd'] = param['ppd'][1]
+#            
+#        self.character['cat'][speccat[param['lang']][1]]['Progression'] = progressionType['null']
+#        self.character['cat'][speccat[param['lang']][1]]['Stats'] = param['Stats']
+#        self.character['cat'][speccat[param['lang']][1]]['Skill'][speccat[param['lang']][1]]['Progression'] = param['ppd']
+#        
+#        
         
     def calcTotals(self):
         '''
         This method calculate all rank bonus of categories and skills of the character loaded.
         \todo has to be implemented
         '''
+#        for cat in self.character['cat']:
         print "not done yet"
         
     def __helpAWin(self):
