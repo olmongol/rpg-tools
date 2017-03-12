@@ -29,6 +29,9 @@ from gui.winhelper import AutoScrollbar
 from gui.winhelper import InfoCanvas
 from gui.window import *
 from rpgtoolbox.rolemaster import stats
+from treasure import *
+from gui.gmtools import *
+
 import json
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-2017 " + __author__
@@ -243,25 +246,21 @@ class MainWindow(blankWindow):
         self.menu.add_cascade(label = txtmenu['menu_gm'][self.lang],
                               menu = self.gmmenu)
         self.gmmenu.add_command(label = submenu['items'][self.lang]['treasure'],
-                                command = self.__createTreasure)
+                                command = self.__treasureWin)
         self.gmmenu.add_command(label = submenu['items'][self.lang]['magical'],
-                                command = self.__createMagic)
+                                command = self.__magicWin)
         
+    def __treasureWin(self):
+        """
+        This privat method invokes a window to generate descriptions of a treasures (gmtools.py).
+        """
+        createTreasureWin(lang = self.lang, filename='treasure.txt')
     
-    def __createTreasure(self):
+    def __magicWin(self):
         """
-        This method opens a window for treasure generation.
-        \todo createTreasure has to be implemented
+        This privat method invokes a window to generate descriptions of magic items (gmtools.py).
         """
-        self.notdoneyet("createTreasure")
-        
-    def __createMagic(self):
-        """
-        This method opens a window for generation of magical items
-        \todo createMagic has to be implemented
-        """
-        self.notdoneyet("createMagic")
-    
+        createMagicWin(lang = self.lang)
     
     def __addOptionMenu(self):
         """

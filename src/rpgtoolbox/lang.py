@@ -19,7 +19,7 @@ Currently supported languages are:
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
 \date (c) 2015-2017
-\version 0.3 
+\version 0.4
 \license GNU V3.0
 
 \todo clean up the code!!!
@@ -101,7 +101,7 @@ txtbutton = {'but_ok'   : {'de' : 'OK',
              'but_take' : {'de' : '\xc3\x9cbernehmen',
                            'en' : 'take over'
                            },
-             'but_roll' :{'de' : 'Würfeln',
+             'but_roll' :{'de' : 'W\xc3\xbcrfeln',
                           'en' : 'roll dice'
                           },
              'but_calc' :{'de' : "Berechnen",
@@ -118,7 +118,7 @@ txtmenu = {'menu_help'     : {'de' : 'Hilfe',
            'help'          : {'de' : 'Hilfe',
                               'en' : 'Help',
                               },
-           'hlp_about'     : {'de' : 'über',
+           'hlp_about'     : {'de' : '\xc3\xbcber',
                               'en' : 'About',
                               },
            'hlp_first'     : {'de' : 'Erste Schritte',
@@ -169,13 +169,13 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                           'sv_as' : 'Save as',
                           'quit'  : 'Quit',
                           'export' : 'Export',
-                          'new_char' : "new character",
-                          'new_grp' : "new characer party"
+                          'new_char' : "New character",
+                          'new_grp' : "New characer party"
                           },
                     },
            'opts'  :{'de' : {'lang' : 'Einstellungen',
                              },
-                     'en' : {'lang' : 'preferences',
+                     'en' : {'lang' : 'Preferences',
                              }
                      },
            'help'  :{'de' : {'about' : '\xc3\x9cber rpg-tools',
@@ -183,10 +183,10 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                              'win'   : '\xc3\x9cber dieses Fenster',
                              'global' : 'Handbuch',
                              },
-                     'en' : {'about' : 'about rpg-tools',
-                             'page'  : 'about this page',
-                             'win'   : 'about this window',
-                             'global' : 'handbook',
+                     'en' : {'about' : 'About rpg-tools',
+                             'page'  : 'About this page',
+                             'win'   : 'About this window',
+                             'global' : 'Handbook',
                              },
                      },
            'edit'  : {'de' : {'ed_char'  : 'Charakter bearbeiten/steigern',
@@ -205,22 +205,26 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                               'ed_indiv' : 'EPs for ideas',
                               'ed_calc'  : 'Calculate all',
                               'ed_sim'   : 'EPs for fight simulation',
-                              'ed_equip' : 'edit equipment'
+                              'ed_equip' : 'Edit equipment'
                                },
             
                       },
            'items' : {'de' : {'treasure': "Schatz generieren",
-                              'magical' : "Magische Gegenstände erzeugen",
+                              'magical' : "Magische Gegenst\xc3\xa4nde erzeugen",
+                              'itemgen'    : " [Gegenstandsliste wird auf knopfdruck erzeugt] ",
+                              'magicgen'    : " [Magischer Gegenstand wird auf Knopfdruck erzeugt] ",
                               },
-                      'en' : {'treasure': "create treasure",
-                              'magical' : "create magic items",
+                      'en' : {'treasure': "Create treasure",
+                              'magical' : "Create magic items",
+                              'itemgen'    : " [List of items will be generated when button is pressed] ",
+                              'magicgen'    : " [Magic item will be generated when button is pressed] ",
                               },
                       },
-           'group' : {'de' : {'add/rem' : "Charakter hinzufügen/entfernen",
+           'group' : {'de' : {'add/rem' : "Charakter hinzuf\xc3\xbcgen/entfernen",
                               'new'     : "Neue Charaktergruppe",
-                              'gmview'  : "Spielleiterübersicht",
+                              'gmview'  : "Spielleiter\xc3\xbcbersicht",
                               },
-                      'en' : {'add/rem' : "add/remove characters",
+                      'en' : {'add/rem' : "Add/remove characters",
                               'new'     : "New party",
                               'gmview'  : "Gamemaster's overview",
                               },
@@ -255,7 +259,7 @@ processing = {'saved' : {'de' : 'Gespeichert...',
                          'en' : 'Saved...',
                          },
               'exported' : {'de' : 'Export abgeschlossen.',
-                            'en' : 'export finished.'
+                            'en' : 'Export finished.'
                             }
             }
 
@@ -321,19 +325,19 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
                         'en' : 'DB password'
                         },
           'add_elem' : {'de' :'Zus\xc3\xa4tzliche Elemente (Komma getrennte Liste)',
-                       'en' : 'additional elements (comma separated list)',
+                       'en' : 'Additional elements (comma separated list)',
                        },
           'connect'  : {'de' : 'Verbinden',
-                       'en' : 'connect',
+                       'en' : 'Connect',
                        },
           'update'   : {'de' : 'aktualisieren',
-                       'en' : 'update',
+                       'en' : 'Update',
                        },
           'cancel'   : {'de' : 'Abbrechen',
                         'en' : 'Cancel',
                       },
           'preview' : {'de' : 'Vorschau',
-                       'en' : 'preview',
+                       'en' : 'Preview',
                        },
           }
 
@@ -374,17 +378,17 @@ errmsg = {'no_file' : {'de' : 'Datei existiert nicht!',
                         },
           'wrong_stat' : {'de' : 'Falscher Attributswert: \n\n'\
                                  'er muss mindestens 20 bei normalen und 90 bei \n'\
-                                 'primären Attributen (+) betragen!',
+                                 'prim\xc3\xa4ren Attributen (+) betragen!',
                           'en' : 'Wrong attibute value:\n\n'\
                                  'it must have a min of 20 concerning standard and\n'\
                                  '90 concerning primary attributes (+)!'
                           },
-          'too_much_stats':{'de' : 'Die vorhandenen Punkte für Attribute wurden überschritten.\n'\
+          'too_much_stats':{'de' : 'Die vorhandenen Punkte f\xc3\xbcr Attribute wurden \xc3\xbcberschritten.\n'\
                                  'Bitte die Temp. Werte reduzieren!',
                           'en' : 'Used too much points for attributes. Plese reduce values of\n'\
                                  'Temp. Stats!'
                           },
-          'stats_dp' : {'de' : 'Der Entwicklungspunktestand für die Attribute ist nicht Null!\n'\
+          'stats_dp' : {'de' : 'Der Entwicklungspunktestand f\xc3\xbcr die Attribute ist nicht Null!\n'\
                                 'Bringe ihn auf Null und dann geht es hier weiter.',
                         'en' : 'The developing points for the attributes are not zero!\n'\
                                'Correct that and it goes on.'
@@ -398,7 +402,7 @@ errmsg = {'no_file' : {'de' : 'Datei existiert nicht!',
           'double' : {'de' : "Bitte nochmal kontrollieren: eine Auswahl ist doppelt!",
                       'en' : "Please check it again: one of your choices is double!",
                       },
-          'no_race' : {'de' : "Bitte erst ein Volk auswählen!",
+          'no_race' : {'de' : "Bitte erst ein Volk ausw\xc3\xa4hlen!",
                        'en' : "Please chose a race first!"
                        },
 
@@ -406,7 +410,7 @@ errmsg = {'no_file' : {'de' : 'Datei existiert nicht!',
 
 
 ##\var infomsg
-#simply some info messages for the help window
+#Simply some info messages for the help window
 infomsg = {'help_info' : {'de' : 'F\xc3\xbcr eine genauere Information '\
                                  '\xc3\xbcber die '\
                                  'einzelnen Standardelemente bitte auf das '\
@@ -431,13 +435,13 @@ s_elem_def = {'CRITICAL' : {'de' : 'Ausgeteilte kritische Treffer',
               'SPELL'    : {'de' : 'Stufe angewendeter Zauber',
                             'en' : 'Level of used spell',
                            },
-              'MANEUVER' : {'de' : 'Erfolgreiche Manoever',
+              'MANEUVER' : {'de' : 'Erfolgreiche Man\xc3\xb6ver',
                            'en' : 'Successful maneuver.',
                            },
               'TRAVEL'   : {'de' : 'Reisestrecke',
                            'en' : 'Traveled distance',
                             },
-              'KILLED'   : {'de' : 'Getoetete Gegner',
+              'KILLED'   : {'de' : 'Get\xc3\xb6tete Gegner',
                             'en' : 'Killed enemies/monster',
                             },
               'INDIVIDUAL' : {'de' : 'Individuelle Punkte.',
@@ -447,7 +451,7 @@ s_elem_def = {'CRITICAL' : {'de' : 'Ausgeteilte kritische Treffer',
 
 
 ##\var csvlabels 
-# contains some values for characters
+# Contains some values for characters
 # \deprecated contains some values for characters (not needed yet)
 csvlabels = {'Name' : {'de' : "Charaktername",
                        'en' : "character name"
@@ -484,3 +488,323 @@ csvlabels = {'Name' : {'de' : "Charaktername",
                         },
              
              }
+
+##\var trhelptext 
+# Contains help text for class treasure
+trhelptext = {'description' : {'de' : 'Schatzgenerator:\nErzeugt einen Text, der den Inhalt eines Schatzes beschreibt.\nParameter der Funktion findTreasure:\n',
+                             'en' : 'Treasure Generator:\nCreates a text describing the content of a treasure.\nParameters of the function findTreasure:\n'
+                            },
+            'ttype' : {'de': 'Nummer oder Sch\xc3\xbcsselwort einer der folgenden Kategorien\n   1 sehr arm, 2 arm, 3 normal, 4 reich, 5 sehr reich\n',
+                       'en': 'Number or keyword of one of the following categores\n   1 very poor, 2 poor, 3 normal, 4 rich, 5 very rich\n' 
+                       },
+            'output' : {'de' : 'Drei Optionen\n  \"screen\" --> Ausgabe auf den Bildschirm.\n  <string> --> Name der Ausgabedatei in die ausgegeben werden soll.\n  \"\" --> Es wird keine Datei erstellt, wenn der Parameter nicht gesetzt ist.',
+                        'en' : 'Three options\n  \"screen\" --> Output on the screen.\n  <string> --> Name of the file which will be used for output.\n  \"\" --> No file is created if the parameter is not set.'
+                            }
+            }
+
+##\var trtypelist
+# Contains categories of richness of a treasure
+trtypelist = {'de': ('sehr arm', 'arm', 'normal', 'reich', 'sehr reich'),
+              'en': ('very poor', 'poor', 'normal', 'rich', 'very rich'),
+              'num': (1, 2, 3, 4, 5)
+              }
+
+##\var trheader
+# Contains header for treasure description
+trheader = {'de' : "Schatzinhalt",
+            'en' : "Content of Treasure"
+            }
+
+##\var valueTranslation
+# Contains descriptions of money units
+valueTranslation = {"ZS": {"de": "Zinnst\xc3\xbccke",
+                           "en": "tin pieces"
+                            },
+                    "KS": {"de": "Kupferst\xc3\xbccke",
+                           "en": "copper pieces"
+                           },
+                    "BS": {"de": "Bronzest\xc3\xbccke",
+                           "en": "bronze pieces"
+                           },
+                    "SS": {"de": "Silberst\xc3\xbccke",
+                           "en": "silver pieces"
+                           },
+                    "GS": {"de": "Goldst\xc3\xbccke",
+                           "en": "gold pieces"
+                           },
+                    "MS": {"de": "Mithrilst\xc3\xbccke",
+                           "en": "mithril pieces"
+                           },
+                    "Ed": {"de": "Edelsteine",
+                           "en": "gems"
+                           },
+                    "Sch": {"de": "Schmuckst\xc3\xbccke",
+                            "en": "jewelry"
+                            }
+                    }
+
+##\var itemTranslation
+# Contains description of items in a treasure
+itemTranslation =   {"normal": {"de": "normaler Gegenstand",
+                                "en": "normal item"
+                                },
+                     "Gew80": {"de": "guter Gegenstand (80% Gewicht)",
+                               "en": "high quality item (80% weight)"
+                               },
+                     "Gew60": {"de": "guter Gegenstand (60% Gewicht)",
+                               "en": "high quality item (60% weight)"
+                               },
+                     "Gew40": {"de": "guter Gegenstand (40% Gewicht)",
+                               "en": "high quality item (40% weight)"
+                               },
+                     "Bonus5": {"de": "magisch verbesserter Gegenstand (Bonus +5)",
+                                "en": "magical enhanced item (bouns +5)"
+                                },
+                     "Bonus10": {"de": "magisch verbesserter Gegenstand (Bonus +10)",
+                                 "en": "magical enhanced item (bonus +10)"
+                                 },
+                     "Bonus15": {"de": "magisch verbesserter Gegenstand (Bonus +15)",
+                                 "en": "magical enhanced item (bonus +15)"
+                                 },
+                     "Bonus20": {"de": "magisch verbesserter Gegenstand (Bonus +20)",
+                                 "en": "magical enhanced item (bonus +20)"
+                                 },
+                     "Spruch": {"de": "Gegenstand mit eingebettetem Zauberspruch",
+                                "en": "item with embedded spell"
+                                },
+                     "SV1": {"de": "Spruchvermehrer +1",
+                             "en": "spell adder +1"
+                             },
+                     "SV2": {"de": "Spruchvermehrer +2",
+                             "en": "spell adder +2"
+                             },
+                     "SV3": {"de": "Spruchvermehrer +3",
+                             "en": "spell adder +3"
+                             },
+                     "MV2": {"de": "Magiepunktevermehrer x2",
+                             "en": "power point multiplier x2"
+                             },
+                     "MV3": {"de": "Magiepunktevermehrer x3",
+                             "en": "power point multiplier x3"
+                             },
+                     "bes": {"de": "besonderer Gegenstand",
+                             "en": "special item"
+                             }
+                     }
+
+
+##\var itemTypes
+# This holds the type of the magical item   
+itemTypes = {'1-40': {'de': 'Runenpapier',
+                      'en': 'Rune Paper'
+                      },
+             '41-65': {'de': 'Trank',
+                       'en': 'Potion'
+                       },
+             '66-70': {'de': 'Schmuckst\xc3\xbcck: T\xc3\xa4glich I',
+                       'en': 'jewelry: Daily I'
+                       },
+             '71-75': {'de': 'Schmuckst\xc3\xbcck: T\xc3\xa4glich II',
+                       'en': 'jewelry: Daily II'
+                       },
+             '76-80': {'de': 'Schmuckst\xc3\xbcck: T\xc3\xa4glich III',
+                       'en': 'jewelry: Daily III'
+                       },
+             '81-85': {'de': 'Schmuckst\xc3\xbcck: T\xc3\xa4glich IV',
+                       'en': 'jewelry: Daily IV'
+                       },
+             '86-94': {'de': 'Stab',
+                       'en': 'Wand'
+                       },
+             '95-98': {'de': 'Rute',
+                       'en': 'Rod'
+                       },
+             '99-100': {'de': 'Stecken',
+                        'en': 'Pole'
+                        } 
+             }
+
+
+##\var spellRealms
+# This holds the realm of the spells   
+spellRealms = {'1-30': {'de': 'Offene Essenz',
+                         'en': 'Open Essence'
+                         },
+               '31-60': {'de': 'Magier',
+                         'en': 'Magician'
+                         },
+               '61-75': {'de': 'Leitmagie',
+                         'en': 'Channeling',
+                         },
+               '76-90': {'de': 'Animisten',
+                         'en': 'Animist'
+                         },
+               '91-100': {'de': 'Barde/Waldl\xc3\xa4ufer',
+                          'en': 'Bard/Hunter'
+                          },
+               }
+
+##\var spellList
+# This holds the spell list
+spellLists = {'1-2' : {'Open Essence': {'de': 'Fluch',
+                                        'en': 'Curse'
+                                        },
+                       'Magician': {'de': 'Fluch',
+                                    'en': 'Curse'
+                                    },
+                       'Channeling': {'de': 'Fluch',
+                                      'en': 'Curse'
+                                      },
+                       'Animist': {'de': 'Fluch',
+                                   'en': 'Curse'
+                                   },
+                       'Bard/Hunter': {'de': 'Fluch',
+                                       'en': 'Curse'
+                                       },
+                       },
+              '3-14': {'Open Essence': {'de': 'Herrschaft \xc3\xbcber den K\xc3\xb6rper',
+                                        'en': 'Reign over the body'
+                                        },
+                       'Magician': {'de': 'Gesetz des Feuers',
+                                    'en': 'Fire Law'
+                                    },
+                       'Channeling': {'de': 'Naturkunde',
+                                      'en': 'Natures law'
+                                      },
+                       'Animist': {'de': 'Seelenkunde',
+                                   'en': 'Souls law'
+                                   },
+                       'Bard/Hunter' : {'de': 'Wege des Lernens',
+                                        'en': 'Ways of learning'
+                                        },
+                       },
+              '15-26': {'Open Essence': {'de': 'Verborgenes Verstehen',
+                                         'en': 'Hiden understanding'
+                                         },
+                        'Magician': {'de': 'Gesetz des Eises',
+                                     'en': 'Ice law'
+                                     },
+                        'Channeling': {'de': 'Wege des Wandelns',
+                                       'en': 'Ways of changing'
+                                       },
+                        'Animist': {'de': 'Wesen des Blutes',
+                                    'en': 'Nature of blood'
+                                    },
+                        'Bard/Hunter': {'de': 'Lieder der Macht',
+                                        'en': 'Songs of power'
+                                        },
+                        },
+              '27-38': {'Open Essence': {'de': 'Wege des Öffnens',
+                                         'en': 'Ways of Opening'
+                                         },
+                        'Magician': {'de': 'Gesetz der Erde',
+                                     'en': 'Earth law'
+                                     },
+                        'Channeling': {'de': 'Abwehr von Zaubern',
+                                       'en': 'Defense of Spells'
+                                       },
+                        'Animist': {'de': 'Wesen der Knochen und Muskeln',
+                                    'en': 'Nature of bones and muscles'
+                                    },
+                        'Bard/Hunter': {'de': 'Ger\xc3\xa4uschkontrolle',
+                                        'en': 'Sound control'
+                                        },
+                        },
+              '39-50': {'Open Essence': {'de': 'Hand der Essenz',
+                                         'en': 'Hand of essence'
+                                         },
+                        'Magician': {'de': 'Gesetz des Lichts',
+                                     'en': 'Light law'
+                                     },
+                        'Channeling': {'de': 'Wege der Heilung',
+                                       'en': 'Ways of healing'
+                                       },
+                        'Animist': {'de': 'Wesen der Organe',
+                                    'en': 'Nature of organs'
+                                    },
+                        'Bard/Hunter': {'de': 'Gegenstandskunde',
+                                        'en': 'Item lore'
+                                        },
+                        },
+              '51-62': {'Open Essence': {'de': 'Spruchkunde',
+                                         'en': 'Spell lore'
+                                         },
+                        'Magician': {'de': 'Gesetz des Windes',
+                                     'en': 'Wind law'
+                                     },
+                        'Channeling': {'de': 'Schutz',
+                                       'en': 'Protection'
+                                       },
+                        'Animist': {'de': 'Beherrschung der Tiere',
+                                    'en': 'Animal control'
+                                    },
+                        'Bard/Hunter': {'de':'Wesen der Wege',
+                                        'en': 'Nature of paths'
+                                        },
+                        },
+              '63-74': {'Open Essence': {'de': 'Wege der Wahrnehmung',
+                                         'en': 'Ways of perception'
+                                         },
+                        'Magician': {'de': 'Gesetz des Wassers',
+                                     'en': 'Water law'
+                                     },
+                        'Channeling': {'de': 'Verborgenes Entdecken',
+                                       'en': 'Discover hidden'
+                                       },
+                        'Animist': {'de': 'Beherrschung der Pflanzen',
+                                    'en': 'Plant control'
+                                    },
+                        'Bard/Hunter': {'de': 'Wege des Wanderns',
+                                        'en': 'Ways of wandering'
+                                        },
+                        },
+              '75-86': {'Open Essence': {'de': 'Illusionen',
+                                         'en': 'Illusions'
+                                         },
+                        'Magician': {'de': 'Entfernungen Überbr\xc3\xbccken',
+                                     'en': 'Distance law'
+                                     },
+                        'Channeling': {'de': 'Wege von Ger\xc3\xa4usch und Licht',
+                                       'en': 'Ways of sound and light'
+                                       },
+                        'Animist': {'de': 'Heilkunde',
+                                    'en': 'Healing'
+                                    },
+                        'Bard/Hunter': {'de': 'Wege der Tarnung',
+                                        'en': 'Ways of Camouflage'
+                                        },
+                        },
+              '87-98': {'Open Essence': {'de': 'Herrschaft \xc3\xbcber den Geist',
+                                         'en': 'Reign over the mind',
+                                         },
+                        'Magician': {'de': 'K\xc3\xb6rperkontrolle',
+                                     'en': 'Body control'
+                                     },
+                        'Channeling': {'de':'Wege der Beruhigung',
+                                       'en': 'Ways of sedation',
+                                       },
+                        'Animist': {'de': 'Nahrung und Schutz',
+                                    'en': 'Food and Protection'
+                                    },
+                        'Bard/Hunter': {'de': 'Wesen der Natur',
+                                        'en': 'Ways of Nature'
+                                        },
+                        },
+              '99-100': {'Open Essence': {'de':'Besonderheit',
+                                          'en':'Special'
+                                          },
+                         'Magician': {'de': 'Besonderheit',
+                                      'en': 'Special'
+                                      },
+                         'Channeling': {'de': 'Besonderheit',
+                                        'en': 'Special'
+                                        },
+                         'Animist': {'de': 'Besonderheit',
+                                     'en': 'Special'
+                                     },
+                         'Bard/Hunter': {'de': 'Besonderheit',
+                                         'en': 'Special' 
+                                         },
+                         }
+              }
+
