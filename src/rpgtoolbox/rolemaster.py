@@ -58,7 +58,7 @@ exceptions = ['Costs', 'Stats', 'Progression', 'rank', 'rank bonus', 'spec bonus
 ##\var realms
 # a dictionary for translating the names of magic realms
 realms = {'en': ('choice', 'Essence', 'Channeling', 'Mentalism',
-                 ['Channeling', 'Menttalism'], ['Channeling', 'Essence'],
+                 ['Channeling', 'Mentalism'], ['Channeling', 'Essence'],
                  ['Essence', 'Mentalism']),
           'de': ('wählbar', 'Essenz', 'Leitmagie', 'Mentalismus',
                  ['Leitmagie', 'Mentalismus'], ['Leitmagie', 'Essenz'],

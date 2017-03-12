@@ -25,26 +25,26 @@ Martial Arts - Sweeps,Ag/Ag/St,Standard
 Outdoor - Animal, Em/Em/Ag,Standard
 Outdoor - Environmental,SD/In/Me,Standard
 Power Awareness,Em/In/Pr,Standard
-Power Manipulation,Em/In/Pr,Null
+Power Manipulation,Em/In/Pr,Combined
 Science/Analytic - Basic,Re/Me/Re,Standard
-Science/Analytic - Specialized,Re/Me/Re,Null
+Science/Analytic - Specialized,Re/Me/Re,Combined
 Self Control,SD/SD/Pr,Standard
-Special Attacks,St/Ag/SD,Null
-Special Defenses,,Null
-Spells - Arcane Open Lists,,Null
-Spells - Other Realm Base Lists,,Null
-Spells - Other Realm Closed Lists,,Null
-Spells - Other Realm Open Lists,,Null
-Spells - Own Realm Closed Lists,,Null
-Spells - Own Realm Open Lists,,Null
-Spells - Own Realm Other Base Lists,,Null
-Spells - Own Realm Own Base Lists,,Null
+Special Attacks,St/Ag/SD,Combined
+Special Defenses,,Combined
+Spells - Arcane Open Lists,,Skill Only
+Spells - Other Realm Base Lists,,Skill Only
+Spells - Other Realm Closed Lists,,Skill Only
+Spells - Other Realm Open Lists,,Skill Only
+Spells - Own Realm Closed Lists,,Skill Only
+Spells - Own Realm Open Lists,,Skill Only
+Spells - Own Realm Other Base Lists,,Skill Only
+Spells - Own Realm Own Base Lists,,Skill Only
 Subterfudge - Attack,Ag/SD/In,Standard
 Subterfudge - Mechanics,In/Ag/Re,Standard
 Subterfudge - Stealth,Ag/SD/In,Standard
 Technical/Trade - General,Re/Me/SD,Standard
-Technical/Trade - Professional,Re/Me/In,Null
-Technical/Trade - Vocational,Me/in/Re,Null
+Technical/Trade - Professional,Re/Me/In,Combined
+Technical/Trade - Vocational,Me/in/Re,Combined
 Urban,In/Pr/Re,Standard
 Weapon - 1-H Concussion,St/Ag/St,Standard
 Weapon - 1-H Edged,St/Ag/St,Standard

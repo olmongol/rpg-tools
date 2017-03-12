@@ -15,7 +15,8 @@ Awareness - Searching		,1,1,1,1,1,1,1,1,1,1,1,1,1
 Body Development		,0,0,0,0,0,0,0,0,0,0,0,0,0
 -Body Development		,3,2,2,2,1,2,3,1,1,1,1,3,2
 Communications			,1,1,1,1,3,1,3,2,3,4,3,1,1
--Languages+			,4,10,4,8,10,4,12,12,16,20,8,8,6
+-Language (spoken)+		,4,10,4,8,10,4,10,10,10,10,8,8,6
+-Language (written)+		,0,0,0,0,0,0,2,2,6,10,0,0,0
 Lore - General			,3,3,3,3,3,3,3,3,3,3,3,3,2
 -Region Lore+			,3,3,3,3,3,3,3,3,3,3,3,3,3
 -Culture Lore+			,3,3,3,3,3,3,3,3,3,3,3,3,3
@@ -24,7 +25,8 @@ Outdoor - Animal		,0,0,5,1,0,0,1,1,1,1,1,0,0
 Outdoor - Environmental		,4,1,3,2,0,5,1,5,4,3,3,2,1
 Power Awareness			,0,0,0,0,2,0,1,1,1,2,1,0,0
 Science/Analytic - Basic	,0,1,0,0,1,0,1,1,1,2,1,1,0
--Own Realm Open Lists+		,0,1,0,0,2,0,0,2,3,4,1,0,0
+Spells - Own Realm Open Lists	,0,0,0,0,0,0,0,0,0,0,0,0,0
+-Spell List+   			,0,1,0,0,2,0,0,2,3,4,1,0,0
 Subterfudge - Stealth		,2,0,0,1,0,4,0,4,3,2,2,0,5
 -Stalking			,2,0,0,1,0,4,0,4,3,2,2,0,5
 -Hiding				,2,0,0,1,0,4,0,4,3,2,2,0,5

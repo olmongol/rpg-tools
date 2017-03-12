@@ -12,7 +12,7 @@ Awareness - Searching,Detect Traps;Lie Perception;Locate Hidden;Observation;Pois
 Awareness - Senses,Direction Sense;Reality Awareness;Situational Awareness+;Spacial Location Awareness,Sense Awareness+,Time Sense,Standard
 Body Development,Body Development,DB
 Combat Maneuvers,Adrenal Deflecting;Mounted Combat;Quickdraw;Reverse Stroke+;Subdual;Swashbuckling;Tumbling Evasion;Two-weapon Combat,Combined
-Communications, Language (spoken)+;Language (written)+;Lip Reading;Magical Languages;Signaling,Standard
+Communications,Language (spoken)+;Language (written)+;Lip Reading;Magical Languages;Signaling,Standard
 Crafts,drafting;Cooking;Fletching;Horticulture;Leather Crafts+;Metal Crafts+;Rope Mastery;Scribing;Service;Sewing/Weaving;Skinning;Stone-crafts+;Trapping;Wood-crafts+,Combined
 Directed Spells, Type of Attack+,Standard
 Influence,Bribery;Diplomacy;Duping;Interrogation;Leadership;Propaganda;Public Speaking;Seduction;Trading,Standard
@@ -22,7 +22,7 @@ Lore - Obscure,Demon/Devil Lore;Dragon Lore;Faerie Lore;Xeno-lore+,Standard
 Lore - Technical,Herb Lore;Lock Lore;Metal Lore;Poison Lore;Stone Lore;Traiding Lore,Standard
 Martial Arts - Striking,Boxing;Strinking Degree 1;Striking Degree 2;Striking Degree 3;Striking Degree 4;Tackling,Standard
 Martial Arts - Sweeps,Blocking;Sweeps Degree 1;Sweeps Degree 2;Sweeps Degree 3;Sweeps Degree 4;Wrestling,Standard
-Outdoor - Animal,Animal Handling+;Animal Healing+;Animal Mastery+;Animal Training+;Driving+;Herding+;Riding,Standard
+Outdoor - Animal,Animal Handling+;Animal Healing+;Animal Mastery+;Animal Training+;Driving+;Herding+;Riding+,Standard
 Outdoor - Environmental,Caving;Foraging;Hunting;Star-gazing;Survival+;Weather Watching,Standard
 Power Awareness,Attunement;Diviniation;Power Perception;Read Runes,Standard
 Power Manipulation,Channeling;Magic Ritual;Spell Mastery+;Trancent Armor,Standard
@@ -32,27 +32,7 @@ Science/Analytic - Specialized,Advanced Math;Anthropology+;Alchemy;Astronomy;Bio
 Self Control,Andrenal Balance;Adrenal Concentration;Adrenal Landing;Adrenal Leaping;Adrenal Quickness;Adrenal Speed;Adrenal Stabilization;Adrenal Strength;Cleansing Trance;Control Lycynthropy;Death Trance;Frenzy;Healing Trance;Meditation;Mnemonics;Sleep Trance;Stunned Maneuvering,Standard
 Special Attacks,Brawling;Disarm Foe (armed)+;Disarm Foe (unarmed)+; Jousting (Lancing),Combined
 Special Defenses,Adrenal Defense;Adrenal Toughness,Combined
-Combat Maneuvers,Adrenal Deflecting;Mounted Combat;Quickdraw;Reverse Stroke+;Subdual;Swashbuckling;Tumbling Evasion;Two-weapon Combat,Combined
-Communications, Language (spoken)+;Language (written)+;Lip Reading;Magical Languages;Signaling,Standard
-Crafts,drafting;Cooking;Fletching;Horticulture;Leather Crafts+;Metal Crafts+;Rope Mastery;Scribing;Service;Sewing/Weaving;Skinning;Stone-crafts+;Trapping;Wood-crafts+,Combined
-Directed Spells, Type of Attack+,Standard
-Influence,Bribery;Diplomacy;Duping;Interrogation;Leadership;Propaganda;Public Speaking;Seduction;Trading,Standard
-Lore - General,Culture Lore+;History+;Fauna Lore;Flora Lore;Heraldry;Philosophy;Region Lore+;Religion,Standard
-Lore - Magical,Artifact Lore;Circle Lore;Planar Lore;Spell Lore;Symbol Lore;Undead Lore;Warding Lore,Standard
-Lore - Obscure,Demon/Devil Lore,Dragon Lore,Faerie Lore,Xeno-lore+,Standard
-Lore - Technical,Herb Lore;Lock Lore;Metal Lore;Poison Lore;Stone Lore;Traiding Lore,Standard
-Martial Arts - Striking,Boxing;Strinking Degree 1;Striking Degree 2;Striking Degree 3;Striking Degree 4;Tackling,Standard
-Martial Arts - Sweeps,Blocking;Sweeps Degree 1;Sweeps Degree 2;Sweeps Degree 3;Sweeps Degree 4;Wrestling,Standard
-Outdoor - Animal,Animal Handling+;Animal Healing+;Animal Mastery+;Animal Training+;Driving+;Herding+;Riding,Standard
-Outdoor - Environmental,Caving;Foraging;Hunting;Star-gazing;Survival+;Weather Watching,Standard
-Power Awareness,Attunement;Diviniation;Power Perception;Read Runes,Standard
-Power Manipulation,Channeling;Magic Ritual;Spell Mastery+;Trancent Armor,Standard
-Power Point Development,Power Point Development,PPD
-Science/Analytic - Basic,Basic Math;Research,Standard
-Science/Analytic - Specialized,Advanced Math;Anthropology+;Alchemy;Astronomy;Biochemestry;Psychology+,Combined
-Self Control,Andrenal Balance;Adrenal Concentration;Adrenal Landing;Adrenal Leaping;Adrenal Quickness;Adrenal Speed;Adrenal Stabilization;Adrenal Strength;Cleansing Trance;Control Lycynthropy;Death Trance;Frenzy;Healing Trance;Meditation;Mnemonics;Sleep Trance;Stunned Maneuvering,Standard
-Special Attacks,Brawling;Disarm Foe (armed)+;Disarm Foe (unarmed)+; Jousting (Lancing),Combined
-Special Defenses,Adrenal Defense;Adrenal Toughness,Combined
+Spells - Own Realm Open Lists,Spell List+,Skill only
 Subterfudge - Attack,Ambush;Silent Attack,Standard
 Subterfudge - Mechanics,Camouflage;Disarming Traps;Disguise;Counterfeiting;Forgery;Hiding Items;Picking Locks;Setting Traps;Trap Building;Using/Removing Poison,Standard
 Subterfudge - Stealth,Hiding;Picking Pockets;Stalking;Trickery,Standard
