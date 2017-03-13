@@ -2164,7 +2164,8 @@ class skillcatWin(blankWindow):
         for key in ['skill', 'progress', 'costs', 'rank', 'total']:
             self.__treecolumns.append(rmlabels[self.lang][key]) 
             
-        self.__tree = Treeview(columns = self.__treecolumns, show = "headings")
+#        self.__tree = Treeview(columns = self.__treecolumns, show = "headings")
+        self.__tree = Treeview(self.__treeframe, columns = self.__treecolumns, show = "headings")
         vscroll = AutoScrollbar(orient = "vertical", command = self.__tree.yview)
         hscroll = AutoScrollbar(orient = "horizontal", command = self.__tree.xview)
         self.__tree.configure(yscrollcommand = vscroll.set, xscrollcommand = hscroll.set)
@@ -2197,7 +2198,8 @@ class skillcatWin(blankWindow):
                                                           self.character['cat'][cat][self.__rmlabels['en']['costs']],
                                                           self.character['cat'][cat]['rank'],
                                                           
-                                                          )
+                                                          ),
+                                                tag = "category"
                                                 )
             ### much to do XXXXXXX                
             for skill in self.character['cat'][cat]['Skill'].keys():
@@ -2211,10 +2213,12 @@ class skillcatWin(blankWindow):
                                                  self.character['cat'][cat][self.__rmlabels['en']['costs']],
                                                  self.character['cat'][cat]['Skill'][skill]['rank'],
                                                  
-                                                )
+                                                ),
+                                       tag = "skill"
                                        )
+            
             catNo += 1
-
+        self.__tree.tag_configure('category', background = 'lightblue')
     def __selectTreeItem(self, event):
         '''
         Select an item from the treeview list.
