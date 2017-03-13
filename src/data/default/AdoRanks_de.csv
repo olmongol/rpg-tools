@@ -33,7 +33,7 @@ Subterfudge - Stealth		,2,0,0,1,0,4,0,4,3,2,2,0,5
 Technical/Trade - General	,1,1,1,1,1,1,1,1,1,1,1,1,1
 Urban				,0,1,0,0,5,0,0,0,0,0,0,0,0
 Weapon - 1-H Concussion		,1,0,0,0,0,0,0,0,0,0,0,4,0
--Weapon 1-H Concussion+		,1,0,0,0,0,0,0,0,0,0,0,4,0
+-Weapon - 1-H Concussion+	,1,0,0,0,0,0,0,0,0,0,0,4,0
 Weapon - 1-H Edged		,0,2,1,1,1,1,2,1,1,1,1,0,0
 -Weapon - 1-H Edged+		,0,2,1,1,1,1,2,1,1,1,1,0,0
 Weapon - 2-Handed		,0,0,0,0,0,0,1,0,0,0,0,0,0

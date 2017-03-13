@@ -1610,7 +1610,7 @@ class genAttrWin(blankWindow):
         as well as bonus (special, profession and items)
         \note Skills wont have a profession bonus. It is already applied to the 
         category.
-        \todo replace progession expression with number list for ALL skills and 
+        \todo replace progression expression with number list for ALL skills and 
         categories
         
         '''
@@ -1634,7 +1634,7 @@ class genAttrWin(blankWindow):
                                      'prof bonus' :0,
                                      'item bonus' :0,
                                      'rank' : 0
-                                     }  ##XXX rank insterted
+                                     }  
             for pb in self.profs[self.character['prof']]['Profession Bonusses'].keys():
                  
                 if pb in content[i][0]:
@@ -1847,8 +1847,6 @@ class priorizeWeaponsWin(blankWindow):
         This method adds the concerned developing costs and category/skill ranks
         during adolescence to the character data structure (JSON). 
         It also calculates the rank bonus for the first time.
-        \bug exchange progression numbers for Power Point Development does not work 
-        \todo concentrate all PPD stats on concerned Power Point Development and delete the others 
         '''
         from rpgtoolbox.rolemaster import races, labels, progressionType, rankbonus, catnames, exceptions, cultures
         ##\var prof
@@ -1877,30 +1875,24 @@ class priorizeWeaponsWin(blankWindow):
 
             if self.character['cat'][skillcat]['Progression'] == "Standard":
                 self.character['cat'][skillcat]['Progression'] = progressionType['standard cat']
-#                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType['standard skill']
                 skprog = progressionType['standard skill']
                 
             elif self.character['cat'][skillcat]['Progression'] == "BD":
                 self.character['cat'][skillcat]['Progression'] = progressionType['null']
-#                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType['BD %s' % crace]
                 skprog = progressionType['BD %s' % crace]
             
             elif self.character['cat'][skillcat]['Progression'] == "Null" or self.character['cat'][skillcat]['Progression'] == "Skill Only":
-#                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType['skill only'] 
                 self.character['cat'][skillcat]['Progression'] = progressionType['null']
                 skprog = progressionType['skill only']
-                
+                if skillcat == "Spells - Own Realm Open Lists":
+                    print skillcat
                 
             elif self.character['cat'][skillcat]['Progression'] == "Combined":
                 self.character['cat'][skillcat]['Progression'] = progressionType['null']
-#                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType['combined']
                 skprog = progressionType['combined']
-#            elif self.character['cat'][skillcat]['Progression'][:4] == "PPD ":        
-#                self.character['cat'][skillcat]['Progression'] = progressionType['null']
-#                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType["%s %s" % (self.character['cat'][skillcat]['Skill']['Progression'],
-#                                                                                                     crace)
-#                                                                                          ]  
+
             for skill in  self.character['cat'][skillcat]['Skill'].keys():
+            
                 print "Skill: %s - %s" % (skill, skprog)
                 if skill not in exceptions:
                     self.character['cat'][skillcat]['Skill'][skill]['Progression'] = skprog   
@@ -1931,6 +1923,7 @@ class priorizeWeaponsWin(blankWindow):
                                                                                              )
                                                                     }
                     lastcat = content[j][0]
+                    
                     if "Skill" not in self.__adoranks[content[0][i]][content[j][0]].keys():
                         self.__adoranks[content[0][i]][content[j][0]]['Skill'] = {}
                     
@@ -1938,25 +1931,19 @@ class priorizeWeaponsWin(blankWindow):
                 else:
                     self.__adoranks[content[0][i]][lastcat]['Skill'][content[j][0].strip('-')] = {'rank' : int(content[j][i]),
                                                                                                   'rank bonus' : 0,
-#                                                                                                  'rank bonus' : rankbonus(rank = int(content[j][i]),
-#                                                                                                  progression = self.character['cat'][lastcat]['Skill']['Progression']
-#                                                                                                                                     )
                                                                                                 } 
         if self.lang != "en": 
                     
             race = races['en'][races[self.lang].index(self.character['race'])]
             culture = cultures['en'][cultures[self.lang].index(self.character['culture'])]
+
         else:
             race = self.character['race'] 
             culture = self.character['culture']          
-        #\bug for cat in self.__adoranks[race].keys():
-        #KeyError: 'Common Men'
-        # XXXX
-        # for common men and mixed men it has to be culture not race
+
         if race in ['Common Men', 'Mixed Men']:
             race = culture
-        print race
-        print self.__adoranks.keys()
+            
         for cat in self.__adoranks[race].keys():
             self.character['cat'][cat]['rank'] = self.__adoranks[race][cat]['rank']
             self.character['cat'][cat]['rank bonus'] = self.__adoranks[race][cat]['rank bonus']
