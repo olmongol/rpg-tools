@@ -1,6 +1,6 @@
 Profession,Prime Stats,Realm,Profession Bonusses
 Fighter,St;Co,choice,Armor:10;Body Development:10;Combat Maneuvers:10;Weapon:20
-Thief,Ag;Qu,choice,Athletic - Gymnastics:5;Awareness:10;Body Development:5;Self Control:5;Subtefudge:15;Weapon:10
+Thief,Ag;Qu,choice,Athletic - Gymnastics:5;Awareness:10;Body Development:5;Self Control:5;Subterfudge:15;Weapon:10
 Rogue,Ag;St,choice,Armor:5;Athletic - Gymnastics:5;Awareness:5;Body Development:5;Combat Maneuvers:5;Subterfudge:10;Weapon:15
 Warrior Monk,Qu;SD,choice,Athletic - Gymnastics:5;Awareness:5;Body Development:10;Martial Arts:15;Self Control:15
 Layman,,choice,Athletic:5;Awareness:5;Body Development:5;Crafts:5;Outdoor:5;Power Awareness:5;Power Manipulation:5;Self Control:5;Technical/Trade:5;Weapon:5

@@ -26,14 +26,14 @@ catnames = {'de' : {'spells' : "Spells",
 # just a dictionary for translation of the races' names
 races = {'de' : ['normale Menschen', 'vermischte Menschen', 'Hochmenschen',
                  "Waldelben", "Grauelben", "Hochelben",
-                 "Halbelben", "Zwerge (Kuduk)", "Halblinge (Hobbits)"],
+                 "Halbelben", "Zwerge", "Halblinge"],
          'en' : ['Common Men', 'Mixed Men', 'High Men', 'Wood Elves', 'Grey Elves',
                  'High Elves', 'Half Elves', 'Dwarves', 'Halflings']
          }
 
 cultures = {'de' : ['Huegelmenschen', 'Corsaren', 'Nomaden', 'Landvolk', 'Stadtmenschen',
                    'Waldmenschen', 'Hochmenschen', 'Waldelben', 'Grauelben', 'Hochelben',
-                   'Halbelben', 'Zwerge (Kuduk)', 'Halblinge (Hobbits)'],
+                   'Halbelben', 'Zwerge', 'Halblinge'],
            'en' : ['Hillmen', 'Mariners', 'Nomads', 'Ruralmen', 'Urbanmen', 'Woodmen',
                    'High Men', 'Wood Elves', 'Grey Elves', 'High Elves', 'Half Elves',
                    'Dwarves', 'Halflings'] 
@@ -53,15 +53,27 @@ realmstats = {'de' : {'Essence' : 'Em',
                       },
               }
 
+exceptions = ['Costs', 'Stats', 'Progression', 'rank', 'rank bonus', 'spec bonus', \
+              'item bonus']
 ##\var realms
 # a dictionary for translating the names of magic realms
-realms = {'en': ('choice', 'Essence', 'Channeling', 'Ment',
-                 ['Chan', 'Ment'], ['Chan', 'Ess'],
-                 ['Ess', 'Ment']),
+realms = {'en': ('choice', 'Essence', 'Channeling', 'Mentalism',
+                 ['Channeling', 'Mentalism'], ['Channeling', 'Essence'],
+                 ['Essence', 'Mentalism']),
           'de': ('wählbar', 'Essenz', 'Leitmagie', 'Mentalismus',
                  ['Leitmagie', 'Mentalismus'], ['Leitmagie', 'Essenz'],
                  ['Essenz', 'Mentalismus']),
           }
+##\var ppds
+# a lists that helps to set the right PPD progression
+ppds = ("", "PPD Ess ", "PPD Chan ", "PPD Ment ",
+        ["PPD Chan ", "PPD Ment "], ["PPD Chan ", "PPD Ess "], ["PPD Ess ", "PPD Ment "])
+
+
+speccat = {'en': ['Body Development', 'Power Point Development'],
+           'de': ['Body Development', 'Power Point Development'],
+           }
+
 ##\var magicstats
 # holds the magic attribute on the same index as the lists in realms
 magicstats = ("", "Em", "In", "Pr", ['In', 'Pr'], ['In', 'Em'], ['Em', 'Pr'])
@@ -177,7 +189,7 @@ labels = {'de' : {'race' : 'Rasse',
                   'RRPoison' : "RR Poison",
                   'RRFear' : 'RR Fear',
                   'AT' : 'Armor Type',
-                  'MAP' : 'Missle Attack Penalty',
+                  'MAP' : 'Missile Attack Penalty',
                   'MMP' : 'Movement Maneuver Penalty',
                   'DB' : 'Defensive Bonus',
                   'shield' : 'Shield Bonus',
@@ -206,8 +218,8 @@ progressionType = {'standard cat'   : (-15, 2, 1, 0.5, 0),
                    'BD Grey Elves'  : (0, 6, 3, 2, 1),
                    'BD High Elves'  : (0, 7, 3, 2, 1),
                    'BD Half Elves'  : (0, 7, 5, 3, 1),
-                   'BD Dwarves (Kuduk)' : (0, 7, 4, 2, 1),
-                   'BD Halflings (Hobbits)'   : (0, 6, 2, 2, 1),
+                   'BD Dwarves' : (0, 7, 4, 2, 1),
+                   'BD Halflings'   : (0, 6, 2, 2, 1),
                    'PPD Chan Common Men' : (0, 6, 5, 4, 3),
                    'PPD Chan Mixed Men' : (0, 6, 5, 4, 3),
                    'PPD Chan High Men'  : (0, 6, 5, 4, 3),
@@ -215,17 +227,17 @@ progressionType = {'standard cat'   : (-15, 2, 1, 0.5, 0),
                    'PPD Chan Grey Elves'  : (0, 6, 5, 4, 3),
                    'PPD Chan High Elves'  : (0, 6, 5, 4, 3),
                    'PPD Chan Half Elves'  : (0, 6, 5, 4, 3),
-                   'PPD Chan Dwarves (Kuduk)'  : (0, 6, 5, 4, 3),
-                   'PPD Chan Halflings (Hobbits)'  : (0, 6, 5, 4, 3),
+                   'PPD Chan Dwarves'  : (0, 6, 5, 4, 3),
+                   'PPD Chan Halflings'  : (0, 6, 5, 4, 3),
                    'PPD Ess Common Men' : (0, 6, 5, 4, 3),
                    'PPD Ess Mixed Men' : (0, 6, 5, 4, 3),
                    'PPD Ess High Men' : (0, 6, 5, 4, 3),
                    'PPD Ess Wood Elves'   : (0, 7, 6, 5, 4),
                    'PPD Ess Grey Elves'   : (0, 7, 6, 5, 4),
                    'PPD Ess High Elves'   : (0, 7, 6, 5, 4),
-                   'PPD Ess  Half Elves' : (0, 6, 6, 4, 3),
-                   'PPD Ess Dwarves (Kuduk)' : (0, 3, 2, 1, 1),
-                   'PPD Ess Halflings (Hobbits' : (0, 2, 1, 1, 1),
+                   'PPD Ess Half Elves' : (0, 6, 6, 4, 3),
+                   'PPD Ess Dwarves' : (0, 3, 2, 1, 1),
+                   'PPD Ess Halflings' : (0, 2, 1, 1, 1),
                    'PPD Ment Common Men' : (0, 7, 6, 5, 4),
                    'PPD Ment Mixed Men' : (0, 7, 6, 5, 4),
                    'PPD Ment High Men' : (0, 7, 6, 5, 4),
@@ -233,8 +245,8 @@ progressionType = {'standard cat'   : (-15, 2, 1, 0.5, 0),
                    'PPD Ment Grey Elves' : (0, 6, 5, 4, 3),
                    'PPD Ment High Elves' : (0, 6, 5, 4, 3),
                    'PPD Ment Half Elves' : (0, 7, 5, 4, 3),
-                   'PPD Ment Dwarves (Kuduk)' : (0, 3, 2, 1, 1),
-                   'PPD Ment Halflings (Hobbits)' : (0, 2, 1, 1, 1),
+                   'PPD Ment Dwarves' : (0, 3, 2, 1, 1),
+                   'PPD Ment Halflings' : (0, 2, 1, 1, 1),
                    'skill only' : (0, 1, 1, 0.5, 0),
                    'null' : (0, 0, 0, 0, 0)
                    } 
@@ -535,6 +547,7 @@ def rankbonus(rank = 0, cat = 0, profession = 0, special = 0, progression = prog
     '''
     
     result = cat + profession + special
+   
     if rank == 0:
         result += progression[0]
         

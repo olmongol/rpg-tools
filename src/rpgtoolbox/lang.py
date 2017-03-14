@@ -402,7 +402,7 @@ errmsg = {'no_file' : {'de' : 'Datei existiert nicht!',
           'double' : {'de' : "Bitte nochmal kontrollieren: eine Auswahl ist doppelt!",
                       'en' : "Please check it again: one of your choices is double!",
                       },
-          'no_race' : {'de' : "Bitte erst ein Volk ausw\xc3\xa4hlen!",
+          'no_race' : {'de' : "Bitte erst eine Rasse auswählen!",
                        'en' : "Please chose a race first!"
                        },
 

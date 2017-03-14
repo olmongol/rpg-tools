@@ -5,8 +5,8 @@ Armor - Medium,Chain,Standard
 Artistic - Active,Acting;Dancing;Mimery;Mimicry;Play Instrument+;Poetic Improvisation;Singing;Tale Telling;Ventriloquism,Standard
 Artistic - Passive,Music;Painting;Poetry;Sculpting,Standard
 Athletic - Brawn,Athletic Games (Brawn)+;Jumping;Power-striking;Power-throwing;Weight-lifting,Standard
-Athletic - Enduracne,Athletic Games (Endurance)+;Distance Running;Rowing;Scaling;Sprinting;Swimming,Standard
-Athletic - Gymnastics,Athletic Games (Gymnastics)+;Acrobatics;Climbing;Contortions;Diving;Flying/Gliding;Juggling;Pole-vaulting;Rappeling;Skating;Skiing;Stilt Walking;Surfing,Tightrope-walking;Tumbling,Standard
+Athletic - Endurance,Athletic Games (Endurance)+;Distance Running;Rowing;Scaling;Sprinting;Swimming,Standard
+Athletic - Gymnastics,Athletic Games (Gymnastics)+;Acrobatics;Climbing;Contortions;Diving;Flying/Gliding;Juggling;Pole-vaulting;Rappeling;Skating;Skiing;Stilt Walking;Surfing;Tightrope-walking;Tumbling,Standard
 Awareness - Perception,Alerness;Sense Ambush,Skill only
 Awareness - Searching,Detect Traps;Lie Perceptin;Locate Hidden;Observation;Poison Perception;Reading Tracks;Surveillance;Tracking,Standard
 Awareness - Senses,Direction Sense;Reality Awareness;Situational Awareness+;Spacial Location Awareness,Sense Awareness+,Time Sense,Standard
@@ -23,7 +23,7 @@ Lore - Technical,Herb Lore;Lock Lore;Metal Lore;Poison Lore;Stone Lore;Traiding 
 Martial Arts - Striking,Boxing;Strinking Degree 1;Striking Degree 2;Striking Degree 3;Striking Degree 4;Tackling,Standard
 Martial Arts - Sweeps,Blocking;Sweeps Degree 1;Sweeps Degree 2;Sweeps Degree 3;Sweeps Degree 4;Wrestling,Standard
 Outdoor - Animal,Animal Handling+;Animal Healing+;Animal Mastery+;Animal Training+;Driving+;Herding+;Riding,Standard
-Outdoor - Environmental,Caving;Foraging;Hunting;Star-gazing;Survival+,Weather Watching,Standard
+Outdoor - Environmental,Caving;Foraging;Hunting;Star-gazing;Survival+;Weather Watching,Standard
 Power Awareness,Attunement;Diviniation;Power Perception;Read Runes,Standard
 Power Manipulation,Channeling;Magic Ritual;Spell Mastery+;Trancent Armor,Standard
 Power Point Development,Power Point Development,PPD
@@ -44,7 +44,7 @@ Lore - Technical,Herb Lore;Lock Lore;Metal Lore;Poison Lore;Stone Lore;Traiding 
 Martial Arts - Striking,Boxing;Strinking Degree 1;Striking Degree 2;Striking Degree 3;Striking Degree 4;Tackling,Standard
 Martial Arts - Sweeps,Blocking;Sweeps Degree 1;Sweeps Degree 2;Sweeps Degree 3;Sweeps Degree 4;Wrestling,Standard
 Outdoor - Animal,Animal Handling+;Animal Healing+;Animal Mastery+;Animal Training+;Driving+;Herding+;Riding,Standard
-Outdoor - Environmental,Caving;Foraging;Hunting;Star-gazing;Survival+,Weather Watching,Standard
+Outdoor - Environmental,Caving;Foraging;Hunting;Star-gazing;Survival+;Weather Watching,Standard
 Power Awareness,Attunement;Diviniation;Power Perception;Read Runes,Standard
 Power Manipulation,Channeling;Magic Ritual;Spell Mastery+;Trancent Armor,Standard
 Power Point Development,Power Point Development,PPD
@@ -56,14 +56,14 @@ Special Defenses,Adrenal Defense;Adrenal Toughness,Combined
 Subterfudge - Attack,Ambush;Silent Attack,Standard
 Subterfudge - Mechanics,Camouflage;Disarming Traps;Disguise;Counterfeiting;Forgery;Hiding Items;Picking Locks;Setting Traps;Trap Building;Using/Removing Poison,Standard
 Subterfudge - Stealth,Hiding;Picking Pockets;Stalking;Trickery,Standard
-Technical/Trade - General,Beggin;First Aid;Gambling,Mapping;Operating Equipment;Orienteering;Sailing;Tactical Games;Using Prepared Herbs,Standard
+Technical/Trade - General,Begging;First Aid;Gambling;Mapping;Operating Equipment;Orienteering;Sailing;Tactical Games;Using Prepared Herbs,Standard
 Technical/Trade - Professional,Adverising;Achitecture;Diagnostics+;Dowsing;Engineering+;Mechanition+;Military Organization+;Mining+;Second Aid;Surgery,Combined
-Technical/Trade - Vocational,Administration;Appraisal;Boat Pilot+;Cartography;Evaluate Armor;Evaluate Metal;Evaluate Stone;Evaluate Weapon;Gimmickry;Hypnosis;Mechanition;Midwifery;Navigation;Preparing Herbs,Preparing Poison,Siege Engineering,Tactics+,Combined
+Technical/Trade - Vocational,Administration;Appraisal;Boat Pilot+;Cartography;Evaluate Armor;Evaluate Metal;Evaluate Stone;Evaluate Weapon;Gimmickry;Hypnosis;Mechanition;Midwifery;Navigation;Preparing Herbs;Preparing Poison;Siege Engineering;Tactics+,Combined
 Urban,Contacting;Mingling;Scrounging;Streetwise,Standard
-Weapon - 1-H Concussion,,Standard
-Weapon - 1-H Edged,,Standard
-Weapon - 2-Handed,,Standard
-Weapon - Missile,,Standard
-Weapon - Missle Artilery,,Standard
-Weapon - Pole Arms,,Standard
-Weapon - Thrown,,Standard
+Weapon - 1-H Concussion,Weapon - 1-H Concussion+,Standard
+Weapon - 1-H Edged,Weapon - 1-H Edged+,Standard
+Weapon - 2-Handed,Weapon - 2-Handed+,Standard
+Weapon - Missile,Weapon - Missile+,Standard
+Weapon - Missile Artillery,Weapon - Missile Artillery+,Standard
+Weapon - Pole Arms,Weapon - Pole Arms+,Standard
+Weapon - Thrown,Weapon - Thrown+,Standard

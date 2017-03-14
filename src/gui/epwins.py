@@ -589,7 +589,6 @@ class inputWin(blankWindow):
         '''
         Method to open a new window for character creation.
         '''
-#        print "input win --> createchar"
         self.window.destroy()
         self.window3 = genAttrWin(lang = self.lang,
                                  storepath = self.mypath)
@@ -892,7 +891,6 @@ class genAttrWin(blankWindow):
         '''
         \param lang Choosen display language (default en)
         \param storepath Path to store data (default: ./data)
-        \todo add OptionMenu for culture choice for mixed men and common men.
         '''
         
         if rpg == "RoleMaster":
@@ -1234,54 +1232,57 @@ class genAttrWin(blankWindow):
         20.
         '''     
         testp = self.stats['prof'].get()
-        primestats = self.profs[testp]['Prime Stats']
-        self.__rangeOK = True
-        
-        for s in self.__rmstats:
-            if self.stats[s.strip('*')].get() < 20:
-                self.__rangeOK = False
-                self.stats[s.strip('*')].set(20)
-                messageWindow(self.lang).showinfo(errmsg['wrong_stat'][self.lang] + "\n%s --> 20" % s)
-        
-        for s in primestats:
+        if testp != "":
+            primestats = self.profs[testp]['Prime Stats']
+            self.__rangeOK = True
             
-            if self.stats[s.strip('*')].get() < 90:
-                self.__rangeOK = False
-                self.stats[s.strip('*')].set(90)
-                messageWindow(self.lang).showinfo(errmsg['wrong_stat'][self.lang] + "\ns %s --> 90 " % s)
+            for s in self.__rmstats:
+                if self.stats[s.strip('*')].get() < 20:
+                    self.__rangeOK = False
+                    self.stats[s.strip('*')].set(20)
+                    messageWindow(self.lang).showinfo(errmsg['wrong_stat'][self.lang] + "\n%s --> 20" % s)
+            
+            for s in primestats:
+                
+                if self.stats[s.strip('*')].get() < 90:
+                    self.__rangeOK = False
+                    self.stats[s.strip('*')].set(90)
+                    messageWindow(self.lang).showinfo(errmsg['wrong_stat'][self.lang] + "\ns %s --> 90 " % s)
              
     def __setPStats(self):
         '''
         Sets the primary (and magic) stats for a profession
-        \todo set the magic stat for chosen realms to
+        \todo set the magic stat for chosen realms to semi spell users
         '''    
         testp = self.stats['prof'].get()
-        primestats = self.profs[testp]['Prime Stats']
         
-        for s in self.__rmstats:
-            dummy = self.__labels[s].get()
-            dummy = dummy.strip(" ()+*")
+        if testp != "":
+            primestats = self.profs[testp]['Prime Stats']
             
-            if s in primestats:
-                self.__labels[s].set(dummy + ' (+)')
+            for s in self.__rmstats:
+                dummy = self.__labels[s].get()
+                dummy = dummy.strip(" ()+*")
                 
-                if self.stats[s].get() < 90:
-                    self.stats[s].set(90)
+                if s in primestats:
+                    self.__labels[s].set(dummy + ' (+)')
+                    
+                    if self.stats[s].get() < 90:
+                        self.stats[s].set(90)
+                    
+                elif s + '*' in primestats:
+                    self.__labels[s].set(dummy + ' (+)(*)')
+                    
+                    if self.stats[s].get() < 90:
+                        self.stats[s].set(90)
                 
-            elif s + '*' in primestats:
-                self.__labels[s].set(dummy + ' (+)(*)')
+                else:
+                    self.__labels[s].set(dummy)
+                    
+                    if self.stats[s].get() < 20:
+                        self.stats[s].set(20)
                 
-                if self.stats[s].get() < 90:
-                    self.stats[s].set(90)
-            
-            else:
-                self.__labels[s].set(dummy)
-                
-                if self.stats[s].get() < 20:
-                    self.stats[s].set(20)
-            
-            potstat = self.__creatPot(self.stats[s].get())
-            self.pots[s].set(potstat)
+                potstat = self.__creatPot(self.stats[s].get())
+                self.pots[s].set(potstat)
                         
         self.__calcBonus()
     
@@ -1330,12 +1331,14 @@ class genAttrWin(blankWindow):
         \bug potential cause for false DP calculations. It is not clear how to 
         reproduce this bug.
         \bug  if testr != self.profs[testp]['Realm'] and self.profs[testp]['Realm'] != "choice": KeyError: ''
+        \bug if realm chosen before profession an error occurs (sdtout) 
+        \note bug should be fixed
         '''
         testr = self.stats['realm'].get()
         testp = self.stats['prof'].get()
-
-        if testr != self.profs[testp]['Realm'] and self.profs[testp]['Realm'] != "choice":
-            self.stats['realm'].set(self.profs[testp]['Realm'])
+        if testp != "":
+            if testr != self.profs[testp]['Realm'] and self.profs[testp]['Realm'] != "choice":
+                self.stats['realm'].set(self.profs[testp]['Realm'])
         self.__setPStats()
         self.__calcBonus()
             
@@ -1584,6 +1587,7 @@ class genAttrWin(blankWindow):
                                   'CP' : 0,
                                   'TP' : 0,
                                   'IP' : 0}
+        self.character['old_exp'] = 0
         self.character['exp'] = 10000
         self.character['lvl'] = 1
         
@@ -1605,12 +1609,12 @@ class genAttrWin(blankWindow):
         as well as bonus (special, profession and items)
         \note Skills wont have a profession bonus. It is already applied to the 
         category.
-        \todo replace progession expression with number list for ALL skills and 
+        \todo replace progression expression with number list for ALL skills and 
         categories
         
         '''
         from rpgtoolbox import rolemaster as rm
-        fp = open("%s/default/Skills_%s.csv" % (self.spath, self.lang))
+        fp = open("%sdefault/Skills_%s.csv" % (self.spath, self.lang))
         content = fp.readlines()
         fp.close()
         
@@ -1627,8 +1631,9 @@ class genAttrWin(blankWindow):
                                      content[0][1] : {},
                                      'spec bonus' :0,
                                      'prof bonus' :0,
-                                     'item bonus' :0
-                                     }
+                                     'item bonus' :0,
+                                     'rank' : 0
+                                     }  
             for pb in self.profs[self.character['prof']]['Profession Bonusses'].keys():
                  
                 if pb in content[i][0]:
@@ -1656,13 +1661,18 @@ class genAttrWin(blankWindow):
             content[i] = content[i].strip('\n').split(',')
             
             if content[i][0] not in skillcat.keys():
-                skillcat[content[i][0]] = {}
+                skillcat[content[i][0]] = {'rank' : 0,
+                                           'rank bonus' : 0,
+                                           'item bonus' : 0,
+                                           'spec bonus' : 0
+                                           }
                 skillcat[content[i][0]]['Skill'] = {}
      
             skillcat[content[i][0]][content[0][2]] = content[i][2]
             skillcat[content[i][0]]["Skill"][content[0][2]] = content[i][2]
             skillcat[content[i][0]][content[0][1]] = content[i][1].split('/')
-            skillcat[content[i][0]]["Skill"][content[0][1]] = content[i][1].split('/')                
+# this commented out code should avoid Stats in Skills
+#            skillcat[content[i][0]]["Skill"][content[0][1]] = content[i][1].split('/')                
             
             if rm.catnames[self.lang]['spells'] in content[i][0][:7]:
                 temp = []
@@ -1690,13 +1700,16 @@ class genAttrWin(blankWindow):
         A method to destroy the current window and go back to MainWindow.
         '''
         self.window.destroy()
-        self.window = MainWindow(lang = self.lang, char = self.character)
+        self.window = MainWindow(lang = self.lang, char = self.character, storepath = self.spath)
+
 
 class priorizeWeaponsWin(blankWindow):
     """
     This is the class for a window object to chose the priority of weapon skills
     at the character's generation. It will also set the category and skill ranks 
     during adolescence.
+    \bug sometimes double chosen weapon categories cause list index errors and 
+    were not detected as doublets.
     """
     def __init__(self, lang = 'en', storepath = "./data", char = None):
         """
@@ -1777,6 +1790,9 @@ class priorizeWeaponsWin(blankWindow):
         This generates the priority list by the chosen priorities.
         \param event has to be catched but is not used
         \todo check for double priorities. If any don't proceed
+        \bug when you chose double entries:  File "/home/mongol/git/rpg-tools/src/gui/epwins.py", line 1808, in __getPrio
+        for i in range(len(content) - 7, len(content)):
+        IndexError: list index out of range
         '''
         self.__priolist = []
         self.__block = False
@@ -1784,7 +1800,7 @@ class priorizeWeaponsWin(blankWindow):
         for i in range(1, 8):
             dummy = self.__prio["%s - %d" % (self.__catnames[self.lang]['weapon'], i)].get()
             
-            if dummy not in self.__priolist:
+            if dummy not in self.__priolist and dummy != "":
                 self.__priolist.append(dummy)
             
             elif dummy in self.__priolist and i < 7:
@@ -1830,10 +1846,8 @@ class priorizeWeaponsWin(blankWindow):
         This method adds the concerned developing costs and category/skill ranks
         during adolescence to the character data structure (JSON). 
         It also calculates the rank bonus for the first time.
-        \todo exchange the Progression string to list of numbers
-        \todo calc rank bonus
         '''
-        from rpgtoolbox.rolemaster import races, labels, progressionType, rankbonus
+        from rpgtoolbox.rolemaster import races, labels, progressionType, rankbonus, catnames, exceptions, cultures
         ##\var prof
         # dummy variable that holds character's profession
         prof = self.character['prof']
@@ -1842,31 +1856,48 @@ class priorizeWeaponsWin(blankWindow):
         crace = races['en'][races[self.lang].index(self.character['race'])]
        
         for skillcat in self.__catDBC[prof].keys():
-            dbcdummy = self.__catDBC[prof][skillcat].split('/')
-        
+            if '/' in self.__catDBC[prof][skillcat]:
+                dbcdummy = self.__catDBC[prof][skillcat].split('/')
+            else: 
+                dbcdummy = list(self.__catDBC[prof][skillcat])
+            
+            skprog = ""
             for i in range(0, len(dbcdummy)):
                 if dbcdummy != "":
                     dbcdummy[i] = int(dbcdummy[i])
 
-            self.character['cat'][skillcat][labels[self.lang]['costs']] = dbcdummy
-            self.character['cat'][skillcat]['Skill'][labels[self.lang]['costs']] = dbcdummy
+            self.character['cat'][skillcat][labels["en"]['costs']] = dbcdummy
+            for s in self.character['cat'][skillcat]['Skill'].keys():
+                if s not in exceptions:
+                    self.character['cat'][skillcat]['Skill'][s][labels["en"]['costs']] = dbcdummy
 
-# There is something going wrong with key 'Progression'
-            
-#            if self.character['cat'][skillcat]['Progression'] == "Standard":
-#                self.character['cat'][skillcat]['Progression'] = progressionType['standard cat']
-#                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType['standard skill']
-#            
-#            elif self.character['cat'][skillcat]['Progression'] == "BD":
-#                self.character['cat'][skillcat]['Progression'] = progressionType['null']
-#                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType['BD %s' % crace]
-#                
-#            elif self.character['cat'][skillcat]['Progression'][:3] == "PPD":
-#                self.character['cat'][skillcat]['Progression'] = progressionType['null']
-#                self.character['cat'][skillcat]['Skill']['Progression'] = progressionType["%s %s" % (self.character['cat'][skillcat]['Skill']['Progression'],
-#                                                                                                     crace)
-#                                                                                          ]  
+
+            if self.character['cat'][skillcat]['Progression'] == "Standard":
+                self.character['cat'][skillcat]['Progression'] = progressionType['standard cat']
+                skprog = progressionType['standard skill']
                 
+            elif self.character['cat'][skillcat]['Progression'] == "BD":
+                self.character['cat'][skillcat]['Progression'] = progressionType['null']
+                skprog = progressionType['BD %s' % crace]
+            
+            elif self.character['cat'][skillcat]['Progression'] == "Null" or self.character['cat'][skillcat]['Progression'] == "Skill Only":
+                self.character['cat'][skillcat]['Progression'] = progressionType['null']
+                skprog = progressionType['skill only']
+                if skillcat == "Spells - Own Realm Open Lists":
+                    print skillcat
+                
+            elif self.character['cat'][skillcat]['Progression'] == "Combined":
+                self.character['cat'][skillcat]['Progression'] = progressionType['null']
+                skprog = progressionType['combined']
+
+            for skill in  self.character['cat'][skillcat]['Skill'].keys():
+            
+                print "Skill: %s - %s" % (skill, skprog)
+                if skill not in exceptions:
+                    self.character['cat'][skillcat]['Skill'][skill]['Progression'] = skprog   
+        self.__setPPD()
+        self.saveChar()
+        
         # adding adolescence skill ranks
             
         fp = open('./data/default/AdoRanks_%s.csv' % self.lang, "r")
@@ -1874,40 +1905,98 @@ class priorizeWeaponsWin(blankWindow):
         fp.close()
         self.__adoranks = {}
         content[0] = content[0].strip('\n').split(',')
-        # the loops does not work correctly
         
         for i in range(1, len(content[0])):
             self.__adoranks[content[0][i]] = {}
-#            content[i] = content[i].strip('\n').split(',')
-#            content[i][0] = content[i][0].strip(' \t')
             
-            for j in range(1, len(content)):
-                content[j] = content[i].strip('\n').split(',')
-                content[j][0] = content[i][0].strip(' \t')
-                lastcat = content[j][0]
-                if content[j][0] != "-":
-                    self.__adoranks[content[0][i]][content[j][0]] = {"rank": int(content[i][j]),
-                                                                     }
-#                                                                     "rank bonus" : rankbonus(rank = int(content[i][j]),
-#                                                                                              progression = self.character['cat'][content[j][0]]['Progression']
-#                                                                                              )
-#                                                                     }
+        for j in range(1, len(content)):
+            content[j] = content[j].strip('\n').split(',')
+            content[j][0] = content[j][0].strip(' \t')
+            
+            for i in range(1, len(content[0])):
+            
+                if content[j][0][:1] != "-":
+                    self.__adoranks[content[0][i]][content[j][0]] = {"rank": int(content[j][i]),
+                                                                    "rank bonus" : rankbonus(rank = int(content[j][i]),
+                                                                                             progression = self.character['cat'][content[j][0]]['Progression']
+                                                                                             )
+                                                                    }
+                    lastcat = content[j][0]
                     
                     if "Skill" not in self.__adoranks[content[0][i]][content[j][0]].keys():
                         self.__adoranks[content[0][i]][content[j][0]]['Skill'] = {}
                     
                 
                 else:
-                    self.__adoranks[content[0][i]][lastcat]['Skill'][content[j][0]] = {'rank' : int(content[i][j]),
-                                                                                       }
-#                                                                                       'rank bonus' : rankbonus(rank = int(content[i][j]),
-#                                                                                                                progression = self.character['cat'][lastcat]['Skill']['Progression']
-#                                                                                                                )
-#                                                                                       }
-        from pprint import pprint
-        pprint(self.__adoranks)
-        self.saveChar()    
+                    self.__adoranks[content[0][i]][lastcat]['Skill'][content[j][0].strip('-')] = {'rank' : int(content[j][i]),
+                                                                                                  'rank bonus' : 0,
+                                                                                                } 
+        if self.lang != "en": 
+                    
+            race = races['en'][races[self.lang].index(self.character['race'])]
+            culture = cultures['en'][cultures[self.lang].index(self.character['culture'])]
 
+        else:
+            race = self.character['race'] 
+            culture = self.character['culture']          
+
+        if race in ['Common Men', 'Mixed Men']:
+            race = culture
+            
+        for cat in self.__adoranks[race].keys():
+            self.character['cat'][cat]['rank'] = self.__adoranks[race][cat]['rank']
+            self.character['cat'][cat]['rank bonus'] = self.__adoranks[race][cat]['rank bonus']
+            
+            if self.__adoranks[race][cat]['Skill'] != {}:
+                
+                for skill in self.__adoranks[race][cat]['Skill'].keys():
+                    
+                    if skill not in self.character['cat'][cat]['Skill'].keys():
+                        self.character['cat'][cat]['Skill'][skill] = {}
+
+                    self.character['cat'][cat]['Skill'][skill]['rank'] = self.__adoranks[race][cat]['Skill'][skill]['rank']
+                    self.character['cat'][cat]['Skill'][skill]['rank bonus'] = self.__adoranks[race][cat]['Skill'][skill]['rank bonus']
+        
+        self.saveChar()    
+        
+    def __setPPD(self):
+        '''
+        This sets the Progression and Stats for Power Point Development
+        '''
+        from rpgtoolbox.rolemaster import races, realms, ppds, magicstats, progressionType, speccat
+        param = {}
+        param['realm'] = self.character['realm']
+        
+        for l in races.keys():
+            
+            if self.character['race'] in races[l]:
+                param['lang'] = l
+                param['race'] = races['en'][races[l].index(self.character['race'])]
+            
+            if self.character['realm'] in realms[l]:
+                param['ppd'] = ppds[realms[l].index(self.character['realm'])]
+                param['Stats'] = magicstats[realms[l].index(self.character['realm'])]
+                
+        print param.keys()
+                
+        if type(param['ppd']) == type(''):
+            param['ppd'] = progressionType[param['ppd'] + param['race']]
+        
+        elif type(param['ppd']) == type([]):
+            
+            for i in range(0, len(param['ppd'])):
+                param['ppd'][i] = progressionType[param['ppd'][i] + param['race']]
+                
+        if param['ppd'][0] > param['ppd'][1]:
+            param['ppd'] = param['ppd'][0]
+        
+        else:
+            param['ppd'] = param['ppd'][1]
+            
+        self.character['cat'][speccat[param['lang']][1]]['Progression'] = progressionType['null']
+        self.character['cat'][speccat[param['lang']][1]]['Stats'] = param['Stats']
+        self.character['cat'][speccat[param['lang']][1]]['Skill'][speccat[param['lang']][1]]['Progression'] = param['ppd']
+    
     def saveChar(self):  
         
         '''
@@ -1992,8 +2081,9 @@ class skillcatWin(blankWindow):
         \param storepath path where things like options have to be stored
         \param char Character as JSON
         """
-        from rpgtoolbox.rolemaster import catnames
+        from rpgtoolbox.rolemaster import catnames, rankbonus
         self.__catnames = catnames
+        self.__rankbonus = rankbonus
         
         if storepath == None:
             self.spath = os.path.expanduser('~') + "/data"
@@ -2065,38 +2155,69 @@ class skillcatWin(blankWindow):
         - Entry widget for number of level ups for category/skill
         - finalize button to make the change permanent.
         '''
-        from rpgtoolbox.rolemaster import labels
-        self.__treeframe = Frame(width = 400, height = 600)
+        from rpgtoolbox.rolemaster import labels as rmlabels
+        self.__treeframe = Frame(width = 800, height = 600)
         self.__treeframe.grid(column = 0, row = 0, columnspan = 7)
-       
+        self.__rmlabels = rmlabels
         self.__treecolumns = []
         for key in ['skill', 'progress', 'costs', 'rank', 'total']:
-            self.__treecolumns.append(labels[self.lang][key]) 
+            self.__treecolumns.append(rmlabels[self.lang][key]) 
             
-        self.__tree = Treeview(columns = self.__treecolumns, show = "headings")
+#        self.__tree = Treeview(columns = self.__treecolumns, show = "headings")
+        self.__tree = Treeview(self.__treeframe, columns = self.__treecolumns, show = "headings")
         vscroll = AutoScrollbar(orient = "vertical", command = self.__tree.yview)
         hscroll = AutoScrollbar(orient = "horizontal", command = self.__tree.xview)
         self.__tree.configure(yscrollcommand = vscroll.set, xscrollcommand = hscroll.set)
         self.__tree.grid(column = 0, row = 0, sticky = "NEWS", in_ = self.__treeframe)
-        vscroll.grid(column = 1, row = 0, in_ = self.__treeframe)
-        hscroll.grid(column = 0, row = 1, in_ = self.__treeframe)
+        vscroll.grid(column = 1, row = 0, in_ = self.__treeframe, sticky = "NS")
+        hscroll.grid(column = 0, row = 1, in_ = self.__treeframe, sticky = "EW")
         
     def __buildTree(self):
         '''
         Fills the treeview widget with skills and categories etc.
-        \todo has to be implemented
+        \todo has to be fully implemented
         '''
+        from rpgtoolbox.rolemaster import exceptions
         for col in self.__treecolumns:
             self.__tree.heading(col, text = col.title())
+            self.__tree.column(col, width = 200)
             
-        # filling content
         catID = {}
         catNo = 0
-        for cat in self.character['cat'].keys():
-            catvalues = (cat)
-            catID[cat] = self.__tree.insert("", catNo, text = cat, values = (cat,
-                                                                      self.character['cat']))
+        ckeys = self.character['cat'].keys()
+        ckeys.sort()
+        for cat in ckeys:
 
+            if cat != None:
+                catID[cat] = self.__tree.insert("",
+                                                catNo,
+                                                text = cat,
+                                                values = (cat,
+                                                          self.character['cat'][cat]['Progression'],
+                                                          self.character['cat'][cat][self.__rmlabels['en']['costs']],
+                                                          self.character['cat'][cat]['rank'],
+                                                          
+                                                          ),
+                                                tag = "category"
+                                                )
+            ### much to do XXXXXXX                
+            for skill in self.character['cat'][cat]['Skill'].keys():
+                if skill not in exceptions:
+                    print "%s \n\t%s" % (cat, skill) 
+                    print "\n\n%s" % (str(self.character['cat'][cat]['Skill'][skill]['Progression']))
+                    self.__tree.insert(catID[cat],
+                                       "end",
+                                       values = (skill,
+                                                 self.character['cat'][cat]['Skill'][skill]['Progression'],
+                                                 self.character['cat'][cat][self.__rmlabels['en']['costs']],
+                                                 self.character['cat'][cat]['Skill'][skill]['rank'],
+                                                 
+                                                ),
+                                       tag = "skill"
+                                       )
+            
+            catNo += 1
+        self.__tree.tag_configure('category', background = 'lightblue')
     def __selectTreeItem(self, event):
         '''
         Select an item from the treeview list.
@@ -2105,6 +2226,15 @@ class skillcatWin(blankWindow):
         '''    
         self.__curItem = self.__tree.focus()
         print self.__tree.item(self.__curItem)
+           
+        
+    def calcTotals(self):
+        '''
+        This method calculate all rank bonus of categories and skills of the character loaded.
+        \todo has to be implemented
+        '''
+#        for cat in self.character['cat']:
+        print "not done yet"
         
     def __helpAWin(self):
         '''
@@ -2112,3 +2242,6 @@ class skillcatWin(blankWindow):
         \todo has to be implemented
         '''
         self.notdoneyet("helpAWin")
+
+
+
