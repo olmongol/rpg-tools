@@ -1,8 +1,8 @@
 <map id="gui.epwins.MainWindow.__optWin" name="gui.epwins.MainWindow.__optWin">
 <area shape="rect" id="node2" href="$classgui_1_1epwins_1_1MainWindow.html#a4910d0e1833380737ba8a85869329323" title="This method adds an option/preferences menu to the menu bar. " alt="" coords="213,415,373,456"/>
-<area shape="rect" id="node3" href="$classgui_1_1epwins_1_1MainWindow.html#a922c60cb940e75844671cbc8e224333e" title="This method opens a window for generation of magical items. " alt="" coords="421,415,581,456"/>
+<area shape="rect" id="node3" href="$classgui_1_1epwins_1_1MainWindow.html#a7196e3aef58346d60cf154d69b654d0d" title="This privat method invokes a window to generate descriptions of magic items (gmtools.py). " alt="" coords="421,415,581,456"/>
 <area shape="rect" id="node4" href="$classgui_1_1epwins_1_1MainWindow.html#a8e66a41a3e0f540c84a72567077c88ba" title="This method adds a Gamemaster Menu for generating special stuff like treasures or magical items..." alt="" coords="837,415,997,456"/>
-<area shape="rect" id="node42" href="$classgui_1_1epwins_1_1MainWindow.html#ada438f8caaed183a8a681f0912466ce8" title="This method opens a window for treasure generation. " alt="" coords="629,444,789,485"/>
+<area shape="rect" id="node42" href="$classgui_1_1epwins_1_1MainWindow.html#a9e8a698077fca494a5763f6b8f220597" title="This privat method invokes a window to generate descriptions of a treasures (gmtools.py). " alt="" coords="629,444,789,485"/>
 <area shape="rect" id="node5" href="$classgui_1_1epwins_1_1MainWindow.html#a5bf4561770ec4c480fcacbcf21c7c1b9" title="Calculating and displaying the whole EPs for the RPG party. " alt="" coords="1045,415,1205,456"/>
 <area shape="rect" id="node6" href="$classgui_1_1epwins_1_1MainWindow.html#ac7014784220ef3acec722229cf3655d4" title="This method adds an edit menu to the menu bar. " alt="" coords="2293,444,2453,485"/>
 <area shape="rect" id="node37" href="$classgui_1_1epwins_1_1MainWindow.html#ab0dd8666e282594efd8315a13c257577" title="Calculating and distributing pool for individual EPs. " alt="" coords="1253,469,1413,511"/>

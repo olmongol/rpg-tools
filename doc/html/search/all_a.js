@@ -6,6 +6,5 @@ var searchData=
   ['level',['LEVEL',['../logbox_8py.html#ab56b2d8273f2cc21a2a25b8f98480338',1,'rpgtoolbox::logbox']]],
   ['list2str',['list2str',['../globaltools_8py.html#a748b3ad515bb5f8281892b7f82a7ff4b',1,'rpgtoolbox::globaltools']]],
   ['loadcnf',['loadCnf',['../classrpgtoolbox_1_1confbox_1_1chkCfg.html#a63018b917535463469fc3442f7c00af7',1,'rpgtoolbox::confbox::chkCfg']]],
-  ['loadedspells',['loadedSpells',['../namespacecreateMagicItems.html#aaee627dc2a556a0e3a9555bfd1bbcee6',1,'createMagicItems']]],
   ['logbox_2epy',['logbox.py',['../logbox_8py.html',1,'']]]
 ];

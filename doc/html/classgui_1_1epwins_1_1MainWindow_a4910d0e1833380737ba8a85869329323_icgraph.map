@@ -1,7 +1,7 @@
 <map id="gui.epwins.MainWindow.__addOptionMenu" name="gui.epwins.MainWindow.__addOptionMenu">
-<area shape="rect" id="node2" href="$classgui_1_1epwins_1_1MainWindow.html#a922c60cb940e75844671cbc8e224333e" title="This method opens a window for generation of magical items. " alt="" coords="213,415,373,456"/>
+<area shape="rect" id="node2" href="$classgui_1_1epwins_1_1MainWindow.html#a7196e3aef58346d60cf154d69b654d0d" title="This privat method invokes a window to generate descriptions of magic items (gmtools.py). " alt="" coords="213,415,373,456"/>
 <area shape="rect" id="node3" href="$classgui_1_1epwins_1_1MainWindow.html#a8e66a41a3e0f540c84a72567077c88ba" title="This method adds a Gamemaster Menu for generating special stuff like treasures or magical items..." alt="" coords="629,415,789,456"/>
-<area shape="rect" id="node41" href="$classgui_1_1epwins_1_1MainWindow.html#ada438f8caaed183a8a681f0912466ce8" title="This method opens a window for treasure generation. " alt="" coords="421,444,581,485"/>
+<area shape="rect" id="node41" href="$classgui_1_1epwins_1_1MainWindow.html#a9e8a698077fca494a5763f6b8f220597" title="This privat method invokes a window to generate descriptions of a treasures (gmtools.py). " alt="" coords="421,444,581,485"/>
 <area shape="rect" id="node4" href="$classgui_1_1epwins_1_1MainWindow.html#a5bf4561770ec4c480fcacbcf21c7c1b9" title="Calculating and displaying the whole EPs for the RPG party. " alt="" coords="837,415,997,456"/>
 <area shape="rect" id="node5" href="$classgui_1_1epwins_1_1MainWindow.html#ac7014784220ef3acec722229cf3655d4" title="This method adds an edit menu to the menu bar. " alt="" coords="2085,444,2245,485"/>
 <area shape="rect" id="node36" href="$classgui_1_1epwins_1_1MainWindow.html#ab0dd8666e282594efd8315a13c257577" title="Calculating and distributing pool for individual EPs. " alt="" coords="1045,469,1205,511"/>

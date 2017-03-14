@@ -9,6 +9,10 @@ var namespacegui =
       [ "priorizeWeaponsWin", "classgui_1_1epwins_1_1priorizeWeaponsWin.html", "classgui_1_1epwins_1_1priorizeWeaponsWin" ],
       [ "skillcatWin", "classgui_1_1epwins_1_1skillcatWin.html", "classgui_1_1epwins_1_1skillcatWin" ]
     ] ],
+    [ "gmtools", null, [
+      [ "createMagicWin", "classgui_1_1gmtools_1_1createMagicWin.html", "classgui_1_1gmtools_1_1createMagicWin" ],
+      [ "createTreasureWin", "classgui_1_1gmtools_1_1createTreasureWin.html", "classgui_1_1gmtools_1_1createTreasureWin" ]
+    ] ],
     [ "window", "namespacegui_1_1window.html", "namespacegui_1_1window" ],
     [ "winhelper", null, [
       [ "AutoScrollbar", "classgui_1_1winhelper_1_1AutoScrollbar.html", "classgui_1_1winhelper_1_1AutoScrollbar" ],

@@ -1,5 +1,5 @@
 <map id="gui.epwins.MainWindow.__saveFile" name="gui.epwins.MainWindow.__saveFile">
-<area shape="rect" id="node2" href="$classgui_1_1window_1_1blankWindow.html#a2e195c439a3036f8ae4d7c92f8241679" title="a simple dummy method for not yet implemented methods " alt="" coords="3357,195,3587,221"/>
+<area shape="rect" id="node2" href="$classgui_1_1window_1_1blankWindow.html#a2e195c439a3036f8ae4d7c92f8241679" title="a simple dummy method for not yet implemented methods " alt="" coords="3357,144,3587,171"/>
 <area shape="rect" id="node3" href="$classgui_1_1epwins_1_1MainWindow.html#ac7014784220ef3acec722229cf3655d4" title="This method adds an edit menu to the menu bar. " alt="" coords="213,127,373,169"/>
 <area shape="rect" id="node4" href="$classgui_1_1epwins_1_1MainWindow.html#a86dcd567eb866b99c5848f5ad84130b9" title="Generating a window for editing Characters/Character lists/Parties. " alt="" coords="421,43,581,85"/>
 <area shape="rect" id="node6" href="$classgui_1_1epwins_1_1MainWindow.html#a44cfe76882f96f87f211375e38394e60" title="Editing all Hits/Crits/Killed Monsters for calculating EPs. " alt="" coords="837,94,997,135"/>
@@ -8,12 +8,12 @@
 <area shape="rect" id="node9" href="$classgui_1_1epwins_1_1MainWindow.html#a5bf4561770ec4c480fcacbcf21c7c1b9" title="Calculating and displaying the whole EPs for the RPG party. " alt="" coords="1461,250,1621,291"/>
 <area shape="rect" id="node5" href="$classgui_1_1epwins_1_1MainWindow.html#a3d948493f7729a129363b84d3f907eac" title="Opens a window for editing character parties. " alt="" coords="629,43,789,85"/>
 <area shape="rect" id="node10" href="$classgui_1_1epwins_1_1MainWindow.html#a8e66a41a3e0f540c84a72567077c88ba" title="This method adds a Gamemaster Menu for generating special stuff like treasures or magical items..." alt="" coords="1669,297,1829,338"/>
-<area shape="rect" id="node11" href="$classgui_1_1epwins_1_1MainWindow.html#ada438f8caaed183a8a681f0912466ce8" title="This method opens a window for treasure generation. " alt="" coords="1877,297,2037,338"/>
-<area shape="rect" id="node12" href="$classgui_1_1epwins_1_1MainWindow.html#a922c60cb940e75844671cbc8e224333e" title="This method opens a window for generation of magical items. " alt="" coords="2085,351,2245,393"/>
-<area shape="rect" id="node13" href="$classgui_1_1epwins_1_1MainWindow.html#a4910d0e1833380737ba8a85869329323" title="This method adds an option/preferences menu to the menu bar. " alt="" coords="2293,398,2453,439"/>
-<area shape="rect" id="node14" href="$classgui_1_1epwins_1_1MainWindow.html#a106e764795023a5412118f48f9c82cb9" title="Opens an options window and closes the main window. " alt="" coords="2501,398,2661,439"/>
-<area shape="rect" id="node15" href="$classgui_1_1epwins_1_1MainWindow.html#a96154b11fa179bb2566c73b2ce909bef" title="This private method just adds the menu bar into the window&#39;s layout. " alt="" coords="2709,398,2869,439"/>
-<area shape="rect" id="node16" href="$classgui_1_1epwins_1_1MainWindow.html#ad0e661ad75a9b8d31182ed83ac482ba7" title="This methods defines a help menu. " alt="" coords="2917,398,3077,439"/>
-<area shape="rect" id="node17" href="$classgui_1_1epwins_1_1MainWindow.html#a2bd0687c610c9ae789d6f2f9e13dbfc8" title="This method will show the rpg&#45;tools Handbook. " alt="" coords="3125,398,3309,439"/>
-<area shape="rect" id="node18" href="$classgui_1_1epwins_1_1MainWindow.html#a47661080791a6845c498ff1f0585d55f" title="This method just opens a message window with the basic information about the PROGRAM (like version an..." alt="" coords="3380,427,3564,469"/>
+<area shape="rect" id="node11" href="$classgui_1_1epwins_1_1MainWindow.html#a9e8a698077fca494a5763f6b8f220597" title="This privat method invokes a window to generate descriptions of a treasures (gmtools.py). " alt="" coords="1877,297,2037,338"/>
+<area shape="rect" id="node12" href="$classgui_1_1epwins_1_1MainWindow.html#a7196e3aef58346d60cf154d69b654d0d" title="This privat method invokes a window to generate descriptions of magic items (gmtools.py). " alt="" coords="2085,326,2245,367"/>
+<area shape="rect" id="node13" href="$classgui_1_1epwins_1_1MainWindow.html#a4910d0e1833380737ba8a85869329323" title="This method adds an option/preferences menu to the menu bar. " alt="" coords="2293,326,2453,367"/>
+<area shape="rect" id="node14" href="$classgui_1_1epwins_1_1MainWindow.html#a106e764795023a5412118f48f9c82cb9" title="Opens an options window and closes the main window. " alt="" coords="2501,326,2661,367"/>
+<area shape="rect" id="node15" href="$classgui_1_1epwins_1_1MainWindow.html#a96154b11fa179bb2566c73b2ce909bef" title="This private method just adds the menu bar into the window&#39;s layout. " alt="" coords="2709,326,2869,367"/>
+<area shape="rect" id="node16" href="$classgui_1_1epwins_1_1MainWindow.html#ad0e661ad75a9b8d31182ed83ac482ba7" title="This methods defines a help menu. " alt="" coords="2917,326,3077,367"/>
+<area shape="rect" id="node17" href="$classgui_1_1epwins_1_1MainWindow.html#a2bd0687c610c9ae789d6f2f9e13dbfc8" title="This method will show the rpg&#45;tools Handbook. " alt="" coords="3125,297,3309,338"/>
+<area shape="rect" id="node18" href="$classgui_1_1epwins_1_1MainWindow.html#a47661080791a6845c498ff1f0585d55f" title="This method just opens a message window with the basic information about the PROGRAM (like version an..." alt="" coords="3380,326,3564,367"/>
 </map>

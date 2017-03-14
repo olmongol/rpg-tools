@@ -1,8 +1,6 @@
 var files =
 [
     [ "confbox.py", "confbox_8py.html", "confbox_8py" ],
-    [ "createMagicItems.py", "createMagicItems_8py.html", "createMagicItems_8py" ],
-    [ "createTreasure.py", "createTreasure_8py.html", null ],
     [ "csvdef.py", "csvdef_8py.html", "csvdef_8py" ],
     [ "epcalcdefs.py", "epcalcdefs_8py.html", "epcalcdefs_8py" ],
     [ "errbox.py", "errbox_8py.html", [

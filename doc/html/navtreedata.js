@@ -30,7 +30,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-".html"
+".html",
+"rolemaster_8py.html#af134f07b9ed9f6192507a7d9b4e32ee6"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

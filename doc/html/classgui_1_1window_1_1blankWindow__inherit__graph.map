@@ -6,4 +6,6 @@
 <area shape="rect" id="node6" href="$classgui_1_1epwins_1_1MainWindow.html" title="This is the class for the main window object. " alt="" coords="683,351,840,780"/>
 <area shape="rect" id="node7" href="$classgui_1_1epwins_1_1priorizeWeaponsWin.html" title="This is the class for a window object to chose the priority of weapon skills at the character&#39;s gener..." alt="" coords="864,351,1064,780"/>
 <area shape="rect" id="node8" href="$classgui_1_1epwins_1_1skillcatWin.html" title="This is the class for a window object to chose the priority of weapon skills at the character&#39;s gener..." alt="" coords="1088,409,1235,721"/>
+<area shape="rect" id="node9" href="$classgui_1_1gmtools_1_1createMagicWin.html" title="This class creates a window for the generation of magical items. " alt="" coords="1259,483,1442,648"/>
+<area shape="rect" id="node10" href="$classgui_1_1gmtools_1_1createTreasureWin.html" title="This class builds a window for treasure generation. " alt="" coords="1466,446,1665,685"/>
 </map>

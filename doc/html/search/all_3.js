@@ -13,8 +13,8 @@ var searchData=
   ['createdefault',['createDefault',['../classrpgtoolbox_1_1confbox_1_1chkCfg.html#a3b1622b3653c323f95bdc271aa0307c7',1,'rpgtoolbox::confbox::chkCfg']]],
   ['createlogger',['createLogger',['../logbox_8py.html#a424ba1d0f5357859c5b31227ead3c3b7',1,'rpgtoolbox::logbox']]],
   ['createmagicitems',['createMagicItems',['../namespacecreateMagicItems.html',1,'']]],
-  ['createmagicitems_2epy',['createMagicItems.py',['../createMagicItems_8py.html',1,'']]],
-  ['createtreasure_2epy',['createTreasure.py',['../createTreasure_8py.html',1,'']]],
+  ['createmagicwin',['createMagicWin',['../classgui_1_1gmtools_1_1createMagicWin.html',1,'gui::gmtools']]],
+  ['createtreasurewin',['createTreasureWin',['../classgui_1_1gmtools_1_1createTreasureWin.html',1,'gui::gmtools']]],
   ['csvdef_2epy',['csvdef.py',['../csvdef_8py.html',1,'']]],
   ['csvlabels',['csvlabels',['../lang_8py.html#aefc662f25b0b1a4cd604d4032b1f0079',1,'rpgtoolbox::lang']]]
 ];
