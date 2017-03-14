@@ -4,3 +4,4 @@ import lang
 import logbox
 import rpgtools
 import globaltools
+import treasure
