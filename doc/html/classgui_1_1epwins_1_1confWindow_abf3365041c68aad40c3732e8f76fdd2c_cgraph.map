@@ -1,6 +1,0 @@
-<map id="gui.epwins.confWindow.__buildOptMenu" name="gui.epwins.confWindow.__buildOptMenu">
-<area shape="rect" id="node2" href="$classgui_1_1epwins_1_1confWindow.html#acf708d4d35ccf75cbe9bed8db10c2e2c" title="This private method builds the option&#39;s window with radio buttons of supported languages dynamically..." alt="" coords="211,17,368,58"/>
-<area shape="rect" id="node3" href="$classgui_1_1epwins_1_1confWindow.html#a9079375f23e18c0b32e5f78117958e92" title="A method for saving options in the user directory. " alt="" coords="691,9,848,50"/>
-<area shape="rect" id="node4" href="$classgui_1_1epwins_1_1confWindow.html#a101663accf8298422c40a027c468f347" title="A method for closing the window and opening the main window. " alt="" coords="896,38,1053,79"/>
-<area shape="rect" id="node5" href="$classgui_1_1epwins_1_1confWindow.html#acf31f797c0432baf2d631e44877d62c2" title="A public method which return the string value of the chosen language. " alt="" coords="416,24,643,51"/>
-</map>

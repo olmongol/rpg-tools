@@ -1,9 +1,0 @@
-<map id="__setPStats" name="__setPStats">
-<area shape="rect" id="node2" href="$classgui_1_1epwins_1_1genAttrWin.html#ab949e1d20e8af6bf5c4c05fed0e183d6" title="This checks the temp value of the stats and warns if they are correct. " alt="" coords="147,5,234,32"/>
-<area shape="rect" id="node5" href="$classgui_1_1epwins_1_1genAttrWin.html#a167acc0e9408882859c582b3162cdabf" title="This method checks whether the right magic realm is chosen for the selected profession. " alt="" coords="431,132,525,159"/>
-<area shape="rect" id="node7" href="$classgui_1_1epwins_1_1genAttrWin.html#aadc9daccba442ae47b801a9960356a6c" title="Sets the connected Realm if profession is chosen. " alt="" coords="145,157,236,184"/>
-<area shape="rect" id="node3" href="$classgui_1_1epwins_1_1genAttrWin.html#af15630b7f1272497753027994f844f26" title="Totals and update all bonusses. " alt="" coords="285,56,381,83"/>
-<area shape="rect" id="node4" href="$classgui_1_1epwins_1_1genAttrWin.html#a501fb00406069773a294455b34878398" title="Creates next Window, saves and transmits data. " alt="" coords="435,31,521,57"/>
-<area shape="rect" id="node6" href="$classgui_1_1epwins_1_1genAttrWin.html#acf468694c6a99f0a7e71c44ce7cbc2b3" title="Sets/calculates standard stat bonus. " alt="" coords="573,132,667,159"/>
-<area shape="rect" id="node8" href="$classgui_1_1epwins_1_1genAttrWin.html#aa7dde8549b3e9d459fb965fb402b20fb" title="This method sets the races bonusses , the race based RR bonusses, Background Options and Hobby Ranks..." alt="" coords="284,157,383,184"/>
-</map>

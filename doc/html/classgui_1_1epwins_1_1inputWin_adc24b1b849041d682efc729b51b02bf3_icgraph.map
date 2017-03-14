@@ -1,8 +1,0 @@
-<map id="__epindiv" name="__epindiv">
-<area shape="rect" id="node2" href="$classgui_1_1epwins_1_1inputWin.html#aa5d35dde28dfc3838c18696238d1123a" title="Method to calculate EPs from Spells, maneuvers, travel. " alt="" coords="129,5,208,32"/>
-<area shape="rect" id="node3" href="$classgui_1_1epwins_1_1inputWin.html#a601077a6d3c76ada74d79262d115eea9" title="Method to calculate EPs from a fight (hits and criticals) " alt="" coords="256,5,331,32"/>
-<area shape="rect" id="node4" href="$classgui_1_1epwins_1_1inputWin.html#a34b31ae2e2a4d62765f25551ae2e670d" title="Method to edit a character group and keep track on it. " alt="" coords="379,5,453,32"/>
-<area shape="rect" id="node5" href="$classgui_1_1epwins_1_1inputWin.html#a3f805fe0de5a5293d79d5be53aa9b4c4" title="Method to edit a character for the EP sheet. " alt="" coords="501,5,584,32"/>
-<area shape="rect" id="node6" href="$classgui_1_1epwins_1_1inputWin.html#a497086287ff12b3587bf8b946f0dbd73" title="Method to create a now character party/group. " alt="" coords="632,5,736,32"/>
-<area shape="rect" id="node7" href="$classgui_1_1epwins_1_1inputWin.html#ac048357b2f6f2654d66c1f12cb4e41de" title="Method to create a new character. " alt="" coords="784,5,881,32"/>
-</map>

@@ -1,6 +1,0 @@
-<map id="rpgtoolbox.confbox.chkCfg.__cfg2dic" name="rpgtoolbox.confbox.chkCfg.__cfg2dic">
-<area shape="rect" id="node2" href="$classrpgtoolbox_1_1confbox_1_1chkCfg.html#a3b1622b3653c323f95bdc271aa0307c7" title="This method creates a default configuration file for the rpg&#45;tools. " alt="" coords="229,5,441,47"/>
-<area shape="rect" id="node3" href="$classrpgtoolbox_1_1confbox_1_1chkCfg.html#a8cdaaa44296d76a8ff0ba383d4378aca" title="This method checks whether all configurational parameter are set. " alt="" coords="489,5,665,47"/>
-<area shape="rect" id="node4" href="$classrpgtoolbox_1_1confbox_1_1chkCfg.html#a63018b917535463469fc3442f7c00af7" title="This method loads the config data from default config file. " alt="" coords="713,13,933,39"/>
-<area shape="rect" id="node5" href="$classrpgtoolbox_1_1confbox_1_1chkCfg.html#a642794d18c9359fba6aa4362ade1a75a" title="This method writes config data into a file. " alt="" coords="981,13,1204,39"/>
-</map>

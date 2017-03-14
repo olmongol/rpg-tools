@@ -1,6 +1,0 @@
-<map id="__addFileMenu" name="__addFileMenu">
-<area shape="rect" id="node2" href="$classgui_1_1epwins_1_1MainWindow.html#a13b86f50d96dfe46cf64d41ee18619ba" title="This method opens a new window for generation of a new functional structure. " alt="" coords="167,5,247,32"/>
-<area shape="rect" id="node3" href="$classgui_1_1epwins_1_1MainWindow.html#a14ff24dfa0c2cf82e2b3672ccb611afa" title="This method opens a dialogue window (Tk) for opening files. " alt="" coords="164,56,249,83"/>
-<area shape="rect" id="node4" href="$classgui_1_1epwins_1_1MainWindow.html#aa8166111ac97f83c801f277e6805130e" title="This method opens a file dialogue window (Tk) for saving the results of the EP calculation into an EX..." alt="" coords="165,107,248,133"/>
-<area shape="rect" id="node5" href="$classgui_1_1window_1_1blankWindow.html#ac8036a5fd13297b7c43978a84da21336" title="a simple dummy method for not yet implemented methods " alt="" coords="297,107,527,133"/>
-</map>

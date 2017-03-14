@@ -1,8 +1,0 @@
-<map id="gui.epwins.skillcatWin.__addHelpMenu" name="gui.epwins.skillcatWin.__addHelpMenu">
-<area shape="rect" id="node2" href="$classgui_1_1epwins_1_1skillcatWin.html#a5a8e6506f76276e1e229b10cfaa4bcc5" title="Help information about this window. " alt="" coords="852,5,1001,47"/>
-<area shape="rect" id="node3" href="$classgui_1_1window_1_1blankWindow.html#acf2ef03d827178baee1cf52372449677" title="This method just opens a message window with the basic information about the rpg&#45;tools XML Generator ..." alt="" coords="203,48,369,89"/>
-<area shape="rect" id="node4" href="$classgui_1_1epwins_1_1skillcatWin.html#a877f33140c618420aff705129661cac4" title="Builds the window&#39;s elements. " alt="" coords="211,113,361,155"/>
-<area shape="rect" id="node5" href="$classgui_1_1epwins_1_1skillcatWin.html#a734009b3a1da9c2d06a6f40f0c8a2070" title="Fills the treeview widget with skills and categories etc. " alt="" coords="417,96,567,137"/>
-<area shape="rect" id="node6" href="$classgui_1_1epwins_1_1skillcatWin.html#a215551409fe45bca7a3988540cf6fa75" title="Select an item from the treeview list. " alt="" coords="615,80,764,121"/>
-<area shape="rect" id="node7" href="$classgui_1_1window_1_1blankWindow.html#a2e195c439a3036f8ae4d7c92f8241679" title="a simple dummy method for not yet implemented methods " alt="" coords="812,87,1041,114"/>
-</map>

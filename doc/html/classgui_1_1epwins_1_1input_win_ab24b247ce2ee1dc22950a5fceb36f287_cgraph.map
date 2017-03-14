@@ -1,9 +1,0 @@
-<map id="gui.epwins.inputWin.__epindiv" name="gui.epwins.inputWin.__epindiv">
-<area shape="rect" id="node2" href="$classgui_1_1epwins_1_1input_win.html#abfc9aacc5dc4a0deb34c6e51972ef927" title="Method to finalize EP calculation for a single gaming date. " alt="" coords="191,145,328,186"/>
-<area shape="rect" id="node4" href="$classgui_1_1window_1_1blank_window.html#a2e195c439a3036f8ae4d7c92f8241679" title="a simple dummy method for not yet implemented methods " alt="" coords="1388,101,1617,128"/>
-<area shape="rect" id="node3" href="$classgui_1_1epwins_1_1input_win.html#ab490c0834acffe417c1c77256b3dee16" title="Method for simulating a fight and calculate potential EPs. " alt="" coords="376,69,513,110"/>
-<area shape="rect" id="node5" href="$classgui_1_1epwins_1_1input_win.html#aaeec9732cbb08a21af683122c6fc6625" title="Method for closing the window and opening the main window. " alt="" coords="561,69,699,110"/>
-<area shape="rect" id="node6" href="$classgui_1_1epwins_1_1input_win.html#a9b29ac427a3b59ad994b621c11818813" title="Method for help on this page. " alt="" coords="747,69,884,110"/>
-<area shape="rect" id="node7" href="$classgui_1_1epwins_1_1input_win.html#abb757b902f080aee1cd27c89664440cf" title="Method to call the handbook as help for this page. " alt="" coords="932,94,1069,135"/>
-<area shape="rect" id="node8" href="$classgui_1_1window_1_1blank_window.html#a97b3d5397af5e23d599d7c863cd5dcc9" title="This method will call call a specific chapter from the handbook of rm_char_tools. ..." alt="" coords="1117,101,1340,128"/>
-</map>

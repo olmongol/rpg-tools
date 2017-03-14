@@ -1,8 +1,0 @@
-<map id="gui.epwins.priorizeWeaponsWin.__getWeaponCats" name="gui.epwins.priorizeWeaponsWin.__getWeaponCats">
-<area shape="rect" id="node2" href="$classgui_1_1epwins_1_1priorize_weapons_win.html#a3ede3b561a002e85d9e2d6a05787f71a" title="This method saves the character as JSON file. " alt="" coords="232,107,411,148"/>
-<area shape="rect" id="node3" href="$classgui_1_1epwins_1_1priorize_weapons_win.html#a21839144536f5936f8150794098c9bab" title="This method adds the concerned developing costs and category/skill ranks during adolescence to the ch..." alt="" coords="459,107,637,148"/>
-<area shape="rect" id="node4" href="$classgui_1_1epwins_1_1priorize_weapons_win.html#a5324025b799e4890aa3c3b9e3c0f48de" title="Makes a JSON out of CatDPC.csv Skill cat –&gt; Profession : costs. " alt="" coords="685,56,864,97"/>
-<area shape="rect" id="node7" href="$classgui_1_1epwins_1_1priorize_weapons_win.html#ab09a266caf01f1b068fbcc0dd704133f" title="Opens the next window to modify categories and skills. " alt="" coords="1139,64,1317,105"/>
-<area shape="rect" id="node5" href="$classgui_1_1epwins_1_1priorize_weapons_win.html#a8bc5473134d188efeaa1d6231ec4bff1" title="This generates the priority list by the chosen priorities. " alt="" coords="912,5,1091,47"/>
-<area shape="rect" id="node6" href="$classgui_1_1epwins_1_1priorize_weapons_win.html#a00e511ba50a4cf753233318c14d7595b" title="Sets up all the needed Widgets in the window. " alt="" coords="1365,35,1544,76"/>
-</map>

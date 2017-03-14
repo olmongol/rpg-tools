@@ -1,8 +1,0 @@
-<map id="__createWinStruc" name="__createWinStruc">
-<area shape="rect" id="node2" href="$classgui_1_1epwins_1_1edtchrWin.html#a932bc7645b021c0be8725e74bbc4fd96" title="Adding new charaters to the list. " alt="" coords="307,35,389,61"/>
-<area shape="rect" id="node7" href="$classgui_1_1epwins_1_1edtchrWin.html#a1c78444b30d371431602c176cd201199" title="Refreshes selected data sets. " alt="" coords="179,60,259,87"/>
-<area shape="rect" id="node3" href="$classgui_1_1epwins_1_1edtchrWin.html#a6c20cb6477ad16c8bdb83537848c6029" title="Method for closing the window and opening the main window. " alt="" coords="437,35,523,61"/>
-<area shape="rect" id="node4" href="$classgui_1_1epwins_1_1edtchrWin.html#af1f6ecf1fc090837180f67093492a1ff" title="This method adds additional functions to the help menu. " alt="" coords="571,35,679,61"/>
-<area shape="rect" id="node5" href="$classgui_1_1window_1_1blankWindow.html#ac8036a5fd13297b7c43978a84da21336" title="a simple dummy method for not yet implemented methods " alt="" coords="727,5,956,32"/>
-<area shape="rect" id="node6" href="$classgui_1_1window_1_1blankWindow.html#aba422042633b8db7eca93d9743b5c206" title="This method just opens a message window with the basic information about the rpg&#45;tools XML Generator ..." alt="" coords="758,57,925,98"/>
-</map>

@@ -1,5 +1,0 @@
-<map id="gui.epwins.confWindow.__buildWinRadio" name="gui.epwins.confWindow.__buildWinRadio">
-<area shape="rect" id="node2" href="$classgui_1_1epwins_1_1confWindow.html#a9079375f23e18c0b32e5f78117958e92" title="A method for saving options in the user directory. " alt="" coords="485,9,643,50"/>
-<area shape="rect" id="node3" href="$classgui_1_1epwins_1_1confWindow.html#a101663accf8298422c40a027c468f347" title="A method for closing the window and opening the main window. " alt="" coords="691,38,848,79"/>
-<area shape="rect" id="node4" href="$classgui_1_1epwins_1_1confWindow.html#acf31f797c0432baf2d631e44877d62c2" title="A public method which return the string value of the chosen language. " alt="" coords="211,24,437,51"/>
-</map>

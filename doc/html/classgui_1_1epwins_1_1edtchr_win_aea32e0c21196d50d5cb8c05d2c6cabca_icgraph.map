@@ -1,6 +1,0 @@
-<map id="gui.epwins.edtchrWin._addHelpMenu" name="gui.epwins.edtchrWin._addHelpMenu">
-<area shape="rect" id="node2" href="$classgui_1_1epwins_1_1edtchr_win.html#ae679c6c7b502f4ee6852d8c26a4087f0" title="Method for closing the window and opening the main window. " alt="" coords="199,5,344,47"/>
-<area shape="rect" id="node3" href="$classgui_1_1epwins_1_1edtchr_win.html#a984b517e3889d13ceb54429975f09713" title="Adding new characters to the list. " alt="" coords="392,5,537,47"/>
-<area shape="rect" id="node4" href="$classgui_1_1epwins_1_1edtchr_win.html#a42756a0fab24c1bf9f7dc536fb4caba4" title="This method creates the window structure with list and message boxes. " alt="" coords="779,5,924,47"/>
-<area shape="rect" id="node5" href="$classgui_1_1epwins_1_1edtchr_win.html#a2286b27baf1640522bb6cfef06277e27" title="Refreshes selected data sets. " alt="" coords="585,35,731,76"/>
-</map>

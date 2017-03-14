@@ -1,5 +1,0 @@
-<map id="createDefault" name="createDefault">
-<area shape="rect" id="node2" href="$classrpgtoolbox_1_1confbox_1_1chkCfg.html#a4202f8a583173420e4063e90f6022d7a" title="This method checks whether all configurational parameter are set. " alt="" coords="152,5,215,32"/>
-<area shape="rect" id="node3" href="$classrpgtoolbox_1_1confbox_1_1chkCfg.html#a475a63f4e67dd8ed46436effce652be6" title="This method loads the config data from default config file. " alt="" coords="263,5,329,32"/>
-<area shape="rect" id="node4" href="$classrpgtoolbox_1_1confbox_1_1chkCfg.html#a19443837e24e0a85e3c13f0cfee25bac" title="This method writes config data into a file. " alt="" coords="377,5,445,32"/>
-</map>
