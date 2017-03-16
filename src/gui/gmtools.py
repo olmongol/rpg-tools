@@ -6,6 +6,9 @@
 \package gui
 \brief Window classes for GM tools gui
 
+In this module you find the window classes for 
+\li create a treasure
+\li create an single magical item 
 
 \date (C) 2017
 \author Aiko Ruprecht, Marcus Schwamberger

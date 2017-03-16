@@ -29,10 +29,9 @@ from rpgtoolbox.rolemaster import stats
 from gui.winhelper import AutoScrollbar
 from gui.winhelper import InfoCanvas
 from gui.window import *
-#from treasure import *
 from gui.gmtools import *
-
 import json
+
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-2017 " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -140,15 +139,16 @@ class MainWindow(blankWindow):
         """
         self.__filein = askopenfilename(filetypes = self.mask,
                                         initialdir = self.mypath)
-        with open(self.__filein, 'r') as filecontent:
-            if self.__filein[-4:].lower() == "json":
-                self.char = json.load(filecontent)
-            elif self.__filein[-3:].lower == "grp":
-                self.grp = json.load(filecontent)
-            else:
-                msg = messageWindow()
-                msg.showinfo(errmsg['wrong_type'][self.lang])
-                pass
+        if self.__filein != "":
+            with open(self.__filein, 'r') as filecontent:
+                if self.__filein[-4:].lower() == "json":
+                    self.char = json.load(filecontent)
+                elif self.__filein[-3:].lower == "grp":
+                    self.grp = json.load(filecontent)
+                else:
+                    msg = messageWindow()
+                    msg.showinfo(errmsg['wrong_type'][self.lang])
+                    pass
 
     def __saveFile(self):
         '''
@@ -528,7 +528,6 @@ class inputWin(blankWindow):
         else:
             self._last = ""
         
-#        self.window = Tk()
         self.mypath = storepath
         blankWindow.__init__(self, self.lang)
 
@@ -672,216 +671,6 @@ class inputWin(blankWindow):
         """
         self.handbook("chapter %s" % (wintitle['edit'][self.lang]))
         
-
-class edtchrWin(blankWindow):
-    '''
-    Window class to generate/edit player character values.  
-    \note This may become deprecated soon...  
-    '''
-    def __init__(self, lang = 'en', storepath = './data'):
-        '''
-        \param lang Choosen display language (default en)
-        \param storepath Path to store data (default: ./data)
-        '''
-        
-        self.lang = lang
-        self.spath = storepath
-        if self.spath[-1] != "/":
-            self.spath += "/"
-            
-        blankWindow.__init__(self, lang = self.lang)
-        
-        self.window.title(wintitle['calc_exp'][self.lang] + " - Chars")
-        self.filemenu = Menu(master = self.menu)
-        self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
-                              menu = self.filemenu)
-        self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
-                                  command = self.notdoneyet)
-        self.filemenu.add_separator()
-        self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
-                                  command = self.__closewin)       
-        
-        self.groups = readCSV(self.spath + '/groups.csv')
-        self.stat = readCSV(self.spath + '/statistics.csv')
-        self.charlist = []
-        self.playerlist = []
-        
-        for lmnt in self.stat:
-            self.charlist.append(lmnt['Name'])
-            self.playerlist.append(lmnt['Player'])
-            
-        self.grouplist = []
-        
-        for lmnt in self.groups:
-            if lmnt['Group'] not in self.grouplist:
-                self.grouplist.append(lmnt['Group'])
-            
-        self.__createWinStruc()    
-        
-            
-    def __createWinStruc(self):
-        """
-        This method creates the window structure with list and message 
-        boxes. The created window is for reading, generating and 
-        editing of elements of the functional structure.
-        """
-
-        self._cboxes = {'Name'  : self.charlist,
-                       'Group'  : self.grouplist,
-                       'Player' : self.playerlist,
-                       }
-       
-        labels = self.stat[0].keys()
-        labels.append("Group")
-        labels.sort()      
-        
-        self._fields = {}
-
-        r = 1
-        self._set = {}
-        
-        for l in labels:
-            l = l.strip(' \n')
-            self._set[l] = ""
-            Label(master = self.window,
-                  width = 20,
-                  text = csvlabels[l][self.lang]
-                  ).grid(row = r, column = 0)            
-            
-            if l in ['Name', 'Group', 'Player']:
-
-                self._fields[l] = Combobox(master = self.window,
-                                           width = 30,
-                                           textvariable = self._set[l],
-                                           values = self._cboxes[l]
-                                           )
-                self._fields[l].grid(row = r, column = 1)
-            else:
-                self._fields[l] = Entry(master = self.window,
-                                        textvariable = self._set[l],
-                                        width = 32
-                                        )
-                self._fields[l].grid(row = r, column = 1)
-
-            r += 1
-            
-        Button(master = self.window,
-              text = txtbutton['but_take'][self.lang],
-              command = self._addItems
-              ).grid(row = 0, column = 1)    
-              
-        Button(master = self.window,
-              text = txtbutton['but_refr'][self.lang],
-              command = self._refrItems
-              ).grid(row = 0, column = 0)                         
-                    
-    def _refrItems(self):
-        '''
-        Refreshes selected data sets
-        \todo has to be implemented
-        '''
-        dummy = self._fields['Name'].get()
-
-        for i in range(0, len(self.stat)):
-        
-            if self.stat[i]['Name'] == dummy:
-            
-                for k in self.stat[i].keys():
-                    self._fields[k].delete(0, END)
-                    self._fields[k].insert(0, self.stat[i][k])
-                    self._set[k] = self.stat[i][k]
-                break
-            else:
-                
-                for k in self.stat[i].keys():
-                    self._set[k] = self._fields[k].get()
-                    
-        for lmnt in self.groups:
-            
-            if lmnt['Name'] == self._set['Name']:
-                self._set['Group'] = lmnt['Group']
-                self._fields['Group'].delete(0, END)
-                self._fields['Group'].insert(0, lmnt['Group'])
-                break
-            
-            else:
-                self._set['Group'] = self._fields['Group'].get()
-            
-                    
-        for k in self._set.keys():  
-            print (k, self._set[k]) 
-        print "*********************"
-        
-        
-    def _addItems(self):
-        '''
-        Adding new characters to the list
-        '''   
-        print "addItems"
-        for k in self._set.keys():  
-            print (k, self._set[k]) 
-        print "=============== "
-        dummy = self._set['Name']
-        
-        for i in range(0, len(self.groups)):
-            if dummy == self.groups[i]['Name']:
-                self.groups[i]['Group'] = self._set['Group']
-                del(self._set['Group'])
-                break
-                
-        if 'Group' in self._set.keys():
-            self.groups.append({'Name' : dummy, 'Group': self._set['Group']})
-            self.grouplist.append(self._set['Group'])
-            del(self._set['Group'])
- 
-        for i in range(0, len(self.stat)):
-            if dummy == self.stat[i]['Name']:
-                for k in self.stat[i].keys():
-                    self.stat[i][k] = self._set[k]
-                self.playerlist.append(self._set['Player'])
-                self.charlist.append(dummy)
-                del(self._set['Name'])
-                break
-            
-        if 'Name' in self._set.keys():
-            self.stat.append(self._set)
-
-        writeCSV(self.spath + "/statistics.csv", self.stat)
-        logger.info("epwin: wrote statistics.csv")
-        writeCSV(self.spath + "/groups.csv", self.groups)
-        logger.info("epwin: wrote groups.csv")
-        
-
-    def __closewin(self):
-        """
-        Method for closing the window and opening the main window.
-        """
-        self.window.destroy()
-        self.window = MainWindow(self.lang, self.spath)
-
-    def _addHelpMenu(self):
-        """
-        This method adds additional functions to the help menu
-        """
-        self.helpmenu = Menu(master = self.menu)
-        self.menu.add_cascade(label = txtmenu['help'][self.lang],
-                              menu = self.helpmenu)
-        self._templist = {'not done': self.notdoneyet()
-                         }
-        for key in s_elem_def:
-            self.com = self._templist[key]
-            self.helpmenu.add_command(label = key,
-                                      command = self.com)
-        del(self._templist)
-        del(key)
-
-        self.helpmenu.add_separator()
-        self.helpmenu.add_command(label = submenu['help'][self.lang]['page'],
-                                  command = self._showPage)
-        self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
-                                  command = self._helpAbout)
-
-
 class genAttrWin(blankWindow):
     '''
     A window class for generating name, race, profession and attributes of a new
@@ -2095,6 +1884,7 @@ class skillcatWin(blankWindow):
 
         self.lang = lang
         self.character = char
+        self.__calcLvlup()
         
         blankWindow.__init__(self, self.lang)
         self.window.title("%s - %s (%s)" % (wintitle['edit'][self.lang],
@@ -2176,6 +1966,20 @@ class skillcatWin(blankWindow):
         '''
         Fills the treeview widget with skills and categories etc.
         \todo has to be fully implemented
+            \li calc of all rank bonusses
+            \li calc of totals for categories
+            \li calc of totals for skills
+            \li force a name modify of skills with +
+            \li possibility of adding skill to category
+            \li displaying total ranks in treeview
+            \li displaying added skills in treeview
+            \li finalize button:
+                1. finialize single level up
+                2. stores character state
+                3. if no level up possible and BGOs available goto next character
+                   creation window
+                4. if no level up possible and no BGOs close window and return to
+                   main window
         '''
         from rpgtoolbox.rolemaster import exceptions
         for col in self.__treecolumns:
@@ -2200,7 +2004,6 @@ class skillcatWin(blankWindow):
                                                           ),
                                                 tag = "category"
                                                 )
-            ### much to do XXXXXXX                
             for skill in self.character['cat'][cat]['Skill'].keys():
                 if skill not in exceptions:
                     print "%s \n\t%s" % (cat, skill) 
@@ -2213,11 +2016,12 @@ class skillcatWin(blankWindow):
                                                  self.character['cat'][cat]['Skill'][skill]['rank'],
                                                  
                                                 ),
-                                       tag = "skill"
+                                       tag = cat
                                        )
             
             catNo += 1
         self.__tree.tag_configure('category', background = 'lightblue')
+ 
     def __selectTreeItem(self, event):
         '''
         Select an item from the treeview list.
@@ -2226,9 +2030,37 @@ class skillcatWin(blankWindow):
         '''    
         self.__curItem = self.__tree.focus()
         print self.__tree.item(self.__curItem)
-           
+    
+    def __calcLvlup(self):
+        '''
+        This determines current level by current EPs and calculates number of
+        level-ups by the level difference of old EP's level and current EP's
+        level
+        '''      
+        self.character['lvl'] = getLvl(self.character['exp'])
+        oldlvl = getLvl(self.character['old_exp'])
+        self.character['lvlup'] = self.character['lvl'] - oldlvl
+    
+    def __calcStats(self, category = ""):
+        '''
+        Calculates the total stat bonus for the given category
+        \todo has to be implemented
+        '''    
+        if category != "":
+            print "not done yet"
+
+    def __calcRanks(self, catskill = ""):
+        '''
+        This method caclulates the rank bonusses of a category or skill. if a
+        single category or skill is given to this method only this single one will
+        be (re-)calculated
+        \param catskill holds a single category or skill for recalculating rank bonus.
+                        If empty all categories and skills will be recalculated.
+        \todo has to be implemented              
+        '''
+        print "not done yet"
         
-    def calcTotals(self):
+    def __calcTotals(self):
         '''
         This method calculate all rank bonus of categories and skills of the character loaded.
         \todo has to be implemented
