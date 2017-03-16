@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 '''
-\file gui/gmTools.py
-\package gui.gmTools
+\file gui/gmtools.py
+\package gui
 \brief Window classes for GM tools gui
 
 
@@ -13,8 +13,9 @@
 \version 1.0
 '''
 import string
-from treasure import *
+
 from gui.window import *
+from rpgtoolbox.treasure import *
 
 class createTreasureWin(blankWindow):
     """
@@ -38,7 +39,7 @@ class createTreasureWin(blankWindow):
         title1.grid()
         
         # List of categories
-        self.__trlist = Listbox(self.ctwin, height=0)
+        self.__trlist = Listbox(self.ctwin, height = 0)
         
         for linetext in trtypelist[self.lang]:
             self.__trlist.insert('end', linetext)
@@ -52,13 +53,13 @@ class createTreasureWin(blankWindow):
         self.__trtext.insert(END, submenu['items'][self.lang]['itemgen'].strip())
         self.__trtext['bg'] = '#FFFFFF'
         self.__trtext['relief'] = 'groove'
-        vs = Scrollbar(self.ctwin, orient="vertical", command=self.__trtext.yview)
-        self.__trtext.config(yscrollcommand=vs.set)
-        hs = Scrollbar(self.ctwin, orient="horizontal", command=self.__trtext.xview)
-        self.__trtext.config(xscrollcommand=hs.set)
-        self.__trtext.grid(row = 2, sticky = E+W+N+S)
-        vs.grid(row = 2, column=1, sticky = S+N+E)
-        hs.grid(sticky = W+E)
+        vs = Scrollbar(self.ctwin, orient = "vertical", command = self.__trtext.yview)
+        self.__trtext.config(yscrollcommand = vs.set)
+        hs = Scrollbar(self.ctwin, orient = "horizontal", command = self.__trtext.xview)
+        self.__trtext.config(xscrollcommand = hs.set)
+        self.__trtext.grid(row = 2, sticky = E + W + N + S)
+        vs.grid(row = 2, column = 1, sticky = S + N + E)
+        hs.grid(sticky = W + E)
         
         # Button to create a text describing the treasure
         self.__trcreate = Button(self.ctwin, text = submenu['items'][self.lang]['treasure'],
@@ -73,7 +74,7 @@ class createTreasureWin(blankWindow):
         self.__filename = Entry(self.ctwin)
         #self.__filename['width'] = 69
         self.__filename['borderwidth'] = 3
-        self.__filename.grid(sticky = E+W)
+        self.__filename.grid(sticky = E + W)
         self.__filename.insert(1, filename)
         
         # Button to save the text
@@ -82,13 +83,13 @@ class createTreasureWin(blankWindow):
         self.__bsave.grid(sticky = W)
         
         # Button to close the window
-        self.__bende = Button(self.ctwin, text = txtbutton['but_quit'][self.lang],
-                               command = self.__ende)
-        self.__bende.grid()
+        self.__bquit = Button(self.ctwin, text = txtbutton['but_quit'][self.lang],
+                               command = self.__quit)
+        self.__bquit.grid()
 
         # make the canvas expandable
-        self.ctwin.grid_rowconfigure(2, weight=1)
-        self.ctwin.grid_columnconfigure(0, weight=1)
+        self.ctwin.grid_rowconfigure(2, weight = 1)
+        self.ctwin.grid_columnconfigure(0, weight = 1)
         
     def __trcreate(self):
         '''
@@ -97,9 +98,9 @@ class createTreasureWin(blankWindow):
         # Create Text
         trtype = self.__trlist.curselection()[0] + 1
         items = treasure()
-        self.trcontent = items.findTreasure(trtype, output='')
+        self.trcontent = items.findTreasure(trtype, output = '')
         trtext = self.trcontent
-        trtext= string.join(trtext, '\n')
+        trtext = string.join(trtext, '\n')
         
         # Display text
         self.__trtext.delete('1.0', END)
@@ -136,7 +137,7 @@ class createTreasureWin(blankWindow):
                 print('Error: Invalid file name')
                 print(outputfile)
             
-    def __ende(self):
+    def __quit(self):
         '''
         This private method closes the createTreasreWin window
         '''
@@ -165,12 +166,12 @@ class createMagicWin(blankWindow):
         self.__output['borderwidth'] = 3
         self.__output['bg'] = '#FFFFFF'
         self.__output['relief'] = 'groove'
-        self.__output.grid(sticky = W+E)
+        self.__output.grid(sticky = W + E)
         self.__output.insert(1, submenu['items'][self.lang]['magicgen'])
         self.itemtext = ''
-        hs = Scrollbar(self.cmwin, orient="horizontal", command=self.__output.xview)
-        self.__output.config(xscrollcommand=hs.set)
-        hs.grid(sticky = E+W)
+        hs = Scrollbar(self.cmwin, orient = "horizontal", command = self.__output.xview)
+        self.__output.config(xscrollcommand = hs.set)
+        hs.grid(sticky = E + W)
         
         # Button to create treasure descriptions
         self.__bcreate = Button(self.cmwin, text = submenu['items'][self.lang]['magical'],
@@ -178,13 +179,13 @@ class createMagicWin(blankWindow):
         self.__bcreate.grid()
         
         # Button to close window
-        self.__bende = Button(self.cmwin, text = txtbutton['but_quit'][self.lang],
-                               command = self.__ende)
-        self.__bende.grid()
+        self.__bquit = Button(self.cmwin, text = txtbutton['but_quit'][self.lang],
+                               command = self.__quit)
+        self.__bquit.grid()
  
         # make the canvas expandable
-        self.cmwin.grid_rowconfigure(0, weight=1)
-        self.cmwin.grid_columnconfigure(0, weight=1)
+        self.cmwin.grid_rowconfigure(0, weight = 1)
+        self.cmwin.grid_columnconfigure(0, weight = 1)
        
     def __cmcreate(self):
         '''
@@ -198,7 +199,7 @@ class createMagicWin(blankWindow):
         endpos = len(self.__output.get())
         
         if endpos > 1:
-            self.__output.delete(1, endpos -1)
+            self.__output.delete(1, endpos - 1)
             
         self.__output.insert(1, self.itemtext)
         self.__output.icursor(1)
@@ -206,7 +207,7 @@ class createMagicWin(blankWindow):
         # Tidy up
         del item
 
-    def __ende(self):
+    def __quit(self):
         '''
         This private method closes the createTreasreWin window
         '''

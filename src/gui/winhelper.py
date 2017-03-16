@@ -11,10 +11,11 @@
 \version 1.0
 
 '''
+import sys
+
 from rpgtoolbox.globaltools import *
 from rpgtoolbox.lang import *
 
-import sys
 
 if sys.version_info >= (2, 6) and sys.version_info < (3, 0):
     from Tkinter import * 

@@ -7,7 +7,7 @@
 \brief Windows classes for epcalc gui
 
 
-\date (C) 2017
+\date (C) 2016-2017
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
 \version 1.0
@@ -25,11 +25,11 @@ from rpgtoolbox import logbox as log
 from rpgtoolbox.errbox import *
 from rpgtoolbox.confbox import *
 from rpgtoolbox.rpgtools import getLvl
+from rpgtoolbox.rolemaster import stats
 from gui.winhelper import AutoScrollbar
 from gui.winhelper import InfoCanvas
 from gui.window import *
-from rpgtoolbox.rolemaster import stats
-from treasure import *
+#from treasure import *
 from gui.gmtools import *
 
 import json
@@ -254,7 +254,7 @@ class MainWindow(blankWindow):
         """
         This privat method invokes a window to generate descriptions of a treasures (gmtools.py).
         """
-        createTreasureWin(lang = self.lang, filename='treasure.txt')
+        createTreasureWin(lang = self.lang, filename = 'treasure.txt')
     
     def __magicWin(self):
         """
