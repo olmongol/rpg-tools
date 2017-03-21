@@ -22,6 +22,27 @@ catnames = {'de' : {'spells' : "Spells",
                     },
             }
 
+spellisttypes = {'de': ['Offene Leitmagie', 'Geschlossene Leitmagie',
+                        'Animist Basis', 'Kleriker Basis', 'Paladin Basis',
+                        'Waldläufer Basis', 'Heiler Basis', 'Böse Leitmagie',
+                        'Offene Essenz', 'Geschlossene Essenz',
+                        'Illusionist Basis', 'Magier Basis', 'Dilletant Basis',
+                        'Mönch Basis', 'Hexer Basis', 'Böse Essenz',
+                        'Offene Mentalismus', 'Geschlossene Mentalismus',
+                        'Laienheiler Basis', 'Barden Basis', 'Mentalist Basis',
+                        'Magent Basis', 'Mystiker Basis', 'Böse Mentalistmus'
+                        ],
+                 'en': ['Open Channeling', 'Closed Channeling',
+                        'Animist Base', 'Cleric Base', 'Paladin Base',
+                        'Ranger Basis', 'Healer Basis', 'Evil Channeling',
+                        'Open Essence', 'Closed Essence',
+                        'Illusionist Base', 'Magican Base', 'Dabbler Base',
+                        'Monk Base', 'Sorcerer Base', 'Evil Essence',
+                        'Open Mentalism', 'Closed Mentalism',
+                        'Lay Healer', 'Bard Base', 'Mentalist Base',
+                        'Magent Base', 'Mystic Base', 'Evil Mentalism'
+                        ],
+                 }
 ##\var races
 # just a dictionary for translation of the races' names
 races = {'de' : ['normale Menschen', 'vermischte Menschen', 'Hochmenschen',

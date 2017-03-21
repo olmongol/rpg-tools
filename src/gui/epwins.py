@@ -158,17 +158,6 @@ class MainWindow(blankWindow):
         '''
         self.notdoneyet("'saveFile'")
 
-#    def __saveCSV(self):
-#        '''
-#        This method saves the entered data as CSV file
-#        '''
-#        self.notdoneyet()
-#
-#    def __openCSV(self):
-#        '''
-#        This method opens an existing EP CSV file.
-#        '''
-#        self.notdoneyet()
 
     def __addEditMenu(self):
         '''
@@ -201,8 +190,7 @@ class MainWindow(blankWindow):
         else:
             msg = messageWindow()
             msg.showinfo(errmsg['no_data'][self.lang])
-#        self.window = edtchrWin(self.lang)
-#        self.notdoneyet()
+
 
     def _edtgrpWin(self):
         """

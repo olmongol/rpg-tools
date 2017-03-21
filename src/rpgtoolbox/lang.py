@@ -298,6 +298,9 @@ wintitle = {'opt_lang' : {'de' : 'Spracheinstellungen',
             'rm_create' : {'de' : "RM Charaktergenerierung",
                            'en' : 'RM Character Builder'
                            },
+            'rm_spells' : {'de' : 'RM Zauberlisteneditor',
+                           'en' : 'RM Spell List Editor'
+                           }
             }
 
 ## \var labels
@@ -453,41 +456,46 @@ s_elem_def = {'CRITICAL' : {'de' : 'Ausgeteilte kritische Treffer',
 ##\var csvlabels 
 # Contains some values for characters
 # \deprecated contains some values for characters (not needed yet)
-csvlabels = {'Name' : {'de' : "Charaktername",
-                       'en' : "character name"
-                       },
-             'Gender' : {'de' : "Geschlecht",
-                         'en' : "gender"
-                         },
-             'female' : {'de' : 'weiblich',
-                         'en' : 'female'
-                         },
-             'male' : {'de' : 'm\xc3\xa4nnlich',
-                       'en' : 'male'
-                       },
-             'EP' :{'de' : 'Erfahrungspunkte',
-                    'en' : 'experience points'
-                    },
-             'Player' : {'de' : 'Spieler',
-                         'en' : 'player'
-                         },
-             'Date' : {'de' : 'Datum',
-                       'en' : 'date'
-                       },
-             'Profession' : {'de' : 'Beruf',
-                             'en' : 'profession'
-                             },
-             'Race' : {'de' : 'Rasse',
-                       'en' : 'race'
-                       },
-             'Culture' : {'de' : 'Volk',
-                          'en' : 'culture'
-                          },
-             'Group' : {'de' : 'Gruppe',
-                        'en' : 'group'
-                        },
-             
-             }
+#csvlabels = {'Name' : {'de' : "Charaktername",
+#                       'en' : "character name"
+#                       },
+#             'Gender' : {'de' : "Geschlecht",
+#                         'en' : "gender"
+#                         },
+#             'female' : {'de' : 'weiblich',
+#                         'en' : 'female'
+#                         },
+#             'male' : {'de' : 'm\xc3\xa4nnlich',
+#                       'en' : 'male'
+#                       },
+#             'EP' :{'de' : 'Erfahrungspunkte',
+#                    'en' : 'experience points'
+#                    },
+#             'Player' : {'de' : 'Spieler',
+#                         'en' : 'player'
+#                         },
+#             'Date' : {'de' : 'Datum',
+#                       'en' : 'date'
+#                       },
+#             'Profession' : {'de' : 'Beruf',
+#                             'en' : 'profession'
+#                             },
+#             'Race' : {'de' : 'Rasse',
+#                       'en' : 'race'
+#                       },
+#             'Culture' : {'de' : 'Volk',
+#                          'en' : 'culture'
+#                          },
+#             'Group' : {'de' : 'Gruppe',
+#                        'en' : 'group'
+#                        },
+#             
+#             }
+
+#----------------------------------------------------------------------------
+# comming from Treasure/MagicItem Generator
+# \todo shall be transdered to merp.py
+#----------------------------------------------------------------------------
 
 ##\var trhelptext 
 # Contains help text for class treasure
@@ -545,7 +553,7 @@ valueTranslation = {"ZS": {"de": "Zinnst\xc3\xbccke",
 
 ##\var itemTranslation
 # Contains description of items in a treasure
-itemTranslation =   {"normal": {"de": "normaler Gegenstand",
+itemTranslation = {"normal": {"de": "normaler Gegenstand",
                                 "en": "normal item"
                                 },
                      "Gew80": {"de": "guter Gegenstand (80% Gewicht)",
@@ -807,4 +815,7 @@ spellLists = {'1-2' : {'Open Essence': {'de': 'Fluch',
                                          },
                          }
               }
+#----------------------------------------------------------------------------
+# End of block
+#----------------------------------------------------------------------------
 
