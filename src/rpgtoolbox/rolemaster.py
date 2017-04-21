@@ -21,7 +21,8 @@ catnames = {'de' : {'spells' : "Spells",
                     'weapon' : 'Weapon',
                     },
             }
-
+##\var spellisttypes
+# dictionary of spell list type lists
 spellisttypes = {'de': ['Offene Leitmagie', 'Geschlossene Leitmagie',
                         'Animist Basis', 'Kleriker Basis', 'Paladin Basis',
                         'Waldläufer Basis', 'Heiler Basis', 'Böse Leitmagie',
@@ -90,11 +91,87 @@ realms = {'en': ('choice', 'Essence', 'Channeling', 'Mentalism',
 ppds = ("", "PPD Ess ", "PPD Chan ", "PPD Ment ",
         ["PPD Chan ", "PPD Ment "], ["PPD Chan ", "PPD Ess "], ["PPD Ess ", "PPD Ment "])
 
-
+##\var speccat
+# a dirtionary of lists of special categories: BD, PPD
 speccat = {'en': ['Body Development', 'Power Point Development'],
            'de': ['Body Development', 'Power Point Development'],
            }
-
+###\var sltype
+## dictionary of lists of spell list types
+##\todo translate German part
+#sltype = {'en': ['Open Channeling',
+#                  'Closed Channeling',
+#                  'Evil Channeling',
+#                  'Open Essence',
+#                  'Closed Essence',
+#                  'Evil Essence',
+#                  'Open Mentalism',
+#                  'Closed Mentalism',
+#                  'Evil Mentalism',
+#                  'Magician Base',
+#                  'Illusionist Base',
+#                  'Cleric Base',
+#                  'Animist Base',
+#                  'Mentalist Base',
+#                  'Lay Healer Base',
+#                  'Healer Base',
+#                  'Mystic Base',
+#                  'Sorcerer Base',
+#                  'Ranger Base',
+#                  'Monk Base',
+#                  'Dabbler Base',
+#                  'Bard Base',
+#                  'Magend Base',
+#                  'Arcane'],
+#           'de': ['Open Channeling',
+#                  'Closed Channeling',
+#                  'Evil Channeling',
+#                  'Open Essence',
+#                  'Closed Essence',
+#                  'Evil Essence',
+#                  'Open Mentalism',
+#                  'Closed Mentalism',
+#                  'Evil Mentalism',
+#                  'Magician Base',
+#                  'Illusionist Base',
+#                  'Cleric Base',
+#                  'Animist Base',
+#                  'Mentalist Base',
+#                  'Lay Healer Base',
+#                  'Healer Base',
+#                  'Mystic Base',
+#                  'Sorcerer Base',
+#                  'Ranger Base',
+#                  'Monk Base',
+#                  'Dabbler Base',
+#                  'Bard Base',
+#                  'Magend Base',
+#                  'Arcane'],
+#           }
+## \var spelltypes
+# dictionary of spell types and their descriptions
+# \todo add more text to the description part of the types
+spelltypes = {'en' : {'E' : 'Elemental Spell',
+                   'BE' : 'Ball Elemental Spell',
+                   'DE' : 'Directed Elemenal Spell',
+                   'F' : 'Force Spell',
+                   'P' : 'Passive Spell',
+                   'U' : 'Utility Spell',
+                   'I' : 'Informational Spell',
+                   's' : 'subconcious Spell',
+                   'm' : 'Mental Attack Spell'
+                   },
+              'de' : {'E' : 'Elementarzauber',
+                   'BE' : 'elementarer Ballzauber',
+                   'DE' : 'gezielter Elemenarzauber',
+                   'F' : 'Kraftzauber',
+                   'P' : 'Passivzauber',
+                   'U' : 'Nützlichkeitszauber',
+                   'I' : 'Informationszauber',
+                   's' : 'unbewußter Zauber',
+                   'm' : 'mentaler Angriffszauber'
+                   },
+           }
 ##\var magicstats
 # holds the magic attribute on the same index as the lists in realms
 magicstats = ("", "Em", "In", "Pr", ['In', 'Pr'], ['In', 'Em'], ['Em', 'Pr'])
@@ -162,6 +239,14 @@ labels = {'de' : {'race' : 'Rasse',
                   'prio' : "Priorität",
                   'costs' : 'Kosten',
                   'progress': 'Steigerung',
+                  'sl-type': 'Spruchlistentyp',
+                  'spell': 'Zauber',
+                  'aoe' : "Wirkungsbereich",
+                  'dura': "Dauer",
+                  'range': "Reichweite",
+                  'type' : "Typ",
+                  'spec_note': "Bes. Anmerkungen",
+                  'descr': "Beschreibung",
                   },
           'en' :{'race' : 'Race',
                   'prof' : 'Profession',
@@ -225,6 +310,14 @@ labels = {'de' : {'race' : 'Rasse',
                   'prio' : 'Priority',
                   'costs' : 'Costs',
                   'progress' : 'Progression',
+                  'sl-type': 'Spell List Type',
+                  'spell': 'Spell',
+                  'aoe' : "Area of Effect",
+                  'dura': "Duration",
+                  'range': "Range",
+                  'type' : "Type",
+                  'spec_note': "Special Notes",
+                  'descr': "Description",
                   },
           }
 ##\var progressionType

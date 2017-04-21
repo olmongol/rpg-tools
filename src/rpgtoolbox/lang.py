@@ -250,6 +250,9 @@ txtwin = {'all_files' : {'de' : ("alle Dateien", '.*'),
                          },
           'grp_files' : {'de' : ('Gruppen Dateien', '.grp'),
                          'en' : ('Group files', '.grp')
+                         },
+          'spell_files':{'de': ('Spruchlisten', '.spell'),
+                         'en': ('Spell Lists', 'spell')
                          }
           }
 
@@ -451,46 +454,6 @@ s_elem_def = {'CRITICAL' : {'de' : 'Ausgeteilte kritische Treffer',
                               'en' : 'Individual EPs.',
                              },
               }
-
-
-##\var csvlabels 
-# Contains some values for characters
-# \deprecated contains some values for characters (not needed yet)
-#csvlabels = {'Name' : {'de' : "Charaktername",
-#                       'en' : "character name"
-#                       },
-#             'Gender' : {'de' : "Geschlecht",
-#                         'en' : "gender"
-#                         },
-#             'female' : {'de' : 'weiblich',
-#                         'en' : 'female'
-#                         },
-#             'male' : {'de' : 'm\xc3\xa4nnlich',
-#                       'en' : 'male'
-#                       },
-#             'EP' :{'de' : 'Erfahrungspunkte',
-#                    'en' : 'experience points'
-#                    },
-#             'Player' : {'de' : 'Spieler',
-#                         'en' : 'player'
-#                         },
-#             'Date' : {'de' : 'Datum',
-#                       'en' : 'date'
-#                       },
-#             'Profession' : {'de' : 'Beruf',
-#                             'en' : 'profession'
-#                             },
-#             'Race' : {'de' : 'Rasse',
-#                       'en' : 'race'
-#                       },
-#             'Culture' : {'de' : 'Volk',
-#                          'en' : 'culture'
-#                          },
-#             'Group' : {'de' : 'Gruppe',
-#                        'en' : 'group'
-#                        },
-#             
-#             }
 
 #----------------------------------------------------------------------------
 # comming from Treasure/MagicItem Generator

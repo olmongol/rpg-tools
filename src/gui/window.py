@@ -96,7 +96,8 @@ class blankWindow(object):
         self.__addMenu()
         
         '''This is for the file I/O window'''
-        self.mask = [txtwin['csv_files'][self.lang],
+        self.mask = [txtwin['json_files'][self.lang],
+                     txtwin['spell_files'][self.lang],
                      txtwin['all_files'][self.lang]
                      ]
         

@@ -16,7 +16,7 @@ from window import *
 from rpgtoolbox.lang import *
 from rpgtoolbox import rolemaster as rm
 import json
-import os.path, os.rename
+import os
 
 class editSpellList(blankWindow):
     '''
@@ -32,16 +32,12 @@ class editSpellList(blankWindow):
         self.datapath = datapath
         self.filename = "spellist.json"
         blankWindow.__init__(self, self.lang)
-        self.window.title("%s - %s (%s)" % (wintitle['rm_spells'][self.lang],
-                                 self.character['name'],
-                                 self.character['prof']
-                                 )
-                  )
+        self.window.title(wintitle['rm_spells'][self.lang])
         self.filemenu = Menu(master = self.menu)
         self.__addFileMenu()
-        self.__addEditMenu()
+#        self.__addEditMenu()
         self.__addHelpMenu()
-        self.__buildWin()
+#        self.__buildWin()
         self.window.mainloop() 
         
     def __addFileMenu(self):
@@ -57,12 +53,9 @@ class editSpellList(blankWindow):
                                   command = self.__openFile)
         self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
                                   command = self.__saveFile)
-#        self.filemenu.add_command(label = submenu['file'][self.lang]['sv_as'],
-#                                  command = self.__saveFile)
-
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['quit'],
-                                  command = self.window.destroy)
+                                  command = self.__closewin)
     def __newFile(self):
         """
         This method initializes a new spell list.
@@ -77,8 +70,9 @@ class editSpellList(blankWindow):
         \e content as an array.
         """
         self.__filein = askopenfilename(filetypes = self.mask,
-                                        initialdir = self.mypath)
-        if self.__filein != "":
+                                        initialdir = self.datapath)
+   
+        if self.__filein != "" and self.__filein != ():
             with open(self.__filein, 'r') as filecontent:
                 if self.__filein[-4:].lower() == "json":
                     self.spellist = json.load(filecontent)
@@ -112,3 +106,59 @@ class editSpellList(blankWindow):
         '''
         self.window.destroy()
 #        self.window = MainWindow(lang = self.lang, char = self.character)  
+
+    def __addHelpMenu(self):
+        '''
+        Adds a help menu entry to menu bar.
+        '''
+        self.helpmenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['help'][self.lang],
+                              menu = self.helpmenu)
+#        self.helpmenu.add_command(label = submenu['help'][self.lang]['win'],
+#                              command = self.__helpAWin)
+        self.helpmenu.add_separator()
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
+                                  command = self._helpAbout)   
+        
+    def __buildWin(self):
+        '''
+        A method to build the window elements and widgets.
+        '''
+        self.__sltypes = rm.spellisttypes
+        self.__sptypes = rm.spelltypes
+        ##\var self.__optWdg
+        # contains all needed OptionWidgets
+        self.__optWdg = {}
+        ##\var self.__enryWdg
+        # contains EntryWidgets
+        self.__entryWdg = {}
+        ##\var self.__slData
+        # contains data of all spell list widgets StringVar() IntVar()
+        self.__slData = {}
+        Label(master = self.window,
+              width = 10,
+              text = rm.labels[self.lang]['sl-type']
+              ).grid(column = 0, row = 0)
+        self.__slData['sl-type'] = StringVar()      
+        self.__optWdg['sl-type'] = OptionMenu(self.window,
+                                              self.__sltypes,
+                                                self.__slData['sl-type'],
+                                                command = self.__updSLData
+                                              ).grid(column = 1, row = 0, sticky = EW)
+#        self.__optWdg[str(i)] = OptionMenu(self.window,
+#                               self.__prio["%s - %d" % (self.__catnames[self.lang]['weapon'], i)],
+#                               *self.weaponcats,
+#                               command = self.__getPrio)
+#        self.__optWdg[str(i)].config(width = 50)
+#        self.__optWdg[str(i)].grid(column = 0, row = i, sticky = "W")
+        print "not done yet"
+        
+    def __updSLData(self):
+        '''
+        This updates new/modified Spell List Data
+        \todo has to be implemented
+        '''
+        self.notdoneyet('updSLData')
+        
+if __name__ == '__main__':
+    win = editSpellList()
