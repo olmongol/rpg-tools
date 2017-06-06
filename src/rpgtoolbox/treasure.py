@@ -2,7 +2,7 @@
 #-*- coding:utf-8 -*-
 '''
 \file treasure.py
-\package rpg-tools
+\package rpgtoolbox
 
 
 \date (C) 2017
@@ -55,7 +55,7 @@ class treasure():
         del (dummy)
         
 
-    def findTreasure(self, ttype=3, output="screen"):
+    def findTreasure(self, ttype = 3, output = "screen"):
         '''
         Determine contents of one or several treasures and create a description of the contents.
         Details are listed in function help
@@ -83,7 +83,7 @@ class treasure():
                 treasuretype = 3
 
         # Generate complete text
-        fcontent = ["*** %s ***\n"%(trheader[self.lang])]
+        fcontent = ["*** %s ***\n" % (trheader[self.lang])]
         fcontent += self.findMoney(treasuretype)
         fcontent += self.findItems(treasuretype)
                     
@@ -110,7 +110,7 @@ class treasure():
                 return("")
 
 
-    def findMoney(self, richness=3):
+    def findMoney(self, richness = 3):
         '''
         Function to determine amount of Money in treasure
         \param richness value category (1-5)
@@ -159,28 +159,28 @@ class treasure():
            
         ## \var table
         # table format: lower and upper limit of dice value, value category 1 to 5 result with value and unit
-        table = ((( 1, 10), (  50, "ZS"), ( 500, "ZS"), (1000, "ZS"), (5000, "ZS"), (10000,"ZS")),
-                 ((11, 20), ( 100, "ZS"), (1500, "ZS"), (3000, "ZS"), (7500, "ZS"), (5000, "KS")),
-                 ((21, 30), ( 500, "ZS"), (2500, "ZS"), (5000, "ZS"), (1000, "KS"), (10000,"KS")),
-                 ((31, 35), (1000, "ZS"), ( 500, "KS"), (1000, "KS"), (1750, "KS"), (1500, "BS")),
-                 ((36, 40), (2000, "ZS"), ( 750, "KS"), (1500, "KS"), (2500, "KS"), (2000, "BS")),
-                 ((41, 45), ( 300, "KS"), (1000, "KS"), (2000, "KS"), ( 400, "BS"), ( 250, "SS")),
-                 ((46, 50), ( 400, "KS"), (1250, "KS"), ( 250, "BS"), ( 500, "BS"), ( 300, "SS")),
-                 ((51, 55), ( 500, "KS"), ( 150, "BS"), ( 300, "BS"), ( 600, "BS"), ( 400, "SS")),
-                 ((56, 60), ( 600, "KS"), ( 200, "BS"), ( 350, "BS"), (  70, "SS"), (  60, "GS")),
-                 ((61, 65), (  70, "BS"), ( 250, "BS"), (  40, "SS"), (  90, "SS"), (  80, "GS")),
-                 ((66, 70), (  80, "BS"), (  30, "SS"), (  50, "SS"), ( 110, "SS"), ( 100, "GS")),
-                 ((71, 75), (  90, "BS"), (  35, "SS"), (  60, "SS"), (  15, "GS"), ( 125, "GS")),
-                 ((76, 80), ( 100, "BS"), (  40, "SS"), (  70, "SS"), (  25, "GS"), ( 150, "GS")),
-                 ((81, 85), (  12, "SS"), (  50, "SS"), (   8, "GS"), (  35, "GS"), (   2, "MS")),
-                 ((86, 90), (  15, "SS"), (  60, "SS"), (  10, "GS"), (  45, "GS"), ( 250, "Ed")),
-                 ((91, 94), (  20, "SS"), (   7, "GS"), (  15, "GS"), (  60, "Ed"), ( 300, "Ed")),
-                 ((95, 97), (   3, "GS"), (   8, "GS"), (  20, "Ed"), (  80, "Ed"), ( 400, "Sch")),
-                 ((98, 99), (   5, "GS"), (  10, "Ed"), (  50, "Ed"), (   1, "MS"), ( 600, "Sch")),
-                 ((100, 100), (10 ,"Ed"), (  25,"Sch"), ( 100,"Sch"), ( 500,"Sch"), (1000, "Sch")))
+        table = (((1, 10), (50, "ZS"), (500, "ZS"), (1000, "ZS"), (5000, "ZS"), (10000, "ZS")),
+                 ((11, 20), (100, "ZS"), (1500, "ZS"), (3000, "ZS"), (7500, "ZS"), (5000, "KS")),
+                 ((21, 30), (500, "ZS"), (2500, "ZS"), (5000, "ZS"), (1000, "KS"), (10000, "KS")),
+                 ((31, 35), (1000, "ZS"), (500, "KS"), (1000, "KS"), (1750, "KS"), (1500, "BS")),
+                 ((36, 40), (2000, "ZS"), (750, "KS"), (1500, "KS"), (2500, "KS"), (2000, "BS")),
+                 ((41, 45), (300, "KS"), (1000, "KS"), (2000, "KS"), (400, "BS"), (250, "SS")),
+                 ((46, 50), (400, "KS"), (1250, "KS"), (250, "BS"), (500, "BS"), (300, "SS")),
+                 ((51, 55), (500, "KS"), (150, "BS"), (300, "BS"), (600, "BS"), (400, "SS")),
+                 ((56, 60), (600, "KS"), (200, "BS"), (350, "BS"), (70, "SS"), (60, "GS")),
+                 ((61, 65), (70, "BS"), (250, "BS"), (40, "SS"), (90, "SS"), (80, "GS")),
+                 ((66, 70), (80, "BS"), (30, "SS"), (50, "SS"), (110, "SS"), (100, "GS")),
+                 ((71, 75), (90, "BS"), (35, "SS"), (60, "SS"), (15, "GS"), (125, "GS")),
+                 ((76, 80), (100, "BS"), (40, "SS"), (70, "SS"), (25, "GS"), (150, "GS")),
+                 ((81, 85), (12, "SS"), (50, "SS"), (8, "GS"), (35, "GS"), (2, "MS")),
+                 ((86, 90), (15, "SS"), (60, "SS"), (10, "GS"), (45, "GS"), (250, "Ed")),
+                 ((91, 94), (20, "SS"), (7, "GS"), (15, "GS"), (60, "Ed"), (300, "Ed")),
+                 ((95, 97), (3, "GS"), (8, "GS"), (20, "Ed"), (80, "Ed"), (400, "Sch")),
+                 ((98, 99), (5, "GS"), (10, "Ed"), (50, "Ed"), (1, "MS"), (600, "Sch")),
+                 ((100, 100), (10 , "Ed"), (25, "Sch"), (100, "Sch"), (500, "Sch"), (1000, "Sch")))
     
         # determine Money nuor times
-        for i in range(1, nuor+1):
+        for i in range(1, nuor + 1):
             roll = dice(100, 1)[0]
             
             # look up amount
@@ -199,16 +199,16 @@ class treasure():
         nuov = len(self.money)
         description = []
         
-        for i in range(0, nuov-2):
+        for i in range(0, nuov - 2):
             
             if self.money[i][0] is not 0:
-                description.append("%s %s"%(str(self.money[i][0]),
+                description.append("%s %s" % (str(self.money[i][0]),
                                            valueTranslation[self.money[i][1]][self.lang]))
         
-        for i in range(nuov-2, nuov):
+        for i in range(nuov - 2, nuov):
             
             if self.money[i][0] != 0:
-                description.append("%s (%s)"%(valueTranslation[self.money[i][1]][self.lang],
+                description.append("%s (%s)" % (valueTranslation[self.money[i][1]][self.lang],
                                             str(self.money[i][0])))
         
         return description
@@ -219,7 +219,7 @@ class treasure():
     # input: richness = value category (1-5)
     # output: Text listing the magical items in the treasure
     
-    def findItems(self, richness=3):
+    def findItems(self, richness = 3):
         '''
         Determine magic items in treasure.
         \param richness value category (1-5)
@@ -228,7 +228,7 @@ class treasure():
         if richness not in range(1, 6):
     
             print("Error: Invalid value category! set value to default (3)")
-            richness=3
+            richness = 3
         
         if self.lang not in self.supported:
             
@@ -249,26 +249,26 @@ class treasure():
                      (90, 1, 1, 2, 3, 4),
                      (95, 1, 2, 3, 3, 4),
                      (98, 2, 3, 4, 4, 5),
-                     (100,3, 3, 4, 5, 6))
+                     (100, 3, 3, 4, 5, 6))
     
         ## \var itemit Table of items in treasure
         # table format: lower and upper limit of dice value, value category 1 to 5 result
-        itemit = ((( 1, 10), "normal", "normal", "normal",  "Gew80",   "Gew60"),
-                  ((11, 20), "normal", "normal", "Gew80",   "Gew60",   "Gew40"),
-                  ((21, 30), "normal", "Gew80",  "Gew60",   "Gew40",   "Spruch"),
-                  ((31, 40), "Gew80",  "Gew60",  "Gew40",   "Bonus5",  "Spruch"),
-                  ((41, 50), "Gew80",  "Gew60",  "Bonus5",  "Bonus10", "Spruch"),
-                  ((51, 55), "Gew60",  "Bonus5", "Bonus5",  "Bonus10", "Bonus5"),
-                  ((56, 60), "Gew60",  "Bonus5", "Bonus10", "Bonus15", "Bonus10"),
+        itemit = (((1, 10), "normal", "normal", "normal", "Gew80", "Gew60"),
+                  ((11, 20), "normal", "normal", "Gew80", "Gew60", "Gew40"),
+                  ((21, 30), "normal", "Gew80", "Gew60", "Gew40", "Spruch"),
+                  ((31, 40), "Gew80", "Gew60", "Gew40", "Bonus5", "Spruch"),
+                  ((41, 50), "Gew80", "Gew60", "Bonus5", "Bonus10", "Spruch"),
+                  ((51, 55), "Gew60", "Bonus5", "Bonus5", "Bonus10", "Bonus5"),
+                  ((56, 60), "Gew60", "Bonus5", "Bonus10", "Bonus15", "Bonus10"),
                   ((61, 65), "Bonus5", "Bonus5", "Bonus10", "Bonus15", "Bonus10"),
-                  ((66, 70), "Bonus5", "Bonus5", "Bonus10", "Spruch",  "Bonus15"),
-                  ((71, 75), "Bonus5", "Bonus10","Bonus15", "Spruch",  "Bonus20"),
-                  ((76, 80), "Bonus5", "Bonus10","Spruch",  "Spruch",  "SV1"),
-                  ((81, 85), "Bonus10","Bonus15","Spruch",  "Spruch",  "SV2"),
-                  ((86, 90), "Bonus10","Spruch", "Spruch",  "SV1",     "MV2"),
-                  ((91, 94), "Spruch", "Spruch", "SV1",     "SV2",     "SV3"),
-                  ((95, 97), "Spruch", "SV1",    "SV2",     "MV2",     "MV3"),
-                  ((98,100),"SV1",    "SV2",    "MV2",     "SV3",     "bes")
+                  ((66, 70), "Bonus5", "Bonus5", "Bonus10", "Spruch", "Bonus15"),
+                  ((71, 75), "Bonus5", "Bonus10", "Bonus15", "Spruch", "Bonus20"),
+                  ((76, 80), "Bonus5", "Bonus10", "Spruch", "Spruch", "SV1"),
+                  ((81, 85), "Bonus10", "Bonus15", "Spruch", "Spruch", "SV2"),
+                  ((86, 90), "Bonus10", "Spruch", "Spruch", "SV1", "MV2"),
+                  ((91, 94), "Spruch", "Spruch", "SV1", "SV2", "SV3"),
+                  ((95, 97), "Spruch", "SV1", "SV2", "MV2", "MV3"),
+                  ((98, 100), "SV1", "SV2", "MV2", "SV3", "bes")
                   )
                                         
         # Determine number of items
@@ -304,7 +304,7 @@ class treasure():
     #
     # Determine kind of magic item and the embedded spell
     #
-    def magicItem(self, itype=0):
+    def magicItem(self, itype = 0):
         '''
         Determine magic item with embedded spell
         \param itype item type. Manual dice roll result can be entered or numbers according to: 
