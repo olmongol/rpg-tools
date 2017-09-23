@@ -66,3 +66,18 @@ class date(object):
             
         self.weekday = weekdays[dow]
             
+
+class time(object):
+    '''
+    Has to be implemented
+    '''
+    def __init__(self, hour = 0, min = 0, sec = 0):
+        pass
+
+
+class datetime(date, time):
+    '''
+    Combined class
+    '''
+    def __init__(self):
+        pass

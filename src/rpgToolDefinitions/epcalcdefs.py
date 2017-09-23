@@ -11,7 +11,7 @@ This module contains predefined variables, lists, etc. for the EP calculator.
 \email marcus@lederzeug.de
 \license GNU V3.0
 \version 0.1
-
+\deprecated This module is replaces by rpgtoolbox.epcalc.py
 '''
 maneuvres = {'routine' : {'de' : 'Routine',
                           'en' : 'routine',
@@ -100,7 +100,7 @@ epchr = {'gained hitpoints' : 0,
         }
 
 
-def getEPCrit(level = 0, crit = "A", charhit = False):
+def getEPCrit( level = 0, crit = "A", charhit = False ):
     '''
     This function returns the EP for a gained or provoked critical hit.
     \param level level of the hit monster/enemy
@@ -127,13 +127,13 @@ def getEPCrit(level = 0, crit = "A", charhit = False):
     if level == 0:
         level = 0.5
     
-    return int(round(level * hitcrits[crit], 0))
+    return int( round( level * hitcrits[crit], 0 ) )
 
-def calcEPSpell(spell = 1, caster = 1):
+def calcEPSpell( spell = 1, caster = 1 ):
     '''
     This function returns the EP for a cast spell.
     \label spell level of the spell cast
     \label caster level of the caster
     \label retval EP for the spell
     '''
-    return (100 - (caster - spell) * 10) 
+    return ( 100 - ( caster - spell ) * 10 ) 

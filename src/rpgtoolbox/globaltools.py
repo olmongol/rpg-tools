@@ -297,3 +297,26 @@ def writeCSV(fname = "test.csv", cont = [{'Spam' : 'Ham'}, {'Spam':'eggs'}]):
             writer.writerow(myrow)
             
     csvfile.close()
+    
+def readMagic(root = "./data/default/magic", slgroup = None):
+    '''
+    This function runs trough the magic root dir and collects the spell list groups
+    (dirs) and the names of the spell lists (files). It filters if a spell list
+    group is given.
+    \param root root dir from where to start the walk trough. Ususally the dir
+                ./data/default/magic
+    \param slgroup a single spell list group (for filtering purposes)
+    \return dictionary with SL group(s) as key and SL names as value list.
+    '''
+    magiclists = {}
+    
+    for path, dirs, files in os.walk(root):
+    
+        if root != path:
+            magiclists[path.replace("_", " ").strip(root)] = files
+            
+    if slgroup:
+        return {slgroup: magiclists[slgroup]}
+    
+    else:
+        return magiclists
