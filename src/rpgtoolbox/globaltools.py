@@ -307,6 +307,7 @@ def readMagic(root = "./data/default/magic", slgroup = None):
                 ./data/default/magic
     \param slgroup a single spell list group (for filtering purposes)
     \return dictionary with SL group(s) as key and SL names as value list.
+    \deprecated it is now implemented in handlemagic.py
     '''
     magiclists = {}
     
