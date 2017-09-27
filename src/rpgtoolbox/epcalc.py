@@ -141,6 +141,7 @@ class experience(object):
 
 class NPC(object):
     '''
+    \todo has to be implemented for fight simulations
     '''
     def __init__(self, npcfile, beast, lvl):
         pass
