@@ -101,15 +101,15 @@ class editSpellList(blankWindow):
                                         initialdir = self.datapath)
    
         if self.__filein != "" and self.__filein != ():
-            with open(self.__filein, 'r') as filecontent:
-                if self.__filein[-4:].lower() == "json":
+            if self.__filein[-4:].lower() == "json":
+                with open(self.__filein, 'r') as filecontent:
                     self.spellist = json.load(filecontent)
-                elif self.__filein[-4:].lower == "spell":
-                    self.spellist = json.load(filecontent)
-                else:
-                    msg = messageWindow()
-                    msg.showinfo(errmsg['wrong_type'][self.lang])
-                    pass
+            elif self.__filein[-3:].lower == "csv":
+                    self.spellist = readCSV(self.__filein)
+            else:
+                msg = messageWindow()
+                msg.showinfo(errmsg['wrong_type'][self.lang])
+                pass
 
     def __saveFile(self):
         '''

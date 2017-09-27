@@ -251,8 +251,8 @@ txtwin = {'all_files' : {'de' : ("alle Dateien", '.*'),
           'grp_files' : {'de' : ('Gruppen Dateien', '.grp'),
                          'en' : ('Group files', '.grp')
                          },
-          'spell_files':{'de': ('Spruchlisten', '.spell'),
-                         'en': ('Spell Lists', 'spell')
+          'spell_files':{'de': ('Spruchlisten', '.csv'),
+                         'en': ('Spell Lists', '.csv')
                          }
           }
 
