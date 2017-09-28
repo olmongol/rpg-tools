@@ -531,19 +531,27 @@ raceAbilities = {'Common Men': {'Ag' : 0,
                                 },
                  }
 
-def DPCostSpells(skill = 0, listtype = "Own Realm Own Base List", sutype = "pure", no = 1):
+
+def DPCostSpells(skill = 0, listtype = "Own Realm Own Base List", profession = "Magician", no = 1):
     '''
     Returns Developing Points Costs of Spell Lists. This is just needed if payed 
     with variable DP costs for spell lists.
     \param skill skill rank in that Spell List
     \param listtype List type of the Spell List
-    \param sutype Spell User Type (pure, hybrid, semi, non).
+    \param profession of the character.
     \param no number of Spell Lists developed this level
-    \todo this function has to be implemented fully but it is not urgent.
-    \deprecated this function may be deprecated because this is solved by CSV
+    \todo this function has to be implemented fully.
     '''
     costs = "N/A"
     factor = 1
+    nonspellusers = ["Fighter", "Thief", "Rogue", "Warrior Monk", "Layman"]
+    hybridspellusers = ["Healer", "Mystic", "Sorcerer"]
+    purespellusers = ['Animist', "Cleric", "Illusionist",
+                      "Magician", "Lay Healer", "Mentalist"
+                      ]
+    semispellusers = ["Paladin", "Ranger", "Dabbler",
+                      "Monk", "Bard", "Magent"
+                      ]
     
     if 5 < no < 11:
         factor *= 2
@@ -553,18 +561,20 @@ def DPCostSpells(skill = 0, listtype = "Own Realm Own Base List", sutype = "pure
         
     if listtype == "Own Realm Own Base List":
     
-        if sutype == "pure":
+        if profession in purespellusers:
             costs = [3, 3, 3]
         
-        elif sutype == "hybrid":
+        elif profession in hybridspellusers:
             costs = [3, 3, 3]
         
-        elif sutype == "semi":
+        elif profession in semispellusers:
             costs = [6, 6, 6]
-    
+        else:
+            costs = [100000]
+            
     elif listtype == "Own Realm Open List":
     
-        if sutype == "pure":
+        if profession in purespellusers:
         
             if skill < 21:
                 costs = [4, 4, 4]
@@ -572,7 +582,7 @@ def DPCostSpells(skill = 0, listtype = "Own Realm Own Base List", sutype = "pure
             else:
                 costs = [6, 6, 6]
         
-        elif sutype == "hybrid":
+        elif profession in hybridspellusers:
         
             if skill < 11:   
                 costs = [4, 4, 4]
@@ -584,20 +594,403 @@ def DPCostSpells(skill = 0, listtype = "Own Realm Own Base List", sutype = "pure
                 costs = [8, 8]
             
             else:
-                costs = (12)
+                costs = [12]
         
-        elif sutype == "semi":
+        elif profession in semispellusers:
         
             if skill < 11:
                 costs = [8, 8]
+                
             elif 10 < skill < 16:
                 costs = [12]
+            
             elif 15 < skill < 21:
                 costs = [18] 
+            
             else:
                 costs = [25]
+                
+        elif profession in nonspellusers:
+            nsucosts = {"Fighter": 25,
+                        "Thief" : 18,
+                        "Rogue": 15,
+                        "Warrior Monk": 20,
+                        "Layman": 10 
+                        }
+            costs = [nsucosts[profession]]
+            
+            if 5 < skill < 11:
+                costs[0] *= 2
+            
+            elif 10 < skill < 16:
+                costs[0] *= 3
+            
+            elif 15 < skill < 21:
+                costs[0] *= 4
+                
+            elif 20 < skill:
+                costs[0] *= 5
+    
+    elif listtype == "Own Realm Closed List":
+        
+        if profession in purespellusers:
+            
+            if skill < 21:
+                costs = [4, 4, 4]
+                
+            else:
+                costs = [8, 8] 
+        
+        elif profession in hybridspellusers:
+            
+            if skill < 11:   
+                costs = [4, 4, 4]
+            
+            elif 10 < skill < 16:
+                costs = [6, 6, 6]
+            
+            elif 16 < skill < 21:
+                costs = [10, 10]
+            
+            else:
+                costs = [25]
+                
+        elif profession in semispellusers:
+            
+            if skill < 6:
+                costs = [10, 10]
+            
+            elif 5 < skill < 11:
+                costs = [12]
+            
+            elif 10 < skill < 16:
+                costs = [25]
+            
+            elif 15 < skill < 21:
+                costs = [40] 
+                
+            else:
+                costs = [60]    
+        
+        elif profession in nonspellusers:
+            nsucosts = {"Fighter": 40,
+                        "Thief" : 35,
+                        "Rogue": 25,
+                        "Warrior Monk": 30,
+                        "Layman": 15 
+                        }   
+            costs = [nsucosts[profession]]
+            
+            if 5 < skill < 11:
+                costs[0] *= 2
+            
+            elif 10 < skill < 16:
+                costs[0] *= 3
+            
+            elif 15 < skill < 21:
+                costs[0] *= 4
+                
+            elif 20 < skill:
+                costs[0] *= 5            
+
+    elif listtype == "Own Realm Other Base List":
+        
+        if profession in purespellusers:
+            
+            if skill < 6:
+                costs = [8, 8]
+            
+            elif 5 < skill < 11:
+                costs = [10, 10]
+            
+            elif 10 < skill < 16:
+                costs = [12]
+            
+            elif 15 < skill < 21:
+                costs = [25] 
+                
+            else:
+                costs = [40]
+                
+        elif profession in hybridspellusers:
+            
+            if skill < 6:
+                costs = [10, 10]
+            
+            elif 5 < skill < 11:
+                costs = [12]
+            
+            elif 10 < skill < 16:
+                costs = [25]
+            
+            elif 15 < skill < 21:
+                costs = [40] 
+                
+            else:
+                costs = [60]     
+                
+        elif profession in semispellusers:
+            
+            if skill < 6:
+                costs = [25]
+            
+            elif 5 < skill < 11:
+                costs = [40]
+            
+            elif 10 < skill < 16:
+                costs = [60]
+            
+            elif 15 < skill < 21:
+                costs = [80] 
+                
+            else:
+                costs = [100]    
+                
+        elif profession in nonspellusers:
+            nsucosts = {"Fighter": 80,
+                        "Thief" : 70,
+                        "Rogue": 50,
+                        "Warrior Monk": 60,
+                        "Layman": 15 
+                        }   
+            costs = [nsucosts[profession]]
+            
+            if 5 < skill < 11:
+                costs[0] *= 2
+            
+            elif 10 < skill < 16:
+                costs[0] *= 3
+            
+            elif 15 < skill < 21:
+                costs[0] *= 4
+                
+            elif 20 < skill:
+                costs[0] *= 5                 
+            
+    elif listtype == "Other Realm Open List":
+        
+        if profession in purespellusers:
+            if skill < 6:
+                costs = [10, 10]
+            
+            elif 5 < skill < 11:
+                costs = [12]
+            
+            elif 10 < skill < 16:
+                costs = [25]
+            
+            elif 15 < skill < 21:
+                costs = [40] 
+                
+            else:
+                costs = [60]   
+        
+        elif profession in hybridspellusers:
+            if skill < 6:
+                costs = [12]
+            
+            elif 5 < skill < 11:
+                costs = [25]
+            
+            elif 10 < skill < 16:
+                costs = [40]
+            
+            elif 15 < skill < 21:
+                costs = [60] 
+                
+            else:
+                costs = [80] 
+                
+        elif profession in semispellusers:
+            
+            if skill < 6:
+                costs = [30]
+            
+            elif 5 < skill < 11:
+                costs = [60]
+            
+            elif 10 < skill < 16:
+                costs = [80]
+            
+            elif 15 < skill < 21:
+                costs = [100] 
+                
+            else:
+                costs = [120]
+                   
+        elif profession in nonspellusers:
+            nsucosts = {"Fighter": 90,
+                        "Thief" : 80,
+                        "Rogue": 60,
+                        "Warrior Monk": 70,
+                        "Layman": 40 
+                        }   
+            costs = [nsucosts[profession]]
+            
+            if 5 < skill < 11:
+                costs[0] *= 2
+            
+            elif 10 < skill < 16:
+                costs[0] *= 3
+            
+            elif 15 < skill < 21:
+                costs[0] *= 4
+                
+            elif 20 < skill:
+                costs[0] *= 5            
                     
+    elif listtype == "Other Realm Closed List":
+        
+        if profession in purespellusers:
+            if skill < 6:
+                costs = [20]
+            
+            elif 5 < skill < 11:
+                costs = [25]
+            
+            elif 10 < skill < 16:
+                costs = [40]
+            
+            elif 15 < skill < 21:
+                costs = [60] 
+                
+            else:
+                costs = [80]             
+        
+        elif profession in hybridspellusers:
+            if skill < 6:
+                costs = [25]
+            
+            elif 5 < skill < 11:
+                costs = [40]
+            
+            elif 10 < skill < 16:
+                costs = [60]
+            
+            elif 15 < skill < 21:
+                costs = [80] 
+                
+            else:
+                costs = [100]
+                
+        elif profession in semispellusers:
+            if skill < 6:
+                costs = [45]
+            
+            elif 5 < skill < 11:
+                costs = [60]
+            
+            elif 10 < skill < 16:
+                costs = [80]
+            
+            elif 15 < skill < 21:
+                costs = [100] 
+                
+            else:
+                costs = [120]  
+                
+        elif profession in nonspellusers:
+            nsucosts = {"Fighter": 105,
+                        "Thief" : 100,
+                        "Rogue": 90,
+                        "Warrior Monk": 95,
+                        "Layman": 80 
+                        }   
+            costs = [nsucosts[profession]]
+            
+            if 5 < skill < 11:
+                costs[0] *= 2
+            
+            elif 10 < skill < 16:
+                costs[0] *= 3
+            
+            elif 15 < skill < 21:
+                costs[0] *= 4
+                
+            elif 20 < skill:
+                costs[0] *= 5  
+                               
+    elif listtype == "Other Realm Other Base List":
+        
+        if profession in purespellusers:
+            
+            if skill < 6:
+                costs = [50]
+            
+            elif 5 < skill < 11:
+                costs = [70]
+            
+            elif 10 < skill < 16:
+                costs = [90]
+            
+            elif 15 < skill < 21:
+                costs = [110] 
+                
+            else:
+                costs = [130] 
+        
+        elif profession in hybridspellusers:
+            
+            if skill < 6:
+                costs = [60]
+            
+            elif 5 < skill < 11:
+                costs = [80]
+            
+            elif 10 < skill < 16:
+                costs = [100]
+            
+            elif 15 < skill < 21:
+                costs = [120] 
+                
+            else:
+                costs = [140] 
+                
+        elif profession in semispellusers:
+            
+            if skill < 6:
+                costs = [80]
+            
+            elif 5 < skill < 11:
+                costs = [100]
+            
+            elif 10 < skill < 16:
+                costs = [120]
+            
+            elif 15 < skill < 21:
+                costs = [140] 
+                
+            else:
+                costs = [160] 
+            
+        elif profession in nonspellusers:
+            nsucosts = {"Fighter": 120,
+                        "Thief" : 120,
+                        "Rogue": 120,
+                        "Warrior Monk": 120,
+                        "Layman": 100 
+                        } 
+            costs = [nsucosts[profession]]
+            
+            if 5 < skill < 11:
+                costs[0] *= 2
+            
+            elif 10 < skill < 16:
+                costs[0] *= 3
+            
+            elif 15 < skill < 21:
+                costs[0] *= 4
+                
+            elif 20 < skill:
+                costs[0] *= 5 
+    
+    if type(costs) == type([]):    
+                
+        for i in range(0, len(costs)):
+            costs[i] *= factor
+
     return costs
+    
     
 def choseProfession(lang = 'en'):
     '''
@@ -647,8 +1040,6 @@ def choseProfession(lang = 'en'):
     return professions
         
     
-    
-        
 def rankbonus(rank = 0, cat = 0, profession = 0, special = 0, progression = progressionType['standard cat']):
     '''
     This function returns the cumulative Bonus of a category or skill.

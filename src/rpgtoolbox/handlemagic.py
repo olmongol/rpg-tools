@@ -22,6 +22,7 @@ class getSpells(object):
     '''
     This class generates an object to get all spell lists into the right context 
     for a single character.
+    \todo a method that sets the right skill category for the spell list
     '''
 
 
