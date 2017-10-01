@@ -14,7 +14,7 @@ import os
 import logbox as log
 from globaltools import readFile as readNotes
 from globaltools import readCSV
-
+from rolemaster import DPCostSpells
 
 logger = log.createLogger('magic', 'warning', '1 MB', 1, './' , 'handlemagic.log')
 
@@ -34,7 +34,12 @@ class getSpells(object):
         '''
         self.prof = charprof
         self.realm = charrealm
+        self.spelllists = {}
         self.__getAllLists(datadir + "/default/magic")
+        
+
+        if type(self.realm) != type([]):
+            self.realm = [self.realm]
         
     def __getAllLists(self, datadir):
         '''
@@ -43,7 +48,7 @@ class getSpells(object):
         '''
         spellcat = os.listdir(datadir)
         spellcat.sort()
-        self.spelllists = {}
+        
         
         if datadir[-1] != "/":
             datadir += "/"
@@ -61,6 +66,92 @@ class getSpells(object):
                     
                     self.spelllists[slcat][slist]["Special Notes"] = readNotes(datadir + spellcat[i], splst[j][:-4] + ".sn")
                     self.spelllists[slcat][slist]['Spells'] = readCSV(datadir + spellcat[i] + "/" + splst[j])
-#                    self.spelllists[slcat][slist]['Category']
-    
 
+    def __categorizeSLs(self):
+        '''
+        This private method categorizes spell lists for identifying the developing
+        costs for a player character
+        \todo Following has to be implemented: 
+          -# comparing with base and realm
+          -# find the costs of development for the lists
+        '''
+        purespellusers = {"Animist": ["Channeling"],
+                        "CLeric" : ["Channeling"],
+                        "Illusionist" : ["Essence"],
+                        "Magician" : ["Essence"],
+                        "Lay Healer" : ["Mentalism"],
+                        "Mentalist" : ["Mentalism"],
+                        }
+        hybridspellusers = {"Healer" : ["Channeling", "Mentalism"],
+                            "Mystic" : ["Essence", "Mentalism"],
+                            "Sorcerer": ["Channeling", "Essence"]
+                            }
+        semispellusers = {"Paladin" : ["Channeling"],
+                         "Ranger" : ["Channeling"],
+                         "Dabbler": ["Essence"],
+                         "Monk": ["Essence"],
+                         "Bard" : ["Mentalism"],
+                         "Magent": ["Mentalism"]
+                         }
+        nonspellusers = {"Fighter":[],
+                        "Thief":[],
+                        "Rogue":[],
+                        "Warrior Monk":[],
+                        "Layman":[]
+                        }
+        
+#        if self.prof in purespellusers.keys():
+#            self.realm = purespellusers[self.prof]
+            
+        for listcat in self.spelllists.keys():
+            lcat = listcat.split(' ')
+            
+            if lcat[0] == "Base" and self.prof in listcat:
+                self.spelllists[listcat]["Category"] = "Own Realm Own Base Lists"
+            
+            elif lcat[0] == "Base"  and self.prof not in listcat:
+                
+                if lcat[2] in purespellusers.keys():
+                    
+                    if purespellusers[lcat[2]] == self.realm:
+                        self.spelllists[listcat]["Category"] = "Own Realm Other Base Lists"
+                    
+                    else:
+                        self.spelllists[listcat]["Category"] = "Other Realm Base Lists"
+                
+                elif lcat[2] in hybridspellusers.keys():
+                    
+                    for item in hybridspellusers[lcat[2]]:
+                    
+                        if item in self.realm:
+                            
+                            self.spelllists[listcat]['Category'] = "Own Realm Other Base Lists"
+                            break
+                        
+                        else:
+                            self.spelllists[listcat]['Category'] = "Other Realm Base Lists"
+                
+                elif lcat[2] in semispellusers.keys():    
+                    
+                    if semispellusers[lcat[2]] == self.realm:
+                        self.spelllists[listcat]["Category"] = "Own Realm Other Base Lists"
+                    
+                    else:    
+                        self.spelllists[listcat]["Category"] = "Other Realm Base Lists"
+            
+            elif lcat[0] != "Base":
+                
+                if lcat[0] in self.realm and lcat[1] == "Open":
+                    self.spelllists[listcat]["Category"] = "Own Realm Open Lists"
+                
+                elif lcat[0] in self.realm and lcat[1] != "Open":
+                    self.spelllists[listcat]["Category"] = "Own Realm Closed Lists"         
+                    
+                elif lcat[0] not in self.realm and lcat[1] == "Open":
+                    self.spelllists[listcat]["Category"] = "Other Realm Open Lists"
+                
+                elif lcat[0] not in self.realm and lcat[1] != "Open":
+                    self.spelllists[listcat]["Category"] = "Other Realm Closed Lists"                        
+            
+            
+            

@@ -532,7 +532,7 @@ raceAbilities = {'Common Men': {'Ag' : 0,
                  }
 
 
-def DPCostSpells(skill = 0, listtype = "Own Realm Own Base List", profession = "Magician", no = 1):
+def DPCostSpells(skill = 0, listtype = "Own Realm Own Base Lists", profession = "Magician", no = 1):
     '''
     Returns Developing Points Costs of Spell Lists. This is just needed if payed 
     with variable DP costs for spell lists.
@@ -540,7 +540,8 @@ def DPCostSpells(skill = 0, listtype = "Own Realm Own Base List", profession = "
     \param listtype List type of the Spell List
     \param profession of the character.
     \param no number of Spell Lists developed this level
-    \todo this function has to be implemented fully.
+    \retval costs a list of the developing costs for that type of spell lists.
+    \todo add "Arcane Open Lists" as well.
     '''
     costs = "N/A"
     factor = 1
@@ -559,7 +560,7 @@ def DPCostSpells(skill = 0, listtype = "Own Realm Own Base List", profession = "
     elif no > 10:
         factor *= 4
         
-    if listtype == "Own Realm Own Base List":
+    if listtype == "Own Realm Own Base Lists":
     
         if profession in purespellusers:
             costs = [3, 3, 3]
@@ -572,7 +573,7 @@ def DPCostSpells(skill = 0, listtype = "Own Realm Own Base List", profession = "
         else:
             costs = [100000]
             
-    elif listtype == "Own Realm Open List":
+    elif listtype == "Own Realm Open Lists":
     
         if profession in purespellusers:
         
@@ -631,7 +632,7 @@ def DPCostSpells(skill = 0, listtype = "Own Realm Own Base List", profession = "
             elif 20 < skill:
                 costs[0] *= 5
     
-    elif listtype == "Own Realm Closed List":
+    elif listtype == "Own Realm Closed Lists":
         
         if profession in purespellusers:
             
@@ -693,7 +694,7 @@ def DPCostSpells(skill = 0, listtype = "Own Realm Own Base List", profession = "
             elif 20 < skill:
                 costs[0] *= 5            
 
-    elif listtype == "Own Realm Other Base List":
+    elif listtype == "Own Realm Other Base Lists":
         
         if profession in purespellusers:
             
@@ -767,7 +768,7 @@ def DPCostSpells(skill = 0, listtype = "Own Realm Own Base List", profession = "
             elif 20 < skill:
                 costs[0] *= 5                 
             
-    elif listtype == "Other Realm Open List":
+    elif listtype == "Other Realm Open Lists":
         
         if profession in purespellusers:
             if skill < 6:
@@ -839,7 +840,7 @@ def DPCostSpells(skill = 0, listtype = "Own Realm Own Base List", profession = "
             elif 20 < skill:
                 costs[0] *= 5            
                     
-    elif listtype == "Other Realm Closed List":
+    elif listtype == "Other Realm Closed Lists":
         
         if profession in purespellusers:
             if skill < 6:
@@ -910,7 +911,7 @@ def DPCostSpells(skill = 0, listtype = "Own Realm Own Base List", profession = "
             elif 20 < skill:
                 costs[0] *= 5  
                                
-    elif listtype == "Other Realm Other Base List":
+    elif listtype == "Other Realm Other Base Lists":
         
         if profession in purespellusers:
             
@@ -983,7 +984,10 @@ def DPCostSpells(skill = 0, listtype = "Own Realm Own Base List", profession = "
                 
             elif 20 < skill:
                 costs[0] *= 5 
-    
+                
+#    elif listtype == "Arcane Open Lists":
+#        
+        
     if type(costs) == type([]):    
                 
         for i in range(0, len(costs)):
