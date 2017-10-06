@@ -6,3 +6,4 @@ import rpgtools
 import globaltools
 import treasure
 import calendar
+import handlemagic

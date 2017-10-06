@@ -22,6 +22,7 @@ from ttk import *
 from rpgtoolbox.lang import *
 from rpgtoolbox.globaltools import *
 from rpgtoolbox import logbox as log
+from rpgtoolbox import handlemagic
 from rpgtoolbox.errbox import *
 from rpgtoolbox.confbox import *
 from rpgtoolbox.rpgtools import getLvl
@@ -663,6 +664,7 @@ class genAttrWin(blankWindow):
     '''
     A window class for generating name, race, profession and attributes of a new
     character.
+    \todo adding the spell lists as skills to the right skill categories
     '''
     def __init__(self, lang = 'en', storepath = './data', rpg = "RoleMaster"):
         '''
@@ -1388,7 +1390,7 @@ class genAttrWin(blankWindow):
         category.
         \todo replace progression expression with number list for ALL skills and 
         categories
-        
+        \todo add spell lists as spell skills
         '''
         from rpgtoolbox import rolemaster as rm
         fp = open("%sdefault/Skills_%s.csv" % (self.spath, self.lang))
@@ -1465,12 +1467,19 @@ class genAttrWin(blankWindow):
                 elif self.character['realm'] != "choice":
                     temp.append(rm.realmstats[self.lang][self.character['realm']])
                     temp.append(rm.realmstats[self.lang][self.character['realm']])
-                
+                    
+                                   
                 skillcat[content[i][0]][content[0][1]] = temp
                 skillcat[content[i][0]]["Skill"][content[0][1]] = temp
                 
         self.character['cat'] = skillcat
-        
+        if self.character['realm'] != "choice":
+            self.spellbook = handlemagic.getSpells(self.spath,
+                                                   self.character['prof'],
+                                                   self.character['realm'],
+                                                   self.character['lvl']
+                                                   )
+# here to come: adding spell lists as skills to the right category
         
     def __closewin(self):
         '''
@@ -1847,6 +1856,8 @@ class skillcatWin(blankWindow):
     This is the class for a window object to chose the priority of weapon skills
     at the character's generation. It will also set the category and skill ranks 
     during adolescence.
+    \todo a lot... it is not finished yet
+    
     """
     def __init__(self, lang = 'en', storepath = "./data", char = None):
         """
@@ -1859,8 +1870,11 @@ class skillcatWin(blankWindow):
         \param char Character as JSON
         """
         from rpgtoolbox.rolemaster import catnames, rankbonus
+#        from rpgtoolbox import handlemagic
+        
         self.__catnames = catnames
         self.__rankbonus = rankbonus
+        
         
         if storepath == None:
             self.spath = os.path.expanduser('~') + "/data"
@@ -1873,6 +1887,10 @@ class skillcatWin(blankWindow):
         self.lang = lang
         self.character = char
         self.__calcLvlup()
+#        self.spellbook = handlemagic.getSpells(storepath,
+#                                               self.character['prof'],
+#                                               self.character['realm']
+#                                               )
         
         blankWindow.__init__(self, self.lang)
         self.window.title("%s - %s (%s)" % (wintitle['edit'][self.lang],
@@ -1970,6 +1988,9 @@ class skillcatWin(blankWindow):
                    main window
         '''
         from rpgtoolbox.rolemaster import exceptions
+        
+        
+        
         for col in self.__treecolumns:
             self.__tree.heading(col, text = col.title())
             self.__tree.column(col, width = 200)
@@ -1992,10 +2013,12 @@ class skillcatWin(blankWindow):
                                                           ),
                                                 tag = "category"
                                                 )
+                
             for skill in self.character['cat'][cat]['Skill'].keys():
+                
                 if skill not in exceptions:
-                    print "%s \n\t%s" % (cat, skill) 
-                    print "\n\n%s" % (str(self.character['cat'][cat]['Skill'][skill]['Progression']))
+#                    print "%s \n\t%s" % (cat, skill) 
+#                    print "\n\n%s" % (str(self.character['cat'][cat]['Skill'][skill]['Progression']))
                     self.__tree.insert(catID[cat],
                                        "end",
                                        values = (skill,

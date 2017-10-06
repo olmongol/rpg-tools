@@ -15,6 +15,7 @@ This module contains some helpful functions for role-playing games like:
 \version 0.1
 '''
 import random
+from rpgtoolbox.globaltools import readCSV
 
 def dice(sides = 6, number = 1):
     '''
@@ -49,3 +50,44 @@ def getLvl(ep = 10000):
     else:
         lvl = (ep - 500000) / 50000 + 20
     return lvl
+
+class statManeuver(object):
+    '''
+    This class handles maneuver roll results.
+    '''
+    
+    def __init__(self, tablefile = "./data/default/tables/general_smt.csv"):
+        self.table = readCSV(tablefile)
+        
+    def checkRoll(self, roll):
+        '''
+        Checks the rolled number + bonusses for success.
+        \param roll the modified roll result (number)
+        \retval result table row as
+        '''
+        result = {}
+
+        for row in range(0, len(self.table)):
+            lower, upper = self.table[row]['roll'].split(" < ")
+            
+            if lower == "UM" and roll == int(upper):
+                result = dict(self.table[row])
+                break
+
+            elif lower == "" and roll <= int(upper):
+                result = dict(self.table[row])
+            
+            elif upper == "" and int(lower) <= roll: 
+                result = dict(self.table[row])
+                
+            elif lower != "UM" and lower != "" and upper != "":
+                
+                if int(lower) <= roll <= int(upper):
+                    result = dict(self.table[row])
+            
+        if "roll" in result.keys():
+            del(result['roll'])
+                        
+        return result
+                 
+        

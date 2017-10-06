@@ -22,21 +22,23 @@ class getSpells(object):
     '''
     This class generates an object to get all spell lists into the right context 
     for a single character.
-    \todo a method that sets the right skill category for the spell list
     '''
 
 
-    def __init__(self, datadir = "./data", charprof = "", charrealm = []):
+    def __init__(self, datadir = "./data", charprof = "", charrealm = [], charlvl = 1):
         '''
         \param datadir directory where to find the magic directory
         \param charprof profession of the character
         \param charrealm realm(s) of magic
+        \param charlvl character's lvl to calculate costs
+        \todo  calculating development costs dependent on class and level
         '''
         self.prof = charprof
         self.realm = charrealm
+        self.lvl = charlvl
         self.spelllists = {}
         self.__getAllLists(datadir + "/default/magic")
-        
+        self.__categorizeSLs()
 
         if type(self.realm) != type([]):
             self.realm = [self.realm]
@@ -71,9 +73,7 @@ class getSpells(object):
         '''
         This private method categorizes spell lists for identifying the developing
         costs for a player character
-        \todo Following has to be implemented: 
-          -# comparing with base and realm
-          -# find the costs of development for the lists
+        
         '''
         purespellusers = {"Animist": ["Channeling"],
                         "CLeric" : ["Channeling"],
@@ -99,9 +99,6 @@ class getSpells(object):
                         "Warrior Monk":[],
                         "Layman":[]
                         }
-        
-#        if self.prof in purespellusers.keys():
-#            self.realm = purespellusers[self.prof]
             
         for listcat in self.spelllists.keys():
             lcat = listcat.split(' ')

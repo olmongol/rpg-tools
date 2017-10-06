@@ -14,13 +14,21 @@ from rpgtools import getLvl as calcLvl
 
 class experience(object):
     '''
-    This class will generate an object to handle a character's gained experience
+    This class will generate an object to handle a character's gained experience.
+    It holds the following attributes:
+    - \b name: character name
+    - \b ep: experience points
+    - \b newep: new experience points after adding the gained ones
+    - \b lvl: current character's level based on given initial EPs
+    - \b newlvl: new character's level based on newep
+    - \b gainedep: gained EPs by different actions
+
     '''
 
     def __init__(self, charname = "Conan", ep = 0):
         '''
         \param charname name of the character
-        \param ep experience points of the character.
+        \param ep current experience points of the character.
         
         '''
         self.name = charname
@@ -28,7 +36,17 @@ class experience(object):
         self.getLvl = calcLvl
         self.lvl = self.getLvl(self.ep)
         self.gainedep = 0
-        self.newlvl = self.getLvl(self.ep + self.gainedep)
+        self.getNewLvl()
+        
+    def getNewLvl(self):
+        """
+        Update level information. \n
+        The following attributes will be set:
+        - newep
+        - newlvl
+        """
+        self.newep = self.ep + self.gainedep
+        self.newlvl = self.getLvl(self.newep)
         
     def spell(self, spelllevel = 1, number = 1):
         '''
@@ -87,44 +105,8 @@ class experience(object):
         \param manlvl difficulty of maneuver
         \param number number of maneuvers of this level
         '''
-        
-        maneuvers = {'routine' : {'de' : 'Routine',
-                                  'en' : 'routine',
-                                  'ep' : 0
-                                  },
-                     'very easy'  : {'de' : 'sehr leicht',
-                                     'en' : 'very easy',
-                                     'ep' : 5
-                                     },
-                     'easy'    : {'de' : 'leicht',
-                                  'en' : 'easy',
-                                  'ep' : 10
-                                  },
-                     'medium'  : {'de' : 'mittelschwer',
-                                  'en' : 'medium',
-                                  'ep' : 50 
-                                  },
-                     'heavy'   : {'de' : 'schwer',
-                                  'en' : 'heavy',
-                                  'ep' : 100
-                                  },
-                     'very heavy' : {'de' : 'sehr schwer',
-                                     'en' : 'very heavy',
-                                     'ep' : 150
-                                     },
-                     'extreme' : {'de' : 'extrem schwer',
-                                  'en' : 'extreme',
-                                  'ep' : 200
-                                  },
-                     'folly'   : {'de' : 'Blanker Leichtsinn',
-                                  'en' : 'sheer foolish',
-                                  'ep' : 300
-                                  },
-                     'absurd'  : {'de' : 'absurd',
-                                  'en' : 'absurd',
-                                  'ep' : 500
-                                  }
-                     }
+        from rpgToolDefinitions.epcalcdefs import maneuvers
+
         self.gainedep += maneuvers[manlvl]['ep'] * number
         
     def killedNPC(self, monsterlvl = 1, number = 1):

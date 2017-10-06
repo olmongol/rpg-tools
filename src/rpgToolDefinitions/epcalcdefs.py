@@ -13,41 +13,50 @@ This module contains predefined variables, lists, etc. for the EP calculator.
 \version 0.1
 \deprecated This module is replaces by rpgtoolbox.epcalc.py
 '''
-maneuvres = {'routine' : {'de' : 'Routine',
+maneuvers = {'routine' : {'de' : 'Routine',
                           'en' : 'routine',
-                          'ep' : 0
+                          'ep' : 0,
+                          'mod': 30
                           },
-             'v_easy'  : {'de' : 'sehr leicht',
+             'easy'  : {'de' : 'sehr leicht',
                           'en' : 'very easy',
-                          'ep' : 5
+                          'ep' : 5,
+                          'mod': 20
                           },
-             'easy'    : {'de' : 'leicht',
+             'light'    : {'de' : 'leicht',
                           'en' : 'easy',
-                          'ep' : 10
+                          'ep' : 10,
+                          'mod': 10
                           },
              'medium'  : {'de' : 'mittelschwer',
                           'en' : 'medium',
-                          'ep' : 50 
+                          'ep' : 50,
+                          'mod': 0 
                           },
-             'heavy'   : {'de' : 'schwer',
+             'hard'   : {'de' : 'schwer',
                           'en' : 'heavy',
-                          'ep' : 100
+                          'ep' : 100,
+                          'mod':-10
                           },
-             'v_heavy' : {'de' : 'sehr schwer',
+             'very hard' : {'de' : 'sehr schwer',
                           'en' : 'very heavy',
-                          'ep' : 150
+                          'ep' : 150,
+                          'mod':-20
                           },
              'extreme' : {'de' : 'extrem schwer',
                           'en' : 'extreme',
-                          'ep' : 200
+                          'ep' : 200,
+                          'mod':-30
                           },
              'folly'   : {'de' : 'Blanker Leichtsinn',
                           'en' : 'sheer foolish',
-                          'ep' : 300
+                          'ep' : 300,
+                          'mod':-50
                           },
              'absurd'  : {'de' : 'absurd',
                           'en' : 'absurd',
-                          'ep' : 500
+                          'ep' : 500,
+                          'mod':-70
                           }
              
              }
@@ -100,7 +109,7 @@ epchr = {'gained hitpoints' : 0,
         }
 
 
-def getEPCrit( level = 0, crit = "A", charhit = False ):
+def getEPCrit(level = 0, crit = "A", charhit = False):
     '''
     This function returns the EP for a gained or provoked critical hit.
     \param level level of the hit monster/enemy
@@ -127,13 +136,13 @@ def getEPCrit( level = 0, crit = "A", charhit = False ):
     if level == 0:
         level = 0.5
     
-    return int( round( level * hitcrits[crit], 0 ) )
+    return int(round(level * hitcrits[crit], 0))
 
-def calcEPSpell( spell = 1, caster = 1 ):
+def calcEPSpell(spell = 1, caster = 1):
     '''
     This function returns the EP for a cast spell.
     \label spell level of the spell cast
     \label caster level of the caster
     \label retval EP for the spell
     '''
-    return ( 100 - ( caster - spell ) * 10 ) 
+    return (100 - (caster - spell) * 10) 
