@@ -57,6 +57,7 @@ class getSpells(object):
             
         for i in range(0, len(spellcat)):
             slcat = spellcat[i].replace('_', ' ')
+            slcat = slcat.replace("-", ' ')
             self.spelllists[slcat] = {}
             splst = os.listdir(datadir + spellcat[i])
             
@@ -65,7 +66,6 @@ class getSpells(object):
                 if splst[j].endswith(".csv"):
                     slist = splst[j].replace('_', ' ')[:-4]
                     self.spelllists[slcat][slist] = {}
-                    
                     self.spelllists[slcat][slist]["Special Notes"] = readNotes(datadir + spellcat[i], splst[j][:-4] + ".sn")
                     self.spelllists[slcat][slist]['Spells'] = readCSV(datadir + spellcat[i] + "/" + splst[j])
 
@@ -76,9 +76,9 @@ class getSpells(object):
         
         '''
         purespellusers = {"Animist": ["Channeling"],
-                        "CLeric" : ["Channeling"],
+                        "Cleric" : ["Channeling"],
                         "Illusionist" : ["Essence"],
-                        "Magician" : ["Essence"],
+                        "Magican" : ["Essence"],
                         "Lay Healer" : ["Mentalism"],
                         "Mentalist" : ["Mentalism"],
                         }
@@ -103,6 +103,9 @@ class getSpells(object):
         for listcat in self.spelllists.keys():
             lcat = listcat.split(' ')
             
+            if "Lay" in lcat:
+                lcat[-2:-1] = [lcat[-2] + " " + lcat[-1]]
+                
             if lcat[0] == "Base" and self.prof in listcat:
                 self.spelllists[listcat]["Category"] = "Own Realm Own Base Lists"
             

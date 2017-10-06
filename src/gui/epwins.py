@@ -1479,6 +1479,26 @@ class genAttrWin(blankWindow):
                                                    self.character['realm'],
                                                    self.character['lvl']
                                                    )
+            
+            for cat in self.character['cat'].keys():
+                
+                if cat[:8] == "Spells -":
+                    
+                    for slcat in self.spellbook.spelllists.keys():
+                        
+                        if self.spellbook.spelllists[slcat]['Category'] in cat:
+#                            self.character['cat'][cat]['Skill'] = self.spellbook.spelllists[slcat]
+                            for spell in self.spellbook.spelllists[slcat].keys():
+                                
+                                if spell != "Category":
+                                    self.character['cat'][cat]['Skill'][spell] = self.spellbook.spelllists[slcat][spell]
+                                    self.character['cat'][cat]['Skill'][spell]['rank'] = 0
+                                    self.character['cat'][cat]['Skill'][spell]["Progression"] = "Skill Only"
+                                    self.character['cat'][cat]['Skill'][spell]['rank bonus'] = 0
+                                    self.character['cat'][cat]['Skill'][spell]['item bonus'] = 0
+                                    self.character['cat'][cat]['Skill'][spell]["spec bonus"] = 0
+                            break
+                        
 # here to come: adding spell lists as skills to the right category
         
     def __closewin(self):
@@ -1640,7 +1660,7 @@ class priorizeWeaponsWin(blankWindow):
         ##\var crace
         # dummy variable that holds character's race
         crace = races['en'][races[self.lang].index(self.character['race'])]
-       
+
         for skillcat in self.__catDBC[prof].keys():
             if '/' in self.__catDBC[prof][skillcat]:
                 dbcdummy = self.__catDBC[prof][skillcat].split('/')
@@ -1653,6 +1673,7 @@ class priorizeWeaponsWin(blankWindow):
                     dbcdummy[i] = int(dbcdummy[i])
 
             self.character['cat'][skillcat][labels["en"]['costs']] = dbcdummy
+    
             for s in self.character['cat'][skillcat]['Skill'].keys():
                 if s not in exceptions:
                     self.character['cat'][skillcat]['Skill'][s][labels["en"]['costs']] = dbcdummy
@@ -1669,8 +1690,8 @@ class priorizeWeaponsWin(blankWindow):
             elif self.character['cat'][skillcat]['Progression'] == "Null" or self.character['cat'][skillcat]['Progression'] == "Skill Only":
                 self.character['cat'][skillcat]['Progression'] = progressionType['null']
                 skprog = progressionType['skill only']
-                if skillcat == "Spells - Own Realm Open Lists":
-                    print skillcat
+                if "Spells -" in skillcat:
+                    print "add2Char:", skillcat
                 
             elif self.character['cat'][skillcat]['Progression'] == "Combined":
                 self.character['cat'][skillcat]['Progression'] = progressionType['null']
@@ -1681,6 +1702,7 @@ class priorizeWeaponsWin(blankWindow):
                 print "Skill: %s - %s" % (skill, skprog)
                 if skill not in exceptions:
                     self.character['cat'][skillcat]['Skill'][skill]['Progression'] = skprog   
+        
         self.__setPPD()
         self.saveChar()
         
@@ -1763,7 +1785,7 @@ class priorizeWeaponsWin(blankWindow):
                 param['ppd'] = ppds[realms[l].index(self.character['realm'])]
                 param['Stats'] = magicstats[realms[l].index(self.character['realm'])]
                 
-        print param.keys()
+        print "set ppd ", param
                 
         if type(param['ppd']) == type(''):
             param['ppd'] = progressionType[param['ppd'] + param['race']]
