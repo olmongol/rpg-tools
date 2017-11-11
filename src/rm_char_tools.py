@@ -42,8 +42,6 @@ __license__ = "GNU V3.0"
 __me__ = "A MERS/RM RPG Toolbox for Python 2.7"
 
 
-
-
 if __name__ == '__main__':
     logger = log.createLogger('rpg', 'debug', '1 MB', 1, './')
     mycnf = chkCfg()

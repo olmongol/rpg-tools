@@ -116,6 +116,7 @@ def getEPCrit(level = 0, crit = "A", charhit = False):
     \param crit class of critical hit: T, A - E
     \param charhit was the character hit (True) or not (False)
     \retval EPs for the critical hit
+    \deprecated see epcalc.py
     '''
     selfhitcrits = {'T' : 0,
                    'A' : 100,
@@ -144,5 +145,6 @@ def calcEPSpell(spell = 1, caster = 1):
     \label spell level of the spell cast
     \label caster level of the caster
     \label retval EP for the spell
+    \deprecated see epcalc.py
     '''
     return (100 - (caster - spell) * 10) 

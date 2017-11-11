@@ -1892,7 +1892,6 @@ class skillcatWin(blankWindow):
         \param char Character as JSON
         """
         from rpgtoolbox.rolemaster import catnames, rankbonus
-#        from rpgtoolbox import handlemagic
         
         self.__catnames = catnames
         self.__rankbonus = rankbonus
@@ -1909,10 +1908,6 @@ class skillcatWin(blankWindow):
         self.lang = lang
         self.character = char
         self.__calcLvlup()
-#        self.spellbook = handlemagic.getSpells(storepath,
-#                                               self.character['prof'],
-#                                               self.character['realm']
-#                                               )
         
         blankWindow.__init__(self, self.lang)
         self.window.title("%s - %s (%s)" % (wintitle['edit'][self.lang],
@@ -1924,8 +1919,7 @@ class skillcatWin(blankWindow):
         self.__addFileMenu()
         self.__addHelpMenu()
         self.__buildWin()
-        self.__buildTree(
-                         )
+        self.__buildTree()
         self.window.mainloop()  
     
     def __addFileMenu(self):
@@ -1974,7 +1968,7 @@ class skillcatWin(blankWindow):
         - finalize button to make the change permanent.
         '''
         from rpgtoolbox.rolemaster import labels as rmlabels
-        self.__treeframe = Frame(width = 800, height = 600)
+        self.__treeframe = Frame(width = 200, height = 300)
         self.__treeframe.grid(column = 0, row = 0, columnspan = 7)
         self.__rmlabels = rmlabels
         self.__treecolumns = []
@@ -2002,7 +1996,7 @@ class skillcatWin(blankWindow):
             \li displaying total ranks in treeview
             \li displaying added skills in treeview
             \li finalize button:
-                1. finialize single level up
+                1. finalize single level up
                 2. stores character state
                 3. if no level up possible and BGOs available goto next character
                    creation window
@@ -2024,6 +2018,8 @@ class skillcatWin(blankWindow):
         for cat in ckeys:
 
             if cat != None:
+                print cat
+                print self.character['cat'][cat].keys()
                 catID[cat] = self.__tree.insert("",
                                                 catNo,
                                                 text = cat,
