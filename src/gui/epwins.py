@@ -1968,7 +1968,7 @@ class skillcatWin(blankWindow):
         - finalize button to make the change permanent.
         '''
         from rpgtoolbox.rolemaster import labels as rmlabels
-        self.__treeframe = Frame(width = 200, height = 300)
+        self.__treeframe = Frame(width = 800, height = 800)
         self.__treeframe.grid(column = 0, row = 0, columnspan = 7)
         self.__rmlabels = rmlabels
         self.__treecolumns = []
