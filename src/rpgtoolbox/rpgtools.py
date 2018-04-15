@@ -51,6 +51,16 @@ def getLvl(ep = 10000):
         lvl = (ep - 500000) / 50000 + 20
     return lvl
 
+
+def calcTotals(chardata = {}):
+     '''
+     This function calculates total bonusses for all categories and skills of a character.
+     \param chardata the character's (whole) data in JSON format
+     \retval result updated character's data concerning the total bonusses.
+     '''
+     print "calcTotals() - not done yet"
+
+
 class statManeuver(object):
     '''
     This class handles maneuver roll results.

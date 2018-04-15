@@ -1969,7 +1969,7 @@ class skillcatWin(blankWindow):
         '''
         from rpgtoolbox.rolemaster import labels as rmlabels
         self.__treeframe = Frame(width = 800, height = 800)
-        self.__treeframe.grid(column = 0, row = 0, columnspan = 7)
+        self.__treeframe.grid(column = 0, row = 0, columnspan = 7, rowspan = 3)
         self.__rmlabels = rmlabels
         self.__treecolumns = []
         for key in ['skill', 'progress', 'costs', 'rank', 'total']:
@@ -2018,8 +2018,8 @@ class skillcatWin(blankWindow):
         for cat in ckeys:
 
             if cat != None:
-                print cat
-                print self.character['cat'][cat].keys()
+#                print cat
+#                print self.character['cat'][cat].keys()
                 catID[cat] = self.__tree.insert("",
                                                 catNo,
                                                 text = cat,
@@ -2050,7 +2050,9 @@ class skillcatWin(blankWindow):
             
             catNo += 1
         self.__tree.tag_configure('category', background = 'lightblue')
- 
+#        self.curItem = self.__tree.focus()
+#        print self.__tree.item(self.curItem)
+    
     def __selectTreeItem(self, event):
         '''
         Select an item from the treeview list.
@@ -2097,6 +2099,7 @@ class skillcatWin(blankWindow):
 #        for cat in self.character['cat']:
         print "not done yet"
         
+    
     def __helpAWin(self):
         '''
         Help information about this window.
