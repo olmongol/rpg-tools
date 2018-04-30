@@ -55,7 +55,7 @@ def createLogger(logger = 'rpg-Logger', loglvl = 'debug', logsize = '2 MB',
     logger.setLevel(LEVEL[loglvl.lower()])
     
     """defining the logging format"""
-    formatter = logging.Formatter("%(asctime)s: %(levelname)s: %(message)s")
+    formatter = logging.Formatter("%(asctime)s: %(name)s: %(levelname)s: %(message)s")
     logsize = logsize.split()
     
     if 'MB' in logsize[1].upper():

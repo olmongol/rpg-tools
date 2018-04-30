@@ -39,6 +39,7 @@ __email__ = "marcus@lederzeug.de"
 __version__ = "1.0"
 __license__ = "GNU V3.0"
 __me__ = "A RPG tool package for Python 2.7"
+__updated__ = "30.04.2018"
 
 logger = log.createLogger('window', 'debug', '1 MB', 1, './')
 

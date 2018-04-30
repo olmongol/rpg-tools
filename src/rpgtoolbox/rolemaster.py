@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 '''
 \package rpgtoolbox.rolemaster
-\file /home/mongol/git/rpg-tools/src/rpgtoolbox/rolemaster.py
+\file rolemaster.py
 \brief Rolemaster specific toolbox
 
 This package holds RM specific tools like Charakter Skill Progression.
@@ -12,8 +12,10 @@ This package holds RM specific tools like Charakter Skill Progression.
 \email marcus@lederzeug.de
 \version 1.0
 \date 2017
-\copyright 2017 Marcus Schwamberger
+\copyright 2015-2018 Marcus Schwamberger
 '''
+__updated__ = "30.04.2018"
+
 catnames = {'de' : {'spells' : "Spells",
                     'weapon' : 'Weapon',
                     },

@@ -14,15 +14,17 @@ This module contains some helpful functions for role-playing games like:
 \email marcus@lederzeug.de
 \version 0.1
 '''
+__updated__ = "30.04.2018"
+
 import random
 from rpgtoolbox.globaltools import readCSV
 
 def dice(sides = 6, number = 1):
     '''
-    This function delivers the result of a dice roll as a list.
+    This function delivers the result of (number of) dice roll(s) as a list.
     \param sides number of sides of the used dice
     \param number number of used dices/rolls
-    \retval result list containing int numbers of the dice rolls
+    \retval result list containing integer numbers of the dice rolls
     '''
     i = 0
     result = []
@@ -53,12 +55,13 @@ def getLvl(ep = 10000):
 
 
 def calcTotals(chardata = {}):
-     '''
+    '''
      This function calculates total bonusses for all categories and skills of a character.
      \param chardata the character's (whole) data in JSON format
      \retval result updated character's data concerning the total bonusses.
-     '''
-     print "calcTotals() - not done yet"
+     \todo This function is not implemented yet.
+    '''
+    print "calcTotals() - not done yet"
 
 
 class statManeuver(object):
