@@ -35,7 +35,7 @@ from gui.gmtools import *
 import json
 
 __author__ = "Marcus Schwamberger"
-__copyright__ = "(C) 2015-2017 " + __author__
+__copyright__ = "(C) 2015-2018 " + __author__
 __email__ = "marcus@lederzeug.de"
 __version__ = "1.0"
 __license__ = "GNU V3.0"
@@ -1888,7 +1888,12 @@ class skillcatWin(blankWindow):
     This is the class for a window object to chose the priority of weapon skills
     at the character's generation. It will also set the category and skill ranks 
     during adolescence.
-    \todo a lot... it is not finished yet
+    \todo a lot... it is not finished yet:
+    - an input widget to display selected cat/skill
+    - an input widget to enter rank level ups
+    - a text widget to show remaining developing points
+    - a button to submit changes/refresh display text widgets
+    - 
     
     """
     def __init__(self, lang = 'en', storepath = "./data", char = None):
@@ -1998,9 +2003,6 @@ class skillcatWin(blankWindow):
         '''
         Fills the treeview widget with skills and categories etc.
         \todo has to be fully implemented
-            \li calc of all rank bonusses
-            \li calc of totals for categories
-            \li calc of totals for skills
             \li force a name modify of skills with +
             \li possibility of adding skill to category
             \li displaying total ranks in treeview
@@ -2037,7 +2039,7 @@ class skillcatWin(blankWindow):
                                                           self.character['cat'][cat]['Progression'],
                                                           self.character['cat'][cat][self.__rmlabels['en']['costs']],
                                                           self.character['cat'][cat]['rank'],
-                                                          
+                                                          self.character['cat'][cat]['total bonus']
                                                           ),
                                                 tag = "category"
                                                 )
@@ -2053,15 +2055,14 @@ class skillcatWin(blankWindow):
                                                  self.character['cat'][cat]['Skill'][skill]['Progression'],
                                                  self.character['cat'][cat][self.__rmlabels['en']['costs']],
                                                  self.character['cat'][cat]['Skill'][skill]['rank'],
-                                                 
+                                                 self.character['cat'][cat]['Skill'][skill]['total bonus']
                                                 ),
                                        tag = cat
                                        )
             
             catNo += 1
         self.__tree.tag_configure('category', background = 'lightblue')
-#        self.curItem = self.__tree.focus()
-#        print self.__tree.item(self.curItem)
+        self.__tree.bind('<ButtonRelease-1>', self.__selectTreeItem)
     
     def __selectTreeItem(self, event):
         '''
