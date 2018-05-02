@@ -27,6 +27,7 @@ from rpgtoolbox.errbox import *
 from rpgtoolbox.confbox import *
 from rpgtoolbox.rpgtools import getLvl
 from rpgtoolbox.rolemaster import stats
+from rpgtoolbox.rpgtools import calcTotals
 from gui.winhelper import AutoScrollbar
 from gui.winhelper import InfoCanvas
 from gui.window import *
@@ -39,7 +40,7 @@ __email__ = "marcus@lederzeug.de"
 __version__ = "1.0"
 __license__ = "GNU V3.0"
 __me__ = "A RPG tool package for Python 2.7"
-__updated__ = "30.04.2018"
+__updated__ = "02.05.2018"
 
 logger = log.createLogger('window', 'debug', '1 MB', 1, './')
 
@@ -143,10 +144,13 @@ class MainWindow(blankWindow):
                                         initialdir = self.mypath)
         if self.__filein != "":
             with open(self.__filein, 'r') as filecontent:
+                
                 if self.__filein[-4:].lower() == "json":
                     self.char = json.load(filecontent)
+               
                 elif self.__filein[-3:].lower == "grp":
                     self.grp = json.load(filecontent)
+              
                 else:
                     msg = messageWindow()
                     msg.showinfo(errmsg['wrong_type'][self.lang])
@@ -204,18 +208,21 @@ class MainWindow(blankWindow):
     def __edfightWin(self):
         '''
         Editing all Hits/Crits/Killed Monsters for calculating EPs
+        \todo has to be implemented
         '''
         self.notdoneyet()
 
     def __edotherWin(self):
         '''
         Editing all for traveled distance, spells, maneuvers
+        \todo not implemented yet
         '''
         self.notdoneyet()
 
     def __indivWin(self):
         '''
         Calculating and distributing pool for individual EPs.
+        \todo not implemented yet
         '''
         self.notdoneyet()
 #        self.window.destroy()
@@ -224,6 +231,7 @@ class MainWindow(blankWindow):
     def __edcalcWin(self):
         '''
         Calculating and displaying the whole EPs for the RPG party.
+        \todo not implemented yet
         '''
         self.notdoneyet()
 
@@ -481,6 +489,7 @@ class confWindow(blankWindow):
         self.path = self.sto_path.get()
         self.window.destroy()
         self.window = MainWindow(self.lang, self.path)
+
 
 class inputWin(blankWindow):
     """
@@ -1316,7 +1325,7 @@ class genAttrWin(blankWindow):
 
     def rollDice(self):
         """
-        Creates the pool for stat generation
+        Creates the pool for stat generation by rolling the dices.
         """
         self.__count += 1
         
@@ -1905,9 +1914,9 @@ class skillcatWin(blankWindow):
         else:
             self.spath = storepath
             logger.debug('priorizeWeaponsWin: storepath set to %s' % (storepath))
-
+        
         self.lang = lang
-        self.character = char
+        self.character = calcTotals(char)
         self.__calcLvlup()
         
         blankWindow.__init__(self, self.lang)
@@ -2094,11 +2103,11 @@ class skillcatWin(blankWindow):
         
     def __calcTotals(self):
         '''
-        This method calculate all rank bonus of categories and skills of the character loaded.
-        \todo has to be implemented
+        This method calculate all rank bonus of categories and skills of the 
+        character loaded.
+        At least it is a wrapper for rpgtoobox.rpgtools.calcTotals()
         '''
-#        for cat in self.character['cat']:
-        print "not done yet"
+        self.character = calcTotals(self.character)
         
     
     def __helpAWin(self):
