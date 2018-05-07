@@ -40,7 +40,7 @@ __email__ = "marcus@lederzeug.de"
 __version__ = "1.0"
 __license__ = "GNU V3.0"
 __me__ = "A RPG tool package for Python 2.7"
-__updated__ = "02.05.2018"
+__updated__ = "07.05.2018"
 
 logger = log.createLogger('window', 'debug', '1 MB', 1, './')
 
@@ -1910,7 +1910,7 @@ class skillcatWin(blankWindow):
         
         self.__catnames = catnames
         self.__rankbonus = rankbonus
-        
+        self._changes = {}
         
         if storepath == None:
             self.spath = os.path.expanduser('~') + "/data"
@@ -1987,6 +1987,8 @@ class skillcatWin(blankWindow):
         self.__treeframe.grid(column = 0, row = 0, columnspan = 7, rowspan = 3)
         self.__rmlabels = rmlabels
         self.__treecolumns = []
+        self.catentry = StringVar()
+        self.skillentry = ""
         for key in ['skill', 'progress', 'costs', 'rank', 'total']:
             self.__treecolumns.append(rmlabels[self.lang][key]) 
             
@@ -1999,6 +2001,19 @@ class skillcatWin(blankWindow):
         vscroll.grid(column = 1, row = 0, in_ = self.__treeframe, sticky = "NS")
         hscroll.grid(column = 0, row = 1, in_ = self.__treeframe, sticky = "EW")
         
+        self._catentry = Label(master = self.window,
+                              width = 40,
+                              justify = LEFT,
+                              textvariable = self.catentry)
+        self._catentry.grid(column = 0, row = 3, sticky = "NW") 
+        self._skillentry = Entry(master = self.window,
+                                 width = 40,
+                                 textvariable = self.skillentry) 
+        self._skillentry.grid(column = 0, row = 4, sticky = "NW") 
+        
+        #@todo here it goes on XXXX
+        
+              
     def __buildTree(self):
         '''
         Fills the treeview widget with skills and categories etc.
@@ -2071,6 +2086,12 @@ class skillcatWin(blankWindow):
         \todo further computing of selected data
         '''    
         self.__curItem = self.__tree.focus()
+        if self.__tree.item(self.__curItem)['tags'][0] == 'category':
+            self.catentry.set(self.__tree.item(self.__curItem)['text'])
+        else:
+            self._skillentry.delete(0, END)
+            self._skillentry.insert(0, self.__tree.item(self.__curItem)['values'][0])
+        
         print self.__tree.item(self.__curItem)
     
     def __calcLvlup(self):
