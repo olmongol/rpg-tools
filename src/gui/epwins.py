@@ -1989,6 +1989,8 @@ class skillcatWin(blankWindow):
         self.__treecolumns = []
         self.catentry = StringVar()
         self.skillentry = ""
+        self.__calcDP()
+        
         for key in ['skill', 'progress', 'costs', 'rank', 'total']:
             self.__treecolumns.append(rmlabels[self.lang][key]) 
             
@@ -2002,14 +2004,30 @@ class skillcatWin(blankWindow):
         hscroll.grid(column = 0, row = 1, in_ = self.__treeframe, sticky = "EW")
         
         self._catentry = Label(master = self.window,
-                              width = 40,
+                              width = 30,
                               justify = LEFT,
                               textvariable = self.catentry)
         self._catentry.grid(column = 0, row = 3, sticky = "NW") 
         self._skillentry = Entry(master = self.window,
-                                 width = 40,
+                                 width = 30,
                                  textvariable = self.skillentry) 
         self._skillentry.grid(column = 0, row = 4, sticky = "NW") 
+       
+        Label(master = self.window,
+              text = "remaining DPs:").grid(column = 5,
+                                          row = 3,
+                                          sticky = "NW")
+        DPtext = StringVar()             
+        self._remainDP = Label(master = self.window,
+                               width = 4,
+                               justify = LEFT,
+                               textvariable = DPtext
+                               )
+        self._remainDP.grid(column = 6,
+                            row = 3,
+                            sticky = "NW"
+                            )
+        DPtext.set(str(self.character['DP']))
         
         #@todo here it goes on XXXX
         
@@ -2094,6 +2112,14 @@ class skillcatWin(blankWindow):
         
         print self.__tree.item(self.__curItem)
     
+    def __checkDev(self):
+        '''
+        This method handles the level up procedure. Validates number of level-ups 
+        per skill/category and keeps an eye on the total remaining DPs.
+        '''
+        self.notdoneyet("__checkDev")
+        
+        
     def __calcLvlup(self):
         '''
         This determines current level by current EPs and calculates number of
@@ -2104,14 +2130,23 @@ class skillcatWin(blankWindow):
         oldlvl = getLvl(self.character['old_exp'])
         self.character['lvlup'] = self.character['lvl'] - oldlvl
     
-    def __calcStats(self, category = ""):
+    def __calcDP(self):
         '''
-        Calculates the total stat bonus for the given category
-        \todo has to be implemented
-        '''    
-        if category != "":
-            print "not done yet"
-
+        This calculates the number of DP of a character.
+        '''
+        attrlist = ['Ag', 'Co', 'Me', 'Re', 'SD' ]
+        self.character['DP'] = 0
+        
+        for attr in attrlist:
+            self.character['DP'] += self.character[attr]['temp']
+            
+        self.character['DP'] = self.character['DP'] / 5
+        
+        if self.character['Hobby Ranks'] > 0:
+            self.character['DP'] += self.character['Hobby Ranks']
+            self.character['Hobby Ranks'] = 0
+        
+        
     def __calcRanks(self, catskill = ""):
         '''
         This method caclulates the rank bonusses of a category or skill. if a
