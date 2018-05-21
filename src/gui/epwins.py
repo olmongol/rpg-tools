@@ -40,7 +40,7 @@ __email__ = "marcus@lederzeug.de"
 __version__ = "1.0"
 __license__ = "GNU V3.0"
 __me__ = "A RPG tool package for Python 2.7"
-__updated__ = "07.05.2018"
+__updated__ = "21.05.2018"
 
 logger = log.createLogger('window', 'debug', '1 MB', 1, './')
 
@@ -1975,7 +1975,7 @@ class skillcatWin(blankWindow):
         '''
         Builds the window's elements.
         - a frame containing:
-            1. treeview widged
+            1. treeview widget
             2. vertical (auto)scrollbar linked to the treeview widget
             3. horizontal (auto)scrollbar linked to the treeview widget
         - Labels for specific category/skill values
@@ -1983,12 +1983,14 @@ class skillcatWin(blankWindow):
         - finalize button to make the change permanent.
         '''
         from rpgtoolbox.rolemaster import labels as rmlabels
-        self.__treeframe = Frame(width = 800, height = 800)
+        self.__treeframe = Frame(width = 800, height = 600)
         self.__treeframe.grid(column = 0, row = 0, columnspan = 7, rowspan = 3)
         self.__rmlabels = rmlabels
         self.__treecolumns = []
         self.catentry = StringVar()
         self.skillentry = ""
+        self.catrank = StringVar()
+        self.skillrank = StringVar()
         self.__calcDP()
         
         for key in ['skill', 'progress', 'costs', 'rank', 'total']:
@@ -2002,16 +2004,48 @@ class skillcatWin(blankWindow):
         self.__tree.grid(column = 0, row = 0, sticky = "NEWS", in_ = self.__treeframe)
         vscroll.grid(column = 1, row = 0, in_ = self.__treeframe, sticky = "NS")
         hscroll.grid(column = 0, row = 1, in_ = self.__treeframe, sticky = "EW")
+        #@todo here might be a header line... 
         
+        Label(master = self.window, width = 30,
+              justify = LEFT,
+              textvariable = "Name").grid(column = 0,
+                                         row = 3,
+                                         sticky = "W",
+                                         padx = 5,
+                                         pady = 5)
+              
+        Label(master = self.window, width = 4,
+              justify = LEFT,
+              textvariable = "Ranks").grid(column = 1,
+                                         row = 3,
+                                         sticky = "W",
+                                         padx = 5,
+                                         pady = 5)
+              
         self._catentry = Label(master = self.window,
                               width = 30,
                               justify = LEFT,
-                              textvariable = self.catentry)
-        self._catentry.grid(column = 0, row = 3, sticky = "NW") 
+                              textvariable = self.catentry
+                              )
+        self._catentry.grid(column = 0, row = 4, sticky = "NW", padx = 5, pady = 5) 
+        
+        self._catrank = Entry(master = self.window,
+                               width = 3,
+                               justify = RIGHT,
+                               textvariable = self.catrank
+                               )
+        self._catrank.grid(column = 1, row = 4, sticky = "NW", padx = 5, pady = 5)
         self._skillentry = Entry(master = self.window,
                                  width = 30,
-                                 textvariable = self.skillentry) 
-        self._skillentry.grid(column = 0, row = 4, sticky = "NW") 
+                                 textvariable = self.skillentry
+                                 ) 
+        self._skillentry.grid(column = 0, row = 5, sticky = "NW", padx = 5, pady = 5) 
+        self._skillrank = Entry(master = self.window,
+                               width = 3,
+                               justify = RIGHT,
+                               textvariable = self.skillrank
+                               )
+        self._skillrank.grid(column = 1, row = 5, sticky = "NW", padx = 5, pady = 5)
        
         Label(master = self.window,
               text = "remaining DPs:").grid(column = 5,
@@ -2025,7 +2059,9 @@ class skillcatWin(blankWindow):
                                )
         self._remainDP.grid(column = 6,
                             row = 3,
-                            sticky = "NW"
+                            sticky = "NW",
+                            padx = 5,
+                            pady = 5
                             )
         DPtext.set(str(self.character['DP']))
         
@@ -2035,7 +2071,7 @@ class skillcatWin(blankWindow):
     def __buildTree(self):
         '''
         Fills the treeview widget with skills and categories etc.
-        \todo has to be fully implemented
+        \todo this has to be fully implemented
             \li force a name modify of skills with +
             \li possibility of adding skill to category
             \li displaying total ranks in treeview
@@ -2060,6 +2096,7 @@ class skillcatWin(blankWindow):
         catNo = 0
         ckeys = self.character['cat'].keys()
         ckeys.sort()
+        
         for cat in ckeys:
 
             if cat != None:
@@ -2084,6 +2121,7 @@ class skillcatWin(blankWindow):
 #                    print "\n\n%s" % (str(self.character['cat'][cat]['Skill'][skill]['Progression']))
                     self.__tree.insert(catID[cat],
                                        "end",
+                                       text = skill,
                                        values = (skill,
                                                  self.character['cat'][cat]['Skill'][skill]['Progression'],
                                                  self.character['cat'][cat][self.__rmlabels['en']['costs']],
@@ -2106,9 +2144,23 @@ class skillcatWin(blankWindow):
         self.__curItem = self.__tree.focus()
         if self.__tree.item(self.__curItem)['tags'][0] == 'category':
             self.catentry.set(self.__tree.item(self.__curItem)['text'])
+            
+            if self.__tree.item(self.__curItem)['tags'][0] == "category":
+                print "category"
+                self.catrank = str(self.__tree.item(self.__curItem)['values'][-2])
+            self._catrank.delete(0, END)
+            self._catrank.insert(0, self.catrank)
         else:
             self._skillentry.delete(0, END)
             self._skillentry.insert(0, self.__tree.item(self.__curItem)['values'][0])
+            
+            if self.__tree.item(self.__curItem)['tags'][0] != "category":
+                print "skill"
+                self.skillrank = self.__tree.item(self.__curItem)['values'][-2]
+            self._skillrank.delete(0, END)
+            self._skillrank.insert(0, self.skillrank)   
+                     
+        print self.catrank, self.skillrank
         
         print self.__tree.item(self.__curItem)
     
@@ -2154,7 +2206,8 @@ class skillcatWin(blankWindow):
         be (re-)calculated
         \param catskill holds a single category or skill for recalculating rank bonus.
                         If empty all categories and skills will be recalculated.
-        \todo has to be implemented              
+        \todo has to be implemented    
+                  
         '''
         print "not done yet"
         
