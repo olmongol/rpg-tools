@@ -40,7 +40,7 @@ __email__ = "marcus@lederzeug.de"
 __version__ = "1.0"
 __license__ = "GNU V3.0"
 __me__ = "A RPG tool package for Python 2.7"
-__updated__ = "21.05.2018"
+__updated__ = "25.05.2018"
 
 logger = log.createLogger('window', 'debug', '1 MB', 1, './')
 
@@ -1979,8 +1979,15 @@ class skillcatWin(blankWindow):
             2. vertical (auto)scrollbar linked to the treeview widget
             3. horizontal (auto)scrollbar linked to the treeview widget
         - Labels for specific category/skill values
+        
+        \todo
         - Entry widget for number of level ups for category/skill
         - finalize button to make the change permanent.
+        - add Spinboxes for setting the level up
+        - add Label Widgets for
+          - costs/lvl up
+          - total bonus
+          - DPs used per skill/cat
         '''
         from rpgtoolbox.rolemaster import labels as rmlabels
         self.__treeframe = Frame(width = 800, height = 600)
@@ -1991,6 +1998,8 @@ class skillcatWin(blankWindow):
         self.skillentry = ""
         self.catrank = StringVar()
         self.skillrank = StringVar()
+        self.catcost = []
+        self.skillcost = []
         self.__calcDP()
         
         for key in ['skill', 'progress', 'costs', 'rank', 'total']:
@@ -2004,48 +2013,139 @@ class skillcatWin(blankWindow):
         self.__tree.grid(column = 0, row = 0, sticky = "NEWS", in_ = self.__treeframe)
         vscroll.grid(column = 1, row = 0, in_ = self.__treeframe, sticky = "NS")
         hscroll.grid(column = 0, row = 1, in_ = self.__treeframe, sticky = "EW")
-        #@todo here might be a header line... 
         
         Label(master = self.window, width = 30,
               justify = LEFT,
-              textvariable = "Name").grid(column = 0,
+              text = "Name").grid(column = 0,
                                          row = 3,
                                          sticky = "W",
                                          padx = 5,
                                          pady = 5)
               
+        Label(master = self.window,
+              width = 10,
+              justify = LEFT,
+              text = "DP costs").grid(column = 1,
+                                         row = 3,
+                                         sticky = "W",
+                                         padx = 5,
+                                         pady = 5)        
+
+        Label(master = self.window,
+              width = 20,
+              justify = LEFT,
+              text = "Progression").grid(column = 2,
+                                         row = 3,
+                                         sticky = "W",
+                                         padx = 5,
+                                         pady = 5)
+        
         Label(master = self.window, width = 4,
               justify = LEFT,
-              textvariable = "Ranks").grid(column = 1,
+              text = "Ranks").grid(column = 3,
                                          row = 3,
                                          sticky = "W",
                                          padx = 5,
                                          pady = 5)
-              
+
+        Label(master = self.window, width = 4,
+              justify = LEFT,
+              text = "total").grid(column = 4,
+                                         row = 3,
+                                         sticky = "W",
+                                         padx = 5,
+                                         pady = 5)
+        
+
+        
         self._catentry = Label(master = self.window,
                               width = 30,
                               justify = LEFT,
                               textvariable = self.catentry
                               )
-        self._catentry.grid(column = 0, row = 4, sticky = "NW", padx = 5, pady = 5) 
+        self._catentry.grid(column = 0, row = 4, sticky = "NW", padx = 5, pady = 2) 
         
-        self._catrank = Entry(master = self.window,
-                               width = 3,
-                               justify = RIGHT,
-                               textvariable = self.catrank
+#        self._catrank = Entry(master = self.window,
+#                               width = 3,
+#                               justify = RIGHT,
+#                               textvariable = self.catrank
+#                               )
+#        self._catrank.grid(column = 2, row = 4, sticky = "NW", padx = 5, pady = 2)
+        self.SpinSkillVal = StringVar()
+        self.SpinCatVal = StringVar()
+        self.CatProg = StringVar()
+        self.SkillProg = StringVar()
+        self.SpinSkillVal.set(0)
+        self.SpinCatVal.set(0)
+        self.CatProg.set("0 0 0 0 0")
+        self.SkillProg.set("0 0 0 0 0")
+        
+        self._catprog = Label(master = self.window,
+                              width = 20,
+                              justify = LEFT,
+                              textvariable = self.CatProg
+                              )
+        self._catprog.grid(column = 2,
+                           row = 4,
+                           sticky = "NW",
+                           padx = 5,
+                           pady = 2
+                           )
+        
+        self._skillprog = Label(master = self.window,
+                              width = 20,
+                              justify = LEFT,
+                              textvariable = self.SkillProg
+                              )
+        self._skillprog.grid(column = 2,
+                           row = 5,
+                           sticky = "NW",
+                           padx = 5,
+                           pady = 2
+                           )
+        
+        self._catspin = Spinbox(master = self.window,
+                               from_ = 0,
+                               to = len(self.catcost),
+                               width = 2,
+                            textvariable = self.SpinCatVal
                                )
-        self._catrank.grid(column = 1, row = 4, sticky = "NW", padx = 5, pady = 5)
+        self._catspin.grid(column = 3,
+                           row = 4,
+                           sticky = "NW",
+                           padx = 5,
+                           pady = 2
+                           )
+        
+        self._skillspin = Spinbox(master = self.window,
+                                  from_ = 0,
+                                  to = len(self.skillcost),
+                                  width = 2,
+                                  textvariable = self.SpinSkillVal
+                                  )
+        self._skillspin.grid(column = 3,
+                             row = 5,
+                             sticky = "NW",
+                             padx = 5,
+                             pady = 2
+                             )
+        
         self._skillentry = Entry(master = self.window,
                                  width = 30,
                                  textvariable = self.skillentry
                                  ) 
-        self._skillentry.grid(column = 0, row = 5, sticky = "NW", padx = 5, pady = 5) 
-        self._skillrank = Entry(master = self.window,
-                               width = 3,
-                               justify = RIGHT,
-                               textvariable = self.skillrank
-                               )
-        self._skillrank.grid(column = 1, row = 5, sticky = "NW", padx = 5, pady = 5)
+        self._skillentry.grid(column = 0,
+                              row = 5,
+                              sticky = "NW",
+                              padx = 5,
+                              pady = 2
+                              ) 
+#        self._skillrank = Entry(master = self.window,
+#                               width = 3,
+#                               justify = RIGHT,
+#                               textvariable = self.skillrank
+#                               )
+#        self._skillrank.grid(column = 2, row = 5, sticky = "NW", padx = 5, pady = 2)
        
         Label(master = self.window,
               text = "remaining DPs:").grid(column = 5,
@@ -2061,10 +2161,35 @@ class skillcatWin(blankWindow):
                             row = 3,
                             sticky = "NW",
                             padx = 5,
-                            pady = 5
+                            pady = 2
                             )
         DPtext.set(str(self.character['DP']))
         
+        self.DPcost = StringVar()
+        self._lDPcostcat = Label(master = self.window,
+                               width = 6,
+                               justify = CENTER,
+                               textvariable = self.DPcost
+                               )
+        self._lDPcostcat.grid(column = 1,
+                              row = 4,
+                              sticky = "NW",
+                              padx = 5,
+                              pady = 2
+                              )
+        
+        self._lDPcostskill = Label(master = self.window,
+                                   width = 6,
+                                   justify = CENTER,
+                                   textvariable = self.DPcost
+                                   )
+        self._lDPcostskill.grid(column = 1,
+                              row = 5,
+                              sticky = "NW",
+                              padx = 5,
+                              pady = 2
+                              )    
+        self.DPcost.set("---")    
         #@todo here it goes on XXXX
         
               
@@ -2074,7 +2199,6 @@ class skillcatWin(blankWindow):
         \todo this has to be fully implemented
             \li force a name modify of skills with +
             \li possibility of adding skill to category
-            \li displaying total ranks in treeview
             \li displaying added skills in treeview
             \li finalize button:
                 1. finalize single level up
@@ -2134,34 +2258,89 @@ class skillcatWin(blankWindow):
             catNo += 1
         self.__tree.tag_configure('category', background = 'lightblue')
         self.__tree.bind('<ButtonRelease-1>', self.__selectTreeItem)
+  
     
     def __selectTreeItem(self, event):
         '''
         Select an item from the treeview list.
         \param event responding treeview event which is not used for anything.
-        \todo further computing of selected data
+        \todo further computing of selected data:
+              - adding DPs to cat/skill by max determined by prociding costs & limits
+              - removing used DPs permanently from total
+              - finalize by saving changed data (with full update of data to calculate)
+              - save remaining unused DPs (total)
+              - check for max lvl up per skill, category and remaining DB (stop if zero). For
+              this set selected value of spinbox to 0 when new cat/skill is chosen.
+        \bug - at first click(s) the cat rank is not inserted
         '''    
         self.__curItem = self.__tree.focus()
+        self.DPcost.set(self.__tree.item(self.__curItem)['values'][2])
+
+        
         if self.__tree.item(self.__curItem)['tags'][0] == 'category':
             self.catentry.set(self.__tree.item(self.__curItem)['text'])
+            self._skillentry.delete(0, END)
+#            self._skillspin.config(textvariable = "0")
+            self.SpinSkillVal.set(0)
+            self.catcost = self.__tree.item(self.__curItem)['values'][2]
+            self.CatProg.set(self.__tree.item(self.__curItem)['values'][1])
+        
+            if type(self.catcost) == type(2):
+                self.catcost = [self.catcost]
+            
+            elif type(self.catcost) == type(""):
+                self.catcost = self.catcost.split(' ')
+                
+                for i in range(0, len(self.catcost)):
+                    self.catcost[i] = int(self.catcost[i])
+                    
+            else:
+                self.catcost = []
+            
+            self._catspin.config(from_ = self.__tree.item(self.__curItem)['values'][3],
+                                to = self.__tree.item(self.__curItem)['values'][3] + len(self.skillcost),
+                                textvariable = str(self.__tree.item(self.__curItem)['values'][3])
+                                )
+#            self.SpinCatVal.set(self.__tree.item(self.__curItem)['values'][3])
+
             
             if self.__tree.item(self.__curItem)['tags'][0] == "category":
-                print "category"
                 self.catrank = str(self.__tree.item(self.__curItem)['values'][-2])
-            self._catrank.delete(0, END)
-            self._catrank.insert(0, self.catrank)
+            
+#            self._catrank.delete(0, END)
+#            self._catrank.insert(0, self.catrank)
+            
         else:
             self._skillentry.delete(0, END)
             self._skillentry.insert(0, self.__tree.item(self.__curItem)['values'][0])
+            self.skillcost = self.__tree.item(self.__curItem)['values'][2]
+            self.SkillProg.set(self.__tree.item(self.__curItem)['values'][1])
+            print self.__tree.item(self.__curItem)['values'][1]
+            
+            if type(self.skillcost) == type(2):
+                self.skillcost = [self.skillcost]
+            
+            elif type(self.skillcost) == type(u"") or type(self.skillcost) == type(""):
+                self.skillcost = self.skillcost.split(' ')
+
+                for i in range(0, len(self.skillcost)):
+                    self.skillcost[i] = int(self.skillcost[i])
+                    
+            else:
+                self.skillcost = []
+            
+            self._skillspin.config(from_ = self.__tree.item(self.__curItem)['values'][3],
+                                   to = self.__tree.item(self.__curItem)['values'][3] + len(self.skillcost),
+#                                   textvariable = str(self.__tree.item(self.__curItem)['values'][3])
+                                   )
+            self.SpinSkillVal.set(self.__tree.item(self.__curItem)['values'][3])
             
             if self.__tree.item(self.__curItem)['tags'][0] != "category":
-                print "skill"
                 self.skillrank = self.__tree.item(self.__curItem)['values'][-2]
-            self._skillrank.delete(0, END)
-            self._skillrank.insert(0, self.skillrank)   
+            
+#            self._skillrank.delete(0, END)
+#            self._skillrank.insert(0, self.skillrank)   
                      
-        print self.catrank, self.skillrank
-        
         print self.__tree.item(self.__curItem)
     
     def __checkDev(self):
@@ -2201,7 +2380,7 @@ class skillcatWin(blankWindow):
         
     def __calcRanks(self, catskill = ""):
         '''
-        This method caclulates the rank bonusses of a category or skill. if a
+        This method caculates the rank bonusses of a category or skill. if a
         single category or skill is given to this method only this single one will
         be (re-)calculated
         \param catskill holds a single category or skill for recalculating rank bonus.
