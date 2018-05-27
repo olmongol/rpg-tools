@@ -40,7 +40,7 @@ __email__ = "marcus@lederzeug.de"
 __version__ = "1.0"
 __license__ = "GNU V3.0"
 __me__ = "A RPG tool package for Python 2.7"
-__updated__ = "25.05.2018"
+__updated__ = "27.05.2018"
 
 logger = log.createLogger('window', 'debug', '1 MB', 1, './')
 
@@ -1117,10 +1117,14 @@ class genAttrWin(blankWindow):
         This method checks whether the right magic realm is chosen for the 
         selected profession
         \param event object event given by OptionMenu but not used 
+        
+        
+        ----
         \bug potential cause for false DP calculations. It is not clear how to 
         reproduce this bug.
         \bug  if testr != self.profs[testp]['Realm'] and self.profs[testp]['Realm'] != "choice": KeyError: ''
         \bug if realm chosen before profession an error occurs (sdtout) 
+        
         \note bug should be fixed
         '''
         testr = self.stats['realm'].get()
@@ -1922,6 +1926,14 @@ class skillcatWin(blankWindow):
         
         self.lang = lang
         self.character = calcTotals(char)
+        self.__save()
+        ## \var self.__changed
+        # dictionary with the changed categories/skills
+        self.__changed = {'name': self.character['name'],
+                         'player': self.character['player'],
+                         'cat' : {}
+                         }
+        
         self.__calcLvlup()
         
         blankWindow.__init__(self, self.lang)
@@ -1981,12 +1993,7 @@ class skillcatWin(blankWindow):
         - Labels for specific category/skill values
         
         \todo
-        - Entry widget for number of level ups for category/skill
-        - finalize button to make the change permanent.
-        - add Spinboxes for setting the level up
         - add Label Widgets for
-          - costs/lvl up
-          - total bonus
           - DPs used per skill/cat
         '''
         from rpgtoolbox.rolemaster import labels as rmlabels
@@ -2001,22 +2008,39 @@ class skillcatWin(blankWindow):
         self.catcost = []
         self.skillcost = []
         self.__calcDP()
+        ## \var self.__changes
+        # list of edited/added skills and categories
+        self.__changes = {}
         
         for key in ['skill', 'progress', 'costs', 'rank', 'total']:
             self.__treecolumns.append(rmlabels[self.lang][key]) 
             
 #        self.__tree = Treeview(columns = self.__treecolumns, show = "headings")
         self.__tree = Treeview(self.__treeframe, columns = self.__treecolumns, show = "headings")
+#        self.__tree = Treeview(self.window, columns = self.__treecolumns, show = "headings")        
         vscroll = AutoScrollbar(orient = "vertical", command = self.__tree.yview)
         hscroll = AutoScrollbar(orient = "horizontal", command = self.__tree.xview)
         self.__tree.configure(yscrollcommand = vscroll.set, xscrollcommand = hscroll.set)
         self.__tree.grid(column = 0, row = 0, sticky = "NEWS", in_ = self.__treeframe)
         vscroll.grid(column = 1, row = 0, in_ = self.__treeframe, sticky = "NS")
         hscroll.grid(column = 0, row = 1, in_ = self.__treeframe, sticky = "EW")
+#        self.__tree.grid(column = 0, row = 0, sticky = "NEWS", in_ = self.window)
+        self.__chgtree = Treeview(self.window,
+                                  columns = self.__treecolumns,
+                                  show = "headings",
+                                 )
+        chgvscroll = AutoScrollbar(orient = "vertical", command = self.__chgtree.xview)
+        self.__chgtree.configure(yscrollcommand = chgvscroll)
+        self.__chgtree.grid(column = 0,
+                            row = 7,
+                            columnspan = 7,
+                            rowspan = 3,
+                            sticky = "NEW"
+                            )
         
         Label(master = self.window, width = 30,
               justify = LEFT,
-              text = "Name").grid(column = 0,
+              text = labels['name'][self.lang]).grid(column = 0,
                                          row = 3,
                                          sticky = "W",
                                          padx = 5,
@@ -2025,7 +2049,7 @@ class skillcatWin(blankWindow):
         Label(master = self.window,
               width = 10,
               justify = LEFT,
-              text = "DP costs").grid(column = 1,
+              text = labels['dp_costs'][self.lang]).grid(column = 1,
                                          row = 3,
                                          sticky = "W",
                                          padx = 5,
@@ -2034,7 +2058,7 @@ class skillcatWin(blankWindow):
         Label(master = self.window,
               width = 20,
               justify = LEFT,
-              text = "Progression").grid(column = 2,
+              text = labels['progr'][self.lang]).grid(column = 2,
                                          row = 3,
                                          sticky = "W",
                                          padx = 5,
@@ -2042,7 +2066,7 @@ class skillcatWin(blankWindow):
         
         Label(master = self.window, width = 4,
               justify = LEFT,
-              text = "Ranks").grid(column = 3,
+              text = labels['ranks'][self.lang]).grid(column = 3,
                                          row = 3,
                                          sticky = "W",
                                          padx = 5,
@@ -2050,7 +2074,7 @@ class skillcatWin(blankWindow):
 
         Label(master = self.window, width = 4,
               justify = LEFT,
-              text = "total").grid(column = 4,
+              text = labels['total'][self.lang]).grid(column = 4,
                                          row = 3,
                                          sticky = "W",
                                          padx = 5,
@@ -2065,12 +2089,6 @@ class skillcatWin(blankWindow):
                               )
         self._catentry.grid(column = 0, row = 4, sticky = "NW", padx = 5, pady = 2) 
         
-#        self._catrank = Entry(master = self.window,
-#                               width = 3,
-#                               justify = RIGHT,
-#                               textvariable = self.catrank
-#                               )
-#        self._catrank.grid(column = 2, row = 4, sticky = "NW", padx = 5, pady = 2)
         self.SpinSkillVal = StringVar()
         self.SpinCatVal = StringVar()
         self.CatProg = StringVar()
@@ -2140,12 +2158,6 @@ class skillcatWin(blankWindow):
                               padx = 5,
                               pady = 2
                               ) 
-#        self._skillrank = Entry(master = self.window,
-#                               width = 3,
-#                               justify = RIGHT,
-#                               textvariable = self.skillrank
-#                               )
-#        self._skillrank.grid(column = 2, row = 5, sticky = "NW", padx = 5, pady = 2)
        
         Label(master = self.window,
               text = "remaining DPs:").grid(column = 5,
@@ -2189,7 +2201,29 @@ class skillcatWin(blankWindow):
                               padx = 5,
                               pady = 2
                               )    
-        self.DPcost.set("---")    
+        self.DPcost.set("---") 
+
+        # add a 'take over changes' button
+        Button(self.window,
+               text = txtbutton['but_take'][self.lang],
+               command = self.__takeVals).grid(column = 5,
+                                               row = 5,
+                                               sticky = "NW"
+                                              )
+        # add a 'finalize' button to save changes and proceed.
+        Button(self.window,
+               text = txtbutton['but_fin'][self.lang],
+               command = self.__finalize).grid(column = 6,
+                                              row = 4,
+                                              sticky = "NW"
+                                              )
+               
+        Button(self.window,
+               text = txtbutton['but_ren'][self.lang],
+               command = self.__renameSkill).grid(column = 6,
+                                                  row = 5,
+                                                  sticky = "NW"
+                                                  )           
         #@todo here it goes on XXXX
         
               
@@ -2197,15 +2231,25 @@ class skillcatWin(blankWindow):
         '''
         Fills the treeview widget with skills and categories etc.
         \todo this has to be fully implemented
-            \li force a name modify of skills with +
-            \li possibility of adding skill to category
-            \li displaying added skills in treeview
-            \li finalize button:
-                1. finalize single level up
-                2. stores character state
-                3. if no level up possible and BGOs available goto next character
+            - Menu save functionality will save the current work state if not finalized.
+            - force a name modify of skills with +
+              -# add an ADD/RENAME button
+              -# finalize button does not work as long as there are skills+  
+            - possibility of adding skill to category (see above)
+            - displaying added skills and modified cats/skills in a treeview at 
+              the bottom. If not finalized clicking on items in that treeview will
+              cause an editing option. That means:
+              -# create a JSON structure with modified but not finalized cats/skills.
+              -# put it into the treeview and update it after every change
+              -# remove it from treeview if changes were reversed
+              -# save it in the character structure if saved by File Menu
+              -# update the character structure with it if finalized.
+            - finalize button:
+                -# finalize level up
+                -# stores character state
+                -# if no level up possible and BGOs available goto next character
                    creation window
-                4. if no level up possible and no BGOs close window and return to
+                -# if no level up possible and no BGOs close window and return to
                    main window
         '''
         from rpgtoolbox.rolemaster import exceptions
@@ -2224,8 +2268,6 @@ class skillcatWin(blankWindow):
         for cat in ckeys:
 
             if cat != None:
-#                print cat
-#                print self.character['cat'][cat].keys()
                 catID[cat] = self.__tree.insert("",
                                                 catNo,
                                                 text = cat,
@@ -2241,8 +2283,6 @@ class skillcatWin(blankWindow):
             for skill in self.character['cat'][cat]['Skill'].keys():
                 
                 if skill not in exceptions:
-#                    print "%s \n\t%s" % (cat, skill) 
-#                    print "\n\n%s" % (str(self.character['cat'][cat]['Skill'][skill]['Progression']))
                     self.__tree.insert(catID[cat],
                                        "end",
                                        text = skill,
@@ -2265,12 +2305,13 @@ class skillcatWin(blankWindow):
         Select an item from the treeview list.
         \param event responding treeview event which is not used for anything.
         \todo further computing of selected data:
-              - adding DPs to cat/skill by max determined by prociding costs & limits
+              - adding DPs to cat/skill by max determined by proceeding costs & 
+                limits
               - removing used DPs permanently from total
               - finalize by saving changed data (with full update of data to calculate)
               - save remaining unused DPs (total)
-              - check for max lvl up per skill, category and remaining DB (stop if zero). For
-              this set selected value of spinbox to 0 when new cat/skill is chosen.
+              - check for remaining DB (stop if zero)..
+
         \bug - at first click(s) the cat rank is not inserted
         '''    
         self.__curItem = self.__tree.focus()
@@ -2301,8 +2342,6 @@ class skillcatWin(blankWindow):
                                 to = self.__tree.item(self.__curItem)['values'][3] + len(self.skillcost),
                                 textvariable = str(self.__tree.item(self.__curItem)['values'][3])
                                 )
-#            self.SpinCatVal.set(self.__tree.item(self.__curItem)['values'][3])
-
             
             if self.__tree.item(self.__curItem)['tags'][0] == "category":
                 self.catrank = str(self.__tree.item(self.__curItem)['values'][-2])
@@ -2363,7 +2402,7 @@ class skillcatWin(blankWindow):
     
     def __calcDP(self):
         '''
-        This calculates the number of DP of a character.
+        This calculates the number of Development Points (DP) of a character.
         '''
         attrlist = ['Ag', 'Co', 'Me', 'Re', 'SD' ]
         self.character['DP'] = 0
@@ -2378,17 +2417,18 @@ class skillcatWin(blankWindow):
             self.character['Hobby Ranks'] = 0
         
         
-    def __calcRanks(self, catskill = ""):
+    def __calcRanks(self):
         '''
         This method caculates the rank bonusses of a category or skill. if a
         single category or skill is given to this method only this single one will
         be (re-)calculated
-        \param catskill holds a single category or skill for recalculating rank bonus.
-                        If empty all categories and skills will be recalculated.
+        
         \todo has to be implemented    
                   
         '''
         print "not done yet"
+        self.notdoneyet("__calcRanks")
+        
         
     def __calcTotals(self):
         '''
@@ -2397,8 +2437,48 @@ class skillcatWin(blankWindow):
         At least it is a wrapper for rpgtoobox.rpgtools.calcTotals()
         '''
         self.character = calcTotals(self.character)
+    
+    def __takeVals(self):    
+        '''
+        This method takes added/modified skills/cats to a dict and treeview
+        \todo The following has to be implemented:
+        -# a dict of changes
+        -# a treeview to show changes
+        -# a saving for those changes dict
+        
+        '''
+        print "__takeVals not done yet"
+        self.notdoneyet("__takeVals")
         
     
+    def __finalize(self):
+        '''
+        This method finalizes and saves all changes into character data
+        \todo has to be fully implemented
+        '''
+        print "__finalize not done yet."
+        self.notdoneyet("__finalize")
+        
+        
+    def __renameSkill(self):
+        '''
+        This method renames all skill+
+        \todo has to be full implemented
+        '''
+        print "__renameSkill not done yet."
+        self.notdoneyet("__renameSkill")
+       
+        
+    def __save(self, ending = '.snap'):
+        '''
+        This method quickly saves a snapshot of current character's data into 
+        a file.
+        
+        \param ending ending of the filename 
+        '''
+        pathfile = self.spath + "/" + self.character['player'] + "/" + self.character['name'] + ending
+        writeJSON(pathfile, self.character)
+        
     def __helpAWin(self):
         '''
         Help information about this window.

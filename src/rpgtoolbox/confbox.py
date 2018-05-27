@@ -124,7 +124,6 @@ class chkCfg(object):
     '''
     These Objects reads out a given config file and store the content of the
     configuration in a dictionary.
-    \todo read default config file if it exists in the same directory
     '''
 
 

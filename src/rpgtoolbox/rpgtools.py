@@ -14,7 +14,7 @@ This module contains some helpful functions for role-playing games like:
 \email marcus@lederzeug.de
 \version 0.1
 '''
-__updated__ = "02.05.2018"
+__updated__ = "27.05.2018"
 
 import random
 from rpgtoolbox.globaltools import readCSV
@@ -59,7 +59,7 @@ def calcTotals(charval = {}):
     '''
      This function calculates total bonusses for all categories and skills of a
      character.
-     It saves rank bonusses and totals in the 
+     It saves rank bonusses and totals in the character's data dictionary
      \param charval the character's (whole) data in JSON format
      \retval result updated character's data concerning the total bonusses.
     '''

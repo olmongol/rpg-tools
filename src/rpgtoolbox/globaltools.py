@@ -27,6 +27,7 @@ import os
 import os.path
 import logbox as log
 import csv
+import json
 
 logger = log.createLogger('global', 'warning', '1 MB', 1, './' , 'globaltools.log')
 
@@ -178,6 +179,7 @@ def sortIndex(dic = {}):
     index.sort()
     return index
 
+
 def array2dict(array = [], expr = '=', comment = '#'):
     """
     This function transforms an array <str1>=<str2> into a dictionary 
@@ -203,6 +205,7 @@ def array2dict(array = [], expr = '=', comment = '#'):
                 result[dummy[0]] = dummy[1]
     return result
 
+
 def list2str(array = []):
     """
     This function transforms a list/tuple into a string where the elements are
@@ -217,6 +220,7 @@ def list2str(array = []):
             
         result = result.strip()
     return result 
+
 
 def tstr2list(string = '(1,2,3)'):
     """
@@ -234,6 +238,7 @@ def tstr2list(string = '(1,2,3)'):
         result[i] = result[i].strip(' \"\'')
         i += 1
     return result
+
 
 def makeKeyList(dic = {}, klist = []):
     '''
@@ -256,13 +261,46 @@ def makeKeyList(dic = {}, klist = []):
         return klist, False 
     
     
-
+def writeJSON(filename = "", content = {}):
+    '''
+    This function writes a dictionary into a JSON file.
+    
+    \param filename  path+file where to save the data in
+    \param content dictionary which shall be saved as JSON content.
+    '''
+    try:
+        with open(filename, "w") as fp:
+            json.dump(content, fp, indent = 4)
+        logger.info("%s saved" % filename)
         
+    except:
+        logger.error("%s could not be saved!" % filename)
+
+
+def readJSON(filename):
+    '''
+    This function reads JSON files into a dictionary.
+    
+    \param filename path+file of the JSON file to read.
+    '''
+    try:
+        with open(filename, 'r') as fp:
+            content = json.load(fp)
+            
+        logger.info('%s loaded.' % filename)
+    except:
+        content = {}
+        logger.error("Could not load %s" % filename)
+    
+    return content
+    
+        
+            
 def getLast(string = "/", sep = '/'):
     '''
     This function gives the last element of a list stored in a string.
     \param string where the list is stored.
-    \param sep seperator of the list elements. E.g., '/' or ','
+    \param sep separator of the list elements. E.g., '/' or ','
     \return last element of the list.
     '''
     dummy = string.split(sep)

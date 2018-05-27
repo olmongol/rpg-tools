@@ -65,13 +65,13 @@ screenmesg = {'welcome'     : {'de' : "Willkommen bei den RPG-Tools",
 txtbutton = {'but_ok'   : {'de' : 'OK',
                            'en' : 'ok',
                            },
-             'but_sav'  : {'de' : 'Speichern',
+             'but_sav'  : {'de' : 'speichern',
                            'en' : 'save',
                            },
-             'but_quit' : {'de' : 'Beenden',
+             'but_quit' : {'de' : 'beenden',
                           'en'  : 'quit',
                           },
-             'but_clos' : {'de' : 'Schliessen',
+             'but_clos' : {'de' : 'schliessen',
                            'en' : 'close',
                            },
              'but_add'  : {'de' : 'hinzuf\xc3\xbcgen',
@@ -86,14 +86,14 @@ txtbutton = {'but_ok'   : {'de' : 'OK',
              'but_left' : {'de' : '<<---',
                            'en' : '<<---',
                            },
-             'but_next' :{'de' : 'Weiter',
+             'but_next' :{'de' : 'weiter',
                           'en' : 'next',
                           },
-             'but_back' : {'de' : 'Zur\xc3\xbcck',
+             'but_back' : {'de' : 'zur\xc3\xbcck',
                            'en' : 'back',
                            },
-             'but_prev' : {'de' : 'Zur\xc3\xbcck',
-                           'en' : 'back'
+             'but_prev' : {'de' : 'zur\xc3\xbcck',
+                           'en' : 'previous'
                            },
              'but_refr' : {'de' : 'zeigen/auffrischen',
                            'en' : 'show/refresh'
@@ -101,11 +101,17 @@ txtbutton = {'but_ok'   : {'de' : 'OK',
              'but_take' : {'de' : '\xc3\x9cbernehmen',
                            'en' : 'take over'
                            },
-             'but_roll' :{'de' : 'W\xc3\xbcrfeln',
+             'but_roll' :{'de' : 'w\xc3\xbcrfeln',
                           'en' : 'roll dice'
                           },
-             'but_calc' :{'de' : "Berechnen",
+             'but_calc' :{'de' : "berechnen",
                           'en' : 'calculate'
+                          },
+             'but_fin'  :{'de' : "abschlie\xc3\x9fen",
+                          'en' : 'finalize'
+                          },
+             'but_ren'  :{'de' : 'umbenennen',
+                          'en' : 'rename'
                           },
              }
 
@@ -153,7 +159,7 @@ txtmenu = {'menu_help'     : {'de' : 'Hilfe',
 ## \var submenu
 #This holds the texts of the submenu cascades.
 submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
-                          'close' : 'Datei schliessen',
+                          'close' : 'Datei schlie\xc3\x9fen',
                           'new'   : 'Neue Datei',
                           'save'  : 'Datei speichern',
                           'sv_as' : 'Datei speichern unter...',
@@ -345,6 +351,21 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
           'preview' : {'de' : 'Vorschau',
                        'en' : 'Preview',
                        },
+          'name'     : {'de' : 'Name',
+                        'en' : 'name'
+                        },
+          'dp_costs' : {'de' : 'DP Kosten',
+                        'en' : 'DP costs'
+                        },
+          'progr' : {'de' : 'Steigerung',
+                     'en' : 'progression' 
+                     },
+          'ranks' : {'de' : 'Stufen',
+                     'en' : 'ranks'
+                     },
+          'total' : {'de' : 'gesamt',
+                     'en' : 'total'
+                     },
           }
 
 
