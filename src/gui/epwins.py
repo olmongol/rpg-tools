@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 '''
-\file gui/epWins.py
-\package gui.epWins
+\file epwins.py
+\package gui.epwins
 \brief Windows classes for epcalc gui
 
-
-\date (C) 2016-2017
+This holds window classes for generating and updating (level ups) characters.
+\date (C) 2016-2018
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
 \version 1.0
@@ -40,7 +40,7 @@ __email__ = "marcus@lederzeug.de"
 __version__ = "1.0"
 __license__ = "GNU V3.0"
 __me__ = "A RPG tool package for Python 2.7"
-__updated__ = "27.05.2018"
+__updated__ = "10.06.2018"
 
 logger = log.createLogger('window', 'debug', '1 MB', 1, './')
 

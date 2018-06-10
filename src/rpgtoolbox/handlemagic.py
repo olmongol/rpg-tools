@@ -1,15 +1,19 @@
 #!/usr/bin/env python
 '''
-\package rpgtoolbox
 \file handlemagic.py
-This  module holds helpers handling all spell list/magical issues
+\package rpgtoolbox.handlemagic
 
-\date (C) 2015-2017
+\brief This  module holds helpers handling all spell list/magical issues.
+
+\date (C) 2015-2018
 \license GNU V3.0
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
 \version 0.1
 '''
+__version__ = "0.1"
+__updated__ = "10.06.2018"
+
 import os
 import logbox as log
 from globaltools import readFile as readNotes
@@ -23,15 +27,18 @@ class getSpells(object):
     This class generates an object to get all spell lists into the right context 
     for a single character.
     '''
-
-
     def __init__(self, datadir = "./data", charprof = "", charrealm = [], charlvl = 1):
         '''
+        This class generates an object to get all spell lists into the right context 
+        for a single character.
         \param datadir directory where to find the magic directory
         \param charprof profession of the character
         \param charrealm realm(s) of magic
         \param charlvl character's lvl to calculate costs
-        \todo  calculating development costs dependent on class and level
+        
+        
+        ----
+        \todo  calculating dynamic development costs dependent on class and level
         '''
         self.prof = charprof
         self.realm = charrealm

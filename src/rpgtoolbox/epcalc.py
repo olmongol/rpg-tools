@@ -1,16 +1,21 @@
 #!/usr/bin/env python
 '''
-\package rpgtoolbox
+\package rpgtoolbox.epcalc
 \file epcalc.py
-This  module holds helpers for calculating the EPs
+\brief This  module holds helpers for calculating the EPs and handling NPCs.
 
-\date (C) 2015-2017
+\date (C) 2015-2018
 \license GNU V3.0
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
 \version 0.1
 '''
+
 from rpgtools import getLvl as calcLvl
+
+__version__ = "0.1"
+__updated__ = "10.06.2018"
+
 
 class experience(object):
     '''

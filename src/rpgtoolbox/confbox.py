@@ -1,20 +1,21 @@
 '''
-\package rpgtoolbox
+\package rpgtoolbox.confbox
 \file confbox.py
 
-A toolbox of things to handle config files.
+\brief A toolbox of things to handle config files.
 
 
 \author Marcus Schwamberger
 \date (c) 2012-2016
-\version 0.5.2 alpha
+\version 0.5
 \email marcus@lederzeug.de
 \license GNU V3.0
 '''
 import os, locale
 import rpgtoolbox.globaltools as rpgtools
 from rpgtoolbox.lang import *
-#from cairosvg.surface.path import path
+__version__ = "0.5"
+__updated__ = "10.06.2018"
 
 defaultconfigpath = "conf/"
 defaultconfigfile = "rpg-tools.cfg"

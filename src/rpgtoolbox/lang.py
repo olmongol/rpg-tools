@@ -478,7 +478,7 @@ s_elem_def = {'CRITICAL' : {'de' : 'Ausgeteilte kritische Treffer',
 
 #----------------------------------------------------------------------------
 # comming from Treasure/MagicItem Generator
-# \todo shall be transdered to merp.py
+# \todo shall be transfered to merp.py
 #----------------------------------------------------------------------------
 
 ##\var trhelptext 
