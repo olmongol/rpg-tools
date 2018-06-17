@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 '''
-\package rpgtoolbox
-\file rpgtools.py
 \package rpgtoolbox.rpgtools
+\file rpgtools.py
 \brief RPG helpful functions
 This module contains some helpful functions for role-playing games like:
-\li dice
+- dice() for dic rolling
+- getLvl() for calculate actual level of char
 
 
 \date (C) 2015-2016
@@ -14,7 +14,7 @@ This module contains some helpful functions for role-playing games like:
 \email marcus@lederzeug.de
 \version 0.1
 '''
-__updated__ = "27.05.2018"
+__updated__ = "10.06.2018"
 
 import random
 from rpgtoolbox.globaltools import readCSV
@@ -63,7 +63,6 @@ def calcTotals(charval = {}):
      \param charval the character's (whole) data in JSON format
      \retval result updated character's data concerning the total bonusses.
     '''
-
 
     for cat in charval['cat']:
         progression = charval['cat'][cat]['Progression']
@@ -122,10 +121,16 @@ def calcTotals(charval = {}):
 
 class statManeuver(object):
     '''
-    This class handles static maneuver roll results.
+    This class handles static maneuver roll results. An object of it operates as single static maneuver table where a 
+    given roll (allready modified by severity and other modifiers) is checked and the result returned.
+    
     '''
     
     def __init__(self, tablefile = "./data/default/tables/general_smt.csv"):
+        '''
+        Constructor which needs the table to use.
+        @param tablefile CSV containing the table which shall be used for static maneuver rolls. 
+        '''
         self.table = readCSV(tablefile)
         
     def checkRoll(self, roll):

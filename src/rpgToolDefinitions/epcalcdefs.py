@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 '''
-\file epcalcdefs.py
 \package rpgToolDefinitions.epcalcdefs
+\file epcalcdefs.py
 
 \brief Definitions for EP-Calculator
 This module contains predefined variables, lists, etc. for the EP calculator. 

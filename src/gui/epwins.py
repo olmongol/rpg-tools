@@ -40,7 +40,7 @@ __email__ = "marcus@lederzeug.de"
 __version__ = "1.0"
 __license__ = "GNU V3.0"
 __me__ = "A RPG tool package for Python 2.7"
-__updated__ = "10.06.2018"
+__updated__ = "17.06.2018"
 
 logger = log.createLogger('window', 'debug', '1 MB', 1, './')
 
@@ -1892,13 +1892,18 @@ class skillcatWin(blankWindow):
     This is the class for a window object to chose the priority of weapon skills
     at the character's generation. It will also set the category and skill ranks 
     during adolescence.
+    
+    ----
     \todo a lot... it is not finished yet:
-    - an input widget to display selected cat/skill
     - an input widget to enter rank level ups
+    - force to change names of skill+
     - a text widget to show remaining developing points
     - a button to submit changes/refresh display text widgets
-    - 
-    
+    - a treeview for changed categories/skills
+      - selecting items here can make changes undone or change them again
+      - not finalized changes have to be stored
+    - a button to save changes which are not finalized
+    - a finalize button which confirms all changes permanently
     """
     def __init__(self, lang = 'en', storepath = "./data", char = None):
         """
@@ -2478,7 +2483,7 @@ class skillcatWin(blankWindow):
         '''
         pathfile = self.spath + "/" + self.character['player'] + "/" + self.character['name'] + ending
         writeJSON(pathfile, self.character)
-        
+        '''
     def __helpAWin(self):
         '''
         Help information about this window.
