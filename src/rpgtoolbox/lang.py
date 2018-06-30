@@ -24,6 +24,8 @@ Currently supported languages are:
 
 \todo clean up the code!!!
 '''
+__version__ = "0.4"
+__updated__ = "2018-01-01"
 ## \var supportedrpg
 # Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
@@ -99,7 +101,7 @@ txtbutton = {'but_ok'   : {'de' : 'OK',
                            'en' : 'show/refresh'
                            },
              'but_take' : {'de' : '\xc3\x9cbernehmen',
-                           'en' : 'take over'
+                           'en' : 'submit'
                            },
              'but_roll' :{'de' : 'w\xc3\xbcrfeln',
                           'en' : 'roll dice'

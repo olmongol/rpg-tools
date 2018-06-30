@@ -7,14 +7,14 @@
 
 This module consists of functions to handle a logging.
 
-\date (C) 2012-2016
+\date (C) 2012-2018
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
 \version 0.4
 '''
-
 import logging.handlers
 
+__version__ = "0.4"
 """Debugging level"""
 LEVEL = {'debug'    : logging.DEBUG,
          'info'     : logging.INFO,

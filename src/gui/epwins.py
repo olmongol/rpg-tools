@@ -40,7 +40,7 @@ __email__ = "marcus@lederzeug.de"
 __version__ = "1.0"
 __license__ = "GNU V3.0"
 __me__ = "A RPG tool package for Python 2.7"
-__updated__ = "17.06.2018"
+__updated__ = "30.06.2018"
 
 logger = log.createLogger('window', 'debug', '1 MB', 1, './')
 
@@ -154,6 +154,7 @@ class MainWindow(blankWindow):
                 else:
                     msg = messageWindow()
                     msg.showinfo(errmsg['wrong_type'][self.lang])
+                    logger.warn(errmsg['wrong_type'][self.lang])
                     pass
 
     def __saveFile(self):
@@ -247,6 +248,7 @@ class MainWindow(blankWindow):
                                 command = self.__treasureWin)
         self.gmmenu.add_command(label = submenu['items'][self.lang]['magical'],
                                 command = self.__magicWin)
+        logger.debug("GM Menu build...")
         
     def __treasureWin(self):
         """
@@ -1919,7 +1921,9 @@ class skillcatWin(blankWindow):
         
         self.__catnames = catnames
         self.__rankbonus = rankbonus
-        self._changes = {}
+        self._changes = {"cat":{}}
+        self._changes["name"] = char["name"]
+        self._changes["player"] = char['player']
         
         if storepath == None:
             self.spath = os.path.expanduser('~') + "/data"
@@ -2010,6 +2014,7 @@ class skillcatWin(blankWindow):
         self.skillentry = ""
         self.catrank = StringVar()
         self.skillrank = StringVar()
+        
         self.catcost = []
         self.skillcost = []
         self.__calcDP()
@@ -2207,11 +2212,16 @@ class skillcatWin(blankWindow):
                               pady = 2
                               )    
         self.DPcost.set("---") 
-
+        Button(self.window,
+               text = txtbutton['but_take'][self.lang],
+               command = self.__takeValsCat).grid(column = 5,
+                                               row = 4,
+                                               sticky = "NW"
+                                              )
         # add a 'take over changes' button
         Button(self.window,
                text = txtbutton['but_take'][self.lang],
-               command = self.__takeVals).grid(column = 5,
+               command = self.__takeValsSkill).grid(column = 5,
                                                row = 5,
                                                sticky = "NW"
                                               )
@@ -2387,6 +2397,17 @@ class skillcatWin(blankWindow):
                      
         print self.__tree.item(self.__curItem)
     
+    
+    def __insertChangedCT(self, event):
+        '''
+        This method takes changed categories/skills and put them into the __chgtree.
+        \todo The following features have to be implemented:
+            - get changed data from __tree
+            - insert changed data into __chgtree
+        '''
+        self.notdoneyet("__insertChangedCT")
+        
+        
     def __checkDev(self):
         '''
         This method handles the level up procedure. Validates number of level-ups 
@@ -2443,19 +2464,31 @@ class skillcatWin(blankWindow):
         '''
         self.character = calcTotals(self.character)
     
-    def __takeVals(self):    
+    def __takeValsSkill(self):    
         '''
         This method takes added/modified skills/cats to a dict and treeview
-        \todo The following has to be implemented:
+        \todo The following__chgtree has to be implemented:
         -# a dict of changes
         -# a treeview to show changes
         -# a saving for those changes dict
         
         '''
+#        self.__tree.item(self.__curItem)
         print "__takeVals not done yet"
-        self.notdoneyet("__takeVals")
+        self.notdoneyet("__takeValsSkill")
         
-    
+    def __takeValsCat(self):
+        '''
+        This method takes added/modified skills/cats to a dict and treeview
+        \todo The following__chgtree has to be implemented:
+        -# a dict of changes
+        -# a treeview to show changes
+        -# a saving for those changes dict
+        
+        '''
+
+        print "__takeVals not done yet"
+        self.notdoneyet("__takeValsCat")       
     def __finalize(self):
         '''
         This method finalizes and saves all changes into character data
@@ -2483,7 +2516,7 @@ class skillcatWin(blankWindow):
         '''
         pathfile = self.spath + "/" + self.character['player'] + "/" + self.character['name'] + ending
         writeJSON(pathfile, self.character)
-        '''
+       
     def __helpAWin(self):
         '''
         Help information about this window.
