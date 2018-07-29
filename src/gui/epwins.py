@@ -33,7 +33,7 @@ from gui.winhelper import InfoCanvas
 from gui.window import *
 from gui.gmtools import *
 import json
-
+from pprint import pprint  # for debugging purposes only
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-2018 " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -44,6 +44,8 @@ __updated__ = "30.06.2018"
 
 logger = log.createLogger('window', 'debug', '1 MB', 1, './')
 
+
+
 class MainWindow(blankWindow):
     """
     This is the class for the main window object.
@@ -53,6 +55,8 @@ class MainWindow(blankWindow):
     \param title title of the window
     \param storepath path where things like options have to be stored
     """
+
+
     def __init__(self, lang = 'en', storepath = None, title = "Main Window",
                  char = None):
         """
@@ -90,7 +94,7 @@ class MainWindow(blankWindow):
         self.mask = [txtwin['json_files'][self.lang],
                      txtwin['grp_files'][self.lang],
                      txtwin['all_files'][self.lang]
-                    ]
+                     ]
 
         """
         set picture for the window background of the main window
@@ -122,6 +126,8 @@ class MainWindow(blankWindow):
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['quit'],
                                   command = self.window.destroy)
+
+
     def __newFile(self):
         """
         This method opens a new window for generation of a new
@@ -144,24 +150,25 @@ class MainWindow(blankWindow):
                                         initialdir = self.mypath)
         if self.__filein != "":
             with open(self.__filein, 'r') as filecontent:
-                
+
                 if self.__filein[-4:].lower() == "json":
                     self.char = json.load(filecontent)
-               
+
                 elif self.__filein[-3:].lower == "grp":
                     self.grp = json.load(filecontent)
-              
+
                 else:
                     msg = messageWindow()
                     msg.showinfo(errmsg['wrong_type'][self.lang])
                     logger.warn(errmsg['wrong_type'][self.lang])
                     pass
 
+
     def __saveFile(self):
         '''
         This method opens a file dialogue window (Tk) for saving the results
         of the EP calculation into an .json or .grp file.
-        \todo has to be implemented
+        @todo has to be implemented
         '''
         self.notdoneyet("'saveFile'")
 
@@ -169,7 +176,7 @@ class MainWindow(blankWindow):
     def __addEditMenu(self):
         '''
         This method adds an edit menu to the menu bar
-        \todo add all entries.
+        @todo add all entries.
         '''
         self.edtmenu = Menu(master = self.menu)
         self.menu.add_cascade(label = txtmenu['menu_edit'][self.lang],
@@ -180,11 +187,12 @@ class MainWindow(blankWindow):
         self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_fight'],
                                  command = self.__edfightWin)
         self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_other'],
-                                  command = self.__edotherWin)
+                                 command = self.__edotherWin)
         self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_indiv'],
-                                  command = self.__indivWin)
+                                 command = self.__indivWin)
         self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_calc'],
                                  command = self.__edcalcWin)
+
 
     def __edcharWin(self):
         '''
@@ -193,7 +201,7 @@ class MainWindow(blankWindow):
         if self.char != None:
             self.window.destroy()
             self.window2 = skillcatWin(self.lang, self.mypath, self.char)
-            
+
         else:
             msg = messageWindow()
             msg.showinfo(errmsg['no_data'][self.lang])
@@ -202,39 +210,44 @@ class MainWindow(blankWindow):
     def _edtgrpWin(self):
         """
         Opens a window for editing character parties
-        \todo edtgrpWin has to be implemented
+        @todo edtgrpWin has to be implemented
         """
         self.notdoneyet("edtgrpWin")
-        
+
+
     def __edfightWin(self):
         '''
         Editing all Hits/Crits/Killed Monsters for calculating EPs
-        \todo has to be implemented
+        @todo has to be implemented
         '''
         self.notdoneyet()
+
 
     def __edotherWin(self):
         '''
         Editing all for traveled distance, spells, maneuvers
-        \todo not implemented yet
+        @todo not implemented yet
         '''
         self.notdoneyet()
+
 
     def __indivWin(self):
         '''
         Calculating and distributing pool for individual EPs.
-        \todo not implemented yet
+        @todo not implemented yet
         '''
         self.notdoneyet()
 #        self.window.destroy()
 #        self.window = inputWin(self.lang)
 
+
     def __edcalcWin(self):
         '''
         Calculating and displaying the whole EPs for the RPG party.
-        \todo not implemented yet
+        @todo not implemented yet
         '''
         self.notdoneyet()
+
 
     def __addGMMenu(self):
         """
@@ -249,19 +262,22 @@ class MainWindow(blankWindow):
         self.gmmenu.add_command(label = submenu['items'][self.lang]['magical'],
                                 command = self.__magicWin)
         logger.debug("GM Menu build...")
-        
+
+
     def __treasureWin(self):
         """
         This privat method invokes a window to generate descriptions of a treasures (gmtools.py).
         """
         createTreasureWin(lang = self.lang, filename = 'treasure.txt')
-    
+
+
     def __magicWin(self):
         """
         This privat method invokes a window to generate descriptions of magic items (gmtools.py).
         """
         createMagicWin(lang = self.lang)
-    
+
+
     def __addOptionMenu(self):
         """
         This method adds an option/preferences menu to the menu bar.
@@ -272,12 +288,14 @@ class MainWindow(blankWindow):
         self.optmenu.add_command(label = submenu['opts'][self.lang]['lang'],
                                  command = self.__optWin)
 
+
     def __optWin(self):
         '''
         Opens an options window and closes the main window.
         '''
         self.window.destroy()
         self.window = confWindow(self.lang)
+
 
     def __addMenu(self):
         '''
@@ -287,6 +305,7 @@ class MainWindow(blankWindow):
         self.menu = Menu(self.window)
         self.window.configure(menu = self.menu)
 
+
     def __addHelpMenu(self):
         """
         This methods defines a help menu.
@@ -295,17 +314,19 @@ class MainWindow(blankWindow):
         self.menu.add_cascade(label = txtmenu['help'][self.lang],
                               menu = self.helpmenu)
         self.helpmenu.add_command(label = submenu['help'][self.lang]['global'],
-                              command = self.helpHandbook)
+                                  command = self.helpHandbook)
         self.helpmenu.add_separator()
         self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
                                   command = self.helpAbout)
 
+
     def helpHandbook(self):
         """
         This method will show the rpg-tools Handbook
-        \todo this needs to be implemented
+        @todo this needs to be implemented
         """
         self.notdoneyet()
+
 
     def helpAbout(self):
         '''
@@ -314,12 +335,14 @@ class MainWindow(blankWindow):
         copyright)
         '''
         self.about = "%s\nVersion %s\n\n%s\n%s\n%s" % (__me__,
-                                                      __version__,
-                                                      __copyright__,
-                                                      __license__,
-                                                      __email__)
+                                                       __version__,
+                                                       __copyright__,
+                                                       __license__,
+                                                       __email__)
         self.msg = messageWindow()
         self.msg.showinfo(self.about)
+
+
 
 class confWindow(blankWindow):
     """
@@ -328,6 +351,8 @@ class confWindow(blankWindow):
     dialogues.
     \param lang Laguage which shall be used in messages and menus.
     """
+
+
     def __init__(self, lang = 'en'):
         """
         Class constructor
@@ -335,13 +360,14 @@ class confWindow(blankWindow):
         """
         self.lang = lang
         self._cnf = chkCfg(lang = self.lang)
-        
+
         blankWindow.__init__(self, self.lang)
         self.window.title(wintitle['opt_lang'][self.lang])
         self.wert = StringVar()
         self.index = sortIndex(shortcut)
         self.__buildOptMenu()
         self.__buildWinRadio()
+
 
     def __buildOptMenu(self):
         """
@@ -353,25 +379,26 @@ class confWindow(blankWindow):
             self.RPG.set(self._cnf.cnfparam['rpg'])
         else:
             self.RPG.set('Rolemaster')
-        
-        self.optMenu = apply(OptionMenu, (self.window, self.RPG) + tuple(supportedrpg[self.lang]))
+
+        self.optMenu = apply(
+            OptionMenu, (self.window, self.RPG) + tuple(supportedrpg[self.lang]))
         self.optMenu.grid(column = 0, row = 0)
-        
-        
+
+
     def __buildWinRadio(self):
         """
         This private method builds the option's window with radio
         buttons of supported languages dynamically.
-        \todo switch language chooser from radio buttons to pull-down
+        @todo switch language chooser from radio buttons to pull-down
               menu
-        \todo Switch from pack() to .grid()
+        @todo Switch from pack() to .grid()
         """
         self.sto_path = StringVar()
         self.log_path = StringVar()
 
         if 'path' in self._cnf.cnfparam.keys():
             self.sto_path.set(self._cnf.cnfparam['datapath'])
-  
+
         else:
             self.sto_path.set("./data")
 
@@ -388,7 +415,7 @@ class confWindow(blankWindow):
 
         self.rb = {}
         i = 1
-     
+
         for key in self.index:
             self.rb[key] = Radiobutton(master = self.window,
                                        text = shortcut[key],
@@ -400,13 +427,13 @@ class confWindow(blankWindow):
                 self.rb[key].select()
 
             self.rb[key].grid(column = 0, row = i)
-            i += 1 
+            i += 1
 
         i += 1
         Label(master = self.window,
               width = 35
               ).grid(column = 0, row = i)
-        
+
         i += 1
         Label(master = self.window,
               width = 35,
@@ -418,34 +445,34 @@ class confWindow(blankWindow):
               width = 35,
               textvariable = self.sto_path
               ).grid(column = 0, row = i)
-              
+
         i += 1
         Label(master = self.window,
               width = 35
               ).grid(column = 0, row = i)
-        
+
         i += 1
         Label(master = self.window,
               width = 35,
               text = labels['log_path'][self.lang]
               ).grid(column = 0, row = i)
-        i += 1      
+        i += 1
         Entry(master = self.window,
               width = 35,
               textvariable = self.log_path
               ).grid(column = 0, row = i)
-        
+
         i += 1
         Button(self.window,
                text = txtbutton['but_sav'][self.lang],
                width = 15,
                command = self.__save).grid(column = 0, row = i)
-        i += 1       
+        i += 1
         Button(self.window,
                text = txtbutton['but_clos'][self.lang],
                width = 15,
                command = self.__closewin).grid(column = 0, row = i)
-               
+
 
     def chosenLang(self):
         """
@@ -454,43 +481,48 @@ class confWindow(blankWindow):
         """
         return self.wert.get()
 
+
     def __save(self):
         """
         A method for saving options in the user directory.
-        \todo variables to store have to be completed/adapted
+        @todo variables to store have to be completed/adapted
         """
         self.lang = self.wert.get()
         self.path = self.sto_path.get()
         self.log = self.log_path.get()
         self.crpg = self.RPG.get()
 
-        if  self.path[-1:] != '/':
+        if self.path[-1:] != '/':
             self.path += '/'
 
         if self.log[-1:] != '/':
             self.log += '/'
 
-        self.cont = {'lang'     : self.lang,
-                     'datapath' : self.path,
-                     'logpath'  : self.log,
-                     'rpg'      : self.crpg
+        self.cont = {'lang': self.lang,
+                     'datapath': self.path,
+                     'logpath': self.log,
+                     'rpg': self.crpg
                      }
-        logger.debug('SAVE: lang=%s; datapath=%s; logpath=%s' % (self.lang, self.path, self.log))
+        logger.debug('SAVE: lang=%s; datapath=%s; logpath=%s' %
+                     (self.lang, self.path, self.log))
         self._cnf.saveCnf(path = './conf',
                           filename = 'rpg-tools.cfg',
                           content = self.cont)
 
         self.msg = messageWindow()
-        self.msg.showinfo(processing['saved'][self.lang] + '\n' + shortcut[self.lang])
+        self.msg.showinfo(processing['saved']
+                          [self.lang] + '\n' + shortcut[self.lang])
+
 
     def __closewin(self):
         """
         A method for closing the window and opening the main window.
-        \todo give RPG type to main window
+        @todo give RPG type to main window
         """
         self.path = self.sto_path.get()
         self.window.destroy()
         self.window = MainWindow(self.lang, self.path)
+
 
 
 class inputWin(blankWindow):
@@ -503,6 +535,8 @@ class inputWin(blankWindow):
                     the functional structure.
     \param storepath the path where the XML files shall be stored in.
     """
+
+
     def __init__(self,
                  lang = 'en',
                  csvcontent = {},
@@ -522,13 +556,13 @@ class inputWin(blankWindow):
         self.csvcont = csvcontent
         self.fname = filename
         self.picpath = "./gui/pic/"
-        
+
         if self.fname != "" and self.fname != None:
             self._last = getLast(string = self.fname, sep = "/")
 
         else:
             self._last = ""
-        
+
         self.mypath = storepath
         blankWindow.__init__(self, self.lang)
 
@@ -547,7 +581,7 @@ class inputWin(blankWindow):
 
         self.edtmenu = Menu(master = self.menu)
         self.menu.add_cascade(label = txtmenu['menu_edit'][self.lang],
-                                  menu = self.edtmenu)
+                              menu = self.edtmenu)
         self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_char'],
                                  command = self.__editchar)
         self.edtmenu.add_separator()
@@ -567,13 +601,13 @@ class inputWin(blankWindow):
         self.menu.add_cascade(label = txtmenu['menu_help'][self.lang],
                               menu = self.helpmenu)
         self.helpmenu.add_command(label = submenu['help'][self.lang]['page'],
-                                 command = self.__helppage)
+                                  command = self.__helppage)
         self.helpmenu.add_command(label = submenu['help'][self.lang]['global'],
-                                 command = self.__helpglobal)
+                                  command = self.__helpglobal)
         self.helpmenu.add_separator()
         self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
-                                 command = self._helpAbout)
- 
+                                  command = self._helpAbout)
+
         """
         set picture for the window background of the main window
         """
@@ -581,76 +615,84 @@ class inputWin(blankWindow):
         __background = PhotoImage(file = self.picpath + 'assassin.gif')
         self.__canvas.create_image(0, 0, image = __background, anchor = NW)
         self.__canvas.pack()
-               
+
         self.window.mainloop()
 
-        
+
     def __createchar(self):
         '''
         Method to open a new window for character creation.
         '''
         self.window.destroy()
         self.window3 = genAttrWin(lang = self.lang,
-                                 storepath = self.mypath)
-       
+                                  storepath = self.mypath)
+
+
     def __creategroup(self):
         '''
         Method to create a now character party/group
-        \todo chreategroup has to be implemented
+        @todo chreategroup has to be implemented
         '''
         print "input win --> creategroup"
         self.notdoneyet('creategroup')
-        
-        
+
+
     def __editchar(self):
         '''
         Method to edit a character for the EP sheet.
-        \todo editchar is to be implemented
+        @todo editchar is to be implemented
         '''
         print "input win -->  editchar"
         self.notdoneyet('editchar')
 
+
     def __editgrp(self):
         '''
         Method to edit a character group and keep track on it
-        \todo editgrp has to be implemented
+        @todo editgrp has to be implemented
         '''
         self.notdoneyet("editgrp")
-        
+
+
     def __epfight(self):
         '''
         Method to calculate EPs from a fight (hits and criticals)
-        \todo epfight has to be implemented
+        @todo epfight has to be implemented
         '''
         self.notdoneyet('epfight')
+
 
     def __epother(self):
         '''
         Method to calculate EPs from Spells, maneuvers, travel.
-        \todo epother has to be implemented
+        @todo epother has to be implemented
         '''
         self.notdoneyet('epother')
+
 
     def __epindiv(self):
         '''
         Method for adding invidual EPs
-        \todo epindiv has to be implemented
+        @todo epindiv has to be implemented
         '''
         self.notdoneyet('epindiv')
+
 
     def __epcalc(self):
         '''
         Method to finalize EP calculation for a single gaming date
-        \todo epcalc has to be implemented
+        @todo epcalc has to be implemented
         '''
         self.notdoneyet('epcalc')
-          
+
+
     def __fightsim(self):
         '''
         Method for simulating a fight and calculate potential EPs
-        \todo fightsim has to be implemented
+        @todo fightsim has to be implemented
         '''
         self.notdoneyet('fightsim')
+
 
     def __closewin(self):
         """
@@ -659,107 +701,113 @@ class inputWin(blankWindow):
         self.window.destroy()
         self.window = MainWindow(self.lang, self.mypath)
 
+
     def __helppage(self):
         """
         Method for help on this page.
-        \todo helppage has to be implemented
+        @todo helppage has to be implemented
         """
         self.notdoneyet("helppage")
-        
+
+
     def __helpglobal(self):
         """
         Method to call the handbook as help for this page
         """
         self.handbook("chapter %s" % (wintitle['edit'][self.lang]))
-        
+
+
+
 class genAttrWin(blankWindow):
     '''
     A window class for generating name, race, profession and attributes of a new
     character.
-    \todo adding the spell lists as skills to the right skill categories
+    @todo adding the spell lists as skills to the right skill categories
     '''
+
+
     def __init__(self, lang = 'en', storepath = './data', rpg = "RoleMaster"):
         '''
         \param lang Choosen display language (default en)
         \param storepath Path to store data (default: ./data)
         '''
-        
+
         if rpg == "RoleMaster":
             from rpgtoolbox import rolemaster as rm
 
         else:
             self.notdoneyet("support for %s" % (rpg))
 
-        ## \var self.character
+        # \var self.character
         # the attribute where to store the character data in as 'JSON'
         self.character = {}
-        ## \var self.lang
+        # \var self.lang
         # used language
         self.lang = lang
-        ## \var self.spath
+        # \var self.spath
         # storage path for character data file
         self.spath = storepath
-        
+
         if self.spath[-1] != "/":
             self.spath += "/"
-        
+
         self.__cultures = rm.cultures[self.lang][:6]
-        ## \var self.profs
-        # a dictionary/JSON structure where a profession specific data (read from 
-        # a CSV file) is stored in 
+        # \var self.profs
+        # a dictionary/JSON structure where a profession specific data (read from
+        # a CSV file) is stored in
         self.profs = rm.choseProfession(self.lang)
-        ## \var proflist
+        # \var proflist
         # list of all available professions
         proflist = self.profs.keys()
-        ## \var rmraces
+        # \var rmraces
         # a list of all the RoleMaster races
         rmraces = rm.races[self.lang]
-        ## \var rmcultures
+        # \var rmcultures
         # list of available cultures
         rmcultures = rm.cultures[self.lang]
-        ## \var self.stats
+        # \var self.stats
         # holds player, name, profession, race, realm and temp stats
         self.stats = {}
-        ## \var self.pots
+        # \var self.pots
         # holds potential stats (maximum values)
         self.pots = {}
-        ## \var self.specs
-        # holds special stats if anyrger 
+        # \var self.specs
+        # holds special stats if anyrger
         self.specs = {}
-        ## \var self.__race
+        # \var self.__race
         # holds race stats bonuses
         self.__race = {}
-        ##\var self.__rr
+        # \var self.__rr
         # holds all resistance roll bonusses
         self.__rr = {}
         self.__labels = {}
-        ## \var self..__totals
+        # \var self..__totals
         # holds total stat bonusses
         self.__totals = {}
-        ## \var self.__std
+        # \var self.__std
         #  holds standard stat bonusses
         self.__std = {}
         self.__count = 0
-        ##\var self.__rmstats
+        # \var self.__rmstats
         # list of all stats' short cuts in English
         self.__rmstats = rm.stats
-        ##\var self.__rangeOK
+        # \var self.__rangeOK
         # just for check up whether the stats are in the correct ranges
         self.__rangeOK = True
-        
+
         blankWindow.__init__(self, lang = self.lang)
         self.window.title(wintitle['rm_charg'][self.lang] + " - Attributes")
         self.showno = IntVar()
         self.showno.set(660)
         self.points = 660
         dummy = ['player', 'name', 'prof', 'race', 'realm', 'culture']
-        
+
         for a in dummy:
             self.stats[a] = StringVar()
-            
+
         for a in rm.stats:
             self.stats[a] = IntVar()
-            self.stats[a].set(0)      
+            self.stats[a].set(0)
             self.pots[a] = IntVar()
             self.pots[a].set(0)
             self.specs[a] = IntVar()
@@ -772,8 +820,7 @@ class genAttrWin(blankWindow):
             self.__std[a].set(0)
             self.__totals[a] = IntVar()
             self.__totals[a].set(0)
-            
-            
+
         self.filemenu = Menu(master = self.menu)
         self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
                               menu = self.filemenu)
@@ -781,189 +828,188 @@ class genAttrWin(blankWindow):
                                   command = self.notdoneyet)
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
-                                  command = self.__closewin)   
-   
+                                  command = self.__closewin)
 
         Label(master = self.window,
               width = 25,
               text = rm.labels[self.lang]['player']
-              ).grid(column = 0, row = 0, columnspan = 2)    
-    
+              ).grid(column = 0, row = 0, columnspan = 2)
+
         Entry(master = self.window,
               width = 35,
               textvariable = self.stats['player'],
               ).grid(column = 2, row = 0, columnspan = 2)
-                        
+
         Label(master = self.window,
               width = 15,
               text = rm.labels[self.lang]['culture']
-              ).grid(column = 4, row = 0, columnspan = 2)    
+              ).grid(column = 4, row = 0, columnspan = 2)
 
         self.optMenu0 = OptionMenu(self.window,
                                    self.stats['culture'],
                                    *rmcultures,
                                    command = self.__setCulture)
         self.optMenu0.grid(column = 6, row = 0, columnspan = 2, sticky = "ew")
-        
+
         Label(master = self.window,
               width = 25,
               text = rm.labels[self.lang]['name']
-              ).grid(column = 0, row = 1, columnspan = 2)    
-    
+              ).grid(column = 0, row = 1, columnspan = 2)
+
         Entry(master = self.window,
               width = 35,
               textvariable = self.stats['name'],
-              ).grid(column = 2, row = 1, columnspan = 2)    
-              
+              ).grid(column = 2, row = 1, columnspan = 2)
+
         Label(master = self.window,
               width = 15,
               text = rm.labels[self.lang]['race']
-              ).grid(column = 4, row = 1, columnspan = 2)    
+              ).grid(column = 4, row = 1, columnspan = 2)
 
         self.optMenu1 = OptionMenu(self.window,
                                    self.stats['race'],
                                    *rmraces,
                                    command = self.__setRBonus)
         self.optMenu1.grid(column = 6, row = 1, columnspan = 2, sticky = "ew")
-        
+
         Label(master = self.window,
               width = 25,
               text = rm.labels[self.lang]['prof']
-              ).grid(column = 0, row = 2, columnspan = 2)         
-        
+              ).grid(column = 0, row = 2, columnspan = 2)
+
         self.optMenu2 = OptionMenu(self.window,
                                    self.stats['prof'],
                                    *proflist,
                                    command = self.__setRealm)
-        self.optMenu2.grid(column = 2, row = 2, columnspan = 2, sticky = "ew")        
-        
+        self.optMenu2.grid(column = 2, row = 2, columnspan = 2, sticky = "ew")
+
         Label(master = self.window,
               width = 15,
               text = rm.labels[self.lang]['realm']
-              ).grid(column = 4, row = 2, columnspan = 2)         
-        
+              ).grid(column = 4, row = 2, columnspan = 2)
+
         self.optMenu3 = OptionMenu(self.window,
                                    self.stats['realm'],
                                    *rm.realms[self.lang],
                                    command = self.__chkRealm)
         self.optMenu3.grid(column = 6, row = 2, columnspan = 2, sticky = "ew")
-       
+
         Button(master = self.window,
                text = txtbutton['but_roll'][self.lang],
                width = 15,
                command = self.rollDice).grid(column = 4, row = 3)
-        
+
         Label(master = self.window,
               text = rm.labels[self.lang]['DP'],
               ).grid(column = 5, row = 3, columnspan = 2)
-              
-        Message(master = self.window,
-                 width = 35,
-                 textvariable = self.showno,
-                 font = "bold"
-                 ).grid(column = 7, row = 3)
-                                
-        Label (master = self.window,
-               width = 15,
-               relief = RIDGE,
-               font = "bold",
-               text = rm.labels[self.lang]['stats']
-               ).grid(column = 0, row = 4, sticky = "ew")
-               
-        Label (master = self.window,
-               width = 10,
-               relief = RIDGE,
-               font = "bold",
-               text = rm.labels[self.lang]['short']
-               ).grid(column = 1, row = 4)       
-               
-        Label (master = self.window,
-               width = 10,
-               relief = RIDGE,
-               font = "bold",
-               text = "Temp"
-               ).grid(column = 2, row = 4, sticky = "ew")
-               
-        Label (master = self.window,
-               width = 10,
-               relief = RIDGE,
-               font = "bold",
-               text = "Pot"
-               ).grid(column = 3, row = 4, sticky = "ew")
-               
-        Label (master = self.window,
-               width = 10,
-               relief = RIDGE,
-               font = "bold",
-               text = rm.labels[self.lang]['race']
-               ).grid(column = 4, row = 4, sticky = "ew")
-                
-        Label (master = self.window,
-               width = 10,
-               relief = RIDGE,
-               font = "bold",
-               text = "Spec"
-               ).grid(column = 5, row = 4, sticky = "ew")
-               
-        Label (master = self.window,
-               width = 10,
-               relief = RIDGE,
-               font = "bold",
-               text = "Std"
-               ).grid(column = 6, row = 4, sticky = "ew")
 
-        Label (master = self.window,
-               width = 10,
-               relief = RIDGE,
-               font = "bold",
-               text = rm.labels[self.lang]['total']
-               ).grid(column = 7, row = 4, sticky = "ew")        
-        
+        Message(master = self.window,
+                width = 35,
+                textvariable = self.showno,
+                font = "bold"
+                ).grid(column = 7, row = 3)
+
+        Label(master = self.window,
+              width = 15,
+              relief = RIDGE,
+              font = "bold",
+              text = rm.labels[self.lang]['stats']
+              ).grid(column = 0, row = 4, sticky = "ew")
+
+        Label(master = self.window,
+              width = 10,
+              relief = RIDGE,
+              font = "bold",
+              text = rm.labels[self.lang]['short']
+              ).grid(column = 1, row = 4)
+
+        Label(master = self.window,
+              width = 10,
+              relief = RIDGE,
+              font = "bold",
+              text = "Temp"
+              ).grid(column = 2, row = 4, sticky = "ew")
+
+        Label(master = self.window,
+              width = 10,
+              relief = RIDGE,
+              font = "bold",
+              text = "Pot"
+              ).grid(column = 3, row = 4, sticky = "ew")
+
+        Label(master = self.window,
+              width = 10,
+              relief = RIDGE,
+              font = "bold",
+              text = rm.labels[self.lang]['race']
+              ).grid(column = 4, row = 4, sticky = "ew")
+
+        Label(master = self.window,
+              width = 10,
+              relief = RIDGE,
+              font = "bold",
+              text = "Spec"
+              ).grid(column = 5, row = 4, sticky = "ew")
+
+        Label(master = self.window,
+              width = 10,
+              relief = RIDGE,
+              font = "bold",
+              text = "Std"
+              ).grid(column = 6, row = 4, sticky = "ew")
+
+        Label(master = self.window,
+              width = 10,
+              relief = RIDGE,
+              font = "bold",
+              text = rm.labels[self.lang]['total']
+              ).grid(column = 7, row = 4, sticky = "ew")
+
         i = 5
-        
+
         for s in rm.stats:
             Label(master = self.window,
                   width = 15,
                   textvariable = self.__labels[s]
-                 ).grid(column = 0, row = i, sticky = "ew")
-                 
+                  ).grid(column = 0, row = i, sticky = "ew")
+
             Label(master = self.window,
                   text = s  # momentary only English shortcuts
                   ).grid(column = 1, row = i, sticky = "ew")
-                  
+
             Entry(master = self.window,
-                   width = 15,
-                   textvariable = self.stats[s]
-                   ).grid(column = 2, row = i)
-            
+                  width = 15,
+                  textvariable = self.stats[s]
+                  ).grid(column = 2, row = i)
+
             Message(master = self.window,
                     width = 25,
                     textvariable = self.pots[s],
                     ).grid(column = 3, row = i)
-            
+
             Message(master = self.window,
                     width = 15,
                     textvariable = self.__race[s],
                     ).grid(column = 4, row = i)
-            
+
             Entry(master = self.window,
                   width = 15,
                   textvariable = self.specs[s]
                   ).grid(column = 5, row = i)
-            
+
             Message(master = self.window,
                     width = 25,
                     textvariable = self.__std[s],
-                    ).grid(column = 6, row = i) 
-            
+                    ).grid(column = 6, row = i)
+
             Message(master = self.window,
                     width = 25,
                     font = "bold",
                     textvariable = self.__totals[s],
-                    ).grid(column = 7, row = i)         
-                    
+                    ).grid(column = 7, row = i)
+
             i += 1
-        
+
         Button(master = self.window,
                text = txtbutton['but_calc'][self.lang],
                width = 15,
@@ -972,27 +1018,28 @@ class genAttrWin(blankWindow):
         Button(master = self.window,
                text = txtbutton['but_next'][self.lang],
                width = 10,
-               command = self.__nextStep).grid(column = 7, row = i)  
-                                           
+               command = self.__nextStep).grid(column = 7, row = i)
+
         self.window.mainloop()
-       
-      
+
+
     def __nextStep(self):
         '''
-        Checks whether all developing points (and not more) are used and player 
+        Checks whether all developing points (and not more) are used and player
         and character names are set. If so it proceeds with collecting all data.
         '''
         if self.points != self.__used:
             messageWindow(self.lang).showinfo(errmsg['stats_dp'][self.lang])
-    
+
         elif self.stats['player'].get() == "":
             messageWindow(self.lang).showinfo(errmsg['player'][self.lang])
-     
+
         elif self.stats['name'].get() == "":
             messageWindow(self.lang).showinfo(errmsg['name'][self.lang])
-   
+
         else:
             self.__collectData()
+
 
     def __calcBonus(self):
         '''
@@ -1003,7 +1050,8 @@ class genAttrWin(blankWindow):
         self.__used = 0
 
         for s in self.__rmstats:
-            total = self.__race[s].get() + self.specs[s].get() + self.__std[s].get()
+            total = self.__race[s].get() + \
+                self.specs[s].get() + self.__std[s].get()
             self.__totals[s].set(total)
             stat = self.stats[s].get()
             self.__used += stat
@@ -1011,100 +1059,108 @@ class genAttrWin(blankWindow):
 
         if self.__used > self.points:
             self.showno.set(self.points - self.__used)
-            messageWindow(self.lang).showinfo(errmsg['too_much_stats'][self.lang])
-        
+            messageWindow(self.lang).showinfo(
+                errmsg['too_much_stats'][self.lang])
+
         self.showno.set(self.points - self.__used)
         self.__testStats()
-            
+
+
     def __testStats(self):
         '''
-        This checks the temp value of the  stats and warns if they are correct. 
+        This checks the temp value of the  stats and warns if they are correct.
         That means the primary have to be at least 90+ and the others not below
         20.
-        '''     
+        '''
         testp = self.stats['prof'].get()
         if testp != "":
             primestats = self.profs[testp]['Prime Stats']
             self.__rangeOK = True
-            
+
             for s in self.__rmstats:
                 if self.stats[s.strip('*')].get() < 20:
                     self.__rangeOK = False
                     self.stats[s.strip('*')].set(20)
-                    messageWindow(self.lang).showinfo(errmsg['wrong_stat'][self.lang] + "\n%s --> 20" % s)
-            
+                    messageWindow(self.lang).showinfo(
+                        errmsg['wrong_stat'][self.lang] + "\n%s --> 20" % s)
+
             for s in primestats:
-                
+
                 if self.stats[s.strip('*')].get() < 90:
                     self.__rangeOK = False
                     self.stats[s.strip('*')].set(90)
-                    messageWindow(self.lang).showinfo(errmsg['wrong_stat'][self.lang] + "\ns %s --> 90 " % s)
-             
+                    messageWindow(self.lang).showinfo(
+                        errmsg['wrong_stat'][self.lang] + "\ns %s --> 90 " % s)
+
+
     def __setPStats(self):
         '''
         Sets the primary (and magic) stats for a profession
-        \todo set the magic stat for chosen realms to semi spell users
-        '''    
+        @todo set the magic stat for chosen realms to semi spell users
+        '''
         testp = self.stats['prof'].get()
-        
+
         if testp != "":
             primestats = self.profs[testp]['Prime Stats']
-            
+
             for s in self.__rmstats:
                 dummy = self.__labels[s].get()
                 dummy = dummy.strip(" ()+*")
-                
+
                 if s in primestats:
                     self.__labels[s].set(dummy + ' (+)')
-                    
+
                     if self.stats[s].get() < 90:
                         self.stats[s].set(90)
-                    
+
                 elif s + '*' in primestats:
                     self.__labels[s].set(dummy + ' (+)(*)')
-                    
+
                     if self.stats[s].get() < 90:
                         self.stats[s].set(90)
-                
+
                 else:
                     self.__labels[s].set(dummy)
-                    
+
                     if self.stats[s].get() < 20:
                         self.stats[s].set(20)
-                
+
                 potstat = self.__creatPot(self.stats[s].get())
                 self.pots[s].set(potstat)
-                        
+
         self.__calcBonus()
-    
+
+
     def __setCulture(self, event):
         '''
         Sets the right culture selection dependent on the chosen race.
         If the race is set this method will adapt the list of choice concerning
         to the chosen race.
         '''
-        from rpgtoolbox.rolemaster import races, cultures 
+        from rpgtoolbox.rolemaster import races, cultures
         from rpgtoolbox.lang import errmsg
-        
+
         testc = self.stats['culture'].get()
-        testr = self.stats['race'].get()       
+        testr = self.stats['race'].get()
         omenu = self.optMenu0.children['menu']
         omenu.delete(0, "end")
-        
+
         if testr == "" or testr == None:
             msg = messageWindow()
             msg.showinfo(errmsg['no_race'][self.lang], 'Info')
-        
+
         elif testr in races[self.lang][:2]:
             for cult in cultures[self.lang][:6]:
-                omenu.add_command(label = cult, command = lambda v = cult: self.stats['culture'].set(v))
+                omenu.add_command(
+                    label = cult, command = lambda v = cult: self.stats['culture'].set(v))
                 self.stats['culture'].set("")
-                
+
         else:
-            omenu.add_command(label = testr, command = lambda v = testr: self.stats['culture'].set(v))
+            omenu.add_command(
+                label = testr, command = lambda v = testr: self.stats['culture'].set(v))
             self.stats['culture'].set(testr)
-            
-            
+
+
     def __statBonus(self):
         '''
         Sets/calculates standard stat bonus
@@ -1113,20 +1169,21 @@ class genAttrWin(blankWindow):
         for s in self.__rmstats:
             value = self.stats[s].get()
             self.__std[s].set(statbonus(value))
-                
+
+
     def __chkRealm(self, event):
         '''
-        This method checks whether the right magic realm is chosen for the 
+        This method checks whether the right magic realm is chosen for the
         selected profession
-        \param event object event given by OptionMenu but not used 
-        
-        
+        \param event object event given by OptionMenu but not used
+
+
         ----
-        \bug potential cause for false DP calculations. It is not clear how to 
+        \bug potential cause for false DP calculations. It is not clear how to
         reproduce this bug.
         \bug  if testr != self.profs[testp]['Realm'] and self.profs[testp]['Realm'] != "choice": KeyError: ''
-        \bug if realm chosen before profession an error occurs (sdtout) 
-        
+        \bug if realm chosen before profession an error occurs (sdtout)
+
         \note bug should be fixed
         '''
         testr = self.stats['realm'].get()
@@ -1136,39 +1193,42 @@ class genAttrWin(blankWindow):
                 self.stats['realm'].set(self.profs[testp]['Realm'])
         self.__setPStats()
         self.__calcBonus()
-            
+
+
     def __setRBonus(self, event):
         '''
-        This method sets the races bonusses , the race based RR bonusses, 
-        Background Options and Hobby Ranks. 
-        \param event object event given by OptionMenu but not used 
+        This method sets the races bonusses , the race based RR bonusses,
+        Background Options and Hobby Ranks.
+        \param event object event given by OptionMenu but not used
         '''
         from rpgtoolbox import rolemaster as rm
         race = self.stats['race'].get()
         pos = rm.races[self.lang].index(race)
         race = rm.races['en'][pos]
-        
+
         for i in rm.raceAbilities[race].keys():
             if "RR" in i:
                 self.__rr[i] = rm.raceAbilities[race][i]
-                
+
         self.character['BGO'] = rm.raceAbilities[race]['BGO']
         self.character['Hobby Ranks'] = rm.raceAbilities[race]['Hobby Ranks']
 
         for a in rm.stats:
             self.__race[a].set(rm.raceAbilities[race][a])
-        
+
         self.__setCulture("")
-        
+
+
     def __setRealm(self, event):
         '''
         Sets the connected Realm if profession is chosen
-        \param event object event given by OptionMenu but not used 
+        \param event object event given by OptionMenu but not used
         '''
-        testp = self.stats['prof'].get()    
+        testp = self.stats['prof'].get()
         self.stats['realm'].set(self.profs[testp]['Realm'])
         self.__setPStats()
-        
+
+
     def __creatPot(self, temp = 20, fixed = False):
         '''
         This method creates a potential stat from a temporary stat.
@@ -1176,143 +1236,143 @@ class genAttrWin(blankWindow):
         \param fixed a parameter that turns the fixed creation mode on/off
         \retval result the resulting potential stat value
         '''
-        
+
         result = 1
 
         if 19 < temp < 25:
-        
+
             if not fixed:
                 result = 20 + self.dice(10, 8)
-            
+
             else:
                 result = temp + 44
-        
+
         elif 24 < temp < 35:
-        
+
             if not fixed:
                 result = 30 + self.dice(10, 7)
-           
+
             else:
                 result = temp + 39
-        
+
         elif 34 < temp < 45:
-        
+
             if not fixed:
                 result = 40 + self.dice(10, 6)
-           
+
             else:
                 result = temp + 33
-        
+
         elif 44 < temp < 55:
-        
+
             if not fixed:
                 result = 50 + self.dice(10, 5)
-            
-            else: 
+
+            else:
                 result = temp + 28
-        
+
         elif 54 < temp < 65:
-        
+
             if not fixed:
                 result = 60 + self.dice(10, 4)
-            
+
             else:
                 result = temp + 22
-        
+
         elif 64 < temp < 75:
-        
+
             if not fixed:
                 result = 70 + self.dice(10, 3)
 
-            else: 
+            else:
                 result = temp + 17
-        
+
         elif 74 < temp < 85:
-        
+
             if not fixed:
                 result = 80 + self.dice(10, 2)
-            
+
             else:
                 result = temp + 11
-        
+
         elif 84 < temp < 92:
-        
+
             if not fixed:
                 result = 90 + self.dice(10, 1)
-            
+
             else:
                 result = temp + 6
-        
+
         elif temp == 92:
-        
+
             if not fixed:
                 result = temp - 1 + self.dice(9, 1)
-            
+
             else:
                 result = temp + 5
-        
+
         elif temp == 93:
-            
+
             if not fixed:
                 result = temp - 1 + self.dice(8, 1)
-        
-            else: 
+
+            else:
                 result = temp + 4
-        
+
         elif temp == 94:
 
             if not fixed:
                 result = temp - 1 + self.dice(7, 1)
-            
+
             else:
                 result = temp + 4
-        
+
         elif temp == 95:
-        
+
             if not fixed:
                 result = temp - 1 + self.dice(6, 1)
-            
+
             else:
                 result = temp + 3
-        
+
         elif temp == 96:
-        
+
             if not fixed:
                 result = temp - 1 + self.dice(5, 1)
-            
+
             else:
                 result = temp + 3
-        
+
         elif temp == 97:
-        
+
             if not fixed:
                 result = temp - 1 + self.dice(4, 1)
-            
+
             else:
                 result = temp + 2
-        
+
         elif temp == 98:
-        
+
             if not fixed:
                 result = temp - 1 + self.dice(3, 1)
-            
-            else: 
+
+            else:
                 result = temp + 2
-        
+
         elif 98 < temp:
-        
+
             if not fixed:
                 result = temp - 1 + self.dice(2, 1)
-            
+
             else:
                 result = temp + 1
-            
+
         if result < temp:
             result = temp
-            
+
         return result
-    
-    
+
+
     def dice(self, sides = 6, number = 1):
         '''
         This function delivers the result of a dice roll as a list.
@@ -1322,41 +1382,43 @@ class genAttrWin(blankWindow):
         '''
         i = 0
         result = 0
-        
+
         while i < number:
             roll = random.randint(1, sides)
             result += roll
             i += 1
         return result
 
+
     def rollDice(self):
         """
         Creates the pool for stat generation by rolling the dices.
         """
         self.__count += 1
-        
+
         if 0 < self.__count < 4:
             result = 600 + self.dice(10, 10)
             self.showno.set(result)
-            
+
         self.points = self.showno.get()
-        
+
 
     def __collectData(self):
         '''
         This method collects all data, adds them to the character's data structure
-        and saves that on disk. 
+        and saves that on disk.
         After that it destroys the current window and opens the window for the #
         next creation step.
         '''
         from rpgtoolbox import rolemaster as rm
         import json
-        
+
         for key in ['player', 'name', 'prof', 'race', 'realm', 'culture']:
             self.character[key] = self.stats[key].get()
-            
-        race = rm.races['en'][rm.races[self.lang].index(self.character['race'])]    
-        
+
+        race = rm.races['en'][rm.races[self.lang].index(
+            self.character['race'])]
+
         for stat in self.__rmstats:
             self.character[stat] = {}
             self.character[stat]['name'] = rm.labels[self.lang][stat]
@@ -1366,128 +1428,145 @@ class genAttrWin(blankWindow):
             self.character[stat]['spec'] = self.specs[stat].get()
             self.character[stat]['std'] = self.__std[stat].get()
             self.character[stat]['total'] = self.__totals[stat].get()
-            
-        self.character['RREss'] = self.character['Em']['total'] * 3 + rm.raceAbilities[race]['RREss']
-        self.character['RRChan'] = self.character['In']['total'] * 3 + rm.raceAbilities[race]['RRChan']
-        self.character['RRMent'] = self.character['Pr']['total'] * 3 + rm.raceAbilities[race]['RRMent']
-        self.character['RRArc'] = self.character['Pr']['total'] + self.character['Em']['total'] + self.character['In']['total']
-        self.character['RRC/E'] = self.character['In']['total'] + self.character['Em']['total'] + (rm.raceAbilities[race]['RREss'] + rm.raceAbilities[race]['RRChan']) / 2
-        self.character['RRC/M'] = self.character['In']['total'] + self.character['Pr']['total'] + (rm.raceAbilities[race]['RRMent'] + rm.raceAbilities[race]['RRChan']) / 2
-        self.character['RRE/M'] = self.character['Pr']['total'] + self.character['Em']['total'] + (rm.raceAbilities[race]['RREss'] + rm.raceAbilities[race]['RRMent']) / 2
-        self.character['RRDisease'] = self.character['Co']['total'] * 3 + rm.raceAbilities[race]['RRDisease']
-        self.character['RRPoison'] = self.character['Co']['total'] * 3 + rm.raceAbilities[race]['RRPoison']
+
+        self.character['RREss'] = self.character['Em']['total'] * \
+            3 + rm.raceAbilities[race]['RREss']
+        self.character['RRChan'] = self.character['In']['total'] * \
+            3 + rm.raceAbilities[race]['RRChan']
+        self.character['RRMent'] = self.character['Pr']['total'] * \
+            3 + rm.raceAbilities[race]['RRMent']
+        self.character['RRArc'] = self.character['Pr']['total'] + \
+            self.character['Em']['total'] + self.character['In']['total']
+        self.character['RRC/E'] = self.character['In']['total'] + self.character['Em']['total'] + \
+            (rm.raceAbilities[race]['RREss'] +
+             rm.raceAbilities[race]['RRChan']) / 2
+        self.character['RRC/M'] = self.character['In']['total'] + self.character['Pr']['total'] + \
+            (rm.raceAbilities[race]['RRMent'] +
+             rm.raceAbilities[race]['RRChan']) / 2
+        self.character['RRE/M'] = self.character['Pr']['total'] + self.character['Em']['total'] + \
+            (rm.raceAbilities[race]['RREss'] +
+             rm.raceAbilities[race]['RRMent']) / 2
+        self.character['RRDisease'] = self.character['Co']['total'] * \
+            3 + rm.raceAbilities[race]['RRDisease']
+        self.character['RRPoison'] = self.character['Co']['total'] * \
+            3 + rm.raceAbilities[race]['RRPoison']
         self.character['RRFear'] = self.character["SD"]['total'] * 3
-        self.character['purse'] = {'GP' : 2,
-                                  'SP' : 0,
-                                  'CP' : 0,
-                                  'TP' : 0,
-                                  'IP' : 0}
+        self.character['purse'] = {'GP': 2,
+                                   'SP': 0,
+                                   'CP': 0,
+                                   'TP': 0,
+                                   'IP': 0}
         self.character['old_exp'] = 0
         self.character['exp'] = 10000
         self.character['lvl'] = 1
-        
+
         self.__addCatnSkills()
-        
+
         if not os.path.exists(self.spath + self.character['player']):
             os.mkdir(self.spath + self.character['player'])
-       
+
         else:
             with open(self.spath + self.character['player'] + '/' + self.character['name'] + ".json", "w") as outfile:
-                json.dump(self.character, outfile, sort_keys = True, indent = 4, ensure_ascii = False)
+                json.dump(self.character, outfile, sort_keys = True,
+                          indent = 4, ensure_ascii = False)
             self.window.destroy()
-            self.window3 = priorizeWeaponsWin(self.lang, self.spath, self.character)
+            self.window3 = priorizeWeaponsWin(
+                self.lang, self.spath, self.character)
 
-    
+
     def __addCatnSkills(self):
         '''
         This method adds skill categories and skills to the character's dictionary
         as well as bonus (special, profession and items)
-        \note Skills wont have a profession bonus. It is already applied to the 
+        \note Skills wont have a profession bonus. It is already applied to the
         category.
-        \todo replace progression expression with number list for ALL skills and 
+        @todo replace progression expression with number list for ALL skills and
         categories
-        \todo add spell lists as spell skills
+        @todo add spell lists as spell skills
         '''
         from rpgtoolbox import rolemaster as rm
         fp = open("%sdefault/Skills_%s.csv" % (self.spath, self.lang))
         content = fp.readlines()
         fp.close()
-        
+
         if '\n' in content:
             content.remove('\n')
-        
+
         for i in range(0, len(content)):
             content[i] = content[i].strip('\n\t ').split(',')
-        
+
         skillcat = {}
-        
+
         for i in range(1, len(content)):
-            skillcat[content[i][0]] = {content[0][2] : content[i][2],
-                                     content[0][1] : {},
-                                     'spec bonus' :0,
-                                     'prof bonus' :0,
-                                     'item bonus' :0,
-                                     'rank' : 0
-                                     }  
+            skillcat[content[i][0]] = {content[0][2]: content[i][2],
+                                       content[0][1]: {},
+                                       'spec bonus': 0,
+                                       'prof bonus': 0,
+                                       'item bonus': 0,
+                                       'rank': 0
+                                       }
             for pb in self.profs[self.character['prof']]['Profession Bonusses'].keys():
-                 
+
                 if pb in content[i][0]:
-                    skillcat[content[i][0]]['prof bonus'] = self.profs[self.character['prof']]['Profession Bonusses'][pb]
-            
-            skillcat[content[i][0]][content[0][1]] = {}    
-            
+                    skillcat[content[i][0]]['prof bonus'] = self.profs[self.character['prof']
+                                                                       ]['Profession Bonusses'][pb]
+
+            skillcat[content[i][0]][content[0][1]] = {}
+
             for skill in content[i][1].split(';'):
-                skillcat[content[i][0]][content[0][1]][skill] = {content[0][2] : content[i][2],
-                                                                   'rank' : 0,
-                                                                   'rank bonus' : 0,
-                                                                   'item bonus' :0,
-                                                                   'spec bonus' : 0,
-                                                                  }
-                
+                skillcat[content[i][0]][content[0][1]][skill] = {content[0][2]: content[i][2],
+                                                                 'rank': 0,
+                                                                 'rank bonus': 0,
+                                                                 'item bonus': 0,
+                                                                 'spec bonus': 0,
+                                                                 }
+
         del(content)
-        
+
         fp = open('%s/default/SkillCat_%s.csv' % (self.spath, self.lang), 'r')
         content = fp.readlines()
         fp.close()
-          
+
         content[0] = content[0].strip("\n").split(',')
-        
-        for  i in range(1, len(content)):
+
+        for i in range(1, len(content)):
             content[i] = content[i].strip('\n').split(',')
-            
+
             if content[i][0] not in skillcat.keys():
-                skillcat[content[i][0]] = {'rank' : 0,
-                                           'rank bonus' : 0,
-                                           'item bonus' : 0,
-                                           'spec bonus' : 0
+                skillcat[content[i][0]] = {'rank': 0,
+                                           'rank bonus': 0,
+                                           'item bonus': 0,
+                                           'spec bonus': 0
                                            }
                 skillcat[content[i][0]]['Skill'] = {}
-     
+
             skillcat[content[i][0]][content[0][2]] = content[i][2]
             skillcat[content[i][0]]["Skill"][content[0][2]] = content[i][2]
             skillcat[content[i][0]][content[0][1]] = content[i][1].split('/')
 # this commented out code should avoid Stats in Skills
-#            skillcat[content[i][0]]["Skill"][content[0][1]] = content[i][1].split('/')                
-            
+#            skillcat[content[i][0]]["Skill"][content[0][1]] = content[i][1].split('/')
+
             if rm.catnames[self.lang]['spells'] in content[i][0][:7]:
                 temp = []
 
-                if  '[' in self.character['realm']:
-                    self.character['realm'] = self.character['realm'].strip("'[ ]\n").split("', '")
-                
+                if '[' in self.character['realm']:
+                    self.character['realm'] = self.character['realm'].strip(
+                        "'[ ]\n").split("', '")
+
                 if type(self.character['realm']) == type([]):
-                    
+
                     for r in self.character['realm']:
                         temp.append(rm.realmstats[self.lang][r])
-                
+
                 elif self.character['realm'] != "choice":
-                    temp.append(rm.realmstats[self.lang][self.character['realm']])
-                    temp.append(rm.realmstats[self.lang][self.character['realm']])
-                    
-                                   
+                    temp.append(rm.realmstats[self.lang]
+                                [self.character['realm']])
+                    temp.append(rm.realmstats[self.lang]
+                                [self.character['realm']])
+
                 skillcat[content[i][0]][content[0][1]] = temp
                 skillcat[content[i][0]]["Skill"][content[0][1]] = temp
-                
+
         self.character['cat'] = skillcat
         if self.character['realm'] != "choice":
             self.spellbook = handlemagic.getSpells(self.spath,
@@ -1495,17 +1574,17 @@ class genAttrWin(blankWindow):
                                                    self.character['realm'],
                                                    self.character['lvl']
                                                    )
-            
+
             for cat in self.character['cat'].keys():
-                
+
                 if cat[:8] == "Spells -":
-                    
+
                     for slcat in self.spellbook.spelllists.keys():
-                        
+
                         if self.spellbook.spelllists[slcat]['Category'] in cat:
-#                            self.character['cat'][cat]['Skill'] = self.spellbook.spelllists[slcat]
+                            #                            self.character['cat'][cat]['Skill'] = self.spellbook.spelllists[slcat]
                             for spell in self.spellbook.spelllists[slcat].keys():
-                                
+
                                 if spell != "Category":
                                     self.character['cat'][cat]['Skill'][spell] = self.spellbook.spelllists[slcat][spell]
                                     self.character['cat'][cat]['Skill'][spell]['rank'] = 0
@@ -1514,25 +1593,30 @@ class genAttrWin(blankWindow):
                                     self.character['cat'][cat]['Skill'][spell]['item bonus'] = 0
                                     self.character['cat'][cat]['Skill'][spell]["spec bonus"] = 0
                             break
-                        
+
 # here to come: adding spell lists as skills to the right category
-        
+
+
     def __closewin(self):
         '''
         A method to destroy the current window and go back to MainWindow.
         '''
         self.window.destroy()
-        self.window = MainWindow(lang = self.lang, char = self.character, storepath = self.spath)
+        self.window = MainWindow(
+            lang = self.lang, char = self.character, storepath = self.spath)
+
 
 
 class priorizeWeaponsWin(blankWindow):
     """
     This is the class for a window object to chose the priority of weapon skills
-    at the character's generation. It will also set the category and skill ranks 
+    at the character's generation. It will also set the category and skill ranks
     during adolescence.
-    \bug sometimes double chosen weapon categories cause list index errors and 
+    \bug sometimes double chosen weapon categories cause list index errors and
     were not detected as doublets.
     """
+
+
     def __init__(self, lang = 'en', storepath = "./data", char = None):
         """
         Class constructor
@@ -1545,23 +1629,24 @@ class priorizeWeaponsWin(blankWindow):
         """
         from rpgtoolbox.rolemaster import catnames
         self.__catnames = catnames
-        
+
         if storepath == None:
             self.spath = os.path.expanduser('~') + "/data"
             logger.debug('Set storepath to %s' % (storepath)) + "/data"
 
         else:
             self.spath = storepath
-            logger.debug('priorizeWeaponsWin: storepath set to %s' % (storepath))
+            logger.debug('priorizeWeaponsWin: storepath set to %s' %
+                         (storepath))
 
         self.lang = lang
         self.character = char
 
         blankWindow.__init__(self, self.lang)
         self.window.title('%s - %s (%s)' % (wintitle['rm_create'][self.lang],
-                                          self.character['name'],
-                                          self.character['prof']
-                                          )
+                                            self.character['name'],
+                                            self.character['prof']
+                                            )
                           )
         self.filemenu = Menu(master = self.menu)
         self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
@@ -1572,78 +1657,84 @@ class priorizeWeaponsWin(blankWindow):
         self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
                                   command = self.__closewin)
         self.__addHelpMenu()
-        
-        
+
         self.__getWeaponCats()
         self.__buildWin()
-        
-        self.window.mainloop()  
-        
+
+        self.window.mainloop()
+
+
     def __buildWin(self):
         '''
         Sets up all the needed Widgets in the window
         '''
         self.__prio = {}
         self.__optWdg = {}
-        
+
         for i in range(1, 8):
-            self.__prio["%s - %d" % (self.__catnames[self.lang]['weapon'], i)] = StringVar()
-            self.__prio["%s - %d" % (self.__catnames[self.lang]['weapon'], i)].set("%s - %d" % (self.__catnames[self.lang]['weapon'], i))
+            self.__prio["%s - %d" %
+                        (self.__catnames[self.lang]['weapon'], i)] = StringVar()
+            self.__prio["%s - %d" % (self.__catnames[self.lang]['weapon'], i)].set(
+                "%s - %d" % (self.__catnames[self.lang]['weapon'], i))
             Label(master = self.window,
                   width = 15,
-                  text = "Prio #%d %s" % (i, self.__catnames[self.lang]['weapon'])
-                  ).grid(column = 0, row = i)    
-        
+                  text = "Prio #%d %s" % (
+                      i, self.__catnames[self.lang]['weapon'])
+                  ).grid(column = 0, row = i)
 
             self.__optWdg[str(i)] = OptionMenu(self.window,
-                                               self.__prio["%s - %d" % (self.__catnames[self.lang]['weapon'], i)],
+                                               self.__prio["%s - %d" %
+                                                           (self.__catnames[self.lang]['weapon'], i)],
                                                *self.weaponcats,
                                                command = self.__getPrio)
             self.__optWdg[str(i)].config(width = 50)
             self.__optWdg[str(i)].grid(column = 1, row = i, sticky = "W")
-         
+
         Button(master = self.window,
                text = txtbutton['but_next'][self.lang],
                width = 10,
-               command = self.__nextStep).grid(column = 1, row = i + 1, sticky = "E")         
-        
+               command = self.__nextStep).grid(column = 1, row = i + 1, sticky = "E")
+
+
     def __getPrio(self, event):
         '''
         This generates the priority list by the chosen priorities.
         \param event has to be catched but is not used
-        \todo check for double priorities. If any don't proceed
+        @todo check for double priorities. If any don't proceed
         \bug when you chose double entries:  File "/home/mongol/git/rpg-tools/src/gui/epwins.py", line 1808, in __getPrio
         for i in range(len(content) - 7, len(content)):
         IndexError: list index out of range
         '''
         self.__priolist = []
         self.__block = False
-        
+
         for i in range(1, 8):
-            dummy = self.__prio["%s - %d" % (self.__catnames[self.lang]['weapon'], i)].get()
-            
+            dummy = self.__prio["%s - %d" %
+                                (self.__catnames[self.lang]['weapon'], i)].get()
+
             if dummy not in self.__priolist and dummy != "":
                 self.__priolist.append(dummy)
-            
+
             elif dummy in self.__priolist and i < 7:
                 self.__block = True
                 msg = messageWindow()
                 msg.showinfo(errmsg['double'][self.lang], "Info")
                 break
-            
+
         if not self.__block:
             fp = open('./data/default/CatDPC_%s.csv' % self.lang, 'r')
             content = fp.readlines()
             fp.close()
-            
+
             j = 1
-            
+
             for i in range(len(content) - 7, len(content)):
                 content[i] = content[i].replace("%s - %d" % (self.__catnames[self.lang]['weapon'], j),
-                                              self.__priolist[j - 1])
+                                                self.__priolist[j - 1])
                 j += 1
-            self.__content = content    
-                
+            self.__content = content
+
+
     def __buildJSON(self):
         '''
         Makes a JSON out of CatDPC.csv
@@ -1651,138 +1742,142 @@ class priorizeWeaponsWin(blankWindow):
         '''
         self.__catDBC = {}
         self.__content[0] = self.__content[0].strip('\n \t').split(',')
-        
+
         for i in range(1, len(self.__content[0])):
             self.__catDBC[self.__content[0][i]] = {}
-        
+
         for i in range(1, len(self.__content)):
             self.__content[i] = self.__content[i].strip('\n').split(',')
             self.__content[i][0] = self.__content[i][0].strip(' \t')
 
             for j in range(1, len(self.__content[0])):
-                self.__catDBC[self.__content[0][j]][self.__content[i][0]] = self.__content[i][j]
-    
-    
-    def __addToChar(self):            
+                self.__catDBC[self.__content[0][j]
+                              ][self.__content[i][0]] = self.__content[i][j]
+
+
+    def __addToChar(self):
         '''
         This method adds the concerned developing costs and category/skill ranks
-        during adolescence to the character data structure (JSON). 
+        during adolescence to the character data structure (JSON).
         It also calculates the rank bonus for the first time.
         '''
         from rpgtoolbox.rolemaster import races, labels, progressionType, rankbonus, catnames, exceptions, cultures
-        ##\var prof
+        # \var prof
         # dummy variable that holds character's profession
         prof = self.character['prof']
-        ##\var crace
+        # \var crace
         # dummy variable that holds character's race
         crace = races['en'][races[self.lang].index(self.character['race'])]
 
         for skillcat in self.__catDBC[prof].keys():
             if '/' in self.__catDBC[prof][skillcat]:
                 dbcdummy = self.__catDBC[prof][skillcat].split('/')
-            else: 
+            else:
                 dbcdummy = list(self.__catDBC[prof][skillcat])
-            
+
             skprog = ""
             for i in range(0, len(dbcdummy)):
                 if dbcdummy != "":
                     dbcdummy[i] = int(dbcdummy[i])
 
             self.character['cat'][skillcat][labels["en"]['costs']] = dbcdummy
-    
+
             for s in self.character['cat'][skillcat]['Skill'].keys():
                 if s not in exceptions:
-                    self.character['cat'][skillcat]['Skill'][s][labels["en"]['costs']] = dbcdummy
-
+                    self.character['cat'][skillcat]['Skill'][s][labels["en"]
+                                                                ['costs']] = dbcdummy
 
             if self.character['cat'][skillcat]['Progression'] == "Standard":
                 self.character['cat'][skillcat]['Progression'] = progressionType['standard cat']
                 skprog = progressionType['standard skill']
-                
+
             elif self.character['cat'][skillcat]['Progression'] == "BD":
                 self.character['cat'][skillcat]['Progression'] = progressionType['null']
                 skprog = progressionType['BD %s' % crace]
-            
+
             elif self.character['cat'][skillcat]['Progression'] == "Null" or self.character['cat'][skillcat]['Progression'] == "Skill Only":
                 self.character['cat'][skillcat]['Progression'] = progressionType['null']
                 skprog = progressionType['skill only']
                 if "Spells -" in skillcat:
                     print "add2Char:", skillcat
-                
+
             elif self.character['cat'][skillcat]['Progression'] == "Combined":
                 self.character['cat'][skillcat]['Progression'] = progressionType['null']
                 skprog = progressionType['combined']
 
-            for skill in  self.character['cat'][skillcat]['Skill'].keys():
-            
+            for skill in self.character['cat'][skillcat]['Skill'].keys():
+
                 print "Skill: %s - %s" % (skill, skprog)
                 if skill not in exceptions:
-                    self.character['cat'][skillcat]['Skill'][skill]['Progression'] = skprog   
-        
+                    self.character['cat'][skillcat]['Skill'][skill]['Progression'] = skprog
+
         self.__setPPD()
         self.saveChar()
-        
+
         # adding adolescence skill ranks
-            
+
         fp = open('./data/default/AdoRanks_%s.csv' % self.lang, "r")
         content = fp.readlines()
         fp.close()
         self.__adoranks = {}
         content[0] = content[0].strip('\n').split(',')
-        
+
         for i in range(1, len(content[0])):
             self.__adoranks[content[0][i]] = {}
-            
+
         for j in range(1, len(content)):
             content[j] = content[j].strip('\n').split(',')
             content[j][0] = content[j][0].strip(' \t')
-            
+
             for i in range(1, len(content[0])):
-            
+
                 if content[j][0][:1] != "-":
                     self.__adoranks[content[0][i]][content[j][0]] = {"rank": int(content[j][i]),
-                                                                    "rank bonus" : rankbonus(rank = int(content[j][i]),
-                                                                                             progression = self.character['cat'][content[j][0]]['Progression']
+                                                                     "rank bonus": rankbonus(rank = int(content[j][i]),
+                                                                                             progression = self.character['cat'][
+                                                                                                 content[j][0]]['Progression']
                                                                                              )
-                                                                    }
+                                                                     }
                     lastcat = content[j][0]
-                    
+
                     if "Skill" not in self.__adoranks[content[0][i]][content[j][0]].keys():
-                        self.__adoranks[content[0][i]][content[j][0]]['Skill'] = {}
-                    
-                
+                        self.__adoranks[content[0][i]
+                                        ][content[j][0]]['Skill'] = {}
+
                 else:
-                    self.__adoranks[content[0][i]][lastcat]['Skill'][content[j][0].strip('-')] = {'rank' : int(content[j][i]),
-                                                                                                  'rank bonus' : 0,
-                                                                                                } 
-        if self.lang != "en": 
-                    
+                    self.__adoranks[content[0][i]][lastcat]['Skill'][content[j][0].strip('-')] = {'rank': int(content[j][i]),
+                                                                                                  'rank bonus': 0,
+                                                                                                  }
+        if self.lang != "en":
+
             race = races['en'][races[self.lang].index(self.character['race'])]
-            culture = cultures['en'][cultures[self.lang].index(self.character['culture'])]
+            culture = cultures['en'][cultures[self.lang].index(
+                self.character['culture'])]
 
         else:
-            race = self.character['race'] 
-            culture = self.character['culture']          
+            race = self.character['race']
+            culture = self.character['culture']
 
         if race in ['Common Men', 'Mixed Men']:
             race = culture
-            
+
         for cat in self.__adoranks[race].keys():
             self.character['cat'][cat]['rank'] = self.__adoranks[race][cat]['rank']
             self.character['cat'][cat]['rank bonus'] = self.__adoranks[race][cat]['rank bonus']
-            
+
             if self.__adoranks[race][cat]['Skill'] != {}:
-                
+
                 for skill in self.__adoranks[race][cat]['Skill'].keys():
-                    
+
                     if skill not in self.character['cat'][cat]['Skill'].keys():
                         self.character['cat'][cat]['Skill'][skill] = {}
 
                     self.character['cat'][cat]['Skill'][skill]['rank'] = self.__adoranks[race][cat]['Skill'][skill]['rank']
                     self.character['cat'][cat]['Skill'][skill]['rank bonus'] = self.__adoranks[race][cat]['Skill'][skill]['rank bonus']
-        
-        self.saveChar()    
-        
+
+        self.saveChar()
+
+
     def __setPPD(self):
         '''
         This sets the Progression and Stats for Power Point Development
@@ -1790,60 +1885,66 @@ class priorizeWeaponsWin(blankWindow):
         from rpgtoolbox.rolemaster import races, realms, ppds, magicstats, progressionType, speccat
         param = {}
         param['realm'] = self.character['realm']
-        
+
         for l in races.keys():
-            
+
             if self.character['race'] in races[l]:
                 param['lang'] = l
-                param['race'] = races['en'][races[l].index(self.character['race'])]
-            
+                param['race'] = races['en'][races[l].index(
+                    self.character['race'])]
+
             if self.character['realm'] in realms[l]:
                 param['ppd'] = ppds[realms[l].index(self.character['realm'])]
-                param['Stats'] = magicstats[realms[l].index(self.character['realm'])]
-                
+                param['Stats'] = magicstats[realms[l].index(
+                    self.character['realm'])]
+
         print "set ppd ", param
-                
+
         if type(param['ppd']) == type(''):
             param['ppd'] = progressionType[param['ppd'] + param['race']]
-        
+
         elif type(param['ppd']) == type([]):
-            
+
             for i in range(0, len(param['ppd'])):
                 param['ppd'][i] = progressionType[param['ppd'][i] + param['race']]
-                
+
         if param['ppd'][0] > param['ppd'][1]:
             param['ppd'] = param['ppd'][0]
-        
+
         else:
             param['ppd'] = param['ppd'][1]
-            
-        self.character['cat'][speccat[param['lang']][1]]['Progression'] = progressionType['null']
-        self.character['cat'][speccat[param['lang']][1]]['Stats'] = param['Stats']
-        self.character['cat'][speccat[param['lang']][1]]['Skill'][speccat[param['lang']][1]]['Progression'] = param['ppd']
-    
-    def saveChar(self):  
-        
+
+        self.character['cat'][speccat[param['lang']][1]
+                              ]['Progression'] = progressionType['null']
+        self.character['cat'][speccat[param['lang']]
+                              [1]]['Stats'] = param['Stats']
+        self.character['cat'][speccat[param['lang']][1]
+                              ]['Skill'][speccat[param['lang']][1]]['Progression'] = param['ppd']
+
+
+    def saveChar(self):
         '''
         This method saves the character as JSON file
         '''
         import json
         with open(self.spath + self.character['player'] + '/' + self.character['name'] + ".json", "w") as outfile:
-                json.dump(self.character, outfile, sort_keys = True, indent = 4, ensure_ascii = False)          
-        
-    
+            json.dump(self.character, outfile, sort_keys = True,
+                      indent = 4, ensure_ascii = False)
+
+
     def __getWeaponCats(self):
         '''
-        Extracts the weapon categories from character 
+        Extracts the weapon categories from character
         '''
         self.weaponcats = []
-        
+
         for cat in self.character['cat'].keys():
             if self.__catnames[self.lang]['weapon'] in cat:
                 self.weaponcats.append(cat)
-    
+
         self.weaponcats.sort()
-        
-        
+
+
     def __nextStep(self):
         '''
         Opens the next window to modify categories and skills
@@ -1853,14 +1954,16 @@ class priorizeWeaponsWin(blankWindow):
         self.__addToChar()
         self.window.destroy()
         self.window2 = skillcatWin(self.lang, self.spath, self.character)
-        
+
+
     def __closewin(self):
         '''
         A method to destroy the current window and go back to MainWindow.
         '''
         self.window.destroy()
         self.window = MainWindow(lang = self.lang, char = self.character)
-        
+
+
     def __addHelpMenu(self):
         """
         This methods defines a help menu.
@@ -1869,34 +1972,36 @@ class priorizeWeaponsWin(blankWindow):
         self.menu.add_cascade(label = txtmenu['help'][self.lang],
                               menu = self.helpmenu)
         self.helpmenu.add_command(label = submenu['help'][self.lang]['global'],
-                              command = self._helpPriorize)
+                                  command = self._helpPriorize)
         self.helpmenu.add_separator()
         self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
                                   command = self._helpAbout)
-        
+
+
     def _helpPriorize(self):
         '''
         Opens a message window with help text
         '''
         helptext = {'de': 'Die Priorisierung der Waffenfertigkeiten ist wichtig für '
-                         + 'die Steigerungskosten und mögliche Anzahl der Steigerungen.\n'
-                         + '1 ist die höchste und 7 die geringste Priorität.',
-                   'en' : 'It is important to priorize the weapon categoies because of '
-                         + 'developing costs and levels possible to develop.\n'
-                         + '1 is the highest priority and 7 the lowest.'
-                   }
+                    +'die Steigerungskosten und mögliche Anzahl der Steigerungen.\n'
+                    +'1 ist die höchste und 7 die geringste Priorität.',
+                    'en': 'It is important to priorize the weapon categoies because of '
+                    +'developing costs and levels possible to develop.\n'
+                    +'1 is the highest priority and 7 the lowest.'
+                    }
         helper = messageWindow()
         helper.showinfo(helptext[self.lang], 'Info')
+
 
 
 class skillcatWin(blankWindow):
     """
     This is the class for a window object to chose the priority of weapon skills
-    at the character's generation. It will also set the category and skill ranks 
+    at the character's generation. It will also set the category and skill ranks
     during adolescence.
-    
+
     ----
-    \todo a lot... it is not finished yet:
+    @todo a lot... it is not finished yet:
     - an input widget to enter rank level ups
     - force to change names of skill+
     - a text widget to show remaining developing points
@@ -1907,6 +2012,8 @@ class skillcatWin(blankWindow):
     - a button to save changes which are not finalized
     - a finalize button which confirms all changes permanently
     """
+
+
     def __init__(self, lang = 'en', storepath = "./data", char = None):
         """
         Class constructor
@@ -1918,46 +2025,48 @@ class skillcatWin(blankWindow):
         \param char Character as JSON
         """
         from rpgtoolbox.rolemaster import catnames, rankbonus
-        
+
         self.__catnames = catnames
         self.__rankbonus = rankbonus
-        self._changes = {"cat":{}}
-        self._changes["name"] = char["name"]
-        self._changes["player"] = char['player']
-        
+#         self._changes = {"cat": {}}
+#         self._changes["name"] = char["name"]
+#         self._changes["player"] = char['player']
+
         if storepath == None:
             self.spath = os.path.expanduser('~') + "/data"
             logger.debug('Set storepath to %s' % (storepath)) + "/data"
 
         else:
             self.spath = storepath
-            logger.debug('priorizeWeaponsWin: storepath set to %s' % (storepath))
-        
+            logger.debug('priorizeWeaponsWin: storepath set to %s' %
+                         (storepath))
+
         self.lang = lang
-        self.character = calcTotals(char)
+        self._character = dict(calcTotals(char))
         self.__save()
-        ## \var self.__changed
+        # \var self.__changed
         # dictionary with the changed categories/skills
-        self.__changed = {'name': self.character['name'],
-                         'player': self.character['player'],
-                         'cat' : {}
-                         }
-        
+        self.__changed = {'name': self._character['name'],
+                          'player': self._character['player'],
+                          'cat': {}
+                          }
+
         self.__calcLvlup()
-        
+
         blankWindow.__init__(self, self.lang)
         self.window.title("%s - %s (%s)" % (wintitle['edit'][self.lang],
-                                         self.character['name'],
-                                         self.character['prof']
-                                         )
+                                            self._character['name'],
+                                            self._character['prof']
+                                            )
                           )
         self.filemenu = Menu(master = self.menu)
         self.__addFileMenu()
         self.__addHelpMenu()
         self.__buildWin()
         self.__buildTree()
-        self.window.mainloop()  
-    
+        self.window.mainloop()
+
+
     def __addFileMenu(self):
         '''
         Adds a file menu  to menu bar.
@@ -1968,17 +2077,17 @@ class skillcatWin(blankWindow):
                                   command = self.notdoneyet)
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
-                                  command = self.__closewin)    
-        
-        
+                                  command = self.__closewin)
+
+
     def __closewin(self):
         '''
         A method to destroy the current window and go back to MainWindow.
         '''
         self.window.destroy()
-        self.window = MainWindow(lang = self.lang, char = self.character)        
-        
-        
+        self.window = MainWindow(lang = self.lang, char = self._character)
+
+
     def __addHelpMenu(self):
         '''
         Adds a help menu entry to menu bar.
@@ -1987,11 +2096,12 @@ class skillcatWin(blankWindow):
         self.menu.add_cascade(label = txtmenu['help'][self.lang],
                               menu = self.helpmenu)
         self.helpmenu.add_command(label = submenu['help'][self.lang]['win'],
-                              command = self.__helpAWin)
+                                  command = self.__helpAWin)
         self.helpmenu.add_separator()
         self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
-                                  command = self._helpAbout)    
-        
+                                  command = self._helpAbout)
+
+
     def __buildWin(self):
         '''
         Builds the window's elements.
@@ -2000,10 +2110,13 @@ class skillcatWin(blankWindow):
             2. vertical (auto)scrollbar linked to the treeview widget
             3. horizontal (auto)scrollbar linked to the treeview widget
         - Labels for specific category/skill values
-        
-        \todo
+
+        @todo The following has to be implemented:
         - add Label Widgets for
           - DPs used per skill/cat
+
+        @bug The following bugs have to be fixed:
+             -# the max number of lvl ups for categories does not work properly with its' spinbox widget.
         '''
         from rpgtoolbox.rolemaster import labels as rmlabels
         self.__treeframe = Frame(width = 800, height = 600)
@@ -2014,23 +2127,26 @@ class skillcatWin(blankWindow):
         self.skillentry = ""
         self.catrank = StringVar()
         self.skillrank = StringVar()
-        
+
+        self.__usedDP = 0
         self.catcost = []
         self.skillcost = []
         self.__calcDP()
-        ## \var self.__changes
+        # \var self.__changes
         # list of edited/added skills and categories
         self.__changes = {}
-        
+
         for key in ['skill', 'progress', 'costs', 'rank', 'total']:
-            self.__treecolumns.append(rmlabels[self.lang][key]) 
-            
+            self.__treecolumns.append(rmlabels[self.lang][key])
+
 #        self.__tree = Treeview(columns = self.__treecolumns, show = "headings")
-        self.__tree = Treeview(self.__treeframe, columns = self.__treecolumns, show = "headings")
-#        self.__tree = Treeview(self.window, columns = self.__treecolumns, show = "headings")        
+        self.__tree = Treeview(
+            self.__treeframe, columns = self.__treecolumns, show = "headings")
+#        self.__tree = Treeview(self.window, columns = self.__treecolumns, show = "headings")
         vscroll = AutoScrollbar(orient = "vertical", command = self.__tree.yview)
         hscroll = AutoScrollbar(orient = "horizontal", command = self.__tree.xview)
-        self.__tree.configure(yscrollcommand = vscroll.set, xscrollcommand = hscroll.set)
+        self.__tree.configure(yscrollcommand = vscroll.set,
+                              xscrollcommand = hscroll.set)
         self.__tree.grid(column = 0, row = 0, sticky = "NEWS", in_ = self.__treeframe)
         vscroll.grid(column = 1, row = 0, in_ = self.__treeframe, sticky = "NS")
         hscroll.grid(column = 0, row = 1, in_ = self.__treeframe, sticky = "EW")
@@ -2038,8 +2154,9 @@ class skillcatWin(blankWindow):
         self.__chgtree = Treeview(self.window,
                                   columns = self.__treecolumns,
                                   show = "headings",
-                                 )
-        chgvscroll = AutoScrollbar(orient = "vertical", command = self.__chgtree.xview)
+                                  )
+        chgvscroll = AutoScrollbar(
+            orient = "vertical", command = self.__chgtree.xview)
         self.__chgtree.configure(yscrollcommand = chgvscroll)
         self.__chgtree.grid(column = 0,
                             row = 7,
@@ -2047,58 +2164,56 @@ class skillcatWin(blankWindow):
                             rowspan = 3,
                             sticky = "NEW"
                             )
-        
+
         Label(master = self.window, width = 30,
               justify = LEFT,
               text = labels['name'][self.lang]).grid(column = 0,
-                                         row = 3,
-                                         sticky = "W",
-                                         padx = 5,
-                                         pady = 5)
-              
+                                                   row = 3,
+                                                   sticky = "W",
+                                                   padx = 5,
+                                                   pady = 5)
+
         Label(master = self.window,
               width = 10,
               justify = LEFT,
               text = labels['dp_costs'][self.lang]).grid(column = 1,
-                                         row = 3,
-                                         sticky = "W",
-                                         padx = 5,
-                                         pady = 5)        
+                                                       row = 3,
+                                                       sticky = "W",
+                                                       padx = 5,
+                                                       pady = 5)
 
         Label(master = self.window,
               width = 20,
               justify = LEFT,
               text = labels['progr'][self.lang]).grid(column = 2,
-                                         row = 3,
-                                         sticky = "W",
-                                         padx = 5,
-                                         pady = 5)
-        
+                                                    row = 3,
+                                                    sticky = "W",
+                                                    padx = 5,
+                                                    pady = 5)
+
         Label(master = self.window, width = 4,
               justify = LEFT,
               text = labels['ranks'][self.lang]).grid(column = 3,
-                                         row = 3,
-                                         sticky = "W",
-                                         padx = 5,
-                                         pady = 5)
+                                                    row = 3,
+                                                    sticky = "W",
+                                                    padx = 5,
+                                                    pady = 5)
 
         Label(master = self.window, width = 4,
               justify = LEFT,
               text = labels['total'][self.lang]).grid(column = 4,
-                                         row = 3,
-                                         sticky = "W",
-                                         padx = 5,
-                                         pady = 5)
-        
+                                                    row = 3,
+                                                    sticky = "W",
+                                                    padx = 5,
+                                                    pady = 5)
 
-        
         self._catentry = Label(master = self.window,
-                              width = 30,
-                              justify = LEFT,
-                              textvariable = self.catentry
-                              )
-        self._catentry.grid(column = 0, row = 4, sticky = "NW", padx = 5, pady = 2) 
-        
+                               width = 30,
+                               justify = LEFT,
+                               textvariable = self.catentry
+                               )
+        self._catentry.grid(column = 0, row = 4, sticky = "NW", padx = 5, pady = 2)
+
         self.SpinSkillVal = StringVar()
         self.SpinCatVal = StringVar()
         self.CatProg = StringVar()
@@ -2107,7 +2222,7 @@ class skillcatWin(blankWindow):
         self.SpinCatVal.set(0)
         self.CatProg.set("0 0 0 0 0")
         self.SkillProg.set("0 0 0 0 0")
-        
+
         self._catprog = Label(master = self.window,
                               width = 20,
                               justify = LEFT,
@@ -2119,32 +2234,32 @@ class skillcatWin(blankWindow):
                            padx = 5,
                            pady = 2
                            )
-        
+
         self._skillprog = Label(master = self.window,
-                              width = 20,
-                              justify = LEFT,
-                              textvariable = self.SkillProg
-                              )
+                                width = 20,
+                                justify = LEFT,
+                                textvariable = self.SkillProg
+                                )
         self._skillprog.grid(column = 2,
-                           row = 5,
-                           sticky = "NW",
-                           padx = 5,
-                           pady = 2
-                           )
-        
+                             row = 5,
+                             sticky = "NW",
+                             padx = 5,
+                             pady = 2
+                             )
+
         self._catspin = Spinbox(master = self.window,
-                               from_ = 0,
-                               to = len(self.catcost),
-                               width = 2,
-                            textvariable = self.SpinCatVal
-                               )
+                                from_ = 0,
+                                to = len(self.catcost),
+                                width = 2,
+                                textvariable = self.SpinCatVal
+                                )
         self._catspin.grid(column = 3,
                            row = 4,
                            sticky = "NW",
                            padx = 5,
                            pady = 2
                            )
-        
+
         self._skillspin = Spinbox(master = self.window,
                                   from_ = 0,
                                   to = len(self.skillcost),
@@ -2157,23 +2272,23 @@ class skillcatWin(blankWindow):
                              padx = 5,
                              pady = 2
                              )
-        
+
         self._skillentry = Entry(master = self.window,
                                  width = 30,
                                  textvariable = self.skillentry
-                                 ) 
+                                 )
         self._skillentry.grid(column = 0,
                               row = 5,
                               sticky = "NW",
                               padx = 5,
                               pady = 2
-                              ) 
-       
+                              )
+
         Label(master = self.window,
               text = "remaining DPs:").grid(column = 5,
                                           row = 3,
                                           sticky = "NW")
-        DPtext = StringVar()             
+        DPtext = StringVar()
         self._remainDP = Label(master = self.window,
                                width = 4,
                                justify = LEFT,
@@ -2185,73 +2300,73 @@ class skillcatWin(blankWindow):
                             padx = 5,
                             pady = 2
                             )
-        DPtext.set(str(self.character['DP']))
-        
+        DPtext.set(str(self._character['DP']))
+
         self.DPcost = StringVar()
         self._lDPcostcat = Label(master = self.window,
-                               width = 6,
-                               justify = CENTER,
-                               textvariable = self.DPcost
-                               )
+                                 width = 6,
+                                 justify = CENTER,
+                                 textvariable = self.DPcost
+                                 )
         self._lDPcostcat.grid(column = 1,
                               row = 4,
                               sticky = "NW",
                               padx = 5,
                               pady = 2
                               )
-        
+
         self._lDPcostskill = Label(master = self.window,
                                    width = 6,
                                    justify = CENTER,
                                    textvariable = self.DPcost
                                    )
         self._lDPcostskill.grid(column = 1,
-                              row = 5,
-                              sticky = "NW",
-                              padx = 5,
-                              pady = 2
-                              )    
-        self.DPcost.set("---") 
+                                row = 5,
+                                sticky = "NW",
+                                padx = 5,
+                                pady = 2
+                                )
+        self.DPcost.set("---")
         Button(self.window,
                text = txtbutton['but_take'][self.lang],
                command = self.__takeValsCat).grid(column = 5,
-                                               row = 4,
-                                               sticky = "NW"
-                                              )
+                                                row = 4,
+                                                sticky = "NW"
+                                                )
         # add a 'take over changes' button
         Button(self.window,
                text = txtbutton['but_take'][self.lang],
                command = self.__takeValsSkill).grid(column = 5,
-                                               row = 5,
-                                               sticky = "NW"
-                                              )
+                                                  row = 5,
+                                                  sticky = "NW"
+                                                  )
         # add a 'finalize' button to save changes and proceed.
         Button(self.window,
                text = txtbutton['but_fin'][self.lang],
                command = self.__finalize).grid(column = 6,
-                                              row = 4,
-                                              sticky = "NW"
-                                              )
-               
+                                             row = 4,
+                                             sticky = "NW"
+                                             )
+
         Button(self.window,
                text = txtbutton['but_ren'][self.lang],
                command = self.__renameSkill).grid(column = 6,
-                                                  row = 5,
-                                                  sticky = "NW"
-                                                  )           
-        #@todo here it goes on XXXX
-        
-              
+                                                row = 5,
+                                                sticky = "NW"
+                                                )
+        # @todo here it goes on XXXX
+
+
     def __buildTree(self):
         '''
         Fills the treeview widget with skills and categories etc.
-        \todo this has to be fully implemented
+        @todo this has to be fully implemented
             - Menu save functionality will save the current work state if not finalized.
             - force a name modify of skills with +
               -# add an ADD/RENAME button
-              -# finalize button does not work as long as there are skills+  
+              -# finalize button does not work as long as there are skills+
             - possibility of adding skill to category (see above)
-            - displaying added skills and modified cats/skills in a treeview at 
+            - displaying added skills and modified cats/skills in a treeview at
               the bottom. If not finalized clicking on items in that treeview will
               cause an editing option. That means:
               -# create a JSON structure with modified but not finalized cats/skills.
@@ -2268,18 +2383,16 @@ class skillcatWin(blankWindow):
                    main window
         '''
         from rpgtoolbox.rolemaster import exceptions
-        
-        
-        
+
         for col in self.__treecolumns:
             self.__tree.heading(col, text = col.title())
             self.__tree.column(col, width = 200)
-            
+
         catID = {}
         catNo = 0
-        ckeys = self.character['cat'].keys()
+        ckeys = self._character['cat'].keys()
         ckeys.sort()
-        
+
         for cat in ckeys:
 
             if cat != None:
@@ -2287,40 +2400,40 @@ class skillcatWin(blankWindow):
                                                 catNo,
                                                 text = cat,
                                                 values = (cat,
-                                                          self.character['cat'][cat]['Progression'],
-                                                          self.character['cat'][cat][self.__rmlabels['en']['costs']],
-                                                          self.character['cat'][cat]['rank'],
-                                                          self.character['cat'][cat]['total bonus']
-                                                          ),
+                                                        self._character['cat'][cat]['Progression'],
+                                                        self._character['cat'][cat][self.__rmlabels['en']['costs']],
+                                                        self._character['cat'][cat]['rank'],
+                                                        self._character['cat'][cat]['total bonus']
+                                                        ),
                                                 tag = "category"
                                                 )
-                
-            for skill in self.character['cat'][cat]['Skill'].keys():
-                
+
+            for skill in self._character['cat'][cat]['Skill'].keys():
+
                 if skill not in exceptions:
                     self.__tree.insert(catID[cat],
                                        "end",
                                        text = skill,
                                        values = (skill,
-                                                 self.character['cat'][cat]['Skill'][skill]['Progression'],
-                                                 self.character['cat'][cat][self.__rmlabels['en']['costs']],
-                                                 self.character['cat'][cat]['Skill'][skill]['rank'],
-                                                 self.character['cat'][cat]['Skill'][skill]['total bonus']
-                                                ),
+                                               self._character['cat'][cat]['Skill'][skill]['Progression'],
+                                               self._character['cat'][cat][self.__rmlabels['en']['costs']],
+                                               self._character['cat'][cat]['Skill'][skill]['rank'],
+                                               self._character['cat'][cat]['Skill'][skill]['total bonus']
+                                               ),
                                        tag = cat
                                        )
-            
+
             catNo += 1
         self.__tree.tag_configure('category', background = 'lightblue')
         self.__tree.bind('<ButtonRelease-1>', self.__selectTreeItem)
-  
-    
+
+
     def __selectTreeItem(self, event):
         '''
         Select an item from the treeview list.
         \param event responding treeview event which is not used for anything.
-        \todo further computing of selected data:
-              - adding DPs to cat/skill by max determined by proceeding costs & 
+        @todo further computing of selected data:
+              - adding DPs to cat/skill by max determined by proceeding costs &
                 limits
               - removing used DPs permanently from total
               - finalize by saving changed data (with full update of data to calculate)
@@ -2328,11 +2441,10 @@ class skillcatWin(blankWindow):
               - check for remaining DB (stop if zero)..
 
         \bug - at first click(s) the cat rank is not inserted
-        '''    
+        '''
         self.__curItem = self.__tree.focus()
         self.DPcost.set(self.__tree.item(self.__curItem)['values'][2])
 
-        
         if self.__tree.item(self.__curItem)['tags'][0] == 'category':
             self.catentry.set(self.__tree.item(self.__curItem)['text'])
             self._skillentry.delete(0, END)
@@ -2340,189 +2452,242 @@ class skillcatWin(blankWindow):
             self.SpinSkillVal.set(0)
             self.catcost = self.__tree.item(self.__curItem)['values'][2]
             self.CatProg.set(self.__tree.item(self.__curItem)['values'][1])
-        
+            self.SpinCatVal.set(self.__tree.item(self.__curItem)['values'][3])
+
             if type(self.catcost) == type(2):
                 self.catcost = [self.catcost]
-            
-            elif type(self.catcost) == type(""):
+
+            elif type(self.catcost) == type("") or type(self.catcost) == type(u""):
                 self.catcost = self.catcost.split(' ')
-                
+
                 for i in range(0, len(self.catcost)):
                     self.catcost[i] = int(self.catcost[i])
-                    
+
             else:
                 self.catcost = []
-            
+            print("Debug: len catcost %d" % len(self.catcost), self.catcost)
             self._catspin.config(from_ = self.__tree.item(self.__curItem)['values'][3],
-                                to = self.__tree.item(self.__curItem)['values'][3] + len(self.skillcost),
-                                textvariable = str(self.__tree.item(self.__curItem)['values'][3])
-                                )
-            
+                                 to = self.__tree.item(self.__curItem)['values'][3] + len(self.catcost),
+                                 textvariable = str(self.__tree.item(self.__curItem)['values'][3])
+                                 )
+
             if self.__tree.item(self.__curItem)['tags'][0] == "category":
                 self.catrank = str(self.__tree.item(self.__curItem)['values'][-2])
-            
+
 #            self._catrank.delete(0, END)
 #            self._catrank.insert(0, self.catrank)
-            
+
         else:
             self._skillentry.delete(0, END)
-            self._skillentry.insert(0, self.__tree.item(self.__curItem)['values'][0])
+            self._skillentry.insert(
+                0, self.__tree.item(self.__curItem)['values'][0])
             self.skillcost = self.__tree.item(self.__curItem)['values'][2]
             self.SkillProg.set(self.__tree.item(self.__curItem)['values'][1])
             print self.__tree.item(self.__curItem)['values'][1]
-            
+
             if type(self.skillcost) == type(2):
                 self.skillcost = [self.skillcost]
-            
+
             elif type(self.skillcost) == type(u"") or type(self.skillcost) == type(""):
                 self.skillcost = self.skillcost.split(' ')
 
                 for i in range(0, len(self.skillcost)):
                     self.skillcost[i] = int(self.skillcost[i])
-                    
+
             else:
                 self.skillcost = []
-            
+
             self._skillspin.config(from_ = self.__tree.item(self.__curItem)['values'][3],
                                    to = self.__tree.item(self.__curItem)['values'][3] + len(self.skillcost),
-#                                   textvariable = str(self.__tree.item(self.__curItem)['values'][3])
-                                   )
+                #                                   textvariable = str(self.__tree.item(self.__curItem)['values'][3])
+            )
             self.SpinSkillVal.set(self.__tree.item(self.__curItem)['values'][3])
-            
+
             if self.__tree.item(self.__curItem)['tags'][0] != "category":
                 self.skillrank = self.__tree.item(self.__curItem)['values'][-2]
-            
+
 #            self._skillrank.delete(0, END)
-#            self._skillrank.insert(0, self.skillrank)   
-                     
+#            self._skillrank.insert(0, self.skillrank)
+
         print self.__tree.item(self.__curItem)
-    
-    
+
+
     def __insertChangedCT(self, event):
         '''
         This method takes changed categories/skills and put them into the __chgtree.
-        \todo The following features have to be implemented:
+        @todo The following features have to be implemented:
             - get changed data from __tree
             - insert changed data into __chgtree
         '''
         self.notdoneyet("__insertChangedCT")
-        
-        
+
+
     def __checkDev(self):
         '''
-        This method handles the level up procedure. Validates number of level-ups 
+        This method handles the level up procedure. Validates number of level-ups
         per skill/category and keeps an eye on the total remaining DPs.
         '''
         self.notdoneyet("__checkDev")
-        
-        
+
+
     def __calcLvlup(self):
         '''
         This determines current level by current EPs and calculates number of
         level-ups by the level difference of old EP's level and current EP's
         level
-        '''      
-        self.character['lvl'] = getLvl(self.character['exp'])
-        oldlvl = getLvl(self.character['old_exp'])
-        self.character['lvlup'] = self.character['lvl'] - oldlvl
-    
+        '''
+        self._character['lvl'] = getLvl(self._character['exp'])
+        oldlvl = getLvl(self._character['old_exp'])
+        self._character['lvlup'] = self._character['lvl'] - oldlvl
+
+
     def __calcDP(self):
         '''
         This calculates the number of Development Points (DP) of a character.
         '''
-        attrlist = ['Ag', 'Co', 'Me', 'Re', 'SD' ]
-        self.character['DP'] = 0
-        
+        attrlist = ['Ag', 'Co', 'Me', 'Re', 'SD']
+        self._character['DP'] = 0
+
         for attr in attrlist:
-            self.character['DP'] += self.character[attr]['temp']
-            
-        self.character['DP'] = self.character['DP'] / 5
-        
-        if self.character['Hobby Ranks'] > 0:
-            self.character['DP'] += self.character['Hobby Ranks']
-            self.character['Hobby Ranks'] = 0
-        
-        
+            self._character['DP'] += self._character[attr]['temp']
+
+        self._character['DP'] = self._character['DP'] / 5
+
+        if self._character['Hobby Ranks'] > 0:
+            self._character['DP'] += self._character['Hobby Ranks']
+            self._character['Hobby Ranks'] = 0
+
+
     def __calcRanks(self):
         '''
         This method caculates the rank bonusses of a category or skill. if a
         single category or skill is given to this method only this single one will
         be (re-)calculated
-        
-        \todo has to be implemented    
-                  
+
+        @todo has to be implemented
+
         '''
         print "not done yet"
         self.notdoneyet("__calcRanks")
-        
-        
+
+
     def __calcTotals(self):
         '''
-        This method calculate all rank bonus of categories and skills of the 
+        This method calculate all rank bonus of categories and skills of the
         character loaded.
         At least it is a wrapper for rpgtoobox.rpgtools.calcTotals()
         '''
-        self.character = calcTotals(self.character)
-    
-    def __takeValsSkill(self):    
+        self._character = calcTotals(self._character)
+
+
+    def __takeValsSkill(self):
         '''
         This method takes added/modified skills/cats to a dict and treeview
-        \todo The following__chgtree has to be implemented:
+        @todo The following__chgtree has to be implemented:
         -# a dict of changes
         -# a treeview to show changes
         -# a saving for those changes dict
-        
+        -# calc DP costs/consume
+        -# check whether it is e new skill.
+
         '''
-#        self.__tree.item(self.__curItem)
-        print "__takeVals not done yet"
-        self.notdoneyet("__takeValsSkill")
-        
+        cat = ""
+        for elem in self.__tree.item(self.__curItem)["tags"]:
+            cat += elem + " "
+        cat = cat.strip(" ")
+        skill = self.__tree.item(self.__curItem)['text']
+        newrank = int(self._skillspin.get())
+
+        if cat not in self.__changed['cat'].keys():
+            self.__changed['cat'][cat] = {"Skill":{skill:{'rank':newrank}}}
+
+        else:
+            self.__changed['cat'][cat]['Skill'][skill] = {'rank':newrank}
+        # XXXXXXX go on here
+        print "__takeValsSkill "
+        pprint(self.__changed)
+
+
     def __takeValsCat(self):
         '''
         This method takes added/modified skills/cats to a dict and treeview
-        \todo The following__chgtree has to be implemented:
-        -# a dict of changes
+        @todo The following__chgtree has to be implemented:
         -# a treeview to show changes
         -# a saving for those changes dict
-        
-        '''
+        -# check DP costs/consume
+        -# check if it is a new cat.
 
-        print "__takeVals not done yet"
-        self.notdoneyet("__takeValsCat")       
+        @bug diff does not work... self._character values were changed...
+
+        '''
+        currcat = self.__tree.item(self.__curItem)['text']
+        oldval = self.__tree.item(self.__curItem)['values'][3]
+        newval = int(self._catspin.get())
+        print("----------------------------------------------------------------\n\ncurrent cat:%s %d\n" % (currcat, newval))
+        if currcat not in self.__changed['cat'].keys():
+            # check whete currcat in cat-skills-keys
+            self.__changed['cat'][currcat] = self._character['cat'][currcat]  # here is a logical bug
+            self.__changed['cat'][currcat]['Skill'] = {}
+
+        self.__changed['cat'][currcat]['rank'] = newval  # int(self._catspin.get())
+        print("piep", oldval, newval, self._character['cat'][currcat]['rank'])
+        # calc DP consume:
+#         diff = int(self.__changed['cat'][currcat]['rank']) - int(self._character['cat'][currcat]['rank'])
+        diff = newval - oldval
+        print("piep2", currcat, oldval, newval, self._character['cat'][currcat]['rank'])
+        costs = self.__tree.item(self.__curItem)['values'][2]
+
+        if type(costs) == type("") or type(costs) == type(u""):
+            costs = costs.split(' ')
+
+        print("diff", diff)
+        print("costs", costs)
+
+        for i in range(0, diff):
+            print("costs type", type(costs[i]))
+            self.__usedDP += int(costs[i])
+            print("costs", costs[i])
+
+        print("__takeValsCat: new cat rank %d" % self.__changed['cat'][currcat]['rank'])
+        pprint(self.__changed)
+        print("DP used: %d" % self.__usedDP)
+#         logger.debug("__takeValsCat: self__changed\n%s" % (json.dumps(self.__changed, indent = 2)))
+        # XXXXXX
+
+
     def __finalize(self):
         '''
         This method finalizes and saves all changes into character data
-        \todo has to be fully implemented
+        @todo has to be fully implemented
         '''
         print "__finalize not done yet."
         self.notdoneyet("__finalize")
-        
-        
+
+
     def __renameSkill(self):
         '''
         This method renames all skill+
-        \todo has to be full implemented
+        @todo has to be full implemented
         '''
         print "__renameSkill not done yet."
         self.notdoneyet("__renameSkill")
-       
-        
+
+
     def __save(self, ending = '.snap'):
         '''
-        This method quickly saves a snapshot of current character's data into 
+        This method quickly saves a snapshot of current character's data into
         a file.
-        
-        \param ending ending of the filename 
+
+        \param ending ending of the filename
         '''
-        pathfile = self.spath + "/" + self.character['player'] + "/" + self.character['name'] + ending
-        writeJSON(pathfile, self.character)
-       
+        pathfile = self.spath + "/" + \
+            self._character['player'] + "/" + self._character['name'] + ending
+        writeJSON(pathfile, self._character)
+
+
     def __helpAWin(self):
         '''
         Help information about this window.
-        \todo has to be implemented
+        @todo has to be implemented
         '''
         self.notdoneyet("helpAWin")
-
-
-
