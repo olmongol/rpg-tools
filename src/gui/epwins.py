@@ -2440,7 +2440,91 @@ class skillcatWin(blankWindow):
         Adding all Changed cat/skill entries to the self.__chgtree
         @todo It has to be fully implemented
         '''
-        self.notdoneyet("__buildChangedTree")
+        from rpgtoolbox.rolemaster import exceptions
+
+        for kids in self.__chgtree.get_children():
+            self.__chgtree.delete(kids)
+
+        for col in self.__treecolumns:
+            self.__chgtree.heading(col, text = col.title())
+            self.__chgtree.column(col, width = 200)
+
+        catID = {}
+        catNo = 0
+        ckeys = self.__changed['cat'].keys()
+        ckeys.sort()
+        dummy = "--"
+        for cat in ckeys:
+
+            if cat != None:
+                #DEBUG
+                print cat, self.__changed['cat'][cat]
+
+                if 'Progression' in self.__changed['cat'][cat].keys():
+                    progression = self.__changed['cat'][cat]['Progression']
+                else:
+                    progression = dummy
+
+                if self.__rmlabels['en']['costs'] in self.__changed['cat'][cat].keys():
+                    costs = self.__changed['cat'][cat][self.__rmlabels['en']['costs']]
+                else:
+                    costs = dummy
+
+                if 'rank' in self.__changed['cat'][cat].keys():
+                    rank = self.__changed['cat'][cat]['rank']
+                else:
+                    rank = "n/a"
+
+                if 'total bonus' in self.__changed['cat'][cat].keys():
+                    total = str(self.__changed['cat'][cat]['total bonus'])
+                else:
+                    total = "n/a"
+
+                catID[cat] = self.__chgtree.insert("",
+                                                   catNo,
+                                                   text = cat,
+                                                   values = (cat,
+                                                             progression,
+                                                             costs,
+                                                             rank,
+                                                             total
+                                                             ),
+                                                tag = "category"
+                                                   )
+                if 'Skill' in self.__changed['cat'][cat].keys():
+
+                    for skill in self.__changed['cat'][cat]['Skill'].keys():
+
+                        if 'Progression' in self.__changed['cat'][cat]['Skill'][skill].keys():
+                            progression = self.__changed['cat'][cat]['Skill'][skill]['Progression']
+
+                        if self.__rmlabels['en']['costs'] in self.__changed['cat'][cat]['Skill'][skill].keys():
+                            costs = self.__changed['cat'][cat]['Skill'][skill][self.__rmlabels['en']['costs']]
+
+                        if 'rank' in self.__changed['cat'][cat]['Skill'][skill].keys():
+                            srank = self.__changed['cat'][cat]['Skill'][skill]['rank']
+                        else:
+                            srank = -1
+
+                        if 'total bonus' in self.__changed['cat'][cat]['Skill'][skill].keys():
+                            stotal = self.__changed['cat'][cat]['Skill'][skill]['total bonus']
+                        else:
+                            stotal = -1
+
+                        self.__chgtree.insert(catID[cat],
+                                              'end',
+                                              text = skill,
+                                              values = (skill,
+                                                       progression,
+                                                       costs,
+                                                       srank,
+                                                       stotal
+                                                       ),
+                                              tag = cat
+                                              )
+                catNo += 1
+        self.__chgtree.tag_configure('category', background = 'lightblue')
+        self.__chgtree.bind('<ButtonRelease-1>', self.__selectChangedItem)
 
 
     def __selectTreeItem(self, event):
@@ -2521,22 +2605,22 @@ class skillcatWin(blankWindow):
         print self.__tree.item(self.__curItem)
 
 
-    def __selectChangedItem(self):
+    def __selectChangedItem(self, event):
         '''
         Getting cat/skill entries from  self.__chgtree for further modification.
         @todo It has to be fully implemented
         '''
-        self.notdoneyet("__selectChangedItem")
+        pass
+#        self.notdoneyet("__selectChangedItem")
 
-
-    def __insertChangedCT(self, event):
-        '''
-        This method takes changed categories/skills and put them into the __chgtree.
-        @todo The following features have to be implemented:
-            - get changed data from __tree
-            - insert changed data into __chgtree
-        '''
-        self.notdoneyet("__insertChangedCT")
+#    def __insertChangedCT(self, event):
+#        '''
+#        This method takes changed categories/skills and put them into the __chgtree.
+#        @todo The following features have to be implemented:
+#            - get changed data from __tree
+#            - insert changed data into __chgtree
+#        '''
+#        self.notdoneyet("__insertChangedCT")
 
 
     def __checkDev(self):
@@ -2632,6 +2716,7 @@ class skillcatWin(blankWindow):
         # XXXXXXX go on here
         print "__takeValsSkill "
         pprint(self.__changed)
+        self.__buildChangedTree()
 
 
     def __takeValsCat(self):
@@ -2662,17 +2747,18 @@ class skillcatWin(blankWindow):
         diff = newval - oldval
 
 #        print("DEBUG piep2", currcat, oldval, newval)
-        costs = self.__tree.item(self.__curItem)['values'][2]
+        dpCosts = self.__tree.item(self.__curItem)['values'][2]
 
-        if type(costs) == type("") or type(costs) == type(u""):
-            costs = costs.split(' ')
-
+        if type(dpCosts) == type("") or type(dpCosts) == type(u""):
+            dpCosts = dpCosts.split(' ')
+        elif type(dpCosts) == type(1):
+            dpCosts = [dpCosts]
 #        print("DEBUG diff", diff)
-#        print("DEBUG costs", costs)
+        print("DEBUG dpCosts", type(dpCosts))
 
         for i in range(0, diff):
-#            print("DEBUG costs", costs[i])
-            self.__usedDP += int(costs[i])
+            print("DEBUG dpCosts", dpCosts[i])
+            self.__usedDP += int(dpCosts[i])
 
         self.DPtext.set(str(self._character['DP'] - self.__usedDP))
 
@@ -2681,6 +2767,7 @@ class skillcatWin(blankWindow):
         print("DEBUG DP used: %d" % self.__usedDP)
 #         logger.debug("__takeValsCat: self__changed\n%s" % (json.dumps(self.__changed, indent = 2)))
         # XXXXXX
+        self.__buildChangedTree()
 
 
     def __finalize(self):
