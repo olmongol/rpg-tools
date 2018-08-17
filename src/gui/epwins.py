@@ -2140,8 +2140,12 @@ class skillcatWin(blankWindow):
             self.__treecolumns.append(rmlabels[self.lang][key])
 
 #        self.__tree = Treeview(columns = self.__treecolumns, show = "headings")
-        self.__tree = Treeview(
-            self.__treeframe, columns = self.__treecolumns, show = "headings")
+        ## \var self.__tree
+        # The first Treeview widget with the character data to change
+        self.__tree = Treeview(self.__treeframe,
+                               columns = self.__treecolumns,
+                               show = "headings"
+                               )
 #        self.__tree = Treeview(self.window, columns = self.__treecolumns, show = "headings")
         vscroll = AutoScrollbar(orient = "vertical", command = self.__tree.yview)
         hscroll = AutoScrollbar(orient = "horizontal", command = self.__tree.xview)
@@ -2151,13 +2155,16 @@ class skillcatWin(blankWindow):
         vscroll.grid(column = 1, row = 0, in_ = self.__treeframe, sticky = "NS")
         hscroll.grid(column = 0, row = 1, in_ = self.__treeframe, sticky = "EW")
 #        self.__tree.grid(column = 0, row = 0, sticky = "NEWS", in_ = self.window)
+        ## \var self.__chgtree
+        # The second Treeview widged where the changes will be shown.
         self.__chgtree = Treeview(self.window,
                                   columns = self.__treecolumns,
                                   show = "headings",
                                   )
         chgvscroll = AutoScrollbar(
             orient = "vertical", command = self.__chgtree.xview)
-        self.__chgtree.configure(yscrollcommand = chgvscroll)
+        self.__chgtree.configure(yscrollcommand = chgvscroll.set)
+
         self.__chgtree.grid(column = 0,
                             row = 7,
                             columnspan = 7,
@@ -2288,11 +2295,11 @@ class skillcatWin(blankWindow):
               text = "remaining DPs:").grid(column = 5,
                                           row = 3,
                                           sticky = "NW")
-        DPtext = StringVar()
+        self.DPtext = StringVar()
         self._remainDP = Label(master = self.window,
                                width = 4,
                                justify = LEFT,
-                               textvariable = DPtext
+                               textvariable = self.DPtext
                                )
         self._remainDP.grid(column = 6,
                             row = 3,
@@ -2300,7 +2307,7 @@ class skillcatWin(blankWindow):
                             padx = 5,
                             pady = 2
                             )
-        DPtext.set(str(self._character['DP']))
+        self.DPtext.set(str(self._character['DP'] - self.__usedDP))
 
         self.DPcost = StringVar()
         self._lDPcostcat = Label(master = self.window,
@@ -2428,6 +2435,14 @@ class skillcatWin(blankWindow):
         self.__tree.bind('<ButtonRelease-1>', self.__selectTreeItem)
 
 
+    def __buildChangedTree(self):
+        '''
+        Adding all Changed cat/skill entries to the self.__chgtree
+        @todo It has to be fully implemented
+        '''
+        self.notdoneyet("__buildChangedTree")
+
+
     def __selectTreeItem(self, event):
         '''
         Select an item from the treeview list.
@@ -2448,7 +2463,6 @@ class skillcatWin(blankWindow):
         if self.__tree.item(self.__curItem)['tags'][0] == 'category':
             self.catentry.set(self.__tree.item(self.__curItem)['text'])
             self._skillentry.delete(0, END)
-#            self._skillspin.config(textvariable = "0")
             self.SpinSkillVal.set(0)
             self.catcost = self.__tree.item(self.__curItem)['values'][2]
             self.CatProg.set(self.__tree.item(self.__curItem)['values'][1])
@@ -2465,17 +2479,13 @@ class skillcatWin(blankWindow):
 
             else:
                 self.catcost = []
-            print("Debug: len catcost %d" % len(self.catcost), self.catcost)
+
             self._catspin.config(from_ = self.__tree.item(self.__curItem)['values'][3],
                                  to = self.__tree.item(self.__curItem)['values'][3] + len(self.catcost),
-                                 textvariable = str(self.__tree.item(self.__curItem)['values'][3])
                                  )
 
             if self.__tree.item(self.__curItem)['tags'][0] == "category":
                 self.catrank = str(self.__tree.item(self.__curItem)['values'][-2])
-
-#            self._catrank.delete(0, END)
-#            self._catrank.insert(0, self.catrank)
 
         else:
             self._skillentry.delete(0, END)
@@ -2483,6 +2493,8 @@ class skillcatWin(blankWindow):
                 0, self.__tree.item(self.__curItem)['values'][0])
             self.skillcost = self.__tree.item(self.__curItem)['values'][2]
             self.SkillProg.set(self.__tree.item(self.__curItem)['values'][1])
+            #DEBUG
+            print "Skill"
             print self.__tree.item(self.__curItem)['values'][1]
 
             if type(self.skillcost) == type(2):
@@ -2499,17 +2511,22 @@ class skillcatWin(blankWindow):
 
             self._skillspin.config(from_ = self.__tree.item(self.__curItem)['values'][3],
                                    to = self.__tree.item(self.__curItem)['values'][3] + len(self.skillcost),
-                #                                   textvariable = str(self.__tree.item(self.__curItem)['values'][3])
             )
             self.SpinSkillVal.set(self.__tree.item(self.__curItem)['values'][3])
 
             if self.__tree.item(self.__curItem)['tags'][0] != "category":
                 self.skillrank = self.__tree.item(self.__curItem)['values'][-2]
 
-#            self._skillrank.delete(0, END)
-#            self._skillrank.insert(0, self.skillrank)
-
+        #DEBUG
         print self.__tree.item(self.__curItem)
+
+
+    def __selectChangedItem(self):
+        '''
+        Getting cat/skill entries from  self.__chgtree for further modification.
+        @todo It has to be fully implemented
+        '''
+        self.notdoneyet("__selectChangedItem")
 
 
     def __insertChangedCT(self, event):
@@ -2584,13 +2601,22 @@ class skillcatWin(blankWindow):
         '''
         This method takes added/modified skills/cats to a dict and treeview
         @todo The following__chgtree has to be implemented:
-        -# a dict of changes
         -# a treeview to show changes
         -# a saving for those changes dict
         -# calc DP costs/consume
-        -# check whether it is e new skill.
+        -# check whether it is a new skill.
+        -# check whether all DP are used or not
 
         '''
+        ##  @var currcat
+        # current category name
+        currcat = self.__tree.item(self.__curItem)['text']
+        ## @var olval
+        # old catefory's rank value
+        oldval = self.__tree.item(self.__curItem)['values'][3]
+        ## @var newval
+        # new/changed category's rank value
+        newval = int(self._catspin.get())
         cat = ""
         for elem in self.__tree.item(self.__curItem)["tags"]:
             cat += elem + " "
@@ -2612,45 +2638,47 @@ class skillcatWin(blankWindow):
         '''
         This method takes added/modified skills/cats to a dict and treeview
         @todo The following__chgtree has to be implemented:
+        -# take care of non standard progression: do not "level" those categories
         -# a treeview to show changes
-        -# a saving for those changes dict
-        -# check DP costs/consume
-        -# check if it is a new cat.
-
-        @bug diff does not work... self._character values were changed...
-
+        -# check whether all DP are already used or not.
         '''
+        # # @var currcat
+        # current category name
         currcat = self.__tree.item(self.__curItem)['text']
+        # # @var olval
+        # old catefory's rank value
         oldval = self.__tree.item(self.__curItem)['values'][3]
+        # # @var newval
+        # new/changed category's rank value
         newval = int(self._catspin.get())
         print("----------------------------------------------------------------\n\ncurrent cat:%s %d\n" % (currcat, newval))
-        if currcat not in self.__changed['cat'].keys():
-            # check whete currcat in cat-skills-keys
+        if currcat not in self.__changed['cat'].keys() and currcat in self._character['cat'].keys():
             self.__changed['cat'][currcat] = self._character['cat'][currcat]  # here is a logical bug
             self.__changed['cat'][currcat]['Skill'] = {}
 
         self.__changed['cat'][currcat]['rank'] = newval  # int(self._catspin.get())
-        print("piep", oldval, newval, self._character['cat'][currcat]['rank'])
+
         # calc DP consume:
-#         diff = int(self.__changed['cat'][currcat]['rank']) - int(self._character['cat'][currcat]['rank'])
         diff = newval - oldval
-        print("piep2", currcat, oldval, newval, self._character['cat'][currcat]['rank'])
+
+#        print("DEBUG piep2", currcat, oldval, newval)
         costs = self.__tree.item(self.__curItem)['values'][2]
 
         if type(costs) == type("") or type(costs) == type(u""):
             costs = costs.split(' ')
 
-        print("diff", diff)
-        print("costs", costs)
+#        print("DEBUG diff", diff)
+#        print("DEBUG costs", costs)
 
         for i in range(0, diff):
-            print("costs type", type(costs[i]))
+#            print("DEBUG costs", costs[i])
             self.__usedDP += int(costs[i])
-            print("costs", costs[i])
 
-        print("__takeValsCat: new cat rank %d" % self.__changed['cat'][currcat]['rank'])
+        self.DPtext.set(str(self._character['DP'] - self.__usedDP))
+
+        print("DEBUG __takeValsCat: new cat rank %d" % self.__changed['cat'][currcat]['rank'])
         pprint(self.__changed)
-        print("DP used: %d" % self.__usedDP)
+        print("DEBUG DP used: %d" % self.__usedDP)
 #         logger.debug("__takeValsCat: self__changed\n%s" % (json.dumps(self.__changed, indent = 2)))
         # XXXXXX
 
