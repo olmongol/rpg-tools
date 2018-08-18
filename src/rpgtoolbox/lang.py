@@ -5,10 +5,10 @@
 \package rpgtoolbox.lang
 \file lang.py
 
-\brief multi language support module for rpg-tools 
+\brief multi-language support module for rpg-tools
 
-Here are all the things implemented that are needed for the switching of 
-language in the rpg-tools. So this file consists mainly 
+Here are all the things implemented that are needed for the switching of
+language in the rpg-tools. So this file consists mainly
 of dictionary structures.
 Currently supported languages are:
 \li English
@@ -18,14 +18,14 @@ Currently supported languages are:
 
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
-\date (c) 2015-2017
-\version 0.4
+\date (c) 2015-2018
+\version 0.5
 \license GNU V3.0
 
 \todo clean up the code!!!
 '''
-__version__ = "0.4"
-__updated__ = "2018-01-01"
+__version__ = "0.5"
+__updated__ = "2018-08-18"
 ## \var supportedrpg
 # Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
@@ -59,6 +59,13 @@ screenmesg = {'welcome'     : {'de' : "Willkommen bei den RPG-Tools",
                                'en' : 'Found the following loops in your '\
                                       'configuration. Please remove them '\
                                       'first that the structure can be stored!'
+                               },
+              'epwins_no_dp' : {'de' : "Es sind nicht mehr genug DPs da!!\n"\
+                                       "Bitte so verteilen, dass sie nicht weniger"\
+                                       " als Null sind",
+                                'en' : "Sorry your run out of DPs!!\nPlease distribute"\
+                                       " the points in such a way that the value is not less"\
+                                       " than zero."
                                },
               }
 
@@ -154,7 +161,7 @@ txtmenu = {'menu_help'     : {'de' : 'Hilfe',
                               'en' : "Gamemaster's Tools"
                               },
            'menu_grp'      : {'de' : 'Charaktergruppe',
-                              'en' : 'Character Party' 
+                              'en' : 'Character Party'
                               },
           }
 
@@ -215,7 +222,7 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                               'ed_sim'   : 'EPs for fight simulation',
                               'ed_equip' : 'Edit equipment'
                                },
-            
+
                       },
            'items' : {'de' : {'treasure': "Schatz generieren",
                               'magical' : "Magische Gegenst\xc3\xa4nde erzeugen",
@@ -360,7 +367,7 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
                         'en' : 'DP costs'
                         },
           'progr' : {'de' : 'Steigerung',
-                     'en' : 'progression' 
+                     'en' : 'progression'
                      },
           'ranks' : {'de' : 'Stufen',
                      'en' : 'ranks'
@@ -370,9 +377,8 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
                      },
           }
 
-
 ##\var errmsg
-#Error messages for all opportunities 
+#Error messages for all opportunities
 errmsg = {'no_file' : {'de' : 'Datei existiert nicht!',
                        'en' : 'File does not exists!',
                        },
@@ -437,7 +443,6 @@ errmsg = {'no_file' : {'de' : 'Datei existiert nicht!',
 
           }
 
-
 ##\var infomsg
 #Simply some info messages for the help window
 infomsg = {'help_info' : {'de' : 'F\xc3\xbcr eine genauere Information '\
@@ -448,7 +453,6 @@ infomsg = {'help_info' : {'de' : 'F\xc3\xbcr eine genauere Information '\
                                  'default elements please click the help menu.',
                          }
            }
-
 
 ##\var s_elem_def
 #Descriptions of the default elements for calculating EPs from.
@@ -483,13 +487,13 @@ s_elem_def = {'CRITICAL' : {'de' : 'Ausgeteilte kritische Treffer',
 # \todo shall be transfered to merp.py
 #----------------------------------------------------------------------------
 
-##\var trhelptext 
+##\var trhelptext
 # Contains help text for class treasure
 trhelptext = {'description' : {'de' : 'Schatzgenerator:\nErzeugt einen Text, der den Inhalt eines Schatzes beschreibt.\nParameter der Funktion findTreasure:\n',
                              'en' : 'Treasure Generator:\nCreates a text describing the content of a treasure.\nParameters of the function findTreasure:\n'
                             },
             'ttype' : {'de': 'Nummer oder Sch\xc3\xbcsselwort einer der folgenden Kategorien\n   1 sehr arm, 2 arm, 3 normal, 4 reich, 5 sehr reich\n',
-                       'en': 'Number or keyword of one of the following categores\n   1 very poor, 2 poor, 3 normal, 4 rich, 5 very rich\n' 
+                       'en': 'Number or keyword of one of the following categores\n   1 very poor, 2 poor, 3 normal, 4 rich, 5 very rich\n'
                        },
             'output' : {'de' : 'Drei Optionen\n  \"screen\" --> Ausgabe auf den Bildschirm.\n  <string> --> Name der Ausgabedatei in die ausgegeben werden soll.\n  \"\" --> Es wird keine Datei erstellt, wenn der Parameter nicht gesetzt ist.',
                         'en' : 'Three options\n  \"screen\" --> Output on the screen.\n  <string> --> Name of the file which will be used for output.\n  \"\" --> No file is created if the parameter is not set.'
@@ -586,9 +590,8 @@ itemTranslation = {"normal": {"de": "normaler Gegenstand",
                              }
                      }
 
-
 ##\var itemTypes
-# This holds the type of the magical item   
+# This holds the type of the magical item
 itemTypes = {'1-40': {'de': 'Runenpapier',
                       'en': 'Rune Paper'
                       },
@@ -615,12 +618,11 @@ itemTypes = {'1-40': {'de': 'Runenpapier',
                        },
              '99-100': {'de': 'Stecken',
                         'en': 'Pole'
-                        } 
+                        }
              }
 
-
 ##\var spellRealms
-# This holds the realm of the spells   
+# This holds the realm of the spells
 spellRealms = {'1-30': {'de': 'Offene Essenz',
                          'en': 'Open Essence'
                          },
@@ -797,7 +799,7 @@ spellLists = {'1-2' : {'Open Essence': {'de': 'Fluch',
                                      'en': 'Special'
                                      },
                          'Bard/Hunter': {'de': 'Besonderheit',
-                                         'en': 'Special' 
+                                         'en': 'Special'
                                          },
                          }
               }

@@ -2114,7 +2114,7 @@ class skillcatWin(blankWindow):
         @todo The following has to be implemented:
         - add Label Widgets for
           - DPs used per skill/cat
-
+        - insert a second treeframe for autoscrollbar
         @bug The following bugs have to be fixed:
              -# the max number of lvl ups for categories does not work properly with its' spinbox widget.
         '''
@@ -2139,14 +2139,12 @@ class skillcatWin(blankWindow):
         for key in ['skill', 'progress', 'costs', 'rank', 'total']:
             self.__treecolumns.append(rmlabels[self.lang][key])
 
-#        self.__tree = Treeview(columns = self.__treecolumns, show = "headings")
         ## \var self.__tree
         # The first Treeview widget with the character data to change
         self.__tree = Treeview(self.__treeframe,
                                columns = self.__treecolumns,
                                show = "headings"
                                )
-#        self.__tree = Treeview(self.window, columns = self.__treecolumns, show = "headings")
         vscroll = AutoScrollbar(orient = "vertical", command = self.__tree.yview)
         hscroll = AutoScrollbar(orient = "horizontal", command = self.__tree.xview)
         self.__tree.configure(yscrollcommand = vscroll.set,
@@ -2154,7 +2152,6 @@ class skillcatWin(blankWindow):
         self.__tree.grid(column = 0, row = 0, sticky = "NEWS", in_ = self.__treeframe)
         vscroll.grid(column = 1, row = 0, in_ = self.__treeframe, sticky = "NS")
         hscroll.grid(column = 0, row = 1, in_ = self.__treeframe, sticky = "EW")
-#        self.__tree.grid(column = 0, row = 0, sticky = "NEWS", in_ = self.window)
         ## \var self.__chgtree
         # The second Treeview widged where the changes will be shown.
         self.__chgtree = Treeview(self.window,
@@ -2171,6 +2168,7 @@ class skillcatWin(blankWindow):
                             rowspan = 3,
                             sticky = "NEW"
                             )
+        chgvscroll.grid(column = 7, row = 7, rowspan = 3, in_ = self.window, sticky = "NS")
 
         Label(master = self.window, width = 30,
               justify = LEFT,
@@ -2494,7 +2492,8 @@ class skillcatWin(blankWindow):
                 if 'Skill' in self.__changed['cat'][cat].keys():
 
                     for skill in self.__changed['cat'][cat]['Skill'].keys():
-
+                        #DEBUG
+                        print "DEbug -->", skill, self.__changed['cat'][cat]['Skill'][skill]
                         if 'Progression' in self.__changed['cat'][cat]['Skill'][skill].keys():
                             progression = self.__changed['cat'][cat]['Skill'][skill]['Progression']
 
@@ -2659,17 +2658,29 @@ class skillcatWin(blankWindow):
             self._character['Hobby Ranks'] = 0
 
 
-    def __calcRanks(self):
+    def __calcRanks(self, progression, rank):
         '''
         This method caculates the rank bonusses of a category or skill. if a
         single category or skill is given to this method only this single one will
         be (re-)calculated
 
+        @param progression A list containing the progression values as int
+        @param rank rank value for which the bonus has to be calculated
         @todo has to be implemented
 
         '''
-        print "not done yet"
-        self.notdoneyet("__calcRanks")
+        if rank == 0:
+            result = progression[0]
+        elif 0 < rank < 11:
+            result = progression[1] * rank
+        elif 10 < rank < 21:
+            result = progression[1] * 10 + progression[2] * (rank % 10)
+        elif 20 < rank < 31:
+            result = (progression[1] + progression[2]) * 10 + progression[3] * (rank % 10)
+        elif 30 < rank:
+            result = (progression[1] + progression[2] + progression[3]) * 10 + progression[3] * (rank % 10)
+
+        return int(result)
 
 
     def __calcTotals(self):
@@ -2686,33 +2697,67 @@ class skillcatWin(blankWindow):
         This method takes added/modified skills/cats to a dict and treeview
         @todo The following__chgtree has to be implemented:
         -# a treeview to show changes
-        -# a saving for those changes dict
         -# calc DP costs/consume
         -# check whether it is a new skill.
         -# check whether all DP are used or not
-
+        -# update total bonus in self.__changed
+        -# check whether skill in change list have the same rank
         '''
-        ##  @var currcat
-        # current category name
-        currcat = self.__tree.item(self.__curItem)['text']
+
         ## @var olval
         # old catefory's rank value
         oldval = self.__tree.item(self.__curItem)['values'][3]
-        ## @var newval
-        # new/changed category's rank value
-        newval = int(self._catspin.get())
+        ## @var newrank
+        # new/changed skills's rank value
+        newrank = int(self._skillspin.get())
+        ## \val currdev
+        # list of current development progression
+        currdev = self.__tree.item(self.__curItem)['values'][1].split(" ")
+
+        for i in range(0, len(currdev)):
+            currdev[i] = float(currdev[i])
+        ## \var oldtotal
+        # Total bonus before any manipulation.
+        oldtotal = self.__tree.item(self.__curItem)['values'][-1]
+        newtotal = self.__calcRanks(currdev, int(newrank)) - self.__calcRanks(currdev, int(oldval)) + int(oldtotal)
+        newbonus = self.__calcRanks(currdev, int(newrank))
+        # prepare category name
         cat = ""
+
         for elem in self.__tree.item(self.__curItem)["tags"]:
             cat += elem + " "
+
         cat = cat.strip(" ")
         skill = self.__tree.item(self.__curItem)['text']
-        newrank = int(self._skillspin.get())
 
         if cat not in self.__changed['cat'].keys():
-            self.__changed['cat'][cat] = {"Skill":{skill:{'rank':newrank}}}
+            self.__changed['cat'][cat] = self._character['cat'][cat]
+            newtotal = newbonus + self.__changed['cat'][cat]['total bonus']
+
+            if 'Skill' in self.__changed['cat'][cat].keys():
+                if 'Progression' in self.__changed['cat'][cat]['Skill'].keys():
+                    del(self.__changed['cat'][cat]['Skill']['Progression'])
+
+                if skill in self.__changed['cat'][cat]['Skill'].keys():
+                    self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
+                    self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
+                else:
+                    self.__changed['cat'][cat]['Skill'][skill] = {'rank' : newrank,
+                                                                  'total bonus' : newtotal
+                                                                  }
+
+            else:
+                self.__changed['cat'][cat] = {"Skill":{skill:{'rank':newrank,
+                                                              'total bonus' : newtotal
+                                                              }
+                                                      }
+                                              }
 
         else:
-            self.__changed['cat'][cat]['Skill'][skill] = {'rank':newrank}
+            newtotal = newbonus + self.__changed['cat'][cat]['total bonus']
+            self.__changed['cat'][cat]['Skill'][skill] = {'rank':newrank,
+                                                          'total bonus' : newtotal
+                                                          }
         # XXXXXXX go on here
         print "__takeValsSkill "
         pprint(self.__changed)
@@ -2722,46 +2767,72 @@ class skillcatWin(blankWindow):
     def __takeValsCat(self):
         '''
         This method takes added/modified skills/cats to a dict and treeview
-        @todo The following__chgtree has to be implemented:
+        @todo The following has to be implemented:
         -# take care of non standard progression: do not "level" those categories
-        -# a treeview to show changes
-        -# check whether all DP are already used or not.
+        -# update total skill bonusses if there are skills
         '''
-        # # @var currcat
+        ## @var currcat
         # current category name
         currcat = self.__tree.item(self.__curItem)['text']
-        # # @var olval
+        ## @var olval
         # old catefory's rank value
         oldval = self.__tree.item(self.__curItem)['values'][3]
-        # # @var newval
+        ## @var newval
         # new/changed category's rank value
         newval = int(self._catspin.get())
+        ## \val currdev
+        # list of current development progression
+        currdev = self.__tree.item(self.__curItem)['values'][1].split(" ")
+
+        for i in range(0, len(currdev)):
+            currdev[i] = float(currdev[i])
+        ## \var oldtotal
+        # Total bonus before any manipulation.
+        oldtotal = self.__tree.item(self.__curItem)['values'][-1]
+        newtotal = self.__calcRanks(currdev, int(newval)) - self.__calcRanks(currdev, int(oldval)) + int(oldtotal)
+        #DEBUG
         print("----------------------------------------------------------------\n\ncurrent cat:%s %d\n" % (currcat, newval))
+
         if currcat not in self.__changed['cat'].keys() and currcat in self._character['cat'].keys():
-            self.__changed['cat'][currcat] = self._character['cat'][currcat]  # here is a logical bug
-            self.__changed['cat'][currcat]['Skill'] = {}
-
-        self.__changed['cat'][currcat]['rank'] = newval  # int(self._catspin.get())
-
+            diff = newval - oldval
+        else:
+            diff = newval - self.__changed['cat'][currcat]['rank']
         # calc DP consume:
-        diff = newval - oldval
 
-#        print("DEBUG piep2", currcat, oldval, newval)
         dpCosts = self.__tree.item(self.__curItem)['values'][2]
 
         if type(dpCosts) == type("") or type(dpCosts) == type(u""):
             dpCosts = dpCosts.split(' ')
         elif type(dpCosts) == type(1):
             dpCosts = [dpCosts]
-#        print("DEBUG diff", diff)
-        print("DEBUG dpCosts", type(dpCosts))
 
-        for i in range(0, diff):
-            print("DEBUG dpCosts", dpCosts[i])
-            self.__usedDP += int(dpCosts[i])
+        bkpusedDP = int(self.__usedDP)
 
-        self.DPtext.set(str(self._character['DP'] - self.__usedDP))
+        if diff >= 0:
+            for i in range(0, diff):
+                self.__usedDP += int(dpCosts[i])
 
+        else:
+
+            for i in range(0, diff, -1):
+                self.__usedDP -= int(dpCosts[i])
+
+        if (self._character['DP'] - self.__usedDP) >= 0:
+            self.DPtext.set(str(self._character['DP'] - self.__usedDP))
+
+            if currcat not in self.__changed['cat'].keys() and currcat in self._character['cat'].keys():
+                self.__changed['cat'][currcat] = self._character['cat'][currcat]  # here is a logical bug
+                self.__changed['cat'][currcat]['Skill'] = {}
+
+            self.__changed['cat'][currcat]['rank'] = newval
+            self.__changed['cat'][currcat]['total bonus'] = newtotal
+
+        else:
+            self.__usedDP = bkpusedDP
+            messg = messageWindow()
+            messg.showinfo(screenmesg['epwins_no_dp'][self.lang])
+
+        print("diff %d" % diff)
         print("DEBUG __takeValsCat: new cat rank %d" % self.__changed['cat'][currcat]['rank'])
         pprint(self.__changed)
         print("DEBUG DP used: %d" % self.__usedDP)
