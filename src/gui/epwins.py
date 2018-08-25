@@ -1770,13 +1770,18 @@ class priorizeWeaponsWin(blankWindow):
         crace = races['en'][races[self.lang].index(self.character['race'])]
 
         for skillcat in self.__catDBC[prof].keys():
-            if '/' in self.__catDBC[prof][skillcat]:
-                dbcdummy = self.__catDBC[prof][skillcat].split('/')
-            else:
-                dbcdummy = list(self.__catDBC[prof][skillcat])
-
+#            if '/' in self.__catDBC[prof][skillcat]:
+#                dbcdummy = self.__catDBC[prof][skillcat].split('/')
+#            else:
+#                dbcdummy = list(self.__catDBC[prof][skillcat])
+            dbcdummy = self.__catDBC[prof][skillcat].split('/')
             skprog = ""
+            #DEBUG
+            print("__add2Char dbcdummy ", type(dbcdummy))
+            print(dbcdummy)
+
             for i in range(0, len(dbcdummy)):
+
                 if dbcdummy != "":
                     dbcdummy[i] = int(dbcdummy[i])
 
@@ -1798,8 +1803,8 @@ class priorizeWeaponsWin(blankWindow):
             elif self.character['cat'][skillcat]['Progression'] == "Null" or self.character['cat'][skillcat]['Progression'] == "Skill Only":
                 self.character['cat'][skillcat]['Progression'] = progressionType['null']
                 skprog = progressionType['skill only']
-                if "Spells -" in skillcat:
-                    print "add2Char:", skillcat
+#                if "Spells -" in skillcat:
+#                    print "add2Char:", skillcat
 
             elif self.character['cat'][skillcat]['Progression'] == "Combined":
                 self.character['cat'][skillcat]['Progression'] = progressionType['null']
@@ -1807,7 +1812,7 @@ class priorizeWeaponsWin(blankWindow):
 
             for skill in self.character['cat'][skillcat]['Skill'].keys():
 
-                print "Skill: %s - %s" % (skill, skprog)
+#                print "Skill: %s - %s" % (skill, skprog)
                 if skill not in exceptions:
                     self.character['cat'][skillcat]['Skill'][skill]['Progression'] = skprog
 
@@ -2455,8 +2460,6 @@ class skillcatWin(blankWindow):
         for cat in ckeys:
 
             if cat != None:
-                #DEBUG
-#                print cat, self.__changed['cat'][cat]
 
                 if 'Progression' in self.__changed['cat'][cat].keys():
                     progression = self.__changed['cat'][cat]['Progression']
@@ -2492,8 +2495,7 @@ class skillcatWin(blankWindow):
                 if 'Skill' in self.__changed['cat'][cat].keys():
 
                     for skill in self.__changed['cat'][cat]['Skill'].keys():
-                        #DEBUG
-#                        print "DEbug -->", skill, self.__changed['cat'][cat]['Skill'][skill]
+
                         if 'Progression' in self.__changed['cat'][cat]['Skill'][skill].keys():
                             progression = self.__changed['cat'][cat]['Skill'][skill]['Progression']
 
@@ -2576,9 +2578,6 @@ class skillcatWin(blankWindow):
                 0, self.__tree.item(self.__curItem)['values'][0])
             self.skillcost = self.__tree.item(self.__curItem)['values'][2]
             self.SkillProg.set(self.__tree.item(self.__curItem)['values'][1])
-            #DEBUG
-#            print "Skill"
-#            print self.__tree.item(self.__curItem)['values'][1]
 
             if type(self.skillcost) == type(2):
                 self.skillcost = [self.skillcost]
@@ -2738,6 +2737,7 @@ class skillcatWin(blankWindow):
         cat = cat.strip(" ")
         skill = self.__tree.item(self.__curItem)['text']
         diff = newrank - oldval
+        diffcost = 0
 
         if cat not in self.__changed['cat'].keys():
             self.__changed['cat'][cat] = self._character['cat'][cat]
@@ -2759,76 +2759,106 @@ class skillcatWin(blankWindow):
                     else:
                         for i in range(diff, 0):
                             diffcost -= int(dpCosts[i])
+                            #DEBUG
                             print("--> %d" % diffcost)
+
+                    #DEVUG
                     print("diffcost: %d" % diffcost)
                     if (self._character['DP'] - (self.__usedDP + diffcost)) >= 0:
                         self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
                         self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
                         self.__usedDP += diffcost
+
+                    else:
+                        messg = messageWindow()
+                        messg.showinfo(screenmesg['epwins_no_dp'][self.lang])
+
                 else:
-#                    self.__changed['cat'][cat]['Skill'][skill] = {'rank' : newrank,
-#                                                                  'total bonus' : newtotal
-#                                                                  }
-                    self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
-                    self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
-                    print("skill1 diff = %d" % diff)
+
                     if diff >= 0:
 
                         for i  in range(0, diff):
-                            self.__usedDP += int(dpCosts[i])
+                            diffcost += int(dpCosts[i])
                     else:
                         for i in range(diff, 0):
-                            self.__usedDP -= int(dpCosts[i])
+                            diffcost -= int(dpCosts[i])
+
+                    if (self._character['DP'] - (self.__usedDP + diffcost)) >= 0:
+                        self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
+                        self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
+                        self.__usedDP += diffcost
+
+                    else:
+                        messg = messageWindow()
+                        messg.showinfo(screenmesg['epwins_no_dp'][self.lang])
+
+                    #DEBUG
+                    print("skill1 diff = %d" % diff)
 
             else:
-#                self.__changed['cat'][cat] = {"Skill":{skill:{'rank':newrank,
-#                                                              'total bonus' : newtotal
-#                                                              }
-#                                                      }
-#                                              }
+
                 if self.__changed['cat'][cat]['Skill'][skill]['rank'] > newrank:
                     diff = -diff
-                self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
-                self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
-                print("skill2 diff = %d" % diff)
+
+                diffcost = 0
+
                 if diff >= 0:
 
                     for i  in range(0, diff):
-                            self.__usedDP += int(dpCosts[i])
+                            diffcost += int(dpCosts[i])
                 else:
                     for i in range(diff, 0):
-                        self.__usedDP -= int(dpCosts[i])
+                        diffcost -= int(dpCosts[i])
+
+                if (self._character['DP'] - (self.__usedDP + diffcost)) >= 0:
+                    self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
+                    self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
+                    self.__usedDP += diffcost
+
+                else:
+                    messg = messageWindow()
+                    messg.showinfo(screenmesg['epwins_no_dp'][self.lang])
+
+                #DEBUG
+                print("skill2 diff = %d" % diff)
 
         else:
 
             newtotal = newbonus + self.__changed['cat'][cat]['total bonus']
-#            self.__changed['cat'][cat]['Skill'][skill] = {'rank':newrank,
-#                                                          'total bonus' : newtotal
-#                                                          }
+
             if skill in self.__changed['cat'][cat]['Skill'].keys():
+
                 if self.__changed['cat'][cat]['Skill'][skill]['rank'] > newrank:
                     diff = newrank - self.__changed['cat'][cat]['Skill'][skill]['rank']
+
             else:
                 self.__changed['cat'][cat]['Skill'] = self._character['cat'][cat]['Skill']
 
                 if skill not in self.__changed['cat'][cat]['Skill'].keys():
                     self.__changed['cat'][cat]['Skill'][skill] = {}
 
-            self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
-            self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
+                diffcost = 0
+
+                if diff >= 0:
+
+                    for i  in range(0, diff):
+                            diffcost += int(dpCosts[i])
+                else:
+                    for i in range(diff, 0):
+                        diffcost -= int(dpCosts[i])
+
+                if (self._character['DP'] - (self.__usedDP + diffcost)) >= 0:
+                    self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
+                    self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
+                    self.__usedDP += diffcost
+
+                else:
+                    messg = messageWindow()
+                    messg.showinfo(screenmesg['epwins_no_dp'][self.lang])
+
+            #DEBUG
             print("skill3 diff = %d" % diff)
 
-            if diff >= 0:
-
-                for i  in range(0, diff):
-                        self.__usedDP += int(dpCosts[i])
-            else:
-                for i in range(diff, 0):
-                    print i
-                    print("dpkosts [%d]=%d" % (i, int(dpCosts[i])))
-                    self.__usedDP -= int(dpCosts[i])
-        # XXXXXXX go on here
-#        pprint(self.__changed)
         self.DPtext.set(str(self._character['DP'] - self.__usedDP))
         self.__buildChangedTree()
 
@@ -2903,9 +2933,7 @@ class skillcatWin(blankWindow):
             self.__usedDP = bkpusedDP
             messg = messageWindow()
             messg.showinfo(screenmesg['epwins_no_dp'][self.lang])
-#        pprint(self.__changed)
-#        print("DEBUG DP used: %d" % self.__usedDP)
-#         logger.debug("__takeValsCat: self__changed\n%s" % (json.dumps(self.__changed, indent = 2)))
+
         self.__buildChangedTree()
 
 
