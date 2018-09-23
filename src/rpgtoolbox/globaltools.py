@@ -9,8 +9,8 @@
 This module holds some nice small helper functions like I/O things.
 
 \author Marcus Schwamberger
-\date (c) 2012-2016
-\version 0.5.4 alpha
+\date (c) 2012-2018
+\version 0.5.4
 \email marcus@lederzeug.de
 \todo checkout whether all functions are really needed for this project.
 '''
@@ -22,7 +22,6 @@ __msg__ = {'ERR_NO_DATA'     : "ERROR: no data to compute :(",
            'OK'              : "OK: job is done :D"
           }
 
-
 import os
 import os.path
 import logbox as log
@@ -31,10 +30,12 @@ import json
 
 logger = log.createLogger('global', 'warning', '1 MB', 1, './' , 'globaltools.log')
 
+
+
 def readFile(path = './', file_name = None, mode = 'r'):
     '''
     This function reads a file and returns its content.
-    This function is designed to read files from a file system. It knows two 
+    This function is designed to read files from a file system. It knows two
     modes of reading: text and binary mode.
 
     @param path path to the file
@@ -58,17 +59,18 @@ def readFile(path = './', file_name = None, mode = 'r'):
     elif os.name == 'nt':
         if path[-1] != '\\' and file_name[1:] != '\\':
             path = path + '\\'
-    
+
     fp = open(path + file_name, mode)
     content = fp.readlines()
     fp.close()
     logger.debug('readFile %s' % (path + file_name))
-    
+
     for i in range(len(content)):
         content[i] = content[i].strip('\n')
-    
+
     logger.debug('readFile: cleaned file content')
     return content
+
 
 
 def writeFile(path = './', file_name = 'output', data = None, mode = 'w'):
@@ -81,14 +83,14 @@ def writeFile(path = './', file_name = 'output', data = None, mode = 'w'):
     @param file_name name of the file to be saved (default: output)
     @param data data to be saved. The accepted data format are arrays or strings
     @param mode write mode of the file. Default is 'w' --> text file
-    
+
     \return error message or ok state
     '''
 
     if mode != 'w' and mode != 'wb':
         logger.warning('writeFile: %s' % (__msg__['ERR_WRONG_MODE']))
         return __msg__['ERR_WRONG_MODE']
-    
+
     if data == None:
         print __msg__['ERR_NO_DATA']
         logger.error('writeFile: %s' % (__msg__['ERR_NO_DATA']))
@@ -96,23 +98,23 @@ def writeFile(path = './', file_name = 'output', data = None, mode = 'w'):
 
     if type(data) == type([]):
         content = ""
-    
+
         for key in data:
             content = content + str(key) + '\n'
-    
+
     elif type(data) == type(""):
         content = data
-    
+
     elif type(data) == type(1) or type(data) == type(1.1):
         content = str(data)
-    
+
     else:
         logger.error('writeFile: %s' % (__msg__['ERR_WRONG_TYPE']))
         print __msg__['ERR_WRONG_TYPE']
         return __msg__['ERR_WRONG_TYPE']
-    
+
     if os.name == 'posix' or os.name == 'mac':
-    
+
         if path[-1] != '/' and file_name[1:] != '/':
             path = path + '\\'
 
@@ -122,48 +124,51 @@ def writeFile(path = './', file_name = 'output', data = None, mode = 'w'):
     logger.info('writeFile: %s' % (__msg__['OK']))
     return __msg__['OK']
 
+
+
 def checkFiles(path = './', file_list = []):
     """
-    This function check out whether a list of files exists in a specific 
+    This function check out whether a list of files exists in a specific
     directory.
-    
+
     \param path Path to be searched for the files
     \param file_list an array containing the list of filenames to search for.
-    
+
     \retval result a dictionary which holds the filename as key and False/True
-                   as value. If the path does not exist it contains just 
+                   as value. If the path does not exist it contains just
                    {'path':False}
     """
-    
+
     result = {}
     if os.name == 'posix' and path[-1] != '/':
         path += '/'
     if os.path.exists(path):
-        
+
         if type(file_list) == type([]):
-        
+
             for key in file_list:
-            
+
                 if os.path.isfile(path + key):
                     result[key] = True
-                
+
                 else:
                     result[key] = False
-        
+
         elif type(file_list) == type(""):
-        
+
             if os.path.isfile(path + file_list):
                 result[file_list] = True
-        
+
         else:
             result[str(file_list)] = False
-    
+
     else:
         result = {'path' : False}
-    
+
     return result
-    
-        
+
+
+
 def sortIndex(dic = {}):
     """
     \brief This function is a little helper when sorting a dictionary.
@@ -180,22 +185,23 @@ def sortIndex(dic = {}):
     return index
 
 
+
 def array2dict(array = [], expr = '=', comment = '#'):
     """
-    This function transforms an array <str1>=<str2> into a dictionary 
+    This function transforms an array <str1>=<str2> into a dictionary
     { <str1> : <str2>}
-    
+
     \param array the array which shall be transformed
     \param expr the character where the string shall be split; default is '='
-    \param comment this parameter holds the comment character to filter 
+    \param comment this parameter holds the comment character to filter
                    comments out.
     \retval result a dictionary
     """
     result = {}
-    
+
     if type(array) != type([]):
         return result
-    
+
     for i in range(len(array)):
         if comment not in array[i]:
             if expr in array[i]:
@@ -204,6 +210,7 @@ def array2dict(array = [], expr = '=', comment = '#'):
                 dummy[1] = dummy[1].strip(" ")
                 result[dummy[0]] = dummy[1]
     return result
+
 
 
 def list2str(array = []):
@@ -217,9 +224,10 @@ def list2str(array = []):
         result = ''
         for key in array:
             result += str(key) + " "
-            
+
         result = result.strip()
-    return result 
+    return result
+
 
 
 def tstr2list(string = '(1,2,3)'):
@@ -231,13 +239,14 @@ def tstr2list(string = '(1,2,3)'):
     result = string.strip()
     result = result.strip('()')
     result = result.split(',')
-    
+
     i = 0
-    
+
     while i < len(result):
         result[i] = result[i].strip(' \"\'')
         i += 1
     return result
+
 
 
 def makeKeyList(dic = {}, klist = []):
@@ -253,18 +262,19 @@ def makeKeyList(dic = {}, klist = []):
     for key in dic:
         if key not in klist:
             klist.append(key)
-            
+
     __dummy = dic.keys()
     if __dummy.sort() == klist.sort():
         return klist, True
     else:
-        return klist, False 
-    
-    
+        return klist, False
+
+
+
 def writeJSON(filename = "", content = {}):
     '''
     This function writes a dictionary into a JSON file.
-    
+
     \param filename  path+file where to save the data in
     \param content dictionary which shall be saved as JSON content.
     '''
@@ -272,30 +282,31 @@ def writeJSON(filename = "", content = {}):
         with open(filename, "w") as fp:
             json.dump(content, fp, indent = 4)
         logger.info("%s saved" % filename)
-        
+
     except:
         logger.error("%s could not be saved!" % filename)
+
 
 
 def readJSON(filename):
     '''
     This function reads JSON files into a dictionary.
-    
+
     \param filename path+file of the JSON file to read.
     '''
     try:
         with open(filename, 'r') as fp:
             content = json.load(fp)
-            
+
         logger.info('%s loaded.' % filename)
     except:
         content = {}
         logger.error("Could not load %s" % filename)
-    
+
     return content
-    
-        
-            
+
+
+
 def getLast(string = "/", sep = '/'):
     '''
     This function gives the last element of a list stored in a string.
@@ -305,7 +316,9 @@ def getLast(string = "/", sep = '/'):
     '''
     dummy = string.split(sep)
     return str(dummy[-1].split())
-    
+
+
+
 def readCSV(fname = "test.csv"):
     '''
     This function reads a CSV file and returns a dictionary
@@ -317,8 +330,10 @@ def readCSV(fname = "test.csv"):
         reader = csv.DictReader(csvfile)
         for row in reader:
             result.append(row)
-    csvfile.close()        
+    csvfile.close()
     return result
+
+
 
 def writeCSV(fname = "test.csv", cont = [{'Spam' : 'Ham'}, {'Spam':'eggs'}]):
     '''
@@ -329,13 +344,15 @@ def writeCSV(fname = "test.csv", cont = [{'Spam' : 'Ham'}, {'Spam':'eggs'}]):
     header = cont[0].keys()
     with open(fname, 'w') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames = header)
-        
+
         writer.writeheader()
         for myrow in cont:
             writer.writerow(myrow)
-            
+
     csvfile.close()
-    
+
+
+
 def readMagic(root = "./data/default/magic", slgroup = None):
     '''
     This function runs trough the magic root dir and collects the spell list groups
@@ -348,14 +365,14 @@ def readMagic(root = "./data/default/magic", slgroup = None):
     \deprecated it is now implemented in handlemagic.py
     '''
     magiclists = {}
-    
+
     for path, dirs, files in os.walk(root):
-    
+
         if root != path:
             magiclists[path.replace("_", " ").strip(root)] = files
-            
+
     if slgroup:
         return {slgroup: magiclists[slgroup]}
-    
+
     else:
         return magiclists

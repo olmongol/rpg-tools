@@ -2645,12 +2645,17 @@ class skillcatWin(blankWindow):
         This calculates the number of Development Points (DP) of a character.
         '''
         attrlist = ['Ag', 'Co', 'Me', 'Re', 'SD']
-        self._character['DP'] = 0
+        if 'DP' not in self._character.keys():
+            self._character['DP'] = 0
 
-        for attr in attrlist:
-            self._character['DP'] += self._character[attr]['temp']
+        if 'lvlup' in self._character.keys():
 
-        self._character['DP'] = self._character['DP'] / 5
+            if self._character['lvlup'] != 0:
+
+                for attr in attrlist:
+                    self._character['DP'] += self._character[attr]['temp']
+
+                self._character['DP'] = self._character['DP'] / 5
 
         if self._character['Hobby Ranks'] > 0:
             self._character['DP'] += self._character['Hobby Ranks']
@@ -2701,9 +2706,12 @@ class skillcatWin(blankWindow):
         -# check whether all DP are used or not
         -# update total bonus in self.__changed
         -# check whether skill in change list have the same rank
+        @bug if a skill is leveled up before its category other leveled skills of that
+             category wont be displayed...
+
         '''
 
-        ## @var olval
+        ## @var oldval
         # old catefory's rank value
         oldval = self.__tree.item(self.__curItem)['values'][3]
         ## @var newrank
@@ -2715,6 +2723,7 @@ class skillcatWin(blankWindow):
 
         for i in range(0, len(currdev)):
             currdev[i] = float(currdev[i])
+
         ## \var oldtotal
         # Total bonus before any manipulation.
         oldtotal = self.__tree.item(self.__curItem)['values'][-1]
@@ -2762,7 +2771,7 @@ class skillcatWin(blankWindow):
                             #DEBUG
                             print("--> %d" % diffcost)
 
-                    #DEVUG
+                    #DEBUG
                     print("diffcost: %d" % diffcost)
                     if (self._character['DP'] - (self.__usedDP + diffcost)) >= 0:
                         self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
@@ -2770,8 +2779,7 @@ class skillcatWin(blankWindow):
                         self.__usedDP += diffcost
 
                     else:
-                        messg = messageWindow()
-                        messg.showinfo(screenmesg['epwins_no_dp'][self.lang])
+                        self.__info(screenmesg['epwins_no_dp'][self.lang])
 
                 else:
 
@@ -2789,8 +2797,7 @@ class skillcatWin(blankWindow):
                         self.__usedDP += diffcost
 
                     else:
-                        messg = messageWindow()
-                        messg.showinfo(screenmesg['epwins_no_dp'][self.lang])
+                        self.__info(screenmesg['epwins_no_dp'][self.lang])
 
                     #DEBUG
                     print("skill1 diff = %d" % diff)
@@ -2816,8 +2823,7 @@ class skillcatWin(blankWindow):
                     self.__usedDP += diffcost
 
                 else:
-                    messg = messageWindow()
-                    messg.showinfo(screenmesg['epwins_no_dp'][self.lang])
+                    self.__info(screenmesg['epwins_no_dp'][self.lang])
 
                 #DEBUG
                 print("skill2 diff = %d" % diff)
@@ -2940,10 +2946,28 @@ class skillcatWin(blankWindow):
     def __finalize(self):
         '''
         This method finalizes and saves all changes into character data
-        @todo has to be fully implemented
+        @todo has to be fully implemented:
+        - calc new level
+        - back to main or output module
         '''
-        print "__finalize not done yet."
-        self.notdoneyet("__finalize")
+        #DEBUG
+        print("DEBUG self.__c")
+        pprint(self.__changed)
+        self._character['DP'] -= self.__usedDP
+
+        for cat in self.__changed["cat"].keys():
+            self._character['cat'][cat]["rank"] = self.__changed["cat"][cat]["rank"]
+            self._character['cat'][cat]["total bonus"] = self.__changed['cat'][cat]["total bonus"]
+
+            for skill in self.__changed["cat"][cat]["Skill"].keys():
+                if skill not in self._character["cat"][cat]["Skill"].keys():
+                    self._character["cat"][cat]["Skill"][skill] = self.__changed['cat'][cat]["Skill"][skill]
+                else:
+                    self._character["cat"][cat]["Skill"][skill]["rank"] = self.__changed["cat"][cat]["Skill"][skill]["rank"]
+                    self._character["cat"][cat]["Skill"][skill]["total bonus"] = self.__changed["cat"][cat]["Skill"][skill]["total bonus"]
+
+        self.__save('.lvld')
+        self.__info(self._character['name'] + ".lvld\n" + screenmesg['file_saved'])
 
 
     def __renameSkill(self):
@@ -2965,6 +2989,16 @@ class skillcatWin(blankWindow):
         pathfile = self.spath + "/" + \
             self._character['player'] + "/" + self._character['name'] + ending
         writeJSON(pathfile, self._character)
+
+
+    def __info(self, text = ""):
+        '''
+        This method just opens a message window to display information.
+        @param text the text to display
+
+        '''
+        self.__mesg = messageWindow
+        self.__mesg.showinfo(text)
 
 
     def __helpAWin(self):

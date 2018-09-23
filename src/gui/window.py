@@ -5,7 +5,7 @@
 \brief Some classes for GUI
 
 
-\date (C) 2015 - 2017
+\date (C) 2015 - 2018
 \author Marcus Schwambeger
 \email marcus@lederzeug.de
 \version 1.0
@@ -16,7 +16,7 @@ from rpgtoolbox.lang import *
 from rpgtoolbox import logbox as log
 
 __author__ = "Marcus Schwamberger"
-__copyright__ = "(C) 2015-2017 " + __author__
+__copyright__ = "(C) 2015-2018" + __author__
 __email__ = "marcus@lederzeug.de"
 __version__ = "1.0"
 __license__ = "GNU V3.0"
@@ -25,12 +25,16 @@ __updated__ = "30.04.2018"
 
 logger = log.createLogger('window', 'warning', '1 MB', 1, './')
 
+
+
 class messageWindow(object):
     """
-    A class to build a message window containing version, author and 
-    email on default. 
+    A class to build a message window containing version, author and
+    email on default.
     \param lang contains the chosen display language.
     """
+
+
     def __init__(self, lang = 'en'):
         """
         Constructor
@@ -39,14 +43,15 @@ class messageWindow(object):
         self.lang = lang
         self.window = Toplevel()
 
+
     def showinfo(self, message = '', title = 'Info'):
         """
         This method adds and displays content to the message window.
 
-        \param message contains a message to be displayed in the 
-                       message window. It may be an array, a string or 
+        \param message contains a message to be displayed in the
+                       message window. It may be an array, a string or
                        a number (integer/float).
-        \param title   sets the title of the message window. The 
+        \param title   sets the title of the message window. The
                        default is 'Info'.
         """
         self.title = title
@@ -56,7 +61,7 @@ class messageWindow(object):
 
         if type(message) == type([]):
             dummy = ""
-            
+
             for key in message:
                 dummy = dummy + str(key) + '\n'
 
@@ -82,11 +87,15 @@ class messageWindow(object):
         button.pack()
         self.window.mainloop()
 
+
+
 class blankWindow(object):
     '''
     A simple window class with  a not filled menu bar.
     \param lang  chosen language for the menu.
     '''
+
+
     def __init__(self, lang = 'en'):
         '''
         Class constructor
@@ -95,25 +104,27 @@ class blankWindow(object):
         self.lang = lang
         self.window = Tk()
         self.__addMenu()
-        
+
         '''This is for the file I/O window'''
         self.mask = [txtwin['json_files'][self.lang],
                      txtwin['spell_files'][self.lang],
                      txtwin['all_files'][self.lang]
                      ]
-        
+
+
     def __addMenu(self):
         '''
-        This private method just adds the menu bar into the window's 
+        This private method just adds the menu bar into the window's
         layout
         '''
         self.menu = Menu(self.window)
         self.window.configure(menu = self.menu)
-    
+
+
     def _helpAbout(self):
         '''
-        This method just opens a message window with the basic 
-        information about the rpg-tools XML Generator (like version and 
+        This method just opens a message window with the basic
+        information about the rpg-tools XML Generator (like version and
         copyright)
         '''
         self.about = "%s\nVersion %s\n\n%s\n%s\n%s" % (__me__,
@@ -123,26 +134,28 @@ class blankWindow(object):
                                                       __email__)
         self.msg = messageWindow()
         self.msg.showinfo(self.about)
-        
+
+
     def handbook(self, chapter = "handbook"):
         '''
-        This method will call call a specific chapter from the handbook of 
+        This method will call call a specific chapter from the handbook of
         rm_char_tools.
         \todo handbook has to be implemented
         '''
         self.notdoneyet("handbook chapter %s" % (chapter))
-        
+
+
     def __closewin(self):
         """
         Method for closing the window and opening the main window.
         """
         self.window.destroy()
-             
-        
+
+
     def notdoneyet(self, txt = "feature"):
         '''
         a simple dummy method for not yet implemented methods
         '''
         self._info = messageWindow()
         self._info.showinfo("This %s is not done yet!" % (txt),
-                            "SOOOORRRRYYY")        
+                            "SOOOORRRRYYY")

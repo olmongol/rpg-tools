@@ -8,3 +8,4 @@ import treasure
 import calendar
 import handlemagic
 import epcalc
+import chartotext
