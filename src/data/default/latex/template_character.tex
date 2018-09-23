@@ -1,0 +1,49 @@
+\listfiles
+\documentclass[10pt, a4paper]{article}
+\usepackage[german,ngerman,english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fontspec}
+\setmainfont[Path=/usr/share/fonts/truetype/freefont/]{Celtic Normal.ttf}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage[left=1cm, right=1cm, top=2cm, bottom=3cm]{geometry}
+\usepackage{parskip}
+\usepackage{longtable}
+\usepackage[table,dvipsnames]{xcolor}
+\usepackage{framed}
+\usepackage{colortbl}
+\usepackage{wrapfig}
+\usepackage{tcolorbox}
+
+\newtcolorbox{commentbox}{colback=black!5!white,colframe=black!75!black}
+\newtcolorbox{warnbox}{colback=red!5!white,colframe=red!75!black}
+\newtcolorbox{goodbox}{colback=green!5!white,colframe=green!75!black}
+\newtcolorbox{importantbox}{colback=yellow!5!white,colframe=yellow!75!black}
+\newtcolorbox{dummybox}{colback=white,colframe=white}
+\newenvironment{codebox}
+{
+  \def\FrameCommand{\fboxsep=\FrameSep \fcolorbox{gray}{lightgray}}
+  \color{black}\MakeFramed {\FrameRestore}
+}
+{\par\endMakeFramed}
+
+\begin{document}
+
+\input{gen_info.tex}
+\input{stats.tex}
+\input{rr_at_db.tex}
+\pagebreak
+\input{trainpack.tex}
+\input{skills.tex}
+\pagebreak
+\input{cats.tex}
+\pagebreak
+\input{spells.tex}
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+
