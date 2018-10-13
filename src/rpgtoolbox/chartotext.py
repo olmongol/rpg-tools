@@ -63,6 +63,7 @@ class latexsheets(object):
                             'training': 'template_trainpack.tex'
                             }
 
+        self.__pages = ['main', 'stats', "rr_at_db", 'general', "categories", "skills", 'spells', 'training']  # 'mixed' should be added sooner or later!
         if defaultpath[-1] != "/":
             self.latextmplpath = defaultpath + "/latex/"
 
@@ -86,9 +87,17 @@ class latexsheets(object):
                 os.makedirs(self.latexoutpath)
 
 
+    def createAll(self):
+        '''
+        This method creates all files from all templates if possible
+        '''
+        for page in self.__pages:
+            self.createLatexFile(page, self.selectData(page))
+
+
     def createLatexFile(self, page = "main", data = {}):
         '''
-        Creates given Latex file.
+        Creates Latex file from given template file.
         '''
         content = readFile(self.latextmplpath + self.__tmplfiles[page])
         content = template(content)
@@ -98,8 +107,27 @@ class latexsheets(object):
 
     def selectData(self, page = 'main'):
         '''
-        This constructs a data set for each LaTeX file
+        This constructs a data set for each LaTeX file which shall be generated from templates.
+        @param page this defines the data structure generation for which part of the character sheet. The options are:
+               - main: main template
+               - general: template that contains more general background data like race, home town etc.
+               - categories: template for skill categories
+               - skills: template for skills
+               - mixed: template for a combined categories/skills sheet.
+               - rr_at_db: template for values like resistance rolls, armor type, defensive bonus etc.
+               - stats: template for all stat related values.
+               - spells: template to list all learned spells by spell lists and their categories.
+               - training: template to list learned training packages.
+
+        @todo create a mixed template as well as the backend for getting the data
+        @todo create the backend for:
+            -# categories
+            -# skills
+            -# spells
+            -# training
+
         '''
+
         if page == "main":
             data = {}
             elements = self.__tmplfiles.values()
@@ -112,7 +140,7 @@ class latexsheets(object):
         elif page == "general":
             data = {}
             elements = ['name', 'profession', 'race', 'culture', 'hometown', 'lord', 'parents', 'siblings', 'partner', 'children', 'deity',
-                      'gender', 'skin', 'eyes', 'hair', 'size', 'weight', 'apparentage', 'actualage', 'looking', 'souldepature', 'recovery', 'lvl',
+                      'gender', 'skin', 'eyes', 'hair', 'size', 'weight', 'apparentage', 'actualage', 'looking', 'souldeparture', 'recovery', 'lvl',
                       'jpg', 'description', 'motivation', 'realm', 'exp']
 
             for item in elements:
@@ -128,6 +156,10 @@ class latexsheets(object):
             pass
 
         elif page == "skills":
+            data = {}
+            pass
+
+        elif page == "mixed":
             data = {}
             pass
 
