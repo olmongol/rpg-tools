@@ -20,6 +20,8 @@ import random
 from rpgtoolbox.globaltools import readCSV
 from rpgtoolbox.rolemaster import rankbonus
 
+
+
 def dice(sides = 6, number = 1):
     '''
     This function delivers the result of (number of) dice roll(s) as a list.
@@ -29,12 +31,14 @@ def dice(sides = 6, number = 1):
     '''
     i = 0
     result = []
-    
+
     while i < number:
         roll = random.randint(1, sides)
         result.append(roll)
         i += 1
     return result
+
+
 
 def getLvl(ep = 10000):
     '''
@@ -45,7 +49,7 @@ def getLvl(ep = 10000):
     if ep <= 50000:
         lvl = ep / 10000
     elif ep > 50000 and ep <= 150000:
-        lvl = (ep - 50000) / 20000 + 5  
+        lvl = (ep - 50000) / 20000 + 5
     elif ep > 150000 and ep <= 300000:
         lvl = (ep - 150000) / 30000 + 10
     elif ep > 300000 and ep <= 500000:
@@ -53,6 +57,7 @@ def getLvl(ep = 10000):
     else:
         lvl = (ep - 500000) / 50000 + 20
     return lvl
+
 
 
 def calcTotals(charval = {}):
@@ -94,7 +99,7 @@ def calcTotals(charval = {}):
 
                 else:
                     statbonus += charval[s]['total']
-            
+
         charval['cat'][cat]['stat bonus'] = statbonus
         charval['cat'][cat]['total bonus'] = rankbonus(rank = rank,
                                                        profession = profbonus,
@@ -103,36 +108,75 @@ def calcTotals(charval = {}):
                                                        ) + statbonus + itembonus
 
         for skill in charval['cat'][cat]['Skill']:
-            
+
             if (skill != "Progression" and "Spell" not in cat) or ("Spell" in cat and skill not in ['Stats', 'Progression']):
                 progression = charval['cat'][cat]['Skill'][skill]['Progression']
 
                 if type(progression) == type(2):
                     progression = [progression]
-            
+
                 rank = charval['cat'][cat]['Skill'][skill]['rank']
                 bonus = rankbonus(rank = rank, progression = progression)
                 charval['cat'][cat]['Skill'][skill]['rank bonus'] = bonus
                 total = bonus + charval['cat'][cat]['total bonus'] + charval['cat'][cat]['Skill'][skill]['item bonus'] + charval['cat'][cat]['Skill'][skill]['spec bonus']
                 charval['cat'][cat]['Skill'][skill]['total bonus'] = total
-                
+
     return charval
+
+
+
+def RRroll(attacklvl, targetlvl, roll):
+    '''
+    This function checks out whether a RR roll has worked out.
+
+    @param attacklvl level of the attack or attacker
+    @param targetlvl level of the target
+    @param roll final result of a resistance roll (all modifiers and bonusses ect)
+
+    @retval resisted  RR was successful True/False
+    @retval value the value of the RR roll table
+    '''
+    resisted = False
+    if attacklvl < 6:
+        value = 50 + (attacklvl - 1) * 5
+    elif 5 < attacklvl < 11:
+        value = 70 + (attacklvl - 5) * 3
+    elif 10 < attacklvl < 15:
+        value = 85 + (attacklvl - 10) * 2
+    elif attacklvl > 15:
+        value = 90 + (attacklvl - 15)
+
+    if targetlvl < 6:
+        value -= (targetlvl - 1) * 5
+    elif 5 < targetlvl < 11:
+        value -= (20 + (targetlvl - 5) * 3)
+    elif 10 < targetlvl < 16:
+        value -= (32 + (targetlvl - 10) * 2)
+    elif targetlvl > 15:
+        value -= (39 + (targetlvl - 15))
+
+    if value <= roll:
+        resisted = True
+    return resisted, value
+
 
 
 class statManeuver(object):
     '''
-    This class handles static maneuver roll results. An object of it operates as single static maneuver table where a 
+    This class handles static maneuver roll results. An object of it operates as single static maneuver table where a
     given roll (allready modified by severity and other modifiers) is checked and the result returned.
-    
+
     '''
-    
+
+
     def __init__(self, tablefile = "./data/default/tables/general_smt.csv"):
         '''
         Constructor which needs the table to use.
-        @param tablefile CSV containing the table which shall be used for static maneuver rolls. 
+        @param tablefile CSV containing the table which shall be used for static maneuver rolls.
         '''
         self.table = readCSV(tablefile)
-        
+
+
     def checkRoll(self, roll):
         '''
         Checks the rolled number + bonusses for success.
@@ -143,25 +187,24 @@ class statManeuver(object):
 
         for row in range(0, len(self.table)):
             lower, upper = self.table[row]['roll'].split(" < ")
-            
+
             if lower == "UM" and roll == int(upper):
                 result = dict(self.table[row])
                 break
 
             elif lower == "" and roll <= int(upper):
                 result = dict(self.table[row])
-            
-            elif upper == "" and int(lower) <= roll: 
+
+            elif upper == "" and int(lower) <= roll:
                 result = dict(self.table[row])
-                
+
             elif lower != "UM" and lower != "" and upper != "":
-                
+
                 if int(lower) <= roll <= int(upper):
                     result = dict(self.table[row])
-            
+
         if "roll" in result.keys():
             del(result['roll'])
-                        
+
         return result
-                 
-        
+
