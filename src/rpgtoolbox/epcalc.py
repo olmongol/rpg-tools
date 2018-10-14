@@ -17,6 +17,7 @@ __version__ = "0.1"
 __updated__ = "10.06.2018"
 
 
+
 class experience(object):
     '''
     This class will generate an object to handle a character's gained experience.
@@ -30,20 +31,22 @@ class experience(object):
 
     '''
 
+
     def __init__(self, charname = "Conan", ep = 0):
         '''
         \param charname name of the character
         \param ep current experience points of the character.
-        
+
         '''
         self.name = charname
         self.ep = ep
         self.getLvl = calcLvl
         self.lvl = self.getLvl(self.ep)
         self.gainedep = 0
-        self.getNewLvl()
-        
-    def getNewLvl(self):
+        self.updateInfo()
+
+
+    def updateInfo(self):
         """
         Update level information. \n
         The following attributes will be set:
@@ -52,15 +55,17 @@ class experience(object):
         """
         self.newep = self.ep + self.gainedep
         self.newlvl = self.getLvl(self.newep)
-        
+
+
     def spell(self, spelllevel = 1, number = 1):
         '''
         Adds EP gained by spells.
         \param spelllevel level of the casted spell
-        \param number number of spells casted 
+        \param number number of spells casted
         '''
         self.gainedep += (100 - (self.lvl - spelllevel) * 10) * number
-        
+
+
     def gainedCrit(self, crittype = "A", number = 0):
         '''
         Adds EPs by gained Crits
@@ -74,9 +79,10 @@ class experience(object):
                    'D' : 400,
                    'E' : 500
                    }
-        
-        self.gainedep += crits[crittype] * number
-        
+
+        self.gainedep += crits[crittype.upper()] * number
+
+
     def hitCrit(self, crittype = "A", monsterlvl = 1, number = 1):
         '''
         Adds EPs by caused Crits
@@ -89,21 +95,38 @@ class experience(object):
                 'C' : 15,
                 'D' : 20,
                 'E' : 25
-               }    
-        
+               }
+
         if monsterlvl == 0:
             monsterlvl = 0.5
-        
-        self.gainedep += int(round(monsterlvl * crits[crittype], 0)) * number
-    
+
+        self.gainedep += int(round(monsterlvl * crits[crittype.upper()], 0)) * number
+
+
     def travelled(self, km = 0):
         '''
         Adds EPs for traveled km.
         \param km kilometers traveled
         '''
         self.gainedep += km
-        
-    
+
+
+    def gainedHits(self, hits = 0):
+        '''
+        Adds EPs for hits
+        @param hits number of gained hits
+        '''
+        self.gainedep += hits
+
+
+    def ideas(self, eps = 0):
+        '''
+        EPs for ideas, risk etc of the character.
+        @param eps additional EPs givem by GM
+        '''
+        self.gainedep += eps
+
+
     def maneuver(self, manlvl = "routine", number = 0):
         '''
         Adds EPs by maneuvers.
@@ -113,7 +136,8 @@ class experience(object):
         from rpgToolDefinitions.epcalcdefs import maneuvers
 
         self.gainedep += maneuvers[manlvl]['ep'] * number
-        
+
+
     def killedNPC(self, monsterlvl = 1, number = 1):
         '''
         Adds EPs by killing a NPC/Monster
@@ -122,13 +146,17 @@ class experience(object):
         '''
         if monsterlvl == 0:
             self.gainedep += (50 - (monsterlvl + 1 - self.lvl) * 5) * number
-            
+
         else:
             self.gainedep += (200 + (monsterlvl - self.lvl) * 50) * number
+
+
 
 class NPC(object):
     '''
     \todo has to be implemented for fight simulations
     '''
+
+
     def __init__(self, npcfile, beast, lvl):
         pass
