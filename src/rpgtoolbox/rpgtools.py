@@ -137,26 +137,34 @@ def RRroll(attacklvl, targetlvl, roll):
     @retval value the value of the RR roll table
     '''
     resisted = False
+
     if attacklvl < 6:
         value = 50 + (attacklvl - 1) * 5
+
     elif 5 < attacklvl < 11:
         value = 70 + (attacklvl - 5) * 3
+
     elif 10 < attacklvl < 15:
         value = 85 + (attacklvl - 10) * 2
+
     elif attacklvl > 15:
         value = 90 + (attacklvl - 15)
 
     if targetlvl < 6:
         value -= (targetlvl - 1) * 5
+
     elif 5 < targetlvl < 11:
         value -= (20 + (targetlvl - 5) * 3)
+
     elif 10 < targetlvl < 16:
         value -= (32 + (targetlvl - 10) * 2)
+
     elif targetlvl > 15:
         value -= (39 + (targetlvl - 15))
 
     if value <= roll:
         resisted = True
+
     return resisted, value
 
 

@@ -2951,7 +2951,7 @@ class skillcatWin(blankWindow):
         - back to main or output module
         '''
         #DEBUG
-        print("DEBUG self.__c")
+        print("DEBUG self.__finalize")
         pprint(self.__changed)
         self._character['DP'] -= self.__usedDP
 
@@ -2967,7 +2967,8 @@ class skillcatWin(blankWindow):
                     self._character["cat"][cat]["Skill"][skill]["total bonus"] = self.__changed["cat"][cat]["Skill"][skill]["total bonus"]
 
         self.__save('.lvld')
-        self.__info(self._character['name'] + ".lvld\n" + screenmesg['file_saved'])
+        print("DEBUG self.__finalize: \n- charname: {}\n- screenmsg: {}\n------------\n".format(type(self._character['name']), type(screenmesg['file_saved'][self.lang])))
+        self.__info(self._character['name'] + ".lvld\n" + screenmesg['file_saved'][self.lang])
 
 
     def __renameSkill(self):
@@ -2997,8 +2998,9 @@ class skillcatWin(blankWindow):
         @param text the text to display
 
         '''
-        self.__mesg = messageWindow
-        self.__mesg.showinfo(text)
+        print("{} \nType:{}".format(text, type(text)))
+        self.__mesg = messageWindow(self.lang)
+        self.__mesg.showinfo(str(text))
 
 
     def __helpAWin(self):
