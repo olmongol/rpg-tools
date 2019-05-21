@@ -15,10 +15,10 @@ This holds window classes for generating and updating (level ups) characters.
 import random
 import os
 import sys
-from Tkinter import *
+from tkinter import *
 from PIL.ImageTk import *
-from tkFileDialog import *
-from ttk import *
+from tkinter.filedialog import *
+from tkinter.ttk import *
 from rpgtoolbox.lang import *
 from rpgtoolbox.globaltools import *
 from rpgtoolbox import logbox as log
@@ -375,13 +375,12 @@ class confWindow(blankWindow):
         to make a choice between the used supported RPGs.
         """
         self.RPG = StringVar()
-        if 'rpg' in self._cnf.cnfparam.keys():
+        if 'rpg' in list(self._cnf.cnfparam.keys()):
             self.RPG.set(self._cnf.cnfparam['rpg'])
         else:
             self.RPG.set('Rolemaster')
 
-        self.optMenu = apply(
-            OptionMenu, (self.window, self.RPG) + tuple(supportedrpg[self.lang]))
+        self.optMenu = OptionMenu(*(self.window, self.RPG) + tuple(supportedrpg[self.lang]))
         self.optMenu.grid(column = 0, row = 0)
 
 
@@ -396,18 +395,18 @@ class confWindow(blankWindow):
         self.sto_path = StringVar()
         self.log_path = StringVar()
 
-        if 'path' in self._cnf.cnfparam.keys():
+        if 'path' in list(self._cnf.cnfparam.keys()):
             self.sto_path.set(self._cnf.cnfparam['datapath'])
 
         else:
             self.sto_path.set("./data")
 
-        if 'lang' in self._cnf.cnfparam.keys():
+        if 'lang' in list(self._cnf.cnfparam.keys()):
 
             if self._cnf.cnfparam['lang'] != self.lang:
                 self.lang = self._cnf.cnfparam['lang']
 
-        if 'log' in self._cnf.cnfparam.keys():
+        if 'log' in list(self._cnf.cnfparam.keys()):
             self.log_path.set(self._cnf.cnfparam['log'])
 
         else:
@@ -633,7 +632,7 @@ class inputWin(blankWindow):
         Method to create a now character party/group
         @todo chreategroup has to be implemented
         '''
-        print "input win --> creategroup"
+        print("input win --> creategroup")
         self.notdoneyet('creategroup')
 
 
@@ -642,7 +641,7 @@ class inputWin(blankWindow):
         Method to edit a character for the EP sheet.
         @todo editchar is to be implemented
         '''
-        print "input win -->  editchar"
+        print("input win -->  editchar")
         self.notdoneyet('editchar')
 
 
@@ -758,7 +757,7 @@ class genAttrWin(blankWindow):
         self.profs = rm.choseProfession(self.lang)
         # \var proflist
         # list of all available professions
-        proflist = self.profs.keys()
+        proflist = list(self.profs.keys())
         # \var rmraces
         # a list of all the RoleMaster races
         rmraces = rm.races[self.lang]
@@ -1206,7 +1205,7 @@ class genAttrWin(blankWindow):
         pos = rm.races[self.lang].index(race)
         race = rm.races['en'][pos]
 
-        for i in rm.raceAbilities[race].keys():
+        for i in list(rm.raceAbilities[race].keys()):
             if "RR" in i:
                 self.__rr[i] = rm.raceAbilities[race][i]
 
@@ -1505,7 +1504,7 @@ class genAttrWin(blankWindow):
                                        'item bonus': 0,
                                        'rank': 0
                                        }
-            for pb in self.profs[self.character['prof']]['Profession Bonusses'].keys():
+            for pb in list(self.profs[self.character['prof']]['Profession Bonusses'].keys()):
 
                 if pb in content[i][0]:
                     skillcat[content[i][0]]['prof bonus'] = self.profs[self.character['prof']
@@ -1532,7 +1531,7 @@ class genAttrWin(blankWindow):
         for i in range(1, len(content)):
             content[i] = content[i].strip('\n').split(',')
 
-            if content[i][0] not in skillcat.keys():
+            if content[i][0] not in list(skillcat.keys()):
                 skillcat[content[i][0]] = {'rank': 0,
                                            'rank bonus': 0,
                                            'item bonus': 0,
@@ -1575,15 +1574,15 @@ class genAttrWin(blankWindow):
                                                    self.character['lvl']
                                                    )
 
-            for cat in self.character['cat'].keys():
+            for cat in list(self.character['cat'].keys()):
 
                 if cat[:8] == "Spells -":
 
-                    for slcat in self.spellbook.spelllists.keys():
+                    for slcat in list(self.spellbook.spelllists.keys()):
 
                         if self.spellbook.spelllists[slcat]['Category'] in cat:
                             #                            self.character['cat'][cat]['Skill'] = self.spellbook.spelllists[slcat]
-                            for spell in self.spellbook.spelllists[slcat].keys():
+                            for spell in list(self.spellbook.spelllists[slcat].keys()):
 
                                 if spell != "Category":
                                     self.character['cat'][cat]['Skill'][spell] = self.spellbook.spelllists[slcat][spell]
@@ -1769,7 +1768,7 @@ class priorizeWeaponsWin(blankWindow):
         # dummy variable that holds character's race
         crace = races['en'][races[self.lang].index(self.character['race'])]
 
-        for skillcat in self.__catDBC[prof].keys():
+        for skillcat in list(self.__catDBC[prof].keys()):
 #            if '/' in self.__catDBC[prof][skillcat]:
 #                dbcdummy = self.__catDBC[prof][skillcat].split('/')
 #            else:
@@ -1777,7 +1776,7 @@ class priorizeWeaponsWin(blankWindow):
             dbcdummy = self.__catDBC[prof][skillcat].split('/')
             skprog = ""
             #DEBUG
-            print("__add2Char dbcdummy ", type(dbcdummy))
+            print(("__add2Char dbcdummy ", type(dbcdummy)))
             print(dbcdummy)
 
             for i in range(0, len(dbcdummy)):
@@ -1787,7 +1786,7 @@ class priorizeWeaponsWin(blankWindow):
 
             self.character['cat'][skillcat][labels["en"]['costs']] = dbcdummy
 
-            for s in self.character['cat'][skillcat]['Skill'].keys():
+            for s in list(self.character['cat'][skillcat]['Skill'].keys()):
                 if s not in exceptions:
                     self.character['cat'][skillcat]['Skill'][s][labels["en"]
                                                                 ['costs']] = dbcdummy
@@ -1810,7 +1809,7 @@ class priorizeWeaponsWin(blankWindow):
                 self.character['cat'][skillcat]['Progression'] = progressionType['null']
                 skprog = progressionType['combined']
 
-            for skill in self.character['cat'][skillcat]['Skill'].keys():
+            for skill in list(self.character['cat'][skillcat]['Skill'].keys()):
 
 #                print "Skill: %s - %s" % (skill, skprog)
                 if skill not in exceptions:
@@ -1845,7 +1844,7 @@ class priorizeWeaponsWin(blankWindow):
                                                                      }
                     lastcat = content[j][0]
 
-                    if "Skill" not in self.__adoranks[content[0][i]][content[j][0]].keys():
+                    if "Skill" not in list(self.__adoranks[content[0][i]][content[j][0]].keys()):
                         self.__adoranks[content[0][i]
                                         ][content[j][0]]['Skill'] = {}
 
@@ -1866,15 +1865,15 @@ class priorizeWeaponsWin(blankWindow):
         if race in ['Common Men', 'Mixed Men']:
             race = culture
 
-        for cat in self.__adoranks[race].keys():
+        for cat in list(self.__adoranks[race].keys()):
             self.character['cat'][cat]['rank'] = self.__adoranks[race][cat]['rank']
             self.character['cat'][cat]['rank bonus'] = self.__adoranks[race][cat]['rank bonus']
 
             if self.__adoranks[race][cat]['Skill'] != {}:
 
-                for skill in self.__adoranks[race][cat]['Skill'].keys():
+                for skill in list(self.__adoranks[race][cat]['Skill'].keys()):
 
-                    if skill not in self.character['cat'][cat]['Skill'].keys():
+                    if skill not in list(self.character['cat'][cat]['Skill'].keys()):
                         self.character['cat'][cat]['Skill'][skill] = {}
 
                     self.character['cat'][cat]['Skill'][skill]['rank'] = self.__adoranks[race][cat]['Skill'][skill]['rank']
@@ -1891,7 +1890,7 @@ class priorizeWeaponsWin(blankWindow):
         param = {}
         param['realm'] = self.character['realm']
 
-        for l in races.keys():
+        for l in list(races.keys()):
 
             if self.character['race'] in races[l]:
                 param['lang'] = l
@@ -1903,7 +1902,7 @@ class priorizeWeaponsWin(blankWindow):
                 param['Stats'] = magicstats[realms[l].index(
                     self.character['realm'])]
 
-        print "set ppd ", param
+        print(("set ppd ", param))
 
         if type(param['ppd']) == type(''):
             param['ppd'] = progressionType[param['ppd'] + param['race']]
@@ -1943,7 +1942,7 @@ class priorizeWeaponsWin(blankWindow):
         '''
         self.weaponcats = []
 
-        for cat in self.character['cat'].keys():
+        for cat in list(self.character['cat'].keys()):
             if self.__catnames[self.lang]['weapon'] in cat:
                 self.weaponcats.append(cat)
 
@@ -2122,6 +2121,7 @@ class skillcatWin(blankWindow):
         - insert a second treeframe for autoscrollbar
         @bug The following bugs have to be fixed:
              -# the max number of lvl ups for categories does not work properly with its' spinbox widget.
+             -# if switched to a skill of another category the rank change would not be displayed correctly
         '''
         from rpgtoolbox.rolemaster import labels as rmlabels
         self.__treeframe = Frame(width = 800, height = 600)
@@ -2400,7 +2400,7 @@ class skillcatWin(blankWindow):
 
         catID = {}
         catNo = 0
-        ckeys = self._character['cat'].keys()
+        ckeys = list(self._character['cat'].keys())
         ckeys.sort()
 
         for cat in ckeys:
@@ -2418,7 +2418,7 @@ class skillcatWin(blankWindow):
                                                 tag = "category"
                                                 )
 
-            for skill in self._character['cat'][cat]['Skill'].keys():
+            for skill in list(self._character['cat'][cat]['Skill'].keys()):
 
                 if skill not in exceptions:
                     self.__tree.insert(catID[cat],
@@ -2454,29 +2454,29 @@ class skillcatWin(blankWindow):
 
         catID = {}
         catNo = 0
-        ckeys = self.__changed['cat'].keys()
+        ckeys = list(self.__changed['cat'].keys())
         ckeys.sort()
         dummy = "--"
         for cat in ckeys:
 
             if cat != None:
 
-                if 'Progression' in self.__changed['cat'][cat].keys():
+                if 'Progression' in list(self.__changed['cat'][cat].keys()):
                     progression = self.__changed['cat'][cat]['Progression']
                 else:
                     progression = dummy
 
-                if self.__rmlabels['en']['costs'] in self.__changed['cat'][cat].keys():
+                if self.__rmlabels['en']['costs'] in list(self.__changed['cat'][cat].keys()):
                     costs = self.__changed['cat'][cat][self.__rmlabels['en']['costs']]
                 else:
                     costs = dummy
 
-                if 'rank' in self.__changed['cat'][cat].keys():
+                if 'rank' in list(self.__changed['cat'][cat].keys()):
                     rank = self.__changed['cat'][cat]['rank']
                 else:
                     rank = "n/a"
 
-                if 'total bonus' in self.__changed['cat'][cat].keys():
+                if 'total bonus' in list(self.__changed['cat'][cat].keys()):
                     total = str(self.__changed['cat'][cat]['total bonus'])
                 else:
                     total = "n/a"
@@ -2492,22 +2492,22 @@ class skillcatWin(blankWindow):
                                                              ),
                                                 tag = "category"
                                                    )
-                if 'Skill' in self.__changed['cat'][cat].keys():
+                if 'Skill' in list(self.__changed['cat'][cat].keys()):
 
-                    for skill in self.__changed['cat'][cat]['Skill'].keys():
+                    for skill in list(self.__changed['cat'][cat]['Skill'].keys()):
 
-                        if 'Progression' in self.__changed['cat'][cat]['Skill'][skill].keys():
+                        if 'Progression' in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
                             progression = self.__changed['cat'][cat]['Skill'][skill]['Progression']
 
-                        if self.__rmlabels['en']['costs'] in self.__changed['cat'][cat]['Skill'][skill].keys():
+                        if self.__rmlabels['en']['costs'] in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
                             costs = self.__changed['cat'][cat]['Skill'][skill][self.__rmlabels['en']['costs']]
 
-                        if 'rank' in self.__changed['cat'][cat]['Skill'][skill].keys():
+                        if 'rank' in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
                             srank = self.__changed['cat'][cat]['Skill'][skill]['rank']
                         else:
                             srank = -1
 
-                        if 'total bonus' in self.__changed['cat'][cat]['Skill'][skill].keys():
+                        if 'total bonus' in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
                             stotal = self.__changed['cat'][cat]['Skill'][skill]['total bonus']
                         else:
                             stotal = -1
@@ -2556,7 +2556,7 @@ class skillcatWin(blankWindow):
             if type(self.catcost) == type(2):
                 self.catcost = [self.catcost]
 
-            elif type(self.catcost) == type("") or type(self.catcost) == type(u""):
+            elif type(self.catcost) == type("") or type(self.catcost) == type(""):
                 self.catcost = self.catcost.split(' ')
 
                 for i in range(0, len(self.catcost)):
@@ -2582,7 +2582,7 @@ class skillcatWin(blankWindow):
             if type(self.skillcost) == type(2):
                 self.skillcost = [self.skillcost]
 
-            elif type(self.skillcost) == type(u"") or type(self.skillcost) == type(""):
+            elif type(self.skillcost) == type("") or type(self.skillcost) == type(""):
                 self.skillcost = self.skillcost.split(' ')
 
                 for i in range(0, len(self.skillcost)):
@@ -2600,7 +2600,7 @@ class skillcatWin(blankWindow):
                 self.skillrank = self.__tree.item(self.__curItem)['values'][-2]
 
         #DEBUG
-        print self.__tree.item(self.__curItem)
+        print((self.__tree.item(self.__curItem)))
 
 
     def __selectChangedItem(self, event):
@@ -2645,10 +2645,10 @@ class skillcatWin(blankWindow):
         This calculates the number of Development Points (DP) of a character.
         '''
         attrlist = ['Ag', 'Co', 'Me', 'Re', 'SD']
-        if 'DP' not in self._character.keys():
+        if 'DP' not in list(self._character.keys()):
             self._character['DP'] = 0
 
-        if 'lvlup' in self._character.keys():
+        if 'lvlup' in list(self._character.keys()):
 
             if self._character['lvlup'] != 0:
 
@@ -2706,7 +2706,7 @@ class skillcatWin(blankWindow):
         -# check whether all DP are used or not
         -# update total bonus in self.__changed
         -# check whether skill in change list have the same rank
-        @bug if a skill is leveled up before its category other leveled skills of that
+        @bug - if a skill is leveled up before its category other leveled skills of that
              category wont be displayed...
 
         '''
@@ -2734,7 +2734,7 @@ class skillcatWin(blankWindow):
 
         dpCosts = self.__tree.item(self.__curItem)['values'][2]
 
-        if type(dpCosts) == type("") or type(dpCosts) == type(u""):
+        if type(dpCosts) == type("") or type(dpCosts) == type(""):
             dpCosts = dpCosts.split(' ')
 
         elif type(dpCosts) == type(1):
@@ -2748,16 +2748,16 @@ class skillcatWin(blankWindow):
         diff = newrank - oldval
         diffcost = 0
 
-        if cat not in self.__changed['cat'].keys():
+        if cat not in list(self.__changed['cat'].keys()):
             self.__changed['cat'][cat] = self._character['cat'][cat]
             newtotal = newbonus + self.__changed['cat'][cat]['total bonus']
 
-            if u'Skill' in self.__changed['cat'][cat].keys():
+            if 'Skill' in list(self.__changed['cat'][cat].keys()):
 
-                if 'Progression' in self.__changed['cat'][cat]['Skill'].keys():
+                if 'Progression' in list(self.__changed['cat'][cat]['Skill'].keys()):
                     del(self.__changed['cat'][cat]['Skill']['Progression'])
 
-                if skill in self.__changed['cat'][cat]['Skill'].keys():
+                if skill in list(self.__changed['cat'][cat]['Skill'].keys()):
                     diff = newrank - self.__changed['cat'][cat]['Skill'][skill]['rank']
                     diffcost = 0
 
@@ -2769,10 +2769,10 @@ class skillcatWin(blankWindow):
                         for i in range(diff, 0):
                             diffcost -= int(dpCosts[i])
                             #DEBUG
-                            print("--> %d" % diffcost)
+                            print(("--> %d" % diffcost))
 
                     #DEBUG
-                    print("diffcost: %d" % diffcost)
+                    print(("diffcost: %d" % diffcost))
                     if (self._character['DP'] - (self.__usedDP + diffcost)) >= 0:
                         self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
                         self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
@@ -2800,7 +2800,7 @@ class skillcatWin(blankWindow):
                         self.__info(screenmesg['epwins_no_dp'][self.lang])
 
                     #DEBUG
-                    print("skill1 diff = %d" % diff)
+                    print(("skill1 diff = %d" % diff))
 
             else:
 
@@ -2826,13 +2826,13 @@ class skillcatWin(blankWindow):
                     self.__info(screenmesg['epwins_no_dp'][self.lang])
 
                 #DEBUG
-                print("skill2 diff = %d" % diff)
+                print(("skill2 diff = %d" % diff))
 
         else:
 
             newtotal = newbonus + self.__changed['cat'][cat]['total bonus']
 
-            if skill in self.__changed['cat'][cat]['Skill'].keys():
+            if skill in list(self.__changed['cat'][cat]['Skill'].keys()):
 
                 if self.__changed['cat'][cat]['Skill'][skill]['rank'] > newrank:
                     diff = newrank - self.__changed['cat'][cat]['Skill'][skill]['rank']
@@ -2840,7 +2840,7 @@ class skillcatWin(blankWindow):
             else:
                 self.__changed['cat'][cat]['Skill'] = self._character['cat'][cat]['Skill']
 
-                if skill not in self.__changed['cat'][cat]['Skill'].keys():
+                if skill not in list(self.__changed['cat'][cat]['Skill'].keys()):
                     self.__changed['cat'][cat]['Skill'][skill] = {}
 
                 diffcost = 0
@@ -2863,7 +2863,7 @@ class skillcatWin(blankWindow):
                     messg.showinfo(screenmesg['epwins_no_dp'][self.lang])
 
             #DEBUG
-            print("skill3 diff = %d" % diff)
+            print(("skill3 diff = %d" % diff))
 
         self.DPtext.set(str(self._character['DP'] - self.__usedDP))
         self.__buildChangedTree()
@@ -2872,9 +2872,13 @@ class skillcatWin(blankWindow):
     def __takeValsCat(self):
         '''
         This method takes added/modified skills/cats to a dict and treeview
+
         @todo The following has to be implemented:
         -# take care of non standard progression: do not "level" those categories
         -# update total skill bonusses if there are skills
+
+        @bug once you go back to a skill in a cat where you did modifications cannot be sprung back afterwards: possible problem is that self.__changed has not the right keys (line 2907)
+
         '''
         ## @var currcat
         # current category name
@@ -2896,9 +2900,9 @@ class skillcatWin(blankWindow):
         oldtotal = self.__tree.item(self.__curItem)['values'][-1]
         newtotal = self.__calcRanks(currdev, int(newval)) - self.__calcRanks(currdev, int(oldval)) + int(oldtotal)
         #DEBUG
-        print("----------------------------------------------------------------\n\ncurrent cat:%s %d\n" % (currcat, newval))
+        print(("----------------------------------------------------------------\n\ncurrent cat:%s %d\n" % (currcat, newval)))
 
-        if currcat not in self.__changed['cat'].keys() and currcat in self._character['cat'].keys():
+        if currcat not in list(self.__changed['cat'].keys()) and currcat in list(self._character['cat'].keys()):
             diff = newval - oldval
 
         else:
@@ -2907,7 +2911,7 @@ class skillcatWin(blankWindow):
         # calc DP consume:
         dpCosts = self.__tree.item(self.__curItem)['values'][2]
 
-        if type(dpCosts) == type("") or type(dpCosts) == type(u""):
+        if type(dpCosts) == type("") or type(dpCosts) == type(""):
             dpCosts = dpCosts.split(' ')
 
         elif type(dpCosts) == type(1):
@@ -2928,7 +2932,7 @@ class skillcatWin(blankWindow):
         if (self._character['DP'] - self.__usedDP) >= 0:
             self.DPtext.set(str(self._character['DP'] - self.__usedDP))
 
-            if currcat not in self.__changed['cat'].keys() and currcat in self._character['cat'].keys():
+            if currcat not in list(self.__changed['cat'].keys()) and currcat in list(self._character['cat'].keys()):
                 self.__changed['cat'][currcat] = self._character['cat'][currcat]  # here is a logical bug
                 self.__changed['cat'][currcat]['Skill'] = {}
 
@@ -2946,28 +2950,36 @@ class skillcatWin(blankWindow):
     def __finalize(self):
         '''
         This method finalizes and saves all changes into character data
+
+        The changes done before are saved in the file <charname>.lvld
+
         @todo has to be fully implemented:
         - calc new level
+        - open char background window if it is not done.
         - back to main or output module
         '''
         #DEBUG
         print("DEBUG self.__finalize")
         pprint(self.__changed)
+        #DEBUG
+        writeJSON(self.spath + "/" + self._character['player'] + "/" + self._character['name'] + ".changed", self.__changed)
+        #/DEBUG
+
         self._character['DP'] -= self.__usedDP
 
-        for cat in self.__changed["cat"].keys():
+        for cat in list(self.__changed["cat"].keys()):
             self._character['cat'][cat]["rank"] = self.__changed["cat"][cat]["rank"]
             self._character['cat'][cat]["total bonus"] = self.__changed['cat'][cat]["total bonus"]
 
-            for skill in self.__changed["cat"][cat]["Skill"].keys():
-                if skill not in self._character["cat"][cat]["Skill"].keys():
+            for skill in list(self.__changed["cat"][cat]["Skill"].keys()):
+                if skill not in list(self._character["cat"][cat]["Skill"].keys()):
                     self._character["cat"][cat]["Skill"][skill] = self.__changed['cat'][cat]["Skill"][skill]
                 else:
                     self._character["cat"][cat]["Skill"][skill]["rank"] = self.__changed["cat"][cat]["Skill"][skill]["rank"]
                     self._character["cat"][cat]["Skill"][skill]["total bonus"] = self.__changed["cat"][cat]["Skill"][skill]["total bonus"]
 
         self.__save('.lvld')
-        print("DEBUG self.__finalize: \n- charname: {}\n- screenmsg: {}\n------------\n".format(type(self._character['name']), type(screenmesg['file_saved'][self.lang])))
+        print(("DEBUG self.__finalize: \n- charname: {}\n- screenmsg: {}\n------------\n".format(type(self._character['name']), type(screenmesg['file_saved'][self.lang]))))
         self.__info(self._character['name'] + ".lvld\n" + screenmesg['file_saved'][self.lang])
 
 
@@ -2976,7 +2988,7 @@ class skillcatWin(blankWindow):
         This method renames all skill+
         @todo has to be full implemented
         '''
-        print "__renameSkill not done yet."
+        print("__renameSkill not done yet.")
         self.notdoneyet("__renameSkill")
 
 
@@ -2998,7 +3010,7 @@ class skillcatWin(blankWindow):
         @param text the text to display
 
         '''
-        print("{} \nType:{}".format(text, type(text)))
+        print(("{} \nType:{}".format(text, type(text))))
         self.__mesg = messageWindow(self.lang)
         self.__mesg.showinfo(str(text))
 

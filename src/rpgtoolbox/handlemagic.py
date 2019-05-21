@@ -15,10 +15,10 @@ __version__ = "0.1"
 __updated__ = "10.06.2018"
 
 import os
-import logbox as log
-from globaltools import readFile as readNotes
-from globaltools import readCSV
-from rolemaster import DPCostSpells
+from . import logbox as log
+from .globaltools import readFile as readNotes
+from .globaltools import readCSV
+from .rolemaster import DPCostSpells
 
 logger = log.createLogger('magic', 'warning', '1 MB', 1, './' , 'handlemagic.log')
 
@@ -67,7 +67,7 @@ class getSpells(object):
         '''
         spellcat = os.listdir(datadir)
         spellcat.sort()
-        print(os.getcwd())
+        print((os.getcwd()))
 
         for i in range(0, len(spellcat)):
             slcat = spellcat[i].replace('_', ' ')
@@ -121,7 +121,7 @@ class getSpells(object):
                         "Layman":[]
                         }
 
-        for listcat in self.spelllists.keys():
+        for listcat in list(self.spelllists.keys()):
             lcat = listcat.split(' ')
 
             if "Lay" in lcat:
@@ -132,7 +132,7 @@ class getSpells(object):
 
             elif lcat[0] == "Base"  and self.prof not in listcat:
 
-                if lcat[2] in purespellusers.keys():
+                if lcat[2] in list(purespellusers.keys()):
 
                     if purespellusers[lcat[2]] == self.realm:
                         self.spelllists[listcat]["Category"] = "Own Realm Other Base Lists"
@@ -140,7 +140,7 @@ class getSpells(object):
                     else:
                         self.spelllists[listcat]["Category"] = "Other Realm Base Lists"
 
-                elif lcat[2] in hybridspellusers.keys():
+                elif lcat[2] in list(hybridspellusers.keys()):
 
                     for item in hybridspellusers[lcat[2]]:
 
@@ -152,7 +152,7 @@ class getSpells(object):
                         else:
                             self.spelllists[listcat]['Category'] = "Other Realm Base Lists"
 
-                elif lcat[2] in semispellusers.keys():
+                elif lcat[2] in list(semispellusers.keys()):
 
                     if semispellusers[lcat[2]] == self.realm:
                         self.spelllists[listcat]["Category"] = "Own Realm Other Base Lists"

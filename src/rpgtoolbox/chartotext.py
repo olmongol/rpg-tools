@@ -130,7 +130,7 @@ class latexsheets(object):
 
         if page == "main":
             data = {}
-            elements = self.__tmplfiles.values()
+            elements = list(self.__tmplfiles.values())
 
             for i in range(0, len(elements)):
                 elements[i] = elements[i].replace("template", "")[:-4]
@@ -145,7 +145,7 @@ class latexsheets(object):
 
             for item in elements:
 
-                if item in self.character.keys():
+                if item in list(self.character.keys()):
                     data[item] = self.character[item]
 
                 else:
@@ -168,7 +168,7 @@ class latexsheets(object):
             elements = ["RRChan", "RRFear", "RRDisease", "RREss", "RRMent", "RRArc", "RRPoison", "RRC/M", "RRE/M", "RRC/E"]
             for item in elements:
 
-                if item in self.character.keys():
+                if item in list(self.character.keys()):
                     data[item] = self.character[item]
 
                 else:

@@ -84,7 +84,7 @@ def calcTotals(charval = {}):
             profbonus = 0
         specbonus = charval['cat'][cat]['spec bonus']
 
-        if charval['cat'][cat]['Stats'] == [""] or charval['cat'][cat]['Stats'] == u'':
+        if charval['cat'][cat]['Stats'] == [""] or charval['cat'][cat]['Stats'] == '':
             pass
 
         elif type(charval['cat'][cat]['Stats']) != type([]):
@@ -211,7 +211,7 @@ class statManeuver(object):
                 if int(lower) <= roll <= int(upper):
                     result = dict(self.table[row])
 
-        if "roll" in result.keys():
+        if "roll" in list(result.keys()):
             del(result['roll'])
 
         return result

@@ -18,7 +18,7 @@ from rpgtoolbox.lang import *
 
 
 if sys.version_info >= (2, 6) and sys.version_info < (3, 0):
-    from Tkinter import * 
+    from tkinter import * 
 
 elif sys.version_info >= (3, 2):
     from tkinter import *
@@ -116,13 +116,13 @@ class AutoScrollbar(Scrollbar):
         """
         Error handling method: This cannot be used with pack
         """
-        raise TclError, "cannot use pack() with this widget"
+        raise TclError("cannot use pack() with this widget")
     
     def place(self, **kw):
         """
         Error handling method: This cannot be used with place
         """
-        raise TclError, "cannot use place with this widget"
+        raise TclError("cannot use place with this widget")
 
 
 class InfoCanvas(object):
@@ -156,7 +156,7 @@ class InfoCanvas(object):
         elif textvariable != None:
             self.message = textvariable
         else:
-            raise TclError, "No valid text parameter"
+            raise TclError("No valid text parameter")
         
         self.vscrollbar = AutoScrollbar(self.master)
         self.vscrollbar.grid(row = self.row,
@@ -202,10 +202,10 @@ class InfoCanvas(object):
         """
         Error handling method: This cannot be used with pack
         """
-        raise TclError, "cannot use pack() with this widget"
+        raise TclError("cannot use pack() with this widget")
     
     def place(self, **kw):
         """
         Error handling method: This cannot be used with place
         """
-        raise TclError, "cannot use place with this widget"
+        raise TclError("cannot use place with this widget")

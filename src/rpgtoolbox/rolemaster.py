@@ -1034,7 +1034,7 @@ def choseProfession(lang = 'en'):
             else:
                 professions[dummy[0]][key[j]] = dummy[j]
     
-    for prof in professions.keys():
+    for prof in list(professions.keys()):
         dummy = {}
     
         for bonus in professions[prof]['Profession Bonusses']:
@@ -1083,7 +1083,7 @@ def pointsneeded(statvalue = 20):
     \return points needed to assign give stat value 
     '''
     if statvalue < 20:
-        print "stats cannot be less then 20"
+        print("stats cannot be less then 20")
         result = 20
         
     elif 20 <= statvalue <= 90:

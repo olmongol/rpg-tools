@@ -12,7 +12,7 @@
 \email marcus@lederzeug.de
 
 '''
-from window import *
+from .window import *
 from rpgtoolbox.lang import *
 from rpgtoolbox import rolemaster as rm
 import json
@@ -260,7 +260,7 @@ class editSpellList(blankWindow):
               ).grid(column = 5, row = 4)
         self.__slData['type'] = StringVar()
         OptionMenu(self.window,
-                   rm.spellisttypes[self.lang].keys(),
+                   list(rm.spellisttypes[self.lang].keys()),
                    *self.__slData['type'],
                    command = self.__updSLData
                    ).grid(column = 5, row = 5)
@@ -291,7 +291,7 @@ class editSpellList(blankWindow):
 #                               command = self.__getPrio)
 #        self.__optWdg[str(i)].config(width = 50)
 #        self.__optWdg[str(i)].grid(column = 0, row = i, sticky = "W")
-        print "not done yet"
+        print("not done yet")
         
     def __updSLData(self):
         '''

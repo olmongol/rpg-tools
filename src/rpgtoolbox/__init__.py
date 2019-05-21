@@ -1,11 +1,11 @@
-import confbox
-import errbox
-import lang
-import logbox
-import rpgtools
-import globaltools
-import treasure
-import calendar
-import handlemagic
-import epcalc
-import chartotext
+from . import confbox
+from . import errbox
+from . import lang
+from . import logbox
+from . import rpgtools
+from . import globaltools
+from . import treasure
+from . import calendar
+from . import handlemagic
+from . import epcalc
+from . import chartotext

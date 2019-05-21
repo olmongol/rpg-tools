@@ -1,5 +1,5 @@
-import epwins
-import gmtools
-import window
-import winhelper
-import charexport
+from . import epwins
+from . import gmtools
+from . import window
+from . import winhelper
+from . import charexport

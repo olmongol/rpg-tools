@@ -224,8 +224,8 @@ class chkCfg(object):
         \param lang contains the language that is chosen.
         """
         self.lang = lang
-        self._keys_cf = self.cnfparam.keys()
-        self._keys_op = cfgopts.keys()
+        self._keys_cf = list(self.cnfparam.keys())
+        self._keys_op = list(cfgopts.keys())
 
         self._allowed = []
         self._not_allowed = []

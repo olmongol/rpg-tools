@@ -129,7 +129,7 @@ class createTreasureWin(blankWindow):
                 fp = open(outputfile, "w")
                 fp.write(trtext)
                 fp.close()
-                print(screenmesg['file_saved'][self.lang][:-1] + ': ' + outputfile)
+                print((screenmesg['file_saved'][self.lang][:-1] + ': ' + outputfile))
                 
                 # Reset output frame
                 self.__trtext.delete('1.0', END)

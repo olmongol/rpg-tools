@@ -11,7 +11,7 @@
 \version 0.1
 '''
 
-from rpgtools import getLvl as calcLvl
+from .rpgtools import getLvl as calcLvl
 
 __version__ = "0.1"
 __updated__ = "10.06.2018"

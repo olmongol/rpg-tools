@@ -24,7 +24,7 @@ __msg__ = {'ERR_NO_DATA'     : "ERROR: no data to compute :(",
 
 import os
 import os.path
-import logbox as log
+from . import logbox as log
 import csv
 import json
 
@@ -49,7 +49,7 @@ def readFile(path = './', file_name = None, mode = 'r'):
         return(__msg__['ERR_WRONG_MODE'])
 
     if file_name == None:
-        print(__msg__['ERR_NO_FILENAME'])
+        print((__msg__['ERR_NO_FILENAME']))
         logger.error('readFile: %s' % (__msg__['ERR_NO_FILENAME']))
         return(__msg__['ERR_NO_FILENAME'])
 
@@ -92,7 +92,7 @@ def writeFile(path = './', file_name = 'output', data = None, mode = 'w'):
         return __msg__['ERR_WRONG_MODE']
 
     if data == None:
-        print __msg__['ERR_NO_DATA']
+        print(__msg__['ERR_NO_DATA'])
         logger.error('writeFile: %s' % (__msg__['ERR_NO_DATA']))
         return __msg__['ERR_NO_DATA']
 
@@ -110,7 +110,7 @@ def writeFile(path = './', file_name = 'output', data = None, mode = 'w'):
 
     else:
         logger.error('writeFile: %s' % (__msg__['ERR_WRONG_TYPE']))
-        print __msg__['ERR_WRONG_TYPE']
+        print(__msg__['ERR_WRONG_TYPE'])
         return __msg__['ERR_WRONG_TYPE']
 
     if os.name == 'posix' or os.name == 'mac':
@@ -180,7 +180,7 @@ def sortIndex(dic = {}):
     \param dic a dictionary whose index shall be sorted
     \retval index an array with the sorted index of the given dictionary dict
     """
-    index = dic.keys()
+    index = list(dic.keys())
     index.sort()
     return index
 
@@ -263,7 +263,7 @@ def makeKeyList(dic = {}, klist = []):
         if key not in klist:
             klist.append(key)
 
-    __dummy = dic.keys()
+    __dummy = list(dic.keys())
     if __dummy.sort() == klist.sort():
         return klist, True
     else:
@@ -341,7 +341,7 @@ def writeCSV(fname = "test.csv", cont = [{'Spam' : 'Ham'}, {'Spam':'eggs'}]):
     \param fname file name of the CSV
     \param cont list of dictionaries
     '''
-    header = cont[0].keys()
+    header = list(cont[0].keys())
     with open(fname, 'w') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames = header)
 

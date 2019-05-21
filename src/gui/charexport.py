@@ -10,8 +10,8 @@
 \email marcus@lederzeug.de
 \version 1.0
 '''
-from Tkinter import *
-from tkFileDialog import *
+from tkinter import *
+from tkinter.filedialog import *
 from rpgtoolbox.lang import *
 from rpgtoolbox import logbox as log
 from rpgtoolbox.globaltools import *

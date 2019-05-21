@@ -31,7 +31,7 @@ class treasure():
         
         ##\var supported list of supported languages
         # Keys are determined according to lang.py
-        self.supported = supportedrpg.keys()
+        self.supported = list(supportedrpg.keys())
 
         if lang in self.supported:
             self.lang = lang
@@ -102,7 +102,7 @@ class treasure():
                 fp = open(output, "w")
                 fp.write(fcontent)
                 fp.close()
-                print(screenmesg['file_saved'][self.lang][:-2] + ': ' + output)
+                print((screenmesg['file_saved'][self.lang][:-2] + ': ' + output))
                 return(fcontent)
             
             except:
@@ -116,7 +116,7 @@ class treasure():
         \param richness value category (1-5)
         \return array of strings holding the treasured Money
         '''
-        if richness not in range(1, 6):
+        if richness not in list(range(1, 6)):
     
             print("Error: Invalid value category! Set value to default (normal)")
             richness = 3
@@ -225,7 +225,7 @@ class treasure():
         \param richness value category (1-5)
         \return Text listing the magical items in the treasures
         '''
-        if richness not in range(1, 6):
+        if richness not in list(range(1, 6)):
     
             print("Error: Invalid value category! set value to default (3)")
             richness = 3
@@ -538,7 +538,7 @@ class treasure():
         
         roll = dice(100, 3)
         
-        for key1 in itemTypes.keys():
+        for key1 in list(itemTypes.keys()):
             dummy = key1.split('-')
         
             if int(dummy[0]) <= itype <= int(dummy[1]):
@@ -549,13 +549,13 @@ class treasure():
                 
                 fcontent += itemTypes[key1][self.lang]
             
-                if  item in loadedSpells.keys():
+                if  item in list(loadedSpells.keys()):
                     fcontent += " (" + str(dice(loadedSpells[item], 1)) + "/" + str(loadedSpells[item]) + ")"
                 
                 del(dummy)    
                 break
             
-        for key2 in spellRealms.keys():
+        for key2 in list(spellRealms.keys()):
             dummy = key2.split('-') 
             
             if int(dummy[0]) <= roll[0] <= int(dummy[1]):
@@ -564,7 +564,7 @@ class treasure():
                 del(dummy)
                 break
             
-        for key3 in spellLists.keys():
+        for key3 in list(spellLists.keys()):
             dummy = key3.split('-')
             
             if int(dummy[0]) <= roll[1] <= int(dummy[1]):
@@ -572,7 +572,7 @@ class treasure():
                 del(dummy)
                 break
             
-        for key4 in spellLvl.keys():
+        for key4 in list(spellLvl.keys()):
             dummy = key4.split('-')
             
             if int(dummy[0]) <= roll[2] <= int(dummy[1]):
