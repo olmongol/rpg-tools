@@ -121,6 +121,8 @@ defval = {'lang' : 'en',
 # holds users home directory
 home = os.path.expanduser('~')
 
+
+
 class chkCfg(object):
     '''
     These Objects reads out a given config file and store the content of the
@@ -141,6 +143,7 @@ class chkCfg(object):
                        structure like '# this is a comment!'
         '''
         self.__cfg2dic(path, filename, lang, exp, comment)
+
 
     def __cfg2dic(self, path = defaultconfigpath, filename = defaultconfigfile, lang = 'en', \
                   exp = '=', comment = '#', logpath = None):
@@ -268,7 +271,8 @@ class chkCfg(object):
 
         else:
             self.result += errmsg['fine_cfg'][self.lang]
-            
+
+
     def loadCnf(self, path = defaultconfigpath, filename = defaultconfigfile):
         """
         This method loads the config data from default config file.
@@ -276,23 +280,23 @@ class chkCfg(object):
         \param filename name of config file
         \return content of the given config file
         """
-        
-        
+
         self.fp = open(path + filename, 'r')
         self.cont = self.fp.readlines()
         self.fp.close()
-        
+
         self.content = {}
         for i in range(0, len(self.cont)):
             dummy = self.cont[i].split("=")
             dummy[0] = dummy[0].strip(' ')
             dummy[1] = dummy[1].strip(' \n')
-            
+
             if dummy[0] != "":
                 self.content[dummy[0]] = dummy[1]
-                
+
         return self.content
-        
+
+
     def saveCnf(self, path = defaultconfigpath, filename = defaultconfigfile, content = "Error 40"):
         """
         This method writes config data into a file
