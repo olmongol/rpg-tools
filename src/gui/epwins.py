@@ -7,7 +7,7 @@
 \brief Windows classes for epcalc gui
 
 This holds window classes for generating and updating (level ups) characters.
-\date (C) 2016-2018
+\date (C) 2016-2019
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
 \version 1.0
@@ -15,6 +15,7 @@ This holds window classes for generating and updating (level ups) characters.
 import random
 import os
 import sys
+import json
 from tkinter import *
 from PIL.ImageTk import *
 from tkinter.filedialog import *
@@ -32,15 +33,15 @@ from gui.winhelper import AutoScrollbar
 from gui.winhelper import InfoCanvas
 from gui.window import *
 from gui.gmtools import *
-import json
 from pprint import pprint  # for debugging purposes only
+
 __author__ = "Marcus Schwamberger"
-__copyright__ = "(C) 2015-2018 " + __author__
+__copyright__ = "(C) 2015-2019 " + __author__
 __email__ = "marcus@lederzeug.de"
 __version__ = "1.0"
 __license__ = "GNU V3.0"
 __me__ = "A RPG tool package for Python 2.7"
-__updated__ = "30.06.2018"
+__updated__ = "30.06.2019"
 
 logger = log.createLogger('window', 'debug', '1 MB', 1, './')
 
@@ -2373,7 +2374,7 @@ class skillcatWin(blankWindow):
         @todo this has to be fully implemented
             - Menu save functionality will save the current work state if not finalized.
             - force a name modify of skills with +
-              -# add an ADD/RENAME button
+              -# add function to RENAME button
               -# finalize button does not work as long as there are skills+
             - possibility of adding skill to category (see above)
             - displaying added skills and modified cats/skills in a treeview at
@@ -2441,7 +2442,10 @@ class skillcatWin(blankWindow):
     def __buildChangedTree(self):
         '''
         Adding all Changed cat/skill entries to the self.__chgtree
-        @todo It has to be fully implemented
+        @todo the following has to be done:
+            -# selected items have to be taken to the entry fields
+            -# if changes have been taken back add the DP again
+        @bug slider does not work
         '''
         from rpgtoolbox.rolemaster import exceptions
 
@@ -2457,6 +2461,7 @@ class skillcatWin(blankWindow):
         ckeys = list(self.__changed['cat'].keys())
         ckeys.sort()
         dummy = "--"
+
         for cat in ckeys:
 
             if cat != None:
@@ -2493,39 +2498,45 @@ class skillcatWin(blankWindow):
                                                 tag = "category"
                                                    )
                 if 'Skill' in list(self.__changed['cat'][cat].keys()):
-
+                    # somewhere here seems to be a bug with spelllist (AttributeError: 'list' object has no attribute 'keys')
                     for skill in list(self.__changed['cat'][cat]['Skill'].keys()):
+                        if skill != "Progression":
+                            if 'Progression' in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
+                                progression = self.__changed['cat'][cat]['Skill'][skill]['Progression']
+    #                        if 'Progression' in list(self.__changed['cat'][cat].keys()):
+    #                            progression = self.__changed['cat'][cat]['Progression']
 
-                        if 'Progression' in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
-                            progression = self.__changed['cat'][cat]['Skill'][skill]['Progression']
+                            if self.__rmlabels['en']['costs'] in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
+                                costs = self.__changed['cat'][cat]['Skill'][skill][self.__rmlabels['en']['costs']]
 
-                        if self.__rmlabels['en']['costs'] in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
-                            costs = self.__changed['cat'][cat]['Skill'][skill][self.__rmlabels['en']['costs']]
+                            if 'rank' in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
+                                srank = self.__changed['cat'][cat]['Skill'][skill]['rank']
 
-                        if 'rank' in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
-                            srank = self.__changed['cat'][cat]['Skill'][skill]['rank']
-                        else:
-                            srank = -1
+                            else:
+                                srank = -1
 
-                        if 'total bonus' in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
-                            stotal = self.__changed['cat'][cat]['Skill'][skill]['total bonus']
-                        else:
-                            stotal = -1
+                            if 'total bonus' in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
+                                stotal = self.__changed['cat'][cat]['Skill'][skill]['total bonus']
+                            else:
+                                stotal = -1
 
-                        self.__chgtree.insert(catID[cat],
-                                              'end',
-                                              text = skill,
-                                              values = (skill,
-                                                       progression,
-                                                       costs,
-                                                       srank,
-                                                       stotal
-                                                       ),
-                                              tag = cat
-                                              )
+                            self.__chgtree.insert(catID[cat],
+                                                  'end',
+                                                  text = skill,
+                                                  values = (skill,
+                                                           progression,
+                                                           costs,
+                                                           srank,
+                                                           stotal
+                                                           ),
+                                                  tag = cat
+                                                  )
                 catNo += 1
         self.__chgtree.tag_configure('category', background = 'lightblue')
         self.__chgtree.bind('<ButtonRelease-1>', self.__selectChangedItem)
+        #DEBUG
+        print("--> 2534, self.__changed")
+        pprint(self.__changed)
 
 
     def __selectTreeItem(self, event):
@@ -2600,7 +2611,15 @@ class skillcatWin(blankWindow):
                 self.skillrank = self.__tree.item(self.__curItem)['values'][-2]
 
         #DEBUG
-        print((self.__tree.item(self.__curItem)))
+        print(self.__tree.item(self.__curItem))
+
+        if self.__tree.item(self.__curItem)['tags'] != "category":
+            linkedcat = ""
+            for elem in self.__tree.item(self.__curItem)['tags']:
+                linkedcat += elem + " "
+            self.linkedcat = linkedcat.strip(" ")
+            #DEBUG
+            print(self.linkedcat)
 
 
     def __selectChangedItem(self, event):
@@ -2609,7 +2628,7 @@ class skillcatWin(blankWindow):
         @todo It has to be fully implemented
         '''
         pass
-#        self.notdoneyet("__selectChangedItem")
+#        self.notdoneyet("__selectChangedItem: not implemented yet")
 
 #    def __insertChangedCT(self, event):
 #        '''
@@ -2773,6 +2792,7 @@ class skillcatWin(blankWindow):
 
                     #DEBUG
                     print(("diffcost: %d" % diffcost))
+
                     if (self._character['DP'] - (self.__usedDP + diffcost)) >= 0:
                         self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
                         self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
@@ -2836,6 +2856,14 @@ class skillcatWin(blankWindow):
 
                 if self.__changed['cat'][cat]['Skill'][skill]['rank'] > newrank:
                     diff = newrank - self.__changed['cat'][cat]['Skill'][skill]['rank']
+                    #NEW
+                if (self._character['DP'] - (self.__usedDP + diffcost)) >= 0:
+                    self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
+                    self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
+                    self.__usedDP += diffcost
+                else:
+                    messg = messageWindow()
+                    messg.showinfo(screenmesg['epwins_no_dp'][self.lang])
 
             else:
                 self.__changed['cat'][cat]['Skill'] = self._character['cat'][cat]['Skill']
@@ -2863,7 +2891,8 @@ class skillcatWin(blankWindow):
                     messg.showinfo(screenmesg['epwins_no_dp'][self.lang])
 
             #DEBUG
-            print(("skill3 diff = %d" % diff))
+            print(("2280 -skill3 diff = %d" % diff))
+            pprint(self.__changed)
 
         self.DPtext.set(str(self._character['DP'] - self.__usedDP))
         self.__buildChangedTree()
@@ -2902,7 +2931,7 @@ class skillcatWin(blankWindow):
         #DEBUG
         print(("----------------------------------------------------------------\n\ncurrent cat:%s %d\n" % (currcat, newval)))
 
-        if currcat not in list(self.__changed['cat'].keys()) and currcat in list(self._character['cat'].keys()):
+        if currcat not in list(self.__changed['cat'].keys()) and currcat in list(self._character['cat'].keys()):  # somewhere here lies a bug
             diff = newval - oldval
 
         else:
@@ -2933,8 +2962,14 @@ class skillcatWin(blankWindow):
             self.DPtext.set(str(self._character['DP'] - self.__usedDP))
 
             if currcat not in list(self.__changed['cat'].keys()) and currcat in list(self._character['cat'].keys()):
-                self.__changed['cat'][currcat] = self._character['cat'][currcat]  # here is a logical bug
-                self.__changed['cat'][currcat]['Skill'] = {}
+                self.__changed['cat'][currcat] = self._character['cat'][currcat]
+                # here might be a logical bug
+
+                if "Skill" in list(self._character['cat'][currcat].keys()):
+                    self.__changed['cat'][currcat]['Skill'] = self._character['cat'][currcat]['Skill']
+
+                else:
+                    self.__changed['cat'][currcat]['Skill'] = {}
 
             self.__changed['cat'][currcat]['rank'] = newval
             self.__changed['cat'][currcat]['total bonus'] = newtotal
@@ -2954,6 +2989,7 @@ class skillcatWin(blankWindow):
         The changes done before are saved in the file <charname>.lvld
 
         @todo has to be fully implemented:
+        - add remaning DP if any
         - calc new level
         - open char background window if it is not done.
         - back to main or output module
