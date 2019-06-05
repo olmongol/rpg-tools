@@ -18,14 +18,14 @@ Currently supported languages are:
 
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
-\date (c) 2015-2018
-\version 0.5
+\date (c) 2015-2019
+\version 1.0
 \license GNU V3.0
 
 \todo clean up the code!!!
 '''
-__version__ = "0.5"
-__updated__ = "2018-08-18"
+__version__ = "1.0"
+__updated__ = "05.06.2019"
 ## \var supportedrpg
 # Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
@@ -68,6 +68,58 @@ screenmesg = {'welcome'     : {'de' : "Willkommen bei den RPG-Tools",
                                        " than zero."
                                },
               }
+
+## \var charattribs
+# This holds speciffic character attributes/parameter.
+charattribs = { 'sex' : {'de': 'Geschlecht',
+                         'en': 'Sex'
+                        },
+                'skin' : {'de': "Haut",
+                          'en': 'Skin',
+                         },
+                'eyes' : {'de': "Augen",
+                          'en': "Eyes"
+                          },
+                'height': {'de': u'Größe',
+                           'en': 'Height'
+                           },
+                'weight': {'de': 'Gewicht',
+                           'en': 'Weight'
+                           },
+                'app_age': {'de': 'Scheinbares Alter',
+                            'en': 'Apparent Age'
+                            },
+                'act_age': {'de': 'Echtes Alter',
+                            'en': 'Actual Age'
+                            },
+                'parents': {'de': "Eltern",
+                            'en': 'Parents'
+                            },
+                'siblings': {'de': 'Geschwister',
+                             'en': 'Siblings'
+                             },
+                'partner': {'de': 'PartnerIn',
+                            're': 'Partner'
+                            },
+                'kids': {'de': 'Kinder',
+                         'en': 'Children'
+                         },
+                'deity': {'de': 'Gottheit',
+                          'en': 'Deity'
+                          },
+                'pers' :{'de': u'Persönlichkeit',
+                         'en': 'Personality'
+                         },
+                'motiv': {'de': 'Motivation',
+                          'en': 'Motivation'
+                          },
+                'home': {'de': 'Heimatort',
+                         'en': 'Hometown'
+                         },
+                'carr_weight': {'de': 'getragenes Gewicht',
+                                'en': 'carried weight'
+                                }
+: {'de'}              }
 
 ## \var txtbutton
 #This holds the texts written on buttons.
@@ -185,7 +237,7 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                           'quit'  : 'Quit',
                           'export' : 'Export',
                           'new_char' : "New character",
-                          'new_grp' : "New characer party"
+                          'new_grp' : "New character party"
                           },
                     },
            'opts'  :{'de' : {'lang' : 'Einstellungen',
@@ -211,7 +263,9 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                               'ed_indiv' : 'Ideen-EPs',
                               'ed_calc'  : 'Zusammenrechnen',
                               'ed_sim'   : 'Kampfsimulation (EP)',
-                              'ed_equip' : 'Ausr\xc3\x9cstung verwalten'
+                              'ed_equip' : 'Ausr\xc3\x9cstung verwalten',
+                              'add_pic' : u'Charakterbild hinzufügen',
+                              'add_story': 'Hintergrundgeschichte schreiben/editieren'
                               },
                       'en'  :{'ed_char'  : 'Edit/improve Character',
                               'ed_grp'   : 'Edit Group',
@@ -220,7 +274,9 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                               'ed_indiv' : 'EPs for ideas',
                               'ed_calc'  : 'Calculate all',
                               'ed_sim'   : 'EPs for fight simulation',
-                              'ed_equip' : 'Edit equipment'
+                              'ed_equip' : 'Edit equipment',
+                              'add_pic' : "add character picture",
+                              'add_story': "add/edit background story"
                                },
 
                       },
@@ -268,7 +324,15 @@ txtwin = {'all_files' : {'de' : ("alle Dateien", '.*'),
                          },
           'spell_files':{'de': ('Spruchlisten', '.csv'),
                          'en': ('Spell Lists', '.csv')
-                         }
+                         },
+          'jpg_files' : {'de': ('JPG Bilder', 'jpg'),
+                         'en': ('JPG Pics', '.jpg')
+                         },
+          'jpeg_files' : {'de': ('JPEG Bilder', 'jpeg'),
+                         'en': ('JPEG Pics', '.jpeg')
+                         },
+          'png_files' : {'de': ('PNG Bilder', '.png'),
+                         'en': ('PNG Pics', '.png')}
           }
 
 ## \var processing
@@ -298,6 +362,9 @@ wintitle = {'opt_lang' : {'de' : 'Spracheinstellungen',
             'edit'     : {'de' : 'Charakter-Editor',
                           'en' : 'Character Editor',
                           },
+            'background': {'de' : 'Charakter Hintergrund-Editor',
+                          'en' : 'Character Background Editor'
+                        },
             'backpack' : {'de' : 'Rucksack',
                           'en' : 'Backpack'
                           },
@@ -316,7 +383,7 @@ wintitle = {'opt_lang' : {'de' : 'Spracheinstellungen',
             'rm_create' : {'de' : "RM Charaktergenerierung",
                            'en' : 'RM Character Builder'
                            },
-            'rm_spells' : {'de' : 'RM Zauberlisteneditor',
+            'rm_spells' : {'de' : 'RM Spruchlisteneditor',
                            'en' : 'RM Spell List Editor'
                            }
             }

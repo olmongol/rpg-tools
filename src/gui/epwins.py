@@ -35,13 +35,13 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
+__updated__ = "05.06.2019"
 __author__ = "Marcus Schwamberger"
-__copyright__ = "(C) 2015-2019 " + __author__
+__copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
 __version__ = "1.0"
 __license__ = "GNU V3.0"
-__me__ = "A RPG tool package for Python 2.7"
-__updated__ = "30.06.2019"
+__me__ = "A RPG tool package for Python 3.6"
 
 logger = log.createLogger('window', 'debug', '1 MB', 1, './')
 
@@ -177,7 +177,6 @@ class MainWindow(blankWindow):
     def __addEditMenu(self):
         '''
         This method adds an edit menu to the menu bar
-        @todo add all entries.
         '''
         self.edtmenu = Menu(master = self.menu)
         self.menu.add_cascade(label = txtmenu['menu_edit'][self.lang],
@@ -391,7 +390,6 @@ class confWindow(blankWindow):
         buttons of supported languages dynamically.
         @todo switch language chooser from radio buttons to pull-down
               menu
-        @todo Switch from pack() to .grid()
         """
         self.sto_path = StringVar()
         self.log_path = StringVar()
@@ -2010,7 +2008,6 @@ class skillcatWin(blankWindow):
     - an input widget to enter rank level ups
     - force to change names of skill+
     - a text widget to show remaining developing points
-    - a button to submit changes/refresh display text widgets
     - a treeview for changed categories/skills
       - selecting items here can make changes undone or change them again
       - not finalized changes have to be stored
@@ -2116,10 +2113,6 @@ class skillcatWin(blankWindow):
             3. horizontal (auto)scrollbar linked to the treeview widget
         - Labels for specific category/skill values
 
-        @todo The following has to be implemented:
-        - add Label Widgets for
-          - DPs used per skill/cat
-        - insert a second treeframe for autoscrollbar
         @bug The following bugs have to be fixed:
              -# the max number of lvl ups for categories does not work properly with its' spinbox widget.
              -# if switched to a skill of another category the rank change would not be displayed correctly
@@ -2338,13 +2331,14 @@ class skillcatWin(blankWindow):
                                 pady = 2
                                 )
         self.DPcost.set("---")
+        # add a 'take over changes' button (submit)
         Button(self.window,
                text = txtbutton['but_take'][self.lang],
                command = self.__takeValsCat).grid(column = 5,
                                                 row = 4,
                                                 sticky = "NW"
                                                 )
-        # add a 'take over changes' button
+        # add a 'take over changes' button (submit)
         Button(self.window,
                text = txtbutton['but_take'][self.lang],
                command = self.__takeValsSkill).grid(column = 5,
@@ -2358,14 +2352,13 @@ class skillcatWin(blankWindow):
                                              row = 4,
                                              sticky = "NW"
                                              )
-
+        # add a 'rename' button for skills.
         Button(self.window,
                text = txtbutton['but_ren'][self.lang],
                command = self.__renameSkill).grid(column = 6,
                                                 row = 5,
                                                 sticky = "NW"
                                                 )
-        # @todo here it goes on XXXX
 
 
     def __buildTree(self):
@@ -2374,11 +2367,13 @@ class skillcatWin(blankWindow):
         @todo this has to be fully implemented
             - Menu save functionality will save the current work state if not finalized.
             - force a name modify of skills with +
-              -# add function to RENAME button
-              -# finalize button does not work as long as there are skills+
-            - possibility of adding skill to category (see above)
-            - displaying added skills and modified cats/skills in a treeview at
-              the bottom. If not finalized clicking on items in that treeview will
+              -# add function to RENAME button:
+                  -# rename skill
+                  -# add new skill
+              -# finalize button:
+                  -# shall not work as long as there are skills+
+                  -# if it is not a standard level up it should open a 'background information' window
+            - If not finalized clicking on items in edit skill/cat treeview will
               cause an editing option. That means:
               -# create a JSON structure with modified but not finalized cats/skills.
               -# put it into the treeview and update it after every change
@@ -2387,7 +2382,6 @@ class skillcatWin(blankWindow):
               -# update the character structure with it if finalized.
             - finalize button:
                 -# finalize level up
-                -# stores character state
                 -# if no level up possible and BGOs available goto next character
                    creation window
                 -# if no level up possible and no BGOs close window and return to
@@ -2534,9 +2528,9 @@ class skillcatWin(blankWindow):
                 catNo += 1
         self.__chgtree.tag_configure('category', background = 'lightblue')
         self.__chgtree.bind('<ButtonRelease-1>', self.__selectChangedItem)
-        #DEBUG
-        print("--> 2534, self.__changed")
-        pprint(self.__changed)
+#        #DEBUG
+#        print("--> 2534, self.__changed")
+#        pprint(self.__changed)
 
 
     def __selectTreeItem(self, event):
@@ -2661,7 +2655,8 @@ class skillcatWin(blankWindow):
 
     def __calcDP(self):
         '''
-        This calculates the number of Development Points (DP) of a character.
+        This calculates the number of Development Points (DP) of a character per level up.
+        In case of remaining DPs of the last level up this will be added too.
         '''
         attrlist = ['Ag', 'Co', 'Me', 'Re', 'SD']
         if 'DP' not in list(self._character.keys()):
@@ -2670,11 +2665,12 @@ class skillcatWin(blankWindow):
         if 'lvlup' in list(self._character.keys()):
 
             if self._character['lvlup'] != 0:
+                devpoints = 0
 
                 for attr in attrlist:
-                    self._character['DP'] += self._character[attr]['temp']
+                    devpoints += self._character[attr]['temp']
 
-                self._character['DP'] = self._character['DP'] / 5
+                self._character['DP'] += int(devpoints / 5)
 
         if self._character['Hobby Ranks'] > 0:
             self._character['DP'] += self._character['Hobby Ranks']
@@ -2689,7 +2685,6 @@ class skillcatWin(blankWindow):
 
         @param progression A list containing the progression values as int
         @param rank rank value for which the bonus has to be calculated
-        @todo has to be implemented
 
         '''
         if rank == 0:
@@ -2907,11 +2902,15 @@ class skillcatWin(blankWindow):
         -# update total skill bonusses if there are skills
 
         @bug once you go back to a skill in a cat where you did modifications cannot be sprung back afterwards: possible problem is that self.__changed has not the right keys (line 2907)
+        @bug if submit button is pressed sometimes skill is used instead of cat
 
         '''
         ## @var currcat
         # current category name
-        currcat = self.__tree.item(self.__curItem)['text']
+        currcat = self.__tree.item(self.__curItem)['text']  #here seems to be a bug: currcat may become a current skill: it occurres if skill is choosen but cat-submit was clicked
+        #DEBUG
+        print("Debug epwins 2916: currcat: {}".format(currcat))
+        print(self.__tree.item(self.__curItem))
         ## @var olval
         # old catefory's rank value
         oldval = self.__tree.item(self.__curItem)['values'][3]
@@ -2991,15 +2990,15 @@ class skillcatWin(blankWindow):
         @todo has to be fully implemented:
         - add remaning DP if any
         - calc new level
-        - open char background window if it is not done.
+        - open char background window if it is not done. This has to be found out!
         - back to main or output module
         '''
         #DEBUG
-        print("DEBUG self.__finalize")
-        pprint(self.__changed)
-        #DEBUG
-        writeJSON(self.spath + "/" + self._character['player'] + "/" + self._character['name'] + ".changed", self.__changed)
-        #/DEBUG
+#        print("DEBUG self.__finalize")
+#        pprint(self.__changed)
+#        #DEBUG
+#        writeJSON(self.spath + "/" + self._character['player'] + "/" + self._character['name'] + ".changed", self.__changed)
+#        #/DEBUG
 
         self._character['DP'] -= self.__usedDP
 
@@ -3008,14 +3007,21 @@ class skillcatWin(blankWindow):
             self._character['cat'][cat]["total bonus"] = self.__changed['cat'][cat]["total bonus"]
 
             for skill in list(self.__changed["cat"][cat]["Skill"].keys()):
-                if skill not in list(self._character["cat"][cat]["Skill"].keys()):
-                    self._character["cat"][cat]["Skill"][skill] = self.__changed['cat'][cat]["Skill"][skill]
-                else:
-                    self._character["cat"][cat]["Skill"][skill]["rank"] = self.__changed["cat"][cat]["Skill"][skill]["rank"]
-                    self._character["cat"][cat]["Skill"][skill]["total bonus"] = self.__changed["cat"][cat]["Skill"][skill]["total bonus"]
+                if skill != "Progression":
+                    if skill not in list(self._character["cat"][cat]["Skill"].keys()):
+                        self._character["cat"][cat]["Skill"][skill] = self.__changed['cat'][cat]["Skill"][skill]
+                    else:
+                        #DEBUG
+                        print("-->3020, __finalize")
+                        print(type(self.__changed["cat"][cat]["Skill"][skill]), self.__changed["cat"][cat]["Skill"][skill])
+                        self._character["cat"][cat]["Skill"][skill]["rank"] = self.__changed["cat"][cat]["Skill"][skill]["rank"]
+                        self._character["cat"][cat]["Skill"][skill]["total bonus"] = self.__changed["cat"][cat]["Skill"][skill]["total bonus"]
 
         self.__save('.lvld')
-        print(("DEBUG self.__finalize: \n- charname: {}\n- screenmsg: {}\n------------\n".format(type(self._character['name']), type(screenmesg['file_saved'][self.lang]))))
+        #DEBUG
+        print(("-->3024,epwins.DEBUG self.__finalize: \n- charname: {}\n- DP {}\n- screenmsg: {}\n------------\n".format(self._character['name'],
+                                                                                                                         self._character['DP'],
+                                                                                                                         screenmesg['file_saved'][self.lang])))
         self.__info(self._character['name'] + ".lvld\n" + screenmesg['file_saved'][self.lang])
 
 
@@ -3057,3 +3063,205 @@ class skillcatWin(blankWindow):
         @todo has to be implemented
         '''
         self.notdoneyet("helpAWin")
+
+
+
+class charInfo(blankWindow):
+    """
+    This is the class for the window with all the background information such as hair color, height etc.
+    """
+
+
+    def __init__(self, lang = 'en', storepath = "./data", char = None):
+        """
+        Class constructor
+        \param lang The chosen language for window's and button's
+                    texts. At the moment, only English (en, default
+                    value) and German (de) are supported.
+        \param title title of the window
+        \param storepath path where things like options have to be stored
+        \param char Character as JSON/dictionary
+        """
+
+        if storepath == None:
+            self.spath = os.path.expanduser('~') + "/data"
+            logger.debug('Set storepath to %s' % (storepath)) + "/data"
+
+        else:
+            self.spath = storepath
+            logger.debug('charInfo: storepath set to %s' %
+                         (storepath))
+        self.cmask = [txtwin['json_files'][self.lang],
+                     txtwin['grp_files'][self.lang],
+                     txtwin['all_files'][self.lang]
+                     ]
+        self.mask = [txtwin['jpg_files'][self.lang],
+                     txtwin['jpeg_files'][self.lang],
+                     txtwin['png_files'][self.lang]
+                     ]
+        self.lang = lang
+        self._character = dict(calcTotals(char))
+#        self.__save()
+        self.mypath = storepath
+
+        if "piclink" in list(self._character.keys()):
+            self.__charpic = self._chatacter["piclink"]
+        else:
+            self.__charpic = "./data/default/pics/default/default.jpg"
+
+        blankWindow.__init__(self, self.lang)
+        self.window.title("%s - %s (%s)" % (wintitle['background'][self.lang],
+                                            self._character['name'],
+                                            self._character['prof']
+                                            )
+                          )
+        self.filemenu = Menu(master = self.menu)
+        self.__addFileMenu()
+        self.__addHelpMenu()
+        self.__buildWin()
+        self.window.mainloop()
+
+
+    def __addFileMenu(self):
+        '''
+        Adds a file menu to menu bar.
+        '''
+        self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
+                              menu = self.filemenu)
+        self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
+                                  command = self.notdoneyet)
+        self.filemenu.add_separator()
+        self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
+                                  command = self.__closewin)
+
+
+    def __addEditMenu(self):
+        '''
+        This adds an edit menu to the menu bar.
+        '''
+        self.edtmenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['menu_edit'][self.lang],
+                              menu = self.edtmenu)
+        self.edtmenu.add_command(label = submenu['edit'][self.lang]['add_pic'],
+                                 command = self.__addPic)
+        self.edtmenu.add_command(label = submenu['edit'][self.lang]['add_story'],
+                                 command = self.__addStory)
+
+
+    def __addHelpMenu(self):
+        '''
+        Adds a help menu entry to menu bar.
+        '''
+        self.helpmenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['help'][self.lang],
+                              menu = self.helpmenu)
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['win'],
+                                  command = self.__helpAWin)
+        self.helpmenu.add_separator()
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
+                                  command = self._helpAbout)
+
+
+    def __closewin(self):
+        '''
+        A method to destroy the current window and go back to MainWindow.
+        '''
+        self.window.destroy()
+        self.window = MainWindow(lang = self.lang, char = self._character)
+
+
+    def __openFile(self):
+        """
+        This method opens a dialogue window (Tk) for opening files.
+        The content of the opened file will be saved in \e file
+        \e content as an array.
+        """
+        self.__filein = askopenfilename(filetypes = self.cmask,
+                                        initialdir = self.mypath)
+        if self.__filein != "":
+            with open(self.__filein, 'r') as filecontent:
+
+                if self.__filein[-4:].lower() == "json":
+                    self.char = json.load(filecontent)
+
+                elif self.__filein[-3:].lower == "grp":
+                    self.grp = json.load(filecontent)
+
+                else:
+                    msg = messageWindow()
+                    msg.showinfo(errmsg['wrong_type'][self.lang])
+                    logger.warn(errmsg['wrong_type'][self.lang])
+                    pass
+
+
+    def __buildWin(self):
+        '''
+        Builds the window's elements.
+        - a frame containing:
+            1. treeview widget
+            2. vertical (auto)scrollbar linked to the treeview widget
+            3. horizontal (auto)scrollbar linked to the treeview widget
+        - Labels for specific category/skill values
+
+        @bug The following bugs have to be fixed:
+             -# the max number of lvl ups for categories does not work properly with its' spinbox widget.
+             -# if switched to a skill of another category the rank change would not be displayed correctly
+        '''
+        from rpgtoolbox.rolemaster import labels as rmlabels
+
+#        self.__winframe = Frame(width = 900, heigh=900)
+        # row 0; column 0 -3
+        Label(master = self.window,
+              width = 15,
+              text = self._character["player"]
+              ).grid(column = 0, row = 0)
+
+        Label(master = self.window,
+              width = 30,
+              text = self._character['name']
+              ).grid(column = 1, row = 0)
+
+        Label(master = self.window,
+              width = 20,
+              text = self._character['prof']
+              ).grid(column = 2, row = 0)
+
+        Label(master = self.window,
+              width = 20,
+              text = self._character['race']
+              ).grid(column = 3, row = 0)
+
+        # row 1 column 0-1
+        Label(master = self.window,
+              width = 15,
+              text = charattribs['sex'][self.lang] + ":"
+              ).grid(column = 0,
+                     row = 1)
+
+        self.cpic = PhotoImage(Image.open(self.__charpic))
+        self.picLabel = Label(master = self.windows,
+                              image = self.cpic,
+                              )
+        self.picLabel.grid(column = 2,
+                           row = 1,
+                           columnspan = 2,
+                           rowspan = 5,
+                           sticky = NEWS,
+                           padx = 5,
+                           pady = 5)
+
+
+    def __addPic(self):
+        '''
+        This method adds the link to a character's picture (jpg/png)
+        @todo update picture in window
+        '''
+        self.__charpic = askopenfilename(filetypes = self.cmask,
+                                        initialdir = self.mypath)
+        self._character['piclink'] = self.__charpic
+
+        self.notdoneyet("3224- charInfo.addpic: \n not done yet")
+
+
+    def __addStory(self):
+        self.notdoneyet("3224- charInfo.addStory: \n not done yet")
