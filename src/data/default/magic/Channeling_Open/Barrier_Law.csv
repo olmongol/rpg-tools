@@ -1,0 +1,2 @@
+Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Light Wall I,20‘ x 20‘ x 1“,C,50‘,E,"Creates a wall a black, insubstantial wall up to  20‘ x 20‘ x 1“ that light cannot pass into ort through (i.e., it does not hinder movement, but it blocks vision)."

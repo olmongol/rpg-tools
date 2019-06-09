@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 '''
@@ -17,7 +17,8 @@ import os
 import sys
 import json
 from tkinter import *
-from PIL.ImageTk import *
+#from PIL.ImageTk import *
+from PIL import Image, ImageTk
 from tkinter.filedialog import *
 from tkinter.ttk import *
 from rpgtoolbox.lang import *
@@ -35,7 +36,7 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "05.06.2019"
+__updated__ = "09.06.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -3022,7 +3023,9 @@ class skillcatWin(blankWindow):
         print(("-->3024,epwins.DEBUG self.__finalize: \n- charname: {}\n- DP {}\n- screenmsg: {}\n------------\n".format(self._character['name'],
                                                                                                                          self._character['DP'],
                                                                                                                          screenmesg['file_saved'][self.lang])))
-        self.__info(self._character['name'] + ".lvld\n" + screenmesg['file_saved'][self.lang])
+#        self.__info(self._character['name'] + ".lvld\n" + screenmesg['file_saved'][self.lang])
+        self.window.destroy()
+        self.window2 = charInfo(self.lang, self.spath, self._character)
 
 
     def __renameSkill(self):
@@ -3052,7 +3055,6 @@ class skillcatWin(blankWindow):
         @param text the text to display
 
         '''
-        print(("{} \nType:{}".format(text, type(text))))
         self.__mesg = messageWindow(self.lang)
         self.__mesg.showinfo(str(text))
 
@@ -3091,24 +3093,28 @@ class charInfo(blankWindow):
             self.spath = storepath
             logger.debug('charInfo: storepath set to %s' %
                          (storepath))
+
+        self.lang = lang
+        self._character = dict(calcTotals(char))
+#        self.__save()
+        self.mypath = storepath + "default/pics"
         self.cmask = [txtwin['json_files'][self.lang],
                      txtwin['grp_files'][self.lang],
                      txtwin['all_files'][self.lang]
                      ]
-        self.mask = [txtwin['jpg_files'][self.lang],
+        self.pmask = [txtwin['jpg_files'][self.lang],
                      txtwin['jpeg_files'][self.lang],
                      txtwin['png_files'][self.lang]
                      ]
-        self.lang = lang
-        self._character = dict(calcTotals(char))
-#        self.__save()
-        self.mypath = storepath
 
         if "piclink" in list(self._character.keys()):
-            self.__charpic = self._chatacter["piclink"]
+            self.charpic = self._character["piclink"]
         else:
-            self.__charpic = "./data/default/pics/default/default.jpg"
-
+            self.charpic = "./data/default/pics/default.jpg"
+        #DEBUG
+        cwd = os.getcwd()
+        print(cwd)
+        #
         blankWindow.__init__(self, self.lang)
         self.window.title("%s - %s (%s)" % (wintitle['background'][self.lang],
                                             self._character['name'],
@@ -3156,7 +3162,7 @@ class charInfo(blankWindow):
         self.menu.add_cascade(label = txtmenu['help'][self.lang],
                               menu = self.helpmenu)
         self.helpmenu.add_command(label = submenu['help'][self.lang]['win'],
-                                  command = self.__helpAWin)
+                                  command = self.__helpWin)
         self.helpmenu.add_separator()
         self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
                                   command = self._helpAbout)
@@ -3207,9 +3213,12 @@ class charInfo(blankWindow):
              -# the max number of lvl ups for categories does not work properly with its' spinbox widget.
              -# if switched to a skill of another category the rank change would not be displayed correctly
         '''
-        from rpgtoolbox.rolemaster import labels as rmlabels
+#        from rpgtoolbox.rolemaster import labels as rmlabels
 
 #        self.__winframe = Frame(width = 900, heigh=900)
+        self._background = {}
+        for elem in charattribs.keys():
+            self._background[elem] = ""
         # row 0; column 0 -3
         Label(master = self.window,
               width = 15,
@@ -3237,31 +3246,84 @@ class charInfo(blankWindow):
               text = charattribs['sex'][self.lang] + ":"
               ).grid(column = 0,
                      row = 1)
-
-        self.cpic = PhotoImage(Image.open(self.__charpic))
-        self.picLabel = Label(master = self.windows,
-                              image = self.cpic,
+        Entry(master = self.window,
+              width = 35,
+              textvariable = self._background['sex']
+              ).grid(column = 1, row = 1)
+        # row 2 column 0-1
+        Label(master = self.window,
+              width = 15,
+              text = charattribs['hair'][self.lang]
+              ).grid(column = 0, row = 2)
+        Entry(master = self.window,
+              width = 35,
+              textvariable = self._background['hair']
+              ).grid(column = 1, row = 2)
+        # row 3 column 0-1
+        Label(master = self.window,
+              width = 15,
+              text = charattribs['eyes'][self.lang]
+              ).grid(column = 0, row = 3)
+        Entry(master = self.window,
+              width = 35,
+              textvariable = self._background['eyes']
+              ).grid(column = 1, row = 3)
+        # row 4 column 0-1
+        Label(master = self.window,
+              width = 15,
+              text = charattribs['height'][self.lang]
+              ).grid(column = 0, row = 4)
+        Entry(master = self.window,
+              width = 35,
+              textvariable = self._background['height']
+              ).grid(column = 1, row = 4)
+        # row 5 column 0-1
+        Label(master = self.window,
+              width = 15,
+              text = charattribs['weight'][self.lang]
+              ).grid(column = 0, row = 4)
+        Entry(master = self.window,
+              width = 35,
+              textvariable = self._background['weight']
+              ).grid(column = 1, row = 4)
+        #charpic row 1-6 column 2-4
+        #BUG pic does not work
+        from PIL import Image, ImageTk
+        test = Image.open(self.charpic)
+        self.cpic = ImageTk.PhotoImage(Image.open(self.charpic).resize((200, 200), Image.ANTIALIAS))
+#        self.cpic = ImageTk.PhotoImage(file = self.charpic)
+        self.picLabel = Label(master = self.window,
+                              image = self.cpic
                               )
+
         self.picLabel.grid(column = 2,
                            row = 1,
                            columnspan = 2,
                            rowspan = 5,
-                           sticky = NEWS,
+                           sticky = "NEWS",
                            padx = 5,
                            pady = 5)
+        self.picLabel.bind("<Button-1>", self.__addPic)
 
 
-    def __addPic(self):
+    def __addPic(self, event):
         '''
         This method adds the link to a character's picture (jpg/png)
         @todo update picture in window
         '''
-        self.__charpic = askopenfilename(filetypes = self.cmask,
+        self.charpic = askopenfilename(filetypes = self.pmask,
                                         initialdir = self.mypath)
-        self._character['piclink'] = self.__charpic
+        self._character['piclink'] = self.charpic
 
-        self.notdoneyet("3224- charInfo.addpic: \n not done yet")
+        from PIL import Image, ImageTk
+        self.cpic = ImageTk.PhotoImage(Image.open(self.charpic).resize((300, 300), Image.ANTIALIAS))
+#        self.cpic = ImageTk.PhotoImage(file = self.charpic)
+        self.picLabel.configure(image = self.cpic)
 
 
     def __addStory(self):
         self.notdoneyet("3224- charInfo.addStory: \n not done yet")
+
+
+    def __helpWin(self):
+        self.notdoneyet("charInfo.__helpWin:\ņ\n not done yet")
