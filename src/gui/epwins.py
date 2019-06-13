@@ -36,7 +36,7 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "09.06.2019"
+__updated__ = "13.06.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -2723,6 +2723,7 @@ class skillcatWin(blankWindow):
         -# check whether skill in change list have the same rank
         @bug - if a skill is leveled up before its category other leveled skills of that
              category wont be displayed...
+             - no DPs will be subtracted for Skills....
 
         '''
 
@@ -3071,6 +3072,9 @@ class skillcatWin(blankWindow):
 class charInfo(blankWindow):
     """
     This is the class for the window with all the background information such as hair color, height etc.
+    @todo folowing has to be implemented
+    -# read out of data
+    -# read background info if there is any
     """
 
 
@@ -3123,6 +3127,7 @@ class charInfo(blankWindow):
                           )
         self.filemenu = Menu(master = self.menu)
         self.__addFileMenu()
+        self.__addEditMenu()
         self.__addHelpMenu()
         self.__buildWin()
         self.window.mainloop()
@@ -3134,6 +3139,11 @@ class charInfo(blankWindow):
         '''
         self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
                               menu = self.filemenu)
+        self.filemenu.add_command(label = submenu['file'][self.lang]['export'],
+                                  command = self.notdoneyet)
+        self.filemenu.add_command(label = submenu['file'][self.lang]['print'],
+                                  command = self.notdoneyet)
+        self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
                                   command = self.notdoneyet)
         self.filemenu.add_separator()
@@ -3152,6 +3162,8 @@ class charInfo(blankWindow):
                                  command = self.__addPic)
         self.edtmenu.add_command(label = submenu['edit'][self.lang]['add_story'],
                                  command = self.__addStory)
+        self.edtmenu.add_command(label = submenu['edit'][self.lang]['statgain'],
+                                 command = self.__statGainRoll)
 
 
     def __addHelpMenu(self):
@@ -3212,13 +3224,19 @@ class charInfo(blankWindow):
         @bug The following bugs have to be fixed:
              -# the max number of lvl ups for categories does not work properly with its' spinbox widget.
              -# if switched to a skill of another category the rank change would not be displayed correctly
+             -# background data will no be saved
         '''
-#        from rpgtoolbox.rolemaster import labels as rmlabels
-
-#        self.__winframe = Frame(width = 900, heigh=900)
-        self._background = {}
+        self.background = {}
         for elem in charattribs.keys():
-            self._background[elem] = ""
+            self.background[elem] = StringVar()
+
+        if "background" in list(self._character.keys()):
+
+            for bgi in list(self._character.keys()):
+
+                if bgi in list(self.background.keys()):
+                    self.background[bgi]._default = self.background[bgi]
+
         # row 0; column 0 -3
         Label(master = self.window,
               width = 15,
@@ -3248,50 +3266,164 @@ class charInfo(blankWindow):
                      row = 1)
         Entry(master = self.window,
               width = 35,
-              textvariable = self._background['sex']
+              textvariable = self.background['sex']
               ).grid(column = 1, row = 1)
         # row 2 column 0-1
         Label(master = self.window,
               width = 15,
-              text = charattribs['hair'][self.lang]
+              text = charattribs['hair'][self.lang] + ":"
               ).grid(column = 0, row = 2)
         Entry(master = self.window,
               width = 35,
-              textvariable = self._background['hair']
+              textvariable = self.background['hair']
               ).grid(column = 1, row = 2)
         # row 3 column 0-1
         Label(master = self.window,
               width = 15,
-              text = charattribs['eyes'][self.lang]
+              text = charattribs['eyes'][self.lang] + ":"
               ).grid(column = 0, row = 3)
         Entry(master = self.window,
               width = 35,
-              textvariable = self._background['eyes']
+              textvariable = self.background['eyes']
               ).grid(column = 1, row = 3)
         # row 4 column 0-1
         Label(master = self.window,
               width = 15,
-              text = charattribs['height'][self.lang]
+              text = charattribs['height'][self.lang] + ":"
               ).grid(column = 0, row = 4)
         Entry(master = self.window,
               width = 35,
-              textvariable = self._background['height']
+              textvariable = self.background['height']
               ).grid(column = 1, row = 4)
         # row 5 column 0-1
         Label(master = self.window,
               width = 15,
-              text = charattribs['weight'][self.lang]
-              ).grid(column = 0, row = 4)
+              text = charattribs['weight'][self.lang] + ":"
+              ).grid(column = 0, row = 5)
         Entry(master = self.window,
               width = 35,
-              textvariable = self._background['weight']
-              ).grid(column = 1, row = 4)
-        #charpic row 1-6 column 2-4
+              textvariable = self.background['weight']
+              ).grid(column = 1, row = 5)
+        # row 6 column 0-1
+        Label(master = self.window,
+              width = 15,
+              text = charattribs['app_age'][self.lang] + ":"
+              ).grid(column = 0, row = 6)
+        Entry(master = self.window,
+              width = 35,
+              textvariable = self.background['app_age']
+              ).grid(column = 1, row = 6)
+        # row 7 column 0-1
+        Label(master = self.window,
+              width = 15,
+              text = charattribs['act_age'][self.lang] + ":"
+              ).grid(column = 0, row = 7)
+        Entry(master = self.window,
+              width = 35,
+              textvariable = self.background['act_age']
+              ).grid(column = 1, row = 7)
+        # row 8 column 0-1
+        Label(master = self.window,
+              width = 15,
+              text = charattribs['parents'][self.lang] + ":"
+              ).grid(column = 0, row = 8)
+        Entry(master = self.window,
+              width = 35,
+              textvariable = self.background['parents']
+              ).grid(column = 1, row = 8)
+        # row 9 column 0-1
+        Label(master = self.window,
+              width = 15,
+              text = charattribs['siblings'][self.lang] + ":"
+              ).grid(column = 0, row = 9)
+        Entry(master = self.window,
+              width = 35,
+              textvariable = self.background['siblings']
+              ).grid(column = 1, row = 9)
+        # row 10 column 0-1
+        Label(master = self.window,
+              width = 15,
+              text = charattribs['partner'][self.lang] + ":"
+              ).grid(column = 0, row = 10)
+        Entry(master = self.window,
+              width = 35,
+              textvariable = self.background['partner']
+              ).grid(column = 1, row = 10)
+        # row 11 column 0-1
+        Label(master = self.window,
+              width = 15,
+              text = charattribs['kids'][self.lang] + ":"
+              ).grid(column = 0, row = 11)
+        Entry(master = self.window,
+              width = 35,
+              textvariable = self.background['kids']
+              ).grid(column = 1, row = 11)
+        # row 12 column 0-1
+        Label(master = self.window,
+              width = 15,
+              text = charattribs['deity'][self.lang] + ":"
+              ).grid(column = 0, row = 12)
+        Entry(master = self.window,
+              width = 35,
+              textvariable = self.background['deity']
+              ).grid(column = 1, row = 12)
+        # row 13 column 0-1
+        Label(master = self.window,
+              width = 15,
+              text = charattribs['home'][self.lang] + ":"
+              ).grid(column = 0, row = 13)
+        Entry(master = self.window,
+              width = 35,
+              textvariable = self.background['home']
+              ).grid(column = 1, row = 13)
+        # row 14-19 column 0-1
+        Label(master = self.window,
+              width = 15,
+              text = charattribs['pers'][self.lang] + ":"
+              ).grid(column = 0, row = 14, columnspan = 2)
+        self.tw1 = Text(master = self.window,
+                 width = 50,
+                 height = 20,
+                 wrap = WORD
+                 )
+        if "history" in list(self._character.keys()):
+            self.tw1.insert(1.0, self._character['history'])
+
+        self.tw1.grid(column = 0, row = 15, columnspan = 2)
+        # row 14-19 column 2-3
+        Label(master = self.window,
+              width = 15,
+              text = charattribs['motiv'][self.lang] + ":"
+              ).grid(column = 2, row = 14, columnspan = 2)
+        self.tw2 = Text(master = self.window,
+                 width = 50,
+                 height = 20,
+                 wrap = WORD
+                 )
+
+        if "motivation" in list(self._character.keys()):
+            self.tw2.insert(1.0, self._character['motivation'])
+
+        self.tw2.grid(column = 2, row = 15, columnspan = 2)
+
+        Button(self.window,
+        text = txtbutton['but_story'][self.lang],
+        command = self.__addStory).grid(column = 0,
+                                        row = 16,
+                                        sticky = "NW",
+                                        columnspan = 2
+                                        )
+        Button(self.window,
+        text = txtbutton['but_sav'][self.lang] + "\n" + txtbutton['but_quit'][self.lang],
+        command = self.__saveAndExit).grid(column = 3,
+                                        row = 16,
+                                        sticky = "NW",
+                                        columnspan = 2
+                                        )
+        #charpic row 1-8 column 2-4
         #BUG pic does not work
         from PIL import Image, ImageTk
-        test = Image.open(self.charpic)
-        self.cpic = ImageTk.PhotoImage(Image.open(self.charpic).resize((200, 200), Image.ANTIALIAS))
-#        self.cpic = ImageTk.PhotoImage(file = self.charpic)
+        self.cpic = ImageTk.PhotoImage(Image.open(self.charpic).resize((300, 300), Image.ANTIALIAS))
         self.picLabel = Label(master = self.window,
                               image = self.cpic
                               )
@@ -3299,7 +3431,7 @@ class charInfo(blankWindow):
         self.picLabel.grid(column = 2,
                            row = 1,
                            columnspan = 2,
-                           rowspan = 5,
+                           rowspan = 13,
                            sticky = "NEWS",
                            padx = 5,
                            pady = 5)
@@ -3309,7 +3441,6 @@ class charInfo(blankWindow):
     def __addPic(self, event):
         '''
         This method adds the link to a character's picture (jpg/png)
-        @todo update picture in window
         '''
         self.charpic = askopenfilename(filetypes = self.pmask,
                                         initialdir = self.mypath)
@@ -3317,12 +3448,46 @@ class charInfo(blankWindow):
 
         from PIL import Image, ImageTk
         self.cpic = ImageTk.PhotoImage(Image.open(self.charpic).resize((300, 300), Image.ANTIALIAS))
-#        self.cpic = ImageTk.PhotoImage(file = self.charpic)
         self.picLabel.configure(image = self.cpic)
 
 
+    def __statGainRoll(self):
+        '''
+        This should do an automatic Stats Gain Roll for the character.
+        @todo the following has to be implemented:
+        - stat gain roll
+        - check how many stat gain rolls are allowed.
+        - save changed temp stats in character data
+        '''
+        self.notdoneyet("charInfo.statGainRoll: \n not done yet")
+
+
     def __addStory(self):
-        self.notdoneyet("3224- charInfo.addStory: \n not done yet")
+        self.notdoneyet("charInfo.addStory: \n not done yet")
+
+
+    def __saveAndExit(self):
+        '''
+        This method gets all data from entries, puts them into character data struct and saves the updated character.
+        '''
+
+        bg = {}
+        self._character["motivation"] = self.tw2.get("0.0", END)
+        self._character['history'] = self.tw1.get("0.0", END)
+        for el in list(self.background.keys()):
+            bg[el] = self.background[el].get()
+
+        self._character["background"] = bg
+
+        with open(self.spath + self._character['player'] + '/' + self._character['name'] + ".json", "w") as outfile:
+                json.dump(self._character,
+                          outfile,
+                          sort_keys = True,
+                          indent = 4,
+                          ensure_ascii = False)
+
+        self.window.destroy()
+        self.window = MainWindow(lang = self.lang, char = self._character)
 
 
     def __helpWin(self):

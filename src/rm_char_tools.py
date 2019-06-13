@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 '''
 \file rm_char_tools.py
 \package rm_char_tools.py
@@ -38,7 +38,7 @@ from rpgtoolbox.confbox import *
 from rpgtoolbox import logbox as log
 
 __author__ = "Marcus Schwamberger"
-__updated__ = "26.05.2019"
+__updated__ = "08.06.2019"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + __author__
 __email__ = "marcus@lederzeug.de"
 __version__ = "1.0.0"

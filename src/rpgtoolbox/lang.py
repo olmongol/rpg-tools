@@ -25,7 +25,7 @@ Currently supported languages are:
 \todo clean up the code!!!
 '''
 __version__ = "1.0"
-__updated__ = "05.06.2019"
+__updated__ = "13.06.2019"
 ## \var supportedrpg
 # Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
@@ -74,6 +74,9 @@ screenmesg = {'welcome'     : {'de' : "Willkommen bei den RPG-Tools",
 charattribs = { 'sex' : {'de': 'Geschlecht',
                          'en': 'Sex'
                         },
+                'hair': {'de': "Haare",
+                         'en': "Hair"
+                         },
                 'skin' : {'de': "Haut",
                           'en': 'Skin',
                          },
@@ -99,7 +102,7 @@ charattribs = { 'sex' : {'de': 'Geschlecht',
                              'en': 'Siblings'
                              },
                 'partner': {'de': 'PartnerIn',
-                            're': 'Partner'
+                            'en': 'Partner'
                             },
                 'kids': {'de': 'Kinder',
                          'en': 'Children'
@@ -119,7 +122,7 @@ charattribs = { 'sex' : {'de': 'Geschlecht',
                 'carr_weight': {'de': 'getragenes Gewicht',
                                 'en': 'carried weight'
                                 }
-: {'de'}              }
+                }
 
 ## \var txtbutton
 #This holds the texts written on buttons.
@@ -174,6 +177,8 @@ txtbutton = {'but_ok'   : {'de' : 'OK',
              'but_ren'  :{'de' : 'umbenennen',
                           'en' : 'rename'
                           },
+             'but_story': {'de': 'Hintergrundgeschichte',
+                           'en': u'Background\nStory'},
              }
 
 ## \var txtmenu
@@ -227,7 +232,8 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                           'quit'  : 'Beenden',
                           'export' : 'Exportieren',
                           'new_char': 'Neuer Charakter',
-                          'new_grp' : 'Neue Charaktergruppe'
+                          'new_grp' : 'Neue Charaktergruppe',
+                          'print': 'Drucken'
                           },
                     'en':{'open'  : 'Open file',
                           'close' : 'Close file',
@@ -237,7 +243,8 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                           'quit'  : 'Quit',
                           'export' : 'Export',
                           'new_char' : "New character",
-                          'new_grp' : "New character party"
+                          'new_grp' : "New character party",
+                          'print': 'Print'
                           },
                     },
            'opts'  :{'de' : {'lang' : 'Einstellungen',
@@ -245,9 +252,9 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                      'en' : {'lang' : 'Preferences',
                              }
                      },
-           'help'  :{'de' : {'about' : '\xc3\x9cber rpg-tools',
-                             'page'  : '\xc3\x9cber diese Seite',
-                             'win'   : '\xc3\x9cber dieses Fenster',
+           'help'  :{'de' : {'about' : u'\über rpg-tools',
+                             'page'  : u'über diese Seite',
+                             'win'   : u'über dieses Fenster',
                              'global' : 'Handbuch',
                              },
                      'en' : {'about' : 'About rpg-tools',
@@ -265,7 +272,9 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                               'ed_sim'   : 'Kampfsimulation (EP)',
                               'ed_equip' : 'Ausr\xc3\x9cstung verwalten',
                               'add_pic' : u'Charakterbild hinzufügen',
-                              'add_story': 'Hintergrundgeschichte schreiben/editieren'
+                              'add_story': 'Hintergrundgeschichte schreiben/editieren',
+                              'statgain' : u'Attributsveränderungswurf',
+                              'show_char': 'Charakteransicht'
                               },
                       'en'  :{'ed_char'  : 'Edit/improve Character',
                               'ed_grp'   : 'Edit Group',
@@ -276,7 +285,8 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                               'ed_sim'   : 'EPs for fight simulation',
                               'ed_equip' : 'Edit equipment',
                               'add_pic' : "add character picture",
-                              'add_story': "add/edit background story"
+                              'add_story': "add/edit background story",
+                              'statgain' : 'Stat Gain Roll'
                                },
 
                       },
