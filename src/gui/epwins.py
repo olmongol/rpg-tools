@@ -36,7 +36,7 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "13.06.2019"
+__updated__ = "14.06.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -184,6 +184,10 @@ class MainWindow(blankWindow):
                               menu = self.edtmenu)
         self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_char'],
                                  command = self.__edcharWin)
+        self.edtmenu.add_command(label = submenu['edit'][self.lang]['char_back'],
+                                 command = self.__bckgrndWin)
+        self.edtmenu.add_command(label = submenu['edit'][self.lang]['statgain'],
+                                 command = self.__statGainWin)
         self.edtmenu.add_separator()
         self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_fight'],
                                  command = self.__edfightWin)
@@ -319,6 +323,29 @@ class MainWindow(blankWindow):
         self.helpmenu.add_separator()
         self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
                                   command = self.helpAbout)
+
+
+    def __bckgrndWin(self):
+        '''
+        This opens the background window of a loaded character
+        '''
+        if self.char != None:
+            self.window.destroy()
+            self.window2 = charInfo(self.lang, self.mypath, self.char)
+        else:
+            msg = messageWindow()
+            msg.showinfo(errmsg['no_data'][self.lang])
+
+
+    def __statGainWin(self):
+        '''
+        This should do an automatic Stats Gain Roll for the character.
+        @todo the following has to be implemented:
+        - stat gain roll
+        - check how many stat gain rolls are allowed.
+        - save changed temp stats in character data
+        '''
+        self.notdoneyet("charInfo.statGainRoll: \n not done yet")
 
 
     def helpHandbook(self):
@@ -2995,12 +3022,6 @@ class skillcatWin(blankWindow):
         - open char background window if it is not done. This has to be found out!
         - back to main or output module
         '''
-        #DEBUG
-#        print("DEBUG self.__finalize")
-#        pprint(self.__changed)
-#        #DEBUG
-#        writeJSON(self.spath + "/" + self._character['player'] + "/" + self._character['name'] + ".changed", self.__changed)
-#        #/DEBUG
 
         self._character['DP'] -= self.__usedDP
 
@@ -3020,11 +3041,6 @@ class skillcatWin(blankWindow):
                         self._character["cat"][cat]["Skill"][skill]["total bonus"] = self.__changed["cat"][cat]["Skill"][skill]["total bonus"]
 
         self.__save('.lvld')
-        #DEBUG
-        print(("-->3024,epwins.DEBUG self.__finalize: \n- charname: {}\n- DP {}\n- screenmsg: {}\n------------\n".format(self._character['name'],
-                                                                                                                         self._character['DP'],
-                                                                                                                         screenmesg['file_saved'][self.lang])))
-#        self.__info(self._character['name'] + ".lvld\n" + screenmesg['file_saved'][self.lang])
         self.window.destroy()
         self.window2 = charInfo(self.lang, self.spath, self._character)
 
@@ -3097,10 +3113,8 @@ class charInfo(blankWindow):
             self.spath = storepath
             logger.debug('charInfo: storepath set to %s' %
                          (storepath))
-
         self.lang = lang
         self._character = dict(calcTotals(char))
-#        self.__save()
         self.mypath = storepath + "default/pics"
         self.cmask = [txtwin['json_files'][self.lang],
                      txtwin['grp_files'][self.lang],
@@ -3115,10 +3129,7 @@ class charInfo(blankWindow):
             self.charpic = self._character["piclink"]
         else:
             self.charpic = "./data/default/pics/default.jpg"
-        #DEBUG
-        cwd = os.getcwd()
-        print(cwd)
-        #
+
         blankWindow.__init__(self, self.lang)
         self.window.title("%s - %s (%s)" % (wintitle['background'][self.lang],
                                             self._character['name'],
@@ -3215,27 +3226,14 @@ class charInfo(blankWindow):
     def __buildWin(self):
         '''
         Builds the window's elements.
-        - a frame containing:
-            1. treeview widget
-            2. vertical (auto)scrollbar linked to the treeview widget
-            3. horizontal (auto)scrollbar linked to the treeview widget
-        - Labels for specific category/skill values
 
-        @bug The following bugs have to be fixed:
-             -# the max number of lvl ups for categories does not work properly with its' spinbox widget.
-             -# if switched to a skill of another category the rank change would not be displayed correctly
-             -# background data will no be saved
         '''
         self.background = {}
         for elem in charattribs.keys():
             self.background[elem] = StringVar()
 
         if "background" in list(self._character.keys()):
-
-            for bgi in list(self._character.keys()):
-
-                if bgi in list(self.background.keys()):
-                    self.background[bgi]._default = self.background[bgi]
+            alreadyset = True
 
         # row 0; column 0 -3
         Label(master = self.window,
@@ -3268,6 +3266,7 @@ class charInfo(blankWindow):
               width = 35,
               textvariable = self.background['sex']
               ).grid(column = 1, row = 1)
+
         # row 2 column 0-1
         Label(master = self.window,
               width = 15,
@@ -3376,6 +3375,12 @@ class charInfo(blankWindow):
               width = 35,
               textvariable = self.background['home']
               ).grid(column = 1, row = 13)
+
+        #set values into Entry widgets if there are any
+        if alreadyset:
+            for elem  in self._character['background'].keys():
+                self.background[elem].set(self._character['background'][elem])
+
         # row 14-19 column 0-1
         Label(master = self.window,
               width = 15,
@@ -3479,6 +3484,9 @@ class charInfo(blankWindow):
 
         self._character["background"] = bg
 
+        #DEBUG
+        pprint(bg)
+        pprint(self._character['background'])
         with open(self.spath + self._character['player'] + '/' + self._character['name'] + ".json", "w") as outfile:
                 json.dump(self._character,
                           outfile,
@@ -3487,7 +3495,7 @@ class charInfo(blankWindow):
                           ensure_ascii = False)
 
         self.window.destroy()
-        self.window = MainWindow(lang = self.lang, char = self._character)
+        self.window = MainWindow(lang = self.lang, storepath = self.spath, char = self._character)
 
 
     def __helpWin(self):

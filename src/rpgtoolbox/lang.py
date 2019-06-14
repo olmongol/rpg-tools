@@ -25,7 +25,7 @@ Currently supported languages are:
 \todo clean up the code!!!
 '''
 __version__ = "1.0"
-__updated__ = "13.06.2019"
+__updated__ = "14.06.2019"
 ## \var supportedrpg
 # Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
@@ -272,6 +272,7 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                               'ed_sim'   : 'Kampfsimulation (EP)',
                               'ed_equip' : 'Ausr\xc3\x9cstung verwalten',
                               'add_pic' : u'Charakterbild hinzufügen',
+                              'char_back': 'Hintergrundwerte erstellen/editieren',
                               'add_story': 'Hintergrundgeschichte schreiben/editieren',
                               'statgain' : u'Attributsveränderungswurf',
                               'show_char': 'Charakteransicht'
@@ -285,6 +286,7 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                               'ed_sim'   : 'EPs for fight simulation',
                               'ed_equip' : 'Edit equipment',
                               'add_pic' : "add character picture",
+                              'char_back': 'edit background',
                               'add_story': "add/edit background story",
                               'statgain' : 'Stat Gain Roll'
                                },
