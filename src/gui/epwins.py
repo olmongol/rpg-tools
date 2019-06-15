@@ -36,7 +36,7 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "14.06.2019"
+__updated__ = "15.06.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -2556,9 +2556,6 @@ class skillcatWin(blankWindow):
                 catNo += 1
         self.__chgtree.tag_configure('category', background = 'lightblue')
         self.__chgtree.bind('<ButtonRelease-1>', self.__selectChangedItem)
-#        #DEBUG
-#        print("--> 2534, self.__changed")
-#        pprint(self.__changed)
 
 
     def __selectTreeItem(self, event):
@@ -2650,16 +2647,6 @@ class skillcatWin(blankWindow):
         @todo It has to be fully implemented
         '''
         pass
-#        self.notdoneyet("__selectChangedItem: not implemented yet")
-
-#    def __insertChangedCT(self, event):
-#        '''
-#        This method takes changed categories/skills and put them into the __chgtree.
-#        @todo The following features have to be implemented:
-#            - get changed data from __tree
-#            - insert changed data into __chgtree
-#        '''
-#        self.notdoneyet("__insertChangedCT")
 
 
     def __checkDev(self):
@@ -2865,6 +2852,10 @@ class skillcatWin(blankWindow):
                     self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
                     self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
                     self.__usedDP += diffcost
+                    self._character['DP'] -= int(self.__usedDP)
+
+                    if self._character['DP'] == 0:
+                        self._character['lvlup'] -= 1
 
                 else:
                     self.__info(screenmesg['epwins_no_dp'][self.lang])
@@ -2885,6 +2876,10 @@ class skillcatWin(blankWindow):
                     self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
                     self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
                     self.__usedDP += diffcost
+                    self._character['DP'] -= int(self.__usedDP)
+
+                    if self._character['DP'] == 0:
+                        self._character['lvlup'] -= 1
                 else:
                     messg = messageWindow()
                     messg.showinfo(screenmesg['epwins_no_dp'][self.lang])
@@ -2909,6 +2904,10 @@ class skillcatWin(blankWindow):
                     self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
                     self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
                     self.__usedDP += diffcost
+                    self._character['DP'] -= int(self.__usedDP)
+
+                    if self._character['DP'] == 0:
+                        self._character['lvlup'] -= 1
 
                 else:
                     messg = messageWindow()
@@ -2916,9 +2915,11 @@ class skillcatWin(blankWindow):
 
             #DEBUG
             print(("2280 -skill3 diff = %d" % diff))
-            pprint(self.__changed)
+#            pprint(self.__changed)
 
         self.DPtext.set(str(self._character['DP'] - self.__usedDP))
+        #debug
+        print("DEBUG DPs --> {}".format(self.DPtext.get()))
         self.__buildChangedTree()
 
 
@@ -3030,13 +3031,13 @@ class skillcatWin(blankWindow):
             self._character['cat'][cat]["total bonus"] = self.__changed['cat'][cat]["total bonus"]
 
             for skill in list(self.__changed["cat"][cat]["Skill"].keys()):
+
                 if skill != "Progression":
+
                     if skill not in list(self._character["cat"][cat]["Skill"].keys()):
                         self._character["cat"][cat]["Skill"][skill] = self.__changed['cat'][cat]["Skill"][skill]
+
                     else:
-                        #DEBUG
-                        print("-->3020, __finalize")
-                        print(type(self.__changed["cat"][cat]["Skill"][skill]), self.__changed["cat"][cat]["Skill"][skill])
                         self._character["cat"][cat]["Skill"][skill]["rank"] = self.__changed["cat"][cat]["Skill"][skill]["rank"]
                         self._character["cat"][cat]["Skill"][skill]["total bonus"] = self.__changed["cat"][cat]["Skill"][skill]["total bonus"]
 
