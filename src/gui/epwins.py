@@ -36,7 +36,7 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "15.06.2019"
+__updated__ = "16.06.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -2035,12 +2035,8 @@ class skillcatWin(blankWindow):
     @todo a lot... it is not finished yet:
     - an input widget to enter rank level ups
     - force to change names of skill+
-    - a text widget to show remaining developing points
-    - a treeview for changed categories/skills
       - selecting items here can make changes undone or change them again
-      - not finalized changes have to be stored
     - a button to save changes which are not finalized
-    - a finalize button which confirms all changes permanently
     """
 
 
@@ -2058,9 +2054,6 @@ class skillcatWin(blankWindow):
 
         self.__catnames = catnames
         self.__rankbonus = rankbonus
-#         self._changes = {"cat": {}}
-#         self._changes["name"] = char["name"]
-#         self._changes["player"] = char['player']
 
         if storepath == None:
             self.spath = os.path.expanduser('~') + "/data"
@@ -2104,7 +2097,7 @@ class skillcatWin(blankWindow):
         self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
                               menu = self.filemenu)
         self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
-                                  command = self.notdoneyet)
+                                  command = self.__save)
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
                                   command = self.__closewin)
@@ -2142,7 +2135,6 @@ class skillcatWin(blankWindow):
         - Labels for specific category/skill values
 
         @bug The following bugs have to be fixed:
-             -# the max number of lvl ups for categories does not work properly with its' spinbox widget.
              -# if switched to a skill of another category the rank change would not be displayed correctly
         '''
         from rpgtoolbox.rolemaster import labels as rmlabels
@@ -2398,9 +2390,6 @@ class skillcatWin(blankWindow):
               -# add function to RENAME button:
                   -# rename skill
                   -# add new skill
-              -# finalize button:
-                  -# shall not work as long as there are skills+
-                  -# if it is not a standard level up it should open a 'background information' window
             - If not finalized clicking on items in edit skill/cat treeview will
               cause an editing option. That means:
               -# create a JSON structure with modified but not finalized cats/skills.
@@ -2663,9 +2652,9 @@ class skillcatWin(blankWindow):
         level-ups by the level difference of old EP's level and current EP's
         level
         '''
-        self._character['lvl'] = getLvl(self._character['exp'])
-        oldlvl = getLvl(self._character['old_exp'])
-        self._character['lvlup'] = self._character['lvl'] - oldlvl
+        self._character['lvl'] = int(getLvl(self._character['exp']))
+        oldlvl = int(getLvl(self._character['old_exp']))
+        self._character['lvlup'] += self._character['lvl'] - oldlvl
 
 
     def __calcDP(self):
@@ -2679,7 +2668,7 @@ class skillcatWin(blankWindow):
 
         if 'lvlup' in list(self._character.keys()):
 
-            if self._character['lvlup'] != 0:
+            if self._character['lvlup'] > 0:
                 devpoints = 0
 
                 for attr in attrlist:
@@ -2729,15 +2718,7 @@ class skillcatWin(blankWindow):
         '''
         This method takes added/modified skills/cats to a dict and treeview
         @todo The following__chgtree has to be implemented:
-        -# a treeview to show changes
-        -# calc DP costs/consume
         -# check whether it is a new skill.
-        -# check whether all DP are used or not
-        -# update total bonus in self.__changed
-        -# check whether skill in change list have the same rank
-        @bug - if a skill is leveled up before its category other leveled skills of that
-             category wont be displayed...
-             - no DPs will be subtracted for Skills....
 
         '''
 
@@ -2801,9 +2782,6 @@ class skillcatWin(blankWindow):
                             #DEBUG
                             print(("--> %d" % diffcost))
 
-                    #DEBUG
-                    print(("diffcost: %d" % diffcost))
-
                     if (self._character['DP'] - (self.__usedDP + diffcost)) >= 0:
                         self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
                         self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
@@ -2852,16 +2830,9 @@ class skillcatWin(blankWindow):
                     self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
                     self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
                     self.__usedDP += diffcost
-                    self._character['DP'] -= int(self.__usedDP)
-
-                    if self._character['DP'] == 0:
-                        self._character['lvlup'] -= 1
 
                 else:
                     self.__info(screenmesg['epwins_no_dp'][self.lang])
-
-                #DEBUG
-                print(("skill2 diff = %d" % diff))
 
         else:
 
@@ -2872,14 +2843,22 @@ class skillcatWin(blankWindow):
                 if self.__changed['cat'][cat]['Skill'][skill]['rank'] > newrank:
                     diff = newrank - self.__changed['cat'][cat]['Skill'][skill]['rank']
                     #NEW
+
+                diffcost = 0
+
+                if diff > 0:
+
+                    for i  in range(0, diff):
+                            diffcost += int(dpCosts[i])
+                else:
+                    for i in range(diff, 0):
+                        diffcost -= int(dpCosts[i])
+
                 if (self._character['DP'] - (self.__usedDP + diffcost)) >= 0:
                     self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
                     self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
                     self.__usedDP += diffcost
-                    self._character['DP'] -= int(self.__usedDP)
 
-                    if self._character['DP'] == 0:
-                        self._character['lvlup'] -= 1
                 else:
                     messg = messageWindow()
                     messg.showinfo(screenmesg['epwins_no_dp'][self.lang])
@@ -2904,22 +2883,12 @@ class skillcatWin(blankWindow):
                     self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
                     self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
                     self.__usedDP += diffcost
-                    self._character['DP'] -= int(self.__usedDP)
-
-                    if self._character['DP'] == 0:
-                        self._character['lvlup'] -= 1
 
                 else:
                     messg = messageWindow()
                     messg.showinfo(screenmesg['epwins_no_dp'][self.lang])
 
-            #DEBUG
-            print(("2280 -skill3 diff = %d" % diff))
-#            pprint(self.__changed)
-
         self.DPtext.set(str(self._character['DP'] - self.__usedDP))
-        #debug
-        print("DEBUG DPs --> {}".format(self.DPtext.get()))
         self.__buildChangedTree()
 
 
@@ -2931,8 +2900,6 @@ class skillcatWin(blankWindow):
         -# take care of non standard progression: do not "level" those categories
         -# update total skill bonusses if there are skills
 
-        @bug once you go back to a skill in a cat where you did modifications cannot be sprung back afterwards: possible problem is that self.__changed has not the right keys (line 2907)
-        @bug if submit button is pressed sometimes skill is used instead of cat
 
         '''
         ## @var currcat
@@ -2957,8 +2924,6 @@ class skillcatWin(blankWindow):
         # Total bonus before any manipulation.
         oldtotal = self.__tree.item(self.__curItem)['values'][-1]
         newtotal = self.__calcRanks(currdev, int(newval)) - self.__calcRanks(currdev, int(oldval)) + int(oldtotal)
-        #DEBUG
-        print(("----------------------------------------------------------------\n\ncurrent cat:%s %d\n" % (currcat, newval)))
 
         if currcat not in list(self.__changed['cat'].keys()) and currcat in list(self._character['cat'].keys()):  # somewhere here lies a bug
             diff = newval - oldval
@@ -2988,7 +2953,6 @@ class skillcatWin(blankWindow):
                 self.__usedDP -= int(dpCosts[i])
 
         if (self._character['DP'] - self.__usedDP) >= 0:
-            self.DPtext.set(str(self._character['DP'] - self.__usedDP))
 
             if currcat not in list(self.__changed['cat'].keys()) and currcat in list(self._character['cat'].keys()):
                 self.__changed['cat'][currcat] = self._character['cat'][currcat]
@@ -3008,6 +2972,7 @@ class skillcatWin(blankWindow):
             messg = messageWindow()
             messg.showinfo(screenmesg['epwins_no_dp'][self.lang])
 
+        self.DPtext.set(str(self._character['DP'] - self.__usedDP))
         self.__buildChangedTree()
 
 
@@ -3017,14 +2982,12 @@ class skillcatWin(blankWindow):
 
         The changes done before are saved in the file <charname>.lvld
 
-        @todo has to be fully implemented:
-        - add remaning DP if any
-        - calc new level
-        - open char background window if it is not done. This has to be found out!
-        - back to main or output module
         '''
 
         self._character['DP'] -= self.__usedDP
+        if self.__usedDP > 0:
+            self._character['lvlup'] -= 1
+        self._character["old_exp"] = int(self._character['exp'])
 
         for cat in list(self.__changed["cat"].keys()):
             self._character['cat'][cat]["rank"] = self.__changed["cat"][cat]["rank"]
@@ -3038,12 +3001,23 @@ class skillcatWin(blankWindow):
                         self._character["cat"][cat]["Skill"][skill] = self.__changed['cat'][cat]["Skill"][skill]
 
                     else:
+                        #DEBUG
+                        print("changed - values ")
+                        pprint(self.__changed["cat"][cat]["Skill"][skill])
+                        print("\n\n charakter")
+                        pprint(self._character["cat"][cat]["Skill"][skill])
+
                         self._character["cat"][cat]["Skill"][skill]["rank"] = self.__changed["cat"][cat]["Skill"][skill]["rank"]
                         self._character["cat"][cat]["Skill"][skill]["total bonus"] = self.__changed["cat"][cat]["Skill"][skill]["total bonus"]
 
-        self.__save('.lvld')
+        self.__save('.json')
         self.window.destroy()
-        self.window2 = charInfo(self.lang, self.spath, self._character)
+
+        if "background" in self._character.keys():
+            self.window2 = MainWindow(lang = self.lang, storepath = self.spath, char = self._character)
+
+        else:
+            self.window2 = charInfo(self.lang, self.spath, self._character)
 
 
     def __renameSkill(self):
@@ -3089,9 +3063,6 @@ class skillcatWin(blankWindow):
 class charInfo(blankWindow):
     """
     This is the class for the window with all the background information such as hair color, height etc.
-    @todo folowing has to be implemented
-    -# read out of data
-    -# read background info if there is any
     """
 
 
