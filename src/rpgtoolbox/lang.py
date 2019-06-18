@@ -19,13 +19,13 @@ Currently supported languages are:
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
 \date (c) 2015-2019
-\version 1.0
+\version 1.1
 \license GNU V3.0
 
 \todo clean up the code!!!
 '''
-__version__ = "1.0"
-__updated__ = "14.06.2019"
+__version__ = "1.1"
+__updated__ = "18.06.2019"
 ## \var supportedrpg
 # Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
@@ -179,6 +179,12 @@ txtbutton = {'but_ok'   : {'de' : 'OK',
                           },
              'but_story': {'de': 'Hintergrundgeschichte',
                            'en': u'Background\nStory'},
+             'but_all': {'de': u'alles auswählen',
+                         'en': 'select all'
+                         },
+             'but_none': {'de': u'nichts auswählen',
+                          'en': 'select none'
+                          },
              }
 
 ## \var txtmenu
@@ -377,6 +383,9 @@ wintitle = {'opt_lang' : {'de' : 'Spracheinstellungen',
             'background': {'de' : 'Charakter Hintergrund-Editor',
                           'en' : 'Character Background Editor'
                         },
+            'history': {'de': 'Editor Hintergrundgeschichte',
+                        'en': 'Character\'s History'
+                        },
             'backpack' : {'de' : 'Rucksack',
                           'en' : 'Backpack'
                           },
@@ -397,7 +406,10 @@ wintitle = {'opt_lang' : {'de' : 'Spracheinstellungen',
                            },
             'rm_spells' : {'de' : 'RM Spruchlisteneditor',
                            'en' : 'RM Spell List Editor'
-                           }
+                           },
+            'rm_statgain': {'de' : "RM Attributssteigerungen",
+                            'en' : "RM Stat Gain Rolls"
+                            },
             }
 
 ## \var labels
@@ -454,6 +466,12 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
           'total' : {'de' : 'gesamt',
                      'en' : 'total'
                      },
+          'new_val' : {'de': 'neuer Wert',
+                       'en': 'new value'
+                       },
+          'count' :{'de': 'Anzahl',
+                    'en': 'count'
+                    },
           }
 
 ##\var errmsg

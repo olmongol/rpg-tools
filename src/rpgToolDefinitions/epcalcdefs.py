@@ -4,9 +4,9 @@
 \file epcalcdefs.py
 
 \brief Definitions for EP-Calculator
-This module contains predefined variables, lists, etc. for the EP calculator. 
+This module contains predefined variables, lists, etc. for the EP calculator.
 
-\date (C) 2015-2016
+\date (C) 2015-2019
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
 \license GNU V3.0
@@ -31,7 +31,7 @@ maneuvers = {'routine' : {'de' : 'Routine',
              'medium'  : {'de' : 'mittelschwer',
                           'en' : 'medium',
                           'ep' : 50,
-                          'mod': 0 
+                          'mod': 0
                           },
              'hard'   : {'de' : 'schwer',
                           'en' : 'heavy',
@@ -58,7 +58,7 @@ maneuvers = {'routine' : {'de' : 'Routine',
                           'ep' : 500,
                           'mod':-70
                           }
-             
+
              }
 param_char = {'player' : {'de' : 'Spieler',
                           'en' : 'player',
@@ -109,6 +109,7 @@ epchr = {'gained hitpoints' : 0,
         }
 
 
+
 def getEPCrit(level = 0, crit = "A", charhit = False):
     '''
     This function returns the EP for a gained or provoked critical hit.
@@ -133,11 +134,13 @@ def getEPCrit(level = 0, crit = "A", charhit = False):
                 'C' : 15,
                 'D' : 20,
                 'E' : 25
-               }    
+               }
     if level == 0:
         level = 0.5
-    
+
     return int(round(level * hitcrits[crit], 0))
+
+
 
 def calcEPSpell(spell = 1, caster = 1):
     '''
@@ -147,4 +150,4 @@ def calcEPSpell(spell = 1, caster = 1):
     \label retval EP for the spell
     \deprecated see epcalc.py
     '''
-    return (100 - (caster - spell) * 10) 
+    return (100 - (caster - spell) * 10)

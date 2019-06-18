@@ -17,7 +17,6 @@ import os
 import sys
 import json
 from tkinter import *
-#from PIL.ImageTk import *
 from PIL import Image, ImageTk
 from tkinter.filedialog import *
 from tkinter.ttk import *
@@ -36,7 +35,7 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "16.06.2019"
+__updated__ = "18.06.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -187,7 +186,7 @@ class MainWindow(blankWindow):
         self.edtmenu.add_command(label = submenu['edit'][self.lang]['char_back'],
                                  command = self.__bckgrndWin)
         self.edtmenu.add_command(label = submenu['edit'][self.lang]['statgain'],
-                                 command = self.__statGainWin)
+                                 command = self.__statGainRoll)
         self.edtmenu.add_separator()
         self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_fight'],
                                  command = self.__edfightWin)
@@ -252,6 +251,15 @@ class MainWindow(blankWindow):
         @todo not implemented yet
         '''
         self.notdoneyet()
+
+
+    def __statGainRoll(self):
+        '''
+        This opens a window for Stats Gain Roll for the character.
+        '''
+        self.window.destroy()
+
+        self.window2 = statGainWin(lang = self.lang, storepath = self.mypath, char = self.char)
 
 
     def __addGMMenu(self):
@@ -335,17 +343,6 @@ class MainWindow(blankWindow):
         else:
             msg = messageWindow()
             msg.showinfo(errmsg['no_data'][self.lang])
-
-
-    def __statGainWin(self):
-        '''
-        This should do an automatic Stats Gain Roll for the character.
-        @todo the following has to be implemented:
-        - stat gain roll
-        - check how many stat gain rolls are allowed.
-        - save changed temp stats in character data
-        '''
-        self.notdoneyet("charInfo.statGainRoll: \n not done yet")
 
 
     def helpHandbook(self):
@@ -2559,7 +2556,6 @@ class skillcatWin(blankWindow):
               - save remaining unused DPs (total)
               - check for remaining DB (stop if zero)..
 
-        \bug - at first click(s) the cat rank is not inserted
         '''
         self.__curItem = self.__tree.focus()
         self.DPcost.set(self.__tree.item(self.__curItem)['values'][2])
@@ -2637,13 +2633,12 @@ class skillcatWin(blankWindow):
         '''
         pass
 
-
-    def __checkDev(self):
-        '''
-        This method handles the level up procedure. Validates number of level-ups
-        per skill/category and keeps an eye on the total remaining DPs.
-        '''
-        self.notdoneyet("__checkDev")
+#    def __checkDev(self):
+#        '''
+#        This method handles the level up procedure. Validates number of level-ups
+#        per skill/category and keeps an eye on the total remaining DPs.
+#        '''
+#        self.notdoneyet("__checkDev")
 
 
     def __calcLvlup(self):
@@ -2779,8 +2774,6 @@ class skillcatWin(blankWindow):
                     else:
                         for i in range(diff, 0):
                             diffcost -= int(dpCosts[i])
-                            #DEBUG
-                            print(("--> %d" % diffcost))
 
                     if (self._character['DP'] - (self.__usedDP + diffcost)) >= 0:
                         self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
@@ -2807,9 +2800,6 @@ class skillcatWin(blankWindow):
 
                     else:
                         self.__info(screenmesg['epwins_no_dp'][self.lang])
-
-                    #DEBUG
-                    print(("skill1 diff = %d" % diff))
 
             else:
 
@@ -2842,7 +2832,6 @@ class skillcatWin(blankWindow):
 
                 if self.__changed['cat'][cat]['Skill'][skill]['rank'] > newrank:
                     diff = newrank - self.__changed['cat'][cat]['Skill'][skill]['rank']
-                    #NEW
 
                 diffcost = 0
 
@@ -2904,10 +2893,7 @@ class skillcatWin(blankWindow):
         '''
         ## @var currcat
         # current category name
-        currcat = self.__tree.item(self.__curItem)['text']  #here seems to be a bug: currcat may become a current skill: it occurres if skill is choosen but cat-submit was clicked
-        #DEBUG
-        print("Debug epwins 2916: currcat: {}".format(currcat))
-        print(self.__tree.item(self.__curItem))
+        currcat = self.__tree.item(self.__curItem)['text']
         ## @var olval
         # old catefory's rank value
         oldval = self.__tree.item(self.__curItem)['values'][3]
@@ -2925,7 +2911,7 @@ class skillcatWin(blankWindow):
         oldtotal = self.__tree.item(self.__curItem)['values'][-1]
         newtotal = self.__calcRanks(currdev, int(newval)) - self.__calcRanks(currdev, int(oldval)) + int(oldtotal)
 
-        if currcat not in list(self.__changed['cat'].keys()) and currcat in list(self._character['cat'].keys()):  # somewhere here lies a bug
+        if currcat not in list(self.__changed['cat'].keys()) and currcat in list(self._character['cat'].keys()):
             diff = newval - oldval
 
         else:
@@ -3022,11 +3008,19 @@ class skillcatWin(blankWindow):
 
     def __renameSkill(self):
         '''
-        This method renames all skill+
+        This method renames all skill+ and adds new ones
         @todo has to be full implemented
+        @bug values aren't written into the tree items :(
         '''
-        print("__renameSkill not done yet.")
-        self.notdoneyet("__renameSkill")
+        skill = self.__tree.item(self.__curItem)['text']
+        skillentry = self.skillentry
+        if "+" in skill and skillentry != skill:
+            self.__tree.item(self.__curItem)['text'] = skillentry
+            print("piep")
+# XXXXX
+#        print("DEBUG reanme: {} {}".format(type(self.__tree.item(self.__curItem)),self.__tree.item(self.__curItem))
+#        print("__renameSkill not done yet.")
+#        self.notdoneyet("__renameSkill")
 
 
     def __save(self, ending = '.snap'):
@@ -3430,13 +3424,11 @@ class charInfo(blankWindow):
 
     def __statGainRoll(self):
         '''
-        This should do an automatic Stats Gain Roll for the character.
-        @todo the following has to be implemented:
-        - stat gain roll
-        - check how many stat gain rolls are allowed.
-        - save changed temp stats in character data
+        This opens a window for Stats Gain Roll for the character.
         '''
-        self.notdoneyet("charInfo.statGainRoll: \n not done yet")
+        self.window.destroy()
+
+        self.window2 = statGainWin(lang = self.lang, storepath = self.spath, char = self._character)
 
 
     def __addStory(self):
@@ -3456,9 +3448,6 @@ class charInfo(blankWindow):
 
         self._character["background"] = bg
 
-        #DEBUG
-        pprint(bg)
-        pprint(self._character['background'])
         with open(self.spath + self._character['player'] + '/' + self._character['name'] + ".json", "w") as outfile:
                 json.dump(self._character,
                           outfile,
@@ -3472,3 +3461,336 @@ class charInfo(blankWindow):
 
     def __helpWin(self):
         self.notdoneyet("charInfo.__helpWin:\ņ\n not done yet")
+
+
+
+class statGainWin(blankWindow):
+    """
+    This is the class for the window to execute Stat gain rolls.
+    """
+
+
+    def __init__(self, lang = 'en', storepath = "./data", char = None):
+        """
+        Class constructor
+        \param lang The chosen language for window's and button's
+                    texts. At the moment, only English (en, default
+                    value) and German (de) are supported.
+        \param title title of the window
+        \param storepath path where things like options have to be stored
+        \param char Character as JSON/dictionary
+        """
+
+        if storepath == None:
+            self.spath = os.path.expanduser('~') + "/data"
+            logger.debug('Set storepath to %s' % (storepath)) + "/data"
+
+        else:
+            self.spath = storepath
+            logger.debug('statGainWin: storepath set to %s' %
+                         (storepath))
+        self.lang = lang
+        self._character = dict(calcTotals(char))
+        self.statgain = 10
+
+        if "statgain" in self._character.keys():
+
+            if self._character['statgain'] > 0:
+                self.statgain = int(self._character['statgain'])
+
+        self.mypath = storepath + '/' + self._character['player'] + '/'
+        self.cmask = [txtwin['json_files'][self.lang],
+                     txtwin['grp_files'][self.lang],
+                     txtwin['all_files'][self.lang]
+                     ]
+
+        blankWindow.__init__(self, self.lang)
+        self.window.title("%s - %s (%s)" % (wintitle['rm_statgain'][self.lang],
+                                            self._character['name'],
+                                            self._character['prof']
+                                            )
+                          )
+        self.filemenu = Menu(master = self.menu)
+        self.__addFileMenu()
+#        self.__addEditMenu()
+        self.__addHelpMenu()
+        self.__buildWin()
+        self.window.mainloop()
+
+
+    def __addFileMenu(self):
+        '''
+        Adds a file menu to menu bar.
+        '''
+        self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
+                              menu = self.filemenu)
+
+        self.filemenu.add_separator()
+        self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
+                                  command = self.notdoneyet)
+        self.filemenu.add_separator()
+        self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
+                                  command = self.__closewin)
+
+        self.__stats = stats
+
+#    def __addEditMenu(self):
+#        '''
+#        This adds an edit menu to the menu bar.
+#        '''
+#        self.edtmenu = Menu(master = self.menu)
+#        self.menu.add_cascade(label = txtmenu['menu_edit'][self.lang],
+#                              menu = self.edtmenu)
+#        self.edtmenu.add_command(label = submenu['edit'][self.lang]['add_pic'],
+#                                 command = self.__addPic)
+#        self.edtmenu.add_command(label = submenu['edit'][self.lang]['add_story'],
+#                                 command = self.__addStory)
+#        self.edtmenu.add_command(label = submenu['edit'][self.lang]['statgain'],
+#                                 command = self.__statGainRoll)
+
+
+    def __addHelpMenu(self):
+        '''
+        Adds a help menu entry to menu bar.
+        '''
+        self.helpmenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['help'][self.lang],
+                              menu = self.helpmenu)
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['win'],
+                                  command = self.__helpWin)
+        self.helpmenu.add_separator()
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
+                                  command = self._helpAbout)
+
+
+    def __closewin(self):
+        '''
+        A method to destroy the current window and go back to MainWindow.
+        '''
+        self.window.destroy()
+        self.window = MainWindow(lang = self.lang, char = self._character)
+
+#    def __openFile(self):
+#        """
+#        This method opens a dialogue window (Tk) for opening files.
+#        The content of the opened file will be saved in \e file
+#        \e content as an array.
+#        """
+#        self.__filein = askopenfilename(filetypes = self.cmask,
+#                                        initialdir = self.mypath)
+#        if self.__filein != "":
+#            with open(self.__filein, 'r') as filecontent:
+#
+#                if self.__filein[-4:].lower() == "json":
+#                    self.char = json.load(filecontent)
+#
+#                elif self.__filein[-3:].lower == "grp":
+#                    self.grp = json.load(filecontent)
+#
+#                else:
+#                    msg = messageWindow()
+#                    msg.showinfo(errmsg['wrong_type'][self.lang])
+#                    logger.warn(errmsg['wrong_type'][self.lang])
+#                    pass
+
+
+    def __helpWin(self):
+        self.notdoneyet("charInfo.__helpWin:\ņ\n not done yet")
+
+
+    def __buildWin(self):
+        '''
+        Builds the window's elements.
+
+        '''
+        Label(master = self.window,
+              width = 20,
+              text = self._character["player"]
+              ).grid(column = 0, row = 0)
+
+        Label(master = self.window,
+              width = 20,
+              text = self._character['name']
+              ).grid(column = 1, row = 0)
+
+        Label(master = self.window,
+              width = 20,
+              text = self._character['race']
+              ).grid(column = 2, row = 0)
+
+        Label(master = self.window,
+              width = 20,
+              text = self._character['prof']
+              ).grid(column = 3, row = 0)
+
+        Label(master = self.window,
+              width = 20,
+              text = "Stats"
+              ).grid(column = 0, row = 1, pady = 5, padx = 2)
+
+        Label(master = self.window,
+              width = 20,
+              text = "Temp"
+              ).grid(column = 1, row = 1, pady = 5, padx = 2)
+
+        Label(master = self.window,
+              width = 20,
+              text = "Pot"
+              ).grid(column = 2, row = 1, pady = 5, padx = 2)
+
+        Label(master = self.window,
+              width = 20,
+              text = labels['new_val'][self.lang]
+              ).grid(column = 3, row = 1, pady = 5, padx = 2)
+
+        self.var = {}
+        self.__cb = {}
+        self.__nl = {}
+        self.__nv = {}
+        #row and column
+        r = 2
+
+        self.__sgr = StringVar()
+        self.__sgr.set(labels['count'][self.lang] + ": " + str(self.statgain))
+
+        for s in self.__stats:
+            self.var[s] = IntVar()
+            self.__nv[s] = StringVar()
+            self.__nv[s].set("--")
+
+            self.__cb[s] = Checkbutton(master = self.window,
+                                     text = self._character[s]["name"],
+                                     variable = self.var[s]
+                                     )
+            self.__cb[s].grid(column = 0, row = r, pady = 2, padx = 2, sticky = W)
+
+            Label(master = self.window,
+                  width = 20,
+                  text = str(self._character[s]['temp'])
+                  ).grid(column = 1, row = r, pady = 2, padx = 2, sticky = E)
+
+            Label(master = self.window,
+                  width = 20,
+                  text = str(self._character[s]['pot'])
+                  ).grid(column = 2, row = r, pady = 2, padx = 2, sticky = E)
+
+            Label(master = self.window,
+                  width = 20,
+                  textvariable = self.__nv[s],
+                  ).grid(column = 3, row = r, pady = 2, padx = 2, sticky = E)
+
+            r += 1
+
+            if self.statgain == 10:
+                self.var[s].set(1)
+
+            else:
+                self.var[s].set(0)
+
+            #DEBUG
+            print("DEBUG var[{}]: {}".format(s, self.var[s].get()))
+
+        Button(self.window,
+               text = txtbutton['but_all'][self.lang],
+               command = self.__selectAll,
+               width = 20
+               ).grid(column = 0,
+                      row = r,
+                      pady = 2,
+                      sticky = "NW"
+                      )
+
+        Button(self.window,
+               text = txtbutton['but_none'][self.lang],
+               command = self.__selectNone,
+               width = 20
+               ).grid(column = 1,
+                      row = r,
+                      pady = 2,
+                      sticky = "NW"
+                      )
+        Label(master = self.window,
+              width = 20,
+              textvariable = self.__sgr
+              ).grid(column = 2,
+                     row = r)
+        Button(self.window,
+               text = txtbutton['but_roll'][self.lang],
+               command = self.statGainRoll,
+               width = 20
+               ).grid(column = 3,
+                      row = r,
+                      pady = 2,
+                      sticky = "NW"
+                      )
+
+
+    def __selectAll(self):
+        '''
+        This method selects all Checkbuttons
+        '''
+        for s in self.__stats:
+            self.var[s].set(1)
+
+
+    def __selectNone(self):
+        '''
+        This method unselects all Checkbuttons
+        '''
+        for s in self.__stats:
+            self.var[s].set(0)
+
+
+    def statGainRoll(self):
+        '''
+        This method does Stat Gain Rolls for all selected stats
+        '''
+        from rpgtoolbox.rpgtools import dice, statGain
+        self.newstats = {}
+        for s in self.__stats:
+            doGainRoll = self.var[s].get()
+
+            if doGainRoll and self.statgain > 0:
+                d = dice(10, 2)
+
+                self.newstats[s] = statGain(d[0], d[1], self._character[s]['temp'], self._character[s]['pot'])
+                self.__nv[s].set(self.newstats[s])
+
+                self.statgain -= 1
+                self.__sgr.set(labels['count'][self.lang] + ": " + str(self.statgain))
+
+        if self.statgain <= 0:
+
+            for elem in self.newstats.keys():
+                self._character[elem]['temp'] = int(self.newstats[elem])
+
+            self._character['statgain'] = 0
+
+            Button(self.window,
+                   text = txtbutton['but_sav'][self.lang] + " & " + txtbutton['but_quit'][self.lang],
+                   command = self.saveData,
+                   width = 40
+                   ).grid(column = 1,
+                          row = 13,
+                          columnspan = 2,
+                          pady = 3,
+                          sticky = "NEWS"
+                          )
+
+
+    def saveData(self):
+        '''
+        This recalculates character's category and skill bonusses, saves character and goes back to main window.
+        '''
+        self._character = dict(calcTotals(self._character))
+
+        with open(self.spath + self._character['player'] + '/' + self._character['name'] + ".json", "w") as outfile:
+            json.dump(self._character,
+                      outfile,
+                      sort_keys = True,
+                      indent = 4,
+                      ensure_ascii = False)
+
+        self.window.destroy()
+        self.window = MainWindow(lang = self.lang, storepath = self.spath, char = self._character)
+

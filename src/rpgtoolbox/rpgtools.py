@@ -14,7 +14,7 @@ This module contains some helpful functions for role-playing games like:
 \email marcus@lederzeug.de
 \version 0.1
 '''
-__updated__ = "16.06.2019"
+__updated__ = "17.06.2019"
 
 import random
 from rpgtoolbox.globaltools import readCSV
@@ -166,6 +166,53 @@ def RRroll(attacklvl, targetlvl, roll):
         resisted = True
 
     return resisted, value
+
+
+
+def statGain(dicelow = 1, dicehigh = 1, temp = 50, pot = 75):
+    '''
+    This function calculates the stat gain roll: a temporary steat could raise ore fall.
+    @param dicelow result of the lower result of the  d10 roll
+    @param dicehight result of the higher result of the d10 roll
+    @param temp temp value of stat
+    @param pot pot value of stat
+    @retval result new temp value of stat
+    '''
+    result = temp
+    statdif = pot - temp
+
+    if dicelow >= dicehigh:
+        dummy = int(dicehigh)
+        dicehigh = int(dicelow)
+        dicelow = int(dummy)
+
+    if statdif <= 10:
+
+        if dicelow < 6:
+            result -= dicelow
+
+        else:
+            result += 2 * dicelow
+
+    elif 10 < statdif <= 20:
+
+        if dicehigh < 6:
+            result -= dicehigh
+
+        else:
+            result += 2 * dicehigh
+
+    else:
+
+        if (dicehigh + dicelow) < 6:
+            result -= dicehigh + dicelow
+
+        else:
+            result += dicehigh + dicelow
+
+    if result > pot:
+        result = pot
+    return result
 
 
 
