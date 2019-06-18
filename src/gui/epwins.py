@@ -2650,6 +2650,7 @@ class skillcatWin(blankWindow):
         self._character['lvl'] = int(getLvl(self._character['exp']))
         oldlvl = int(getLvl(self._character['old_exp']))
         self._character['lvlup'] += self._character['lvl'] - oldlvl
+        self._character['statgain'] += int(self._character['lvlup'] * 10)
 
 
     def __calcDP(self):
@@ -3497,6 +3498,8 @@ class statGainWin(blankWindow):
 
             if self._character['statgain'] > 0:
                 self.statgain = int(self._character['statgain'])
+            else:
+                self.statgain = 0
 
         self.mypath = storepath + '/' + self._character['player'] + '/'
         self.cmask = [txtwin['json_files'][self.lang],
@@ -3526,8 +3529,8 @@ class statGainWin(blankWindow):
                               menu = self.filemenu)
 
         self.filemenu.add_separator()
-        self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
-                                  command = self.notdoneyet)
+        self.filemenu.add_command(label = submenu['file'][self.lang]['save'] + " & " + submenu['file'][self.lang]['close'],
+                                  command = self.saveData)
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
                                   command = self.__closewin)
