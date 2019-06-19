@@ -35,7 +35,7 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "18.06.2019"
+__updated__ = "19.06.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -1582,10 +1582,24 @@ class genAttrWin(blankWindow):
                         temp.append(rm.realmstats[self.lang][r])
 
                 elif self.character['realm'] != "choice":
-                    temp.append(rm.realmstats[self.lang]
-                                [self.character['realm']])
-                    temp.append(rm.realmstats[self.lang]
-                                [self.character['realm']])
+#                    #DEBUG
+#                    print(type(self.character['realm']))
+
+#                    if type(self.character['realm']) != type(""):
+#                        for r in self.character['realm'].keys():
+#                            temp.append(rm.realmstats[self.lang][r])
+
+                    if " " in self.character['realm']:
+                        self.character['realm'] = self.character['realm'].strip("(')")
+                        self.character['realm'] = self.character['realm'].split("', '")
+
+                        for r in self.character['realm']:
+                            temp.append(rm.realmstats[self.lang][r])
+
+                    else:
+                        temp.append(rm.realmstats[self.lang][self.character['realm']])
+#                    temp.append(rm.realmstats[self.lang]
+#                                [self.character['realm']])
 
                 skillcat[content[i][0]][content[0][1]] = temp
                 skillcat[content[i][0]]["Skill"][content[0][1]] = temp
@@ -2394,12 +2408,7 @@ class skillcatWin(blankWindow):
               -# remove it from treeview if changes were reversed
               -# save it in the character structure if saved by File Menu
               -# update the character structure with it if finalized.
-            - finalize button:
-                -# finalize level up
-                -# if no level up possible and BGOs available goto next character
-                   creation window
-                -# if no level up possible and no BGOs close window and return to
-                   main window
+
         '''
         from rpgtoolbox.rolemaster import exceptions
 
@@ -2453,7 +2462,8 @@ class skillcatWin(blankWindow):
         @todo the following has to be done:
             -# selected items have to be taken to the entry fields
             -# if changes have been taken back add the DP again
-        @bug slider does not work
+        @bug - spell lists cause trouble (see inline comments)
+        - slider does not work
         '''
         from rpgtoolbox.rolemaster import exceptions
 
@@ -2507,8 +2517,13 @@ class skillcatWin(blankWindow):
                                                    )
                 if 'Skill' in list(self.__changed['cat'][cat].keys()):
                     # somewhere here seems to be a bug with spelllist (AttributeError: 'list' object has no attribute 'keys')
+                    # with spells: if 'Progression' in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
+                    # AttributeError: 'list' object has no attribute 'keys'
+                    #DEBUG
+
                     for skill in list(self.__changed['cat'][cat]['Skill'].keys()):
                         if skill != "Progression":
+                            print("buildChangedTree: {} - {}".format(type(self.__changed['cat'][cat]['Skill'][skill]), skill))
                             if 'Progression' in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
                                 progression = self.__changed['cat'][cat]['Skill'][skill]['Progression']
     #                        if 'Progression' in list(self.__changed['cat'][cat].keys()):
@@ -2619,11 +2634,11 @@ class skillcatWin(blankWindow):
 
         if self.__tree.item(self.__curItem)['tags'] != "category":
             linkedcat = ""
+
             for elem in self.__tree.item(self.__curItem)['tags']:
                 linkedcat += elem + " "
+
             self.linkedcat = linkedcat.strip(" ")
-            #DEBUG
-            print(self.linkedcat)
 
 
     def __selectChangedItem(self, event):
@@ -2649,7 +2664,11 @@ class skillcatWin(blankWindow):
         '''
         self._character['lvl'] = int(getLvl(self._character['exp']))
         oldlvl = int(getLvl(self._character['old_exp']))
-        self._character['lvlup'] += self._character['lvl'] - oldlvl
+        if "lvlup" in self._character.keys():
+            self._character['lvlup'] += self._character['lvl'] - oldlvl
+        else:
+            self._character['lvlup'] = 1
+            self._character['statgain'] = 0
         self._character['statgain'] += int(self._character['lvlup'] * 10)
 
 
@@ -2991,7 +3010,7 @@ class skillcatWin(blankWindow):
                         #DEBUG
                         print("changed - values ")
                         pprint(self.__changed["cat"][cat]["Skill"][skill])
-                        print("\n\n charakter")
+                        print("\n\n character")
                         pprint(self._character["cat"][cat]["Skill"][skill])
 
                         self._character["cat"][cat]["Skill"][skill]["rank"] = self.__changed["cat"][cat]["Skill"][skill]["rank"]
@@ -3013,15 +3032,32 @@ class skillcatWin(blankWindow):
         @todo has to be full implemented
         @bug values aren't written into the tree items :(
         '''
-        skill = self.__tree.item(self.__curItem)['text']
-        skillentry = self.skillentry
-        if "+" in skill and skillentry != skill:
-            self.__tree.item(self.__curItem)['text'] = skillentry
-            print("piep")
-# XXXXX
-#        print("DEBUG reanme: {} {}".format(type(self.__tree.item(self.__curItem)),self.__tree.item(self.__curItem))
-#        print("__renameSkill not done yet.")
-#        self.notdoneyet("__renameSkill")
+        curitem = self.__tree.item(self.__curItem)
+        skillentry = self._skillentry.get()
+        cat = ""
+
+        for elem in curitem['tags']:
+            cat += elem + " "
+
+        cat = cat.strip(" ")
+        skill = {skillentry: {"item bonus":0,
+                             "rank": int(curitem["values"][3]),
+                             "rank bonus": 0,
+                             "spec bonus": 0,
+                             "total bonus": 0,
+                             "Progression": list(self._character['cat'][cat]['Progression']),
+                             "Costs": list(self._character['cat'][cat]['Costs'])
+                             }
+                }
+        self._character['cat'][cat]["Skill"][skillentry] = skill[skillentry]
+        print(skillentry)
+        for entry in ["item bonus", "rank"]:
+            self._character['cat'][cat]["Skill"][curitem['text']][entry] = 0
+
+        self.__calcTotals()
+        self.__buildWin()
+        self.__buildTree()
+        self.__buildChangedTree()
 
 
     def __save(self, ending = '.snap'):

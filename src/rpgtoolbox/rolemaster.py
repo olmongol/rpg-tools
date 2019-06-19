@@ -14,7 +14,7 @@ This package holds RM specific tools like Character Skill Progression.
 \date 2019
 \copyright 2015-2019 Marcus Schwamberger
 '''
-__updated__ = "30.04.2018"
+__updated__ = "19.06.2019"
 
 catnames = {'de' : {'spells' : "Spells",
                     'weapon' : 'Weapon',
@@ -254,7 +254,7 @@ labels = {'de' : {'race' : 'Rasse',
                   'prof' : 'Profession',
                   'prof bonus' : 'Profession Bonus',
                   'name' : 'Name',
-                  'realm' : 'Magic Raalm',
+                  'realm' : 'Magic Realm',
                   'stats' : 'Attributes',
                   'skin' : 'Skin Color',
                   'culture' : 'Culture',
