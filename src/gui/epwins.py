@@ -123,7 +123,8 @@ class MainWindow(blankWindow):
                                   command = self.__saveFile)
         self.filemenu.add_command(label = submenu['file'][self.lang]['sv_as'],
                                   command = self.__saveFile)
-
+        self.filemenu.add_command(label = submenu['file'][self.lang]['export'] + "(LaTeX/PDF)",
+                                  command = self.__exportLaTeX)
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['quit'],
                                   command = self.window.destroy)
@@ -172,6 +173,19 @@ class MainWindow(blankWindow):
         @todo has to be implemented
         '''
         self.notdoneyet("'saveFile'")
+
+
+    def __exportLaTeX(self):
+        '''
+        This method exports character data into a LaTeX file from which a PDF
+        will be generated
+        '''
+        if self.char == None:
+            msg = messageWindow()
+            msg.showinfo(errmsg['no_data'][self.lang])
+
+        else:
+            self.notdoneyet("exporLaTeX")
 
 
     def __addEditMenu(self):

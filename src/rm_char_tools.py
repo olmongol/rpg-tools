@@ -29,8 +29,6 @@ This tool handles
 \todo design: Equipment, Shop, Treasures (Chris)
 \todo desing: herb store and search
 
-----
-\bug in gui.epwins some DP costs >9 are shown as 1 0 for example.
 '''
 from gui.epwins import *
 from rpgtoolbox.lang import *
@@ -38,12 +36,12 @@ from rpgtoolbox.confbox import *
 from rpgtoolbox import logbox as log
 
 __author__ = "Marcus Schwamberger"
-__updated__ = "08.06.2019"
+__updated__ = "20.06.2019"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + __author__
 __email__ = "marcus@lederzeug.de"
 __version__ = "1.0.0"
 __license__ = "GNU V3.0"
-__me__ = "A MERS/RM RPG Toolbox for Python 2.7"
+__me__ = "A MERS/RM RPG Toolbox for Python 3.6"
 
 if __name__ == '__main__':
     logger = log.createLogger('rpg', 'debug', '1 MB', 1, './')
