@@ -35,7 +35,7 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "19.06.2019"
+__updated__ = "20.06.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -745,7 +745,6 @@ class genAttrWin(blankWindow):
     '''
     A window class for generating name, race, profession and attributes of a new
     character.
-    @todo adding the spell lists as skills to the right skill categories
     '''
 
 
@@ -1503,9 +1502,6 @@ class genAttrWin(blankWindow):
         as well as bonus (special, profession and items)
         \note Skills wont have a profession bonus. It is already applied to the
         category.
-        @todo replace progression expression with number list for ALL skills and
-        categories
-        @todo add spell lists as spell skills
         '''
         from rpgtoolbox import rolemaster as rm
         fp = open("%sdefault/Skills_%s.csv" % (self.spath, self.lang))
@@ -1566,8 +1562,6 @@ class genAttrWin(blankWindow):
             skillcat[content[i][0]][content[0][2]] = content[i][2]
             skillcat[content[i][0]]["Skill"][content[0][2]] = content[i][2]
             skillcat[content[i][0]][content[0][1]] = content[i][1].split('/')
-# this commented out code should avoid Stats in Skills
-#            skillcat[content[i][0]]["Skill"][content[0][1]] = content[i][1].split('/')
 
             if rm.catnames[self.lang]['spells'] in content[i][0][:7]:
                 temp = []
@@ -1582,12 +1576,6 @@ class genAttrWin(blankWindow):
                         temp.append(rm.realmstats[self.lang][r])
 
                 elif self.character['realm'] != "choice":
-#                    #DEBUG
-#                    print(type(self.character['realm']))
-
-#                    if type(self.character['realm']) != type(""):
-#                        for r in self.character['realm'].keys():
-#                            temp.append(rm.realmstats[self.lang][r])
 
                     if " " in self.character['realm']:
                         self.character['realm'] = self.character['realm'].strip("(')")
@@ -1598,8 +1586,6 @@ class genAttrWin(blankWindow):
 
                     else:
                         temp.append(rm.realmstats[self.lang][self.character['realm']])
-#                    temp.append(rm.realmstats[self.lang]
-#                                [self.character['realm']])
 
                 skillcat[content[i][0]][content[0][1]] = temp
                 skillcat[content[i][0]]["Skill"][content[0][1]] = temp
@@ -1611,6 +1597,9 @@ class genAttrWin(blankWindow):
                                                    self.character['realm'],
                                                    self.character['lvl']
                                                    )
+            #DEBUG
+            print("1610: addCatnSkills: spellbook:")
+            pprint(self.spellbook)
 
             for cat in list(self.character['cat'].keys()):
 
@@ -1619,7 +1608,6 @@ class genAttrWin(blankWindow):
                     for slcat in list(self.spellbook.spelllists.keys()):
 
                         if self.spellbook.spelllists[slcat]['Category'] in cat:
-                            #                            self.character['cat'][cat]['Skill'] = self.spellbook.spelllists[slcat]
                             for spell in list(self.spellbook.spelllists[slcat].keys()):
 
                                 if spell != "Category":
@@ -1630,8 +1618,6 @@ class genAttrWin(blankWindow):
                                     self.character['cat'][cat]['Skill'][spell]['item bonus'] = 0
                                     self.character['cat'][cat]['Skill'][spell]["spec bonus"] = 0
                             break
-
-# here to come: adding spell lists as skills to the right category
 
 
     def __closewin(self):
@@ -1807,15 +1793,8 @@ class priorizeWeaponsWin(blankWindow):
         crace = races['en'][races[self.lang].index(self.character['race'])]
 
         for skillcat in list(self.__catDBC[prof].keys()):
-#            if '/' in self.__catDBC[prof][skillcat]:
-#                dbcdummy = self.__catDBC[prof][skillcat].split('/')
-#            else:
-#                dbcdummy = list(self.__catDBC[prof][skillcat])
             dbcdummy = self.__catDBC[prof][skillcat].split('/')
             skprog = ""
-            #DEBUG
-            print(("__add2Char dbcdummy ", type(dbcdummy)))
-            print(dbcdummy)
 
             for i in range(0, len(dbcdummy)):
 
@@ -1840,8 +1819,6 @@ class priorizeWeaponsWin(blankWindow):
             elif self.character['cat'][skillcat]['Progression'] == "Null" or self.character['cat'][skillcat]['Progression'] == "Skill Only":
                 self.character['cat'][skillcat]['Progression'] = progressionType['null']
                 skprog = progressionType['skill only']
-#                if "Spells -" in skillcat:
-#                    print "add2Char:", skillcat
 
             elif self.character['cat'][skillcat]['Progression'] == "Combined":
                 self.character['cat'][skillcat]['Progression'] = progressionType['null']
@@ -1849,7 +1826,6 @@ class priorizeWeaponsWin(blankWindow):
 
             for skill in list(self.character['cat'][skillcat]['Skill'].keys()):
 
-#                print "Skill: %s - %s" % (skill, skprog)
                 if skill not in exceptions:
                     self.character['cat'][skillcat]['Skill'][skill]['Progression'] = skprog
 
@@ -1939,8 +1915,6 @@ class priorizeWeaponsWin(blankWindow):
                 param['ppd'] = ppds[realms[l].index(self.character['realm'])]
                 param['Stats'] = magicstats[realms[l].index(
                     self.character['realm'])]
-
-        print(("set ppd ", param))
 
         if type(param['ppd']) == type(''):
             param['ppd'] = progressionType[param['ppd'] + param['race']]
@@ -2043,11 +2017,8 @@ class skillcatWin(blankWindow):
     during adolescence.
 
     ----
-    @todo a lot... it is not finished yet:
-    - an input widget to enter rank level ups
-    - force to change names of skill+
+    @todo  not finished yet:
       - selecting items here can make changes undone or change them again
-    - a button to save changes which are not finalized
     """
 
 
@@ -2145,8 +2116,6 @@ class skillcatWin(blankWindow):
             3. horizontal (auto)scrollbar linked to the treeview widget
         - Labels for specific category/skill values
 
-        @bug The following bugs have to be fixed:
-             -# if switched to a skill of another category the rank change would not be displayed correctly
         '''
         from rpgtoolbox.rolemaster import labels as rmlabels
         self.__treeframe = Frame(width = 800, height = 600)
@@ -2398,16 +2367,11 @@ class skillcatWin(blankWindow):
         @todo this has to be fully implemented
             - Menu save functionality will save the current work state if not finalized.
             - force a name modify of skills with +
-              -# add function to RENAME button:
-                  -# rename skill
-                  -# add new skill
             - If not finalized clicking on items in edit skill/cat treeview will
               cause an editing option. That means:
               -# create a JSON structure with modified but not finalized cats/skills.
               -# put it into the treeview and update it after every change
               -# remove it from treeview if changes were reversed
-              -# save it in the character structure if saved by File Menu
-              -# update the character structure with it if finalized.
 
         '''
         from rpgtoolbox.rolemaster import exceptions
@@ -2462,8 +2426,7 @@ class skillcatWin(blankWindow):
         @todo the following has to be done:
             -# selected items have to be taken to the entry fields
             -# if changes have been taken back add the DP again
-        @bug - spell lists cause trouble (see inline comments)
-        - slider does not work
+        @bug  - slider does not work
         '''
         from rpgtoolbox.rolemaster import exceptions
 
@@ -2516,18 +2479,12 @@ class skillcatWin(blankWindow):
                                                 tag = "category"
                                                    )
                 if 'Skill' in list(self.__changed['cat'][cat].keys()):
-                    # somewhere here seems to be a bug with spelllist (AttributeError: 'list' object has no attribute 'keys')
-                    # with spells: if 'Progression' in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
-                    # AttributeError: 'list' object has no attribute 'keys'
-                    #DEBUG
 
                     for skill in list(self.__changed['cat'][cat]['Skill'].keys()):
-                        if skill != "Progression":
+                        if skill != "Progression" and skill != "Stats":
                             print("buildChangedTree: {} - {}".format(type(self.__changed['cat'][cat]['Skill'][skill]), skill))
                             if 'Progression' in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
                                 progression = self.__changed['cat'][cat]['Skill'][skill]['Progression']
-    #                        if 'Progression' in list(self.__changed['cat'][cat].keys()):
-    #                            progression = self.__changed['cat'][cat]['Progression']
 
                             if self.__rmlabels['en']['costs'] in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
                                 costs = self.__changed['cat'][cat]['Skill'][skill][self.__rmlabels['en']['costs']]
@@ -2563,14 +2520,6 @@ class skillcatWin(blankWindow):
         '''
         Select an item from the treeview list.
         \param event responding treeview event which is not used for anything.
-        @todo further computing of selected data:
-              - adding DPs to cat/skill by max determined by proceeding costs &
-                limits
-              - removing used DPs permanently from total
-              - finalize by saving changed data (with full update of data to calculate)
-              - save remaining unused DPs (total)
-              - check for remaining DB (stop if zero)..
-
         '''
         self.__curItem = self.__tree.focus()
         self.DPcost.set(self.__tree.item(self.__curItem)['values'][2])
@@ -2623,14 +2572,14 @@ class skillcatWin(blankWindow):
 
             self._skillspin.config(from_ = self.__tree.item(self.__curItem)['values'][3],
                                    to = self.__tree.item(self.__curItem)['values'][3] + len(self.skillcost),
-            )
+                                   )
             self.SpinSkillVal.set(self.__tree.item(self.__curItem)['values'][3])
 
             if self.__tree.item(self.__curItem)['tags'][0] != "category":
                 self.skillrank = self.__tree.item(self.__curItem)['values'][-2]
 
         #DEBUG
-        print(self.__tree.item(self.__curItem))
+#        print(self.__tree.item(self.__curItem))
 
         if self.__tree.item(self.__curItem)['tags'] != "category":
             linkedcat = ""
@@ -2647,13 +2596,6 @@ class skillcatWin(blankWindow):
         @todo It has to be fully implemented
         '''
         pass
-
-#    def __checkDev(self):
-#        '''
-#        This method handles the level up procedure. Validates number of level-ups
-#        per skill/category and keeps an eye on the total remaining DPs.
-#        '''
-#        self.notdoneyet("__checkDev")
 
 
     def __calcLvlup(self):
@@ -2855,7 +2797,7 @@ class skillcatWin(blankWindow):
 
                 diffcost = 0
 
-                if diff > 0:
+                if diff >= 0:
 
                     for i  in range(0, diff):
                             diffcost += int(dpCosts[i])
@@ -2962,7 +2904,6 @@ class skillcatWin(blankWindow):
 
             if currcat not in list(self.__changed['cat'].keys()) and currcat in list(self._character['cat'].keys()):
                 self.__changed['cat'][currcat] = self._character['cat'][currcat]
-                # here might be a logical bug
 
                 if "Skill" in list(self._character['cat'][currcat].keys()):
                     self.__changed['cat'][currcat]['Skill'] = self._character['cat'][currcat]['Skill']
@@ -3001,18 +2942,12 @@ class skillcatWin(blankWindow):
 
             for skill in list(self.__changed["cat"][cat]["Skill"].keys()):
 
-                if skill != "Progression":
+                if skill != "Progression" and skill != "Stats":
 
                     if skill not in list(self._character["cat"][cat]["Skill"].keys()):
                         self._character["cat"][cat]["Skill"][skill] = self.__changed['cat'][cat]["Skill"][skill]
 
                     else:
-                        #DEBUG
-                        print("changed - values ")
-                        pprint(self.__changed["cat"][cat]["Skill"][skill])
-                        print("\n\n character")
-                        pprint(self._character["cat"][cat]["Skill"][skill])
-
                         self._character["cat"][cat]["Skill"][skill]["rank"] = self.__changed["cat"][cat]["Skill"][skill]["rank"]
                         self._character["cat"][cat]["Skill"][skill]["total bonus"] = self.__changed["cat"][cat]["Skill"][skill]["total bonus"]
 
@@ -3029,8 +2964,7 @@ class skillcatWin(blankWindow):
     def __renameSkill(self):
         '''
         This method renames all skill+ and adds new ones
-        @todo has to be full implemented
-        @bug values aren't written into the tree items :(
+        @bug when renaming the DPs will be shown wrong - but only shown...
         '''
         curitem = self.__tree.item(self.__curItem)
         skillentry = self._skillentry.get()
@@ -3050,7 +2984,9 @@ class skillcatWin(blankWindow):
                              }
                 }
         self._character['cat'][cat]["Skill"][skillentry] = skill[skillentry]
-        print(skillentry)
+
+        dummyDP = int(self._character['DP'])
+
         for entry in ["item bonus", "rank"]:
             self._character['cat'][cat]["Skill"][curitem['text']][entry] = 0
 
@@ -3058,6 +2994,7 @@ class skillcatWin(blankWindow):
         self.__buildWin()
         self.__buildTree()
         self.__buildChangedTree()
+        self._character['DP'] = dummyDP
 
 
     def __save(self, ending = '.snap'):
@@ -3234,6 +3171,8 @@ class charInfo(blankWindow):
         self.background = {}
         for elem in charattribs.keys():
             self.background[elem] = StringVar()
+
+        alreadyset = False
 
         if "background" in list(self._character.keys()):
             alreadyset = True
