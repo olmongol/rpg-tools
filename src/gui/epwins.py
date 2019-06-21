@@ -35,7 +35,7 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "20.06.2019"
+__updated__ = "21.06.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -180,12 +180,16 @@ class MainWindow(blankWindow):
         This method exports character data into a LaTeX file from which a PDF
         will be generated
         '''
+        from rpgtoolbox import latexexport
+
         if self.char == None:
             msg = messageWindow()
             msg.showinfo(errmsg['no_data'][self.lang])
 
         else:
-            self.notdoneyet("exporLaTeX")
+            export = latexexport.charsheet(self.char, self.mypath)
+            msg = messageWindow()
+            msg.showinfo("LaTeX generated")
 
 
     def __addEditMenu(self):
