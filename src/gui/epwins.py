@@ -35,7 +35,7 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "21.06.2019"
+__updated__ = "22.06.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -1559,6 +1559,18 @@ class genAttrWin(blankWindow):
                                                                  }
 
         del(content)
+        self.profs = rm.choseProfession(self.lang)
+        for key in skillcat.keys():
+            #DEBUG
+            print("addCatnSkills: key - {}".format(key))
+
+            for pbonus in self.profs[self.character['prof']]['Profession Bonusses'].keys():
+
+                if pbonus in skillcat.keys():
+                    #DEBUG
+                    print("addCatnSkills: pbonus - {}".format(pbonus))
+
+                    skillcat[key]['prof bonus'] = int(self.profs[self.character['prof']]['Profession Bonusses'][pbonus])
 
         fp = open('%s/default/SkillCat_%s.csv' % (self.spath, self.lang), 'r')
         content = fp.readlines()
@@ -1636,6 +1648,7 @@ class genAttrWin(blankWindow):
                                     self.character['cat'][cat]['Skill'][spell]['item bonus'] = 0
                                     self.character['cat'][cat]['Skill'][spell]["spec bonus"] = 0
                             break
+#XXXXXXXXXXXXXXXXXx
 
 
     def __closewin(self):
@@ -2500,7 +2513,7 @@ class skillcatWin(blankWindow):
 
                     for skill in list(self.__changed['cat'][cat]['Skill'].keys()):
                         if skill != "Progression" and skill != "Stats":
-                            print("buildChangedTree: {} - {}".format(type(self.__changed['cat'][cat]['Skill'][skill]), skill))
+
                             if 'Progression' in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
                                 progression = self.__changed['cat'][cat]['Skill'][skill]['Progression']
 

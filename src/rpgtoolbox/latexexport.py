@@ -12,7 +12,7 @@ will be generated for printouts
 \version 1.0
 '''
 
-__updated__ = "21.06.2019"
+__updated__ = "22.06.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -116,7 +116,6 @@ class charsheet(object):
 
         saveFile("{}/latex/{}.tex".format(self.chardir, self.char['name']), template)
         logger.info("createMainLatex: {}/latex/{}.tex saved".format(self.chardir, self.char['name']))
-        print("{}\latex\{}.tex saved".format(self.chardir, self.char['name']))
 
 
     def createGenInfo(self):
@@ -126,22 +125,22 @@ class charsheet(object):
         data = ["name", "prof", "race", "culture", "lord", "parents", "siblings", "partner",
                 "children", "deity", "sex", "skin", "eyes", "hair", "height", "weight", "app_age",
                 "act_age", "looking", "souldeparture", "recovery", "pprecovery", "lvl", "piclink",
-                "pers", "motiv", "exp"]
+                "pers", "motiv", "exp", "home"]
         self.chardir += "/latex/"
 
         template = readFile(self.storepath + "/default/latex/template_gen_info.tex")
         logger.info("createGenInfo: read {}".format(self.storepath + "/default/latex/template_gen_info.tex"))
-
+        template = template.replace("==>realm", str(self.char['realm']).replace(", ", "/").strip("[]"))
         for index in data:
 
             if index in self.char.keys():
-                template = template.replace("==>" + index, str(self.char[index]).strip("()"))
+                template = template.replace("==>" + index, str(self.char[index]).strip("[]"))
 
             elif index in self.char["background"].keys():
                 template = template.replace("==>" + index, str(self.char['background'][index]))
 
             else:
-                template = template.replace("==>" + index, "_____")
+                template = template.replace("==>" + index, u"\_\_\_\_\_")
 
         saveFile(self.chardir + "{}_gen_info.tex".format(self.char['name']), template)
 
@@ -164,12 +163,14 @@ class charsheet(object):
         '''
         This creates a LaTeX sheet with RR, DB, AT
         '''
-        vals = ["RRArc", "RRC/E", "RRC/E", "RRChan", "RRDisease", "RRE/M", "RREss", "RRFear",
+        vals = ["RRArc", "RRC/E", "RRChan", "RRDisease", "RRE/M", "RRC/M", "RREss", "RRFear",
               "RRMent", "RRPoison"]
 
         template = readFile(self.storepath + "/default/latex/template_rr_at_db.tex")
         template = template.replace("==>ThreeQ", str(int(self.char["Qu"]["total"]) * 3))
 
+#        #DEBUG
+#        print("createRRATDB: char.keys {}".format(list(self.char.keys())))
         for v in vals:
             template = template.replace("==>{}".format(v), str(self.char[v]))
 
@@ -182,16 +183,16 @@ class charsheet(object):
         '''
         self.catlist = list(self.char['cat'].keys())
         self.catlist.sort()
-        catstd = u"{} & {} & {} & {} & {} & {} &{} &{} &{}&{}\\\n"
+        catstd = u"{} & {} & {} & {} & {} & {} &{} &{} &{}&{}\\\\\n"
         skillpre = u"\hspace{4mm} "
-        skillval = u"{} & {} & {} & {} & {} & {} &{} &-- &{}&{}\\\n"
-        weapon = u"\rowcolor{Red} "
-        spell = u"\rowcolor{ProcessBlue} "
-        devel = u"\rowcolor{Green} "
+        skillval = u"{} & {} & {} & {} & {} & {} &{} &-- &{}&{}\\\\\n"
+        weapon = u"\\rowcolor{Red} "
+        spell = u"\\rowcolor{ProcessBlue} "
+        devel = u"\\rowcolor{Green} "
         datatable = ""
 
         for cat in self.catlist:
-            datatable += u"\hline\n"
+            datatable += u"\\hline\n"
             if "Weapon" in cat:
                 datatable += weapon + catstd.format(cat,
                                                   str(self.char['cat'][cat]['Progression']).replace(", ", "/"),
@@ -247,6 +248,9 @@ class charsheet(object):
                                                                      str(self.char['cat'][cat]["Skill"][skill]['total bonus'])
                                                                      )
             elif "Spells" in cat:
+                #DEBUG
+                print("251-createCatSkill\ncat {}\nchar['cat][{}]] {}".format(cat, cat, str(self.char['cat'][cat]['Progression']).replace(", ", "/")))
+
                 datatable += spell + catstd.format(cat,
                                                   str(self.char['cat'][cat]['Progression']).replace(", ", "/"),
                                                   str(self.char['cat'][cat]['Costs']).replace(", ", "/"),
@@ -262,13 +266,16 @@ class charsheet(object):
                 skilllist.sort()
 
                 for skill in skilllist:
-                    if skill not in ['Progression', ['Costs']]:
+                    if skill not in ['Progression', 'Costs', 'Stats']:
+                        #DEBUG
+                        print("\t268-createCatSkill:\n\tskill: {}\n\tchar['cat][{}]]['Skill][{}] {}".format(skill, cat, skill, self.char['cat'][cat]["Skill"]))
+                        #print("\t268-createCatSkill:\n\tskill: {}\n\tchar['cat][{}]]['Skill][{}] {}".format(skill, cat, skill, str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/")))
                         datatable += spell + skillpre + skillval.format(skill,
                                                                      str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/"),
                                                                      str(self.char['cat'][cat]["Skill"][skill]['Costs']).replace(", ", "/"),
                                                                      str(self.char['cat'][cat]["Skill"][skill]['rank']),
                                                                      str(self.char['cat'][cat]["Skill"][skill]['rank bonus']),
-                                                                     "--",
+                                                                     str("--"),
                                                                      str(self.char['cat'][cat]["Skill"][skill]['spec bonus']),
                                                                      str(self.char['cat'][cat]["Skill"][skill]['item bonus']),
                                                                      str(self.char['cat'][cat]["Skill"][skill]['total bonus'])
