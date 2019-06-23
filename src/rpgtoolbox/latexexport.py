@@ -67,10 +67,6 @@ def saveFile(filename = "", content = ""):
     logger.info("saveFile: {} successfully saved.".format(filename))
     print("{} successfully saved.".format(filename))
 
-#class template(string.Template):
-#    delimiter = '==>'
-#    idpattern = r'[a-z][_a-z0-9.]*'
-
 
 
 class charsheet(object):
@@ -172,7 +168,7 @@ class charsheet(object):
 #        #DEBUG
 #        print("createRRATDB: char.keys {}".format(list(self.char.keys())))
         for v in vals:
-            template = template.replace("==>{}".format(v), str(self.char[v]))
+            template = template.replace("==>{}".format(v), str(int(self.char[v])))
 
         saveFile(self.chardir + "{}_rr_at_db.tex".format(self.char['name']), template)
 
@@ -186,9 +182,9 @@ class charsheet(object):
         catstd = u"{} & {} & {} & {} & {} & {} &{} &{} &{}&{}\\\\\n"
         skillpre = u"\hspace{4mm} "
         skillval = u"{} & {} & {} & {} & {} & {} &{} &-- &{}&{}\\\\\n"
-        weapon = u"\\rowcolor{Red} "
-        spell = u"\\rowcolor{ProcessBlue} "
-        devel = u"\\rowcolor{Green} "
+        weapon = u"\\rowcolor{Red!30} "
+        spell = u"\\rowcolor{ProcessBlue!30} "
+        devel = u"\\rowcolor{Green!30} "
         datatable = ""
 
         for cat in self.catlist:
@@ -209,7 +205,7 @@ class charsheet(object):
                 skilllist.sort()
 
                 for skill in skilllist:
-                    if skill not in ['Progression', ['Costs']]:
+                    if skill not in ['Progression', ['Costs']]and "+" not in skill:
                         datatable += weapon + skillpre + skillval.format(skill,
                                                                      str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/"),
                                                                      str(self.char['cat'][cat]["Skill"][skill]['Costs']).replace(", ", "/"),
@@ -236,7 +232,7 @@ class charsheet(object):
                 skilllist.sort()
 
                 for skill in skilllist:
-                    if skill not in ['Progression', ['Costs']]:
+                    if skill not in ['Progression', ['Costs']] and "+" not in skill:
                         datatable += devel + skillpre + skillval.format(skill,
                                                                      str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/"),
                                                                      str(self.char['cat'][cat]["Skill"][skill]['Costs']).replace(", ", "/"),
@@ -268,7 +264,7 @@ class charsheet(object):
                 skilllist.sort()
 
                 for skill in skilllist:
-                    if skill not in ['Progression', 'Costs', 'Stats']:
+                    if skill not in ['Progression', 'Costs', 'Stats'] and "+" not in skill:
                         #DEBUG
 #                        print("\t268-createCatSkill:\n\tskill: {}\n\tchar['cat][{}]]['Skill][{}] {}".format(skill, cat, skill, self.char['cat'][cat]["Skill"]))
                         #print("\t268-createCatSkill:\n\tskill: {}\n\tchar['cat][{}]]['Skill][{}] {}".format(skill, cat, skill, str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/")))
@@ -299,7 +295,7 @@ class charsheet(object):
                 skilllist.sort()
 
                 for skill in skilllist:
-                    if skill not in ['Progression', ['Costs']]:
+                    if skill not in ['Progression', ['Costs']] and "+" not in skill :
                         datatable += skillpre + skillval.format(skill,
                                                                 str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/"),
                                                                 str(self.char['cat'][cat]["Skill"][skill]['Costs']).replace(", ", "/"),
