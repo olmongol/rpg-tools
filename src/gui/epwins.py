@@ -35,7 +35,7 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "22.06.2019"
+__updated__ = "23.06.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -187,7 +187,7 @@ class MainWindow(blankWindow):
             msg.showinfo(errmsg['no_data'][self.lang])
 
         else:
-            export = latexexport.charsheet(self.char, self.mypath)
+            export = latexexport.charsheet(self.char, "./data/")
             msg = messageWindow()
             msg.showinfo("LaTeX generated")
 
@@ -205,6 +205,11 @@ class MainWindow(blankWindow):
                                  command = self.__bckgrndWin)
         self.edtmenu.add_command(label = submenu['edit'][self.lang]['statgain'],
                                  command = self.__statGainRoll)
+        self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_BGO'],
+                                 command = self.__statGainRoll)
+        self.edtmenu.add_separator()
+        self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_EP'],
+                                 command = self.__edtEPWin)
         self.edtmenu.add_separator()
         self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_fight'],
                                  command = self.__edfightWin)
@@ -235,6 +240,27 @@ class MainWindow(blankWindow):
         @todo edtgrpWin has to be implemented
         """
         self.notdoneyet("edtgrpWin")
+
+
+    def __BGOWin(self):
+        '''
+        Opens a window to enter and store new EPs in character data
+        @todo edtEPWin has to be fully implemented
+        '''
+        self.notdoneyet("BGOWin")
+
+
+    def __edtEPWin(self):
+        '''
+        Opens a window to enter and store new EPs in character data
+        '''
+        if self.char != None:
+            self.window.destroy()
+            self.window2 = editEPWin(self.lang, self.mypath, self.char)
+
+        else:
+            msg = messageWindow()
+            msg.showinfo(errmsg['no_data'][self.lang])
 
 
     def __edfightWin(self):
@@ -1542,6 +1568,10 @@ class genAttrWin(blankWindow):
                                        'item bonus': 0,
                                        'rank': 0
                                        }
+            #DEBUG
+            print("\naddCatnSkills ----------------------------{}".format(content[i][0]))
+            pprint(skillcat[content[i][0]])
+
             for pb in list(self.profs[self.character['prof']]['Profession Bonusses'].keys()):
 
                 if pb in content[i][0]:
@@ -1559,6 +1589,7 @@ class genAttrWin(blankWindow):
                                                                  }
 
         del(content)
+
         self.profs = rm.choseProfession(self.lang)
         for key in skillcat.keys():
             #DEBUG
@@ -1934,13 +1965,14 @@ class priorizeWeaponsWin(blankWindow):
         from rpgtoolbox.rolemaster import races, realms, ppds, magicstats, progressionType, speccat
         param = {}
         param['realm'] = self.character['realm']
+        #DEBUG
+        print("setPPD char -> {}".format(self.character['realm']))
 
         for l in list(races.keys()):
 
             if self.character['race'] in races[l]:
                 param['lang'] = l
-                param['race'] = races['en'][races[l].index(
-                    self.character['race'])]
+                param['race'] = races['en'][races[l].index(self.character['race'])]
 
             if self.character['realm'] in realms[l]:
                 param['ppd'] = ppds[realms[l].index(self.character['realm'])]
@@ -2961,7 +2993,8 @@ class skillcatWin(blankWindow):
         The changes done before are saved in the file <charname>.lvld
 
         '''
-
+        from rpgtoolbox import rolemaster as rm
+        self.profs = rm.choseProfession(self.lang)
         self._character['DP'] -= self.__usedDP
         if self.__usedDP > 0:
             self._character['lvlup'] -= 1
@@ -2982,6 +3015,20 @@ class skillcatWin(blankWindow):
                         self._character["cat"][cat]["Skill"][skill]["rank"] = self.__changed["cat"][cat]["Skill"][skill]["rank"]
                         self._character["cat"][cat]["Skill"][skill]["total bonus"] = self.__changed["cat"][cat]["Skill"][skill]["total bonus"]
 
+        # setting prof bonusses again
+        for cat in self._character['cat'].keys():
+
+            for pb in self.profs[self._character['prof']]['Profession Bonusses']:
+
+                if pb in cat:
+                    self._character['cat'][cat]['prof bonus'] = int(self.profs[self._character['prof']]['Profession Bonusses'][pb])
+#                    print('DEBUG finalize profb1: {}/{} -> {}'.format(pb, cat, self.profs[self._character['prof']]['Profession Bonusses'][pb]))
+                    break
+
+                else:
+                    self._character['cat'][cat]['prof bonus'] = 0
+#                    print('\tDEBUG finalize profb2: {}/{} -> 0'.format(pb, cat))
+#        self.__save('_debug.json')
         self.__save('.json')
         self.window.destroy()
 
@@ -2995,8 +3042,9 @@ class skillcatWin(blankWindow):
     def __renameSkill(self):
         '''
         This method renames all skill+ and adds new ones
-        @bug when renaming the DPs will be shown wrong - but only shown...
         '''
+        self._character['DP'] -= self.__usedDP
+        self.__usedDP = 0
         curitem = self.__tree.item(self.__curItem)
         skillentry = self._skillentry.get()
         cat = ""
@@ -3017,6 +3065,8 @@ class skillcatWin(blankWindow):
         self._character['cat'][cat]["Skill"][skillentry] = skill[skillentry]
 
         dummyDP = int(self._character['DP'])
+        #DEBUG
+#        print('renameSkill - dummyDP1: {}'.format(dummyDP))
 
         for entry in ["item bonus", "rank"]:
             self._character['cat'][cat]["Skill"][curitem['text']][entry] = 0
@@ -3026,6 +3076,8 @@ class skillcatWin(blankWindow):
         self.__buildTree()
         self.__buildChangedTree()
         self._character['DP'] = dummyDP
+        #DEBUG
+#        print("renameSkill - dummyDP2 {}".format(dummyDP))
 
 
     def __save(self, ending = '.snap'):
@@ -3033,7 +3085,7 @@ class skillcatWin(blankWindow):
         This method quickly saves a snapshot of current character's data into
         a file.
 
-        \param ending ending of the filename
+        @param ending ending of the filename
         '''
         pathfile = self.spath + "/" + \
             self._character['player'] + "/" + self._character['name'] + ending
@@ -3068,12 +3120,12 @@ class charInfo(blankWindow):
     def __init__(self, lang = 'en', storepath = "./data", char = None):
         """
         Class constructor
-        \param lang The chosen language for window's and button's
+        @param lang The chosen language for window's and button's
                     texts. At the moment, only English (en, default
                     value) and German (de) are supported.
-        \param title title of the window
-        \param storepath path where things like options have to be stored
-        \param char Character as JSON/dictionary
+        @param title title of the window
+        @param storepath path where things like options have to be stored
+        @param char Character as JSON/dictionary
         """
 
         if storepath == None:
@@ -3261,104 +3313,113 @@ class charInfo(blankWindow):
         # row 4 column 0-1
         Label(master = self.window,
               width = 15,
-              text = charattribs['height'][self.lang] + ":"
+              text = charattribs['skin'][self.lang] + ":"
               ).grid(column = 0, row = 4)
         Entry(master = self.window,
               width = 35,
-              textvariable = self.background['height']
+              textvariable = self.background['skin']
               ).grid(column = 1, row = 4)
         # row 5 column 0-1
         Label(master = self.window,
               width = 15,
-              text = charattribs['weight'][self.lang] + ":"
+              text = charattribs['height'][self.lang] + ":"
               ).grid(column = 0, row = 5)
         Entry(master = self.window,
               width = 35,
-              textvariable = self.background['weight']
+              textvariable = self.background['height']
               ).grid(column = 1, row = 5)
         # row 6 column 0-1
         Label(master = self.window,
               width = 15,
-              text = charattribs['app_age'][self.lang] + ":"
+              text = charattribs['weight'][self.lang] + ":"
               ).grid(column = 0, row = 6)
         Entry(master = self.window,
               width = 35,
-              textvariable = self.background['app_age']
+              textvariable = self.background['weight']
               ).grid(column = 1, row = 6)
         # row 7 column 0-1
         Label(master = self.window,
               width = 15,
-              text = charattribs['act_age'][self.lang] + ":"
+              text = charattribs['app_age'][self.lang] + ":"
               ).grid(column = 0, row = 7)
         Entry(master = self.window,
               width = 35,
-              textvariable = self.background['act_age']
+              textvariable = self.background['app_age']
               ).grid(column = 1, row = 7)
         # row 8 column 0-1
         Label(master = self.window,
               width = 15,
-              text = charattribs['parents'][self.lang] + ":"
+              text = charattribs['act_age'][self.lang] + ":"
               ).grid(column = 0, row = 8)
         Entry(master = self.window,
               width = 35,
-              textvariable = self.background['parents']
+              textvariable = self.background['act_age']
               ).grid(column = 1, row = 8)
         # row 9 column 0-1
         Label(master = self.window,
               width = 15,
-              text = charattribs['siblings'][self.lang] + ":"
+              text = charattribs['parents'][self.lang] + ":"
               ).grid(column = 0, row = 9)
         Entry(master = self.window,
               width = 35,
-              textvariable = self.background['siblings']
+              textvariable = self.background['parents']
               ).grid(column = 1, row = 9)
         # row 10 column 0-1
         Label(master = self.window,
               width = 15,
-              text = charattribs['partner'][self.lang] + ":"
+              text = charattribs['siblings'][self.lang] + ":"
               ).grid(column = 0, row = 10)
         Entry(master = self.window,
               width = 35,
-              textvariable = self.background['partner']
+              textvariable = self.background['siblings']
               ).grid(column = 1, row = 10)
         # row 11 column 0-1
         Label(master = self.window,
               width = 15,
-              text = charattribs['kids'][self.lang] + ":"
+              text = charattribs['partner'][self.lang] + ":"
               ).grid(column = 0, row = 11)
         Entry(master = self.window,
               width = 35,
-              textvariable = self.background['kids']
+              textvariable = self.background['partner']
               ).grid(column = 1, row = 11)
         # row 12 column 0-1
         Label(master = self.window,
               width = 15,
-              text = charattribs['deity'][self.lang] + ":"
+              text = charattribs['kids'][self.lang] + ":"
               ).grid(column = 0, row = 12)
         Entry(master = self.window,
               width = 35,
-              textvariable = self.background['deity']
+              textvariable = self.background['kids']
               ).grid(column = 1, row = 12)
         # row 13 column 0-1
         Label(master = self.window,
               width = 15,
-              text = charattribs['home'][self.lang] + ":"
+              text = charattribs['deity'][self.lang] + ":"
               ).grid(column = 0, row = 13)
         Entry(master = self.window,
               width = 35,
-              textvariable = self.background['home']
+              textvariable = self.background['deity']
               ).grid(column = 1, row = 13)
+        # row 14 column 0-1
+        Label(master = self.window,
+              width = 15,
+              text = charattribs['home'][self.lang] + ":"
+              ).grid(column = 0, row = 14)
+        Entry(master = self.window,
+              width = 35,
+              textvariable = self.background['home']
+              ).grid(column = 1, row = 14)
 
         #set values into Entry widgets if there are any
         if alreadyset:
             for elem  in self._character['background'].keys():
                 self.background[elem].set(self._character['background'][elem])
 
-        # row 14-19 column 0-1
+        # row 15-19 column 0-1
         Label(master = self.window,
               width = 15,
               text = charattribs['pers'][self.lang] + ":"
-              ).grid(column = 0, row = 14, columnspan = 2)
+              ).grid(column = 0, row = 15, columnspan = 2)
         self.tw1 = Text(master = self.window,
                  width = 50,
                  height = 20,
@@ -3368,11 +3429,11 @@ class charInfo(blankWindow):
             self.tw1.insert(1.0, self._character['history'])
 
         self.tw1.grid(column = 0, row = 15, columnspan = 2)
-        # row 14-19 column 2-3
+        # row 15-19 column 2-3
         Label(master = self.window,
               width = 15,
               text = charattribs['motiv'][self.lang] + ":"
-              ).grid(column = 2, row = 14, columnspan = 2)
+              ).grid(column = 2, row = 15, columnspan = 2)
         self.tw2 = Text(master = self.window,
                  width = 50,
                  height = 20,
@@ -3382,26 +3443,26 @@ class charInfo(blankWindow):
         if "motivation" in list(self._character.keys()):
             self.tw2.insert(1.0, self._character['motivation'])
 
-        self.tw2.grid(column = 2, row = 15, columnspan = 2)
+        self.tw2.grid(column = 2, row = 16, columnspan = 2)
 
         Button(self.window,
         text = txtbutton['but_story'][self.lang],
         command = self.__addStory).grid(column = 0,
-                                        row = 16,
+                                        row = 17,
                                         sticky = "NW",
                                         columnspan = 2
                                         )
         Button(self.window,
         text = txtbutton['but_sav'][self.lang] + "\n" + txtbutton['but_quit'][self.lang],
         command = self.__saveAndExit).grid(column = 3,
-                                        row = 16,
+                                        row = 17,
                                         sticky = "NW",
                                         columnspan = 2
                                         )
         #charpic row 1-8 column 2-4
         #BUG pic does not work
         from PIL import Image, ImageTk
-        self.cpic = ImageTk.PhotoImage(Image.open(self.charpic).resize((300, 300), Image.ANTIALIAS))
+        self.cpic = ImageTk.PhotoImage(Image.open(self.charpic).resize((310, 310), Image.ANTIALIAS))
         self.picLabel = Label(master = self.window,
                               image = self.cpic
                               )
@@ -3409,7 +3470,7 @@ class charInfo(blankWindow):
         self.picLabel.grid(column = 2,
                            row = 1,
                            columnspan = 2,
-                           rowspan = 13,
+                           rowspan = 14,
                            sticky = "NEWS",
                            padx = 5,
                            pady = 5)
@@ -3697,7 +3758,7 @@ class statGainWin(blankWindow):
                 self.var[s].set(0)
 
             #DEBUG
-            print("DEBUG var[{}]: {}".format(s, self.var[s].get()))
+#            print("DEBUG var[{}]: {}".format(s, self.var[s].get()))
 
         Button(self.window,
                text = txtbutton['but_all'][self.lang],
@@ -3803,3 +3864,252 @@ class statGainWin(blankWindow):
         self.window.destroy()
         self.window = MainWindow(lang = self.lang, storepath = self.spath, char = self._character)
 
+
+
+class editEPWin(blankWindow):
+    '''
+    This window class generates a window to enter new EPs manually to character data
+    '''
+
+
+    def __init__(self, lang = 'en', storepath = "./data", char = None):
+        """
+        Class constructor
+        \param lang The chosen language for window's and button's
+                    texts. At the moment, only English (en, default
+                    value) and German (de) are supported.
+        \param title title of the window
+        \param storepath path where things like options have to be stored
+        \param char Character as JSON/dictionary
+        """
+
+        if storepath == None:
+            self.spath = os.path.expanduser('~') + "/data"
+            logger.debug('Set storepath to %s' % (storepath)) + "/data"
+
+        else:
+            self.spath = storepath
+            logger.debug('editEPWin: storepath set to %s' %
+                         (storepath))
+        self.lang = lang
+        self._character = dict(calcTotals(char))
+
+        self.mypath = storepath + '/' + self._character['player'] + '/'
+        self.cmask = [txtwin['json_files'][self.lang],
+                     txtwin['grp_files'][self.lang],
+                     txtwin['all_files'][self.lang]
+                     ]
+
+        blankWindow.__init__(self, self.lang)
+        self.window.title("%s - %s (%s)" % (wintitle['rm_statgain'][self.lang],
+                                            self._character['name'],
+                                            self._character['prof']
+                                            )
+                          )
+        self.filemenu = Menu(master = self.menu)
+        self.__addFileMenu()
+#        self.__addEditMenu()
+        self.__addHelpMenu()
+        self.__buildWin()
+        self.window.mainloop()
+
+
+    def __addFileMenu(self):
+        '''
+        Adds a file menu to menu bar.
+        '''
+        self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
+                              menu = self.filemenu)
+
+        self.filemenu.add_separator()
+        self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
+                                  command = self.saveData)
+        self.filemenu.add_separator()
+        self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
+                                  command = self.__closewin)
+
+        self.__stats = stats
+
+#    def __addEditMenu(self):
+#        '''
+#        This adds an edit menu to the menu bar.
+#        '''
+#        self.edtmenu = Menu(master = self.menu)
+#        self.menu.add_cascade(label = txtmenu['menu_edit'][self.lang],
+#                              menu = self.edtmenu)
+#        self.edtmenu.add_command(label = submenu['edit'][self.lang]['add_pic'],
+#                                 command = self.__addPic)
+#        self.edtmenu.add_command(label = submenu['edit'][self.lang]['add_story'],
+#                                 command = self.__addStory)
+#        self.edtmenu.add_command(label = submenu['edit'][self.lang]['statgain'],
+#                                 command = self.__statGainRoll)
+
+
+    def __addHelpMenu(self):
+        '''
+        Adds a help menu entry to menu bar.
+        '''
+        self.helpmenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['help'][self.lang],
+                              menu = self.helpmenu)
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['win'],
+                                  command = self.__helpWin)
+        self.helpmenu.add_separator()
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
+                                  command = self._helpAbout)
+
+
+    def __closewin(self):
+        '''
+        A method to destroy the current window and go back to MainWindow.
+        '''
+        self.window.destroy()
+        self.window = MainWindow(lang = self.lang, char = self._character)
+
+
+    def __openFile(self):
+        """
+        This method opens a dialogue window (Tk) for opening files.
+        The content of the opened file will be saved in \e file
+        \e content as an array.
+        """
+        self.__filein = askopenfilename(filetypes = self.cmask,
+                                        initialdir = self.mypath)
+        if self.__filein != "":
+            with open(self.__filein, 'r') as filecontent:
+
+                if self.__filein[-4:].lower() == "json":
+                    self.char = json.load(filecontent)
+
+                elif self.__filein[-3:].lower == "grp":
+                    self.grp = json.load(filecontent)
+
+                else:
+                    msg = messageWindow()
+                    msg.showinfo(errmsg['wrong_type'][self.lang])
+                    logger.warn(errmsg['wrong_type'][self.lang])
+                    pass
+
+
+    def __helpWin(self):
+        self.notdoneyet("charInfo.__helpWin:\ņ\n not done yet")
+
+
+    def saveData(self):
+        '''
+        This recalculates character's category and skill bonusses, saves character and goes back to main window.
+        '''
+        self._character = dict(calcTotals(self._character))
+
+        with open(self.spath + self._character['player'] + '/' + self._character['name'] + ".json", "w") as outfile:
+            json.dump(self._character,
+                      outfile,
+                      sort_keys = True,
+                      indent = 4,
+                      ensure_ascii = False)
+
+#        self.window.destroy()
+#        self.window = MainWindow(lang = self.lang, storepath = self.spath, char = self._character)
+
+
+    def __buildWin(self):
+        '''
+        Builds the window's elements.
+
+        '''
+        self.epval = StringVar()
+        self.inputval = StringVar()
+        self.lvlval = StringVar()
+        self.statbar = StringVar()
+
+        Label(master = self.window,
+              width = 20,
+              text = "{}: {}".format(labels["player"][self.lang], self._character['player'])
+              ).grid(column = 0,
+                     row = 0,
+                     padx = 3,
+                     pady = 5)
+
+        Label(master = self.window,
+              width = 20,
+              text = "{}: {}".format(labels["name"][self.lang], self._character['name'])
+              ).grid(column = 1,
+                     row = 0,
+                     padx = 3,
+                     pady = 5)
+
+        Label(master = self.window,
+              width = 20,
+              text = "{}: {}".format(labels["prof"][self.lang], self._character['prof'])
+              ).grid(column = 2,
+                     row = 0,
+                     padx = 3,
+                     pady = 5)
+
+        Label(master = self.window,
+              width = 20,
+              textvariable = self.lvlval
+              ).grid(column = 3,
+                     row = 0,
+                     padx = 3,
+                     pady = 5)
+        self.lvlval.set("{}: {}".format(labels["lvl"][self.lang], self._character['lvl']))
+
+        Label(master = self.window,
+              width = 20,
+              textvariable = self.epval
+              ).grid(column = 0,
+                     row = 1,
+                     padx = 3,
+                     pady = 5)
+        self.epval.set("EP: {}".format(self._character['exp']))
+
+        Label(master = self.window,
+              width = 20,
+              text = "+ {}:".format(labels["new_ep"][self.lang])
+              ).grid(column = 1,
+                     row = 1,
+                     padx = 3,
+                     pady = 5,
+                     sticky = EW)
+
+        Entry(master = self.window,
+              width = 20,
+              textvariable = self.inputval
+              ).grid(column = 2,
+                     row = 1,
+                     padx = 3,
+                     pady = 5,
+                     sticky = W)
+
+        Button(self.window,
+               text = txtbutton['but_take'][self.lang],
+               width = 20,
+               command = self.__add).grid(column = 3, row = 1)
+
+        Label(master = self.window,
+              width = 20,
+              textvariable = self.statbar,
+              relief = SUNKEN
+              ).grid(column = 0,
+                     row = 3,
+                     pady = 10,
+                     columnspan = 4,
+                     sticky = EW)
+
+        self.statbar.set(screenmesg["input_eps"][self.lang])
+
+
+    def __add(self):
+        '''
+        This method adds new EPs to character's old EP count.
+        '''
+        newep = int(self.inputval.get())
+        self._character["exp"] += newep
+        self.epval.set("EP: {}".format(self._character['exp']))
+        # calc new level if any
+        self._character['lvl'] = int(getLvl(self._character['exp']))
+        self.lvlval.set("{}: {}".format(labels["lvl"][self.lang], self._character['lvl']))
+        #save new EP data
+        self.saveData()
+        self.statbar.set(screenmesg["file_saved"][self.lang])

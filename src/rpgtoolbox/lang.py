@@ -25,7 +25,7 @@ Currently supported languages are:
 \todo clean up the code!!!
 '''
 __version__ = "1.1"
-__updated__ = "18.06.2019"
+__updated__ = "23.06.2019"
 ## \var supportedrpg
 # Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
@@ -67,6 +67,8 @@ screenmesg = {'welcome'     : {'de' : "Willkommen bei den RPG-Tools",
                                        " the points in such a way that the value is not less"\
                                        " than zero."
                                },
+              'input_eps': {'de': 'Bitte neu erhaltene EPs eingeben!',
+                            'en': 'Please enter newly gained EPs!'}
               }
 
 ## \var charattribs
@@ -82,6 +84,9 @@ charattribs = { 'sex' : {'de': 'Geschlecht',
                          },
                 'eyes' : {'de': "Augen",
                           'en': "Eyes"
+                          },
+                'skin' : {'de': 'Haut',
+                          'en': 'Skin'
                           },
                 'height': {'de': u'Größe',
                            'en': 'Height'
@@ -281,7 +286,9 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                               'char_back': 'Hintergrundwerte erstellen/editieren',
                               'add_story': 'Hintergrundgeschichte schreiben/editieren',
                               'statgain' : u'Attributsveränderungswurf',
-                              'show_char': 'Charakteransicht'
+                              'show_char': 'Charakteransicht',
+                              'ed_EP': "EPs editieren",
+                              'ed_BGO': "Hintergrundoptionen"
                               },
                       'en'  :{'ed_char'  : 'Edit/improve Character',
                               'ed_grp'   : 'Edit Group',
@@ -294,7 +301,9 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                               'add_pic' : "add character picture",
                               'char_back': 'edit background',
                               'add_story': "add/edit background story",
-                              'statgain' : 'Stat Gain Roll'
+                              'statgain' : 'Stat Gain Roll',
+                              'ed_EP': "edit EPs",
+                              'ed_BGO': 'background options'
                                },
 
                       },
@@ -452,7 +461,7 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
                        'en' : 'Preview',
                        },
           'name'     : {'de' : 'Name',
-                        'en' : 'name'
+                        'en' : 'Name'
                         },
           'dp_costs' : {'de' : 'DP Kosten',
                         'en' : 'DP costs'
@@ -472,6 +481,18 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
           'count' :{'de': 'Anzahl',
                     'en': 'count'
                     },
+          'player': {'de': "Spieler",
+                     'en': "Player"
+                     },
+          'prof' :{'de': "Beruf",
+                   'en': "Profession"
+                   },
+          'lvl': {'de': "Stufe",
+                  'en': 'Level'
+                  },
+          'new_ep': {'de' : 'neue EP',
+                     'en' : 'new EP'
+                     }
           }
 
 ##\var errmsg

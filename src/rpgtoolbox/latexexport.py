@@ -12,7 +12,7 @@ will be generated for printouts
 \version 1.0
 '''
 
-__updated__ = "22.06.2019"
+__updated__ = "23.06.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -249,7 +249,9 @@ class charsheet(object):
                                                                      )
             elif "Spells" in cat:
                 #DEBUG
-                print("251-createCatSkill\ncat {}\nchar['cat][{}]] {}".format(cat, cat, str(self.char['cat'][cat]['Progression']).replace(", ", "/")))
+#                print("251-createCatSkill\ncat {}\nchar['cat][{}]] {}".format(cat, cat, str(self.char['cat'][cat]['Progression']).replace(", ", "/")))
+#                if 'prof bonus' not in self.char['cat'][cat].keys():
+#                    self.char['cat'][cat]['prof bonus'] = 0
 
                 datatable += spell + catstd.format(cat,
                                                   str(self.char['cat'][cat]['Progression']).replace(", ", "/"),
@@ -268,7 +270,7 @@ class charsheet(object):
                 for skill in skilllist:
                     if skill not in ['Progression', 'Costs', 'Stats']:
                         #DEBUG
-                        print("\t268-createCatSkill:\n\tskill: {}\n\tchar['cat][{}]]['Skill][{}] {}".format(skill, cat, skill, self.char['cat'][cat]["Skill"]))
+#                        print("\t268-createCatSkill:\n\tskill: {}\n\tchar['cat][{}]]['Skill][{}] {}".format(skill, cat, skill, self.char['cat'][cat]["Skill"]))
                         #print("\t268-createCatSkill:\n\tskill: {}\n\tchar['cat][{}]]['Skill][{}] {}".format(skill, cat, skill, str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/")))
                         datatable += spell + skillpre + skillval.format(skill,
                                                                      str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/"),
