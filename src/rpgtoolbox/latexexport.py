@@ -90,6 +90,7 @@ class charsheet(object):
         self.createStats()
         self.createRRATDB()
         self.createCatSkill()
+        self.execLaTeX()
 
 
     def createMainLatex(self):
@@ -318,3 +319,26 @@ class charsheet(object):
         @todo this has to be fully implemented
         '''
         print("not done yet")
+
+
+    def execLaTeX(self):
+        '''
+        This executes LaTeX to generate a PDF character sheet and tries to open it with default viewer.
+        @todo open PDF with default PDF viewer
+        '''
+        currpath = os.getcwd()
+        os.chdir(self.chardir)
+        try:
+            os.system("pdflatex {}.tex".format(self.char['name']))
+            windoman = ["/usr/bin/xdg-open", "/usr/bin/gnome-open", "/usr/bin/kde-open", "/usr/bin/open"]
+
+            for wm in windoman:
+                if os.path.isfile(wm):
+                    os.system("{} {}.pdf".format(wm, self.char['name']))
+
+        except Exception as error:
+            print("ERROR: Could not execute PDF LaTex! Please try it manually!!\n{}".format(error))
+            logger.error("execLaTeX: {}".format(error))
+
+        finally:
+            os.chdir(currpath)
