@@ -35,7 +35,7 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "23.06.2019"
+__updated__ = "24.06.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -4113,3 +4113,158 @@ class editEPWin(blankWindow):
         #save new EP data
         self.saveData()
         self.statbar.set(screenmesg["file_saved"][self.lang])
+
+
+
+class BGOselectWin(blankWindow):
+    '''
+    This window class will disply the choices one have for his BGOs
+    '''
+
+
+    def __init__(self, lang = 'en', storepath = "./data", char = None):
+        """
+        Class constructor
+        \param lang The chosen language for window's and button's
+                    texts. At the moment, only English (en, default
+                    value) and German (de) are supported.
+        \param title title of the window
+        \param storepath path where things like options have to be stored
+        \param char Character as JSON/dictionary
+        """
+
+        if storepath == None:
+            self.spath = os.path.expanduser('~') + "/data"
+            logger.debug('Set storepath to %s' % (storepath)) + "/data"
+
+        else:
+            self.spath = storepath
+            logger.debug('editEPWin: storepath set to %s' %
+                         (storepath))
+        self.lang = lang
+        self._character = dict(calcTotals(char))
+
+        self.mypath = storepath + '/' + self._character['player'] + '/'
+        self.cmask = [txtwin['json_files'][self.lang],
+                     txtwin['grp_files'][self.lang],
+                     txtwin['all_files'][self.lang]
+                     ]
+
+        blankWindow.__init__(self, self.lang)
+        self.window.title("%s - %s (%s)" % (wintitle['rm_statgain'][self.lang],
+                                            self._character['name'],
+                                            self._character['prof']
+                                            )
+                          )
+        self.filemenu = Menu(master = self.menu)
+        self.__addFileMenu()
+        self.__addSelectMenu()
+        self.__addHelpMenu()
+        self.__buildWin()
+        self.window.mainloop()
+
+
+    def __addFileMenu(self):
+        '''
+        Adds a file menu to menu bar.
+        '''
+        self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
+                              menu = self.filemenu)
+
+        self.filemenu.add_separator()
+        self.filemenu.add_command(label = submenu['file'][self.lang]['open'],
+                                  command = self.__openFile)
+        self.filemenu.add_separator()
+        self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
+                                  command = self.__closewin)
+
+        self.__stats = stats
+
+
+    def __addEditMenu(self):
+        '''
+        This adds an select menu to the menu bar.
+        @todo to be implemented:
+        -# extra money
+        -# stat gain rolls
+        -# extra items
+        -# languages
+        -# spec skill
+        -# spec cats
+        -# talents/flaws
+        '''
+        self.edtmenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['menu_select'][self.lang],
+                              menu = self.edtmenu)
+        self.edtmenu.add_command(label = submenu['select'][self.lang]['bgo_money'],
+                                 command = self.notdoneyet)
+        self.edtmenu.add_command(label = submenu['select'][self.lang]['bgo_stats'],
+                                 command = self.notdoneyet)
+        self.edtmenu.add_command(label = submenu['select'][self.lang]['bgo_items'],
+                                 command = self.notdoneyet)
+        self.edtmenu.add_command(label = submenu['select'][self.lang]['bgo_lang'],
+                                 command = self.notdoneyet)
+        self.edtmenu.add_command(label = submenu['select'][self.lang]['bgo_spec_skill'],
+                                 command = self.notdoneyet)
+        self.edtmenu.add_command(label = submenu['select'][self.lang]['bgo_spec_cat'],
+                                 command = self.notdoneyet)
+        self.edtmenu.add_command(label = submenu['select'][self.lang]['bgo_talens'],
+                                 command = self.notdoneyet)
+
+
+    def __addHelpMenu(self):
+        '''
+        Adds a help menu entry to menu bar.
+        '''
+        self.helpmenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['help'][self.lang],
+                              menu = self.helpmenu)
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['win'],
+                                  command = self.__helpWin)
+        self.helpmenu.add_separator()
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
+                                  command = self._helpAbout)
+
+
+    def __closewin(self):
+        '''
+        A method to destroy the current window and go back to MainWindow.
+        '''
+        self.window.destroy()
+        self.window = MainWindow(lang = self.lang, char = self._character)
+
+
+    def __openFile(self):
+        """
+        This method opens a dialogue window (Tk) for opening files.
+        The content of the opened file will be saved in \e file
+        \e content as an array.
+        """
+        self.__filein = askopenfilename(filetypes = self.cmask,
+                                        initialdir = self.mypath)
+        if self.__filein != "":
+            with open(self.__filein, 'r') as filecontent:
+
+                if self.__filein[-4:].lower() == "json":
+                    self.char = json.load(filecontent)
+
+                elif self.__filein[-3:].lower == "grp":
+                    self.grp = json.load(filecontent)
+
+                else:
+                    msg = messageWindow()
+                    msg.showinfo(errmsg['wrong_type'][self.lang])
+                    logger.warn(errmsg['wrong_type'][self.lang])
+                    pass
+
+
+    def __helpWin(self):
+        self.notdoneyet("charInfo.__helpWin:\ņ\n not done yet")
+
+
+    def __buildWin(self):
+        '''
+        This method builds all window components
+        '''
+        self._f_money = Frame(master = self.window)
+

@@ -14,7 +14,7 @@ This package holds RM specific tools like Character Skill Progression.
 \date 2019
 \copyright 2015-2019 Marcus Schwamberger
 '''
-__updated__ = "22.06.2019"
+__updated__ = "24.06.2019"
 
 catnames = {'de' : {'spells' : "Spells",
                     'weapon' : 'Weapon',
@@ -1129,3 +1129,67 @@ def statbonus(statvalue = 20):
 
     return result
 
+
+
+def bgoMoney(purse = {}):
+    '''
+    Extra money by BGO
+    @param purse dictionary holding the character's purse
+    @retval result dictionary as new purse of character
+    '''
+    from rpgtoolbox.rpgtools import dice
+    roll = dice(100, 1)
+    result = dict(purse)
+
+    if roll < 3:
+        result['GP'] += 1
+
+    elif 2 < roll < 6:
+        result['GP'] += 2
+
+    elif 5 < roll < 16:
+        result['GP'] += 5
+
+    elif 15 < roll < 26:
+        result['GP'] += 10
+
+    elif 25 < roll < 36:
+        result['GP'] += 15
+
+    elif 35 < roll < 46:
+        result['GP'] += 20
+
+    elif 45 < roll < 56:
+        result['GP'] += 30
+
+    elif 55 < roll < 66:
+        result['GP'] += 35
+
+    elif 65 < roll < 71:
+        result['GP'] += 40
+
+    elif 70 < roll < 76:
+        result['GP'] += 50
+
+    elif 75 < roll < 81:
+        result['GP'] += 60
+
+    elif 80 < roll < 86:
+        result['GP'] += 70
+
+    elif 85 < roll < 91:
+        result['GP'] += 80
+
+    elif 90 < roll < 95:
+        result['GP'] += 100
+
+    elif 94 < roll < 98:
+        result['GP'] += 125
+
+    elif 97 < roll < 100:
+        result['GP'] += 150
+
+    elif roll == 100:
+        result['GP'] += 200
+
+    return result
