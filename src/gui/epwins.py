@@ -35,7 +35,7 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "24.06.2019"
+__updated__ = "02.07.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -1961,6 +1961,8 @@ class priorizeWeaponsWin(blankWindow):
     def __setPPD(self):
         '''
         This sets the Progression and Stats for Power Point Development
+        @bug PPD not correctly set for
+        - Wood elves animist
         '''
         from rpgtoolbox.rolemaster import races, realms, ppds, magicstats, progressionType, speccat
         param = {}
@@ -1976,29 +1978,34 @@ class priorizeWeaponsWin(blankWindow):
 
             if self.character['realm'] in realms[l]:
                 param['ppd'] = ppds[realms[l].index(self.character['realm'])]
-                param['Stats'] = magicstats[realms[l].index(
-                    self.character['realm'])]
+                param['Stats'] = magicstats[realms[l].index(self.character['realm'])]
+                #DEBUG
+                print("setPPD 1: {} -> {} -> {}".format(self.character['realm'], realms[l], param['ppd']))
 
         if type(param['ppd']) == type(''):
             param['ppd'] = progressionType[param['ppd'] + param['race']]
-
+            #DEBUG
+            print("setPPD 2: {}".format(param['ppd']))
+#XXXXXXXXXXXX
         elif type(param['ppd']) == type([]):
 
             for i in range(0, len(param['ppd'])):
                 param['ppd'][i] = progressionType[param['ppd'][i] + param['race']]
+                #DEBUG
+                print("setPPD 3: {} -> {}".format(i, param["ppd"]))
 
-        if param['ppd'][0] > param['ppd'][1]:
-            param['ppd'] = param['ppd'][0]
+            if param['ppd'][0] > param['ppd'][1]:
+                param['ppd'] = param['ppd'][0]
 
-        else:
-            param['ppd'] = param['ppd'][1]
+            else:
+                param['ppd'] = param['ppd'][1]
 
-        self.character['cat'][speccat[param['lang']][1]
-                              ]['Progression'] = progressionType['null']
-        self.character['cat'][speccat[param['lang']]
-                              [1]]['Stats'] = param['Stats']
-        self.character['cat'][speccat[param['lang']][1]
-                              ]['Skill'][speccat[param['lang']][1]]['Progression'] = param['ppd']
+        #DEBUG
+        print("setPPD 4: {}".format(param['ppd']))
+
+        self.character['cat'][speccat[param['lang']][1]]['Progression'] = progressionType['null']
+        self.character['cat'][speccat[param['lang']][1]]['Stats'] = param['Stats']
+        self.character['cat'][speccat[param['lang']][1]]['Skill'][speccat[param['lang']][1]]['Progression'] = param['ppd']
 
 
     def saveChar(self):
@@ -2750,7 +2757,10 @@ class skillcatWin(blankWindow):
         newrank = int(self._skillspin.get())
         ## \val currdev
         # list of current development progression
-        currdev = self.__tree.item(self.__curItem)['values'][1].split(" ")
+        if type(self.__tree.item(self.__curItem)['values'][1]) != type(2):
+            currdev = self.__tree.item(self.__curItem)['values'][1].split(" ")
+        else:
+            currdev = [str(self.__tree.item(self.__curItem)['values'][1])]
 
         for i in range(0, len(currdev)):
             currdev[i] = float(currdev[i])
@@ -3148,7 +3158,7 @@ class charInfo(blankWindow):
                      txtwin['png_files'][self.lang]
                      ]
 
-        if "piclink" in list(self._character.keys()):
+        if "piclink" in list(self._character.keys()) and self._character["piclink"] != "":
             self.charpic = self._character["piclink"]
         else:
             self.charpic = "./data/default/pics/default.jpg"
@@ -3443,7 +3453,7 @@ class charInfo(blankWindow):
         if "motivation" in list(self._character.keys()):
             self.tw2.insert(1.0, self._character['motivation'])
 
-        self.tw2.grid(column = 2, row = 16, columnspan = 2)
+        self.tw2.grid(column = 2, row = 15, columnspan = 2)
 
         Button(self.window,
         text = txtbutton['but_story'][self.lang],
@@ -3484,7 +3494,8 @@ class charInfo(blankWindow):
         self.charpic = askopenfilename(filetypes = self.pmask,
                                         initialdir = self.mypath)
         self._character['piclink'] = self.charpic
-
+        #DEBUG
+        print("mypath: {}\npiclink: {}".format(self.mypath, self._character['piclink']))
         from PIL import Image, ImageTk
         self.cpic = ImageTk.PhotoImage(Image.open(self.charpic).resize((300, 300), Image.ANTIALIAS))
         self.picLabel.configure(image = self.cpic)
