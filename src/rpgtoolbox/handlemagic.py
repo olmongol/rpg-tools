@@ -12,7 +12,7 @@
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "10.06.2018"
+__updated__ = "07.07.2019"
 
 import os
 from . import logbox as log
@@ -20,7 +20,7 @@ from .globaltools import readFile as readNotes
 from .globaltools import readCSV
 from .rolemaster import DPCostSpells
 
-logger = log.createLogger('magic', 'warning', '1 MB', 1, './' , 'handlemagic.log')
+logger = log.createLogger('magic', 'debug', '1 MB', 1, './' , 'handlemagic.log')
 
 
 
@@ -67,7 +67,7 @@ class getSpells(object):
         '''
         spellcat = os.listdir(datadir)
         spellcat.sort()
-        print((os.getcwd()))
+        logger.debug("spellcat {}".format(spellcat))
 
         for i in range(0, len(spellcat)):
             slcat = spellcat[i].replace('_', ' ')
@@ -75,6 +75,7 @@ class getSpells(object):
             self.spelllists[slcat] = {}
             try:
                 splst = os.listdir(datadir + spellcat[i])
+                logger.debug("getAllLists: spell lists: {}".format(splst))
 
             except Exception as error:
                 logger.error("handlemagic: __getAllLists: {} -> {}".format(datadir + spellcat[i], error))
@@ -88,6 +89,8 @@ class getSpells(object):
                     self.spelllists[slcat][slist] = {}
                     self.spelllists[slcat][slist]["Special Notes"] = readNotes(datadir + spellcat[i], splst[j][:-4] + ".sn")
                     self.spelllists[slcat][slist]['Spells'] = readCSV(datadir + spellcat[i] + "/" + splst[j])
+
+        logger.debug("getAllLists: self.spelllists:\n{}".format(self.spelllists))
 
 
     def __categorizeSLs(self):
@@ -174,3 +177,4 @@ class getSpells(object):
                 elif lcat[0] not in self.realm and lcat[1] != "Open":
                     self.spelllists[listcat]["Category"] = "Other Realm Closed Lists"
 
+        logger.debug("categorizeSLs: self.spelllists\n{}".self.spelllists)
