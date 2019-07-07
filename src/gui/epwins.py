@@ -55,6 +55,7 @@ class MainWindow(blankWindow):
                 (de) are supported.
     \param title title of the window
     \param storepath path where things like options have to be stored
+    @todo storepath has to be changed to default installation path empty
     """
 
 
@@ -70,7 +71,7 @@ class MainWindow(blankWindow):
         \param char Character as JSON
         """
         if storepath == None:
-
+            #needs to be changed
             self.mypath = os.path.expanduser('~')
             logger.info('mainwindow: Set storepath to %s' % (storepath))
 
@@ -2146,8 +2147,16 @@ class skillcatWin(blankWindow):
         '''
         A method to destroy the current window and go back to MainWindow.
         '''
+        if self.__usedDP > 0:
+            self._character['lvlup'] -= 1
+#            self._character['DP'] -= self.__usedDP
+#            self.__usedDP = 0
+
+            if self._character['lvlup'] < 0:
+                self._character['lvlup'] = 0
+
         self.window.destroy()
-        self.window = MainWindow(lang = self.lang, char = self._character)
+        self.window = MainWindow(lang = self.lang, storepath = self.spath , char = self._character)
 
 
     def __addHelpMenu(self):
@@ -2175,8 +2184,9 @@ class skillcatWin(blankWindow):
 
         '''
         from rpgtoolbox.rolemaster import labels as rmlabels
-        self.__treeframe = Frame(width = 800, height = 600)
-        self.__treeframe.grid(column = 0, row = 0, columnspan = 7, rowspan = 3)
+#        self.__treeframe = Frame(width = 800, height = 600)
+        self.__treeframe = Frame()
+        self.__treeframe.grid(column = 0, row = 0, columnspan = 7, rowspan = 3, sticky = "NEWS")
         self.__rmlabels = rmlabels
         self.__treecolumns = []
         self.catentry = StringVar()
@@ -2898,7 +2908,8 @@ class skillcatWin(blankWindow):
                 else:
                     messg = messageWindow()
                     messg.showinfo(screenmesg['epwins_no_dp'][self.lang])
-
+        #DEBUG
+        print("takeValSkill: used DP = {}".format(self.__usedDP))
         self.DPtext.set(str(self._character['DP'] - self.__usedDP))
         self.__buildChangedTree()
 
@@ -2960,6 +2971,8 @@ class skillcatWin(blankWindow):
             for i in range(diff, 0):
                 self.__usedDP -= int(dpCosts[i])
 
+        print("takeValCat: usedDP = {}".format(self.__usedDP))
+
         if (self._character['DP'] - self.__usedDP) >= 0:
 
             if currcat not in list(self.__changed['cat'].keys()) and currcat in list(self._character['cat'].keys()):
@@ -2993,8 +3006,10 @@ class skillcatWin(blankWindow):
         from rpgtoolbox import rolemaster as rm
         self.profs = rm.choseProfession(self.lang)
         self._character['DP'] -= self.__usedDP
-        if self.__usedDP > 0:
+
+        if self.__usedDP > 0 or self._character['DP'] == 0:
             self._character['lvlup'] -= 1
+
         self._character["old_exp"] = int(self._character['exp'])
 
         for cat in list(self.__changed["cat"].keys()):
@@ -3429,7 +3444,7 @@ class charInfo(blankWindow):
         if "history" in list(self._character.keys()):
             self.tw1.insert(1.0, self._character['history'])
 
-        self.tw1.grid(column = 0, row = 15, columnspan = 2)
+        self.tw1.grid(column = 0, row = 16, columnspan = 2)
         # row 15-19 column 2-3
         Label(master = self.window,
               width = 15,
@@ -3444,7 +3459,7 @@ class charInfo(blankWindow):
         if "motivation" in list(self._character.keys()):
             self.tw2.insert(1.0, self._character['motivation'])
 
-        self.tw2.grid(column = 2, row = 15, columnspan = 2)
+        self.tw2.grid(column = 2, row = 16, columnspan = 2)
 
         Button(self.window,
         text = txtbutton['but_story'][self.lang],
@@ -3484,12 +3499,13 @@ class charInfo(blankWindow):
         '''
         self.charpic = askopenfilename(filetypes = self.pmask,
                                         initialdir = self.mypath)
-        self._character['piclink'] = self.charpic
+        if type(self.charpic) == type(""):
+            self._character['piclink'] = self.charpic
         #DEBUG
-        print("mypath: {}\npiclink: {}".format(self.mypath, self._character['piclink']))
-        from PIL import Image, ImageTk
-        self.cpic = ImageTk.PhotoImage(Image.open(self.charpic).resize((300, 300), Image.ANTIALIAS))
-        self.picLabel.configure(image = self.cpic)
+            print("mypath: {}\npiclink: {}".format(self.mypath, self._character['piclink']))
+            from PIL import Image, ImageTk
+            self.cpic = ImageTk.PhotoImage(Image.open(self.charpic).resize((300, 300), Image.ANTIALIAS))
+            self.picLabel.configure(image = self.cpic)
 
 
     def __statGainRoll(self):
@@ -3517,6 +3533,8 @@ class charInfo(blankWindow):
             bg[el] = self.background[el].get()
 
         self._character["background"] = bg
+        self._character["background"]["motiv"] = self.tw2.get("0.0", END)
+        self._character['background']['pers'] = self.tw1.get("0.0", END)
 
         with open(self.spath + self._character['player'] + '/' + self._character['name'] + ".json", "w") as outfile:
                 json.dump(self._character,
