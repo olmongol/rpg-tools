@@ -35,7 +35,7 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "02.07.2019"
+__updated__ = "07.07.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -72,11 +72,11 @@ class MainWindow(blankWindow):
         if storepath == None:
 
             self.mypath = os.path.expanduser('~')
-            logger.debug('Set storepath to %s' % (storepath))
+            logger.info('mainwindow: Set storepath to %s' % (storepath))
 
         else:
             self.mypath = storepath
-            logger.debug('mainwindow: storepath set to %s' % (storepath))
+            logger.info('mainwindow: storepath set to %s' % (storepath))
 
         self.picpath = "./gui/pic/"
         self.lang = lang
@@ -1961,14 +1961,10 @@ class priorizeWeaponsWin(blankWindow):
     def __setPPD(self):
         '''
         This sets the Progression and Stats for Power Point Development
-        @bug PPD not correctly set for
-        - Wood elves animist
         '''
         from rpgtoolbox.rolemaster import races, realms, ppds, magicstats, progressionType, speccat
         param = {}
         param['realm'] = self.character['realm']
-        #DEBUG
-        print("setPPD char -> {}".format(self.character['realm']))
 
         for l in list(races.keys()):
 
@@ -1979,29 +1975,20 @@ class priorizeWeaponsWin(blankWindow):
             if self.character['realm'] in realms[l]:
                 param['ppd'] = ppds[realms[l].index(self.character['realm'])]
                 param['Stats'] = magicstats[realms[l].index(self.character['realm'])]
-                #DEBUG
-                print("setPPD 1: {} -> {} -> {}".format(self.character['realm'], realms[l], param['ppd']))
 
         if type(param['ppd']) == type(''):
             param['ppd'] = progressionType[param['ppd'] + param['race']]
-            #DEBUG
-            print("setPPD 2: {}".format(param['ppd']))
-#XXXXXXXXXXXX
+
         elif type(param['ppd']) == type([]):
 
             for i in range(0, len(param['ppd'])):
                 param['ppd'][i] = progressionType[param['ppd'][i] + param['race']]
-                #DEBUG
-                print("setPPD 3: {} -> {}".format(i, param["ppd"]))
 
             if param['ppd'][0] > param['ppd'][1]:
                 param['ppd'] = param['ppd'][0]
 
             else:
                 param['ppd'] = param['ppd'][1]
-
-        #DEBUG
-        print("setPPD 4: {}".format(param['ppd']))
 
         self.character['cat'][speccat[param['lang']][1]]['Progression'] = progressionType['null']
         self.character['cat'][speccat[param['lang']][1]]['Stats'] = param['Stats']
@@ -3140,11 +3127,11 @@ class charInfo(blankWindow):
 
         if storepath == None:
             self.spath = os.path.expanduser('~') + "/data"
-            logger.debug('Set storepath to %s' % (storepath)) + "/data"
+            logger.info('Set storepath to %s' % (storepath)) + "/data"
 
         else:
             self.spath = storepath
-            logger.debug('charInfo: storepath set to %s' %
+            logger.info('charInfo: storepath set to %s' %
                          (storepath))
         self.lang = lang
         self._character = dict(calcTotals(char))
@@ -3229,7 +3216,8 @@ class charInfo(blankWindow):
         A method to destroy the current window and go back to MainWindow.
         '''
         self.window.destroy()
-        self.window = MainWindow(lang = self.lang, char = self._character)
+        logger.debug("charInfo: Call MainWindow(lang={},storepath={},char={}".format(self.lang, self.spath, self._character))
+        self.window = MainWindow(lang = self.lang, storepath = self.spath , char = self._character)
 
 
     def __openFile(self):
@@ -3245,9 +3233,11 @@ class charInfo(blankWindow):
 
                 if self.__filein[-4:].lower() == "json":
                     self.char = json.load(filecontent)
+                    logger.debug("charInfo:(character) content read from {}.".fomat(self.__filein))
 
                 elif self.__filein[-3:].lower == "grp":
                     self.grp = json.load(filecontent)
+                    logger.debug("charInfo:(group) content read from {}.".fomat(self.__filein))
 
                 else:
                     msg = messageWindow()
@@ -3262,6 +3252,7 @@ class charInfo(blankWindow):
 
         '''
         self.background = {}
+
         for elem in charattribs.keys():
             self.background[elem] = StringVar()
 
@@ -4129,7 +4120,13 @@ class editEPWin(blankWindow):
 
 class BGOselectWin(blankWindow):
     '''
-    This window class will disply the choices one have for his BGOs
+    This window class will display the choices one have for his BGOs
+    @todo The following has to be impemented
+    - window building
+    - special items
+    - more money
+    - spec Bonus Cat/Skill
+    - Edges/Flaws
     '''
 
 
@@ -4270,12 +4267,17 @@ class BGOselectWin(blankWindow):
 
 
     def __helpWin(self):
+        '''
+        Help windows
+        @todo this has to be fully implemented
+        '''
         self.notdoneyet("charInfo.__helpWin:\ņ\n not done yet")
 
 
     def __buildWin(self):
         '''
         This method builds all window components
+        @todo This has to be fully implemented.
         '''
         self._f_money = Frame(master = self.window)
 
