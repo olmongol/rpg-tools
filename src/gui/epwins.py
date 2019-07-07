@@ -2082,6 +2082,10 @@ class skillcatWin(blankWindow):
     ----
     @todo  not finished yet:
       - selecting items here can make changes undone or change them again
+      - hide skill/cat line when not selected in treeview
+    @bug - not all spellists were read
+    - you lose DPs when you try to level up a skill/cat in multiple times
+    - after finalizing there is no memory what is already leveled up
     """
 
 
