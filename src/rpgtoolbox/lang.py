@@ -25,7 +25,7 @@ Currently supported languages are:
 \todo clean up the code!!!
 '''
 __version__ = "1.1"
-__updated__ = "23.06.2019"
+__updated__ = "24.06.2019"
 ## \var supportedrpg
 # Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
@@ -219,6 +219,9 @@ txtmenu = {'menu_help'     : {'de' : 'Hilfe',
            'menu_edit'     : {'de' : 'Bearbeiten',
                               'en' : 'Edit',
                               },
+           'menu_select'   : {'de' : 'Auswahl',
+                              'en' : 'Selection'
+                              },
            'menu_file'     : {'de' : 'Datei',
                               'en' : 'File',
                               },
@@ -307,6 +310,27 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                                },
 
                       },
+           'select' : {'bgo_lang' : {'de' : u'HO zusätzliche Sprachen',
+                                     'en' : 'BGO extra Languages'
+                                     },
+                        'bgo_items' : {'de' : 'HO besondere Gegenstände',
+                                       'en' : 'BGO Special Items'
+                                       },
+                        'bgo_money' : {'de' : u'HO zusätzliches Geld',
+                                       'en' : 'BGO extra Money'
+                                       },
+                        'bgo_stats' : {'de' : u'HO Attributswürfe',
+                                       'en' : 'BGO Stat Gain Rolls'
+                                       },
+                        'bgo_spec_skill': {'de' : "HO besonderer Talentbonus",
+                                           'en' : "BGO special skill bonus"
+                                           },
+                        'bgo_spec_cat' : {'de' : 'HO besonderer Kategoriebonus',
+                                          'en' : 'BGO special category bonus'
+                                          },
+                        'bgo_talents' : {'de' : u"HO besondere Talente/Mängel",
+                                         'en' : 'BGO special talents/flaws'}
+                       },
            'items' : {'de' : {'treasure': "Schatz generieren",
                               'magical' : "Magische Gegenst\xc3\xa4nde erzeugen",
                               'itemgen'    : " [Gegenstandsliste wird auf knopfdruck erzeugt] ",

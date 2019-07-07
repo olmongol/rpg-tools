@@ -35,7 +35,7 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "23.06.2019"
+__updated__ = "07.07.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -55,6 +55,7 @@ class MainWindow(blankWindow):
                 (de) are supported.
     \param title title of the window
     \param storepath path where things like options have to be stored
+    @todo storepath has to be changed to default installation path empty
     """
 
 
@@ -70,13 +71,13 @@ class MainWindow(blankWindow):
         \param char Character as JSON
         """
         if storepath == None:
-
+            #needs to be changed
             self.mypath = os.path.expanduser('~')
-            logger.debug('Set storepath to %s' % (storepath))
+            logger.info('mainwindow: Set storepath to %s' % (storepath))
 
         else:
             self.mypath = storepath
-            logger.debug('mainwindow: storepath set to %s' % (storepath))
+            logger.info('mainwindow: storepath set to %s' % (storepath))
 
         self.picpath = "./gui/pic/"
         self.lang = lang
@@ -1965,8 +1966,6 @@ class priorizeWeaponsWin(blankWindow):
         from rpgtoolbox.rolemaster import races, realms, ppds, magicstats, progressionType, speccat
         param = {}
         param['realm'] = self.character['realm']
-        #DEBUG
-        print("setPPD char -> {}".format(self.character['realm']))
 
         for l in list(races.keys()):
 
@@ -1976,8 +1975,7 @@ class priorizeWeaponsWin(blankWindow):
 
             if self.character['realm'] in realms[l]:
                 param['ppd'] = ppds[realms[l].index(self.character['realm'])]
-                param['Stats'] = magicstats[realms[l].index(
-                    self.character['realm'])]
+                param['Stats'] = magicstats[realms[l].index(self.character['realm'])]
 
         if type(param['ppd']) == type(''):
             param['ppd'] = progressionType[param['ppd'] + param['race']]
@@ -1987,18 +1985,15 @@ class priorizeWeaponsWin(blankWindow):
             for i in range(0, len(param['ppd'])):
                 param['ppd'][i] = progressionType[param['ppd'][i] + param['race']]
 
-        if param['ppd'][0] > param['ppd'][1]:
-            param['ppd'] = param['ppd'][0]
+            if param['ppd'][0] > param['ppd'][1]:
+                param['ppd'] = param['ppd'][0]
 
-        else:
-            param['ppd'] = param['ppd'][1]
+            else:
+                param['ppd'] = param['ppd'][1]
 
-        self.character['cat'][speccat[param['lang']][1]
-                              ]['Progression'] = progressionType['null']
-        self.character['cat'][speccat[param['lang']]
-                              [1]]['Stats'] = param['Stats']
-        self.character['cat'][speccat[param['lang']][1]
-                              ]['Skill'][speccat[param['lang']][1]]['Progression'] = param['ppd']
+        self.character['cat'][speccat[param['lang']][1]]['Progression'] = progressionType['null']
+        self.character['cat'][speccat[param['lang']][1]]['Stats'] = param['Stats']
+        self.character['cat'][speccat[param['lang']][1]]['Skill'][speccat[param['lang']][1]]['Progression'] = param['ppd']
 
 
     def saveChar(self):
@@ -2156,8 +2151,16 @@ class skillcatWin(blankWindow):
         '''
         A method to destroy the current window and go back to MainWindow.
         '''
+        if self.__usedDP > 0:
+            self._character['lvlup'] -= 1
+#            self._character['DP'] -= self.__usedDP
+#            self.__usedDP = 0
+
+            if self._character['lvlup'] < 0:
+                self._character['lvlup'] = 0
+
         self.window.destroy()
-        self.window = MainWindow(lang = self.lang, char = self._character)
+        self.window = MainWindow(lang = self.lang, storepath = self.spath , char = self._character)
 
 
     def __addHelpMenu(self):
@@ -2185,8 +2188,9 @@ class skillcatWin(blankWindow):
 
         '''
         from rpgtoolbox.rolemaster import labels as rmlabels
-        self.__treeframe = Frame(width = 800, height = 600)
-        self.__treeframe.grid(column = 0, row = 0, columnspan = 7, rowspan = 3)
+#        self.__treeframe = Frame(width = 800, height = 600)
+        self.__treeframe = Frame()
+        self.__treeframe.grid(column = 0, row = 0, columnspan = 7, rowspan = 3, sticky = "NEWS")
         self.__rmlabels = rmlabels
         self.__treecolumns = []
         self.catentry = StringVar()
@@ -2754,7 +2758,10 @@ class skillcatWin(blankWindow):
         newrank = int(self._skillspin.get())
         ## \val currdev
         # list of current development progression
-        currdev = self.__tree.item(self.__curItem)['values'][1].split(" ")
+        if type(self.__tree.item(self.__curItem)['values'][1]) != type(2):
+            currdev = self.__tree.item(self.__curItem)['values'][1].split(" ")
+        else:
+            currdev = [str(self.__tree.item(self.__curItem)['values'][1])]
 
         for i in range(0, len(currdev)):
             currdev[i] = float(currdev[i])
@@ -2905,7 +2912,8 @@ class skillcatWin(blankWindow):
                 else:
                     messg = messageWindow()
                     messg.showinfo(screenmesg['epwins_no_dp'][self.lang])
-
+        #DEBUG
+        print("takeValSkill: used DP = {}".format(self.__usedDP))
         self.DPtext.set(str(self._character['DP'] - self.__usedDP))
         self.__buildChangedTree()
 
@@ -2967,6 +2975,8 @@ class skillcatWin(blankWindow):
             for i in range(diff, 0):
                 self.__usedDP -= int(dpCosts[i])
 
+        print("takeValCat: usedDP = {}".format(self.__usedDP))
+
         if (self._character['DP'] - self.__usedDP) >= 0:
 
             if currcat not in list(self.__changed['cat'].keys()) and currcat in list(self._character['cat'].keys()):
@@ -3000,8 +3010,10 @@ class skillcatWin(blankWindow):
         from rpgtoolbox import rolemaster as rm
         self.profs = rm.choseProfession(self.lang)
         self._character['DP'] -= self.__usedDP
-        if self.__usedDP > 0:
+
+        if self.__usedDP > 0 or self._character['DP'] == 0:
             self._character['lvlup'] -= 1
+
         self._character["old_exp"] = int(self._character['exp'])
 
         for cat in list(self.__changed["cat"].keys()):
@@ -3134,11 +3146,11 @@ class charInfo(blankWindow):
 
         if storepath == None:
             self.spath = os.path.expanduser('~') + "/data"
-            logger.debug('Set storepath to %s' % (storepath)) + "/data"
+            logger.info('Set storepath to %s' % (storepath)) + "/data"
 
         else:
             self.spath = storepath
-            logger.debug('charInfo: storepath set to %s' %
+            logger.info('charInfo: storepath set to %s' %
                          (storepath))
         self.lang = lang
         self._character = dict(calcTotals(char))
@@ -3152,7 +3164,7 @@ class charInfo(blankWindow):
                      txtwin['png_files'][self.lang]
                      ]
 
-        if "piclink" in list(self._character.keys()):
+        if "piclink" in list(self._character.keys()) and self._character["piclink"] != "":
             self.charpic = self._character["piclink"]
         else:
             self.charpic = "./data/default/pics/default.jpg"
@@ -3223,7 +3235,8 @@ class charInfo(blankWindow):
         A method to destroy the current window and go back to MainWindow.
         '''
         self.window.destroy()
-        self.window = MainWindow(lang = self.lang, char = self._character)
+        logger.debug("charInfo: Call MainWindow(lang={},storepath={},char={}".format(self.lang, self.spath, self._character))
+        self.window = MainWindow(lang = self.lang, storepath = self.spath , char = self._character)
 
 
     def __openFile(self):
@@ -3239,9 +3252,11 @@ class charInfo(blankWindow):
 
                 if self.__filein[-4:].lower() == "json":
                     self.char = json.load(filecontent)
+                    logger.debug("charInfo:(character) content read from {}.".fomat(self.__filein))
 
                 elif self.__filein[-3:].lower == "grp":
                     self.grp = json.load(filecontent)
+                    logger.debug("charInfo:(group) content read from {}.".fomat(self.__filein))
 
                 else:
                     msg = messageWindow()
@@ -3256,6 +3271,7 @@ class charInfo(blankWindow):
 
         '''
         self.background = {}
+
         for elem in charattribs.keys():
             self.background[elem] = StringVar()
 
@@ -3432,7 +3448,7 @@ class charInfo(blankWindow):
         if "history" in list(self._character.keys()):
             self.tw1.insert(1.0, self._character['history'])
 
-        self.tw1.grid(column = 0, row = 15, columnspan = 2)
+        self.tw1.grid(column = 0, row = 16, columnspan = 2)
         # row 15-19 column 2-3
         Label(master = self.window,
               width = 15,
@@ -3487,11 +3503,13 @@ class charInfo(blankWindow):
         '''
         self.charpic = askopenfilename(filetypes = self.pmask,
                                         initialdir = self.mypath)
-        self._character['piclink'] = self.charpic
-
-        from PIL import Image, ImageTk
-        self.cpic = ImageTk.PhotoImage(Image.open(self.charpic).resize((300, 300), Image.ANTIALIAS))
-        self.picLabel.configure(image = self.cpic)
+        if type(self.charpic) == type(""):
+            self._character['piclink'] = self.charpic
+        #DEBUG
+            print("mypath: {}\npiclink: {}".format(self.mypath, self._character['piclink']))
+            from PIL import Image, ImageTk
+            self.cpic = ImageTk.PhotoImage(Image.open(self.charpic).resize((300, 300), Image.ANTIALIAS))
+            self.picLabel.configure(image = self.cpic)
 
 
     def __statGainRoll(self):
@@ -3519,6 +3537,8 @@ class charInfo(blankWindow):
             bg[el] = self.background[el].get()
 
         self._character["background"] = bg
+        self._character["background"]["motiv"] = self.tw2.get("0.0", END)
+        self._character['background']['pers'] = self.tw1.get("0.0", END)
 
         with open(self.spath + self._character['player'] + '/' + self._character['name'] + ".json", "w") as outfile:
                 json.dump(self._character,
@@ -4117,3 +4137,169 @@ class editEPWin(blankWindow):
         #save new EP data
         self.saveData()
         self.statbar.set(screenmesg["file_saved"][self.lang])
+
+
+
+class BGOselectWin(blankWindow):
+    '''
+    This window class will display the choices one have for his BGOs
+    @todo The following has to be impemented
+    - window building
+    - special items
+    - more money
+    - spec Bonus Cat/Skill
+    - Edges/Flaws
+    '''
+
+
+    def __init__(self, lang = 'en', storepath = "./data", char = None):
+        """
+        Class constructor
+        \param lang The chosen language for window's and button's
+                    texts. At the moment, only English (en, default
+                    value) and German (de) are supported.
+        \param title title of the window
+        \param storepath path where things like options have to be stored
+        \param char Character as JSON/dictionary
+        """
+
+        if storepath == None:
+            self.spath = os.path.expanduser('~') + "/data"
+            logger.debug('Set storepath to %s' % (storepath)) + "/data"
+
+        else:
+            self.spath = storepath
+            logger.debug('editEPWin: storepath set to %s' %
+                         (storepath))
+        self.lang = lang
+        self._character = dict(calcTotals(char))
+
+        self.mypath = storepath + '/' + self._character['player'] + '/'
+        self.cmask = [txtwin['json_files'][self.lang],
+                     txtwin['grp_files'][self.lang],
+                     txtwin['all_files'][self.lang]
+                     ]
+
+        blankWindow.__init__(self, self.lang)
+        self.window.title("%s - %s (%s)" % (wintitle['rm_statgain'][self.lang],
+                                            self._character['name'],
+                                            self._character['prof']
+                                            )
+                          )
+        self.filemenu = Menu(master = self.menu)
+        self.__addFileMenu()
+        self.__addSelectMenu()
+        self.__addHelpMenu()
+        self.__buildWin()
+        self.window.mainloop()
+
+
+    def __addFileMenu(self):
+        '''
+        Adds a file menu to menu bar.
+        '''
+        self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
+                              menu = self.filemenu)
+
+        self.filemenu.add_separator()
+        self.filemenu.add_command(label = submenu['file'][self.lang]['open'],
+                                  command = self.__openFile)
+        self.filemenu.add_separator()
+        self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
+                                  command = self.__closewin)
+
+        self.__stats = stats
+
+
+    def __addEditMenu(self):
+        '''
+        This adds an select menu to the menu bar.
+        @todo to be implemented:
+        -# extra money
+        -# stat gain rolls
+        -# extra items
+        -# languages
+        -# spec skill
+        -# spec cats
+        -# talents/flaws
+        '''
+        self.edtmenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['menu_select'][self.lang],
+                              menu = self.edtmenu)
+        self.edtmenu.add_command(label = submenu['select'][self.lang]['bgo_money'],
+                                 command = self.notdoneyet)
+        self.edtmenu.add_command(label = submenu['select'][self.lang]['bgo_stats'],
+                                 command = self.notdoneyet)
+        self.edtmenu.add_command(label = submenu['select'][self.lang]['bgo_items'],
+                                 command = self.notdoneyet)
+        self.edtmenu.add_command(label = submenu['select'][self.lang]['bgo_lang'],
+                                 command = self.notdoneyet)
+        self.edtmenu.add_command(label = submenu['select'][self.lang]['bgo_spec_skill'],
+                                 command = self.notdoneyet)
+        self.edtmenu.add_command(label = submenu['select'][self.lang]['bgo_spec_cat'],
+                                 command = self.notdoneyet)
+        self.edtmenu.add_command(label = submenu['select'][self.lang]['bgo_talens'],
+                                 command = self.notdoneyet)
+
+
+    def __addHelpMenu(self):
+        '''
+        Adds a help menu entry to menu bar.
+        '''
+        self.helpmenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['help'][self.lang],
+                              menu = self.helpmenu)
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['win'],
+                                  command = self.__helpWin)
+        self.helpmenu.add_separator()
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
+                                  command = self._helpAbout)
+
+
+    def __closewin(self):
+        '''
+        A method to destroy the current window and go back to MainWindow.
+        '''
+        self.window.destroy()
+        self.window = MainWindow(lang = self.lang, char = self._character)
+
+
+    def __openFile(self):
+        """
+        This method opens a dialogue window (Tk) for opening files.
+        The content of the opened file will be saved in \e file
+        \e content as an array.
+        """
+        self.__filein = askopenfilename(filetypes = self.cmask,
+                                        initialdir = self.mypath)
+        if self.__filein != "":
+            with open(self.__filein, 'r') as filecontent:
+
+                if self.__filein[-4:].lower() == "json":
+                    self.char = json.load(filecontent)
+
+                elif self.__filein[-3:].lower == "grp":
+                    self.grp = json.load(filecontent)
+
+                else:
+                    msg = messageWindow()
+                    msg.showinfo(errmsg['wrong_type'][self.lang])
+                    logger.warn(errmsg['wrong_type'][self.lang])
+                    pass
+
+
+    def __helpWin(self):
+        '''
+        Help windows
+        @todo this has to be fully implemented
+        '''
+        self.notdoneyet("charInfo.__helpWin:\ņ\n not done yet")
+
+
+    def __buildWin(self):
+        '''
+        This method builds all window components
+        @todo This has to be fully implemented.
+        '''
+        self._f_money = Frame(master = self.window)
+

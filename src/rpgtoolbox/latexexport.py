@@ -12,7 +12,7 @@ will be generated for printouts
 \version 1.0
 '''
 
-__updated__ = "23.06.2019"
+__updated__ = "07.07.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -72,6 +72,7 @@ def saveFile(filename = "", content = ""):
 class charsheet(object):
     '''
     This class generates LaTeX code from character's data
+    @todo filter spell list with  rank 0 and do not display them in  character sheet
     '''
 
 
@@ -329,6 +330,8 @@ class charsheet(object):
         currpath = os.getcwd()
         os.chdir(self.chardir)
         try:
+            # to get the right table formating latex has to be run twice
+            os.system("pdflatex {}.tex".format(self.char['name']))
             os.system("pdflatex {}.tex".format(self.char['name']))
             windoman = ["/usr/bin/xdg-open", "/usr/bin/gnome-open", "/usr/bin/kde-open", "/usr/bin/open"]
 
