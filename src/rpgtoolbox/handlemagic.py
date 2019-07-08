@@ -12,7 +12,7 @@
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "07.07.2019"
+__updated__ = "08.07.2019"
 
 import os
 from . import logbox as log
@@ -67,7 +67,9 @@ class getSpells(object):
         '''
         spellcat = os.listdir(datadir)
         spellcat.sort()
-        logger.debug("spellcat {}".format(spellcat))
+        logger.debug("getAllLists: spellcat {}".format(spellcat))
+        #DEBUG
+        print("spellcat {}".format(spellcat))
 
         for i in range(0, len(spellcat)):
             slcat = spellcat[i].replace('_', ' ')
@@ -91,6 +93,7 @@ class getSpells(object):
                     self.spelllists[slcat][slist]['Spells'] = readCSV(datadir + spellcat[i] + "/" + splst[j])
 
         logger.debug("getAllLists: self.spelllists:\n{}".format(self.spelllists))
+        print("getAllLists: self.spelllists:\n{}".format(self.spelllists))
 
 
     def __categorizeSLs(self):

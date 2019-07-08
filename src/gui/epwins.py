@@ -35,7 +35,7 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "07.07.2019"
+__updated__ = "08.07.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -151,7 +151,7 @@ class MainWindow(blankWindow):
         """
         self.__filein = askopenfilename(filetypes = self.mask,
                                         initialdir = self.mypath)
-        if self.__filein != "":
+        if self.__filein != "" and type(self.__filein) == type(""):
             with open(self.__filein, 'r') as filecontent:
 
                 if self.__filein[-4:].lower() == "json":
@@ -1570,7 +1570,7 @@ class genAttrWin(blankWindow):
                                        'rank': 0
                                        }
             #DEBUG
-            print("\naddCatnSkills ----------------------------{}".format(content[i][0]))
+#            print("\naddCatnSkills ----------------------------{}".format(content[i][0]))
             pprint(skillcat[content[i][0]])
 
             for pb in list(self.profs[self.character['prof']]['Profession Bonusses'].keys()):
@@ -1594,13 +1594,13 @@ class genAttrWin(blankWindow):
         self.profs = rm.choseProfession(self.lang)
         for key in skillcat.keys():
             #DEBUG
-            print("addCatnSkills: key - {}".format(key))
+#            print("addCatnSkills: key - {}".format(key))
 
             for pbonus in self.profs[self.character['prof']]['Profession Bonusses'].keys():
 
                 if pbonus in skillcat.keys():
                     #DEBUG
-                    print("addCatnSkills: pbonus - {}".format(pbonus))
+#                    print("addCatnSkills: pbonus - {}".format(pbonus))
 
                     skillcat[key]['prof bonus'] = int(self.profs[self.character['prof']]['Profession Bonusses'][pbonus])
 
@@ -1679,7 +1679,7 @@ class genAttrWin(blankWindow):
                                     self.character['cat'][cat]['Skill'][spell]['rank bonus'] = 0
                                     self.character['cat'][cat]['Skill'][spell]['item bonus'] = 0
                                     self.character['cat'][cat]['Skill'][spell]["spec bonus"] = 0
-                            break
+#                            break
 #XXXXXXXXXXXXXXXXXx
 
 
@@ -1978,7 +1978,8 @@ class priorizeWeaponsWin(blankWindow):
                 param['Stats'] = magicstats[realms[l].index(self.character['realm'])]
 
         if type(param['ppd']) == type(''):
-            param['ppd'] = progressionType[param['ppd'] + param['race']]
+#            param['ppd'] = progressionType[param['ppd'] + param['race']]
+            param['ppd'] = progressionType['null']
 
         elif type(param['ppd']) == type([]):
 
@@ -2913,7 +2914,7 @@ class skillcatWin(blankWindow):
                     messg = messageWindow()
                     messg.showinfo(screenmesg['epwins_no_dp'][self.lang])
         #DEBUG
-        print("takeValSkill: used DP = {}".format(self.__usedDP))
+#        print("takeValSkill: used DP = {}".format(self.__usedDP))
         self.DPtext.set(str(self._character['DP'] - self.__usedDP))
         self.__buildChangedTree()
 
@@ -3506,7 +3507,7 @@ class charInfo(blankWindow):
         if type(self.charpic) == type(""):
             self._character['piclink'] = self.charpic
         #DEBUG
-            print("mypath: {}\npiclink: {}".format(self.mypath, self._character['piclink']))
+#            print("mypath: {}\npiclink: {}".format(self.mypath, self._character['piclink']))
             from PIL import Image, ImageTk
             self.cpic = ImageTk.PhotoImage(Image.open(self.charpic).resize((300, 300), Image.ANTIALIAS))
             self.picLabel.configure(image = self.cpic)
