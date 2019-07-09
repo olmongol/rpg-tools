@@ -36,7 +36,7 @@ from rpgtoolbox.confbox import *
 from rpgtoolbox import logbox as log
 
 __author__ = "Marcus Schwamberger"
-__updated__ = "20.06.2019"
+__updated__ = "07.07.2019"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + __author__
 __email__ = "marcus@lederzeug.de"
 __version__ = "1.0.0"
@@ -44,7 +44,7 @@ __license__ = "GNU V3.0"
 __me__ = "A MERS/RM RPG Toolbox for Python 3.6"
 
 if __name__ == '__main__':
-    logger = log.createLogger('rpg', 'debug', '1 MB', 1, './')
+    logger = log.createLogger('rpg', 'warning', '1 MB', 1, './')
     mycnf = chkCfg()
     logger.info("Read config file.")
     mywindow = MainWindow(lang = mycnf.cnfparam['lang'], title = "EP Calculator", storepath = mycnf.cnfparam['datapath'])

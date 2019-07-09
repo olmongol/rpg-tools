@@ -180,4 +180,4 @@ class getSpells(object):
                 elif lcat[0] not in self.realm and lcat[1] != "Open":
                     self.spelllists[listcat]["Category"] = "Other Realm Closed Lists"
 
-        logger.debug("categorizeSLs: self.spelllists\n{}".self.spelllists)
+        logger.debug("categorizeSLs: self.spelllists\n{}".format(self.spelllists))
