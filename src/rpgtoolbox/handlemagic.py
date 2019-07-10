@@ -41,8 +41,6 @@ class getSpells(object):
         \param charlvl character's lvl to calculate costs
 
 
-        ----
-        \todo  calculating dynamic development costs dependent on class and level
         '''
         self.prof = charprof
         self.realm = charrealm
@@ -63,13 +61,10 @@ class getSpells(object):
         '''
         Get all spell lists and spell categories from disc
         \param datadir path to the magic directory
-        \bug some how seem relative paths not work
         '''
         spellcat = os.listdir(datadir)
         spellcat.sort()
         logger.debug("getAllLists: spellcat {}".format(spellcat))
-        #DEBUG
-        print("spellcat {}".format(spellcat))
 
         for i in range(0, len(spellcat)):
             slcat = spellcat[i].replace('_', ' ')
