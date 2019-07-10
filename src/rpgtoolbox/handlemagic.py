@@ -12,7 +12,7 @@
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "09.07.2019"
+__updated__ = "10.07.2019"
 
 import os
 from . import logbox as log
@@ -141,7 +141,7 @@ class getSpells(object):
                 if lcat[2] in list(purespellusers.keys()):
                     logger.info("categorizeSLs: identified pure spell user")
 
-                    if purespellusers[lcat[2]] == self.realm:
+                    if purespellusers[lcat[2]][0] in self.realm:
                         self.spelllists[listcat]["Category"] = "Own Realm Other Base Lists"
 
                     else:
@@ -163,7 +163,7 @@ class getSpells(object):
                 elif lcat[2] in list(semispellusers.keys()):
                     logger.info("categorizeSLs: identified semi spell user")
 
-                    if semispellusers[lcat[2]] == self.realm:
+                    if semispellusers[lcat[2]] in self.realm:
                         self.spelllists[listcat]["Category"] = "Own Realm Other Base Lists"
 
                     else:
