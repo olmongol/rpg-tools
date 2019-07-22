@@ -167,8 +167,6 @@ class charsheet(object):
         template = readFile(self.storepath + "/default/latex/template_rr_at_db.tex")
         template = template.replace("==>ThreeQ", str(int(self.char["Qu"]["total"]) * 3))
 
-#        #DEBUG
-#        print("createRRATDB: char.keys {}".format(list(self.char.keys())))
         for v in vals:
             template = template.replace("==>{}".format(v), str(int(self.char[v])))
 
@@ -246,11 +244,6 @@ class charsheet(object):
                                                                      str(self.char['cat'][cat]["Skill"][skill]['total bonus'])
                                                                      )
             elif "Spells" in cat:
-                #DEBUG
-#                print("251-createCatSkill\ncat {}\nchar['cat][{}]] {}".format(cat, cat, str(self.char['cat'][cat]['Progression']).replace(", ", "/")))
-#                if 'prof bonus' not in self.char['cat'][cat].keys():
-#                    self.char['cat'][cat]['prof bonus'] = 0
-
                 datatable += spell + catstd.format(cat,
                                                   str(self.char['cat'][cat]['Progression']).replace(", ", "/"),
                                                   str(self.char['cat'][cat]['Costs']).replace(", ", "/"),
@@ -266,10 +259,8 @@ class charsheet(object):
                 skilllist.sort()
 
                 for skill in skilllist:
+
                     if skill not in ['Progression', 'Costs', 'Stats'] and "+" not in skill and self.char['cat'][cat]['Skill'][skill]["rank"] > 0:
-                        #DEBUG
-#                        print("\t268-createCatSkill:\n\tskill: {}\n\tchar['cat][{}]]['Skill][{}] {}".format(skill, cat, skill, self.char['cat'][cat]["Skill"]))
-                        #print("\t268-createCatSkill:\n\tskill: {}\n\tchar['cat][{}]]['Skill][{}] {}".format(skill, cat, skill, str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/")))
                         datatable += spell + skillpre + skillval.format(skill,
                                                                      str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/"),
                                                                      str(self.char['cat'][cat]["Skill"][skill]['Costs']).replace(", ", "/"),
@@ -325,12 +316,11 @@ class charsheet(object):
     def execLaTeX(self):
         '''
         This executes LaTeX to generate a PDF character sheet and tries to open it with default viewer.
-        @todo open PDF with default PDF viewer
         '''
         currpath = os.getcwd()
         os.chdir(self.chardir)
         try:
-            # to get the right table formating latex has to be run twice
+            # to get the right table formating LaTeX has to be run twice
             os.system("pdflatex {}.tex".format(self.char['name']))
             os.system("pdflatex {}.tex".format(self.char['name']))
             windoman = ["/usr/bin/xdg-open", "/usr/bin/gnome-open", "/usr/bin/kde-open", "/usr/bin/open"]

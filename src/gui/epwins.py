@@ -35,7 +35,7 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "08.07.2019"
+__updated__ = "22.07.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -3169,6 +3169,7 @@ class charInfo(blankWindow):
             self.charpic = self._character["piclink"]
         else:
             self.charpic = "./data/default/pics/default.jpg"
+            self._character['piclink'] = "./data/default/pics/default.jpg"
 
         blankWindow.__init__(self, self.lang)
         self.window.title("%s - %s (%s)" % (wintitle['background'][self.lang],
@@ -3210,7 +3211,7 @@ class charInfo(blankWindow):
         self.menu.add_cascade(label = txtmenu['menu_edit'][self.lang],
                               menu = self.edtmenu)
         self.edtmenu.add_command(label = submenu['edit'][self.lang]['add_pic'],
-                                 command = self.__addPic)
+                                 command = self.__addPicMenue)
         self.edtmenu.add_command(label = submenu['edit'][self.lang]['add_story'],
                                  command = self.__addStory)
         self.edtmenu.add_command(label = submenu['edit'][self.lang]['statgain'],
@@ -3499,6 +3500,21 @@ class charInfo(blankWindow):
 
 
     def __addPic(self, event):
+        '''
+        This method adds the link to a character's picture (jpg/png)
+        '''
+        self.charpic = askopenfilename(filetypes = self.pmask,
+                                        initialdir = self.mypath)
+        if type(self.charpic) == type(""):
+            self._character['piclink'] = self.charpic
+        #DEBUG
+#            print("mypath: {}\npiclink: {}".format(self.mypath, self._character['piclink']))
+            from PIL import Image, ImageTk
+            self.cpic = ImageTk.PhotoImage(Image.open(self.charpic).resize((300, 300), Image.ANTIALIAS))
+            self.picLabel.configure(image = self.cpic)
+
+
+    def __addPicMenue(self):
         '''
         This method adds the link to a character's picture (jpg/png)
         '''

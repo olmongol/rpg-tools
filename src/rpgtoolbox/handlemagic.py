@@ -12,7 +12,7 @@
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "10.07.2019"
+__updated__ = "22.07.2019"
 
 import os
 from . import logbox as log
@@ -95,7 +95,7 @@ class getSpells(object):
         '''
         This private method categorizes spell lists for identifying the developing
         costs for a player character
-
+        @todo categorize Bae lists for non-spell users
         '''
         purespellusers = {"Animist": ["Channeling"],
                         "Cleric" : ["Channeling"],
@@ -121,6 +121,8 @@ class getSpells(object):
                         "Warrior Monk":[],
                         "Layman":[]
                         }
+        if type(self.realm) != type([]):
+            self.realm = [self.realm]
 
         for listcat in list(self.spelllists.keys()):
             lcat = listcat.split(' ')
@@ -164,8 +166,22 @@ class getSpells(object):
                     else:
                         self.spelllists[listcat]["Category"] = "Other Realm Base Lists"
 
+                else:
+                    if self.realm not in ["none", "choice"]:
+
+                        if lcat[2] in list(purespellusers.keys()):
+
+                            if purespellusers[lcat[2]] == self.realm:
+                                self.spelllists[listcat]['Category'] = "Own Realm Other Base Lists"
+
+                            else:
+                                self.spelllists[listcat]['Category'] = "Other Realm Base Lists"
+
+#XXXX go on XXXX
+#                elif self.realm in lcat[2] in list(nonspellusers.keys()):
+#                    logger.info("categorizeSLs: identified non spell user")
+
             elif lcat[0] != "Base":
-                logger.info("categorizeSLs: identified non spell user")
 
                 if lcat[0] in self.realm and lcat[1] == "Open":
                     self.spelllists[listcat]["Category"] = "Own Realm Open Lists"
