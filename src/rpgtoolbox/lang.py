@@ -25,7 +25,7 @@ Currently supported languages are:
 \todo clean up the code!!!
 '''
 __version__ = "1.1"
-__updated__ = "24.06.2019"
+__updated__ = "11.10.2019"
 ## \var supportedrpg
 # Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
@@ -68,11 +68,20 @@ screenmesg = {'welcome'     : {'de' : "Willkommen bei den RPG-Tools",
                                        " than zero."
                                },
               'input_eps': {'de': 'Bitte neu erhaltene EPs eingeben!',
-                            'en': 'Please enter newly gained EPs!'}
+                            'en': 'Please enter newly gained EPs!'},
+              'no_feature' : {'de' : "Diese Option wurde noch nicht umgesetzt.",
+                              'en' : "This feature is not ready yet."}
               }
-
+winhelpmsg = {"genAttrWin" :{"de": u"Mit 'Würfeln' kann man dreimal sein Glück versuchen um ggf. mehr (oder auch weniger) Punkte auf die Attibute verteilen zu können als 660.\n\n" +
+                                    u"Ansonsten ist die Reihenfolge: \n1. Namen eintragen\n2. Rasse wählen.\n3. Volk wählen\n4. Beruf wählen\n3. Magiebereich wählen (wenn möglich)" +
+                                    u"\n6. 'temp' Werte der Attribute eintragen. Mit 'Berechnen' kann man sich den verbleibenden Punktestadn ausrechnen lassen.\n" +
+                                    u"7. Wenn alle Punkte verteilt sind, auf 'weiter' klicken.",
+                             "en" : "'Roll dice' means you may get more points (than 660) to distribute on your attributes -but it may be less too. you have 3 tries.\n\n Order to use fields:\n" +
+                                    " 1. enter names\n2. chose race\n3. choose culture\n4. choose profession \n5. choose magic realm (if you have the opportunity)\n6. fill in the temp fields for you attributes. " +
+                                    "Clicking the 'calculate' button will calculate the remaining points you have left.\n7. when you have finished distributing points click 'next"},
+                            }
 ## \var charattribs
-# This holds speciffic character attributes/parameter.
+# This holds speciffic character attributes/parameter.,
 charattribs = { 'sex' : {'de': 'Geschlecht',
                          'en': 'Sex'
                         },
