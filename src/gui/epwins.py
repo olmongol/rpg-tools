@@ -35,7 +35,7 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "11.10.2019"
+__updated__ = "13.10.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -1234,6 +1234,10 @@ class genAttrWin(blankWindow):
         Sets the right culture selection dependent on the chosen race.
         If the race is set this method will adapt the list of choice concerning
         to the chosen race.
+
+        ----
+
+        @todo set the initial language ranks for the culture based languages
         '''
         from rpgtoolbox.rolemaster import races, cultures
         from rpgtoolbox.lang import errmsg
@@ -1298,6 +1302,11 @@ class genAttrWin(blankWindow):
         This method sets the races bonusses , the race based RR bonusses,
         Background Options and Hobby Ranks.
         \param event object event given by OptionMenu but not used
+
+        ----
+
+        @param prepare race based additional bonusses which may be added when going to
+        the next window.
         '''
         from rpgtoolbox import rolemaster as rm
         race = self.stats['race'].get()
@@ -2962,6 +2971,7 @@ class skillcatWin(blankWindow):
         @todo The following has to be implemented:
         -# take care of non standard progression: do not "level" those categories
         -# update total skill bonusses if there are skills
+
         ----
         @bug
         - after 2x finalize button use 'edit' and levelups of already leveled can be done with the low costs and for more then the given limit.

@@ -14,7 +14,7 @@ This package holds RM specific tools like Character Skill Progression.
 \date 2019
 \copyright 2015-2019 Marcus Schwamberger
 '''
-__updated__ = "24.06.2019"
+__updated__ = "13.10.2019"
 
 catnames = {'de' : {'spells' : "Spells",
                     'weapon' : 'Weapon',
@@ -63,6 +63,119 @@ cultures = {'de' : ['Huegelmenschen', 'Corsaren', 'Nomaden', 'Landvolk', 'Stadtm
                    'Dwarves', 'Halflings']
 
            }
+## \var culturalDefinition
+# this dictionary holds average values and starting languages based on races
+# \todo this has to be filled for all races for English and German
+#
+culturalDefinitions = {'en': {'Hillmen':{'weight':'',
+                                          'height':'',
+                                          'languages':{}
+                                          },
+                             'Mariners' : {'weight':'',
+                                          'height':'',
+                                          'languages':{}},
+                             'Nomads':{'weight':'',
+                                          'height':'',
+                                          'languages':{}
+                                          },
+                             'Ruralmen':{'weight':'',
+                                          'height':'',
+                                          'languages':{}
+                                          },
+                             'Urbanmen':{'weight':'',
+                                          'height':'',
+                                          'languages':{}
+                                          },
+                             'Woodmen':{'weight':'',
+                                          'height':'',
+                                          'languages':{}
+                                          },
+                             'High Men': {'weight':'m 112 kg / f 75 kg',
+                                          'height':'m 183 cm / f 176 cm',
+                                          'languages':{'Adunaic (spoken)':{'rank':8},
+                                                       'Adunaic (written)':{'rank':6},
+                                                       'Westron (spoken)':{'rank' :8},
+                                                       'Westron (written)':{'rank':6},
+                                                       'Sindarin (spoken)':{'rank':6},
+                                                       'Sindarin (written)':{'rank':6},
+                                                       'Quenya (spoken)':{'rank':2},
+                                                       'Quenya (written)':{'rank':2},
+                                                       }
+                                          },
+                             'Wood Elves':{'weight':'',
+                                          'height':'',
+                                          'languages':{}
+                                          },
+                             'Grey Elves':{'weight' :"m 95 kg 7 f 78 kg",
+                                           "height": 'm  193 cm / f 183 cm',
+                                           'languages':{ "Sindarin (spoken)" : {"rank" : 10},
+                                                         "Sindarin (written)" : {'rank':10},
+                                                         "Silvan (spoken)": {'rank':8},
+                                                         "Silvan (written)":{'rank' :6},
+                                                         'Quenya (spoken)':{'rank':6},
+                                                         'high-elvish (written)' :{'rank':4},
+                                                         'Westron (spoken)' :{'rank':8},
+                                                         'Westron (written)' :{'rank':6}
+                                                        }
+                                           },
+                             'High Elves':{'weight':'m 108 kg / f 78 kg',
+                                          'height':'m 198 cm / f 188 cm',
+                                          'languages':{'Quenya (spoken)':{'rank': 10},
+                                                       'Quenya (written)':{'rank':10},
+                                                       'Sindarin (spoken)' :{'rank':8},
+                                                       'Sindarin (written)':{'rank':6},
+                                                       'Westron (spoken)':{'rank':8},
+                                                       'Westron (written)':{'rank':6}
+                                                       }
+                                          },
+                             'Half Elves':{'weight':'m 95 kg / f 68 kg',
+                                           'height' : 'm 188 cm / f 178 cm',
+                                           'languages' : { 'Sindarin (spoken)' :  {'rank': 8},
+                                                          'Sindarin (written)' :{'rank': 6},
+                                                          'Westron (spoken)' : {'rank': 8},
+                                                          'Westron (written)' : {'rank' :6},
+                                                          'Quenya (spoken)':{'rank': 6},
+                                                          'Quenya (written)':{'rank':5}
+                                                         }
+                                           },
+                             'Dwarves' :{"weight": "m 75 kg / f 68 kg",
+                                         'height': 'm 145 cm / f 135 cm',
+                                         'languages': { 'Khuzdul (spoken)': {"rank": 8,
+                                                                              "spec bonus": 0
+                                                                              },
+                                                        'Khuzdul (written)': {'rank': 6,
+                                                                               "spec bonus":0
+                                                                               },
+                                                        "Common Speak (spoken)" : {"rank":6},
+                                                        "Common Speak (written)": {'rank':6},
+                                                        "Silvan (spoken)" :{"rank":4},
+                                                        "Silvan (written)":{"rank":4}
+                                                      }
+                                         },
+                             'Halflings':{'weight':'m 27 kg / f 25 kg',
+                                          'height':'m 103 cm / f 98 cm',
+                                          'languages':{'Kuduk (spoken)': 8,
+                                                       'Kuduk (written)':6,
+                                                       'Westron (spoken)': 8,
+                                                       'Westron (written)' : 6
+                                                       }
+                                          },
+                             },
+                    'de': {'Huegelmenschen' : {},
+                           'Corsaren'  : {},
+                           'Nomaden' : {},
+                           'Landvolk' : {},
+                           'Stadtmenschen' : {},
+                           'Waldmenschen' : {},
+                           'Hochmenschen' : {},
+                           'Waldelben' : {},
+                           'Grauelben' : {},
+                           'Hochelben'  : {},
+                           'Halbelben'  : {},
+                           'Zwerge'  : {},
+                           'Halblinge' : {}
+                        }
+                    }
 ##\var stats
 # the English shortcuts/indices for stats
 stats = ['Ag', 'Co', 'Me', 'Re', 'SD', 'Em', 'In', 'Pr', 'Qu', 'St']
