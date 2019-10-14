@@ -9,4 +9,4 @@ from . import calendar
 from . import handlemagic
 from . import epcalc
 from . import chartotext
-from . import latexexport
+#from . import latexexport

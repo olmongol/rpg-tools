@@ -10,7 +10,7 @@ This holds window classes for generating and updating (level ups) characters.
 \date (C) 2016-2019
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
-\version 1.0
+\version 1.3
 '''
 import random
 import os
@@ -35,11 +35,11 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "22.07.2019"
+__updated__ = "07.10.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
-__version__ = "1.0"
+__version__ = "1.3"
 __license__ = "GNU V3.0"
 __me__ = "A RPG tool package for Python 3.6"
 
@@ -2112,12 +2112,17 @@ class skillcatWin(blankWindow):
         self.lang = lang
         self._character = dict(calcTotals(char))
         self.__save()
-        # \var self.__changed
-        # dictionary with the changed categories/skills
-        self.__changed = {'name': self._character['name'],
-                          'player': self._character['player'],
-                          'cat': {}
-                          }
+
+        if os.path.isfile("{}/{}/{}_changes.json".format(self.spath, self._character['player'], self._character['name'])):
+            self.__changed = readJSON("{}/{}/{}_changes.json".format(self.spath, self._character['player'], self._character['name']))
+
+        else:
+            # \var self.__changed
+            # dictionary with the changed categories/skills
+            self.__changed = {'name': self._character['name'],
+                              'player': self._character['player'],
+                              'cat': {}
+                              }
 
         self.__calcLvlup()
 
@@ -2944,17 +2949,11 @@ class skillcatWin(blankWindow):
 
         for i in range(0, len(currdev)):
             currdev[i] = float(currdev[i])
+
         ## \var oldtotal
         # Total bonus before any manipulation.
         oldtotal = self.__tree.item(self.__curItem)['values'][-1]
         newtotal = self.__calcRanks(currdev, int(newval)) - self.__calcRanks(currdev, int(oldval)) + int(oldtotal)
-
-        if currcat not in list(self.__changed['cat'].keys()) and currcat in list(self._character['cat'].keys()):
-            diff = newval - oldval
-
-        else:
-            diff = newval - self.__changed['cat'][currcat]['rank']
-
         # calc DP consume:
         dpCosts = self.__tree.item(self.__curItem)['values'][2]
 
@@ -2964,18 +2963,41 @@ class skillcatWin(blankWindow):
         elif type(dpCosts) == type(1):
             dpCosts = [dpCosts]
 
+        if currcat not in list(self.__changed['cat'].keys()) and currcat in list(self._character['cat'].keys()):
+            diff = newval - oldval
+            self.__changed['cat'][currcat]['lvlups'] = diff
+
+        else:
+            if "lvlups" in list(self.__changed['cat'][currcat].keys()):
+
+                if self.__changed['cat'][currcat]['lvlups'] < len(dpCosts):
+                    diff = newval - self.__changed['cat'][currcat]['rank']
+                else:
+                    diff = 0
+                    newval = oldval
+                    newtotal = self.__calcRanks(currdev, int(newval)) - self.__calcRanks(currdev, int(oldval)) + int(oldtotal)
+            else:
+                diff = newval - self.__changed['cat'][currcat]['rank']
+                self.__changed['cat'][currcat]['lvlups'] = diff
+        #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+        # here needs to be
+        # a flag how many times a cat was leveled
+        # maybe number of  already leveled ranks
+        #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
         bkpusedDP = int(self.__usedDP)
 
-        if diff >= 0:
+        if diff > 0:
+# muss noch angepasst werden mit höheren kosten..
 
             for i in range(0, diff):
                 self.__usedDP += int(dpCosts[i])
 
-        else:
+        elif diff < 0:
 
             for i in range(diff, 0):
                 self.__usedDP -= int(dpCosts[i])
 
+        #DEBUG
         print("takeValCat: usedDP = {}".format(self.__usedDP))
 
         if (self._character['DP'] - self.__usedDP) >= 0:
@@ -2991,6 +3013,7 @@ class skillcatWin(blankWindow):
 
             self.__changed['cat'][currcat]['rank'] = newval
             self.__changed['cat'][currcat]['total bonus'] = newtotal
+#            self.__changed['cat'][currcat]['lvlups'] = diff
 
         else:
             self.__usedDP = bkpusedDP
@@ -3005,7 +3028,7 @@ class skillcatWin(blankWindow):
         '''
         This method finalizes and saves all changes into character data
 
-        The changes done before are saved in the file <charname>.lvld
+        The changes done before are saved in the file <charname>_changes.json
 
         '''
         from rpgtoolbox import rolemaster as rm
@@ -3039,14 +3062,19 @@ class skillcatWin(blankWindow):
 
                 if pb in cat:
                     self._character['cat'][cat]['prof bonus'] = int(self.profs[self._character['prof']]['Profession Bonusses'][pb])
-#                    print('DEBUG finalize profb1: {}/{} -> {}'.format(pb, cat, self.profs[self._character['prof']]['Profession Bonusses'][pb]))
                     break
 
                 else:
                     self._character['cat'][cat]['prof bonus'] = 0
-#                    print('\tDEBUG finalize profb2: {}/{} -> 0'.format(pb, cat))
-#        self.__save('_debug.json')
+
+        # save character data
         self.__save('.json')
+        if  self._character['DP'] > 0:
+            # save changes
+            writeJSON("{}/{}/{}_changes.json".format(self.spath, self._character['player'], self._character['name']), self.__changed)
+        else:
+            if os.path.isfile("{}/{}/{}_changes.json".format(self.spath, self._character['player'], self._character['name'])):
+                os.remove("{}/{}/{}_changes.json".format(self.spath, self._character['player'], self._character['name']))
         self.window.destroy()
 
         if "background" in self._character.keys():
@@ -3082,8 +3110,6 @@ class skillcatWin(blankWindow):
         self._character['cat'][cat]["Skill"][skillentry] = skill[skillentry]
 
         dummyDP = int(self._character['DP'])
-        #DEBUG
-#        print('renameSkill - dummyDP1: {}'.format(dummyDP))
 
         for entry in ["item bonus", "rank"]:
             self._character['cat'][cat]["Skill"][curitem['text']][entry] = 0
@@ -3093,8 +3119,6 @@ class skillcatWin(blankWindow):
         self.__buildTree()
         self.__buildChangedTree()
         self._character['DP'] = dummyDP
-        #DEBUG
-#        print("renameSkill - dummyDP2 {}".format(dummyDP))
 
 
     def __save(self, ending = '.snap'):
