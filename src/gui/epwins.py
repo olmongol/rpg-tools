@@ -10,7 +10,7 @@ This holds window classes for generating and updating (level ups) characters.
 \date (C) 2016-2019
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
-\version 1.0
+\version 1.3
 '''
 import random
 import os
@@ -35,11 +35,11 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "13.10.2019"
+__updated__ = "15.10.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
-__version__ = "1.0"
+__version__ = "1.3"
 __license__ = "GNU V3.0"
 __me__ = "A RPG tool package for Python 3.6"
 
@@ -1611,7 +1611,7 @@ class genAttrWin(blankWindow):
                                        }
             #DEBUG
 #            print("\naddCatnSkills ----------------------------{}".format(content[i][0]))
-            pprint(skillcat[content[i][0]])
+#            pprint(skillcat[content[i][0]])
 
             for pb in list(self.profs[self.character['prof']]['Profession Bonusses'].keys()):
 
@@ -2793,7 +2793,8 @@ class skillcatWin(blankWindow):
         This method takes added/modified skills/cats to a dict and treeview
         @todo The following__chgtree has to be implemented:
         -# check whether it is a new skill.
-
+        @bug
+        - after 2x finalize button use 'edit' and levelups of already leveled can be done with the low costs and for more then the given limit.
         '''
 
         ## @var oldval
@@ -2974,7 +2975,6 @@ class skillcatWin(blankWindow):
 
         ----
         @bug
-        - after 2x finalize button use 'edit' and levelups of already leveled can be done with the low costs and for more then the given limit.
         - if you levelup a '+' skill, e.g. 'riding', first and rename it afterwards the level is set to 0 for the renamend skill  and even for the initial '+' skill
 
         '''
@@ -3011,6 +3011,7 @@ class skillcatWin(blankWindow):
             diff = newval - oldval
             self.__changed['cat'][currcat] = self._character["cat"][currcat]
             self.__changed['cat'][currcat]['rank'] = newval
+
             self.__changed['cat'][currcat]['lvlups'] = diff
 
         else:
