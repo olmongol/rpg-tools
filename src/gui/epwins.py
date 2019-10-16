@@ -3083,9 +3083,6 @@ class skillcatWin(blankWindow):
             for i in range(diff, lowval):
                 self.__usedDP -= int(dpCosts[i])
 
-        #DEBUG
-        print("takeValCat: usedDP = {}".format(self.__usedDP))
-
         if (self._character['DP'] - self.__usedDP) >= 0:
 
             if currcat not in list(self.__changed['cat'].keys()) and currcat in list(self._character['cat'].keys()):
@@ -3098,8 +3095,15 @@ class skillcatWin(blankWindow):
                     self.__changed['cat'][currcat]['Skill'] = {}
 
 ########## hier ist im folgenden noch ein Knackpunkt mit newval
+            if "lvlups" in list(self.__changed['cat'][currcat].keys()):
+                self.__changed['cat'][currcat]['rank'] = newval - self.__changed['cat'][currcat]['lvlups']
 
-            self.__changed['cat'][currcat]['rank'] = newval
+                if self.__changed['cat'][currcat]['lvlups'] < newval:
+                    self.__changed['cat'][currcat]['lvlups'] += 1
+
+            else:
+                self.__changed['cat'][currcat]['rank'] = newval
+
             self.__changed['cat'][currcat]['total bonus'] = newtotal
 
         else:
