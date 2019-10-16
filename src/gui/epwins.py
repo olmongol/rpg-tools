@@ -35,7 +35,7 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "15.10.2019"
+__updated__ = "16.10.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -2794,7 +2794,7 @@ class skillcatWin(blankWindow):
         @todo The following__chgtree has to be implemented:
         -# check whether it is a new skill.
         @bug
-        - after 2x finalize button use 'edit' and levelups of already leveled can be done with the low costs and for more then the given limit.
+        - after finalize button use 'edit' and levelups of already parially leveled skills can not be leveled to the given limit.
         '''
 
         ## @var oldval
@@ -2803,9 +2803,10 @@ class skillcatWin(blankWindow):
         ## @var newrank
         # new/changed skills's rank value
         newrank = int(self._skillspin.get())
-        ## \val currdev
-        # list of current development progression
+
         if type(self.__tree.item(self.__curItem)['values'][1]) != type(2):
+            ## \val currdev
+            # list of current development progression
             currdev = self.__tree.item(self.__curItem)['values'][1].split(" ")
         else:
             currdev = [str(self.__tree.item(self.__curItem)['values'][1])]
@@ -2850,16 +2851,35 @@ class skillcatWin(blankWindow):
                     diff = newrank - self.__changed['cat'][cat]['Skill'][skill]['rank']
                     diffcost = 0
 
+                    if 'lvlups' not in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
+                        ##\var lowval
+                        # if a skill was not leveled up maximum times this is a marker where to
+                        # start with further leveling.
+                        lowval = 0
+
+                    elif len(dpCosts) > self.__changed['cat'][cat]['Skill'][skill]['lvlups'] >= 0:
+                        lowval = self.__changed['cat'][cat]['Skill'][skill]['lvlups']
+
+                    else:
+                        lowval = diff
+
                     if diff >= 0:
 
-                        for i  in range(0, diff):
+                        for i  in range(lowval, diff):
                             diffcost += int(dpCosts[i])
                     else:
-                        for i in range(diff, 0):
+                        for i in range(diff, lowval):
                             diffcost -= int(dpCosts[i])
 
                     if (self._character['DP'] - (self.__usedDP + diffcost)) >= 0:
-                        self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
+
+                        if 'lvlups' not in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
+                            self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
+
+                        else:
+                            self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank - self.__changed['cat'][cat]['Skill'][skill]['lvlups']
+
+                        self.__changed['cat'][cat]["Skill"][skill]['lvlups'] = diff
                         self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
                         self.__usedDP += diffcost
 
@@ -2878,6 +2898,7 @@ class skillcatWin(blankWindow):
 
                     if (self._character['DP'] - (self.__usedDP + diffcost)) >= 0:
                         self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
+                        self.__changed['cat'][cat]["Skill"][skill]['lvlups'] = diff
                         self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
                         self.__usedDP += diffcost
 
@@ -2900,7 +2921,13 @@ class skillcatWin(blankWindow):
                         diffcost -= int(dpCosts[i])
 
                 if (self._character['DP'] - (self.__usedDP + diffcost)) >= 0:
-                    self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
+
+                    if 'lvlups' not in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
+                            self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
+                    else:
+                        self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank - self.__changed['cat'][cat]['Skill'][skill]['lvlups']
+
+                    self.__changed['cat'][cat]["Skill"][skill]['lvlups'] = diff
                     self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
                     self.__usedDP += diffcost
 
@@ -2927,7 +2954,13 @@ class skillcatWin(blankWindow):
                         diffcost -= int(dpCosts[i])
 
                 if (self._character['DP'] - (self.__usedDP + diffcost)) >= 0:
-                    self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
+
+                    if 'lvlups' not in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
+                            self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
+                    else:
+                        self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank - self.__changed['cat'][cat]['Skill'][skill]['lvlups']
+
+                    self.__changed['cat'][cat]["Skill"][skill]['lvlups'] = diff
                     self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
                     self.__usedDP += diffcost
 
@@ -2952,15 +2985,21 @@ class skillcatWin(blankWindow):
                         diffcost -= int(dpCosts[i])
 
                 if (self._character['DP'] - (self.__usedDP + diffcost)) >= 0:
-                    self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
+
+                    if 'lvlups' not in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
+                            self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
+
+                    else:
+                        self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank - self.__changed['cat'][cat]['Skill'][skill]['lvlups']
+
+                    self.__changed['cat'][cat]["Skill"][skill]['lvlups'] = diff
                     self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
                     self.__usedDP += diffcost
 
                 else:
                     messg = messageWindow()
                     messg.showinfo(screenmesg['epwins_no_dp'][self.lang])
-        #DEBUG
-#        print("takeValSkill: used DP = {}".format(self.__usedDP))
+
         self.DPtext.set(str(self._character['DP'] - self.__usedDP))
         self.__buildChangedTree()
 
@@ -3007,41 +3046,41 @@ class skillcatWin(blankWindow):
         elif type(dpCosts) == type(1):
             dpCosts = [dpCosts]
 
-        if currcat not in list(self.__changed['cat'].keys()) and currcat in list(self._character['cat'].keys()):  #and 'lvlups' in self.__changed['cat'][currcat].keys():
+        if currcat not in list(self.__changed['cat'].keys()) and currcat in list(self._character['cat'].keys()):
             diff = newval - oldval
             self.__changed['cat'][currcat] = self._character["cat"][currcat]
             self.__changed['cat'][currcat]['rank'] = newval
 
             self.__changed['cat'][currcat]['lvlups'] = diff
+            lowval = 0
 
         else:
+
             if "lvlups" in list(self.__changed['cat'][currcat].keys()):
+                lowval = self.__changed['cat'][currcat]['lvlups']
 
                 if self.__changed['cat'][currcat]['lvlups'] < len(dpCosts):
                     diff = newval - self.__changed['cat'][currcat]['rank']
+
                 else:
                     diff = 0
                     newval = oldval
                     newtotal = self.__calcRanks(currdev, int(newval)) - self.__calcRanks(currdev, int(oldval)) + int(oldtotal)
+
             else:
                 diff = newval - self.__changed['cat'][currcat]['rank']
                 self.__changed['cat'][currcat]['lvlups'] = diff
-        #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-        # here needs to be
-        # a flag how many times a cat was leveled
-        # maybe number of  already leveled ranks
-        #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
         bkpusedDP = int(self.__usedDP)
 
         if diff > 0:
-# muss noch angepasst werden mit höheren kosten..
 
-            for i in range(0, diff):
+            for i in range(lowval, diff):
                 self.__usedDP += int(dpCosts[i])
 
         elif diff < 0:
 
-            for i in range(diff, 0):
+            for i in range(diff, lowval):
                 self.__usedDP -= int(dpCosts[i])
 
         #DEBUG
@@ -3058,9 +3097,10 @@ class skillcatWin(blankWindow):
                 else:
                     self.__changed['cat'][currcat]['Skill'] = {}
 
+########## hier ist im folgenden noch ein Knackpunkt mit newval
+
             self.__changed['cat'][currcat]['rank'] = newval
             self.__changed['cat'][currcat]['total bonus'] = newtotal
-#            self.__changed['cat'][currcat]['lvlups'] = diff
 
         else:
             self.__usedDP = bkpusedDP
