@@ -14,7 +14,7 @@ This package holds RM specific tools like Character Skill Progression.
 \date 2019
 \copyright 2015-2019 Marcus Schwamberger
 '''
-__updated__ = "13.10.2019"
+__updated__ = "20.10.2019"
 
 catnames = {'de' : {'spells' : "Spells",
                     'weapon' : 'Weapon',
@@ -113,7 +113,7 @@ culturalDefinitions = {'en': {'Hillmen':{'weight':'',
                                                          "Silvan (spoken)": {'rank':8},
                                                          "Silvan (written)":{'rank' :6},
                                                          'Quenya (spoken)':{'rank':6},
-                                                         'high-elvish (written)' :{'rank':4},
+                                                         'Quenya (written)' :{'rank':4},
                                                          'Westron (spoken)' :{'rank':8},
                                                          'Westron (written)' :{'rank':6}
                                                         }
@@ -146,8 +146,8 @@ culturalDefinitions = {'en': {'Hillmen':{'weight':'',
                                                         'Khuzdul (written)': {'rank': 6,
                                                                                "spec bonus":0
                                                                                },
-                                                        "Common Speak (spoken)" : {"rank":6},
-                                                        "Common Speak (written)": {'rank':6},
+                                                        "Westron (spoken)" : {"rank":6},
+                                                        "Westron (written)": {'rank':6},
                                                         "Silvan (spoken)" :{"rank":4},
                                                         "Silvan (written)":{"rank":4}
                                                       }
