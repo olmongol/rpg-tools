@@ -35,7 +35,7 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "16.10.2019"
+__updated__ = "20.10.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -1237,7 +1237,9 @@ class genAttrWin(blankWindow):
 
         ----
 
-        @todo set the initial language ranks for the culture based languages
+        @todo -# set the initial language ranks for the culture based languages
+              -# add the additional cultured from MERP
+
         '''
         from rpgtoolbox.rolemaster import races, cultures
         from rpgtoolbox.lang import errmsg
