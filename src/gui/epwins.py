@@ -35,7 +35,7 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "20.10.2019"
+__updated__ = "28.12.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -3017,7 +3017,7 @@ class skillcatWin(blankWindow):
         ----
         @bug
         - if you levelup a '+' skill, e.g. 'riding', first and rename it afterwards the level is set to 0 for the renamend skill  and even for the initial '+' skill
-
+          it seems to be a problem of lowval
         '''
         ## @var currcat
         # current category name
@@ -3031,6 +3031,7 @@ class skillcatWin(blankWindow):
         ## \val currdev
         # list of current development progression
         currdev = self.__tree.item(self.__curItem)['values'][1].split(" ")
+        #lowval = 0
 
         for i in range(0, len(currdev)):
             currdev[i] = float(currdev[i])
@@ -3055,9 +3056,11 @@ class skillcatWin(blankWindow):
 
             self.__changed['cat'][currcat]['lvlups'] = diff
             lowval = 0
+            #DEBUG
+#            print("1. lowval: {}\n   diff: {}\n   newval: {}".format(lowval, diff, newval))
 
         else:
-
+            self.__changed['cat'][currcat]['rank'] = newval
             if "lvlups" in list(self.__changed['cat'][currcat].keys()):
                 lowval = self.__changed['cat'][currcat]['lvlups']
 
@@ -3068,10 +3071,15 @@ class skillcatWin(blankWindow):
                     diff = 0
                     newval = oldval
                     newtotal = self.__calcRanks(currdev, int(newval)) - self.__calcRanks(currdev, int(oldval)) + int(oldtotal)
+                #DEBUG
+#                print("2. lowval: {}\n   diff: {}\n   newval: {}".format(lowval, diff, newval))
 
             else:
+                lowval = 0
                 diff = newval - self.__changed['cat'][currcat]['rank']
                 self.__changed['cat'][currcat]['lvlups'] = diff
+                #DEBUG
+#                print("3. lowval: {}\n   diff: {}\n   newval: {}".format(lowval, diff, newval))
 
         bkpusedDP = int(self.__usedDP)
 
@@ -3098,7 +3106,8 @@ class skillcatWin(blankWindow):
 
 ########## hier ist im folgenden noch ein Knackpunkt mit newval
             if "lvlups" in list(self.__changed['cat'][currcat].keys()):
-                self.__changed['cat'][currcat]['rank'] = newval - self.__changed['cat'][currcat]['lvlups']
+                print("1. oldval {} --> {}".format(oldval, newval))
+                self.__changed['cat'][currcat]['rank'] = newval  # - self.__changed['cat'][currcat]['lvlups']
 
                 if self.__changed['cat'][currcat]['lvlups'] < newval:
                     self.__changed['cat'][currcat]['lvlups'] += 1
