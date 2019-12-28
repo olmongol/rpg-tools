@@ -468,7 +468,8 @@ class confWindow(blankWindow):
             self.sto_path.set(self._cnf.cnfparam['datapath'])
 
         else:
-            self.sto_path.set("./data")
+
+            self.sto_path.set(str(str(os.getcwd())) + "/data")
 
         if 'lang' in list(self._cnf.cnfparam.keys()):
 
@@ -3031,7 +3032,6 @@ class skillcatWin(blankWindow):
         ## \val currdev
         # list of current development progression
         currdev = self.__tree.item(self.__curItem)['values'][1].split(" ")
-        #lowval = 0
 
         for i in range(0, len(currdev)):
             currdev[i] = float(currdev[i])
@@ -3039,6 +3039,8 @@ class skillcatWin(blankWindow):
         ## \var oldtotal
         # Total bonus before any manipulation.
         oldtotal = self.__tree.item(self.__curItem)['values'][-1]
+        ## \var newtotal
+        # Total bonus after manipulation
         newtotal = self.__calcRanks(currdev, int(newval)) - self.__calcRanks(currdev, int(oldval)) + int(oldtotal)
         # calc DP consume:
         dpCosts = self.__tree.item(self.__curItem)['values'][2]
@@ -3104,9 +3106,11 @@ class skillcatWin(blankWindow):
                 else:
                     self.__changed['cat'][currcat]['Skill'] = {}
 
-########## hier ist im folgenden noch ein Knackpunkt mit newval
+########## hier ist im folgenden noch ein Knackpunkt mit newval -- ist wahrscheinlich gefixt
+
             if "lvlups" in list(self.__changed['cat'][currcat].keys()):
-                print("1. oldval {} --> {}".format(oldval, newval))
+                #DEBUG
+#                print("1. oldval {} --> {}".format(oldval, newval))
                 self.__changed['cat'][currcat]['rank'] = newval  # - self.__changed['cat'][currcat]['lvlups']
 
                 if self.__changed['cat'][currcat]['lvlups'] < newval:
@@ -3189,6 +3193,8 @@ class skillcatWin(blankWindow):
     def __renameSkill(self):
         '''
         This method renames all skill+ and adds new ones
+        ----
+        @todo checkup whether values exist in self.__changed. If so take rank value from self.__changed.
         '''
         self._character['DP'] -= self.__usedDP
         self.__usedDP = 0
@@ -3209,6 +3215,9 @@ class skillcatWin(blankWindow):
                              "Costs": list(self._character['cat'][cat]['Costs'])
                              }
                 }
+        if skillentry in self.__changed['cat'][cat]['Skill'].keys():
+            skill[skillentry]["rank"] = self.__changed['cat'][cat]['Skill'][skillentry]["rank"]
+
         self._character['cat'][cat]["Skill"][skillentry] = skill[skillentry]
 
         dummyDP = int(self._character['DP'])
