@@ -14,7 +14,7 @@ This package holds RM specific tools like Character Skill Progression.
 \date 2019
 \copyright 2015-2019 Marcus Schwamberger
 '''
-__updated__ = "20.10.2019"
+__updated__ = "29.12.2019"
 
 catnames = {'de' : {'spells' : "Spells",
                     'weapon' : 'Weapon',
@@ -1239,6 +1239,43 @@ def statbonus(statvalue = 20):
 
     else:
         result = int(round((statvalue - 95) * 2))
+
+    return result
+
+
+
+def refreshStatBonus(character = {}):
+    '''
+    This function recalculates Stat bonusses and refreshes their bunus values in
+    the complete character data structure: Stat, Category
+    @param character data in a dictionary/JSON
+    @retval result refreshed character data
+    '''
+    result = character
+    statlist = ["Ag", "Co", "Me", "Re", "In", "Pr", "SD", "Em", "Qu", "St"]
+
+    for s in statlist:
+        result[s]["std"] = statbonus(result[s]["temp"])
+        result[s]["total"] = result[s]["std"] + result[s]["spec"] + result[s]["race"]
+
+    for cat in list(result["cat"].keys()):
+        dummy = 0
+
+        if type(result["cat"][cat]["Stats"]) == type("") and len(result["cat"][cat]["Stats"]) == 2:
+            cng = result["cat"][cat]["Stats"]
+            result["cat"][cat]["Stats"] = [cng]
+
+        for s in result["cat"][cat]["Stats"]:
+
+            if s == "":
+                pass
+            elif s.strip(" ") != "SD":
+                dummy += result[s.strip(" ").capitalize()]["total"]
+
+            else:
+                dummy += result[s]["total"]
+
+        result["cat"][cat]["stat bonus"] = dummy
 
     return result
 

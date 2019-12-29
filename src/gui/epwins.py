@@ -1746,7 +1746,7 @@ class priorizeWeaponsWin(blankWindow):
     """
 
 
-    def __init__(self, lang = 'en', storepath = "./data", char = None):
+    def __init__(self, lang = 'en', storepath = os.getcwd() + "/data", char = None):
         """
         Class constructor
         \param lang The chosen language for window's and button's
@@ -1760,7 +1760,8 @@ class priorizeWeaponsWin(blankWindow):
         self.__catnames = catnames
 
         if storepath == None:
-            self.spath = os.path.expanduser('~') + "/data"
+#            self.spath = os.path.expanduser('~') + "/data"
+            self.spath = os.getcwd() + "/data"
             logger.debug('Set storepath to %s' % (storepath)) + "/data"
 
         else:
@@ -2126,13 +2127,12 @@ class skillcatWin(blankWindow):
     @todo  not finished yet:
       - selecting items here can make changes undone or change them again
       - hide skill/cat line when not selected in treeview
-    @bug - not all spellists were read
+    @bug - DP are not always shown correctly
     - you lose DPs when you try to level up a skill/cat in multiple times
-    - after finalizing there is no memory what is already leveled up
     """
 
 
-    def __init__(self, lang = 'en', storepath = "./data", char = None):
+    def __init__(self, lang = 'en', storepath = os.getcwd() + "/data", char = None):
         """
         Class constructor
         \param lang The chosen language for window's and button's
@@ -2148,7 +2148,8 @@ class skillcatWin(blankWindow):
         self.__rankbonus = rankbonus
 
         if storepath == None:
-            self.spath = os.path.expanduser('~') + "/data"
+#            self.spath = os.path.expanduser('~') + "/data"
+            self.spath = os.getcwd() + "/data"
             logger.debug('Set storepath to %s' % (storepath)) + "/data"
 
         else:
@@ -3006,8 +3007,11 @@ class skillcatWin(blankWindow):
                 else:
                     messg = messageWindow()
                     messg.showinfo(screenmesg['epwins_no_dp'][self.lang])
-
+#################### hier gibt es noch ein problem
+        #DEBUG
+        print("takeValsSkill 3012.\n\tchar[DP]: {}\n\tusedDP; {}".format(self._character["DP"], self.__usedDP))
         self.DPtext.set(str(self._character['DP'] - self.__usedDP))
+
         self.__buildChangedTree()
 
 
@@ -3139,11 +3143,18 @@ class skillcatWin(blankWindow):
         This method finalizes and saves all changes into character data
 
         The changes done before are saved in the file <charname>_changes.json
+        ----
+        @bug - multiple calls will cause raise of DP out of nothing...
 
         '''
         from rpgtoolbox import rolemaster as rm
         self.profs = rm.choseProfession(self.lang)
+        #refreshing/recalculating stat bonusses
+        self._character = rm.refreshStatBonus(self._character)
+        # remove usedDP from character's available DP
         self._character['DP'] -= self.__usedDP
+        #DEBUG
+        print("finalize: \n\tchar DP: {}\n\tused DP: {}".format(self._character["DP"], self.__usedDP))
 
         if self.__usedDP > 0 or self._character['DP'] == 0:
             self._character['lvlup'] -= 1
@@ -3273,7 +3284,7 @@ class charInfo(blankWindow):
     """
 
 
-    def __init__(self, lang = 'en', storepath = "./data", char = None):
+    def __init__(self, lang = 'en', storepath = os.getcwd() + "/data", char = None):
         """
         Class constructor
         @param lang The chosen language for window's and button's
@@ -3285,7 +3296,8 @@ class charInfo(blankWindow):
         """
 
         if storepath == None:
-            self.spath = os.path.expanduser('~') + "/data"
+#            self.spath = os.path.expanduser('~') + "/data"
+            self.spath = os.getcwd() + "/data"
             logger.info('Set storepath to %s' % (storepath)) + "/data"
 
         else:
@@ -3696,7 +3708,7 @@ class charInfo(blankWindow):
         self._character["background"]["motiv"] = self.tw2.get("0.0", END)
         self._character['background']['pers'] = self.tw1.get("0.0", END)
 
-        with open(self.spath + self._character['player'] + '/' + self._character['name'] + ".json", "w") as outfile:
+        with open(self.spath + '/' + self._character['player'] + '/' + self._character['name'] + ".json", "w") as outfile:
                 json.dump(self._character,
                           outfile,
                           sort_keys = True,
@@ -3718,7 +3730,7 @@ class statGainWin(blankWindow):
     """
 
 
-    def __init__(self, lang = 'en', storepath = "./data", char = None):
+    def __init__(self, lang = 'en', storepath = os.getcwd() + "/data", char = None):
         """
         Class constructor
         \param lang The chosen language for window's and button's
@@ -3730,7 +3742,8 @@ class statGainWin(blankWindow):
         """
 
         if storepath == None:
-            self.spath = os.path.expanduser('~') + "/data"
+#            self.spath = os.path.expanduser('~') + "/data"
+            self.spath = os.getcwd() + "/data"
             logger.debug('Set storepath to %s' % (storepath)) + "/data"
 
         else:
@@ -3995,8 +4008,10 @@ class statGainWin(blankWindow):
         '''
         This method does Stat Gain Rolls for all selected stats
         '''
+        from rpgtoolbox.rolemaster import statbonus
         from rpgtoolbox.rpgtools import dice, statGain
         self.newstats = {}
+
         for s in self.__stats:
             doGainRoll = self.var[s].get()
 
@@ -4013,7 +4028,8 @@ class statGainWin(blankWindow):
 
             for elem in self.newstats.keys():
                 self._character[elem]['temp'] = int(self.newstats[elem])
-
+                self._character[elem]['std'] = statbonus(self._character[elem]['temp'])
+                self._character[elem]['total'] = self._character[elem]['std'] + self._character[elem]['race'] + self._character[elem]['spec']
             self._character['statgain'] = 0
 
             Button(self.window,
@@ -4052,7 +4068,7 @@ class editEPWin(blankWindow):
     '''
 
 
-    def __init__(self, lang = 'en', storepath = "./data", char = None):
+    def __init__(self, lang = 'en', storepath = os.getcwd() + "/data", char = None):
         """
         Class constructor
         \param lang The chosen language for window's and button's
@@ -4064,7 +4080,8 @@ class editEPWin(blankWindow):
         """
 
         if storepath == None:
-            self.spath = os.path.expanduser('~') + "/data"
+#            self.spath = os.path.expanduser('~') + "/data"
+            self.spath = os.getcwd() + "/data"
             logger.debug('Set storepath to %s' % (storepath)) + "/data"
 
         else:
@@ -4181,7 +4198,7 @@ class editEPWin(blankWindow):
         '''
         self._character = dict(calcTotals(self._character))
 
-        with open(self.spath + self._character['player'] + '/' + self._character['name'] + ".json", "w") as outfile:
+        with open(self.spath + '/' + self._character['player'] + '/' + self._character['name'] + ".json", "w") as outfile:
             json.dump(self._character,
                       outfile,
                       sort_keys = True,
@@ -4308,7 +4325,7 @@ class BGOselectWin(blankWindow):
     '''
 
 
-    def __init__(self, lang = 'en', storepath = "./data", char = None):
+    def __init__(self, lang = 'en', storepath = os.getcwd() + "/data", char = None):
         """
         Class constructor
         \param lang The chosen language for window's and button's
@@ -4320,7 +4337,8 @@ class BGOselectWin(blankWindow):
         """
 
         if storepath == None:
-            self.spath = os.path.expanduser('~') + "/data"
+#            self.spath = os.path.expanduser('~') + "/data"
+            self.spath = os.getcwd() + "/data"
             logger.debug('Set storepath to %s' % (storepath)) + "/data"
 
         else:
