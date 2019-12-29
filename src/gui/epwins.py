@@ -35,7 +35,7 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "28.12.2019"
+__updated__ = "29.12.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -2005,6 +2005,9 @@ class priorizeWeaponsWin(blankWindow):
     def __setPPD(self):
         '''
         This sets the Progression and Stats for Power Point Development
+
+        ----
+        @bug sometimes a null progression is set when it should not
         '''
         from rpgtoolbox.rolemaster import races, realms, ppds, magicstats, progressionType, speccat
         param = {}
@@ -2020,9 +2023,10 @@ class priorizeWeaponsWin(blankWindow):
                 param['ppd'] = ppds[realms[l].index(self.character['realm'])]
                 param['Stats'] = magicstats[realms[l].index(self.character['realm'])]
 
+############ das könnte noch ein Bug sein: keine Progression....
         if type(param['ppd']) == type(''):
-#            param['ppd'] = progressionType[param['ppd'] + param['race']]
-            param['ppd'] = progressionType['null']
+            param['ppd'] = progressionType[param['ppd'] + param['race']]
+#            param['ppd'] = progressionType['null']
 
         elif type(param['ppd']) == type([]):
 
@@ -2731,7 +2735,7 @@ class skillcatWin(blankWindow):
         else:
             self._character['lvlup'] = 1
             self._character['statgain'] = 0
-        self._character['statgain'] += int(self._character['lvlup'] * 10)
+        self._character['statgain'] = int(self._character['lvlup'] * 10)
 
 
     def __calcDP(self):
@@ -4030,7 +4034,7 @@ class statGainWin(blankWindow):
         '''
         self._character = dict(calcTotals(self._character))
 
-        with open(self.spath + self._character['player'] + '/' + self._character['name'] + ".json", "w") as outfile:
+        with open(self.spath + '/' + self._character['player'] + '/' + self._character['name'] + ".json", "w") as outfile:
             json.dump(self._character,
                       outfile,
                       sort_keys = True,
