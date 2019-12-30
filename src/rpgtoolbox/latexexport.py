@@ -12,7 +12,7 @@ will be generated for printouts
 \version 1.0
 '''
 
-__updated__ = "10.07.2019"
+__updated__ = "30.12.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -205,7 +205,8 @@ class charsheet(object):
                 skilllist.sort()
 
                 for skill in skilllist:
-                    if skill not in ['Progression', ['Costs']]and "+" not in skill:
+                    if skill not in ['Progression', 'Costs'] and "+" not in skill:
+                        print("latex: {} -- {} {}".format(cat, skill, str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/")))
                         datatable += weapon + skillpre + skillval.format(skill,
                                                                      str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/"),
                                                                      str(self.char['cat'][cat]["Skill"][skill]['Costs']).replace(", ", "/"),
@@ -232,6 +233,7 @@ class charsheet(object):
                 skilllist.sort()
 
                 for skill in skilllist:
+
                     if skill not in ['Progression', ['Costs']] and "+" not in skill:
                         datatable += devel + skillpre + skillval.format(skill,
                                                                      str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/"),

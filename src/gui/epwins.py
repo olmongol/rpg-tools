@@ -35,7 +35,7 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "29.12.2019"
+__updated__ = "30.12.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -2007,8 +2007,6 @@ class priorizeWeaponsWin(blankWindow):
         '''
         This sets the Progression and Stats for Power Point Development
 
-        ----
-        @bug sometimes a null progression is set when it should not
         '''
         from rpgtoolbox.rolemaster import races, realms, ppds, magicstats, progressionType, speccat
         param = {}
@@ -2755,8 +2753,12 @@ class skillcatWin(blankWindow):
 
                 for attr in attrlist:
                     devpoints += self._character[attr]['temp']
+                if 'lvlup' in self._character.keys():
 
-                self._character['DP'] += int(devpoints / 5)
+                    if self._character['lvlup'] > 0:
+                        self._character['DP'] = int(devpoints / 5)
+                else:
+                    self._character['DP'] = int(devpoints / 5)
 
         if self._character['Hobby Ranks'] > 0:
             self._character['DP'] += self._character['Hobby Ranks']
@@ -3156,8 +3158,17 @@ class skillcatWin(blankWindow):
         #DEBUG
         print("finalize: \n\tchar DP: {}\n\tused DP: {}".format(self._character["DP"], self.__usedDP))
 
-        if self.__usedDP > 0 or self._character['DP'] == 0:
+        if self._character['DP'] == 0 and self._character['lvlup'] > 0:
             self._character['lvlup'] -= 1
+
+            for c in self._character["cat"].keys():
+                self._character['cat'][c]['lvlups'] = 0
+
+                for sk in self._character["cat"][c]['Skill'].keys():
+                    #DEBUG
+                    print("finalize: {} {}".format(c, sk))
+                    if type(self._character["cat"][c]['Skill'][sk]) == type({}):
+                        self._character["cat"][c]['Skill'][sk]['lvlups'] = 0
 
         self._character["old_exp"] = int(self._character['exp'])
 
@@ -3210,7 +3221,9 @@ class skillcatWin(blankWindow):
         This method renames all skill+ and adds new ones
         ----
         @todo checkup whether values exist in self.__changed. If so take rank value from self.__changed.
+
         '''
+        from rpgtoolbox.rolemaster import progressionType
         self._character['DP'] -= self.__usedDP
         self.__usedDP = 0
         curitem = self.__tree.item(self.__curItem)
@@ -3226,7 +3239,7 @@ class skillcatWin(blankWindow):
                              "rank bonus": 0,
                              "spec bonus": 0,
                              "total bonus": 0,
-                             "Progression": list(self._character['cat'][cat]['Progression']),
+                             "Progression": list(progressionType["standard skill"]),  #list(self._character['cat'][cat]["Skill"]['Progression']),
                              "Costs": list(self._character['cat'][cat]['Costs'])
                              }
                 }
