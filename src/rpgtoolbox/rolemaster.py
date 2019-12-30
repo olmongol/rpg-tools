@@ -14,7 +14,7 @@ This package holds RM specific tools like Character Skill Progression.
 \date 2019
 \copyright 2015-2019 Marcus Schwamberger
 '''
-__updated__ = "29.12.2019"
+__updated__ = "30.12.2019"
 
 catnames = {'de' : {'spells' : "Spells",
                     'weapon' : 'Weapon',
@@ -236,7 +236,7 @@ speccat = {'en': ['Body Development', 'Power Point Development'],
 #                  'Monk Base',
 #                  'Dabbler Base',
 #                  'Bard Base',
-#                  'Magend Base',
+#                  'Magent Base',
 #                  'Arcane'],
 #           'de': ['Open Channeling',
 #                  'Closed Channeling',
@@ -260,7 +260,7 @@ speccat = {'en': ['Body Development', 'Power Point Development'],
 #                  'Monk Base',
 #                  'Dabbler Base',
 #                  'Bard Base',
-#                  'Magend Base',
+#                  'Magent Base',
 #                  'Arcane'],
 #           }
 ## \var spelltypes

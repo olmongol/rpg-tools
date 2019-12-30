@@ -73,6 +73,7 @@ class MainWindow(blankWindow):
         if storepath == None:
             #needs to be changed
             self.mypath = os.path.expanduser('~')
+#            self.mypath = os.getcwd()
             logger.info('mainwindow: Set storepath to %s' % (storepath))
 
         else:
@@ -3757,7 +3758,10 @@ class statGainWin(blankWindow):
         if storepath == None:
 #            self.spath = os.path.expanduser('~') + "/data"
             self.spath = os.getcwd() + "/data"
-            logger.debug('Set storepath to %s' % (storepath)) + "/data"
+            logger.debug('Set storepath to %s' % (os.getcwd())) + "/data"
+
+        elif "/data" not in storepath:
+            self.spath = os.getcwd() + "/data"
 
         else:
             self.spath = storepath

@@ -1,2 +1,4 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
-1,Light Wall I,20‘ x 20‘ x 1“,C,50‘,E,"Creates a wall a black, insubstantial wall up to  20‘ x 20‘ x 1“ that light cannot pass into ort through (i.e., it does not hinder movement, but it blocks vision)."
+1,Light Wall I,"20' x 20' x 1""",C,50',E,"Creates a wall a black, insubstantial wall up to  20' x 20' x 1"" that light cannot pass into ort through (i.e., it does not hinder movement, but it blocks vision)."
+2,Airwall,10' x 10' x 3',C,50',E,"Creates a wall if dense churning air up to 10' x 10' x 3'. This reduces all Movement through it by 50%. In addition, all attacks through the wall suffers a -50 penalty."
+3,Light Wall II,"20' x 20' x 1""",1 min/lvl,50',E,"As Light Wall I, except for duration."
