@@ -14,7 +14,7 @@ This package holds RM specific tools like Character Skill Progression.
 \date 2019
 \copyright 2015-2019 Marcus Schwamberger
 '''
-__updated__ = "30.12.2019"
+__updated__ = "31.12.2019"
 
 catnames = {'de' : {'spells' : "Spells",
                     'weapon' : 'Weapon',
@@ -63,6 +63,39 @@ cultures = {'de' : ['Huegelmenschen', 'Corsaren', 'Nomaden', 'Landvolk', 'Stadtm
                    'Dwarves', 'Halflings']
 
            }
+
+##\var langpack
+# starting language packs by culture
+langpack = {'de' : {'Huegelmenschen' : {},
+                    'Corsaren' : {},
+                    'Nomaden' : {},
+                    'Landvolk' : {},
+                    'Stadtmenschen'  : {},
+                    'Waldmenschen' : {},
+                    'Hochmenschen' : {},
+                    'Waldelben' : {},
+                    'Grauelben' : {},
+                    'Hochelben' : {},
+                    'Halbelben' : {},
+                    'Zwerge' : {},
+                    'Halblinge' : {}
+                    },
+            'en' : {'Hillmen' : {},
+                    'Mariners' : {},
+                    'Nomads' : {},
+                    'Ruralmen' : {},
+                    'Urbanmen' : {},
+                    'Woodmen' : {},
+                    'High Men' : {},
+                    'Wood Elves' : {},
+                    'Grey Elves' : {},
+                    'High Elves' : {},
+                    'Half Elves' : {},
+                    'Dwarves' : {},
+                    'Halflings' : {}
+                    }
+            }
+
 ## \var culturalDefinition
 # this dictionary holds average values and starting languages based on races
 # \todo this has to be filled for all races for English and German

@@ -14,7 +14,7 @@ This module contains some helpful functions for role-playing games like:
 \email marcus@lederzeug.de
 \version 0.1
 '''
-__updated__ = "17.06.2019"
+__updated__ = "31.12.2019"
 
 import random
 from rpgtoolbox.globaltools import readCSV
@@ -108,7 +108,8 @@ def calcTotals(charval = {}):
                                                        ) + statbonus + itembonus
 
         for skill in charval['cat'][cat]['Skill']:
-
+            #DEBUG
+            print("calc total: {} - {}".format(cat, skill))
             if (skill != "Progression" and "Spell" not in cat) or ("Spell" in cat and skill not in ['Stats', 'Progression']):
                 progression = charval['cat'][cat]['Skill'][skill]['Progression']
 
