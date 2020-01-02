@@ -6,17 +6,17 @@
 This holds a class to export a character JSON to a LaTeX file from which a PDF
 will be generated for printouts
 .
-\date (C) 2016-2019
+\date (C) 2016-2020
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
-\version 1.0
+\version 1.1
 '''
 
-__updated__ = "30.12.2019"
+__updated__ = "02.01.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
-__version__ = "1.0"
+__version__ = "1.1"
 __license__ = "GNU V3.0"
 __me__ = "A RPG tool package for Python 3.6"
 
@@ -76,15 +76,18 @@ class charsheet(object):
     '''
 
 
-    def __init__(self, char = {}, storepath = "./"):
+    def __init__(self, char = {}, storepath = "./", short = True):
         '''
         Constructor:
         @param char character data in a dictionary
         @param storepath configured store path.
+        @param short a flag parameter whether the export should be short (no skills
+                     with rank = 0) or long (all skills)
         '''
         from rpgtoolbox.rolemaster import stats
         self.char = char
         self.storepath = storepath
+        self.short = short
         self.stats = stats
         self.createMainLatex()
         self.createGenInfo()
@@ -108,12 +111,12 @@ class charsheet(object):
         template = readFile(self.storepath + "/default/latex/template_charsheet.tex")
         logger.info("createMainLatex: read {}".format(self.storepath + "/default/latex/template_charsheet.tex"))
 
-        template = template.replace("name_", self.char["name"] + "_")
+        template = template.replace("name_", self.char["name"].replace(" ", "-") + "_")
 
         logger.info("createMainLatex: converted template")
 
-        saveFile("{}/latex/{}.tex".format(self.chardir, self.char['name']), template)
-        logger.info("createMainLatex: {}/latex/{}.tex saved".format(self.chardir, self.char['name']))
+        saveFile("{}/latex/{}.tex".format(self.chardir, self.char['name'].replace(" ", "-")), template)
+        logger.info("createMainLatex: {}/latex/{}.tex saved".format(self.chardir, self.char['name'].replace(" ", "-")))
 
 
     def createGenInfo(self):
@@ -140,7 +143,7 @@ class charsheet(object):
             else:
                 template = template.replace("==>" + index, u"\_\_\_\_\_")
 
-        saveFile(self.chardir + "{}_gen_info.tex".format(self.char['name']), template)
+        saveFile(self.chardir + "{}_gen_info.tex".format(self.char['name'].replace(" ", "-")), template)
 
 
     def createStats(self):
@@ -154,7 +157,7 @@ class charsheet(object):
             for v in vals:
                 template = template.replace("==>{}_{}".format(s, v), str(self.char[s][v]))
 
-        saveFile(self.chardir + "{}_stats.tex".format(self.char['name']), template)
+        saveFile(self.chardir + "{}_stats.tex".format(self.char['name'].replace(" ", "-")), template)
 
 
     def createRRATDB(self):
@@ -170,7 +173,7 @@ class charsheet(object):
         for v in vals:
             template = template.replace("==>{}".format(v), str(int(self.char[v])))
 
-        saveFile(self.chardir + "{}_rr_at_db.tex".format(self.char['name']), template)
+        saveFile(self.chardir + "{}_rr_at_db.tex".format(self.char['name'].replace(" ", "-")), template)
 
 
     def createCatSkill(self):
@@ -206,17 +209,20 @@ class charsheet(object):
 
                 for skill in skilllist:
                     if skill not in ['Progression', 'Costs'] and "+" not in skill:
-                        print("latex: {} -- {} {}".format(cat, skill, str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/")))
-                        datatable += weapon + skillpre + skillval.format(skill,
-                                                                     str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/"),
-                                                                     str(self.char['cat'][cat]["Skill"][skill]['Costs']).replace(", ", "/"),
-                                                                     str(self.char['cat'][cat]["Skill"][skill]['rank']),
-                                                                     str(self.char['cat'][cat]["Skill"][skill]['rank bonus']),
-                                                                     "--",
-                                                                     str(self.char['cat'][cat]["Skill"][skill]['spec bonus']),
-                                                                     str(self.char['cat'][cat]["Skill"][skill]['item bonus']),
-                                                                     str(self.char['cat'][cat]["Skill"][skill]['total bonus'])
-                                                                     )
+                        if self.short and self.char['cat'][cat]["Skill"][skill]["rank"] > 0:
+                            #DEBUG
+                            print("latex: {}: {}".format(skill, self.char['cat'][cat]["Skill"][skill]["rank"]))
+#                           print("latex: {} -- {} {}".format(cat, skill, str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/")))
+                            datatable += weapon + skillpre + skillval.format(skill,
+                                                                         str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/"),
+                                                                         str(self.char['cat'][cat]["Skill"][skill]['Costs']).replace(", ", "/"),
+                                                                         str(self.char['cat'][cat]["Skill"][skill]['rank']),
+                                                                         str(self.char['cat'][cat]["Skill"][skill]['rank bonus']),
+                                                                         "--",
+                                                                         str(self.char['cat'][cat]["Skill"][skill]['spec bonus']),
+                                                                         str(self.char['cat'][cat]["Skill"][skill]['item bonus']),
+                                                                         str(self.char['cat'][cat]["Skill"][skill]['total bonus'])
+                                                                         )
             elif "Development" in cat:
                 datatable += devel + catstd.format(cat,
                                                   str(self.char['cat'][cat]['Progression']).replace(", ", "/"),
@@ -235,16 +241,17 @@ class charsheet(object):
                 for skill in skilllist:
 
                     if skill not in ['Progression', ['Costs']] and "+" not in skill:
-                        datatable += devel + skillpre + skillval.format(skill,
-                                                                     str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/"),
-                                                                     str(self.char['cat'][cat]["Skill"][skill]['Costs']).replace(", ", "/"),
-                                                                     str(self.char['cat'][cat]["Skill"][skill]['rank']),
-                                                                     str(self.char['cat'][cat]["Skill"][skill]['rank bonus']),
-                                                                     "--",
-                                                                     str(self.char['cat'][cat]["Skill"][skill]['spec bonus']),
-                                                                     str(self.char['cat'][cat]["Skill"][skill]['item bonus']),
-                                                                     str(self.char['cat'][cat]["Skill"][skill]['total bonus'])
-                                                                     )
+                        if self.short and self.char['cat'][cat]["Skill"][skill]["rank"] > 0:
+                            datatable += devel + skillpre + skillval.format(skill,
+                                                                         str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/"),
+                                                                         str(self.char['cat'][cat]["Skill"][skill]['Costs']).replace(", ", "/"),
+                                                                         str(self.char['cat'][cat]["Skill"][skill]['rank']),
+                                                                         str(self.char['cat'][cat]["Skill"][skill]['rank bonus']),
+                                                                         "--",
+                                                                         str(self.char['cat'][cat]["Skill"][skill]['spec bonus']),
+                                                                         str(self.char['cat'][cat]["Skill"][skill]['item bonus']),
+                                                                         str(self.char['cat'][cat]["Skill"][skill]['total bonus'])
+                                                                         )
             elif "Spells" in cat:
                 datatable += spell + catstd.format(cat,
                                                   str(self.char['cat'][cat]['Progression']).replace(", ", "/"),
@@ -304,7 +311,7 @@ class charsheet(object):
 
         template = readFile(self.storepath + "/default/latex/template_catskill.tex")
         template = template.replace("==>fulltable", datatable)
-        saveFile(self.chardir + "{}_catskill.tex".format(self.char['name']), template)
+        saveFile(self.chardir + "{}_catskill.tex".format(self.char['name'].replace(" ", "-")), template)
 
 
     def createSpells(self):
@@ -323,13 +330,13 @@ class charsheet(object):
         os.chdir(self.chardir)
         try:
             # to get the right table formating LaTeX has to be run twice
-            os.system("pdflatex {}.tex".format(self.char['name']))
-            os.system("pdflatex {}.tex".format(self.char['name']))
+            os.system("pdflatex {}.tex".format(self.char['name'].replace(" ", "-")))
+            os.system("pdflatex {}.tex".format(self.char['name'].replace(" ", "-")))
             windoman = ["/usr/bin/xdg-open", "/usr/bin/gnome-open", "/usr/bin/kde-open", "/usr/bin/open"]
 
             for wm in windoman:
                 if os.path.isfile(wm):
-                    os.system("{} {}.pdf".format(wm, self.char['name']))
+                    os.system("{} {}.pdf".format(wm, self.char['name'].replace(" ", "-")))
 
         except Exception as error:
             print("ERROR: Could not execute PDF LaTex! Please try it manually!!\n{}".format(error))

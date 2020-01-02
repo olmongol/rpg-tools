@@ -7,10 +7,20 @@
 \brief Windows classes for epcalc gui
 
 This holds window classes for generating and updating (level ups) characters.
-\date (C) 2016-2019
+\date (C) 2016-2020
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
-\version 1.3
+\version 1.5
+
+----
+@todo The following has to be implemented:
+- a separate Character Status Window which shows the following:
+ -# name, culture, race, profession
+ -# old & new EPs
+ -# No of level-ups
+ -# remaining DPs
+ -# remaining stat gain rolls
+
 '''
 import random
 import os
@@ -35,11 +45,11 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "30.12.2019"
+__updated__ = "02.01.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
-__version__ = "1.3"
+__version__ = "1.5"
 __license__ = "GNU V3.0"
 __me__ = "A RPG tool package for Python 3.6"
 
@@ -421,6 +431,13 @@ class confWindow(blankWindow):
     rpg-tools. For now it is just choosing the language for menus and
     dialogues.
     \param lang Laguage which shall be used in messages and menus.
+
+    ----
+    @todo The following has to be implemented:
+    - option for short/long LaTex exports: short means skills with rank = 0 won't
+      be displayed.
+    - improve design of options window
+
     """
 
 
@@ -2049,7 +2066,9 @@ class priorizeWeaponsWin(blankWindow):
         This method saves the character as JSON file
         '''
         import json
-        with open(self.spath + self.character['player'] + '/' + self.character['name'] + ".json", "w") as outfile:
+        charname = self.character['name']  #.replace(" ", "_")
+#        with open(self.spath + self.character['player'] + '/' + self.character['name'] + ".json", "w") as outfile:
+        with open(self.spath + self.character['player'] + '/' + charname + ".json", "w") as outfile:
             json.dump(self.character, outfile, sort_keys = True,
                       indent = 4, ensure_ascii = False)
 
