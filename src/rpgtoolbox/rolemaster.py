@@ -14,7 +14,7 @@ This package holds RM specific tools like Character Skill Progression.
 \date 2019
 \copyright 2015-2019 Marcus Schwamberger
 '''
-__updated__ = "31.12.2019"
+__updated__ = "02.01.2020"
 
 catnames = {'de' : {'spells' : "Spells",
                     'weapon' : 'Weapon',
@@ -678,6 +678,46 @@ raceAbilities = {'Common Men': {'Ag' : 0,
                                 'Hobby Ranks': 12,
                                 },
                  }
+##\var raceHealingFactors
+# this dictionary holds race based information about Stat Loss Type, Rnds to soul
+# departure and recovery multiplier.
+raceHealingFactors = {"Common Men" : {"Rnds to sould dep.": 12,
+                                      "Stat Loss Type" : 2,
+                                      "Recovery Mult." : 1.0
+                                      },
+                      "Mixed Men" : {"Rnds to sould dep.": 11,
+                                      "Stat Loss Type" : 2,
+                                      "Recovery Mult." : 0.9
+                                      },
+                      "High Men" : {"Rnds to sould dep.": 10,
+                                      "Stat Loss Type" : 2,
+                                      "Recovery Mult." : 0.75
+                                      },
+                      "Wood Elves" : {"Rnds to sould dep.": 3,
+                                      "Stat Loss Type" : 3,
+                                      "Recovery Mult." : 1.5
+                                      },
+                      "Grey Elves" : {"Rnds to sould dep.": 2,
+                                      "Stat Loss Type" : 4,
+                                      "Recovery Mult." : 2.0
+                                      },
+                      "High Elves" : {"Rnds to sould dep.": 1,
+                                      "Stat Loss Type" : 5,
+                                      "Recovery Mult." : 3.0
+                                      },
+                      "Half Elves" : {"Rnds to sould dep.": 6,
+                                      "Stat Loss Type" : 3,
+                                      "Recovery Mult." : 1.5
+                                      },
+                      "Dwarves" : {"Rnds to sould dep.": 21,
+                                      "Stat Loss Type" : 1,
+                                      "Recovery Mult." : 0.5
+                                      },
+                      "Halflings" : {"Rnds to sould dep.": 18,
+                                      "Stat Loss Type" : 1,
+                                      "Recovery Mult." : 0.5
+                                      }
+                      }
 
 
 
@@ -1374,5 +1414,43 @@ def bgoMoney(purse = {}):
 
     elif roll == 100:
         result['GP'] += 200
+
+    return result
+
+
+
+def calcEncumberance(charweight = 80, maxv = 15):
+    '''
+    '''
+    bwa = (charweight * 2) // 10
+    result = {}
+
+    for i in range(1, maxv + 1):
+        result["{}x BWA"] = {"kg": bwa * i, "Enc. Pen.": 8 * (i - 1)}
+
+    return result
+
+
+
+def calcHitMods(char = {}):
+    '''
+    This calculates all data concerning hits like recovery or modifikations by injuries.
+    @param char whole character dictionary/JSON
+    @reval result dictionary holding all calculated data
+    '''
+    Co = char["Co"]['total']
+    result = {"total hits": char["cat"]["Body Development"]["Skill"]["Body Development"]["total bonus"]}
+    result["active"] = "1 hit/3 hours"
+    result["resting"] = "{} hits/hour".format(round(Co / 2 + 0.01))
+    result["sleep"] = "{} hits/sleep cycle".format(Co * 2)
+    r = result['total hits'] % 4
+    p = result["total hits"] // 4
+
+    for i in range(1, 4):
+        result["mod{}".format(i)] = {"hits":p * i + 1,
+                                     "mod":i * -10
+                                     }
+        if (i == 1 and r > 2) or (i == 2 and r > 1) or (i == 3 and r > 0) :
+            result["mod{}".format(i)]["hits"] += 1
 
     return result
