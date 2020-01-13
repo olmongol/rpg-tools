@@ -12,7 +12,7 @@ will be generated for printouts
 \version 1.1
 '''
 
-__updated__ = "02.01.2020"
+__updated__ = "06.01.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -211,7 +211,7 @@ class charsheet(object):
                     if skill not in ['Progression', 'Costs'] and "+" not in skill:
                         if self.short and self.char['cat'][cat]["Skill"][skill]["rank"] > 0:
                             #DEBUG
-                            print("latex: {}: {}".format(skill, self.char['cat'][cat]["Skill"][skill]["rank"]))
+#                            print("latex: {}: {}".format(skill, self.char['cat'][cat]["Skill"][skill]["rank"]))
 #                           print("latex: {} -- {} {}".format(cat, skill, str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/")))
                             datatable += weapon + skillpre + skillval.format(skill,
                                                                          str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/"),

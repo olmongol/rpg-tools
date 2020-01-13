@@ -14,7 +14,7 @@ This module contains some helpful functions for role-playing games like:
 \email marcus@lederzeug.de
 \version 0.1
 '''
-__updated__ = "31.12.2019"
+__updated__ = "13.01.2020"
 
 import random
 from rpgtoolbox.globaltools import readCSV
@@ -56,7 +56,7 @@ def getLvl(ep = 10000):
         lvl = (ep - 300000) / 40000 + 15
     else:
         lvl = (ep - 500000) / 50000 + 20
-    return lvl
+    return round(lvl)
 
 
 

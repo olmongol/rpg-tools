@@ -45,7 +45,7 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "02.01.2020"
+__updated__ = "08.01.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -4197,7 +4197,7 @@ class editEPWin(blankWindow):
         A method to destroy the current window and go back to MainWindow.
         '''
         self.window.destroy()
-        self.window = MainWindow(lang = self.lang, char = self._character)
+        self.window = MainWindow(lang = self.lang, char = self._character, storepath = self.spath)
 
 
     def __openFile(self):
