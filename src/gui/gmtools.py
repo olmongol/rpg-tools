@@ -19,6 +19,7 @@ In this module you find the window classes for
 
 from gui.window import *
 from rpgtoolbox.treasure import *
+from rpgtoolbox import epcalc, rpgtools as rpg
 
 
 
@@ -233,4 +234,143 @@ class createMagicWin(blankWindow):
         This private method closes the createTreasreWin window
         '''
         self.cmwin.destroy()
+
+
+
+class EPCalcWin(blankWindow):
+    """
+    This is a GUI for EP calculation for your character party.
+    """
+
+
+    def __init__(self, lang = "en", charlist = [], storepath = "./data"):
+        """
+        Class constructor
+        \param lang The chosen language for window's and button's
+                    texts. At the moment, only English (en, default
+                    value) and German (de) are supported.
+        \param charlist list of dictionaries holding: player, charname, EPs
+        \param storepath path for storing the data into the character files.
+        """
+
+        self.lang = lang
+        self.charlist = charlist
+        self.storepath = storepath
+        blankWindow.__init__(self, self.lang)
+        self.window.title("EP Calculator")
+        self.__addMenu()
+        self.__addHelpMenu()
+        self.__buildWin()
+        self.window.mainloop()
+
+
+    def __addMenu(self):
+        '''
+        This methods adds the menu bar to the window
+        '''
+        self.filemenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
+                              menu = self.filemenu)
+        self.filemenu.add_command(label = submenu['file'][self.lang]['open'],
+                                  command = self.notdoneyet)
+        self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
+                                  command = self.notdoneyet)
+        self.filemenu.add_separator()
+        self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
+                                  command = self.__quit)
+
+
+    def __addHelpMenu(self):
+        """
+        This methods defines a help menu.
+        """
+        self.helpmenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['help'][self.lang],
+                              menu = self.helpmenu)
+
+        self.helpmenu.add_separator()
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
+                                  command = self._helpAbout)
+
+
+    def __buildWin(self):
+        """
+        This method builds the window content.
+        ----
+
+        """
+        ## \var self.players
+        # list of given player names
+        self.players = []
+        ## \var self.group
+        # dictionary of EP objects per player
+        self.group = {}
+
+        for elem in self.charlist:
+            self.players.append(elem["player"])
+            self.group[elem["player"]] = epcalc.experience(elem["player"], elem["exp"])
+
+        self.__selecPlayer = StringVar(self.window)
+        self.__selecPlayer.set(self.players[0])
+
+        self.__playerOpt = OptionMenu(self.window,
+                                      self.__selecPlayer,
+                                      *self.players,
+                                      command = self.__updSelec)
+        self.__playerOpt.grid(column = 0, row = 0, sticky = "W")
+
+        self.__charname = StringVar()
+        self.__charname.set(self.charlist[0]["name"])
+        Label(self.window,
+              width = 20,
+              textvariable = self.__charname,
+              ).grid(row = 0, column = 1, sticky = "W")
+
+        self.__charprof = StringVar()
+        self.__charprof.set(self.charlist[0]["prof"])
+        Label(self.window,
+              width = 15,
+              textvariable = self.__charprof,
+              ).grid(row = 0, column = 2, sticky = "W")
+
+        self.__charexp = StringVar()
+        self.__charexp.set(str(self.charlist[0]["exp"]))
+        Label(self.window,
+              width = 15,
+              textvariable = self.__charexp,
+              ).grid(row = 0, column = 3, sticky = "W")
+
+        self.__gained = StringVar()
+        self.__gained.set("+{}".format(self.group[self.charlist[0]["player"]].gainedep))
+        Label(self.window,
+              width = 10,
+              textvariable = self.__gained,
+              ).grid(row = 0, column = 4, sticky = "W")
+
+        self.__newep = StringVar()
+        self.__newep.set("<{}>".format(self.group[self.charlist[0]["player"]].gainedep + self.group[self.charlist[0]["player"]].ep))
+        Label(self.window,
+              width = 10,
+              textvariable = self.__newep,
+              ).grid(row = 0, column = 5, sticky = "W")
+
+
+    def __updSelec(self, event):
+        """
+        Update selected Player data
+        """
+        selected = self.__selecPlayer.get()
+        ind = self.players.index(selected)
+        self.__charname.set(self.charlist[ind]["name"])
+        self.__charprof.set(self.charlist[ind]["prof"])
+        self.__charexp.set(str(self.charlist[ind]["exp"]))
+        self.__gained.set("+{}".format(self.group[self.charlist[ind]["player"]].gainedep))
+        self.__newep.set("<{}>".format(self.group[self.charlist[ind]["player"]].gainedep + self.group[self.charlist[ind]["player"]].ep))
+
+
+    def __quit(self):
+        '''
+        This method closes the window
+        '''
+        self.window.destroy()
 
