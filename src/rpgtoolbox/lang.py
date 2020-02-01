@@ -18,7 +18,7 @@ Currently supported languages are:
 
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
-\date (c) 2015-2019
+\date (c) 2015-2020
 \version 1.1
 \license GNU V3.0
 
@@ -525,7 +525,17 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
                   },
           'new_ep': {'de' : 'neue EP',
                      'en' : 'new EP'
-                     }
+                     },
+          'win_man' :{'de' : u"Manöverfenster",
+                      'en' : "maneuver window"
+                      },
+          'win_casting' : {'de' : "Zauber wirken (Fenster)",
+                           'en' : "spell casting (window)"
+                           },
+          'win_fight' : {'de' : 'Kampf-Fenster',
+                         'en' : 'Fighting window'
+                         },
+
           }
 
 ##\var errmsg
@@ -608,13 +618,13 @@ infomsg = {'help_info' : {'de' : 'F\xc3\xbcr eine genauere Information '\
 ##\var s_elem_def
 #Descriptions of the default elements for calculating EPs from.
 s_elem_def = {'CRITICAL' : {'de' : 'Ausgeteilte kritische Treffer',
-                            'en' : 'Made critical hits',
+                            'en' : 'Caused Critical',
                            },
               'HITS'     : {'de' : 'Erhaltene Trefferpunkte',
                             'en' : 'Gained hit points.',
                             },
               'H_CRITS'  : {'de' : 'Erhaltene kritische Treffer',
-                            'en': 'Gained criticals',
+                            'en': 'Gained Criticals',
                            },
               'SPELL'    : {'de' : 'Stufe angewendeter Zauber',
                             'en' : 'Level of used spell',
@@ -633,6 +643,9 @@ s_elem_def = {'CRITICAL' : {'de' : 'Ausgeteilte kritische Treffer',
                              },
               'IDEAS'     : {'de' : "Ideen",
                              'en' : "Ideas"
+                             },
+              'COUNT'     : {'de' : "Anzahl",
+                             'en' : "number"
                              },
               }
 
