@@ -197,33 +197,105 @@ class EPCalcWin(blankWindow):
         Label(self.window,
               text = s_elem_def["HITS"][self.lang]+":",
               ).grid(row=3,column=0,sticky="W")
+        
+        self.__hits = IntVar()
+        self.__hits.set(0)
+        Entry(self.window,
+              justify="center",
+              textvariable = self.__hits,
+              ).grid(row=3,column=1,sticky="EW")
+
+        Button(self.window,
+               text = txtbutton["but_add"][self.lang],
+               command = self.notdoneyet
+               ).grid(row=3,column=4,sticky="EW")
 
         Button(self.window,
                text = labels["win_fight"][self.lang],
                command = self.notdoneyet
                ).grid(row=3,column=6, rowspan=3,sticky="NEWS")
+        
         #row 4
+        self.critlist = ['T','A','B','C','D','E']
         Label(self.window,
               text = s_elem_def["H_CRITS"][self.lang]+":",
               ).grid(row=4,column=0,sticky="W")
-
-
+        self.__gcrit = StringVar()
+        self.__gcrit.set("T")
+        OptionMenu(self.window,
+                    self.__gcrit,
+                    *self.critlist,
+                    command = self.notdoneyet
+                   ).grid(row=4,column=1,sticky="EW")
+        Button(self.window,
+               text = txtbutton["but_add"][self.lang],
+               command = self.notdoneyet
+               ).grid(row=4,column=4,sticky="EW")
         #row 5
         Label(self.window,
               text = s_elem_def["CRITICAL"][self.lang]+":",
               ).grid(row=5,column=0,sticky="W")
-
-
+        self.__crit = StringVar()
+        self.__crit.set("T")
+        OptionMenu(self.window,
+                    self.__crit,
+                    *self.critlist,
+                    command = self.notdoneyet
+                   ).grid(row=5,column=1,sticky="EW")
+        Button(self.window,
+               text = txtbutton["but_add"][self.lang],
+               command = self.notdoneyet
+               ).grid(row=5,column=4,sticky="EW")
         #row 6
         Label(self.window,
               text = s_elem_def["TRAVEL"][self.lang]+":",
               ).grid(row=6,column=0,sticky="W")
 
-
+        self.__travel = IntVar()
+        self.__travel.set(0)
+        Entry(self.window,
+              justify="center",
+              textvariable = self.__travel,
+              ).grid(row=6,column=1,sticky="EW")
+        Label(self.window,
+              text = labels["comment"][self.lang]+":",
+              ).grid(row=6,column=2,sticky="EW")
+        
+        self.__comtravel = StringVar()
+        self.__comtravel.set("")
+        Entry(self.window,
+              justify="center",
+              textvariable = self.__comtravel,
+              ).grid(row=6,column=3,sticky="EW")
+        Button(self.window,
+               text = txtbutton["but_add"][self.lang],
+               command = self.notdoneyet
+               ).grid(row=6,column=4,sticky="EW")
         #row 7
         Label(self.window,
               text = s_elem_def["IDEAS"][self.lang]+":",
               ).grid(row=7,column=0,sticky="W")
+        
+        self.__ideas = IntVar()
+        self.__ideas.set(0)
+        Entry(self.window,
+              justify="center",
+              textvariable = self.__ideas,
+              ).grid(row=7,column=1,sticky="EW")
+        Label(self.window,
+              text = labels["comment"][self.lang]+":",
+              ).grid(row=7,column=2,sticky="EW")        
+        self.__comideas = StringVar()
+        self.__comideas.set("")
+        Entry(self.window,
+              justify="center",
+              textvariable = self.__comideas,
+              ).grid(row=7,column=3,sticky="EW")
+        
+        Button(self.window,
+               text = txtbutton["but_add"][self.lang],
+               command = self.notdoneyet
+               ).grid(row=7,column=4,sticky="EW")
 
     def __updSelec(self,event):
         """
