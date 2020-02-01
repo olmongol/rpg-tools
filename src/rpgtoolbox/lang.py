@@ -25,7 +25,7 @@ Currently supported languages are:
 \todo clean up the code!!!
 '''
 __version__ = "1.1"
-__updated__ = "11.10.2019"
+__updated__ = "01.02.2020"
 ## \var supportedrpg
 # Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
@@ -620,7 +620,7 @@ s_elem_def = {'CRITICAL' : {'de' : 'Ausgeteilte kritische Treffer',
                             'en' : 'Level of used spell',
                            },
               'MANEUVER' : {'de' : 'Erfolgreiche Man\xc3\xb6ver',
-                           'en' : 'Successful maneuver.',
+                           'en' : 'Successful maneuver',
                            },
               'TRAVEL'   : {'de' : 'Reisestrecke',
                            'en' : 'Traveled distance',
@@ -629,7 +629,10 @@ s_elem_def = {'CRITICAL' : {'de' : 'Ausgeteilte kritische Treffer',
                             'en' : 'Killed enemies/monster',
                             },
               'INDIVIDUAL' : {'de' : 'Individuelle Punkte.',
-                              'en' : 'Individual EPs.',
+                              'en' : 'Individual EPs',
+                             },
+              'IDEAS'     : {'de' : "Ideen",
+                             'en' : "Ideas"
                              },
               }
 
