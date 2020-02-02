@@ -196,27 +196,27 @@ class EPCalcWin(blankWindow):
         #row 3
         Label(self.window,
               text = s_elem_def["HITS"][self.lang]+":",
-              ).grid(row=3,column=0,sticky="W")
+              ).grid(row=4,column=2,sticky="W")
         
         self.__hits = IntVar()
         self.__hits.set(0)
         Entry(self.window,
               justify="center",
               textvariable = self.__hits,
-              ).grid(row=3,column=1,sticky="EW")
+              ).grid(row=4,column=3,sticky="EW")
 
-        Button(self.window,
-               text = txtbutton["but_add"][self.lang],
-               command = self.notdoneyet
-               ).grid(row=3,column=4,sticky="EW")
+##        Button(self.window,
+##               text = txtbutton["but_add"][self.lang],
+##               command = self.notdoneyet
+##               ).grid(row=3,column=4,sticky="EW")
 
         Button(self.window,
                text = labels["win_fight"][self.lang],
                command = self.notdoneyet
-               ).grid(row=3,column=6, rowspan=3,sticky="NEWS")
+               ).grid(row=4,column=6, rowspan=2,sticky="NEWS")
         
         #row 4
-        self.critlist = ['T','A','B','C','D','E']
+        self.critlist = ['T','A','B','C','D','E',"KILL"]
         Label(self.window,
               text = s_elem_def["H_CRITS"][self.lang]+":",
               ).grid(row=4,column=0,sticky="W")
@@ -235,6 +235,7 @@ class EPCalcWin(blankWindow):
         Label(self.window,
               text = s_elem_def["CRITICAL"][self.lang]+":",
               ).grid(row=5,column=0,sticky="W")
+        
         self.__crit = StringVar()
         self.__crit.set("T")
         OptionMenu(self.window,
@@ -242,6 +243,16 @@ class EPCalcWin(blankWindow):
                     *self.critlist,
                     command = self.notdoneyet
                    ).grid(row=5,column=1,sticky="EW")
+        Label(self.window,
+              text = labels["lvl_enemy"][self.lang]+":",
+              ).grid(row=5,column=2,sticky="WE")
+
+        self.__lvlenem = IntVar()
+        self.__lvlenem.set(0)
+        Entry(self.window,
+              justify="center",
+              textvariable = self.__lvlenem,
+              ).grid(row=5,column=3,sticky="EW")
         Button(self.window,
                text = txtbutton["but_add"][self.lang],
                command = self.notdoneyet
@@ -271,6 +282,11 @@ class EPCalcWin(blankWindow):
                text = txtbutton["but_add"][self.lang],
                command = self.notdoneyet
                ).grid(row=6,column=4,sticky="EW")
+
+        Button(self.window,
+               text = labels["diary"][self.lang],
+               command = self.notdoneyet
+               ).grid(row=6,column=6,sticky="EW")
         #row 7
         Label(self.window,
               text = s_elem_def["IDEAS"][self.lang]+":",

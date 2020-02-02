@@ -20,6 +20,7 @@ In this module you find the window classes for
 from gui.window import *
 from rpgtoolbox.treasure import *
 from rpgtoolbox import epcalc, rpgtools as rpg
+from rpgToolDefinitions.epcalcdefs import maneuvers
 
 
 
@@ -296,8 +297,6 @@ class EPCalcWin(blankWindow):
     def __buildWin(self):
         """
         This method builds the window content.
-        ----
-
         """
         ## \var self.players
         # list of given player names
@@ -309,6 +308,7 @@ class EPCalcWin(blankWindow):
         for elem in self.charlist:
             self.players.append(elem["player"])
             self.group[elem["player"]] = epcalc.experience(elem["player"], elem["exp"])
+            self.group[elem["player"]].updateInfo()
 
         self.__selecPlayer = StringVar(self.window)
         self.__selecPlayer.set(self.players[0])
@@ -327,7 +327,7 @@ class EPCalcWin(blankWindow):
               ).grid(row = 0, column = 1, sticky = "W")
 
         self.__charprof = StringVar()
-        self.__charprof.set(self.charlist[0]["prof"])
+        self.__charprof.set("{} ({})".format(self.charlist[0]["prof"], self.group[self.charlist[0]["player"]].lvl))
         Label(self.window,
               width = 15,
               textvariable = self.__charprof,
@@ -354,6 +354,210 @@ class EPCalcWin(blankWindow):
               textvariable = self.__newep,
               ).grid(row = 0, column = 5, sticky = "W")
 
+        self.__newlvl = IntVar()
+        self.__newlvl.set(self.group[self.charlist[0]["player"]].lvl)
+        Label(self.window,
+              width = 10,
+              textvariable = self.__newlvl,
+              ).grid(row = 0, column = 6, sticky = "EW")
+        #row 1
+        Label(self.window,
+              text = s_elem_def['MANEUVER'][self.lang] + ":",
+              ).grid(row = 1, column = 0, sticky = "EW")
+
+        self.manlist = list(maneuvers.keys())
+        self.__selecman = StringVar()
+        self.__selecman.set(self.manlist[0])
+        OptionMenu(self.window,
+                    self.__selecman,
+                    *self.manlist,
+                    command = self.notdoneyet
+                   ).grid(row = 1, column = 1, sticky = "EW")
+
+        Label(self.window,
+              text = s_elem_def["COUNT"][self.lang] + ":"
+              ).grid(row = 1, column = 2, sticky = "EW")
+
+        self.__cMan = IntVar()
+        self.__cMan.set(0)
+        Entry(self.window,
+              justify = "center",
+              textvariable = self.__cMan,
+              ).grid(row = 1, column = 3, sticky = "EW")
+
+        Button(self.window,
+               text = txtbutton["but_add"][self.lang],
+               command = self.notdoneyet
+               ).grid(row = 1, column = 4, sticky = "EW")
+
+        Button(self.window,
+               text = labels["win_man"][self.lang],
+               command = self.notdoneyet
+               ).grid(row = 1, column = 6, sticky = "EW")
+
+        #row 2
+        Label(self.window,
+              text = s_elem_def["SPELL"][self.lang] + ":",
+              ).grid(row = 2, column = 0, sticky = "W")
+
+        self.__lvlSpell = IntVar()
+        self.__lvlSpell.set(1)
+        Entry(self.window,
+              justify = "center",
+              textvariable = self.__lvlSpell
+              ).grid(row = 2, column = 1, sticky = "EW")
+
+        Label(self.window,
+              text = s_elem_def["COUNT"][self.lang] + ":"
+              ).grid(row = 2, column = 2, sticky = "EW")
+
+        self.__cSpell = IntVar()
+        self.__cSpell.set(0)
+        Entry(self.window,
+              justify = "center",
+              textvariable = self.__cSpell,
+              ).grid(row = 2, column = 3, sticky = "EW")
+
+        Button(self.window,
+               text = txtbutton["but_add"][self.lang],
+               command = self.notdoneyet
+               ).grid(row = 2, column = 4, sticky = "EW")
+
+        Button(self.window,
+               text = labels["win_casting"][self.lang],
+               command = self.notdoneyet
+               ).grid(row = 2, column = 6, sticky = "EW")
+        #row 3
+        self.critlist = ['T', 'A', 'B', 'C', 'D', 'E', "KILL"]
+        Label(self.window,
+              text = s_elem_def["H_CRITS"][self.lang] + ":",
+              ).grid(row = 3, column = 0, sticky = "W")
+
+        self.__gcrit = StringVar()
+        self.__gcrit.set("T")
+        OptionMenu(self.window,
+                    self.__gcrit,
+                    *self.critlist,
+                    command = self.notdoneyet
+                   ).grid(row = 3, column = 1, sticky = "EW")
+
+        Label(self.window,
+              text = s_elem_def["HITS"][self.lang] + ":",
+              ).grid(row = 3, column = 2, sticky = "W")
+
+        self.__hits = IntVar()
+        self.__hits.set(0)
+        Entry(self.window,
+              justify = "center",
+              textvariable = self.__hits,
+              ).grid(row = 3, column = 3, sticky = "EW")
+
+        Button(self.window,
+               text = txtbutton["but_add"][self.lang],
+               command = self.notdoneyet
+               ).grid(row = 3, column = 4, sticky = "EW")
+
+        Button(self.window,
+               text = labels["win_fight"][self.lang],
+               command = self.notdoneyet
+               ).grid(row = 3, column = 6, rowspan = 2, sticky = "NEWS")
+
+        #row 4
+        Label(self.window,
+              text = s_elem_def["CRITICAL"][self.lang] + ":",
+              ).grid(row = 4, column = 0, sticky = "W")
+
+        self.__crit = StringVar()
+        self.__crit.set("T")
+        OptionMenu(self.window,
+                    self.__crit,
+                    *self.critlist,
+                    command = self.notdoneyet
+                   ).grid(row = 4, column = 1, sticky = "EW")
+        Label(self.window,
+              text = labels["lvl_enemy"][self.lang] + ":",
+              ).grid(row = 4, column = 2, sticky = "WE")
+
+        self.__lvlenem = IntVar()
+        self.__lvlenem.set(0)
+        Entry(self.window,
+              justify = "center",
+              textvariable = self.__lvlenem,
+              ).grid(row = 4, column = 3, sticky = "EW")
+
+        Button(self.window,
+               text = txtbutton["but_add"][self.lang],
+               command = self.notdoneyet
+               ).grid(row = 4, column = 4, sticky = "EW")
+
+        #row 5
+        Label(self.window,
+              text = s_elem_def["TRAVEL"][self.lang] + ":",
+              ).grid(row = 5, column = 0, sticky = "W")
+
+        self.__travel = IntVar()
+        self.__travel.set(0)
+        Entry(self.window,
+              justify = "center",
+              textvariable = self.__travel,
+              ).grid(row = 5, column = 1, sticky = "EW")
+
+        Label(self.window,
+              text = labels["comment"][self.lang] + ":",
+              ).grid(row = 5, column = 2, sticky = "EW")
+
+        self.__comtravel = StringVar()
+        self.__comtravel.set("")
+        Entry(self.window,
+              justify = "center",
+              textvariable = self.__comtravel,
+              ).grid(row = 5, column = 3, sticky = "EW")
+
+        Button(self.window,
+               text = txtbutton["but_add"][self.lang],
+               command = self.notdoneyet
+               ).grid(row = 5, column = 4, sticky = "EW")
+
+        Button(self.window,
+               text = labels["diary"][self.lang],
+               command = self.notdoneyet
+               ).grid(row = 5, column = 6, sticky = "EW")
+
+        #row 6
+        Label(self.window,
+              text = s_elem_def["IDEAS"][self.lang] + ":",
+              ).grid(row = 6, column = 0, sticky = "W")
+
+        self.__ideas = IntVar()
+        self.__ideas.set(0)
+        Entry(self.window,
+              justify = "center",
+              textvariable = self.__ideas,
+              ).grid(row = 6, column = 1, sticky = "EW")
+
+        Label(self.window,
+              text = labels["comment"][self.lang] + ":",
+              ).grid(row = 6, column = 2, sticky = "EW")
+        self.__comideas = StringVar()
+        self.__comideas.set("")
+
+        Entry(self.window,
+              justify = "center",
+              textvariable = self.__comideas,
+              ).grid(row = 6, column = 3, sticky = "EW")
+
+        Button(self.window,
+               text = txtbutton["but_add"][self.lang],
+               command = self.notdoneyet
+               ).grid(row = 6, column = 4, sticky = "EW")
+
+        Button(self.window,
+               text = txtbutton["but_fin"][self.lang],
+               command = self.notdoneyet,
+               bg = "grey",
+               fg = "white"
+               ).grid(row = 6, column = 6, sticky = "EW")
+
 
     def __updSelec(self, event):
         """
@@ -362,10 +566,11 @@ class EPCalcWin(blankWindow):
         selected = self.__selecPlayer.get()
         ind = self.players.index(selected)
         self.__charname.set(self.charlist[ind]["name"])
-        self.__charprof.set(self.charlist[ind]["prof"])
+        self.__charprof.set("{} ({})".format(self.charlist[ind]["prof"], self.group[selected].lvl))
         self.__charexp.set(str(self.charlist[ind]["exp"]))
         self.__gained.set("+{}".format(self.group[self.charlist[ind]["player"]].gainedep))
         self.__newep.set("<{}>".format(self.group[self.charlist[ind]["player"]].gainedep + self.group[self.charlist[ind]["player"]].ep))
+        self.__newlvl.set(self.group[self.charlist[ind]["player"]].lvl)
 
 
     def __quit(self):
@@ -373,4 +578,3 @@ class EPCalcWin(blankWindow):
         This method closes the window
         '''
         self.window.destroy()
-

@@ -25,7 +25,7 @@ Currently supported languages are:
 \todo clean up the code!!!
 '''
 __version__ = "1.1"
-__updated__ = "01.02.2020"
+__updated__ = "02.02.2020"
 ## \var supportedrpg
 # Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
@@ -526,6 +526,17 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
           'new_ep': {'de' : 'neue EP',
                      'en' : 'new EP'
                      },
+          'comment' :{'de': 'Kommentar',
+                      'en' : 'Comment'
+                      },
+          'lvl_enemy' : {'de': 'Stufe Gegner',
+                         'en': 'Level enemy'
+                         },
+          'kill' : {'de' : u'Tötung',
+                    'en':'kill'
+                    },
+          'diary' :{'de':'Tagebuch',
+                    'en' : 'Diary'},
           'win_man' :{'de' : u"Manöverfenster",
                       'en' : "maneuver window"
                       },
