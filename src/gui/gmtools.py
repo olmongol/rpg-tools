@@ -360,6 +360,7 @@ class EPCalcWin(blankWindow):
               width = 10,
               textvariable = self.__newlvl,
               ).grid(row = 0, column = 6, sticky = "EW")
+
         #row 1
         Label(self.window,
               text = s_elem_def['MANEUVER'][self.lang] + ":",
@@ -368,11 +369,12 @@ class EPCalcWin(blankWindow):
         self.manlist = list(maneuvers.keys())
         self.__selecman = StringVar()
         self.__selecman.set(self.manlist[0])
-        OptionMenu(self.window,
-                    self.__selecman,
-                    *self.manlist,
-                    command = self.notdoneyet
-                   ).grid(row = 1, column = 1, sticky = "EW")
+
+        self.__manOpt = OptionMenu(self.window,
+                                   self.__selecman,
+                                   *self.manlist
+                                   )
+        self.__manOpt.grid(row = 1, column = 1, sticky = "EW")
 
         Label(self.window,
               text = s_elem_def["COUNT"][self.lang] + ":"
@@ -387,7 +389,7 @@ class EPCalcWin(blankWindow):
 
         Button(self.window,
                text = txtbutton["but_add"][self.lang],
-               command = self.notdoneyet
+               command = self.__calcMan
                ).grid(row = 1, column = 4, sticky = "EW")
 
         Button(self.window,
@@ -420,7 +422,7 @@ class EPCalcWin(blankWindow):
 
         Button(self.window,
                text = txtbutton["but_add"][self.lang],
-               command = self.notdoneyet
+               command = self.__calcSpell
                ).grid(row = 2, column = 4, sticky = "EW")
 
         Button(self.window,
@@ -437,8 +439,7 @@ class EPCalcWin(blankWindow):
         self.__gcrit.set("T")
         OptionMenu(self.window,
                     self.__gcrit,
-                    *self.critlist,
-                    command = self.notdoneyet
+                    *self.critlist
                    ).grid(row = 3, column = 1, sticky = "EW")
 
         Label(self.window,
@@ -454,7 +455,7 @@ class EPCalcWin(blankWindow):
 
         Button(self.window,
                text = txtbutton["but_add"][self.lang],
-               command = self.notdoneyet
+               command = self.__calcGCrit
                ).grid(row = 3, column = 4, sticky = "EW")
 
         Button(self.window,
@@ -471,8 +472,7 @@ class EPCalcWin(blankWindow):
         self.__crit.set("T")
         OptionMenu(self.window,
                     self.__crit,
-                    *self.critlist,
-                    command = self.notdoneyet
+                    *self.critlist
                    ).grid(row = 4, column = 1, sticky = "EW")
         Label(self.window,
               text = labels["lvl_enemy"][self.lang] + ":",
@@ -487,7 +487,7 @@ class EPCalcWin(blankWindow):
 
         Button(self.window,
                text = txtbutton["but_add"][self.lang],
-               command = self.notdoneyet
+               command = self.__calcCrit
                ).grid(row = 4, column = 4, sticky = "EW")
 
         #row 5
@@ -501,7 +501,6 @@ class EPCalcWin(blankWindow):
               justify = "center",
               textvariable = self.__travel,
               ).grid(row = 5, column = 1, sticky = "EW")
-
         Label(self.window,
               text = labels["comment"][self.lang] + ":",
               ).grid(row = 5, column = 2, sticky = "EW")
@@ -512,17 +511,15 @@ class EPCalcWin(blankWindow):
               justify = "center",
               textvariable = self.__comtravel,
               ).grid(row = 5, column = 3, sticky = "EW")
-
         Button(self.window,
                text = txtbutton["but_add"][self.lang],
-               command = self.notdoneyet
+               command = self.__calcTravel
                ).grid(row = 5, column = 4, sticky = "EW")
 
         Button(self.window,
                text = labels["diary"][self.lang],
                command = self.notdoneyet
                ).grid(row = 5, column = 6, sticky = "EW")
-
         #row 6
         Label(self.window,
               text = s_elem_def["IDEAS"][self.lang] + ":",
@@ -534,13 +531,11 @@ class EPCalcWin(blankWindow):
               justify = "center",
               textvariable = self.__ideas,
               ).grid(row = 6, column = 1, sticky = "EW")
-
         Label(self.window,
               text = labels["comment"][self.lang] + ":",
               ).grid(row = 6, column = 2, sticky = "EW")
         self.__comideas = StringVar()
         self.__comideas.set("")
-
         Entry(self.window,
               justify = "center",
               textvariable = self.__comideas,
@@ -548,7 +543,7 @@ class EPCalcWin(blankWindow):
 
         Button(self.window,
                text = txtbutton["but_add"][self.lang],
-               command = self.notdoneyet
+               command = self.__calcIdeas
                ).grid(row = 6, column = 4, sticky = "EW")
 
         Button(self.window,
@@ -557,6 +552,17 @@ class EPCalcWin(blankWindow):
                bg = "grey",
                fg = "white"
                ).grid(row = 6, column = 6, sticky = "EW")
+
+
+    def __updDispay(self, curPlayer = ""):
+        '''
+        Updates display of current player
+        \param curPlayer name of selected player
+        '''
+        self.group[curPlayer].updateInfo()
+        self.__gained.set("+{}".format(self.group[curPlayer].gainedep))
+        self.__newep.set("<{}>".format(self.group[curPlayer].newep))
+        self.__newlvl.set(self.group[curPlayer].newlvl)
 
 
     def __updSelec(self, event):
@@ -569,8 +575,110 @@ class EPCalcWin(blankWindow):
         self.__charprof.set("{} ({})".format(self.charlist[ind]["prof"], self.group[selected].lvl))
         self.__charexp.set(str(self.charlist[ind]["exp"]))
         self.__gained.set("+{}".format(self.group[self.charlist[ind]["player"]].gainedep))
-        self.__newep.set("<{}>".format(self.group[self.charlist[ind]["player"]].gainedep + self.group[self.charlist[ind]["player"]].ep))
-        self.__newlvl.set(self.group[self.charlist[ind]["player"]].lvl)
+        self.__newep.set("<{}>".format(self.group[self.charlist[ind]["player"]].gainedep + self.group[self.charlist[ind]["player"]].newep))
+        self.__newlvl.set(self.group[self.charlist[ind]["player"]].newlvl)
+
+
+    def __grpBonus(self):
+        '''
+        This methods calculates the group bonus while finalize process.
+        '''
+        grpbonus = 0
+
+        for name in self.group.keys():
+            grpbonus = self.group[name].gainedep
+
+        grpbonus = int(round(grpbonus / len(self.group.keys())))
+
+        for name in self.group.keys():
+            self.group[name].gainedep += grpbonus
+            self.group[name].updateInfo()
+
+
+    def __calcMan(self):
+        '''
+        This computes EPs for each successful maneuver and add them to character's
+        gained EPs
+        '''
+        curPlayer = self.__selecPlayer.get()
+        curManLvl = self.__selecman.get()
+        number = self.__cMan.get()
+
+        self.group[curPlayer].maneuver(curManLvl, number)
+        self.__updDispay(curPlayer)
+
+
+    def __calcSpell(self):
+        '''
+        This computes EPs for a given number aof spells aof the same level
+        '''
+        curPlayer = self.__selecPlayer.get()
+        spellLvl = self.__lvlSpell.get()
+        spellNo = self.__cSpell.get()
+        self.group[curPlayer].spell(spellLvl, spellNo)
+        self.__updDispay(curPlayer)
+
+
+    def __calcGCrit(self):
+        '''
+        This calculates EP for gained Criticals and hits
+        '''
+        curPlayer = self.__selecPlayer.get()
+        gCrit = self.__gcrit.get()
+        hits = self.__hits.get()
+
+        if gCrit in ["T", "KILL"]:
+            self.group[curPlayer].gainedHits(hits)
+
+        else:
+            self.group[curPlayer].gainedHits(hits)
+            self.group[curPlayer].gainedCrit(gCrit, 1)
+
+        self.__updDispay(curPlayer)
+
+
+    def __calcCrit(self):
+        '''
+        This calculates EP for caused criticals against an enemy of a certain level
+        '''
+        curPlayer = self.__selecPlayer.get()
+        crit = self.__crit.get()
+        lvlEnem = self.__lvlenem.get()
+
+        if crit not in ["T", "KILL"]:
+            self.group[curPlayer].hitCrit(crit, lvlEnem, 1)
+        elif crit == "KILL":
+            self.group[curPlayer].killedNPC(lvlEnem, 1)
+
+        self.__updDispay(curPlayer)
+
+
+    def __calcTravel(self):
+        '''
+        Travelled EPs
+        ----
+        @todo The comments have to be added to the  character's diary
+        '''
+        curPlayer = self.__selecPlayer.get()
+        travel = self.__travel.get()
+        comm = self.__comtravel.get()
+        self.group[curPlayer].travelled(travel)
+
+        self.__updDispay(curPlayer)
+
+
+    def __calcIdeas(self):
+        '''
+        EPs for ideas and role-playing
+        ----
+        @todo The comments have to be added to the character's diary
+        '''
+        curPlayer = self.__selecPlayer.get()
+        ideas = self.__ideas.get()
+        comm = self.__comideas.get()
+        self.group[curPlayer].ideas(ideas)
+
+        self.__updDispay(curPlayer)
 
 
     def __quit(self):
