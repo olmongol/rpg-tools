@@ -199,6 +199,12 @@ txtbutton = {'but_ok'   : {'de' : 'OK',
              'but_none': {'de': u'nichts auswählen',
                           'en': 'select none'
                           },
+             'but_save_char' : {'de': "Character(e) speichern",
+                                'en': "save character(s)"
+                                },
+             'but_save_grp' : {'de' : "Gruppe speichern",
+                               'en' : 'save group'
+                               },
              }
 
 ## \var txtmenu
