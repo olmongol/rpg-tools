@@ -1,0 +1,38 @@
+[
+    {
+        "player": "Marcus",
+        "exp": 98552,
+        "prof": "Ranger",
+        "name": "Caerolan"
+    },
+    {
+        "player": "Chris",
+        "exp": 113465,
+        "prof": "Magician",
+        "name": "Aran"
+    },
+    {
+        "player": "Sanni",
+        "exp": 51955,
+        "prof": "Magician",
+        "name": "Ariyn"
+    },
+    {
+        "player": "Aiko",
+        "exp": 116925,
+        "prof": "Ranger",
+        "name": "Jondrik Ingenson"
+    },
+    {
+        "player": "Jenna",
+        "exp": 25754,
+        "prof": "Rogue",
+        "name": ">Jenna<"
+    },
+    {
+        "player": "Dina",
+        "exp": 102556,
+        "prof": "Thief",
+        "name": "Tiberia"
+    }
+]
