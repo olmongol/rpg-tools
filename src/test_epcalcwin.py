@@ -465,9 +465,6 @@ class EPCalcWin(blankWindow):
             self.charlist[i]["exp"] = self.group[name].newep
             self.charlist[i]['old_exp'] = self.group[name].ep
 
-#        with open("ep_group.json","w") as fp:
-#            json.dump(self.charlist,fp,indent=4)
-        pprint(self.charlist)
         gw = showGrpEP(self.charlist, self.storepath, self.lang)
 
 

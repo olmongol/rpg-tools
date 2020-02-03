@@ -21,6 +21,7 @@ from gui.window import *
 from rpgtoolbox.treasure import *
 from rpgtoolbox import epcalc, rpgtools as rpg
 from rpgToolDefinitions.epcalcdefs import maneuvers
+import json
 
 
 
@@ -548,7 +549,7 @@ class EPCalcWin(blankWindow):
 
         Button(self.window,
                text = txtbutton["but_fin"][self.lang],
-               command = self.notdoneyet,
+               command = self.__finalize,
                bg = "grey",
                fg = "white"
                ).grid(row = 6, column = 6, sticky = "EW")
@@ -681,8 +682,89 @@ class EPCalcWin(blankWindow):
         self.__updDispay(curPlayer)
 
 
+    def __finalize(self):
+        '''
+        Do all finalizing steps:
+        -# adding new EPs to characters
+        -# open display window for whole group EPs
+        -# store new levels
+         - in character's files
+         - in group file
+        '''
+        self.__grpBonus()
+        for i in range(0, len(self.charlist)):
+            name = self.charlist[i]['player']
+            self.charlist[i]["exp"] = self.group[name].newep
+            self.charlist[i]['old_exp'] = self.group[name].ep
+
+        gw = showGrpEP(self.charlist, self.storepath, self.lang)
+
+
     def __quit(self):
         '''
         This method closes the window
         '''
         self.window.destroy()
+
+
+
+class showGrpEP(object):
+    '''
+    Display and save window for group EPs
+    '''
+
+
+    def __init__(self, charlist = [], storepath = "./data", lang = 'en'):
+        """
+        Constructor
+        \param lang contains the chosen display language.
+        """
+        self.lang = lang
+        self.storepath = storepath
+        self.charlist = charlist
+        self.window = Toplevel()
+        self.title = wintitle["rm_groupEP"][self.lang]
+
+        self.window.title(self.title)
+        for i in range(0, len(self.charlist)):
+            Label(self.window,
+                  text = "{} ({}):".format(self.charlist[i]["player"],
+                                         self.charlist[i]["name"])
+                  ).grid(row = i, column = 0, sticky = "EW")
+            Label(self.window,
+                  text = "+{} -> {}".format(self.charlist[i]["exp"] - self.charlist[i]["old_exp"],
+                                            self.charlist[i]['exp'])
+                  ).grid(row = i, column = 1, sticky = "EW")
+
+        Button(self.window,
+               text = txtbutton["but_save_char"][self.lang],
+               command = self.saveChars,
+               bg = "grey",
+               fg = "white"
+               ).grid(row = i + 1, column = 0, sticky = "NEWS")
+        Button(self.window,
+               text = txtbutton["but_save_grp"][self.lang],
+               command = self.saveGroup
+               ).grid(row = i + 1, column = 1, sticky = "NEWS")
+
+        self.window.mainloop()
+
+
+    def saveChars(self):
+        '''
+        This method saves all data in character files
+        @todo this has to be fully implemented
+        '''
+        print("not done yet")
+        pass
+
+
+    def saveGroup(self):
+        '''
+        Saves all data in a groupfile
+        '''
+        if self.storepath[-1] != "/":
+            self.storepath += "/"
+
+        with open(self.storepath + "EPGroup.json", "w") as fp:
+            json.dump(self.charlist, fp, indent = 4)
