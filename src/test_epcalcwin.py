@@ -450,6 +450,17 @@ class EPCalcWin(blankWindow):
         self.__updDispay(curPlayer)
 
 
+    def __finalize(self):
+        '''
+        Do all finalizing steps:
+        -# adding new EPs to characters
+        -# open display window for whole group EPs
+        -# store new levels
+         - in character's files
+         - in group file
+        '''
+
+
     def __quit(self):
         '''
         This method closes the window
