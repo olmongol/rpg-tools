@@ -12,7 +12,7 @@
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "22.07.2019"
+__updated__ = "11.02.2020"
 
 import os
 from . import logbox as log
@@ -100,7 +100,7 @@ class getSpells(object):
         purespellusers = {"Animist": ["Channeling"],
                         "Cleric" : ["Channeling"],
                         "Illusionist" : ["Essence"],
-                        "Magican" : ["Essence"],
+                        "Magician" : ["Essence"],
                         "Lay Healer" : ["Mentalism"],
                         "Mentalist" : ["Mentalism"],
                         }
