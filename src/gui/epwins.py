@@ -3111,8 +3111,6 @@ class skillcatWin(blankWindow):
 
             self.__changed['cat'][currcat]['lvlups'] = diff
             lowval = 0
-            #DEBUG
-#            print("1. lowval: {}\n   diff: {}\n   newval: {}".format(lowval, diff, newval))
 
         else:
             self.__changed['cat'][currcat]['rank'] = newval
@@ -3126,15 +3124,11 @@ class skillcatWin(blankWindow):
                     diff = 0
                     newval = oldval
                     newtotal = self.__calcRanks(currdev, int(newval)) - self.__calcRanks(currdev, int(oldval)) + int(oldtotal)
-                #DEBUG
-#                print("2. lowval: {}\n   diff: {}\n   newval: {}".format(lowval, diff, newval))
 
             else:
                 lowval = 0
                 diff = newval - self.__changed['cat'][currcat]['rank']
                 self.__changed['cat'][currcat]['lvlups'] = diff
-                #DEBUG
-#                print("3. lowval: {}\n   diff: {}\n   newval: {}".format(lowval, diff, newval))
 
         bkpusedDP = int(self.__usedDP)
 
@@ -3159,12 +3153,8 @@ class skillcatWin(blankWindow):
                 else:
                     self.__changed['cat'][currcat]['Skill'] = {}
 
-########## hier ist im folgenden noch ein Knackpunkt mit newval -- ist wahrscheinlich gefixt
-
             if "lvlups" in list(self.__changed['cat'][currcat].keys()):
-                #DEBUG
-#                print("1. oldval {} --> {}".format(oldval, newval))
-                self.__changed['cat'][currcat]['rank'] = newval  # - self.__changed['cat'][currcat]['lvlups']
+                self.__changed['cat'][currcat]['rank'] = newval
 
                 if self.__changed['cat'][currcat]['lvlups'] < newval:
                     self.__changed['cat'][currcat]['lvlups'] += 1
@@ -3188,9 +3178,6 @@ class skillcatWin(blankWindow):
         This method finalizes and saves all changes into character data
 
         The changes done before are saved in the file <charname>_changes.json
-        ----
-        @bug - multiple calls will cause raise of DP out of nothing...
-
         '''
         from rpgtoolbox import rolemaster as rm
         self.profs = rm.choseProfession(self.lang)
@@ -3198,8 +3185,6 @@ class skillcatWin(blankWindow):
         self._character = rm.refreshStatBonus(self._character)
         # remove usedDP from character's available DP
         self._character['DP'] -= self.__usedDP
-        #DEBUG
-        print("finalize: \n\tchar DP: {}\n\tused DP: {}".format(self._character["DP"], self.__usedDP))
 
         self._character["soul dep"] = rm.raceHealingFactors[self._character["race"]]["soul dep"]
         self._character["Stat Loss"] = rm.raceHealingFactors[self._character["race"]]["Stat Loss"]
@@ -3212,8 +3197,7 @@ class skillcatWin(blankWindow):
                 self._character['cat'][c]['lvlups'] = 0
 
                 for sk in self._character["cat"][c]['Skill'].keys():
-                    #DEBUG
-                    print("finalize: {} {}".format(c, sk))
+
                     if type(self._character["cat"][c]['Skill'][sk]) == type({}):
                         self._character["cat"][c]['Skill'][sk]['lvlups'] = 0
 
@@ -3251,7 +3235,9 @@ class skillcatWin(blankWindow):
         if  self._character['DP'] > 0:
             # save changes
             writeJSON("{}/{}/{}_changes.json".format(self.spath, self._character['player'], self._character['name']), self.__changed)
+
         else:
+
             if os.path.isfile("{}/{}/{}_changes.json".format(self.spath, self._character['player'], self._character['name'])):
                 os.remove("{}/{}/{}_changes.json".format(self.spath, self._character['player'], self._character['name']))
         self.window.destroy()
