@@ -45,7 +45,7 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "31.01.2020"
+__updated__ = "12.02.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -137,6 +137,8 @@ class MainWindow(blankWindow):
                                   command = self.__saveFile)
         self.filemenu.add_command(label = submenu['file'][self.lang]['export'] + "(LaTeX/PDF)",
                                   command = self.__exportLaTeX)
+        self.filemenu.add_command(label = "{} {} {}".format("short format", submenu['file'][self.lang]['export'], "(LaTeX/PDF)"),
+                                  command = self.__exportShortLaTeX)
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['quit'],
                                   command = self.window.destroy)
@@ -199,9 +201,26 @@ class MainWindow(blankWindow):
             msg.showinfo(errmsg['no_data'][self.lang])
 
         else:
-            export = latexexport.charsheet(self.char, "./data/")
+            export = latexexport.charsheet(self.char, "./data/", short = False)
             msg = messageWindow()
             msg.showinfo("LaTeX generated")
+
+
+    def __exportShortLaTeX(self):
+        '''
+        This method exports character data into a LaTeX file from which a PDF
+        will be generated
+        '''
+        from rpgtoolbox import latexexport
+
+        if self.char == None:
+            msg = messageWindow()
+            msg.showinfo(errmsg['no_data'][self.lang])
+
+        else:
+            export = latexexport.charsheet(self.char, "./data/", short = True)
+            msg = messageWindow()
+            msg.showinfo("short LaTeX generated")  #
 
 
     def __addEditMenu(self):
@@ -2035,13 +2054,14 @@ class priorizeWeaponsWin(blankWindow):
             if self.character['race'] in races[l]:
                 param['lang'] = l
                 param['race'] = races['en'][races[l].index(self.character['race'])]
-
+            print("debug realm {}".format(self.character['realm']))
             if self.character['realm'] in realms[l]:
                 param['ppd'] = ppds[realms[l].index(self.character['realm'])]
                 param['Stats'] = magicstats[realms[l].index(self.character['realm'])]
 
 ############ das könnte noch ein Bug sein: keine Progression....
         if type(param['ppd']) == type(''):
+            print("debug: race {} ppd {}".format(param['ppd'], param['race']))
             param['ppd'] = progressionType[param['ppd'] + param['race']]
 #            param['ppd'] = progressionType['null']
 
