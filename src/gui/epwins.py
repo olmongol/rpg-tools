@@ -1606,6 +1606,9 @@ class genAttrWin(blankWindow):
         self.character['old_exp'] = 0
         self.character['exp'] = 10000
         self.character['lvl'] = 1
+        self.character["soul dep"] = rm.raceHealingFactors[self.character["race"]]["soul dep"]
+        self.character["Stat Loss"] = rm.raceHealingFactors[self.character["race"]]["Stat Loss"]
+        self.character["Recovery"] = rm.raceHealingFactors[self.character["race"]]["Recovery"]
 
         self.__addCatnSkills()
 
@@ -3197,6 +3200,10 @@ class skillcatWin(blankWindow):
         self._character['DP'] -= self.__usedDP
         #DEBUG
         print("finalize: \n\tchar DP: {}\n\tused DP: {}".format(self._character["DP"], self.__usedDP))
+
+        self._character["soul dep"] = rm.raceHealingFactors[self._character["race"]]["soul dep"]
+        self._character["Stat Loss"] = rm.raceHealingFactors[self._character["race"]]["Stat Loss"]
+        self._character["Recovery"] = rm.raceHealingFactors[self._character["race"]]["Recovery"]
 
         if self._character['DP'] == 0 and self._character['lvlup'] > 0:
             self._character['lvlup'] -= 1

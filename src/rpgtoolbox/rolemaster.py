@@ -14,7 +14,7 @@ This package holds RM specific tools like Character Skill Progression.
 \date 2019
 \copyright 2015-2019 Marcus Schwamberger
 '''
-__updated__ = "02.01.2020"
+__updated__ = "12.02.2020"
 
 catnames = {'de' : {'spells' : "Spells",
                     'weapon' : 'Weapon',
@@ -681,41 +681,41 @@ raceAbilities = {'Common Men': {'Ag' : 0,
 ##\var raceHealingFactors
 # this dictionary holds race based information about Stat Loss Type, Rnds to soul
 # departure and recovery multiplier.
-raceHealingFactors = {"Common Men" : {"Rnds to sould dep.": 12,
-                                      "Stat Loss Type" : 2,
-                                      "Recovery Mult." : 1.0
+raceHealingFactors = {"Common Men" : {"soul dep": 12,
+                                      "Stat Loss" : 2,
+                                      "Recovery" : 1.0
                                       },
-                      "Mixed Men" : {"Rnds to sould dep.": 11,
-                                      "Stat Loss Type" : 2,
-                                      "Recovery Mult." : 0.9
+                      "Mixed Men" : {"soul dep": 11,
+                                      "Stat Loss" : 2,
+                                      "Recovery" : 0.9
                                       },
-                      "High Men" : {"Rnds to sould dep.": 10,
-                                      "Stat Loss Type" : 2,
-                                      "Recovery Mult." : 0.75
+                      "High Men" : {"soul dep": 10,
+                                      "Stat Loss" : 2,
+                                      "Recovery" : 0.75
                                       },
-                      "Wood Elves" : {"Rnds to sould dep.": 3,
-                                      "Stat Loss Type" : 3,
-                                      "Recovery Mult." : 1.5
+                      "Wood Elves" : {"soul dep": 3,
+                                      "Stat Loss" : 3,
+                                      "Recovery" : 1.5
                                       },
-                      "Grey Elves" : {"Rnds to sould dep.": 2,
-                                      "Stat Loss Type" : 4,
-                                      "Recovery Mult." : 2.0
+                      "Grey Elves" : {"soul dep": 2,
+                                      "Stat Loss" : 4,
+                                      "Recovery" : 2.0
                                       },
-                      "High Elves" : {"Rnds to sould dep.": 1,
-                                      "Stat Loss Type" : 5,
-                                      "Recovery Mult." : 3.0
+                      "High Elves" : {"soul dep": 1,
+                                      "Stat Loss" : 5,
+                                      "Recovery" : 3.0
                                       },
-                      "Half Elves" : {"Rnds to sould dep.": 6,
-                                      "Stat Loss Type" : 3,
-                                      "Recovery Mult." : 1.5
+                      "Half Elves" : {"soul dep": 6,
+                                      "Stat Loss" : 3,
+                                      "Recovery" : 1.5
                                       },
-                      "Dwarves" : {"Rnds to sould dep.": 21,
-                                      "Stat Loss Type" : 1,
-                                      "Recovery Mult." : 0.5
+                      "Dwarves" : {"soul dep": 21,
+                                      "Stat Loss" : 1,
+                                      "Recovery" : 0.5
                                       },
-                      "Halflings" : {"Rnds to sould dep.": 18,
-                                      "Stat Loss Type" : 1,
-                                      "Recovery Mult." : 0.5
+                      "Halflings" : {"soul dep": 18,
+                                      "Stat Loss" : 1,
+                                      "Recovery" : 0.5
                                       }
                       }
 
