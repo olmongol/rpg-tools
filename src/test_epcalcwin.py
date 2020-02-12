@@ -4,6 +4,7 @@ from gui.window import *
 from rpgtoolbox import epcalc, rpgtools as rpg
 from rpgToolDefinitions.epcalcdefs import maneuvers
 from pprint import pprint
+from rpgToolDefinitions.helptools import RMDice as dice
 
 
 
@@ -535,7 +536,23 @@ class showGrpEP(object):
 
 
 
+class manWin(object):
+    '''
+    Maneuver Window
+    '''
+
+
+    def update(self, character = {}, lang = "en"):
+        '''
+        Update character data if chosen a
+        '''
+        pass
+
+
+
 with open("epdata.json", "r") as fp:
     cl = json.load(fp)
 
+mantan = rpg.statManeuver
+rrtab = rpg.RRroll
 win = EPCalcWin(charlist = cl)

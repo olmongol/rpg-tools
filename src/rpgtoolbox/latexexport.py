@@ -12,7 +12,7 @@ will be generated for printouts
 \version 1.1
 '''
 
-__updated__ = "06.01.2020"
+__updated__ = "12.02.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -209,10 +209,22 @@ class charsheet(object):
 
                 for skill in skilllist:
                     if skill not in ['Progression', 'Costs'] and "+" not in skill:
-                        if self.short and self.char['cat'][cat]["Skill"][skill]["rank"] > 0:
-                            #DEBUG
-#                            print("latex: {}: {}".format(skill, self.char['cat'][cat]["Skill"][skill]["rank"]))
-#                           print("latex: {} -- {} {}".format(cat, skill, str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/")))
+
+                        if self.short:
+
+                            if self.char['cat'][cat]["Skill"][skill]["rank"] > 0:
+                                datatable += weapon + skillpre + skillval.format(skill,
+                                                                             str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/"),
+                                                                             str(self.char['cat'][cat]["Skill"][skill]['Costs']).replace(", ", "/"),
+                                                                             str(self.char['cat'][cat]["Skill"][skill]['rank']),
+                                                                             str(self.char['cat'][cat]["Skill"][skill]['rank bonus']),
+                                                                             "--",
+                                                                             str(self.char['cat'][cat]["Skill"][skill]['spec bonus']),
+                                                                             str(self.char['cat'][cat]["Skill"][skill]['item bonus']),
+                                                                             str(self.char['cat'][cat]["Skill"][skill]['total bonus'])
+                                                                             )
+
+                        else:
                             datatable += weapon + skillpre + skillval.format(skill,
                                                                          str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/"),
                                                                          str(self.char['cat'][cat]["Skill"][skill]['Costs']).replace(", ", "/"),
@@ -223,6 +235,7 @@ class charsheet(object):
                                                                          str(self.char['cat'][cat]["Skill"][skill]['item bonus']),
                                                                          str(self.char['cat'][cat]["Skill"][skill]['total bonus'])
                                                                          )
+
             elif "Development" in cat:
                 datatable += devel + catstd.format(cat,
                                                   str(self.char['cat'][cat]['Progression']).replace(", ", "/"),
@@ -241,7 +254,21 @@ class charsheet(object):
                 for skill in skilllist:
 
                     if skill not in ['Progression', ['Costs']] and "+" not in skill:
-                        if self.short and self.char['cat'][cat]["Skill"][skill]["rank"] > 0:
+
+                        if self.short:
+
+                            if self.char['cat'][cat]["Skill"][skill]["rank"] > 0:
+                                datatable += devel + skillpre + skillval.format(skill,
+                                                                             str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/"),
+                                                                             str(self.char['cat'][cat]["Skill"][skill]['Costs']).replace(", ", "/"),
+                                                                             str(self.char['cat'][cat]["Skill"][skill]['rank']),
+                                                                             str(self.char['cat'][cat]["Skill"][skill]['rank bonus']),
+                                                                             "--",
+                                                                             str(self.char['cat'][cat]["Skill"][skill]['spec bonus']),
+                                                                             str(self.char['cat'][cat]["Skill"][skill]['item bonus']),
+                                                                             str(self.char['cat'][cat]["Skill"][skill]['total bonus'])
+                                                                             )
+                        else:
                             datatable += devel + skillpre + skillval.format(skill,
                                                                          str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/"),
                                                                          str(self.char['cat'][cat]["Skill"][skill]['Costs']).replace(", ", "/"),
@@ -252,6 +279,7 @@ class charsheet(object):
                                                                          str(self.char['cat'][cat]["Skill"][skill]['item bonus']),
                                                                          str(self.char['cat'][cat]["Skill"][skill]['total bonus'])
                                                                          )
+
             elif "Spells" in cat:
                 datatable += spell + catstd.format(cat,
                                                   str(self.char['cat'][cat]['Progression']).replace(", ", "/"),
@@ -269,17 +297,32 @@ class charsheet(object):
 
                 for skill in skilllist:
 
-                    if skill not in ['Progression', 'Costs', 'Stats'] and "+" not in skill and self.char['cat'][cat]['Skill'][skill]["rank"] > 0:
-                        datatable += spell + skillpre + skillval.format(skill,
-                                                                     str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/"),
-                                                                     str(self.char['cat'][cat]["Skill"][skill]['Costs']).replace(", ", "/"),
-                                                                     str(self.char['cat'][cat]["Skill"][skill]['rank']),
-                                                                     str(self.char['cat'][cat]["Skill"][skill]['rank bonus']),
-                                                                     str("--"),
-                                                                     str(self.char['cat'][cat]["Skill"][skill]['spec bonus']),
-                                                                     str(self.char['cat'][cat]["Skill"][skill]['item bonus']),
-                                                                     str(self.char['cat'][cat]["Skill"][skill]['total bonus'])
-                                                                     )
+                    if skill not in ['Progression', 'Costs', 'Stats'] and "+" not in skill:
+
+                        if self.short:
+
+                            if self.char['cat'][cat]['Skill'][skill]["rank"] > 0:
+                                datatable += spell + skillpre + skillval.format(skill,
+                                                                             str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/"),
+                                                                             str(self.char['cat'][cat]["Skill"][skill]['Costs']).replace(", ", "/"),
+                                                                             str(self.char['cat'][cat]["Skill"][skill]['rank']),
+                                                                             str(self.char['cat'][cat]["Skill"][skill]['rank bonus']),
+                                                                             str("--"),
+                                                                             str(self.char['cat'][cat]["Skill"][skill]['spec bonus']),
+                                                                             str(self.char['cat'][cat]["Skill"][skill]['item bonus']),
+                                                                             str(self.char['cat'][cat]["Skill"][skill]['total bonus'])
+                                                                             )
+                        else:
+                            datatable += spell + skillpre + skillval.format(skill,
+                                                                         str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/"),
+                                                                         str(self.char['cat'][cat]["Skill"][skill]['Costs']).replace(", ", "/"),
+                                                                         str(self.char['cat'][cat]["Skill"][skill]['rank']),
+                                                                         str(self.char['cat'][cat]["Skill"][skill]['rank bonus']),
+                                                                         str("--"),
+                                                                         str(self.char['cat'][cat]["Skill"][skill]['spec bonus']),
+                                                                         str(self.char['cat'][cat]["Skill"][skill]['item bonus']),
+                                                                         str(self.char['cat'][cat]["Skill"][skill]['total bonus'])
+                                                                         )
 
             else:
                 datatable += catstd.format(cat,
@@ -297,17 +340,33 @@ class charsheet(object):
                 skilllist.sort()
 
                 for skill in skilllist:
-                    if skill not in ['Progression', ['Costs']] and "+" not in skill :
-                        datatable += skillpre + skillval.format(skill,
-                                                                str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/"),
-                                                                str(self.char['cat'][cat]["Skill"][skill]['Costs']).replace(", ", "/"),
-                                                                str(self.char['cat'][cat]["Skill"][skill]['rank']),
-                                                                str(self.char['cat'][cat]["Skill"][skill]['rank bonus']),
-                                                                "--",
-                                                                str(self.char['cat'][cat]["Skill"][skill]['spec bonus']),
-                                                                str(self.char['cat'][cat]["Skill"][skill]['item bonus']),
-                                                                str(self.char['cat'][cat]["Skill"][skill]['total bonus'])
-                                                                )
+                    if skill not in ['Progression', ['Costs']] and "+" not in skill:
+
+                        if self.short:
+
+                            if self.char['cat'][cat]['Skill'][skill]["rank"] > 0:
+                                datatable += skillpre + skillval.format(skill,
+                                                                        str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/"),
+                                                                        str(self.char['cat'][cat]["Skill"][skill]['Costs']).replace(", ", "/"),
+                                                                        str(self.char['cat'][cat]["Skill"][skill]['rank']),
+                                                                        str(self.char['cat'][cat]["Skill"][skill]['rank bonus']),
+                                                                        "--",
+                                                                        str(self.char['cat'][cat]["Skill"][skill]['spec bonus']),
+                                                                        str(self.char['cat'][cat]["Skill"][skill]['item bonus']),
+                                                                        str(self.char['cat'][cat]["Skill"][skill]['total bonus'])
+                                                                        )
+
+                        else:
+                            datatable += skillpre + skillval.format(skill,
+                                                                    str(self.char['cat'][cat]["Skill"][skill]['Progression']).replace(", ", "/"),
+                                                                    str(self.char['cat'][cat]["Skill"][skill]['Costs']).replace(", ", "/"),
+                                                                    str(self.char['cat'][cat]["Skill"][skill]['rank']),
+                                                                    str(self.char['cat'][cat]["Skill"][skill]['rank bonus']),
+                                                                    "--",
+                                                                    str(self.char['cat'][cat]["Skill"][skill]['spec bonus']),
+                                                                    str(self.char['cat'][cat]["Skill"][skill]['item bonus']),
+                                                                    str(self.char['cat'][cat]["Skill"][skill]['total bonus'])
+                                                                    )
 
         template = readFile(self.storepath + "/default/latex/template_catskill.tex")
         template = template.replace("==>fulltable", datatable)
