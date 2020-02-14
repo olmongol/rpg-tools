@@ -12,7 +12,7 @@ will be generated for printouts
 \version 1.1
 '''
 
-__updated__ = "12.02.2020"
+__updated__ = "14.02.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -125,7 +125,7 @@ class charsheet(object):
         '''
         data = ["name", "prof", "race", "culture", "lord", "parents", "siblings", "partner",
                 "children", "deity", "sex", "skin", "eyes", "hair", "height", "weight", "app_age",
-                "act_age", "looking", "souldeparture", "recovery", "pprecovery", "lvl", "piclink",
+                "act_age", "looking", "soul dep", "recovery", "pprecovery", "lvl", "piclink",
                 "pers", "motiv", "exp", "home"]
         self.chardir += "/latex/"
 
@@ -135,11 +135,54 @@ class charsheet(object):
         for index in data:
 
             if index in self.char.keys():
-                template = template.replace("==>" + index, str(self.char[index]).strip("[]"))
+                print(index)
+                if index == "soul dep":
+                    template = template.replace("==>souldeparture", str(self.char[index]).strip("[]") + "rd")
+                else:
+                    template = template.replace("==>" + index, str(self.char[index]).strip("[]"))
 
             elif index in self.char["background"].keys():
                 template = template.replace("==>" + index, str(self.char['background'][index]))
 
+            elif index == "recovery":
+                template = template.replace("==>recovery", "1 p.3h/{} p.1h pause/{} p.3h zzZZZ".format(round(self.char["Co"]["total"] / 2),
+                                                                                                    self.char["Co"]["total"] * 2))
+            elif index == "pprecovery":
+                sleepcycle = 1
+
+                if round(self.char["cat"]["Power Point Development"]["Skill"]["Power Point Development"]["total bonus"] / 2) >= 1:
+                    sleepcycle = round(self.char["cat"]["Power Point Development"]["Skill"]["Power Point Development"]["total bonus"] / 2)
+                rest = 1
+
+                if self.char["realm"] == "Essence" and round(self.char["Em"]["total"] / 2) > 1:
+                    rest = round(self.char["Em"]["total"] / 2)
+
+                elif self.char['realm'] == "Channeling" and round(self.char["In"]["total"] / 2) > 1:
+                    rest = round(self.char["Em"]["total"] / 2)
+
+                elif self.char['realm'] == "Mentalism" and round(self.char["Pr"]["total"] / 2) > 1:
+                    rest = round(self.char["Pr"]["total"] / 2)
+
+                elif type(self.char["realm"]) == type([]):
+
+                    for realm in self.char["realm"]:
+                        calc = 0
+
+                        if realm == "Essence":
+                            calc += self.char["Em"]["total"]
+
+                        elif realm == "Channeling":
+                            calc += self.char["In"]["total"]
+
+                        elif realm == "Mentalism":
+                            calc += self.char["Pr"]["total"]
+
+                    calc = round(calc / 4)
+
+                    if calc > rest:
+                        rest = calc
+
+                template = template.replace("==>pprecovery", "1 p.3h/{} p.1h pause/{} p.3h zzZZZ".format(rest, sleepcycle))
             else:
                 template = template.replace("==>" + index, u"\_\_\_\_\_")
 
