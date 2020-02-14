@@ -145,8 +145,15 @@ class charsheet(object):
                 template = template.replace("==>" + index, str(self.char['background'][index]))
 
             elif index == "recovery":
-                template = template.replace("==>recovery", "1 p. 3h/{} p. 1h pause/{} p. 3h zzZZZ".format(round(self.char["Co"]["total"] / 2),
-                                                                                                    self.char["Co"]["total"] * 2))
+                rest = 1
+                if round(self.char["Co"]["total"] / 2) > rest:
+                    rest = round(self.char["Co"]["total"] / 2)
+
+                sleepcycle = 1
+                if self.char["Co"]["total"] * 2 > sleepcycle:
+                    sleepcycle = self.char["Co"]["total"] * 2
+                template = template.replace("==>recovery", "1 p. 3h/{} p. 1h pause/{} p. 3h zzZZZ".format(rest, sleepcycle))
+
             elif index == "pprecovery":
                 sleepcycle = 1
 
