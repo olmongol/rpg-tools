@@ -137,7 +137,7 @@ class charsheet(object):
             if index in self.char.keys():
                 print(index)
                 if index == "soul dep":
-                    template = template.replace("==>souldeparture", str(self.char[index]).strip("[]") + "rd")
+                    template = template.replace("==>souldeparture", str(self.char[index]).strip("[]") + " rd")
                 else:
                     template = template.replace("==>" + index, str(self.char[index]).strip("[]"))
 
@@ -145,7 +145,7 @@ class charsheet(object):
                 template = template.replace("==>" + index, str(self.char['background'][index]))
 
             elif index == "recovery":
-                template = template.replace("==>recovery", "1 p.3h/{} p.1h pause/{} p.3h zzZZZ".format(round(self.char["Co"]["total"] / 2),
+                template = template.replace("==>recovery", "1 p. 3h/{} p. 1h pause/{} p. 3h zzZZZ".format(round(self.char["Co"]["total"] / 2),
                                                                                                     self.char["Co"]["total"] * 2))
             elif index == "pprecovery":
                 sleepcycle = 1
@@ -182,7 +182,7 @@ class charsheet(object):
                     if calc > rest:
                         rest = calc
 
-                template = template.replace("==>pprecovery", "1 p.3h/{} p.1h pause/{} p.3h zzZZZ".format(rest, sleepcycle))
+                template = template.replace("==>pprecovery", "1 p. 3h/{} p. 1h pause/{} p. 3h zzZZZ".format(rest, sleepcycle))
             else:
                 template = template.replace("==>" + index, u"\_\_\_\_\_")
 
