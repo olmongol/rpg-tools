@@ -5,6 +5,7 @@ from rpgtoolbox import epcalc, rpgtools as rpg
 from rpgToolDefinitions.epcalcdefs import maneuvers
 from pprint import pprint
 from rpgToolDefinitions.helptools import RMDice as dice
+from tkinter import filedialog
 
 
 
@@ -43,9 +44,9 @@ class EPCalcWin(blankWindow):
         self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
                               menu = self.filemenu)
         self.filemenu.add_command(label = submenu['file'][self.lang]['open'],
-                                  command = self.notdoneyet)
+                                  command = self.__open)
         self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
-                                  command = self.notdoneyet)
+                                  command = self.__save)
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
                                   command = self.__quit)
@@ -164,7 +165,7 @@ class EPCalcWin(blankWindow):
 
         Button(self.window,
                text = labels["win_man"][self.lang],
-               command = self.notdoneyet
+               command = self.__callManWin
                ).grid(row = 1, column = 6, sticky = "EW")
 
         #row 2
@@ -469,6 +470,34 @@ class EPCalcWin(blankWindow):
         gw = showGrpEP(self.charlist, self.storepath, self.lang)
 
 
+    def __callManWin(self):
+        '''
+        Opens Maneuver Window for maneuver rolls
+        '''
+        who = self.__selecPlayer.get()
+        for elem in self.charlist:
+            if elem['player'] == who:
+                manWin(elem, self.lang)
+
+
+    def __save(self):
+        '''
+        This opens a file dialog window for saving
+        '''
+        savedir = filedialog.asksaveasfilename(defaultextension = ".json", filetypes = [("Char Group Files", ".json")])
+        with open(savedir, "w") as fp:
+            json.dump(self.charlist, fp, indent = 4)
+
+
+    def __open(self):
+        '''
+        This opens a file dialog window for opening a group file.
+        '''
+        opendir = filedialog.askopenfilename(defaultextension = ".json", filetypes = [("Char Group Files", ".json")])
+        with open(opendir, "r") as fp:
+            self.charlist = json.load(fp)
+
+
     def __quit(self):
         '''
         This method closes the window
@@ -542,11 +571,79 @@ class manWin(object):
     '''
 
 
-    def update(self, character = {}, lang = "en"):
+    def __init__(self, character = {}, lang = "en"):
         '''
-        Update character data if chosen a
+        Constructor
+        @param character whole character daa
+        @param lang interface language; default: English
         '''
-        pass
+        self.character = character
+        self.lang = lang
+        self.man_ep = 0
+        self.mantab = rpg.statManeuver
+        self.window = Toplevel()
+        self.title = wintitle['rm_maneuver'][self.lang]
+        self.window.title(self.title)
+        self._buildwin()
+        self.window.mainloop()
+
+
+    def _buildwin(self):
+        '''
+        This defines the different element in the window layout
+        '''
+        # row 0
+        Label(self.window,
+              text = self.character["player"]
+              ).grid(row = 0, column = 0, sticky = "NEWS")
+        Label(self.window,
+              text = self.character["name"]
+              ).grid(row = 0, column = 2, sticky = "NEWS")
+        Label(self.window,
+              text = self.character["race"]
+              ).grid(row = 0, column = 4, sticky = "NEWS")
+        Label(self.window,
+              text = "{} ({})".format(self.character["prof"], self.character["lvl"])
+              ).grid(row = 0, column = 5, sticky = "NEWS")
+
+        vcscroll = Scrollbar(self.window, orient = VERTICAL)
+        self.catlb = Listbox(self.window, yscrollcommand = vcscroll.set)
+        vcscroll.config(command = self.catlb.yview)
+        vcscroll.grid(row = 1, column = 1, sticky = "WNS")
+        self.catlb.grid(row = 1, column = 0, sticky = "NEWS")
+        for cat in  self.character["cat"].keys():
+            self.catlb.insert(END, cat)
+        self.catlb.bind("<Button-1>", self._fillSkill)
+
+        vsscroll = Scrollbar(self.window, orient = VERTICAL)
+        self.skilllb = Listbox(self.window, yscrollcommand = vsscroll.set)
+        vsscroll.config(command = self.skilllb.yview)
+        vsscroll.grid(row = 1, column = 3, sticky = "WNS")
+        self.skilllb.grid(row = 1, column = 2, sticky = "NEWS")
+        for skill in self.character["cat"]["Armor - Heavy"]["Skill"].keys():
+            self.skilllb.insert(END, skill)
+
+
+    def _fillSkill(self, event):
+        '''
+        Depending on the selected category fill the skill listbox
+        '''
+        self.skilllb.delete(0, END)
+        selcat = self.catlb.curselection()
+        if selcat != ():
+            selcatval = self.catlb.get(selcat[0])
+            for skill in self.character["cat"][selcatval]["Skill"].keys():
+                self.skilllb.insert(END, skill)
+
+#    def maneuver_ep(self, manlvl = "routine", number = 0):
+#        '''
+#        Adds EPs by maneuvers.
+#        \param manlvl difficulty of maneuver
+#        \param number number of maneuvers of this level
+#        '''
+#        from rpgToolDefinitions.epcalcdefs import maneuvers
+#
+#        self.man_ep += maneuvers[manlvl]['ep'] * number
 
 
 

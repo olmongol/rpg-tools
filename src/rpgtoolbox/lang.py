@@ -25,7 +25,7 @@ Currently supported languages are:
 \todo clean up the code!!!
 '''
 __version__ = "1.1"
-__updated__ = "03.02.2020"
+__updated__ = "15.02.2020"
 ## \var supportedrpg
 # Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
@@ -460,6 +460,9 @@ wintitle = {'opt_lang' : {'de' : 'Spracheinstellungen',
                             },
             'rm_groupEP' : {'de' : u"Gruppen EP Übersicht",
                             'en' : 'Group EP Overview'
+                            },
+            'rm_maneuver': {"de" : "Manöverproben",
+                            'en' : 'Maneuver Window'
                             },
             }
 
