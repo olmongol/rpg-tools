@@ -6,6 +6,7 @@ from rpgToolDefinitions.epcalcdefs import maneuvers
 from pprint import pprint
 from rpgToolDefinitions.helptools import RMDice as dice
 from tkinter import filedialog
+import re
 
 
 
@@ -496,6 +497,12 @@ class EPCalcWin(blankWindow):
         opendir = filedialog.askopenfilename(defaultextension = ".json", filetypes = [("Char Group Files", ".json")])
         with open(opendir, "r") as fp:
             self.charlist = json.load(fp)
+        #set up new player group list
+        self.players = []
+        for elem in self.charlist:
+            self.players.append(elem["player"])
+            self.group[elem["player"]] = epcalc.experience(elem["player"], elem["exp"])
+            self.group[elem["player"]].updateInfo()
 
 
     def __quit(self):
@@ -580,7 +587,15 @@ class manWin(object):
         self.character = character
         self.lang = lang
         self.man_ep = 0
-        self.mantab = rpg.statManeuver
+        ## @var self.total
+        # total result of skill check
+        self.total = 0
+        self.category = "Armor - Heavy"
+        self.skill = ""
+        self.man = "routine"
+        self.maneuver = maneuvers
+        self.mantab = rpg.statManeuver()
+        self.dice = dice
         self.window = Toplevel()
         self.title = wintitle['rm_maneuver'][self.lang]
         self.window.title(self.title)
@@ -600,41 +615,246 @@ class manWin(object):
               text = self.character["name"]
               ).grid(row = 0, column = 2, sticky = "NEWS")
         Label(self.window,
-              text = self.character["race"]
+              text = "{}/{} ({})".format(self.character["race"],
+                                         self.character["prof"],
+                                         self.character["lvl"])
               ).grid(row = 0, column = 4, sticky = "NEWS")
-        Label(self.window,
-              text = "{} ({})".format(self.character["prof"], self.character["lvl"])
-              ).grid(row = 0, column = 5, sticky = "NEWS")
-
+        # row 1
         vcscroll = Scrollbar(self.window, orient = VERTICAL)
-        self.catlb = Listbox(self.window, yscrollcommand = vcscroll.set)
+        self.catlb = Listbox(self.window,
+                             yscrollcommand = vcscroll.set,
+                              width = 30,
+                              height = 5)
         vcscroll.config(command = self.catlb.yview)
         vcscroll.grid(row = 1, column = 1, sticky = "WNS")
-        self.catlb.grid(row = 1, column = 0, sticky = "NEWS")
+        self.catlb.grid(row = 1, column = 0, sticky = "NEW")
         for cat in  self.character["cat"].keys():
             self.catlb.insert(END, cat)
         self.catlb.bind("<Button-1>", self._fillSkill)
 
         vsscroll = Scrollbar(self.window, orient = VERTICAL)
-        self.skilllb = Listbox(self.window, yscrollcommand = vsscroll.set)
+        self.skilllb = Listbox(self.window,
+                               yscrollcommand = vsscroll.set,
+                              width = 30,
+                              height = 5)
         vsscroll.config(command = self.skilllb.yview)
         vsscroll.grid(row = 1, column = 3, sticky = "WNS")
-        self.skilllb.grid(row = 1, column = 2, sticky = "NEWS")
+        self.skilllb.grid(row = 1, column = 2, sticky = "NEW")
         for skill in self.character["cat"]["Armor - Heavy"]["Skill"].keys():
-            self.skilllb.insert(END, skill)
+            if skill not in ["Progression", "Stats"] and skill[-1] != "+":
+                self.skilllb.insert(END, skill)
+        self.skilllb.bind("<Button-1>", self._getSkill)
+
+        vmscroll = Scrollbar(self.window, orient = VERTICAL)
+        self.manlb = Listbox(self.window,
+                             yscrollcommand = vmscroll.set,
+                             height = 5)
+        vmscroll.config(command = self.manlb.yview)
+        vmscroll.grid(row = 1, column = 5, sticky = "WNS")
+        self.manlb.grid(row = 1, column = 4, sticky = "NEW")
+
+        for skill in self.maneuver.keys():
+            self.manlb.insert(END, skill)
+        self.manlb.bind("<Button-1>", self._getMan)
+        # row 2
+        self.catlabel = Label(self.window,
+                              text = self.category)
+        self.catlabel.grid(row = 2, column = 0, sticky = "EWS")
+
+        self.skilllabel = Label(self.window,
+                                text = self.skill)
+        self.skilllabel.grid(row = 2, column = 2, sticky = "EWS")
+
+        self.manlabel = Label(self.window,
+                              text = self.man)
+        self.manlabel.grid(row = 2, column = 4, sticky = "EWS")
+        #row 3
+        Label(self.window,
+              text = "+ {}:".format(labels['modifier'][self.lang])
+              ).grid(row = 3, column = 0, sticky = "NEWS")
+
+        Button(self.window,
+               text = txtbutton["but_roll"][self.lang],
+               command = self._rollDice,
+               bg = "grey",
+               fg = "white",
+#               image = "./data/default/pics/d10.png"
+               ).grid(row = 3, column = 2, sticky = "NEWS")
+
+        Button(self.window,
+               text = txtbutton["but_result"][self.lang],
+               command = self._chkResult
+               ).grid(row = 3, column = 4, sticky = "NEWS")
+        # row 4
+        self.mod = IntVar()
+        self.mod.set(0)
+        Entry(self.window,
+              justify = "center",
+              textvariable = self.mod
+              ).grid(row = 4, column = 0, sticky = "EW")
+        self.diceroll = StringVar()
+        self.diceroll.set("0")
+        Entry(self.window,
+              justify = "center",
+              textvariable = self.diceroll,
+              ).grid(row = 4, column = 2, sticky = "EW")
+
+        self.totallabel = StringVar()
+        self.totallabel.set("--")
+        Label(self.window,
+              textvariable = self.totallabel,
+              justify = "center"
+              ).grid(row = 4, column = 4, sticky = "NEWS")
+        # row 5
+        Label(self.window,
+              text = labels['class'][self.lang] + ":"
+              ).grid(row = 5, column = 0, sticky = "NEWS")
+
+        Label(self.window,
+              text = labels['perc'][self.lang] + ":"
+              ).grid(row = 5, column = 2, sticky = "NEWS")
+
+        Label(self.window,
+              text = labels['time'][self.lang] + ":"
+              ).grid(row = 5, column = 4, sticky = "NEWS")
+        # row 6
+        self.classif = StringVar()
+        self.classif.set("--")
+        Label(self.window,
+              textvariable = self.classif,
+              ).grid(row = 6, column = 0, sticky = "NEWS")
+
+        self.perc = StringVar()
+        self.perc.set("--")
+        Label(self.window,
+              textvariable = self.perc,
+              ).grid(row = 6, column = 2, sticky = "NEWS")
+
+        self.timef = StringVar()
+        self.timef.set("--")
+        Label(self.window,
+              textvariable = self.timef,
+              ).grid(row = 6, column = 4, sticky = "NEWS")
+        #row 7
+        Label(self.window,
+              text = labels['modifier'][self.lang] + ":"
+              ).grid(row = 7, column = 0, sticky = "NEWS")
+
+        self.modif = StringVar()
+        self.modif.set("--")
+        Label(self.window,
+              textvariable = self.modif
+              ).grid(row = 7, column = 2, sticky = "NEWS")
+        #row 8
+        self.desc = StringVar()
+        self.desc.set("")
+        Label(self.window,
+              wraplength = 700,
+              textvariable = self.desc
+              ).grid(row = 8,
+                     rowspan = 2,
+                     column = 0,
+                     columnspan = 5,
+                     sticky = "NEWS")
 
 
     def _fillSkill(self, event):
         '''
         Depending on the selected category fill the skill listbox
         '''
+
         self.skilllb.delete(0, END)
         selcat = self.catlb.curselection()
-        if selcat != ():
-            selcatval = self.catlb.get(selcat[0])
-            for skill in self.character["cat"][selcatval]["Skill"].keys():
-                self.skilllb.insert(END, skill)
+        self.catlabel.config(text = "")
 
+        if selcat != ():
+            self.category = self.catlb.get(selcat[0])
+            self.catlabel.config(text = self.category)
+            self.skilllabel.config(text = "")
+
+            for skill in self.character["cat"][self.category]["Skill"].keys():
+                print(skill)
+                if skill not in ["Progression", "Stats"] and skill[-1] != "+":
+                    self.skilllb.insert(END, skill)
+                else:
+                    print("-->".format(skill))
+
+
+    def _getSkill(self, event):
+        '''
+        Getting selected Skill
+        '''
+        selskill = self.skilllb.curselection()
+        if selskill != ():
+            self.skill = self.skilllb.get(selskill[0])
+            self.skilllabel.config(text = self.skill)
+
+
+    def _getMan(self, event):
+        '''
+        Get maneuver level
+        '''
+
+        selman = self.manlb.curselection()
+        if selman != ():
+            self.man = self.manlb.get(selman[0])
+            self.manlabel.configure(text = self.man)
+        print("{} - {} - {}".format(self.category, self.skill, self.man))
+
+
+    def _rollDice(self):
+        '''
+        This trows a d100. Result ist ([dice result], [unmodified])
+        ----
+        @todo set dice(rules="RM")
+        '''
+        self.result = self.dice()
+
+        if self.result[1] == []:
+            self.diceroll.set(str(self.result[0][0]))
+        else:
+            self.diceroll.set("um {}".format(self.result[1][0]))
+        print(self.result)
+
+
+    def _chkResult(self):
+        '''
+        '''
+        dummy = self.diceroll.get()
+        um = re.compile(r"(um|Um|UM) ([0-9]{1,3})")
+        sr = re.compile(r"[0-9]+")
+
+        if um.match(dummy):
+            self.total = int(um.match(dummy).group(2))
+
+        elif sr.match(dummy):
+            self.total = int(sr.match(dummy).group())
+
+        else:
+            self.total = 0
+
+        if self.category:
+            skilladd = self.character["cat"][self.category]["total bonus"]
+
+            if self.skill:
+                skilladd = self.character["cat"][self.category]["Skill"][self.skill]["total bonus"]
+
+        mod = self.mod.get()
+        man = maneuvers[self.man]["mod"]
+        self.total += skilladd + mod + man
+
+        self.probe = self.mantab.checkRoll(self.total)
+#        print(self.probe)
+        self._updTotal()
+
+
+    def _updTotal(self):
+        self.totallabel.set(str(self.total))
+        self.classif.set(self.probe["classification"])
+        self.perc.set(self.probe['success'])
+        self.timef.set(self.probe['time'])
+        self.modif.set(self.probe['mod'])
+        self.desc.set(self.probe['description'])
 #    def maneuver_ep(self, manlvl = "routine", number = 0):
 #        '''
 #        Adds EPs by maneuvers.

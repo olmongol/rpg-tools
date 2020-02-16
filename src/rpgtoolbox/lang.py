@@ -25,7 +25,7 @@ Currently supported languages are:
 \todo clean up the code!!!
 '''
 __version__ = "1.1"
-__updated__ = "15.02.2020"
+__updated__ = "16.02.2020"
 ## \var supportedrpg
 # Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
@@ -192,7 +192,8 @@ txtbutton = {'but_ok'   : {'de' : 'OK',
                           'en' : 'rename'
                           },
              'but_story': {'de': 'Hintergrundgeschichte',
-                           'en': u'Background\nStory'},
+                           'en': u'Background\nStory'
+                           },
              'but_all': {'de': u'alles auswählen',
                          'en': 'select all'
                          },
@@ -205,6 +206,9 @@ txtbutton = {'but_ok'   : {'de' : 'OK',
              'but_save_grp' : {'de' : "Gruppe speichern",
                                'en' : 'save group'
                                },
+             'but_result': {'de' : "Ergebnis ermitteln",
+                            'en' : 'check result'
+                            },
              }
 
 ## \var txtmenu
@@ -558,6 +562,24 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
           'win_fight' : {'de' : 'Kampf-Fenster',
                          'en' : 'Fighting window'
                          },
+          'modifier' : {'de' : "Modifikator",
+                        "en" : "modifier"
+                        },
+          'roll' :{'de' : u"Würfelwurf",
+                   'en' : "dice roll"
+                   },
+          'class' : {'de' : "Klassifikation",
+                     'en' : "classification"
+                     },
+          'descr' : {'de' : "Beschreibung",
+                     'en' : 'description'
+                     },
+          'perc' : {'de' : 'Prozent',
+                    'en' : 'percentage'
+                    },
+          'time' : {'de': 'Zeit',
+                    'en' : 'time'
+                    },
 
           }
 
