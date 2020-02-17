@@ -556,7 +556,24 @@ class showGrpEP(object):
 
 
     def saveChars(self):
-        print("not done yet")
+        '''
+        This saves all single characters separated from group
+        '''
+        if self.storepath[-1] != "/":
+            self.storepath += "/"
+        if os.path.exists(self.storepath):
+
+            for char in self.charlist:
+                charpath = self.storepath + "/" + char["player"] + "/"
+
+                if os.path.exists(charpath):
+                    with open(charpath + char['name'] + ".json", "w") as fp:
+                        json.dump(char, fp, indent = 4)
+
+                else:
+                    print("{} not found -> {}".format(charpath, os.getcwd()))
+
+        print("{} -> {}".format(os.getcwd(), self.storepath))
         pass
 
 
@@ -773,7 +790,6 @@ class manWin(object):
             self.skilllabel.config(text = "")
 
             for skill in self.character["cat"][self.category]["Skill"].keys():
-                print(skill)
                 if skill not in ["Progression", "Stats"] and skill[-1] != "+":
                     self.skilllb.insert(END, skill)
                 else:
@@ -814,7 +830,6 @@ class manWin(object):
             self.diceroll.set(str(self.result[0][0]))
         else:
             self.diceroll.set("um {}".format(self.result[1][0]))
-        print(self.result)
 
 
     def _chkResult(self):
@@ -844,7 +859,6 @@ class manWin(object):
         self.total += skilladd + mod + man
 
         self.probe = self.mantab.checkRoll(self.total)
-#        print(self.probe)
         self._updTotal()
 
 

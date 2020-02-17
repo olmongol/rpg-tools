@@ -43,9 +43,10 @@ from gui.winhelper import AutoScrollbar
 from gui.winhelper import InfoCanvas
 from gui.window import *
 from gui.gmtools import *
+from gui.mangroup import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "12.02.2020"
+__updated__ = "17.02.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -244,12 +245,12 @@ class MainWindow(blankWindow):
         self.edtmenu.add_separator()
         self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_fight'],
                                  command = self.__edfightWin)
-        self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_other'],
-                                 command = self.__edotherWin)
-        self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_indiv'],
-                                 command = self.__indivWin)
-        self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_calc'],
-                                 command = self.__edcalcWin)
+        self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_grp'],
+                                 command = self.__edtgrpWin)
+#        self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_indiv'],
+#                                 command = self.__indivWin)
+#        self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_calc'],
+#                                 command = self.__edcalcWin)
 
 
     def __edcharWin(self):
@@ -265,12 +266,13 @@ class MainWindow(blankWindow):
             msg.showinfo(errmsg['no_data'][self.lang])
 
 
-    def _edtgrpWin(self):
+    def __edtgrpWin(self):
         """
         Opens a window for editing character parties
         @todo edtgrpWin has to be implemented
         """
-        self.notdoneyet("edtgrpWin")
+        grpwin = groupWin(self.lang)
+#        self.notdoneyet("edtgrpWin")
 
 
     def __BGOWin(self):
@@ -301,21 +303,20 @@ class MainWindow(blankWindow):
         '''
         self.notdoneyet()
 
-
-    def __edotherWin(self):
-        '''
-        Editing all for traveled distance, spells, maneuvers
-        @todo not implemented yet
-        '''
-        self.notdoneyet()
-
-
-    def __indivWin(self):
-        '''
-        Calculating and distributing pool for individual EPs.
-        @todo not implemented yet
-        '''
-        self.notdoneyet()
+#    def __edotherWin(self):
+#        '''
+#        Editing all for traveled distance, spells, maneuvers
+#        @todo not implemented yet
+#        '''
+#        self.notdoneyet()
+#
+#
+#    def __indivWin(self):
+#        '''
+#        Calculating and distributing pool for individual EPs.
+#        @todo not implemented yet
+#        '''
+#        self.notdoneyet()
 #        self.window.destroy()
 #        self.window = inputWin(self.lang)
 
