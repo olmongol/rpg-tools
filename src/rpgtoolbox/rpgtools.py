@@ -8,11 +8,11 @@ This module contains some helpful functions for role-playing games like:
 - getLvl() for calculate actual level of char
 
 
-\date (C) 2015-2016
+\date (C) 2015-2020
 \license GNU V3.0
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
-\version 0.1
+\version 1.0
 '''
 __updated__ = "22.02.2020"
 
