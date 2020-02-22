@@ -636,6 +636,19 @@ class manWin(object):
                                          self.character["prof"],
                                          self.character["lvl"])
               ).grid(row = 0, column = 4, sticky = "NEWS")
+        from PIL import Image, ImageTk
+        self.cpic = ImageTk.PhotoImage(Image.open(self.character["piclink"]).resize((210, 210), Image.ANTIALIAS))
+        self.picLabel = Label(master = self.window,
+                              image = self.cpic
+                              )
+
+        self.picLabel.grid(column = 5,
+                           row = 0,
+                           columnspan = 2,
+                           rowspan = 8,
+                           sticky = "NEWS",
+                           padx = 5,
+                           pady = 5)
         # row 1
         vcscroll = Scrollbar(self.window, orient = VERTICAL)
         self.catlb = Listbox(self.window,
@@ -881,7 +894,7 @@ class manWin(object):
 
 
 
-with open("epdata.json", "r") as fp:
+with open("/home/mongol/git/rpg-tools/src/data/groups/charparty.json", "r") as fp:
     cl = json.load(fp)
 
 mantan = rpg.statManeuver

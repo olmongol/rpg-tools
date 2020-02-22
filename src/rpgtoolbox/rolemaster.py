@@ -14,7 +14,7 @@ This package holds RM specific tools like Character Skill Progression.
 \date 2019
 \copyright 2015-2019 Marcus Schwamberger
 '''
-__updated__ = "12.02.2020"
+__updated__ = "21.02.2020"
 
 catnames = {'de' : {'spells' : "Spells",
                     'weapon' : 'Weapon',
@@ -37,7 +37,7 @@ spellisttypes = {'de': ['Offene Leitmagie', 'Geschlossene Leitmagie',
                         ],
                  'en': ['Open Channeling', 'Closed Channeling',
                         'Animist Base', 'Cleric Base', 'Paladin Base',
-                        'Ranger Basis', 'Healer Basis', 'Evil Channeling',
+                        'Ranger Base', 'Healer Base', 'Evil Channeling',
                         'Open Essence', 'Closed Essence',
                         'Illusionist Base', 'Magican Base', 'Dabbler Base',
                         'Monk Base', 'Sorcerer Base', 'Evil Essence',
@@ -46,6 +46,15 @@ spellisttypes = {'de': ['Offene Leitmagie', 'Geschlossene Leitmagie',
                         'Magent Base', 'Mystic Base', 'Evil Mentalism'
                         ],
                  }
+## @var sldirs
+# name of the subdirs of specific spell list types
+sldirs = ["Channeling_Open", "Channeling_Closed", "Base_List_Animist", "Base_List_Cleric",
+          'Base_List_Paladin', 'Base_List_Ranger', 'Base_List_Healer', 'Channeling_Evil',
+          'Essence_Open', 'Essence_Closed', 'Base_List_Illusionist', 'Base_List_Magician',
+          'Base_List_Dabbler', 'Base_List_Monk', 'Base_list_Sorcerer', 'Essence_Evil',
+          'Mentalism_Open', 'Mentalism_Closed', 'Base_List_Lay-Healer', 'Base_List_Bard',
+          'Base_List_Bard', 'Base_List_Mentalist', 'Base_List_Magent', 'Base_List_Mystic',
+          'Mentalism_Evil']
 ##\var races
 # just a dictionary for translation of the races' names
 races = {'de' : ['normale Menschen', 'vermischte Menschen', 'Hochmenschen',
