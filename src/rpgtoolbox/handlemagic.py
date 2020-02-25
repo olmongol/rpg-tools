@@ -5,14 +5,14 @@
 
 \brief This  module holds helpers handling all spell list/magical issues.
 
-\date (C) 2015-2018
+\date (C) 2015-2020
 \license GNU V3.0
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
-\version 0.1
+\version 0.8
 '''
-__version__ = "0.1"
-__updated__ = "11.02.2020"
+__version__ = "0.8"
+__updated__ = "24.02.2020"
 
 import os
 from . import logbox as log
@@ -26,8 +26,10 @@ logger = log.createLogger('magic', 'debug', '1 MB', 1, './' , 'handlemagic.log')
 
 class getSpells(object):
     '''
+    \class getSpells
     This class generates an object to get all spell lists into the right context
     for a single character.
+
     '''
 
 
@@ -39,7 +41,7 @@ class getSpells(object):
         \param charprof profession of the character
         \param charrealm realm(s) of magic
         \param charlvl character's lvl to calculate costs
-
+        \callgraph
 
         '''
         self.prof = charprof
@@ -88,13 +90,14 @@ class getSpells(object):
                     self.spelllists[slcat][slist]['Spells'] = readCSV(datadir + spellcat[i] + "/" + splst[j])
 
         logger.debug("getAllLists: self.spelllists:\n{}".format(self.spelllists))
-        print("getAllLists: self.spelllists:\n{}".format(self.spelllists))
+#        print("getAllLists: self.spelllists:\n{}".format(self.spelllists))
 
 
     def __categorizeSLs(self):
         '''
         This private method categorizes spell lists for identifying the developing
         costs for a player character
+        \callgraph
         @todo categorize Bae lists for non-spell users
         '''
         purespellusers = {"Animist": ["Channeling"],
@@ -196,3 +199,36 @@ class getSpells(object):
                     self.spelllists[listcat]["Category"] = "Other Realm Closed Lists"
 
         logger.debug("categorizeSLs: self.spelllists\n{}".format(self.spelllists))
+
+
+
+def updateSL(character = {}, datadir = "./data"):
+    '''
+    This function updates the character's spell abilities if new spells/spell lists
+    are defined.
+    @param character a dictionary holding the character's full data.
+    @param datadir default data directory
+
+    ----
+
+    @todo this has to be implemented fully:
+    - updating costs if implemented one day
+    '''
+    spellcats = []
+    for cat in character["cat"].keys():
+        if "Spells - " in cat:
+            spellcats.append(cat)
+
+    spellbook = getSpells(datadir = datadir,
+                          charprof = character['prof'],
+                          charrealm = character["realm"],
+                          charlvl = character["lvl"])
+
+    for magic in spellbook.spelllists.keys():
+        for spcat in spellcats:
+            if spellbook.spelllists[magic]["Category"] in spcat:
+                for splist in spellbook.spelllists[magic].keys():
+                    if splist != "Category":
+                        character["cat"][spcat]["Skill"][splist]["Spells"] = spellbook.spelllists[magic][splist]["Spells"]
+                        character["cat"][spcat]["Skill"][splist]["Special Notes"] = spellbook.spelllists[magic][splist]["Special Notes"]
+

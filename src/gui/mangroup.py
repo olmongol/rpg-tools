@@ -1,3 +1,14 @@
+#!/usr/bin/env python
+'''
+\file mangroup.py
+\package gui
+\brief Window class to handle character groups.
+
+\date (C) 2020
+\author Marcus Schwamberger
+\email marcus@lederzeug.de
+
+'''
 from gui.window import *
 from rpgtoolbox.lang import *
 from tkinter import filedialog
