@@ -83,13 +83,13 @@ class MainWindow(blankWindow):
         """
         if storepath == None:
             #needs to be changed
-            self.mypath = os.path.expanduser('~')
-#            self.mypath = os.getcwd()
-            logger.info('mainwindow: Set storepath to %s' % (storepath))
+#            self.mypath = os.path.expanduser('~')
+            self.mypath = os.getcwd() + "/data/"
+            logger.debug('mainwindow: Set storepath to %s' % (storepath))
 
         else:
             self.mypath = storepath
-            logger.info('mainwindow: storepath set to %s' % (storepath))
+            logger.debug('mainwindow: storepath set to %s' % (storepath))
 
         self.picpath = "./gui/pic/"
         self.lang = lang
@@ -269,10 +269,8 @@ class MainWindow(blankWindow):
     def __edtgrpWin(self):
         """
         Opens a window for editing character parties
-        @todo edtgrpWin has to be implemented
         """
         grpwin = groupWin(self.lang)
-#        self.notdoneyet("edtgrpWin")
 
 
     def __BGOWin(self):
@@ -302,23 +300,6 @@ class MainWindow(blankWindow):
         @todo has to be implemented
         '''
         self.notdoneyet()
-
-#    def __edotherWin(self):
-#        '''
-#        Editing all for traveled distance, spells, maneuvers
-#        @todo not implemented yet
-#        '''
-#        self.notdoneyet()
-#
-#
-#    def __indivWin(self):
-#        '''
-#        Calculating and distributing pool for individual EPs.
-#        @todo not implemented yet
-#        '''
-#        self.notdoneyet()
-#        self.window.destroy()
-#        self.window = inputWin(self.lang)
 
 
     def __edcalcWin(self):
@@ -454,8 +435,6 @@ class confWindow(blankWindow):
 
     ----
     @todo The following has to be implemented:
-    - option for short/long LaTex exports: short means skills with rank = 0 won't
-      be displayed.
     - improve design of options window
 
     """
@@ -468,7 +447,7 @@ class confWindow(blankWindow):
         """
         self.lang = lang
         self._cnf = chkCfg(lang = self.lang)
-        pprint(self._cnf.cnfparam)
+        logger.debug("read cfg data: {}".format(self._cnf.cnfparam))
         blankWindow.__init__(self, self.lang)
         self.window.title(wintitle['opt_lang'][self.lang])
         self.wert = StringVar()
@@ -615,9 +594,9 @@ class confWindow(blankWindow):
         self._cnf.saveCnf(path = './conf',
                           filename = 'rpg-tools.cfg',
                           content = self.cont)
-        pprint(self.cont)
+
         self._cnf = chkCfg(lang = self.lang)
-        pprint(self._cnf.cnfparam)
+        logger.debug("saved cfg: {}".format(self._cnf.cnfparam))
         self.msg = messageWindow()
         self.msg.showinfo(processing['saved']
                           [self.lang] + '\n' + shortcut[self.lang])
@@ -1619,9 +1598,13 @@ class genAttrWin(blankWindow):
             os.mkdir(self.spath + self.character['player'])
 
         else:
-            with open(self.spath + self.character['player'] + '/' + self.character['name'] + ".json", "w") as outfile:
-                json.dump(self.character, outfile, sort_keys = True,
-                          indent = 4, ensure_ascii = False)
+            try:
+                with open(self.spath + self.character['player'] + '/' + self.character['name'] + ".json", "w") as outfile:
+                    json.dump(self.character, outfile, sort_keys = True,
+                              indent = 4, ensure_ascii = False)
+            except:
+                with open(self.spath + self.character['player'] + '/' + self.character['name'] + ".json", "w") as outfile:
+                    json.dump(self.character, outfile, indent = 4)
             self.window.destroy()
             self.window3 = priorizeWeaponsWin(
                 self.lang, self.spath, self.character)
@@ -2094,9 +2077,14 @@ class priorizeWeaponsWin(blankWindow):
         import json
         charname = self.character['name']  #.replace(" ", "_")
 #        with open(self.spath + self.character['player'] + '/' + self.character['name'] + ".json", "w") as outfile:
-        with open(self.spath + self.character['player'] + '/' + charname + ".json", "w") as outfile:
-            json.dump(self.character, outfile, sort_keys = True,
-                      indent = 4, ensure_ascii = False)
+        try:
+            with open(self.spath + self.character['player'] + '/' + charname + ".json", "w") as outfile:
+                json.dump(self.character, outfile, sort_keys = True,
+                          indent = 4, ensure_ascii = False)
+        except:
+            logger.error("saveChar: could not save {} sorted".format(self.spath + self.character['player'] + '/' + charname + ".json"))
+            with open(self.spath + self.character['player'] + '/' + charname + ".json", "w") as outfile:
+                json.dump(self.character, outfile, indent = 4)
 
 
     def __getWeaponCats(self):
@@ -3188,7 +3176,7 @@ class skillcatWin(blankWindow):
         self._character = rm.refreshStatBonus(self._character)
         # remove usedDP from character's available DP
         self._character['DP'] -= self.__usedDP
-        handlemagic.updateSL(character = self._character, datadir = self.spath)
+#        handlemagic.updateSL(character = self._character, datadir = self.spath)
         self._character["soul dep"] = rm.raceHealingFactors[self._character["race"]]["soul dep"]
         self._character["Stat Loss"] = rm.raceHealingFactors[self._character["race"]]["Stat Loss"]
         self._character["Recovery"] = rm.raceHealingFactors[self._character["race"]]["Recovery"]
