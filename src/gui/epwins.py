@@ -46,7 +46,7 @@ from gui.gmtools import *
 from gui.mangroup import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "17.02.2020"
+__updated__ = "25.02.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -468,7 +468,7 @@ class confWindow(blankWindow):
         """
         self.lang = lang
         self._cnf = chkCfg(lang = self.lang)
-
+        pprint(self._cnf.cnfparam)
         blankWindow.__init__(self, self.lang)
         self.window.title(wintitle['opt_lang'][self.lang])
         self.wert = StringVar()
@@ -502,7 +502,7 @@ class confWindow(blankWindow):
         self.sto_path = StringVar()
         self.log_path = StringVar()
 
-        if 'path' in list(self._cnf.cnfparam.keys()):
+        if 'datapath' in list(self._cnf.cnfparam.keys()):
             self.sto_path.set(self._cnf.cnfparam['datapath'])
 
         else:
@@ -514,11 +514,11 @@ class confWindow(blankWindow):
             if self._cnf.cnfparam['lang'] != self.lang:
                 self.lang = self._cnf.cnfparam['lang']
 
-        if 'log' in list(self._cnf.cnfparam.keys()):
-            self.log_path.set(self._cnf.cnfparam['log'])
+        if 'logpath' in list(self._cnf.cnfparam.keys()):
+            self.log_path.set(self._cnf.cnfparam['logpath'])
 
         else:
-            self.log_path.set("/tmp/")
+            self.log_path.set("./")
 
         self.rb = {}
         i = 1
@@ -615,7 +615,9 @@ class confWindow(blankWindow):
         self._cnf.saveCnf(path = './conf',
                           filename = 'rpg-tools.cfg',
                           content = self.cont)
-
+        pprint(self.cont)
+        self._cnf = chkCfg(lang = self.lang)
+        pprint(self._cnf.cnfparam)
         self.msg = messageWindow()
         self.msg.showinfo(processing['saved']
                           [self.lang] + '\n' + shortcut[self.lang])
@@ -3186,7 +3188,7 @@ class skillcatWin(blankWindow):
         self._character = rm.refreshStatBonus(self._character)
         # remove usedDP from character's available DP
         self._character['DP'] -= self.__usedDP
-
+        handlemagic.updateSL(character = self._character, datadir = self.spath)
         self._character["soul dep"] = rm.raceHealingFactors[self._character["race"]]["soul dep"]
         self._character["Stat Loss"] = rm.raceHealingFactors[self._character["race"]]["Stat Loss"]
         self._character["Recovery"] = rm.raceHealingFactors[self._character["race"]]["Recovery"]
