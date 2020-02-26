@@ -12,7 +12,7 @@ will be generated for printouts
 \version 1.1
 '''
 
-__updated__ = "22.02.2020"
+__updated__ = "26.02.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -449,6 +449,105 @@ class charsheet(object):
         except Exception as error:
             print("ERROR: Could not execute PDF LaTex! Please try it manually!!\n{}".format(error))
             logger.error("execLaTeX: {}".format(error))
+
+        finally:
+            os.chdir(currpath)
+
+
+
+class spellbook(object):
+    '''
+    This class generates a LaTeX file for all learned spells of a character and
+    compiles it into a PDF.
+    '''
+
+
+    def __init__(self, character = {}, storepath = "./data/"):
+        '''
+        Class constructor
+        @param character dictionary which hold full character data.
+        @param storepath path to the main storage directory.
+        '''
+        self.character = character
+        self.storepath = storepath
+
+        if self.storepath[-1] != "/" and self.storepath[-1] != "\\":
+            self.storepath += "/"
+
+        self.charpath = "{}{}/latex/".format(self.storepath, self.character["Player"])
+        self.fn = "{}_spellbook.tex".format(self.character["name"])
+
+        fp = open("{}default/latex/template_spellbook.tex".format(self.storepath), "r")
+        self.latex = fp.read()
+        fp.close()
+
+        self.exportSB()
+        self.compilePDF()
+
+
+    def exportSB(self):
+        '''
+        This method extracts all spell list data from character and builds the
+        LaTeX spellbook
+        '''
+        for  cat in self.character['cat']:
+
+            if "Spells - " in cat:
+
+                for SL in self.character["cat"][cat]["Skill"].keys():
+
+                    if SL not in  ["Stats", "Progression"]:
+                        self.latex += "\\chapter*{\\yinitpar{%s}%s \\newline %s}\n" % (SL[0], SL[1:], cat[9:])
+                        self.latex += """\rowcolors{1}{}{lightgray}
+\begin{longtable}{clccccp{6.5cm}}
+
+  \multicolumn{1}{c}{\textcolor{red}{Lvl}} &
+  \multicolumn{1}{c}{\textcolor{red}{Spell}} &
+  \multicolumn{1}{c}{\textcolor{red}{Area of Effect}} &
+  \multicolumn{1}{c}{\textcolor{red}{Duration}} &
+  \multicolumn{1}{c}{\textcolor{red}{Range}}&
+  \multicolumn{1}{c}{\textcolor{red}{Type}} &
+  \multicolumn{1}{c}{\textcolor{red}{Description}}\\"""
+                        for spell in range(0, self.character["cat"][cat]["Skill"][SL]["rank"]):
+                            self.latex += "%s & %s & %s & %s & %s  & %s \\\\\n" % (self.character["cat"][cat]["Skill"][SL]["Spells"][spell]["Lvl"],
+                                                                                   self.character["cat"][cat]["Skill"][SL]["Spells"][spell]["Spell"],
+                                                                                   self.character["cat"][cat]["Skill"][SL]["Spells"][spell]["Area of Effect"],
+                                                                                   self.character["cat"][cat]["Skill"][SL]["Spells"][spell]["Duration"],
+                                                                                   self.character["cat"][cat]["Skill"][SL]["Spells"][spell]["Range"],
+                                                                                   self.character["cat"][cat]["Skill"][SL]["Spells"][spell]["Description"]
+                                                                                   )
+                        self.latex += "\\end{longtable}\n\n"
+                        self.latex += "\\yinitpar{%s}%s\\\n\n" % (self.character["cat"][cat]["Skill"][SL]["Special Notes"][0],
+                                                          self.character["cat"][cat]["Skill"][SL]["Special Notes"][1:]
+                                                          )
+            if not os.path.exists(self.charpath):
+                os.mkdir(self.charpath)
+
+            fp = open(self.charpath + self.fn, "w")
+            fp.write(self.latex)
+            fp.close()
+
+
+    def compilePDF(self):
+        '''
+        This runs the pdflatex compiler to generate the PDF
+        @todo has to be fully implemented
+        '''
+        currpath = os.getcwd()
+        os.chdir(self.chardir)
+        try:
+            # to get the right table formating LaTeX has to be run twice
+            os.system("pdflatex {}.tex".format(self.fn))
+            os.system("pdflatex {}.tex".format(self.fn))
+            windoman = ["/usr/bin/xdg-open", "/usr/bin/gnome-open", "/usr/bin/kde-open", "/usr/bin/open"]
+
+            for wm in windoman:
+                if os.path.isfile(wm):
+                    os.system("{} {}.pdf".format(wm, self.char['name'].replace(" ", "-")))
+
+        except Exception as error:
+            print("ERROR: Could not execute PDF LaTex! Please try it manually!!\n{}".format(error))
+            logger.error("compilePDF: {}".format(error))
 
         finally:
             os.chdir(currpath)
