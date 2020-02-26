@@ -508,18 +508,19 @@ class spellbook(object):
   \multicolumn{1}{c}{\textcolor{red}{Range}}&
   \multicolumn{1}{c}{\textcolor{red}{Type}} &
   \multicolumn{1}{c}{\textcolor{red}{Description}}\\"""
-                        for spell in range(0, self.character["cat"][cat]["Skill"][SL]["rank"]):
-                            self.latex += "%s & %s & %s & %s & %s  & %s \\\\\n" % (self.character["cat"][cat]["Skill"][SL]["Spells"][spell]["Lvl"],
-                                                                                   self.character["cat"][cat]["Skill"][SL]["Spells"][spell]["Spell"],
-                                                                                   self.character["cat"][cat]["Skill"][SL]["Spells"][spell]["Area of Effect"],
-                                                                                   self.character["cat"][cat]["Skill"][SL]["Spells"][spell]["Duration"],
-                                                                                   self.character["cat"][cat]["Skill"][SL]["Spells"][spell]["Range"],
-                                                                                   self.character["cat"][cat]["Skill"][SL]["Spells"][spell]["Description"]
-                                                                                   )
-                        self.latex += "\\end{longtable}\n\n"
-                        self.latex += "\\yinitpar{%s}%s\\\n\n" % (self.character["cat"][cat]["Skill"][SL]["Special Notes"][0],
-                                                          self.character["cat"][cat]["Skill"][SL]["Special Notes"][1:]
-                                                          )
+                        if self.character["cat"][cat]["Skill"][SL]["Spells"] != []:
+                            for spell in range(0, self.character["cat"][cat]["Skill"][SL]["rank"]):
+                                self.latex += "%s & %s & %s & %s & %s  & %s \\\\\n" % (self.character["cat"][cat]["Skill"][SL]["Spells"][spell]["Lvl"],
+                                                                                       self.character["cat"][cat]["Skill"][SL]["Spells"][spell]["Spell"],
+                                                                                       self.character["cat"][cat]["Skill"][SL]["Spells"][spell]["Area of Effect"],
+                                                                                       self.character["cat"][cat]["Skill"][SL]["Spells"][spell]["Duration"],
+                                                                                       self.character["cat"][cat]["Skill"][SL]["Spells"][spell]["Range"],
+                                                                                       self.character["cat"][cat]["Skill"][SL]["Spells"][spell]["Description"]
+                                                                                       )
+                            self.latex += "\\end{longtable}\n\n"
+                            self.latex += "\\yinitpar{%s}%s\\\n\n" % (self.character["cat"][cat]["Skill"][SL]["Special Notes"][0],
+                                                              self.character["cat"][cat]["Skill"][SL]["Special Notes"][1:]
+                                                              )
             if not os.path.exists(self.charpath):
                 os.mkdir(self.charpath)
 
