@@ -46,7 +46,7 @@ from gui.gmtools import *
 from gui.mangroup import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "25.02.2020"
+__updated__ = "27.02.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -3220,7 +3220,7 @@ class skillcatWin(blankWindow):
 
                 else:
                     self._character['cat'][cat]['prof bonus'] = 0
-
+        handlemagic.updateSL(character = self._character, datadir = self.spath)
         # save character data
         self.__save('.json')
         if  self._character['DP'] > 0:
