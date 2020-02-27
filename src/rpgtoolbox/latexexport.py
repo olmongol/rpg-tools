@@ -12,7 +12,7 @@ will be generated for printouts
 \version 1.1
 '''
 
-__updated__ = "26.02.2020"
+__updated__ = "27.02.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -474,7 +474,7 @@ class spellbook(object):
         if self.storepath[-1] != "/" and self.storepath[-1] != "\\":
             self.storepath += "/"
 
-        self.charpath = "{}{}/latex/".format(self.storepath, self.character["Player"])
+        self.charpath = "{}{}/latex/".format(self.storepath, self.character["player"])
         self.fn = "{}_spellbook.tex".format(self.character["name"])
 
         fp = open("{}default/latex/template_spellbook.tex".format(self.storepath), "r")
@@ -497,36 +497,43 @@ class spellbook(object):
                 for SL in self.character["cat"][cat]["Skill"].keys():
 
                     if SL not in  ["Stats", "Progression"]:
-                        self.latex += "\\chapter*{\\yinitpar{%s}%s \\newline %s}\n" % (SL[0], SL[1:], cat[9:])
-                        self.latex += """\rowcolors{1}{}{lightgray}
-\begin{longtable}{clccccp{6.5cm}}
+                        if self.character["cat"][cat]["Skill"][SL]["rank"] > 0:
+                            self.latex += "\n\\chapter*{\\yinitpar{%s}%s \\newline %s}\n" % (SL[0], SL[1:], cat[9:])
+                            self.latex += r"\rowcolors{1}{}{lightgray}" + "\n" + r"\begin{longtable}{clccccp{5cm}}" + "\n"
+                            self.latex += r"    \multicolumn{1}{c}{\textcolor{red}{Lvl}} &" + "\n" + \
+                                          r"    \multicolumn{1}{c}{\textcolor{red}{Spell}} &" + "\n" + \
+                                          r"    \multicolumn{1}{c}{\textcolor{red}{Area of Effect}} &" + "\n" + \
+                                          r"    \multicolumn{1}{c}{\textcolor{red}{Duration}} &" + "\n" + \
+                                          r"    \multicolumn{1}{c}{\textcolor{red}{Range}}&" + "\n" + \
+                                          r"    \multicolumn{1}{c}{\textcolor{red}{Type}} &" + "\n" + \
+                                          r"    \multicolumn{1}{c}{\textcolor{red}{Description}}\\" + "\n"
 
-  \multicolumn{1}{c}{\textcolor{red}{Lvl}} &
-  \multicolumn{1}{c}{\textcolor{red}{Spell}} &
-  \multicolumn{1}{c}{\textcolor{red}{Area of Effect}} &
-  \multicolumn{1}{c}{\textcolor{red}{Duration}} &
-  \multicolumn{1}{c}{\textcolor{red}{Range}}&
-  \multicolumn{1}{c}{\textcolor{red}{Type}} &
-  \multicolumn{1}{c}{\textcolor{red}{Description}}\\"""
-                        if self.character["cat"][cat]["Skill"][SL]["Spells"] != []:
-                            for spell in range(0, self.character["cat"][cat]["Skill"][SL]["rank"]):
-                                self.latex += "%s & %s & %s & %s & %s  & %s \\\\\n" % (self.character["cat"][cat]["Skill"][SL]["Spells"][spell]["Lvl"],
-                                                                                       self.character["cat"][cat]["Skill"][SL]["Spells"][spell]["Spell"],
-                                                                                       self.character["cat"][cat]["Skill"][SL]["Spells"][spell]["Area of Effect"],
-                                                                                       self.character["cat"][cat]["Skill"][SL]["Spells"][spell]["Duration"],
-                                                                                       self.character["cat"][cat]["Skill"][SL]["Spells"][spell]["Range"],
-                                                                                       self.character["cat"][cat]["Skill"][SL]["Spells"][spell]["Description"]
-                                                                                       )
+                            if "Spells" in self.character["cat"][cat]["Skill"][SL].keys():
+                                if self.character["cat"][cat]["Skill"][SL]["Spells"] != []:
+                                    for spell in self.character["cat"][cat]["Skill"][SL]["Spells"]:
+                                        if self.character["cat"][cat]["Skill"][SL]["rank"] >= int(spell["Lvl"]):
+                                            print("Spell: ", spell["Spell"])
+                                            self.latex += "\n%s & %s & %s & %s & %s  & %s & %s\\\\\n" % (spell["Lvl"],
+                                                                                                   spell["Spell"],
+                                                                                                   spell["Area of Effect"],
+                                                                                                   spell["Duration"],
+                                                                                                   spell["Range"],
+                                                                                                   spell["Type"],
+                                                                                                   spell["Description"]
+                                                                                                   )
                             self.latex += "\\end{longtable}\n\n"
-                            self.latex += "\\yinitpar{%s}%s\\\n\n" % (self.character["cat"][cat]["Skill"][SL]["Special Notes"][0],
-                                                              self.character["cat"][cat]["Skill"][SL]["Special Notes"][1:]
-                                                              )
-            if not os.path.exists(self.charpath):
-                os.mkdir(self.charpath)
+                            if "Special Notes" in self.character["cat"][cat]["Skill"][SL].keys():
+                                if len(self.character["cat"][cat]["Skill"][SL]["Special Notes"]) > 0:
+                                    self.latex += "\\yinitpar{%s}%s\\\n\n" % (self.character["cat"][cat]["Skill"][SL]["Special Notes"][0][0],
+                                                                      self.character["cat"][cat]["Skill"][SL]["Special Notes"][0][1:]
+                                                                          )
+        self.latex += "\n\\end{document}"
+        if not os.path.exists(self.charpath):
+            os.mkdir(self.charpath)
 
-            fp = open(self.charpath + self.fn, "w")
-            fp.write(self.latex)
-            fp.close()
+        fp = open(self.charpath + self.fn, "w")
+        fp.write(self.latex)
+        fp.close()
 
 
     def compilePDF(self):
@@ -535,16 +542,16 @@ class spellbook(object):
         @todo has to be fully implemented
         '''
         currpath = os.getcwd()
-        os.chdir(self.chardir)
+        os.chdir(self.charpath)
         try:
             # to get the right table formating LaTeX has to be run twice
-            os.system("pdflatex {}.tex".format(self.fn))
-            os.system("pdflatex {}.tex".format(self.fn))
+            os.system("pdflatex {}".format(self.fn))
+            os.system("pdflatex {}".format(self.fn))
             windoman = ["/usr/bin/xdg-open", "/usr/bin/gnome-open", "/usr/bin/kde-open", "/usr/bin/open"]
 
             for wm in windoman:
                 if os.path.isfile(wm):
-                    os.system("{} {}.pdf".format(wm, self.char['name'].replace(" ", "-")))
+                    os.system("{} {}.pdf".format(wm, self.fn[:-4]))
 
         except Exception as error:
             print("ERROR: Could not execute PDF LaTex! Please try it manually!!\n{}".format(error))

@@ -324,6 +324,8 @@ def readCSV(fname = "test.csv"):
     This function reads a CSV file and returns a dictionary
     \param fname name (and path) of the CSV file
     \retval result a list containing dictionaries with keys from CSV header line
+    ----
+    @todo handle problems with wierd unicode characters
     '''
     result = []
     with open(fname) as csvfile:
