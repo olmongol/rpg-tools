@@ -138,8 +138,14 @@ class MainWindow(blankWindow):
                                   command = self.__saveFile)
         self.filemenu.add_command(label = submenu['file'][self.lang]['export'] + "(LaTeX/PDF)",
                                   command = self.__exportLaTeX)
-        self.filemenu.add_command(label = "{} {} {}".format("short format", submenu['file'][self.lang]['export'], "(LaTeX/PDF)"),
+        self.filemenu.add_command(label = "{} {} {}".format("short format",
+                                                            submenu['file'][self.lang]['export'],
+                                                            "(LaTeX/PDF)"),
                                   command = self.__exportShortLaTeX)
+        self.filemenu.add_command(label = "{} {} {}".format(labels["spellbook"][self.lang],
+                                                            submenu['file'][self.lang]['export'],
+                                                            "(LaTeX/PDF)"),
+                                  command = self.__exportSpellbook)
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['quit'],
                                   command = self.window.destroy)
@@ -222,6 +228,21 @@ class MainWindow(blankWindow):
             export = latexexport.charsheet(self.char, "./data/", short = True)
             msg = messageWindow()
             msg.showinfo("short LaTeX generated")  #
+
+
+    def __exportSpellbook(self):
+        '''
+        This generates a Spellbook PDF out aof character's data
+        '''
+        from rpgtoolbox.latexexport import spellbook
+        if self.char == None:
+            msg = messageWindow()
+            msg.showinfo(errmsg['no_data'][self.lang])
+
+        else:
+            spellbook(self.char, self.mypath)
+            msg = messageWindow()
+            msg.showinfo("Spellbook generated")
 
 
     def __addEditMenu(self):
