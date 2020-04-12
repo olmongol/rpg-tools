@@ -1,1 +1,23 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Cancel Essence I,caster,C,self,F,"When the caster of this spell is a target of a spell from the realm of Essence, the ''incoming'' spell must first make an RR before the caster makes an RR. For RR purposes, each spell uses a level equal to the level of its caster. If the ''incoming'' spell passes the RR, it may target the caster normally; otherwise, the incoming spell has no effect on this target."
+2,Cancel Mentalism I,caster,C,self,F,"As Cancel Essence I, except affects spells from the realm of Mentalism."
+3,Cancel Channeling I,caster,C,self,F,"As Cancel Essence I, except affects spells from the realm of Channeling."
+4,Dispel Essence I,1 target,---,10',F,"Any active spell from the realm of Essence that is on the target must make are RR (use the level of that spell's caster as the spells level). If the spell fails its RR, it is dispelled."
+5,Dispel Mentalism I,1 target,---,10',F,"As Dispel Essence I, except affects spells from the realm of Mentalism."
+6,Dispel Channeling I,1 target,---,10',F,"As Dispel Essence I, except affects spells from the realm of Channeling."
+7,Dispel Essence Sphere I,10'R,C,self,F,"As Dispel Essence I, except for the area of effect (centered on the caster). If the radius encounters an already existing spell, the spell must make an RR (with a +30 modifier) or be cancelled (not dispelled) for as long as the active spell in inside the radius."
+8,Dispel Mentalism Sphere I,10'R,C,self,F,"As Dispel Essence Sphere I, except only Mentalism spells are affected."
+9,Dispel Channeling Sphere I,10'R,C,self,F,"As Dispel Essence Sphere I, except only Channeling spells are affected."
+10,Dispel Essence Sphere V,50'R,C,self,F,"As Dispel Essence Sphere I, except radius is 50'."
+11,Dispel Mentalism Sphere V,50'R,C,self,F,"As Dispel Mentalism Sphere I, except radius is 50'."
+12,Dispel Channeling Sphere V,50'R,C,self,F,"As Dispel Channeling Sphere I, except radius is 50'."
+14,Dispel Essence Sphere X,100'R,C,self,F,"As Dispel Essence Sphere I, except radius is 100'."
+15,Dispel Mentalism Sphere X,100'R,C,self,F,"As Dispel Mentalism Sphere I, except radius is 100'."
+16,Dispel Channeling Sphere X,100'R,C,self,F,"As Dispel Mentalism Sphere I, except radius is 100'."
+17,Unessence,1 target,1 day,100',F,Target has no Essence power points (and thus can throw no Essence spells) for 24 hours (this includes spells cast using spell bonus items). This can also be cast against items which could normally cast spells. Hybrid spell casters who have Essence as one of their realms only have access to half their normal power points.
+18,Unmentalism,1 target,1 day,100',F,"As Unessence, except Mentalism is affected."
+19,Unchanneling,1 target,1 day,100',F,"As Unessence, except Channeling is af- fected."
+20,Cancel True,caster,C,100',F,As Cancel Essence I except all 3 realms are affected.
+25,Dispel Essence True,300'R,C,self,F,"As Dispel Essence Sphere I, except radius is 300'."
+30,Dispel True,1 target,C,10',F,"As Dispel Essence I, except all 3 realms are affected."
+50,Dispel Sphere True,50'R,C,self,F,"As Dispel Essence Sphere V, except all 3 realms are affected."

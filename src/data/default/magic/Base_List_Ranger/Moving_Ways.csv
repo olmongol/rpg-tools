@@ -1,1 +1,24 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Rockrunning,caster,1 min/lvl,self,U,Caster can run on any nearly horizontal rocky and earthen surfaces as if he was on level ground. He will expend exhaustion points as if he were walking.
+2,Limbwalking,caster,1 min/lvl,self,U,Allows caster to walk along tree limbs as if he were on level ground.
+3,Swimming,1 target,1 min/lvl,100',U,"Target can swim without expending energy (i.e., will expend no exhaustion points)."
+4,Waterwalking,caster,1 min/lvl,self,U,Caster can walk on water as if he were on level dry ground. This may not be used on rough water.
+5,Sandrunning,caster,1 min/lvl,self,U,Caster can run on sandy surfaces as if he was on level ground. He will expend exhaustion points as if he were walking.
+6,Limbrunning,caster,1 min/lvl,self,U,"As Limbwalking, except caster can move at two times normal pace (i.e., Run pace). He will expend exhaustion points as if he were walking."
+7,Traceless Passing,caster,C,self,U,Caster can walk without leaving tracks or other visible signs of his passing.
+8,Hide Tracks I,tracks of 1,C,50',U,"Caster can hide the tracks of any 1 being. This spell and Traceless Passing can be used simultaneously and caster will still maintain 50\% activity (i.e., he can concentrate on both spells at the same time)."
+9,Waterrunning,caster,1 min/lvl,self,U,"As Waterwalking, except caster can move at two times normal pace (i.e., Run pace). He will expend exhaustion points as if he were walking."
+10,Hide Tracks II,tracks of 2,C,50',U,"As Hide Tracks I, except it hides 2 beings' tracks."
+11,Swimming True,caster,1 min/lvl,self,U,"As Swimming, except target can swim as fast as he could run. He will expend exhaustion points as if he were walking."
+12,Hide Tracks V,tracks of 5,C,50',U,"As Hide Tracks I, except it hides 5 beings' tracks."
+13,Running True,caster,1 min/lvl,self,U,"As any of the Running spells above, except any one of the spells can be used each round (e.g., the caster could run on sand, then on water, then on limbs, etc.)."
+14,Traceless Passing True,caster,10 min/lvl,self,U,"As Traceless Passing, except caster need not concentrate."
+15,Merging Organic,caster,1 min/lvl,self,U,"Caster can merge into organic material (live or dead). While merged, the caster cannot move or per- ceive. When the caster emerges from the material, he can emerge from any side or face of the material. The caster cannot move ''through'' material greater in width than his own body size plus 2 feet."
+16,Hide Tracks X,tracks of 5,C,50',U,"As Hide Tracks I, except it hides10 beings' tracks."
+17,Traceless Running,caster,C,self,U,"As Traceless Passing, except caster can move at two times normal pace (i.e., at a Run pace)."
+18,Hide Tracks XV,tracks of 15,C,self,U,"As Hide Tracks I, except it hides 15 beings' tracks."
+19,Traceless Running True,caster,C,self,U,"As Traceless Passing True, except caster can move at two times normal pace (i.e., Run pace)."
+20,Great Merging Organic,caster,1 min/lvl,self,U,"As Merging Organic, except caster may turn within material and perceive the world outside the material."
+25,Hide Tracks XX,tracks of 20,C,50',U,"As Hide Tracks I, except it hides 20 beings' tracks."
+30,Merging True Organic,caster,1 min/lvl,self,U,"As Great Merging Organic, except caster may use spells on himself while merged."
+50,Hide Tracks True,varies,C,50',U,"As Hide Tracks I, except caster can either absolutely hide his own tracks (preventing discovery via any method, including magic) or he can hide the tracks of a number of beings equal to his level."

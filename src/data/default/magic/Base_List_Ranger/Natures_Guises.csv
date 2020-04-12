@@ -1,1 +1,21 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Hues,caster,1 min/lvl,self,U,Allows caster to take on the physical coloration of any 1 organic object. The caster must be in contact with object when the spell is cast. In many situations this will give a +10 to +50 bonus (GM's discretion) to Hiding attempts (and perhaps to some Stalking attempts).
+2,Shade,100'R,10 min/lvl,touch,E,All shadows in the area of effect deepen. All Hiding manuevers gain a bonus of +25 (+10 to all Stalking manuevers).
+3,Freeze Liquid,1 cu'/lvl,C,10',F,"Up to 1 cubic foot of liquid per level is cooled to freezing at a rate of 1 cubic foot per round. This will not drop a liquid's temperature below -20 F / -29 C (thus, liquids with a freezing point below -20 F / -29 C will only get cooler)."
+4,Silent Moves,caster,1 min/lvl,self,U,"Caster can move silently, so long as he does not create a sound originating more than 1' from his body. In many situations, this will give a +10 to +50 bonus (GM discretion) to Stalking and/or Hiding attempts."
+5,Self Cloaking,caster,C,self,U,Caster blends into surrounding terrain. This results in a +75 bonus to Hiding attempts. Caster may not move (appreciably) without loosing this bonus.
+6,Light,10'R,10 min/lvl,touch,E,Lights a 10'R area surrounding point touched.
+7,Darkness,10'R,10 min/lvl,touch,E,Throws a 10'R area surrounding point touched into normal darkness.
+8,Shadow,caster,1 hr/lvl,self,U,"Caster and objects on his person appear to be a shadow; and thus are almost invisible in dark areas (e.g., in many situations this could be handled with a Stalking/Hiding bonus between +25 and +75)."
+9,Study Form,caster,P,self,I,Caster studies and memorizes the form of one type of animal or plant for use with spells later on this list. The caster can only have as many forms studied as he has levels.
+10,Plant Facade,caster,1 min/lvl,self,E,"Allows caster to appear as any one type of plant that he has studied. Caster retains his size and will not smell or feel like the plant (i.e., it is purely a visual illusion and is subject to normal illusion rules)."
+11,Animal Thoughts,caster,C,self,U,"For the duration of this spell, the caster's mental patterns will appear to be those of any animal he has studied. The caster cannot move while this spell is active."
+12,Study Form True,caster,P,self,I,"As Study Form, except a specific animal or plant form may be studied. For example, the woodsman's dog (as opposed to just a dog) may be studied."
+13,Animal Facade,caster,1 min/lvl,self,,"Allows caster to appear as any one type of animal that he has studied. Caster retains his size and will not smell or feel like the animal (i.e., it is purely a visual illusion and is subject to normal illusion rules)."
+15,Animal Thoughts True,caster,C,self,U,"As Animal Thoughts, except caster can move (though he must maintain concentration)."
+16,Plant Form I,caster,1 min/lvl,self,U,Allows caster to take the form of any one plant he has studied. The caster will look and feel like the plant. He can vary his size from 75\% of normal to 200\% of normal. The caster does not gain the physical abilities of the plant.
+18,Animal Form I,caster,1 min/lvl,self,U,Allows caster to take the form of any one animal he has studied. The caster will look and feel like the animal. He can vary his size from 75\% of normal to 200\% of normal. The caster does not gain the physical abilities of the animal.
+20,Plant Form II,caster,1 min/lvl,self,U,"As Plant Form I, except caster may also assume the scent and physical abilities of the plant. Caster can vary his size from 50\% of normal to 400\% of normal."
+25,Animal Form II,caster,1 min/lvl,self,U,"As Animal Form I, except caster gains the movement abilities of the chosen animal. Caster can vary his size from 50\% of normal to 400\% of normal."
+30,Plant Form True,caster,1 min/lvl,self,U,"As Plant Form II, except the caster can change his form to any other plant he has studied at any time during the duration of the spell."
+50,Animal Form True,caster,1 min/lvl,self,U,"As Animal Form III, except the caster can change his form to any other animal he has studied at any time during the duration of the spell."

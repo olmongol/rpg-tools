@@ -46,7 +46,7 @@ from gui.gmtools import *
 from gui.mangroup import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "27.02.2020"
+__updated__ = "12.04.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -1749,8 +1749,12 @@ class genAttrWin(blankWindow):
                                                    self.character['realm'],
                                                    self.character['lvl']
                                                    )
+            logger.debug("addCatnSkills: path: {}, prof: {}, realm: {}, lvl:{}".format(self.spath,
+                                                   self.character['prof'],
+                                                   self.character['realm'],
+                                                   self.character['lvl']))
             #DEBUG
-            print("1610: addCatnSkills: spellbook:")
+            print("Debug: addCatnSkills: spellbook:")
             pprint(self.spellbook)
 
             for cat in list(self.character['cat'].keys()):
@@ -1758,6 +1762,8 @@ class genAttrWin(blankWindow):
                 if cat[:8] == "Spells -":
 
                     for slcat in list(self.spellbook.spelllists.keys()):
+                        print("DeBUG: addCatnSkills (slcat) {}".format(slcat))
+                        print("Debug: keys: {}".format(list(self.spellbook.spelllists[slcat].keys())))
 
                         if self.spellbook.spelllists[slcat]['Category'] in cat:
                             for spell in list(self.spellbook.spelllists[slcat].keys()):
@@ -2064,14 +2070,14 @@ class priorizeWeaponsWin(blankWindow):
             if self.character['race'] in races[l]:
                 param['lang'] = l
                 param['race'] = races['en'][races[l].index(self.character['race'])]
-            print("debug realm {}".format(self.character['realm']))
+ #           print("debug realm {}".format(self.character['realm']))
             if self.character['realm'] in realms[l]:
                 param['ppd'] = ppds[realms[l].index(self.character['realm'])]
                 param['Stats'] = magicstats[realms[l].index(self.character['realm'])]
 
 ############ das könnte noch ein Bug sein: keine Progression....
         if type(param['ppd']) == type(''):
-            print("debug: race {} ppd {}".format(param['ppd'], param['race']))
+#            print("debug: race {} ppd {}".format(param['ppd'], param['race']))
             param['ppd'] = progressionType[param['ppd'] + param['race']]
 #            param['ppd'] = progressionType['null']
 
@@ -3066,7 +3072,7 @@ class skillcatWin(blankWindow):
                     messg.showinfo(screenmesg['epwins_no_dp'][self.lang])
 #################### hier gibt es noch ein problem
         #DEBUG
-        print("takeValsSkill 3012.\n\tchar[DP]: {}\n\tusedDP; {}".format(self._character["DP"], self.__usedDP))
+#        print("takeValsSkill 3012.\n\tchar[DP]: {}\n\tusedDP; {}".format(self._character["DP"], self.__usedDP))
         self.DPtext.set(str(self._character['DP'] - self.__usedDP))
 
         self.__buildChangedTree()

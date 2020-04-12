@@ -1,1 +1,16 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+2,Calm I,1 target,1 min/lvl,100',Fm,"Target will take no aggressive/offensive action, and will fight only if attacked."
+4,Calm II,2 targets,1 min/lvl,100',Fm,"As Calm I, except 2 targets may be affected."
+5,Hold Kind,1 target,C,100',Fm,Humanoid target is held to 25\% of normal action.
+6,Calm III,3 targets,1 min/lvl,100',Fm,"As Calm I, except 3 targets may be affected."
+8,Calm IV,4 targets,1 min/lvl,100',Fm,"As Calm I, except 4 targets may affected."
+9,Calm V,5 targets,1 min/lvl,100',Fm,"As Calm I, except 5 targets may be affected."
+10,Mass Animal Calming I,varies,2 min/lvl,100',Fm,Caster can calm a number of animals equal to his level.
+11,True Hold,1 target,C,100',Fm,"As Hold Kind, except it will affect any target."
+12,Calm X,10 targets,1 min/lvl,100',Fm,"As Calm I, except that 10 targets may be affected."
+15,Shout of Calming,varies,1 min/lvl,50',Fm,All targets in radius must resist or they are calmed.
+18,Mass Animal Calming II,varies,1 min/lvl,10'/lvl,Fm,"As Mass Animal Calming I, except RRs are modified by -20 and the range is 10'/lvl."
+20,Lord Calm,varies,1 min/lvl,10'/lvl,Fm,Allows Caster to calm up to 20 targets.
+25,Long Calm,1 target,1 day/lvl,300',Fm,Caster can calm any 1 target.
+30,Mass Calm,varies,1 min/lvl,100',Fm,Caster can calm a number of targets equal to his level.
+50,Calm True,1 target,P,100',Fm,Caster can calm any 1 target.
