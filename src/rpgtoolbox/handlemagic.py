@@ -12,7 +12,7 @@
 \version 0.8
 '''
 __version__ = "0.8"
-__updated__ = "12.04.2020"
+__updated__ = "13.04.2020"
 
 import os
 from . import logbox as log
@@ -121,11 +121,11 @@ class getSpells(object):
                          "Taoist Monk" : ["Essence"],
                          "Zen Monk" : ["Mentalism"]
                          }
-        nonspellusers = {"Fighter":[],
-                        "Thief":[],
+        nonspellusers = {"Fighter":['choice'],
+                        "Thief":['choice'],
                         "Rogue":[],
-                        "Warrior Monk":[],
-                        "Layman":[]
+                        "Warrior Monk":['choice'],
+                        "Layman":['choice']
                         }
         if type(self.realm) != type([]):
             self.realm = [self.realm]
@@ -133,21 +133,25 @@ class getSpells(object):
         for listcat in list(self.spelllists.keys()):
             lcat = listcat.split(' ')
             if len(lcat) > 3:
-                print(lcat)
-                if lcat[3] in ["Healer", "Heiler", "Monk", "Mönch"]:
+                profcheck = "{} {}".format(lcat[2], lcat[3])
+
+                if profcheck in purespellusers.keys() or \
+                   profcheck in hybridspellusers.keys() or \
+                   profcheck in semispellusers.keys():
+
                     lcat[2] = "{} {}".format(lcat[2], lcat[3])
                 del(lcat[3])
- #           pprint("Debug listcat {}".format(listcat))
+
             logger.debug("CategorizeSL - lcat: {}".format(lcat))
+
             if "Lay" in lcat:
                 lcat[-2:-1] = [lcat[-2] + " " + lcat[-1]]
+
             logger.debug("CategorizeSL - prof: {} --> {}".format(self.prof, listcat))
-#            print("DEBUG CategorizeSL - prof: {} --> {}".format(self.prof, listcat))
+
             if lcat[0] == "Base" and self.prof in listcat:
                 self.spelllists[listcat]["Category"] = "Own Realm Own Base Lists"
                 logger.debug("CategorizeSL: spellist[{}][Category]=Own RealM Own Base Lists".format(listcat))
-#                print("DEBUG CategorizeSL: spellist[{}][Category]=Own Realm Own Base Lists".format(listcat))
-#                pprint(self.spelllists[listcat])
 
             elif lcat[0] == "Base"  and self.prof not in listcat:
 
@@ -184,7 +188,6 @@ class getSpells(object):
 
                 else:
                     if self.realm not in ["none", "choice"]:
-#                        print("DEBUG categorizeSLs: identified non spell user: {}".format(lcat[2]))
 
                         if lcat[2] in list(purespellusers.keys()):
 
