@@ -1,1 +1,17 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+2,Presence,20'R,1 rnd/lvl (C),10',U,Caster is aware of the presence of all sentient/ thinking beings within 20'.
+3,Listen I,varies,1 rnd/lvl (C),10',U,Caster can pick a point up to 10' away and he will hear as if he were at that point (there can be intervening objects such as walls).
+5,Long Ear I,varies,1 rnd/lvl (C),100',U,"Caster’s point of hearing may be moved independently up to 100' away (moves at the rate of 10' per round). He must physically be able to go there (e.g., he could not send his point of hearing thourough walls or closed doors)."
+6,Watch I,varies,1 rnd/lvl (C),10',U,"As Listen I, except the caster sees from the fixed point (it can rotate)."
+7,Long Eye I,varies,1 rnd/lvl (C),100',U,"As Long Ear I, except the caster sees from the moving point (it can rotate)."
+8,Listen II,varies,1 rnd/lvl (C),100',U,"As Listen I, except the range is 100'."
+10,Telepathy,1 target,1 rnd/lvl (C),10',Pm,Caster can read the surface thoughts of one target.
+11,Watch II,varies,1 rnd/lvl (C),100',U,"As Watch I, except the range is 100'."
+12,Long Ear II,varies,1 rnd/lvl (C),300',U,"As Long Ear I, except the range is 300'."
+14,Listen III,varies,1 rnd/lvl (C),500',U,"As Listen I, except the range is 500'."
+15,Long Eye II,varies,1 rnd/lvl (C),300',U,"As Long Eye I, except the range is 300'."
+18,Watch III,varies,1 rnd/lvl (C),500',U,"As Watch I, except range is 500'."
+20,Listen IV,varies,1 rnd/lvl (C),1 mi/lvl,U,"As Listen I, except the range is 1 mile/level."
+25,Watch IV,varies,1 rnd/lvl (C),1 mi/lvl,U,"As Watch I, except the range is 1 mile/level."
+30,Listen True,varies,1 rnd/lvl (C),unlimited,U,"As Listen, except the range is unlimited (the caster must be able to locate the desired point in terms of direction and distance)."
+50,Watch True,varies,1 rnd/lvl (C),unlimited,U,"As Listen True, except the caster sees instead of hearing."

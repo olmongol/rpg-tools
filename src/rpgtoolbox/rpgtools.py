@@ -14,7 +14,7 @@ This module contains some helpful functions for role-playing games like:
 \email marcus@lederzeug.de
 \version 1.0
 '''
-__updated__ = "22.02.2020"
+__updated__ = "04.04.2020"
 
 import random
 from rpgtoolbox.globaltools import readCSV
@@ -138,7 +138,7 @@ def RRroll(attacklvl, targetlvl, roll):
     @retval value the value of the RR roll table
     '''
     resisted = False
-
+    value = 0
     if attacklvl < 6:
         value = 50 + (attacklvl - 1) * 5
 
@@ -148,7 +148,7 @@ def RRroll(attacklvl, targetlvl, roll):
     elif 10 < attacklvl < 15:
         value = 85 + (attacklvl - 10) * 2
 
-    elif attacklvl > 15:
+    elif attacklvl >= 15:
         value = 90 + (attacklvl - 15)
 
     if targetlvl < 6:

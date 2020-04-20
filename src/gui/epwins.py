@@ -46,7 +46,7 @@ from gui.gmtools import *
 from gui.mangroup import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "27.02.2020"
+__updated__ = "13.04.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -259,7 +259,7 @@ class MainWindow(blankWindow):
         self.edtmenu.add_command(label = submenu['edit'][self.lang]['statgain'],
                                  command = self.__statGainRoll)
         self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_BGO'],
-                                 command = self.__statGainRoll)
+                                 command = self.__BGOWin)
         self.edtmenu.add_separator()
         self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_EP'],
                                  command = self.__edtEPWin)
@@ -1659,9 +1659,6 @@ class genAttrWin(blankWindow):
                                        'item bonus': 0,
                                        'rank': 0
                                        }
-            #DEBUG
-#            print("\naddCatnSkills ----------------------------{}".format(content[i][0]))
-#            pprint(skillcat[content[i][0]])
 
             for pb in list(self.profs[self.character['prof']]['Profession Bonusses'].keys()):
 
@@ -1680,18 +1677,13 @@ class genAttrWin(blankWindow):
                                                                  }
 
         del(content)
-
         self.profs = rm.choseProfession(self.lang)
+
         for key in skillcat.keys():
-            #DEBUG
-#            print("addCatnSkills: key - {}".format(key))
 
             for pbonus in self.profs[self.character['prof']]['Profession Bonusses'].keys():
 
                 if pbonus in skillcat.keys():
-                    #DEBUG
-#                    print("addCatnSkills: pbonus - {}".format(pbonus))
-
                     skillcat[key]['prof bonus'] = int(self.profs[self.character['prof']]['Profession Bonusses'][pbonus])
 
         fp = open('%s/default/SkillCat_%s.csv' % (self.spath, self.lang), 'r')
@@ -1749,15 +1741,18 @@ class genAttrWin(blankWindow):
                                                    self.character['realm'],
                                                    self.character['lvl']
                                                    )
-            #DEBUG
-            print("1610: addCatnSkills: spellbook:")
-            pprint(self.spellbook)
+            logger.debug("addCatnSkills: path: {}, prof: {}, realm: {}, lvl:{}".format(self.spath,
+                                                   self.character['prof'],
+                                                   self.character['realm'],
+                                                   self.character['lvl']))
 
             for cat in list(self.character['cat'].keys()):
 
                 if cat[:8] == "Spells -":
 
                     for slcat in list(self.spellbook.spelllists.keys()):
+                        print("DeBUG: addCatnSkills (slcat) {}".format(slcat))
+                        print("Debug: keys: {}".format(list(self.spellbook.spelllists[slcat].keys())))
 
                         if self.spellbook.spelllists[slcat]['Category'] in cat:
                             for spell in list(self.spellbook.spelllists[slcat].keys()):
@@ -1807,7 +1802,6 @@ class priorizeWeaponsWin(blankWindow):
         self.__catnames = catnames
 
         if storepath == None:
-#            self.spath = os.path.expanduser('~') + "/data"
             self.spath = os.getcwd() + "/data"
             logger.debug('Set storepath to %s' % (storepath)) + "/data"
 
@@ -2064,16 +2058,13 @@ class priorizeWeaponsWin(blankWindow):
             if self.character['race'] in races[l]:
                 param['lang'] = l
                 param['race'] = races['en'][races[l].index(self.character['race'])]
-            print("debug realm {}".format(self.character['realm']))
+
             if self.character['realm'] in realms[l]:
                 param['ppd'] = ppds[realms[l].index(self.character['realm'])]
                 param['Stats'] = magicstats[realms[l].index(self.character['realm'])]
 
-############ das könnte noch ein Bug sein: keine Progression....
         if type(param['ppd']) == type(''):
-            print("debug: race {} ppd {}".format(param['ppd'], param['race']))
             param['ppd'] = progressionType[param['ppd'] + param['race']]
-#            param['ppd'] = progressionType['null']
 
         elif type(param['ppd']) == type([]):
 
@@ -2097,7 +2088,7 @@ class priorizeWeaponsWin(blankWindow):
         '''
         import json
         charname = self.character['name']  #.replace(" ", "_")
-#        with open(self.spath + self.character['player'] + '/' + self.character['name'] + ".json", "w") as outfile:
+
         try:
             with open(self.spath + self.character['player'] + '/' + charname + ".json", "w") as outfile:
                 json.dump(self.character, outfile, sort_keys = True,
@@ -2756,9 +2747,6 @@ class skillcatWin(blankWindow):
             if self.__tree.item(self.__curItem)['tags'][0] != "category":
                 self.skillrank = self.__tree.item(self.__curItem)['values'][-2]
 
-        #DEBUG
-#        print(self.__tree.item(self.__curItem))
-
         if self.__tree.item(self.__curItem)['tags'] != "category":
             linkedcat = ""
 
@@ -3064,26 +3052,14 @@ class skillcatWin(blankWindow):
                 else:
                     messg = messageWindow()
                     messg.showinfo(screenmesg['epwins_no_dp'][self.lang])
-#################### hier gibt es noch ein problem
-        #DEBUG
-        print("takeValsSkill 3012.\n\tchar[DP]: {}\n\tusedDP; {}".format(self._character["DP"], self.__usedDP))
-        self.DPtext.set(str(self._character['DP'] - self.__usedDP))
 
+        self.DPtext.set(str(self._character['DP'] - self.__usedDP))
         self.__buildChangedTree()
 
 
     def __takeValsCat(self):
         '''
         This method takes added/modified skills/cats to a dict and treeview
-
-        @todo The following has to be implemented:
-        -# take care of non standard progression: do not "level" those categories
-        -# update total skill bonusses if there are skills
-
-        ----
-        @bug
-        - if you levelup a '+' skill, e.g. 'riding', first and rename it afterwards the level is set to 0 for the renamend skill  and even for the initial '+' skill
-          it seems to be a problem of lowval
         '''
         ## @var currcat
         # current category name
@@ -3716,8 +3692,6 @@ class charInfo(blankWindow):
                                         initialdir = self.mypath)
         if type(self.charpic) == type(""):
             self._character['piclink'] = self.charpic
-        #DEBUG
-#            print("mypath: {}\npiclink: {}".format(self.mypath, self._character['piclink']))
             from PIL import Image, ImageTk
             self.cpic = ImageTk.PhotoImage(Image.open(self.charpic).resize((300, 300), Image.ANTIALIAS))
             self.picLabel.configure(image = self.cpic)
@@ -3731,8 +3705,6 @@ class charInfo(blankWindow):
                                         initialdir = self.mypath)
         if type(self.charpic) == type(""):
             self._character['piclink'] = self.charpic
-        #DEBUG
-#            print("mypath: {}\npiclink: {}".format(self.mypath, self._character['piclink']))
             from PIL import Image, ImageTk
             self.cpic = ImageTk.PhotoImage(Image.open(self.charpic).resize((300, 300), Image.ANTIALIAS))
             self.picLabel.configure(image = self.cpic)
@@ -4010,9 +3982,6 @@ class statGainWin(blankWindow):
 
             else:
                 self.var[s].set(0)
-
-            #DEBUG
-#            print("DEBUG var[{}]: {}".format(s, self.var[s].get()))
 
         Button(self.window,
                text = txtbutton['but_all'][self.lang],

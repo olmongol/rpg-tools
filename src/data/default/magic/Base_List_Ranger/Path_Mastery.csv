@@ -1,1 +1,23 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Pathlore,10'R,---,self,I,Caster learns origin and nearest ''destination'' of any path within the area of effect.
+2,Nightvision,caster,10 min/lvl,self,U,Target can see 100' on a normal night as if it were daylight.
+3,Tracking I,caster,C,self,U,Caster gets a +50 bonus for all Tracking attempts.
+4,Path Tale,caster,C,self,I,"Caster acquires visual image of any user(s) of a given path, up to 1 hour in the past per level of the caster."
+5,Pathfinding I,caster,C,1 mile,I,"Caster learns the location(s) of any path(s) within 1 mile. This spell reveals the nearest point on path, but not the path's course."
+6,Tracks Lore,caster,---,touch,I,"Caster learns origin of tracks, and acquires a visual image of the one who left them. Caster will gain a +25 bonus when tracking this particular being or animal."
+7,Detect Ambush I,50'R,10 min/lvl(C),self,I,"Caster is aware of any being within the area of effect that has hostile intentions towards him. The hostility must be directed specifically at the caster or the spell reveals nothing. The being's hostility must be active (i.e., driving the being to perform aggressive actions), not passive (i.e., hate exists, but no action is planned)."
+8,Passing Lore,1 objec,---,touch,I,"Caster acquires visual and aural (sound) image of any being or animal that has passed within a 50'R of a specific object. The being or animal can have passed up to 1 hour per level earlier. If more than one being or animal has passed, the caster will see them one image at a time, one image per round (starting with the oldest image)."
+9,Pathfinding V,caster,C,5 miles,I,"As Pathfinding I, except range is 5 miles."
+10,Animal Tongues,caster,1 min/lvl,self,I,Allows caster to understand and ''speak'' the language of any 1 animal species.
+11,Tracks Analysis,100'R,C,self,I,"Caster acquires a visual image of all beings or animals who left tracks in the area. This provides a +50 bonus when later tracking that particular being or animal. If more than one being or animal has left tracks, the caster will see them one image at a time, one image per round (starting with the oldest image)."
+12,Plant Tongues,caster,1 min/lvl,self,I,Allows caster to understand and ''speak'' the language of any 1 plant species.
+13,Pathfinding XX,caster,C,20 miles,I,"As Pathfinding I, except for range."
+14,Detect Ambush II,caster,10 min/lvl(C),self,I,"As Detect Ambush I, except area of effect is 100'R."
+15,Stonespeech,caster,1 min/lvl,self,I,Allows caster to understand and ''speak'' the language of any 1 ''stone.''
+16,Tracking II,caster,C,self,U,"As Tracking I, except bonus is +75."
+17,Detect Ambush III,150'R,10 min/lvl,self,I,"As Detect Ambush I, except area of effect is 150'R."
+19,Paths True,caster,---,1 mi/lvl,I,"As Pathfinding I, except range is 1 mile per level and exact route(s) within the range are ascertained."
+20,Detect Ambush True,10'R/lvl,10 min/lvl(C),self,I,"As Detect Ambush, except area of effect is 10'R/lvl."
+25,Know Path,caster,C,self,I,"Allows caster to ascertain the proper path to what he seeks (includes the course along that path). For ex- ample, he will always know the best way to Syclax."
+30,Tracking True,caster,C,self,U,"As Tracking, except that it will negate any Hide Tracks spell (except for Hide Tracks True), and will always give tracker a special +100 Tracking bonus."
+50,Tracks Ahead,1 mi/lvl,C,100',I,"Allows caster to know entire course of the tracks in the area of effect (i.e., exactly where and how they go). This will not negate Hide Tracks True."

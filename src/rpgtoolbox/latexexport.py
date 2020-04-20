@@ -12,7 +12,7 @@ will be generated for printouts
 \version 1.1
 '''
 
-__updated__ = "27.02.2020"
+__updated__ = "20.04.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -218,7 +218,7 @@ class charsheet(object):
 
         template = readFile(self.storepath + "/default/latex/template_rr_at_db.tex")
         template = template.replace("==>ThreeQ", str(int(self.char["Qu"]["total"]) * 3))
-
+        template = template.replace("==>AdrenalDef", str(self.char["cat"]["Special Defenses"]["Skill"]["Adrenal Defense"]["total bonus"]))
         for v in vals:
             template = template.replace("==>{}".format(v), str(int(self.char[v])))
 
@@ -496,17 +496,26 @@ class spellbook(object):
 
                 for SL in self.character["cat"][cat]["Skill"].keys():
 
-                    if SL not in  ["Stats", "Progression"]:
+                    if SL not in  ["Stats", "Progression", "Spell List+"]:
                         if self.character["cat"][cat]["Skill"][SL]["rank"] > 0:
                             self.latex += "\n\\chapter*{\\yinitpar{%s}%s \\newline %s}\n" % (SL[0], SL[1:], cat[9:])
-                            self.latex += r"\rowcolors{1}{}{lightgray}" + "\n" + r"\begin{longtable}{clccccp{5cm}}" + "\n"
+                            self.latex += r"\rowcolors{1}{}{lightgray}" + "\n" + r"\begin{longtable}{clccccp{5.5cm}}" + "\n"
                             self.latex += r"    \multicolumn{1}{c}{\textcolor{red}{Lvl}} &" + "\n" + \
                                           r"    \multicolumn{1}{c}{\textcolor{red}{Spell}} &" + "\n" + \
                                           r"    \multicolumn{1}{c}{\textcolor{red}{Area of Effect}} &" + "\n" + \
                                           r"    \multicolumn{1}{c}{\textcolor{red}{Duration}} &" + "\n" + \
                                           r"    \multicolumn{1}{c}{\textcolor{red}{Range}}&" + "\n" + \
                                           r"    \multicolumn{1}{c}{\textcolor{red}{Type}} &" + "\n" + \
-                                          r"    \multicolumn{1}{c}{\textcolor{red}{Description}}\\" + "\n"
+                                          r"    \multicolumn{1}{c}{\textcolor{red}{Description}}\\" + "\n" + \
+                                          r"\endfirsthead" + "\n\n" + \
+                                          r"    \multicolumn{1}{c}{\textcolor{red}{Lvl}} &" + "\n" + \
+                                          r"    \multicolumn{1}{c}{\textcolor{red}{Spell}} &" + "\n" + \
+                                          r"    \multicolumn{1}{c}{\textcolor{red}{Area of Effect}} &" + "\n" + \
+                                          r"    \multicolumn{1}{c}{\textcolor{red}{Duration}} &" + "\n" + \
+                                          r"    \multicolumn{1}{c}{\textcolor{red}{Range}}&" + "\n" + \
+                                          r"    \multicolumn{1}{c}{\textcolor{red}{Type}} &" + "\n" + \
+                                          r"    \multicolumn{1}{c}{\textcolor{red}{Description}}\\" + "\n" + \
+                                          r"\endhead" + "\n\n"
 
                             if "Spells" in self.character["cat"][cat]["Skill"][SL].keys():
                                 if self.character["cat"][cat]["Skill"][SL]["Spells"] != []:
@@ -531,7 +540,7 @@ class spellbook(object):
         if not os.path.exists(self.charpath):
             os.mkdir(self.charpath)
 
-        fp = open(self.charpath + self.fn, "w")
+        fp = open(self.charpath + self.fn.replace(" ", "_"), "w")
         fp.write(self.latex)
         fp.close()
 
@@ -545,13 +554,13 @@ class spellbook(object):
         os.chdir(self.charpath)
         try:
             # to get the right table formating LaTeX has to be run twice
-            os.system("pdflatex {}".format(self.fn))
-            os.system("pdflatex {}".format(self.fn))
+            os.system("pdflatex {}".format(self.fn.replace(" ", "_")))
+            os.system("pdflatex {}".format(self.fn.replace(" ", "_")))
             windoman = ["/usr/bin/xdg-open", "/usr/bin/gnome-open", "/usr/bin/kde-open", "/usr/bin/open"]
 
             for wm in windoman:
                 if os.path.isfile(wm):
-                    os.system("{} {}.pdf".format(wm, self.fn[:-4]))
+                    os.system("{} {}.pdf".format(wm, self.fn.replace(" ", "_")[:-4]))
 
         except Exception as error:
             print("ERROR: Could not execute PDF LaTex! Please try it manually!!\n{}".format(error))

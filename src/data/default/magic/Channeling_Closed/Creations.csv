@@ -1,1 +1,20 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+2,Sustain Self,caster,1 day,self,U,"Allows caster to go without food or water and not suffer damage (i.e., provides nutrition and water for 1 day)."
+3,Water Production I,---,P,10',E,Caster can produce sufficient in any available receptacle to supply a being for one day.
+4,Food Production I,---,P,10',E,Caster can produce sufficient food from the surrounding area to feed 1 hearty appetite for 1 day.
+5,Fire Starting,1'R,---,1',E,Allows caster to set a fire of 1'R; fire will then last as long as there is fuel. A target in the 1'R will take an 'A' Heat critical.
+6,Nutrient Conjures I,---,P,10',E,Caster can produce 1 loaf of waybread that weighs .5lb and will support 1 being for 1 day; the loaf will lose potency in 1 month.
+7,Water Production III,---,P,10',E,"As Water Production I, except caster can produce 3 days of water."
+8,Food Production III,---,P,10',E,"As Food Production I, except caster can produce sufficient food to feed 3 beings for 1 day."
+9,Herb Enhancement,1 herb,P,touch,U,"Allows caster to enhance the potency of any 1 growing herb by 100\% (i.e., x2); spell may be employed only once per herb."
+10,Water Production V,---,P,10',E,"As Water Production I, except caster can produce 5 days of water."
+11,Food Production V,---,P,10',E,"As Food Production I, except caster can produce sufficient food to feed 5 beings for 1 day."
+12,Nutrient Conjures III,---,P,10',E,"As Nutrient Conjure I, except caster can produce 3 loaves of waybread."
+13,Herb Mastery,1 herb,P,touch,U,Caster can double the potency of any 1 herb (growing or dead); spell may be employed only once/herb. May not be combined with Herb Enhancement.
+15,Lesser Plant Production,1 plant,P,10',E,Caster can produce a plant up to 10' in height and/or width; plant must be commonly found in the region.
+16,Mass Water Production,---,P,10',E,"As Water Production I, except caster can create 1 day of water per level (e.g., a 17th level Cleric could create 17 days of water)."
+17,Food Production True,---,P,10',E,"As Food Production I, except caster can produce sufficient food to feed a number of beings equal to his level."
+20,Lesser Animal Production,1 animal,P,10',E,Caster can create an animal representative of the surrounding region and weighing no more than 10 pounds; animal will be friendly to caster.
+25,Nutrient Conjures True,---,P,10',E,"As Nutrient Conjure I, except caster can produce loaves of waybread equal to his level."
+30,Greater Plant Production,1 plant,P,10',E,"As Lesser Plant Production, except that caster can create 1 plant with a height and/or width of 1' per level (e.g., a 30th level could produce a 20' high tree with a 30' maximum width); plant must be commonly found in the local area."
+50,Greater Animal Production,1 animal,P,10',E,"As Lesser Animal Production, except that caster can produce an animal with a maximum weight of 1 pound per level; the animal must be a native of the area."

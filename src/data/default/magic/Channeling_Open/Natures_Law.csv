@@ -1,1 +1,20 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+2,Plant Lore,1 plant,---,10',I,"Caster learns nature, history, and value of any 1 plant."
+3,Herb Lore,1 herb,---,10',I,"Caster can understand the nature, origin, and value of any 1 herb; if the plant is not an herb, no information will be related."
+5,Stone Lore,1 stone,---,10',I,"Caster learns the nature, history, and origin of any 1 stone."
+6,Speed Growth,1 species,1 day,10',U,Caster can increase speed of growth for any 1 species of plant within the radius by 10 times.
+7,Animal Tongues,caster,1 min/lvl,self,I,Allows caster to understand and ''speak'' the language of any 1 animal species.
+9,Animal Mastery I,1 animal,C,100',Fm,Caster can control the actions of any 1 animal.
+10,Nature's Awareness I,caster,C,100',I,"Caster can monitor animate activity in the area (e.g., he will be aware of subtle movements). For the duration of the spell, the caster cannot move."
+11,Plant Tongues,caster,1 min/lvl,self,I,Allows caster to understand and ''speak'' the language of any 1 plant species.
+12,Animal Mastery III,3 animals,C,100',Fm,"As Animal Mastery I, except caster can control 3 animals."
+13,Animal Empathy,1 animal,C,100',P,Caster can understand and/or visualize the thoughts and emotions of any 1 animal.
+14,Plant Control I,1 plant,1 min/lvl,100',Fm,Caster can control the automatic and/or mental processes of any 1 plant. Caster can also control the plant's movements. Note that this spell does not allow movement beyond normal allowances.
+15,Stonespeech,1 stone,1 min/lvl,self,I,"Caster can communicate with any 1 stone if it possesses any animate qualities (e.g., caster could speak to a holy stone that possesses an intelligence)."
+16,Herb Production,1 seed,P,touch,U,Caster can grow an herb by planting the proper seed. The herb is sterile and the growth takes 1-10 rounds.
+18,Animal Mastery V,5 animals,C,100',Fm,"As Animal Mastery I, except caster can control 5 animals."
+19,Plant Control III,3 plants,1 min/lvl,100',Fm,"As Plant Control I, except caster can control any 3 plants."
+20,Nature's Awareness V,caster,C,500',I,"As Nature's Awareness I, except that the radius is 500'."
+25,Earth Empathy,1 object,1 min/lvl,100',P,"Caster can understand and/or visualize the thoughts and emotions of any 1 animal, plant, stone, or dead organic object. The caster can change targets once per round."
+30,Mastery,1 species,C,10'/lvl,Fm,"As Animal Mastery I, except caster can control all of the animals of a given species within a range equal to 10' x his level (e.g., at 30th level you could control all of the ferrets or minks within 300')."
+50,Animal Mastery True,1 species,P,10'/lvl,Fm,"As Animal Mastery I, except duration is permanent and concentration is not required. At a given time, there may only be 1 animal controlled by caster through use of this spell."

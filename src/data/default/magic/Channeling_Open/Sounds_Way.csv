@@ -1,1 +1,16 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Speech I,1 target,C,10',U,"Target is able to communicate basic ideas in the language of a specific being (e.g., hungry, thirsty, bathroom, peace, etc.). For the duration of the spell, the target has the equivalent of skill rank 2 in the language."
+3,Quiet I,1 target,1 min/lvl,100',E,"Creates a 1'R area around the target, into and out of which sound cannot travel; if the point is on a mobile object or being, it will move with the object/being; +25 to Stalking attempts. See Section 7.1.7."
+5,Soundwall I,20'x20',10 min/lvl,100',E,"Creates a plane (up to 20' x 20'), through which sound will not pass."
+6,Speech II,1 target,C,10',U,"As Speech I, except target can communicate in more complex concepts, although there is a good chance of misinterpretations. For the duration of the spell, the target has the equivalent of skill rank 4 in the language."
+7,Silence I,10'R,1 min/lvl,100',E,"As Quiet I, except radius is 10'."
+8,Quiet III,3 targets,1 min/lvl,100',E,"As Quiet I, except 3 targets can be affected."
+10,Soundwall V,(20'x20')x5,10 min/lvl,100',E,"As Soundwall I, except 5 such walls are created. Each Soundwall must be connected to at least one other Soundwall."
+11,Quiet V,5 targets,1 min/lvl,100',E,"As Quiet I, except 5 targets may be affected."
+13,Silence V,50'R,1 min/lvl,100',E,"As Silence I, except radius is 50'."
+15,Speech III,1 target,C,10',U,"As Speech II, except target is reasonably fluent in the language. Target’s accent is imperfect, but there is only a slight chance of misinterpretation. For the duration of the spell, the target has the equivalent of skill rank 6 in the language."
+17,Sounding,1 target,1 min/lvl,10',E,Target can speak at 5 times his normal loudness.
+20,Silence X,100'R,1 min/lvl,100',E,"As Silence I, except radius is 100'."
+25,Mass Soundwalls,varies,10 min/lvl,100',E,"As Soundwall V, except as many Soundwalls as the target’s level can be created."
+30,Mass Quiet,varies,1 min/lvl,100',E,"As Quiet I, except as many targets as the target’s level can be affected."
+50,Speech True,1 target,1 min/lvl,100',U,"As Speech III, except for the duration and the target speaks the specified language as if he were a native. For the duration of the spell, the target has the equivalent of skill rank 8 in the language."

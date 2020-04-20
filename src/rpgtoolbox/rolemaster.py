@@ -14,7 +14,7 @@ This package holds RM specific tools like Character Skill Progression.
 \date 2019
 \copyright 2015-2019 Marcus Schwamberger
 '''
-__updated__ = "21.02.2020"
+__updated__ = "12.04.2020"
 
 catnames = {'de' : {'spells' : "Spells",
                     'weapon' : 'Weapon',
@@ -33,7 +33,8 @@ spellisttypes = {'de': ['Offene Leitmagie', 'Geschlossene Leitmagie',
                         'Mönch Basis', 'Hexer Basis', 'Böse Essenz',
                         'Offene Mentalismus', 'Geschlossene Mentalismus',
                         'Laienheiler Basis', 'Barden Basis', 'Mentalist Basis',
-                        'Magent Basis', 'Mystiker Basis', 'Böse Mentalistmus'
+                        'Magent Basis', 'Mystiker Basis', 'Böse Mentalistmus',
+                        "Taoist-Mönch Basis", "Zen-Mönch Basis"
                         ],
                  'en': ['Open Channeling', 'Closed Channeling',
                         'Animist Base', 'Cleric Base', 'Paladin Base',
@@ -43,7 +44,8 @@ spellisttypes = {'de': ['Offene Leitmagie', 'Geschlossene Leitmagie',
                         'Monk Base', 'Sorcerer Base', 'Evil Essence',
                         'Open Mentalism', 'Closed Mentalism',
                         'Lay Healer', 'Bard Base', 'Mentalist Base',
-                        'Magent Base', 'Mystic Base', 'Evil Mentalism'
+                        'Magent Base', 'Mystic Base', 'Evil Mentalism',
+                        "Taoist Monk Base", "Zen Monk Base"
                         ],
                  }
 ## @var sldirs
@@ -54,7 +56,7 @@ sldirs = ["Channeling_Open", "Channeling_Closed", "Base_List_Animist", "Base_Lis
           'Base_List_Dabbler', 'Base_List_Monk', 'Base_list_Sorcerer', 'Essence_Evil',
           'Mentalism_Open', 'Mentalism_Closed', 'Base_List_Lay-Healer', 'Base_List_Bard',
           'Base_List_Bard', 'Base_List_Mentalist', 'Base_List_Magent', 'Base_List_Mystic',
-          'Mentalism_Evil']
+          'Mentalism_Evil', "Base_List_Taoist-Monk", "Base_List_Zen-Monk"]
 ##\var races
 # just a dictionary for translation of the races' names
 races = {'de' : ['normale Menschen', 'vermischte Menschen', 'Hochmenschen',
@@ -749,7 +751,7 @@ def DPCostSpells(skill = 0, listtype = "Own Realm Own Base Lists", profession = 
                       "Magician", "Lay Healer", "Mentalist"
                       ]
     semispellusers = ["Paladin", "Ranger", "Dabbler",
-                      "Monk", "Bard", "Magent"
+                      "Monk", "Bard", "Magent", "Taoist-Monk", "Zen_Monk"
                       ]
 
     if 5 < no < 11:

@@ -1,0 +1,4 @@
+Only spells with a defined duration can have their duration changed with an Extension spell. This does not include spells with a duration of ''concentration'' or ''instant'' spells.
+Only spells with a ''radius'' effect can have their area of effect changed by the Increase Radius spells.
+Only spells with a range other than ''self'' can be affected by Ranging spells.
+Instant Ranging does not allow two spells to be cast in the same round. Thus, a spell that is utilizing Instant Ranging still takes a minimum of two rounds to cast
