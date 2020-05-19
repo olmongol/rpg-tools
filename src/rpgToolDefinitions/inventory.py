@@ -11,7 +11,7 @@
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "16.05.2020"
+__updated__ = "19.05.2020"
 
 ## \var money
 # This dictionary holds the different coins available
@@ -88,10 +88,13 @@ gems = {"name" : "",
 ## \var potions
 # prototype dictionary for magical potions or rune papers
 
-potions = {"name": "",
+runes = {"name": "",
             "description" : "",
+            "type" : "",  #potion,rune paper, rod, wand,staff
             "spell" : "",
             "lvl" : "",
+            "loads":1,
+            "max loads":1,
             "skill" : "",
             "realm" : "",
             "weight" : 0,
@@ -140,15 +143,3 @@ daily_item = {"name" : "",
               "worth" : money
              }
 
-## \var wand
-# prototype dictionary for staffs, wands and rods
-wand = {"name" : "",
-         "description" : "",
-         "loads" : "",
-         "max loads":0,
-         "spell" : "",
-         "spellist":"",
-         "realm" : "",
-         "weight" : 0,
-         "worth" : money
-        }

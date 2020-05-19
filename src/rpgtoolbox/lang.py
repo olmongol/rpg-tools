@@ -25,7 +25,7 @@ Currently supported languages are:
 \todo clean up the code!!!
 '''
 __version__ = "1.1"
-__updated__ = "18.05.2020"
+__updated__ = "19.05.2020"
 ## \var supportedrpg
 # Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
@@ -392,6 +392,11 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                                    "daily" : u'daily Items',
                                    "PP_spell" : "PP-Multiplier/Spelladder",
                                    },
+                           },
+            'add items' : {"de" : {"items": u"neue Gegenstände hinzufügen"
+                                   },
+                           "de" : {"items":"add new items"
+                                   }
                            }
            }
 
@@ -606,6 +611,11 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
           'spellbook' :{'de' : "Zauberbuch",
                         'en' : "Spellbook"
                         },
+          'MMP' : {'de': "BMM",
+                   'en' : "MMP"
+                   },
+          "MMP_long" : {'de' : u"Bewegungsmanövermod.",
+                        'en' : "Movement Maneuver Penalty"}
 
           }
 
