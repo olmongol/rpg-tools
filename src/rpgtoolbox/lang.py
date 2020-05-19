@@ -25,7 +25,7 @@ Currently supported languages are:
 \todo clean up the code!!!
 '''
 __version__ = "1.1"
-__updated__ = "27.02.2020"
+__updated__ = "18.05.2020"
 ## \var supportedrpg
 # Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
@@ -253,6 +253,10 @@ txtmenu = {'menu_help'     : {'de' : 'Hilfe',
            'menu_grp'      : {'de' : 'Charaktergruppe',
                               'en' : 'Character Party'
                               },
+           'menu_inventory' : {'de' : 'Inventar berarbeiten',
+                               'en' : 'edit inventory'
+                               },
+
           }
 
 ## \var submenu
@@ -369,7 +373,26 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                               'new'     : "New party",
                               'gmview'  : "Gamemaster's overview",
                               },
-                      }
+                      },
+           'inventory' :  {'de' : {"armor" : u'Rüstung',
+                                   "weapon" : "Waffen",
+                                   "gear" : u'Ausrüstung',
+                                   "herbs" : "Kräuter/Tränke/Gifte",
+                                   "gems" : "Schmuck/Juwelen/Edelsteine",
+                                   "spells": u"Runenpapier/Zauberstäbe",
+                                   "daily" : u'täglich verwendbare Ggst.',
+                                   "PP_spell" : "MP-Vermehrer/Zaubervermehrer",
+                                   },
+                           'en' : {"armor" : 'Amor',
+                                   "weapon" : "Weapons",
+                                   "gear" :  'Equippment',
+                                   "herbs" : "Herbs/Potions/Poisons",
+                                   "gems" : "Jewelry/Gems",
+                                   "spells": u"Runepaper/Wands/Rods",
+                                   "daily" : u'daily Items',
+                                   "PP_spell" : "PP-Multiplier/Spelladder",
+                                   },
+                           }
            }
 
 ## \var txtwin

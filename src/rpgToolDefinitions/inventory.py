@@ -11,7 +11,7 @@
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "07.05.2020"
+__updated__ = "16.05.2020"
 
 ## \var money
 # This dictionary holds the different coins available
@@ -68,7 +68,7 @@ armor = {"name": "",
 
 gear = {"name": "",
          "description" : "",
-         "skill" : ""
+         "skill" : "",
          "bonus" : 0,
          "magical" : False,
          "weight" : 0,
@@ -80,17 +80,16 @@ gear = {"name": "",
 ## \var gems
 # prototype dictionary for gems and jewelary
 gems = {"name" : "",
-         "description",
+         "description":"",
          "weight" : 0,
          "worth" : money
          }
-
 
 ## \var potions
 # prototype dictionary for magical potions or rune papers
 
 potions = {"name": "",
-            "description" : ""
+            "description" : "",
             "spell" : "",
             "lvl" : "",
             "skill" : "",
@@ -100,12 +99,12 @@ potions = {"name": "",
             }
 
 ## \var herbs
-# prototype dictionary for herbs/ medical potions 
+# prototype dictionary for herbs/ medical potions
 
 herbs = {"name" : "",
          "other name" :[],
-         "type" : ""
-         "lvl" : 0
+         "type" : "",
+         "lvl" : 0,
          "found" : [],
          "description" : "",
          "medical use" :"",
@@ -116,7 +115,7 @@ herbs = {"name" : "",
 
 ## \var constant_item
 # prototype dictionary for constant magic items like PP Muliplier, spell adder
- 
+
 constant_item = {"name" : "",
                  "description" : "",
                  "spell" : "",
@@ -132,7 +131,7 @@ constant_item = {"name" : "",
 # prototype dictionary for daily items
 daily_item = {"name" : "",
               "description" : "",
-              "use times" : 0
+              "use times" : 0,
               "spell" : "",
               "realm" : "",
               "lvl" : 0,
@@ -146,7 +145,7 @@ daily_item = {"name" : "",
 wand = {"name" : "",
          "description" : "",
          "loads" : "",
-         "max loads":,
+         "max loads":0,
          "spell" : "",
          "spellist":"",
          "realm" : "",
