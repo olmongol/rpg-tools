@@ -1,0 +1,74 @@
+item,comment,weight,prod. time,cost,ID
+Arrows (20),Wooden shafts and iron tips.,3 lbs.,1 day,4bp,1
+Backpack,Leather or canvas. Holds 20 lbs; 1 cubic foot.,2-3 lbs.,1 day,2bp,2
+Bedroll (light),Wool blanket. 2 season.,4-7 lbs.,0.5 days,2bp,3
+Bedroll (heavy),Wool/fur. 4 season.,8-11 lbs,1 day,7bp,4
+Boots,Leather.,3-4 lbs.,3 days,1sp,5
+Brush (writing),Wooden shaft with hair bristles. Capped.,0.25 lbs.,4 hrs,5cp,6
+Bucket,Copper. Holds 3 gallons.,2-3 lbs.,1 day,4bp,7
+Caltrops (5),Portable spike traps.,2 lbs.,1 day,8bp,8
+Candle,Wax or tallow. Lights 10' diameter; burns 2 hrs.,0.25 lbs.,0.5 days,4cp,9
+Case,"Water-resist. Made of leather. 12"" x 3"" x 6"".",1 lb.,2 days,4sp,10
+Cask,Wood. Holds 4 gallons.,5 lbs.,1.5 days,24bp,11
+Chain,Iron. 10'.,8-10 lbs,1 day,6bp,12
+Chalk (10),"White. 5"" long.",0.25 lbs.,2 hrs,2bp,13
+Charcoal,Hot  4-hour fire. ,1 lb.,0.5 days,22cp,14
+Chisel,Iron. -40 dagger.,1 lb.,1 day,9bp,15
+Cloak,Heavy linen or wool.,2-3 lbs.,1 day,9bp,16
+Climbing pick,Iron. -15 war mattock.,2 lbs.,1 day,28bp,17
+Coat,Leather or heavy linen.,5-9 lbs.,2 days,15bp,18
+Crossbow bolts (20),Wooden shafts with iron tips.,3 lbs.,2 days,11bp,19
+Fire-starting bow,Starts fire in 5 minutes.,0.5 lbs.,1 hr,8tp,20
+Flint and steel,Starts fire in 3 minutes.,0.5 lbs.,—,1bp,21
+Framepack,Canvas. Holds 45 lbs; 2 cubic feet.,3-4 lbs.,1.5 days,33cp,22
+Gloves,Heavy leather; lined.,0.5 lbs.,1 day,2bp,23
+Grappling hook,Iron. Grip fails on a 02-03 on a maneuver roll.,1 lb.,1 day,1sp,24
+Hammer,Iron. -30 mace.,1 lb.,1 day,1sp,25
+Hammock,Rope; wood spreaders; iron hooks.,2-3 lbs.,3 days,1bp,26
+Harness,Leather/iron. Includes bit and reins.,4 lbs.,2 days,1sp,27
+Hat,Leather.,1 lb.,1 day,6bp,28
+Hood,Covers head & shoulders.,0.5 lbs.,0.5 day,16cp,29
+Ink,Black; non-soluble.,0.25 lbs.,—,14cp,30
+Ladder,Wood. 10'. Bears 400 lbs.,15 lbs.,2 days,32cp,31
+Lantern,Lights 40' diameter.,1-2 lbs.,4 days,12bp,32
+Lock pick kit,+5 skill bonus to Lock Picking.,0.5 lbs.,2 days,1sp,33
+Mirror,"Silvered glass. 6"" x 4"".",0.5 lbs.,1 day,35bp,34
+Nails (20),"Iron. 3"" length.",0.5 lbs.,3 hrs,9tp,35
+Oar,Wood. 6'-8'.,4-5 lbs.,7 hrs,6cp,36
+Oil flask,Includes 1 pint oil (6 hr refill).,1 lb.,1 day,3bp,37
+Padded Undercoat,Heavy linen or wool.,2-4 lbs.,2 days,6bp,38
+Paddle,Wood. 4'-5'.,3 lbs.,5 hrs,5cp,39
+Padlock,Iron; with 2 keys. +0 to Lock picking attempts.,1 lb.,2 days,23bp,40
+Pants,Linen.,1-2 lbs.,1 day,25cp,41
+Paper (10),"10 sheets. 12"" x 6"".",0.25 lbs.,1 day,12bp,42
+Parchment (10),"10 sheets. 12"" x 6"". Very durable.",0.25 lbs.,1 day,2sp,43
+Pegs (10),Wood.,2 lbs.,2 hrs,9tp,44
+Pitons (10),Iron.,2-3 lbs.,1 day,2bp,45
+Plank,"Wood. 10' x 6' x 2"". Bears 350 lbs.",11-12 lb.,4 hrs,6tp,46
+Pole,Wood. 10'.,5-10 lbs.,3 hrs,5cp,47
+Pot (cooking),Iron. Holds 2 gallons.,2-3 lbs.,1 day,7bp,48
+Quill-pens (10),Goose feather quills.,0.25 lbs.,2 hrs,4cp,49
+Quiver,Holds 20 arrows/bolts.,0.5 lbs.,1 day,1bp,50
+Rope,Hemp. 50'.,4-7 lbs.,3 days,4bp,51
+Rope (superior),Reinforced hemp. 50'.,2-4 lbs.,5 days,12bp,52
+Sack (50 lb),Holds 50 lbs. 3 cubic feet.,2-3 lbs.,2 hrs,8cp,53
+Saddle,Includes stirrups +  blanket. ,10-12 lb.,6 days,5sp,54
+Saddle bag,Holds 15 lbs. 1.5 cubic feet.,4-6 lbs.,2 days,8bp,55
+Saw,"Iron. 24"" wood-tool.",2-3 lbs.,2 days,23bp,56
+Scabbard (belt),Holds one 1-h weapon.,1 lb.,1 day,25bp,57
+Scabbard (shoulder),Holds one 2-h weapon.,1.5 lbs.,1 day,3sp,58
+Shirt,Linen,1 lb.,1.5 days,3bp,59
+Spade,Iron. Wood shaft.,3-4 lbs.,1 day,16bp,60
+Sundial,Iron. Gives approximate time.,1 lb.,2 days,3sp,61
+Surcoat,Linen,1-2 lbs.,1.5 days,9bp,62
+Tarp,Canvas. 5' x 8'.,3-5 lbs.,2 hrs,1bp,63
+Tent,Canvas. 5' x 8'. Two man.,8-10 lbs.,2 days,2sp,64
+Tinderbox,Wood. Enough for 7 fires.,0.25 lbs.,0.5 days,2cp,65
+Torch,Lights 20' diameter. (6 hrs).,1 lb.,1 hr,3tp,66
+Vial,Glass. Holds 2 oz.,0.25 lbs.,2 hrs,2bp,67
+Water skin,Holds 1 pint (.5 lbs).,0.25 lbs.,6 hrs,1cp,68
+Weapon belt,Holds 2 scabbards +  3 pouches. ,1 lb.,0.5 days,5bp,69
+Wedge (staying),Hardwood.,1 lb.,1 hr,1cp,70
+Wedge (splitting),Iron.,3 lbs.,2 hrs,3cp,71
+Wire (10 gauge),Iron. 100'.,3 lbs.,5 hrs,9bp,72
+Whistle,"Wood/iron. 4"". Range 1+ mi.",0.5 lb.,1 day,2sp,73

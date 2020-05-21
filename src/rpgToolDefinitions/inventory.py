@@ -11,7 +11,55 @@
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "19.05.2020"
+__updated__ = "21.05.2020"
+
+## \var geartypes
+# (dictionary) list of different type of equippment like armor, weapon, tool...
+geartypes = {"en": ["clothes", "tool", "container", "food", "equippment"],
+            "de" :["Kleidung", "Werkzeug", u"Behälter", "Nahrung", u"Ausrüstung"]
+            }
+##\var treeformat
+# width of treeview columns
+treeformat = {"item" : 200,
+             "name" : 200,
+             "comment" : 450,
+             "description":450,
+             "AT" :50,
+             "prod. time":90,
+             "weight":70,
+             "cost" : 70,
+             "worth": 70,
+             "short":50,
+             "type":80,
+             "breakage":100,
+             "strength":100,
+             "fumble": 100,
+             "ID" : 40,
+             "magic" : 40,
+             "mithril": 40,
+             "slaying" : 100,
+             "holy" : 40,
+             "OB" :50,
+             "man bonus" :60,
+             "height/weight" : 100,
+             "capacity":100,
+             "mi/hr":50,
+             "ft/rnd":50
+             }
+##\var char_inv_tv
+# header for character's armor for treeview display
+# @todo has to be fully filled
+char_inv_tv = {"armor" : ["name", "description", "AT", "weight", "worth"],
+               "weapon" : ["name", "description", "bonus", "breakage", "weight", "magic", "mithril", 'slaying', "holy", "worth"],
+               "services" :["name", "description", "weight", "worth"],
+               "gems" : ["name", "description", "weight", "worth"],
+               "gear" : ["name", "description", "weight", "worth"],
+               "transport" :["name", "description", "weight", "worth"],
+               "herbs" :[],
+               "runes" :[],
+               "constant item" :[],
+               "daily item" :[],
+               }
 
 ## \var money
 # This dictionary holds the different coins available
@@ -44,6 +92,7 @@ weapon = {"name" : "",
           "strength" : 0,
           "soft/wooden" : 0,
           "location" : "",
+          "range mod" :[],
           "worth" : money
          }
 
@@ -58,7 +107,10 @@ armor = {"name": "",
           "weight" : 0,
           "bonus" : 0,
           "skill" : "",
-          "worn": False,
+          "bonus DB" :0,
+          "bonus man": 0,
+          "bonus OB": 0,
+          "location" : "",
           "worth" : money
 
          }
@@ -74,18 +126,20 @@ gear = {"name": "",
          "weight" : 0,
          "skill" : "",
          "count" : 0,
+         "type" : "",
          "worth" : money
         }
 
 ## \var gems
-# prototype dictionary for gems and jewelary
+# prototype dictionary for gems and jewelery
 gems = {"name" : "",
          "description":"",
          "weight" : 0,
+         "location" : "",
          "worth" : money
          }
 
-## \var potions
+## \var runes
 # prototype dictionary for magical potions or rune papers
 
 runes = {"name": "",
@@ -98,6 +152,7 @@ runes = {"name": "",
             "skill" : "",
             "realm" : "",
             "weight" : 0,
+            "location" : "",
             "worth" : money
             }
 
@@ -113,6 +168,7 @@ herbs = {"name" : "",
          "medical use" :"",
          "other use" : "",
          "weight" : 0,
+         "location" : "",
          "worth": money
          }
 
@@ -127,6 +183,7 @@ constant_item = {"name" : "",
                  "weight" : 0,
                  "add spell" : 0,
                  "mult PP" : 0,
+                 "location" : "",
                  "worth" : money
                 }
 
@@ -140,6 +197,13 @@ daily_item = {"name" : "",
               "lvl" : 0,
               "bonus" : 0,
               "weight" : 0,
+              "location" : "",
               "worth" : money
              }
 
+transport = {"name" :"",
+            "description":"",
+            "worth": money}
+
+services = {"name" : "",
+            "description":""}
