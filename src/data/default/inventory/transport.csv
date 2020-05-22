@@ -28,7 +28,7 @@ Skis,6' / 15,-10,---,300 lbs.,6,90,7cp,426
 Sledge (covered),10' / 100,-20,---,400 lbs.,4.5,70,12cp,427
 Wagon (open),8' / 600,-30,---,1200 lbs. ,3.5,50,6gp,428
 Wagon (closed),9' / 850,-40,---,1300 lbs. ,3,40,9gp,429
-Coach service,---,---,---,---,4,60,1bp+1cp/mi,430
-Ferry service,---,---,---,---,2.5,30,1bp+2cp/mi,431
-Ship passage,---,---,---,---,2.5***,30***,5bp+2tp/mi,432
+Coach service,---,---,---,---,4,60,11cp/mi,430
+Ferry service,---,---,---,---,2.5,30,12cp/mi,431
+Ship passage,---,---,---,---,2.5***,30***,502tp/mi,432
 Toll charge,---,---,---,---,---,---,1cp,433

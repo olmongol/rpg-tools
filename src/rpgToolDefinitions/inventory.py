@@ -11,7 +11,7 @@
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "21.05.2020"
+__updated__ = "22.05.2020"
 
 ## \var geartypes
 # (dictionary) list of different type of equippment like armor, weapon, tool...
@@ -28,7 +28,7 @@ treeformat = {"item" : 200,
              "prod. time":90,
              "weight":70,
              "cost" : 70,
-             "worth": 70,
+             "worth": 90,
              "short":50,
              "type":80,
              "breakage":100,
@@ -54,7 +54,7 @@ char_inv_tv = {"armor" : ["name", "description", "AT", "weight", "worth"],
                "services" :["name", "description", "weight", "worth"],
                "gems" : ["name", "description", "weight", "worth"],
                "gear" : ["name", "description", "weight", "worth"],
-               "transport" :["name", "description", "weight", "worth"],
+               "transport" :["name", "description", "height/weight", "capacity", "OB", "worth"],
                "herbs" :[],
                "runes" :[],
                "constant item" :[],
@@ -73,6 +73,9 @@ money = {"mithril" : 0,
          "tin" : 0,
          "iron" : 0
         }
+
+coins = {'long' : ["mithril", "platinium", "gold", "silver", "bronze", "copper", "tin", "iron"],
+         'short': ["mp", "pp", "gp", "sp", "bp", "cp", "tp", "ip"]}
 
 ## \var weapon
 # A dictonary holding all information that are needed for a single weapon.
@@ -93,7 +96,7 @@ weapon = {"name" : "",
           "soft/wooden" : 0,
           "location" : "",
           "range mod" :[],
-          "worth" : money
+          "worth" : money.copy()
          }
 
 ## \var amor
@@ -111,7 +114,7 @@ armor = {"name": "",
           "bonus man": 0,
           "bonus OB": 0,
           "location" : "",
-          "worth" : money
+          "worth" : money.copy()
 
          }
 
@@ -127,7 +130,7 @@ gear = {"name": "",
          "skill" : "",
          "count" : 0,
          "type" : "",
-         "worth" : money
+         "worth" : money.copy()
         }
 
 ## \var gems
@@ -136,7 +139,7 @@ gems = {"name" : "",
          "description":"",
          "weight" : 0,
          "location" : "",
-         "worth" : money
+         "worth" : money.copy()
          }
 
 ## \var runes
@@ -153,7 +156,7 @@ runes = {"name": "",
             "realm" : "",
             "weight" : 0,
             "location" : "",
-            "worth" : money
+            "worth" : money.copy()
             }
 
 ## \var herbs
@@ -169,7 +172,7 @@ herbs = {"name" : "",
          "other use" : "",
          "weight" : 0,
          "location" : "",
-         "worth": money
+         "worth": money.copy()
          }
 
 ## \var constant_item
@@ -184,7 +187,7 @@ constant_item = {"name" : "",
                  "add spell" : 0,
                  "mult PP" : 0,
                  "location" : "",
-                 "worth" : money
+                 "worth" : money.copy()
                 }
 
 ## \var daily_item
@@ -198,12 +201,12 @@ daily_item = {"name" : "",
               "bonus" : 0,
               "weight" : 0,
               "location" : "",
-              "worth" : money
+              "worth" : money.copy()
              }
 
 transport = {"name" :"",
             "description":"",
-            "worth": money}
+            "worth": money.copy()}
 
 services = {"name" : "",
             "description":""}

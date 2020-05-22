@@ -14,7 +14,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "21.05.2020"
+__updated__ = "22.05.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.1"
@@ -524,7 +524,8 @@ class shopWin(blankWindow):
                              'runes':[],
                              'constant item':[],
                              'daily item' :[],
-                             'gems' :[]
+                             'gems' :[],
+                             "services":[],
                            }
         self.shoptype = shoptype
         if self.character == {}:
@@ -897,7 +898,7 @@ class shopWin(blankWindow):
                                              sticky = "NEWS")
         Button(self.window,
                text = txtbutton["but_sav"][self.lang],
-               command = self.saveShop).grid(column = 9,
+               command = self.__quicksave).grid(column = 9,
                                              row = 12,
                                              sticky = "NEWS")
 #        self.window.columnconfigure(0, weight = 1)
@@ -1002,8 +1003,19 @@ class shopWin(blankWindow):
         count = 1
         for item in self.inv_char[self.shoptype]:
             inpline = []
+
             for column in char_inv_tv[self.shoptype]:
-                inpline.append(item[column])
+
+                if column != "worth":
+                    inpline.append(item[column])
+                else:
+                    purse = ""
+                    for coin in coins['long']:
+                        pprint(item["worth"])
+                        if item["worth"][coin] > 0:
+                            purse += str(item["worth"][coin]) + coin[0] + "p"
+                    inpline.append(purse)
+
             self.invtree.insert("", count, value = tuple(inpline))
             count += 1
 
@@ -1069,6 +1081,7 @@ class shopWin(blankWindow):
         """
         self.curr_shop = self.shoptree.focus()
         self.curr_item = self.shoptree.item(self.curr_shop)['values']
+        newitem = {}
         if self.shoptype == "weapon":
             newitem = weapon.copy()
         elif self.shoptype == "armor" :
@@ -1092,8 +1105,12 @@ class shopWin(blankWindow):
         else:
             print("ERROR: wrong shoptype")
 
+#        print(80 * "=")
+        newitem["worth"] = money.copy()
+#        pprint(newitem)
+#        print(80 * "=")
         for  i in range(0, len(self.data[0])):
-#            print("{}: {}".format(self.data[0][i], self.curr_item[i]))
+
             if self.data[0][i] == "item":
                 newitem["name"] = self.curr_item[i]
             elif self.data[0][i] == "comment":
@@ -1105,28 +1122,31 @@ class shopWin(blankWindow):
                 else:
                     newitem["weight"] = float(self.curr_item[i].strip(" lbs."))
             elif self.data[0][i] == "cost":
-                print("cost ", self.curr_item[i][-2:])
+
+                price = self.curr_item[i][:-2]
                 if self.curr_item[i][-2:] == "mp":
-                    newitem["worth"]["mithril"] = int(self.curr_item[i][:-2])
+                    newitem["worth"]["mithril"] = int(price)
+                elif self.curr_item[i][-2:] == "pp":
+                    newitem["worth"]["platinium"] = int(price)
                 elif self.curr_item[i][-2:] == "gp":
-                    newitem["worth"]["gold"] = int(self.curr_item[i][:-2])
+                    newitem["worth"]["gold"] = int(price)
                 elif self.curr_item[i][-2:] == "sp":
-                    newitem["worth"]["silver"] = int(self.curr_item[i][:-2])
+                    newitem["worth"]["silver"] = int(price)
                 elif self.curr_item[i][-2:] == "bp":
-                    newitem["worth"]["bronze"] = int(self.curr_item[i][:-2])
+                    newitem["worth"]["bronze"] = int(price)
                 elif self.curr_item[i][-2:] == "cp":
-                    newitem["worth"]["copper"] = int(self.curr_item[i][:-2])
+                    newitem["worth"]["copper"] = int(price)
                 elif self.curr_item[i][-2:] == "tp":
-                    newitem["worth"]["tin"] = int(self.curr_item[i][:-2])
+                    newitem["worth"]["tin"] = int(price)
                 elif self.curr_item[i][-2:] == "ip":
-                    newitem["worth"]["iron"] = int(self.curr_item[i][:-2])
+                    newitem["worth"]["iron"] = int(price)
 
             elif self.data[0][i] != "ID":
                 newitem[self.data[0][i]] = self.curr_item[i]
 
-        pprint(newitem)
-        self.inv_char[self.shoptype].append(newitem)
-        pprint(self.inv_char)
+#        pprint(newitem)
+        self.inv_char[self.shoptype].append(newitem.copy())
+        del(newitem)
         self.fillInventory()
 
 
@@ -1320,10 +1340,14 @@ class shopWin(blankWindow):
         '''
         This does a character quick save without opening a window
         '''
-        self.character["inventory"] = self.inv.char.copy()
-        with open(self.opendir, "w") as fp:
-            json.dump(self.character, fp, indent = 4)
-        print("{} saved".format(self.opendir))
+        self.character["inventory"] = self.inv_char.copy()
+        try:
+            with open(self.opendir, "w") as fp:
+                json.dump(self.character, fp, indent = 4)
+
+            print("{} saved".format(self.opendir))
+        except:
+            self.__save()
 
 
     def __quit(self):
