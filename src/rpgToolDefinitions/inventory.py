@@ -14,8 +14,8 @@ __version__ = "0.1"
 __updated__ = "22.05.2020"
 
 ## \var geartypes
-# (dictionary) list of different type of equippment like armor, weapon, tool...
-geartypes = {"en": ["clothes", "tool", "container", "food", "equippment"],
+# (dictionary) list of different type of equipment like armor, weapon, tool...
+geartypes = {"en": ["clothes", "tool", "container", "food", "equipment"],
             "de" :["Kleidung", "Werkzeug", u"Behälter", "Nahrung", u"Ausrüstung"]
             }
 ##\var treeformat

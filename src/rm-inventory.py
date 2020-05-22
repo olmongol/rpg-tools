@@ -294,7 +294,7 @@ class InventoryWin(blankWindow):
                      )
         # row 5/6
         c = 2
-        for coin in ["MP", "GP", "SP", "BP", "CP", "TP", "IP"]:
+        for coin in ["MP", "PP", "GP", "SP", "BP", "CP", "TP", "IP"]:
             Label(self.window,
                   text = coin + ":",
                   ).grid(column = c,
@@ -372,7 +372,7 @@ class InventoryWin(blankWindow):
             self.character["MMP"] = calcMMP(self.character)
             self.wcont["MMP"].set(self.character["MMP"])
 
-        for coin in ["MP", "GP", "SP", "BP", "CP", "TP", "IP"]:
+        for coin in ["MP", "PP", "GP", "SP", "BP", "CP", "TP", "IP"]:
             if "purse" not in self.character.keys():
                 self.character["purse"] = {}
 
@@ -564,6 +564,9 @@ class shopWin(blankWindow):
                                   command = self.__open)
         self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
                                   command = self.__save)
+        self.filemenu.add_separator()
+        self.filemenu.add_command(label = submenu['file'][self.lang]['pdf'],
+                                  command = self.__latexExport)
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
                                   command = self.__quit)
@@ -806,7 +809,8 @@ class shopWin(blankWindow):
 
         # row 5/6
         c = 2
-        for coin in ["MP", "GP", "SP", "BP", "CP", "TP", "IP"]:
+        for coin in ["MP", "PP", "GP", "SP", "BP", "CP", "TP", "IP"]:
+            self.wcont[coin].set(self.character["purse"][coin])
             Label(self.window,
                   text = coin + ":",
                   anchor = N,
@@ -1044,32 +1048,91 @@ class shopWin(blankWindow):
 
     def buyItem(self):
         """
-        This is for buying a piece of equippment
-        ----
-        @todo has to be fully implemented
+        This is for buying a piece of equipment
+        @todo a message window has to be implemented if not enoug money
         """
-        self.notdoneyet()
+        self.curr_shop = self.shoptree.focus()
+        self.curr_item = self.shoptree.item(self.curr_shop)['values']
+        worth = self.data[0].index("cost")
+        price = int(self.curr_item[worth][:-2])
+        coin = self.curr_item[worth][-2:]
+        mymoney = self.character["purse"]["IP"]
+        cu = coins["short"].index(coin)
+        price *= 10 ** (len(coins["short"]) - cu - 1)
+        cu = coins["short"].index("ip")
+        ocu = cu
+
+        # subtract the money
+        while mymoney < price and cu >= 0:
+            cu -= 1
+
+            while self.character["purse"][coins["short"][cu].upper()] > 0 and mymoney < price:
+                self.character["purse"][coins["short"][cu + 1].upper()] = 0
+                self.character["purse"][coins["short"][cu].upper()] -= 1
+                mymoney += 10 ** (ocu - cu)
+
+        if mymoney < price:
+            messageWindow(self.lang).showinfo("not enough money", "WARNING")
+            print("not enough money!!")
+
+        else:
+            result = mymoney - price
+
+            for i in range(cu + 1, ocu + 1):
+                self.character["purse"][coins["short"][i].upper()] = (result) // 10 ** (ocu - i)  # - f * (self.character["purse"][coins["short"][i - 1].upper()] * 10)
+                result -= (result) // 10 ** (ocu - i) * 10 ** (ocu - i)
+
+            for coin in ["MP", "PP", "GP", "SP", "BP", "CP", "TP", "IP"]:
+                self.wcont[coin].set(self.character["purse"][coin])
+
+            # add item
+            self.addShopItem()
 
 
     def sellItem(self):
         """
-        This is for selling a piece of equippment
-        ----
-        @todo has to be fully implemented
+        This is for selling a piece of equipment
         """
-        self.notdoneyet()
+        self.curr_inv = self.invtree.focus()
+        self.curr_invitem = self.invtree.item(self.curr_inv)["values"]
+        worth = char_inv_tv[self.shoptype].index("worth")
+
+        for item in self.inv_char[self.shoptype]:
+            count = 1
+
+            for i in range(0, len(char_inv_tv[self.shoptype])):
+
+                if char_inv_tv[self.shoptype][i] != "worth" and str(item[char_inv_tv[self.shoptype][i]]) == self.curr_invitem[i]:
+                    count += 1
+
+            if count >= len(char_inv_tv[self.shoptype]) - 1:
+                price = int(self.curr_invitem[worth][:-2])
+                coin = self.curr_invitem[worth][-2:]
+
+                if "PP" not in self.character["purse"].keys():
+                    self.character["purse"]["PP"] = 0
+
+                for cu in self.character["purse"].keys():
+
+                    if cu.lower() == coin:
+                        self.character["purse"][cu] += price
+
+                self.inv_char[self.shoptype].remove(item)
+                self.character["inventory"] = self.inv_char
+                self.fillInventory()
+
+                for coin in ["MP", "PP", "GP", "SP", "BP", "CP", "TP", "IP"]:
+                    self.wcont[coin].set(self.character["purse"][coin])
+                break
 
 
     def removeItem(self):
         """
-        This is for removing a piece of equippment
-        ----
-        @todo has to be fully implemented
+        This is for removing a piece of equipment (throw away)
         """
         self.curr_inv = self.invtree.focus()
-
         self.curr_invitem = self.invtree.item(self.curr_inv)["values"]
-        print(self.curr_invitem)
+
         for item in self.inv_char[self.shoptype]:
             count = 1
             for i in range(0, len(char_inv_tv[self.shoptype])):
@@ -1078,7 +1141,6 @@ class shopWin(blankWindow):
                     print("debug: {} - {}".format(count, len(char_inv_tv[self.shoptype])))
             if count >= len(char_inv_tv[self.shoptype]) - 1:
                 self.inv_char[self.shoptype].remove(item)
-                pprint(self.inv_char[self.shoptype])
                 self.character["inventory"] = self.inv_char
                 self.fillInventory()
                 break
@@ -1086,9 +1148,7 @@ class shopWin(blankWindow):
 
     def addShopItem(self):
         """
-        This is for adding a piece of equippment to shop
-        ----
-        @todo has to be fully implemented
+        This is for adding a piece of equipment to shop
         """
         self.curr_shop = self.shoptree.focus()
         self.curr_item = self.shoptree.item(self.curr_shop)['values']
@@ -1276,7 +1336,7 @@ class shopWin(blankWindow):
             self.character["MMP"] = calcMMP(self.character)
             self.wcont["MMP"].set(self.character["MMP"])
 
-        for coin in ["MP", "GP", "SP", "BP", "CP", "TP", "IP"]:
+        for coin in ["MP", "PP", "GP", "SP", "BP", "CP", "TP", "IP"]:
             if "purse" not in self.character.keys():
                 self.character["purse"] = {}
 
@@ -1299,6 +1359,15 @@ class shopWin(blankWindow):
         """
         mmp = 0
         return mmp
+
+
+    def __latexExport(self):
+        """
+        This exports data into  LaTeX template for PDF generation
+        ----
+        @todo has to be fully implemented
+        """
+        self.notdoneyet("LaTeX export")
 
 
     def __open(self):
@@ -1333,6 +1402,8 @@ class shopWin(blankWindow):
                                            'daily item' :[],
                                            'gems' :[]
                                            }
+        if "PP" not in self.character["purse"].keys():
+            self.character["purse"] = 0
         self.inv_char = self.character['inventory'].copy()
         self.fillInventory()
 

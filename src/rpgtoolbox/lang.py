@@ -25,7 +25,7 @@ Currently supported languages are:
 \todo clean up the code!!!
 '''
 __version__ = "1.1"
-__updated__ = "21.05.2020"
+__updated__ = "22.05.2020"
 ## \var supportedrpg
 # Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
@@ -282,7 +282,8 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                           'export' : 'Exportieren',
                           'new_char': 'Neuer Charakter',
                           'new_grp' : 'Neue Charaktergruppe',
-                          'print': 'Drucken'
+                          'print': 'Drucken',
+                          'pdf' : "PDF erstellen",
                           },
                     'en':{'open'  : 'Open file',
                           'close' : 'Close file',
@@ -293,7 +294,8 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                           'export' : 'Export',
                           'new_char' : "New character",
                           'new_grp' : "New character party",
-                          'print': 'Print'
+                          'print': 'Print',
+                          'pdf' : "PDF generation"
                           },
                     },
            'opts'  :{'de' : {'lang' : 'Einstellungen',
