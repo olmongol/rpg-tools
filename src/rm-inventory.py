@@ -989,18 +989,12 @@ class shopWin(blankWindow):
     def fillInventory(self):
         """
         This fills the  inventory treeview with character's items if there are any
-        ----
-        @todo this has to be fully implemented
         """
-#        if "inventory" in self.character.keys():
-#            self.inv_char = dict(self.character['inventory']).copy()
-#
-#        if self.shoptype in self.inv_char.keys():
-#            pass
-#        self.invtree.delete(*self.invtree.get_children())
         for i in self.invtree.get_children():
             self.invtree.delete(i)
+
         count = 1
+
         for item in self.inv_char[self.shoptype]:
             inpline = []
 
@@ -1010,10 +1004,12 @@ class shopWin(blankWindow):
                     inpline.append(item[column])
                 else:
                     purse = ""
+
                     for coin in coins['long']:
-                        pprint(item["worth"])
+
                         if item["worth"][coin] > 0:
                             purse += str(item["worth"][coin]) + coin[0] + "p"
+
                     inpline.append(purse)
 
             self.invtree.insert("", count, value = tuple(inpline))
@@ -1070,7 +1066,22 @@ class shopWin(blankWindow):
         ----
         @todo has to be fully implemented
         """
-        self.notdoneyet()
+        self.curr_inv = self.invtree.focus()
+
+        self.curr_invitem = self.invtree.item(self.curr_inv)["values"]
+        print(self.curr_invitem)
+        for item in self.inv_char[self.shoptype]:
+            count = 1
+            for i in range(0, len(char_inv_tv[self.shoptype])):
+                if char_inv_tv[self.shoptype][i] != "worth" and str(item[char_inv_tv[self.shoptype][i]]) == self.curr_invitem[i]:
+                    count += 1
+                    print("debug: {} - {}".format(count, len(char_inv_tv[self.shoptype])))
+            if count >= len(char_inv_tv[self.shoptype]) - 1:
+                self.inv_char[self.shoptype].remove(item)
+                pprint(self.inv_char[self.shoptype])
+                self.character["inventory"] = self.inv_char
+                self.fillInventory()
+                break
 
 
     def addShopItem(self):
