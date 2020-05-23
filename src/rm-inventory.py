@@ -14,7 +14,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "22.05.2020"
+__updated__ = "23.05.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.1"
@@ -89,7 +89,7 @@ class InventoryWin(blankWindow):
         self.invmenu.add_command(label = submenu["inventory"][self.lang]["gems"],
                                  command = self.__gems)
         self.invmenu.add_command(label = submenu['inventory'][self.lang]["herbs"],
-                                 command = self.notdoneyet)
+                                 command = self.__herbs)
         self.invmenu.add_separator()
         self.invmenu.add_command(label = submenu["inventory"][self.lang]["spells"],
                                  command = self.notdoneyet)
@@ -494,6 +494,14 @@ class InventoryWin(blankWindow):
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "gems")
 
 
+    def __herbs(self):
+        """
+        This opens a window for portions, herbs and poisons
+        """
+        self. window.destroy()
+        self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "herbs")
+
+
 
 class shopWin(blankWindow):
     """
@@ -583,7 +591,7 @@ class shopWin(blankWindow):
         self.invmenu.add_command(label = submenu["inventory"][self.lang]["gems"],
                                  command = self.__gems)
         self.invmenu.add_command(label = submenu['inventory'][self.lang]["herbs"],
-                                 command = self.notdoneyet)
+                                 command = self.__herbs)
         self.invmenu.add_separator()
         self.invmenu.add_command(label = submenu["inventory"][self.lang]["spells"],
                                  command = self.notdoneyet)
@@ -1043,7 +1051,7 @@ class shopWin(blankWindow):
         Gets dataset from shop treeview
         """
         self.curr_shop = self.shoptree.focus()
-        print(self.shoptree.item(self.curr_shop))
+#        print(self.shoptree.item(self.curr_shop))
 
 
     def buyItem(self):
@@ -1072,14 +1080,14 @@ class shopWin(blankWindow):
                 mymoney += 10 ** (ocu - cu)
 
         if mymoney < price:
-            messageWindow(self.lang).showinfo("not enough money", "WARNING")
+            messageWindow(self.lang).showinfo("not enough money - ohne Moos nix los!", "WARNING")
             print("not enough money!!")
 
         else:
             result = mymoney - price
 
             for i in range(cu + 1, ocu + 1):
-                self.character["purse"][coins["short"][i].upper()] = (result) // 10 ** (ocu - i)  # - f * (self.character["purse"][coins["short"][i - 1].upper()] * 10)
+                self.character["purse"][coins["short"][i].upper()] = (result) // 10 ** (ocu - i)
                 result -= (result) // 10 ** (ocu - i) * 10 ** (ocu - i)
 
             for coin in ["MP", "PP", "GP", "SP", "BP", "CP", "TP", "IP"]:
@@ -1153,6 +1161,7 @@ class shopWin(blankWindow):
         self.curr_shop = self.shoptree.focus()
         self.curr_item = self.shoptree.item(self.curr_shop)['values']
         newitem = {}
+
         if self.shoptype == "weapon":
             newitem = weapon.copy()
         elif self.shoptype == "armor" :
@@ -1176,22 +1185,26 @@ class shopWin(blankWindow):
         else:
             print("ERROR: wrong shoptype")
 
-#        print(80 * "=")
         newitem["worth"] = money.copy()
-#        pprint(newitem)
-#        print(80 * "=")
+
         for  i in range(0, len(self.data[0])):
 
             if self.data[0][i] == "item":
                 newitem["name"] = self.curr_item[i]
+
             elif self.data[0][i] == "comment":
                 newitem["description"] = self.curr_item[i]
+
             elif self.data[0][i] == "weight" :
                 if "-" in self.curr_item[i]:
                     a, b = self.curr_item[i].strip(" lbs.").split("-")
                     newitem["weight"] = round(random.uniform(float(a), float(b)), 2)
                 else:
                     newitem["weight"] = float(self.curr_item[i].strip(" lbs."))
+
+            elif self.data[0][i] == "effect":
+                newitem["medical use"] = self.curr_item[i]
+
             elif self.data[0][i] == "cost":
 
                 price = self.curr_item[i][:-2]
@@ -1215,7 +1228,6 @@ class shopWin(blankWindow):
             elif self.data[0][i] != "ID":
                 newitem[self.data[0][i]] = self.curr_item[i]
 
-#        pprint(newitem)
         self.inv_char[self.shoptype].append(newitem.copy())
         del(newitem)
         self.fillInventory()
@@ -1223,7 +1235,7 @@ class shopWin(blankWindow):
 
     def addItem(self):
         """
-        This is for adding a piece of equippment to shop
+        This is for adding a piece of equipment to shop
         ----
         @todo has to be fully implemented
         """
@@ -1485,6 +1497,14 @@ class shopWin(blankWindow):
         """
         self. window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "gems")
+
+
+    def __herbs(self):
+        """
+        This opens a window for portions, herbs and poisons
+        """
+        self. window.destroy()
+        self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "herbs")
 
 
 

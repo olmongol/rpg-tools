@@ -1,0 +1,30 @@
+item,type,climate,locale,difficulty,form,prep,cost,AF,comment,effect,lvl
+Arfandas,Bone Repair,cold,freshwater coast and banks,very hard,Stem,apply,2sp,1,,Doubles rate of healing for fractures.,
+Gursamel,Bone Repair,cool temperate,short grass,extreme,Stalk,apply,30gp,5,,Mends bone.,
+Culkas,Burn/Exposure Relief,arid,dessert,medium,Leaf,apply,35gp,0,,Heals 10 square feet of burns (any).,
+Jojojopo,Burn/Exposure Relief,frigid,mountain,medium,Leaf,apply,9sp,0,,Cures frostbite. Heals 2-20 hits resulting from cold.,
+Fek,Circulatory Repair,hot and humid,ocean/saltwater shore,very hard,Nut,brew,50gp,5,,Stops any bleeding. Takes 1-10 rds to take effect. Patient cannot move (appreciably) without reopening the wound.,
+Harfy,Circulatory Repair,semi-arid,short grass,very hard,Resin,apply,175gp,9,,Immediately stops any form of bleeding.,
+Akbutege,Concussion Relief,semi-arid,ocean/saltwater shore,easy,Leaf,ingest,3sp,1,,Heals 1-10.,
+Cusamar,Concussion Relief,cold,heath/scrub/moor,extreme,Flower,ingest,30gp,3,,Heals 15-60 (10 + 5d10).,
+Reglen,Concussion Relief,cool temperate,mountain,light,Moss,brew,75gp,7,,Heals 50.,
+Rewk,Concussion Relief,cool temperate,decidous/mixed forest,light,Nodule,brew,9sp,1,,Heals 2-20,
+Yavethalion,Concussion Relief,mild temperate,ocean/saltwater shore,hard,Fruit,ingest,45gp,4,,Heals 5-50.,
+Arpsusar,Muscle/Cartilage/Tendon Repair,cool temperate,freshwater coast and banks,hard,Stalk,brew,30gp,15,,Mends muscle damage.,
+Ebur,Muscle/Cartilage/Tendon Repair,mild temperate,ocean/saltwater shore,medium,Flower,ingest,22gp,18,,Repairs sprains.,
+Terbas,Nerve Repair,mild temperate,decidous/mixed forest,light,Leaf,apply,2gp,4,,Doubles healing rate for nerve damage.,
+Berterin,Organ Repair/Preservation,mild temperate,decidous/mixed forest,light,Moss,brew,19gp,20,,Preservation of organic material (up to body size) for 1 day.,
+Kakduram,Organ Repair/Preservation,hot and humid,jungle/rain forest,extreme,Fruit,ingest,90gp,6,,Restores hearing,
+Suranie,Stun Relief,cool temperate,freshwater coast and banks,light,Berry,ingest,2gp,3,,Stun relief (1 round).,
+Alshanak,Enchanted Breads,cool temperate,tall grass,easy,Bread,ingest,35gp,5,,4 oz. slice is one dose. Heat sensitive vision (infravision up to 50') for 1 hour. Loaf keeps 1-2 months.,
+Hesguratu,Enchanted Breads,cold,mountain,light,Bread,ingest,45gp,10,,4 oz. slice is one dose. Increase strength for 1 minute. +10 Strength stat bonus; double concussion hits delivered. Loaf keeps 1 month.,
+Jeggarukh,Poison,mild temperate,underground,hard,Bats,powder,71gp,3,,Black powder gives 10-100 hits.,6
+Sharkasar,Poison,mild temperate,coniferous forest,very hard,Root,paste,2gp,0,,Brown paste gives 1-10 hits.,10
+Taynaga,Poison,cold,coniferous forest,hard,Bark,powder,27gp,0,,Brownish powder sterilizes and gives 5-50 hits.,8
+Dynallca,Poison,hot and humid,freshwater coast and banks,light,Leaf,paste,14gp,3,,Tan paste destroys hearing and gives 1-10 hits.,3
+Juth,Poison,arid,dessert,hard,Scorpion,liquid,41gp,0,,insanity in 1-100 weeks,2
+Silmaana,Poison,mild temperate,tall grass,easy,Stalk,powder,4gp,0,,Silver powder scars skin; gives 2-20 hits.,9
+Zaganzar,Poison,cool temperate,mountain,very hard,Root,liquid,139gp,0,,luish extract (blinds by reducing optic nerve to water); gives 1-10 hits,5
+Jitsu,Poison,mild temperate,ocean/saltwater shore,medium,Clams,liquid,34gp,0,,Yellow venom gives 5-50 hits,5
+Uraana,Poison,cool temperate,short grass,light,Leaf,paste,12gp,6,,Creamy paste gives 3-30 hits,6
+Vuraana,Poison,hot and humid,tall grass,medium,Flower,paste,42gp,6,,Pinkish paste delivers 1-100 hits.,2

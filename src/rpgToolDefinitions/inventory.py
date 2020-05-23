@@ -11,7 +11,7 @@
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "22.05.2020"
+__updated__ = "23.05.2020"
 
 ## \var geartypes
 # (dictionary) list of different type of equipment like armor, weapon, tool...
@@ -30,7 +30,7 @@ treeformat = {"item" : 200,
              "cost" : 70,
              "worth": 90,
              "short":50,
-             "type":80,
+             "type":100,
              "breakage":100,
              "strength":100,
              "fumble": 100,
@@ -44,7 +44,16 @@ treeformat = {"item" : 200,
              "height/weight" : 100,
              "capacity":100,
              "mi/hr":50,
-             "ft/rnd":50
+             "ft/rnd":50,
+             "AF":30,
+             "climate":70,
+             "difficulty":80,
+             "form":80,
+             "prep":70,
+             "lvl":30,
+             "effect" :200,
+             "medical use":300,
+             "other use": 200,
              }
 ##\var char_inv_tv
 # header for character's armor for treeview display
@@ -55,7 +64,7 @@ char_inv_tv = {"armor" : ["name", "description", "AT", "weight", "worth"],
                "gems" : ["name", "description", "weight", "worth"],
                "gear" : ["name", "description", "weight", "worth"],
                "transport" :["name", "description", "height/weight", "capacity", "OB", "worth"],
-               "herbs" :[],
+               "herbs" :["name", "type", "lvl", "description", "medical use", "other use", "worth"],
                "runes" :[],
                "constant item" :[],
                "daily item" :[],
