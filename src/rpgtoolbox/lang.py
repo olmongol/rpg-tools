@@ -25,7 +25,7 @@ Currently supported languages are:
 \todo clean up the code!!!
 '''
 __version__ = "1.1"
-__updated__ = "22.05.2020"
+__updated__ = "24.05.2020"
 ## \var supportedrpg
 # Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
@@ -278,6 +278,7 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                           'new'   : 'Neue Datei',
                           'save'  : 'Datei speichern',
                           'sv_as' : 'Datei speichern unter...',
+                          'sv_item': "Ggst im Laden speichern",
                           'quit'  : 'Beenden',
                           'export' : 'Exportieren',
                           'new_char': 'Neuer Charakter',
@@ -290,6 +291,7 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                           'new'   : 'New file',
                           'save'  : 'Save file',
                           'sv_as' : 'Save as',
+                          'sv_item' : "save item in shop",
                           'quit'  : 'Quit',
                           'export' : 'Export',
                           'new_char' : "New character",
@@ -634,6 +636,13 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
                    },
           "MMP_long" : {'de' : u"Bewegungsmanövermod.",
                         'en' : "Movement Maneuver Penalty"},
+          "item" :{"de" : "Gegenstand",
+                   "en" : "Item"
+                   },
+          "cost" : {'de' : "Kosten",
+                    'en' : 'cost'},
+          "weight" :{"de" : "Gewicht",
+                     "en" : "weight"},
           "item_shop" : {'de' : "Kramladen",
                          "en" : "General Store"},
           "weapon shop": {'de' : 'Waffenschmied',
@@ -644,6 +653,14 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
                          'en' : u'Grocery  & Pub'},
           "magic shop" : {'de' : u"Magiekrämer",
                           'en' : "The Magical Shoppe"},
+          'bonus item': {"de" : u'Bonusgegenstände und Gewichtsreduktion',
+                         "en" : "bonus items and reduced weight"},
+          "charged item" : {"de" : u"aufgeladene magische Gegenstände",
+                            "en" : "charged magical items"},
+          "daily item" :{"de":u"täglich verwendbare Gegenstände",
+                         "en": "daily items"},
+          "perm item" : {"de" : u"permanente magische Gegenstände",
+                         "en" : "permanent magical items"},
 
           }
 

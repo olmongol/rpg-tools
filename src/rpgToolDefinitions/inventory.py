@@ -11,7 +11,7 @@
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "23.05.2020"
+__updated__ = "24.05.2020"
 
 ## \var geartypes
 # (dictionary) list of different type of equipment like armor, weapon, tool...
@@ -99,9 +99,9 @@ weapon = {"name" : "",
           "table" : "",
           "crit" : [],
           "weight" : 0,
-          "breakage": 0,
-          "fumble" : 4,
-          "strength" : 0,
+          "breakage": "",
+          "fumble" : "",
+          "strength" : "",
           "soft/wooden" : 0,
           "location" : "",
           "range mod" :[],
@@ -148,6 +148,13 @@ gems = {"name" : "",
          "description":"",
          "weight" : 0,
          "location" : "",
+#         "realm":"",
+#         "spell": "",
+#         "lvl":0,
+#         "spell list":"",
+#         "loads":0,
+#         "max loads":0,
+#         "bonus":0,
          "worth" : money.copy()
          }
 

@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import os
 import json
 import random
@@ -14,7 +15,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "23.05.2020"
+__updated__ = "24.05.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.1"
@@ -1034,7 +1035,10 @@ class shopWin(blankWindow):
         ----
         @todo has to be fully implemented
         """
-        self.notdoneyet()
+        if self.shoptype == "herbs":
+            messageWindow(self.lang).showinfo("Herbs/potions/poisons may not be enchanted!", "WARNING!")
+        else:
+            self.notdoneyet()
 
 
     def createMagic(self):
@@ -1043,7 +1047,53 @@ class shopWin(blankWindow):
         ----
         @todo has to be fully implemented
         """
-        self.notdoneyet()
+        if self.shoptype == "herbs":
+            messageWindow(self.lang).showinfo("Herbs/potions/poisons may not be enchanted!", "WARNING!")
+        else:
+            self.curr_inv = self.invtree.focus()
+            self.curr_invitem = self.invtree.item(self.curr_inv)["values"]
+            #add changes to charracter's inventory
+            self.character["inventory"] = self.inv_char.copy()
+            # transform selected treeview item into character's inventory data struct
+            selected = {}
+
+            if self.shoptype == "weapon":
+                selected = weapon.copy()
+            elif self.shoptype == "armor" :
+                selected = armor.copy()
+            elif self.shoptype == "gear":
+                selected = gear.copy()
+            elif self.shoptype == "gems":
+                selected = gems.copy()
+            elif self.shoptype == "runes":
+                selected = runes.copy()
+            elif self.shoptype == "herbs" :
+                selected = herbs.copy()
+            elif self.shoptype == "services":
+                selected = services.copy()
+            elif self.shoptype == "constant item":
+                selected = constant_item.copy()
+            elif self.shoptype == "daily item":
+                selected = daily_item.copy()
+            elif self.shoptype == "transport":
+                selected = transport.copy()
+            else:
+                print("ERROR: wrong shoptype")
+
+            for item in self.character["inventory"][self.shoptype]:
+                count = 1
+
+                for i in range(0, len(char_inv_tv[self.shoptype])):
+
+                    if char_inv_tv[self.shoptype][i] != "worth" and str(item[char_inv_tv[self.shoptype][i]]) == self.curr_invitem[i]:
+                       count += 1
+                if count >= len(char_inv_tv[self.shoptype]) - 1:
+
+                    for key in char_inv_tv[self.shoptype]:
+                        selected[key] = item[key]
+
+            self.window.destroy()
+            self.enchantWin = enchantItem(self.lang, self.character, self.storepath, selected, self.shoptype)
 
 
     def selectShopItem(self, event):
@@ -1505,6 +1555,605 @@ class shopWin(blankWindow):
         """
         self. window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "herbs")
+
+
+
+class enchantItem(blankWindow):
+    """
+    This is a GUI for EP calculation for your character party.
+    """
+
+
+    def __init__(self, lang = "en", char = {}, storepath = "./data", item = {}, shoptype = ""):
+        """
+        Class constructor
+        \param lang The chosen language for window's and button's
+                    texts. At the moment, only English (en, default
+                    value) and German (de) are supported.
+        \param charlist list of dictionaries holding: player, charname, EPs
+        \param storepath path for storing the data into the character files.
+        """
+
+        self.lang = lang
+        self.character = char.copy()
+
+        if self.character == {}:
+            self.character = {  "player": "Marcus",
+                                "exp": 10000,
+                                'lvl' :1,
+                                "prof": "Ranger",
+                                "race" : "Woodmen",
+                                "name": "Woody",
+                                'realm' : 'Channeling',
+                                "piclink" : "./data/default/pics/default.jpg"
+
+                                }
+        self.item = item.copy()
+        self.price = self.item["worth"].copy()
+        self.enchantment = ("chose enchantment", "charged magic item", "daily item", "magic bonus item", "permanent magic item")
+        self.shoptype = shoptype
+        self.wcont = {}
+        self.filterlist = ['player', 'exp', 'lvl', 'prof', 'race', 'name', 'piclink', 'realm']
+        self.bgfilter = ['act_age', 'carr_weight', "sex", "height", "weight"]
+        self.storepath = storepath
+        blankWindow.__init__(self, self.lang)
+        self.__findItemInv()
+        self.window.title("Rucksack")
+        self.__addMenu()
+        self.__addHelpMenu()
+        self.__buildWin()
+        self.window.mainloop()
+
+
+    def __findItemInv(self):
+        """
+        This copies the complete data to the selected item from characters inventory
+        """
+        self.elem = 0
+        for invitem in self.character["inventory"][self.shoptype]:
+            count = 0
+
+            for h in char_inv_tv[self.shoptype]:
+
+                if self.item[h] == invitem[h]:
+                    count += 1
+
+            if count == len(char_inv_tv[self.shoptype]):
+                self.item = invitem.copy()
+                self.elem = self.character["inventory"][self.shoptype].index(invitem)
+                #DEBUG
+                print("index {}".format(self.elem))
+                break
+
+
+    def __addMenu(self):
+        '''
+        This method adds the menu bar to the window
+        '''
+        self.filemenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
+                              menu = self.filemenu)
+        self.filemenu.add_command(label = submenu['file'][self.lang]['open'],
+                                  command = self.__open)
+        self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
+                                  command = self.__save)
+        self.filemenu.add_separator()
+        self.filemenu.add_command(label = submenu["file"][self.lang]['sv_item'])
+        self.filemenu.add_separator()
+        self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
+                                  command = self.__quit)
+
+
+    def __addHelpMenu(self):
+        """
+        This method defines a help menu.
+        """
+        self.helpmenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['help'][self.lang],
+                              menu = self.helpmenu)
+
+        self.helpmenu.add_separator()
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
+                                  command = self._helpAbout)
+
+
+    def __buildWin(self):
+        """
+        This method defines the window's layout
+        """
+        self.updWidgedCont()
+        self.picLabel = Label(master = self.window,
+                              image = self.wcont['piclink']
+                              )
+        # row 0
+        self.picLabel.grid(column = 0,
+                           row = 0,
+                           columnspan = 2,
+                           rowspan = 8,
+                           sticky = "NEWS",
+                           padx = 5,
+                           pady = 5)
+        Label(self.window,
+              textvariable = self.wcont["player"],
+              justify = LEFT
+              ).grid(column = 2,
+                     row = 0,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        Label(self.window,
+              textvariable = self.wcont["exp"],
+              justify = LEFT
+              ).grid(column = 3,
+                     row = 0,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        Label(self.window,
+              text = "Level:",
+              justify = RIGHT
+              ).grid(column = 4,
+                     row = 0,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        Label(self.window,
+              textvariable = self.wcont["lvl"],
+              justify = LEFT
+              ).grid(column = 5,
+                     row = 0,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        # row 1
+        Label(self.window,
+              textvariable = self.wcont["name"],
+              justify = LEFT
+              ).grid(column = 2,
+                     row = 1,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        Label(self.window,
+              textvariable = self.wcont["sex"],
+              justify = LEFT
+              ).grid(column = 3,
+                     row = 1,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        Label(self.window,
+              textvariable = self.wcont["prof"],
+              justify = LEFT
+              ).grid(column = 4,
+                     row = 1,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        Label(self.window,
+              textvariable = self.wcont["race"],
+              justify = LEFT
+              ).grid(column = 5,
+                     row = 1,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+
+        # row 2
+        Label(self.window,
+              text = charattribs['act_age'][self.lang] + ":"
+              ).grid(column = 2,
+                     row = 2,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        Label(self.window,
+              textvariable = self.wcont["act_age"]
+              ).grid(column = 3,
+                     row = 2,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        Label(self.window,
+              text = charattribs['height'][self.lang] + ":"
+              ).grid(column = 4,
+                     row = 2,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        Label(self.window,
+              textvariable = self.wcont["height"]
+              ).grid(column = 5,
+                     row = 2,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+
+        # row 3
+        Label(self.window,
+              text = charattribs['weight'][self.lang] + ":",
+              justify = RIGHT,
+              ).grid(column = 2,
+                     row = 3,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        Label(self.window,
+              textvariable = self.wcont["weight"]
+              ).grid(column = 3,
+                     row = 3,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        #row 4
+        Label(self.window,
+              text = charattribs['carr_weight'][self.lang] + ":"
+              ).grid(column = 2,
+                     row = 4,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        Label(self.window,
+              textvariable = self.wcont["carr_weight"]
+              ).grid(column = 3,
+                     row = 4,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        Label(self.window,
+              text = labels['MMP'][self.lang] + ":"
+              ).grid(column = 4,
+                     row = 4,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        Label(self.window,
+              textvariable = self.wcont["MMP"]
+              ).grid(column = 5,
+                     row = 4,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        # row 5/6
+        c = 2
+        for coin in ["MP", "PP", "GP", "SP", "BP", "CP", "TP", "IP"]:
+            Label(self.window,
+                  text = coin + ":",
+                  ).grid(column = c,
+                         row = 5,
+                         padx = 1,
+                         pady = 1,
+                         sticky = "EW"
+                         )
+            Label(self.window,
+                  textvariable = self.wcont[coin],
+                  ).grid(column = c,
+                         row = 6,
+                         padx = 1,
+                         pady = 1,
+                         sticky = "EW"
+                         )
+            c += 1
+
+        # row 8
+        self.shoplabel = Label(self.window,
+                              text = labels['magic shop'][self.lang],
+                              anchor = N,
+                              background = "grey"
+                              )
+        self.shoplabel.grid(column = 0,
+                             row = 8,
+                             columnspan = 10,
+                             pady = 3,
+                             sticky = "NEWS"
+                             )
+#        self.shoplabel.config(background = "white")
+        # row 9
+        Label(self.window,
+              text = labels["item"][self.lang] + ":",
+              ).grid(column = 0,
+                     row = 9,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        Label(self.window,
+              text = self.item["name"]
+              ).grid(column = 1,
+                     row = 9,
+                     padx = 3,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        self.chosen = StringVar(self.window)
+        self.chosen.set(self.enchantment[0])
+
+        self.opt = OptionMenu(self.window,
+                           self.chosen,
+                           *tuple(self.enchantment),
+                           command = self.getChoice
+                           )
+        self.opt.grid(column = 2,
+                      row = 9,
+                      padx = 1,
+                      pady = 1,
+                      sticky = "EW"
+                      )
+
+        Label(self.window,
+              text = labels["cost"][self.lang] + ":"
+              ).grid(column = 3,
+                     row = 9,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+
+        self.cost = StringVar()
+        self.cost.set(self.getCosts())
+        Label(self.window,
+              textvariable = self.cost
+              ).grid(column = 4,
+                     row = 9,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+
+        Button(self.window,
+               text = txtbutton["but_buy"][self.lang],
+               command = self.payEnchantement
+               ).grid(column = 5,
+                      columnspan = 5,
+                      row = 9,
+                      padx = 1,
+                      pady = 1,
+                      sticky = "EW"
+                      )
+        # here comes the selected item
+        #row 10
+        self.frame = {}
+        for i in range(1, len(self.enchantment)):
+            self.frame[self.enchantment[i]] = Frame(self.window)
+
+        Label(self.frame["magic bonus item"],
+              text = labels["bonus item"][self.lang],
+              background = "white"
+             ).grid(column = 0,
+                    columnspan = 6,
+                    row = 0,
+                    sticky = "NEWS")
+        Label(self.frame["magic bonus item"],
+              text = "Bonus:"
+              ).grid(column = 0,
+                     row = 1,
+                     sticky = "EW"
+                     )
+
+        self.bonus = IntVar(self.frame["magic bonus item"])
+        self.bonus.set(0)
+        OptionMenu(self.frame["magic bonus item"],
+                   self.bonus,
+                   *(0, 0, 5, 10, 15, 20, 25)
+                   ).grid(column = 1,
+                          row = 1,
+                          sticky = "EW")
+
+        Label(self.frame["magic bonus item"],
+              text = labels["weight"][self.lang] + u"(%):"
+              ).grid(column = 2,
+                     row = 1,
+                     sticky = "EW")
+
+        self.weight = IntVar(self.frame["magic bonus item"])
+        self.weight.set(100)
+        OptionMenu(self.frame["magic bonus item"],
+                   self.weight,
+                   *(100, 100, random.randint(80, 99), random.randint(60, 79), random.randint(40, 59))
+                   ).grid(column = 3,
+                          row = 1,
+                          sticky = "NEWS")
+
+        Label(self.frame["charged magic item"],
+             text = labels["charged item"][self.lang],
+             background = "white"
+             ).grid(column = 0,
+                    columnspan = 6,
+                    row = 0,
+                    sticky = "NEWS")
+        Label(self.frame["daily item"],
+              text = labels["daily item"][self.lang],
+              background = "white"
+             ).grid(column = 0,
+                    columnspan = 6,
+                    row = 0,
+                    sticky = "NEWS")
+        Label(self.frame["permanent magic item"],
+              text = labels["perm item"][self.lang],
+              anchor = N,
+              background = "white"
+             ).grid(column = 0,
+                    columnspan = 9,
+                    row = 0,
+                    sticky = "NEWS")
+
+
+    def getChoice(self, selection):
+        '''
+        This switches the specific frames for the different types of magic items
+        '''
+        #"charged magic item", "daily item", "magic bonus item", "permanent magic item"
+        try:
+            for elem in self.enchantment[1:]:
+                self.frame[elem].grid_forget()
+        except:
+            pass
+        finally:
+            self.frame[selection].grid(column = 0,
+                                       columnspan = 10,
+                                       row = 10,
+                                       rowspan = 6,
+                                       padx = 3,
+                                       pady = 3,
+                                       sticky = "NEWS"
+                                       )
+
+
+    def payEnchantement(self):
+        """
+        This does the payment of the enchantment
+        """
+        self.notdoneyet("pyEnchantment")
+
+
+    def getCosts(self):
+        """
+        Creates display string of costs
+        """
+        result = ""
+        for key in self.price:
+            if self.price[key] > 0:
+                result += str(self.price[key]) + key[0] + "p"
+        return result
+
+
+    def updWidgedCont(self):
+        '''
+        This method updates widget content like texts or images
+        '''
+
+        for elem in self.filterlist:
+
+            if elem == "piclink":
+
+                if elem in self.wcont.keys():
+                    self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.ANTIALIAS))
+                    self.picLabel.config(image = self.wcont[elem])
+
+                else:
+                    self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.ANTIALIAS))
+
+            elif type(self.character[elem]) == type(""):
+
+                if elem not in self.wcont.keys():
+                    self.wcont[elem] = StringVar()
+
+                self.wcont[elem].set(self.character[elem])
+
+            elif type(self.character[elem]) == type(0):
+                if elem not in self.wcont.keys():
+                    self.wcont[elem] = IntVar()
+
+                self.wcont[elem].set(self.character[elem])
+
+        for elem in self.bgfilter:
+
+            if "background" in self.character.keys():
+
+                if type(self.character["background"][elem]) == type(""):
+
+                    if elem not in self.wcont.keys():
+                        self.wcont[elem] = StringVar()
+
+                    self.wcont[elem].set(self.character["background"][elem])
+
+                elif type(self.character["background"][elem]) == type(0):
+
+                    if elem not in self.wcont.keys():
+                        self.wcont[elem] = IntVar()
+
+                    self.wcont[elem].set(self.character["background"][elem])
+            else:
+                self.wcont[elem] = StringVar()
+                self.wcont[elem].set("--")
+
+        if "MMṔ" not in self.wcont.keys():
+            self.wcont["MMP"] = IntVar()
+            self.wcont["MMP"].set(0)
+
+        elif "MMP" not in self.character.keys():
+            self.character["MMP"] = calcMMP(self.character)
+            self.wcont["MMP"].set(self.character["MMP"])
+
+        for coin in ["MP", "PP", "GP", "SP", "BP", "CP", "TP", "IP"]:
+            if "purse" not in self.character.keys():
+                self.character["purse"] = {}
+
+            if coin not in self.character['purse'].keys():
+                self.character["purse"][coin] = 0
+
+            if coin not in self.wcont.keys():
+                self.wcont[coin] = IntVar()
+
+            self.wcont[coin].set(self.character["purse"][coin])
+
+
+    def __open(self):
+        """
+        this method opens a character file
+        ----
+        @todo computation of character groups
+        """
+        self.opendir = filedialog.askopenfilename(defaultextension = ".json", filetypes = [("Character Files", ".json")])
+        with open(self.opendir, "r") as fp:
+            self.charlist = json.load(fp)
+
+        if type(self.charlist) == type({}):
+            self.character = dict(self.charlist).copy()
+            self.updWidgedCont()
+        elif type(self.charlist) == [] :
+            print("char list computing is not implemented yet")
+            pass
+        else:
+            print("ERROR: wrong data format in {}".format(self.opendir))
+
+        if "inventory" not in self.character.keys():
+            self.character["inventory"] = {'weapon' :[],
+                                           'armor' :[],
+                                           'gear' :[],
+                                           'transport':[],
+                                           'herbs':[],
+                                           'runes':[],
+                                           'constant item':[],
+                                           'daily item' :[],
+                                           'gems' :[]
+                                           }
+        self.inv_char = self.character["inventory"].copy()
+
+
+    def __save(self):
+        '''
+        This opens a file dialog window for saving
+        '''
+        savedir = filedialog.asksaveasfilename(defaultextension = ".json", filetypes = [("Character & Group Files", ".json")])
+        with open(savedir, "w") as fp:
+            json.dump(self.character, fp, indent = 4)
+
+
+    def __quit(self):
+        '''
+        This method closes the window
+        '''
+        self.window.destroy()
+        self.armorwin = shopWin(self.lang, self.character, self.storepath, self.shoptype)
 
 
 
