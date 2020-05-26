@@ -15,7 +15,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "24.05.2020"
+__updated__ = "26.05.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.1"
@@ -1593,6 +1593,8 @@ class enchantItem(blankWindow):
         self.enchantment = ("chose enchantment", "charged magic item", "daily item", "magic bonus item", "permanent magic item")
         self.shoptype = shoptype
         self.wcont = {}
+        self.weight_mod = 0
+        self.bonus_mod = 0
         self.filterlist = ['player', 'exp', 'lvl', 'prof', 'race', 'name', 'piclink', 'realm']
         self.bgfilter = ['act_age', 'carr_weight', "sex", "height", "weight"]
         self.storepath = storepath
@@ -1865,7 +1867,6 @@ class enchantItem(blankWindow):
                              pady = 3,
                              sticky = "NEWS"
                              )
-#        self.shoplabel.config(background = "white")
         # row 9
         Label(self.window,
               text = labels["item"][self.lang] + ":",
@@ -1934,17 +1935,21 @@ class enchantItem(blankWindow):
         for i in range(1, len(self.enchantment)):
             self.frame[self.enchantment[i]] = Frame(self.window)
 
+        # Bonus/weight reduced items ---------------------
         Label(self.frame["magic bonus item"],
               text = labels["bonus item"][self.lang],
-              background = "white"
+              background = "grey",
+              anchor = N
              ).grid(column = 0,
-                    columnspan = 6,
+                    columnspan = 9,
                     row = 0,
                     sticky = "NEWS")
         Label(self.frame["magic bonus item"],
               text = "Bonus:"
               ).grid(column = 0,
                      row = 1,
+                     pady = 5,
+                     padx = 5,
                      sticky = "EW"
                      )
 
@@ -1952,26 +1957,76 @@ class enchantItem(blankWindow):
         self.bonus.set(0)
         OptionMenu(self.frame["magic bonus item"],
                    self.bonus,
-                   *(0, 0, 5, 10, 15, 20, 25)
+                   *(0, 0, 5, 10, 15, 20, 25),
+                   command = self.calcBonusItem
                    ).grid(column = 1,
                           row = 1,
+                          pady = 5,
+                          padx = 5,
                           sticky = "EW")
 
         Label(self.frame["magic bonus item"],
-              text = labels["weight"][self.lang] + u"(%):"
+              text = labels["bonus c/s"][self.lang] + ":",
               ).grid(column = 2,
                      row = 1,
+                     pady = 5,
+                     padx = 5,
+                     sticky = "EW"
+                     )
+
+        self.catskill = StringVar()
+        self.catskill.set("Weapon - 1-H Edged/Broadsword")
+        Entry(self.frame["magic bonus item"],
+              textvariable = self.catskill,
+              width = 42,
+              ).grid(column = 3,
+                     row = 1,
+                     padx = 5,
+                     pady = 5,
+                     sticky = "EW")
+
+        Label(self.frame["magic bonus item"],
+              text = labels["weight"][self.lang] + u"(%):"
+              ).grid(column = 4,
+                     row = 1,
+                     pady = 5,
+                     padx = 5,
                      sticky = "EW")
 
         self.weight = IntVar(self.frame["magic bonus item"])
         self.weight.set(100)
         OptionMenu(self.frame["magic bonus item"],
                    self.weight,
-                   *(100, 100, random.randint(80, 99), random.randint(60, 79), random.randint(40, 59))
-                   ).grid(column = 3,
+                   *(100, 100, random.randint(80, 99), random.randint(60, 79), random.randint(40, 59)),
+                   command = self.calcBonusItem
+                   ).grid(column = 5,
                           row = 1,
+                          pady = 5,
+                          padx = 5,
                           sticky = "NEWS")
 
+        Label(self.frame["magic bonus item"],
+              text = labels["descr"][self.lang] + ":",
+              ).grid(column = 6,
+                     row = 1,
+                     padx = 5,
+                     pady = 5,
+                     sticky = "NEWS")
+
+        self.description = StringVar()
+        self.description.set("")
+        Entry(self.frame["magic bonus item"],
+              justify = "left",
+              textvariable = self.description,
+              width = 42
+              ).grid(column = 7,
+                     row = 1,
+                     padx = 5,
+                     pady = 5,
+                     sticky = "NEWS"
+                     )
+
+        # charged items --------------------------------
         Label(self.frame["charged magic item"],
              text = labels["charged item"][self.lang],
              background = "white"
@@ -1979,6 +2034,8 @@ class enchantItem(blankWindow):
                     columnspan = 6,
                     row = 0,
                     sticky = "NEWS")
+
+        # daily items -----------------------------------
         Label(self.frame["daily item"],
               text = labels["daily item"][self.lang],
               background = "white"
@@ -1986,6 +2043,8 @@ class enchantItem(blankWindow):
                     columnspan = 6,
                     row = 0,
                     sticky = "NEWS")
+
+        # permanent items --------------------------------
         Label(self.frame["permanent magic item"],
               text = labels["perm item"][self.lang],
               anchor = N,
@@ -2008,13 +2067,48 @@ class enchantItem(blankWindow):
             pass
         finally:
             self.frame[selection].grid(column = 0,
-                                       columnspan = 10,
+                                       columnspan = 9,
                                        row = 10,
                                        rowspan = 6,
                                        padx = 3,
                                        pady = 3,
                                        sticky = "NEWS"
                                        )
+
+
+    def calcBonusItem(self, selection):
+        """
+        This calculates the cost for weight reduced and/or bonus items
+        """
+        bonus_mult = {0:1,
+                      5:10,
+                      10:50,
+                      15:250,
+                      20:1000,
+                      25:5000
+                      }
+        weight_mult = 1
+
+        bonus_choice = self.bonus.get()
+        weight_choice = self.weight.get()
+        #DEBUG
+        print("+{} / {}%".format(bonus_choice, weight_choice))
+
+        if 79 < weight_choice < 100:
+            weight_mult = 10
+        elif 59 < weight_choice < 80:
+            weight_mult = 50
+        elif 39 < weight_choice < 60:
+            weight_mult = 100
+        elif weight_choice == 100:
+            weight_mult = 1
+
+        for key in self.item["worth"]:
+            self.price[key] = self.item["worth"][key] * weight_mult * bonus_mult[bonus_choice]
+
+        #DEBUG
+        self.cost.set(self.getCosts())
+        pprint(self.price)
 
 
     def payEnchantement(self):
