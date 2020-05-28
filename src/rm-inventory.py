@@ -15,7 +15,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "26.05.2020"
+__updated__ = "28.05.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.1"
@@ -519,7 +519,8 @@ class shopWin(blankWindow):
         \param charlist list of dictionaries holding: player, charname, EPs
         \param storepath path for storing the data into the character files.
         """
-
+        #debug
+        pprint(char["purse"])
         self.lang = lang
         self.character = char
         if "inventory" in self.character.keys():
@@ -819,6 +820,8 @@ class shopWin(blankWindow):
         # row 5/6
         c = 2
         for coin in ["MP", "PP", "GP", "SP", "BP", "CP", "TP", "IP"]:
+            #debug
+            print("purse {}: {}".format(coin, self.character["purse"][coin]))
             self.wcont[coin].set(self.character["purse"][coin])
             Label(self.window,
                   text = coin + ":",
@@ -2014,11 +2017,11 @@ class enchantItem(blankWindow):
                      sticky = "NEWS")
 
         self.description = StringVar()
-        self.description.set("")
+        self.description.set(self.item["description"])
         Entry(self.frame["magic bonus item"],
               justify = "left",
               textvariable = self.description,
-              width = 42
+              width = 48
               ).grid(column = 7,
                      row = 1,
                      padx = 5,
@@ -2074,6 +2077,10 @@ class enchantItem(blankWindow):
                                        pady = 3,
                                        sticky = "NEWS"
                                        )
+        self.item = self.character["inventory"][self.shoptype][self.elem].copy()
+        self.price = self.item["worth"].copy()
+        self.description.set(self.item["description"])
+        self.cost.set(self.getCosts())
 
 
     def calcBonusItem(self, selection):
@@ -2096,26 +2103,87 @@ class enchantItem(blankWindow):
 
         if 79 < weight_choice < 100:
             weight_mult = 10
+
         elif 59 < weight_choice < 80:
             weight_mult = 50
+
         elif 39 < weight_choice < 60:
             weight_mult = 100
+
         elif weight_choice == 100:
             weight_mult = 1
+
+        mb = "; magic bonus (+{})".format(bonus_choice)
+        wb = "; magic weight reduced ({}%)".format(weight_choice)
+        self.item["description"] = self.description.get()
+
+        if bonus_mult[bonus_choice] > 1 and mb not in self.item["description"]:
+            self.item["description"] += mb
+
+        else:
+            self.item["description"] = self.item["description"].replace(mb, "")
+
+        if weight_mult > 1 and wb not in self.item["description"]:
+            self.item["description"] += wb
+
+        else:
+            self.item["description"] = self.item["description"].replace(wb, "")
+
+        self.description.set(self.item["description"])
 
         for key in self.item["worth"]:
             self.price[key] = self.item["worth"][key] * weight_mult * bonus_mult[bonus_choice]
 
-        #DEBUG
         self.cost.set(self.getCosts())
-        pprint(self.price)
 
 
     def payEnchantement(self):
         """
         This does the payment of the enchantment
+        @todo has to be fully implemented:
+        - daily item
+        - charged magic item
+        - permanent magic item
+
         """
-        self.notdoneyet("pyEnchantment")
+        choice = self.chosen.get()
+
+        if self.price != self.character["inventory"][self.shoptype][self.elem]["worth"]:
+
+            if choice == "magic bonus item":
+                self.calcBonusItem(0)
+                self.item["worth"] = self.price.copy()
+                self.item['bonus'] = self.bonus.get()
+                self.item['description'] = self.description.get()
+                print(self.description.get())
+                self.item["weight"] = round(self.item["weight"] * float(self.weight.get()) / 100.0, 2)
+                self.item["magic"] = True
+                newpurse = buyStuff(purse = self.character["purse"], prize = self.item["worth"])
+                for i in range(0, len(coins["long"])):
+                    self.character["purse"][coins["short"][i].upper()] = newpurse[coins["long"][i]]
+
+                #DEBUG
+                print(80 * "=")
+                pprint(self.item)
+                print(80 * "-")
+                pprint(self.character["purse"])
+                print(80 * "-")
+                self.character["inventory"][self.shoptype][self.elem] = self.item.copy()
+
+            elif choice == "charged magic item":
+                self.notdoneyet("pyEnchantment - buy charged items")
+                pass
+
+            elif choice == "daily item":
+                self.notdoneyet("pyEnchantment - buy daily items")
+                pass
+
+            elif choice == "permanent magic item":
+                self.notdoneyet("pyEnchantment - buy permanent items")
+        else:
+            pass
+
+        self.__quit()
 
 
     def getCosts(self):
@@ -2248,6 +2316,43 @@ class enchantItem(blankWindow):
         '''
         self.window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, self.shoptype)
+
+
+
+def buyStuff(purse = {}, prize = {}):
+    """
+    This function does the payment calculations
+    \param purse of character
+    \param prize to pay
+    \retvar result new
+    """
+    clong = list(coins['long'])
+    clong.reverse()
+    cshort = list(coins["short"])
+    cshort.reverse()
+    for c in coins["short"]:
+        if purse[c.upper()] > 0:
+            pos = coins["short"].index(c)
+            break
+
+    result = money.copy()
+    prize_tp = 0
+    purse_tp = 0
+    for i in range(0, len(clong)):
+        prize_tp += prize[clong[i]] * 10 ** i
+        purse_tp += purse[cshort[i].upper()] * 10 ** i
+
+    result_tp = purse_tp - prize_tp
+
+    if result_tp < 0:
+        print("not enough money - ohne Moos nix los")
+        result = purse.copy()
+    else:
+        for i in range(pos, len(coins["long"])):
+            result[coins["long"][i]] = result_tp // 10 ** (len(coins["long"]) - 1 - i)
+            result_tp -= (result_tp // 10 ** (len(coins["long"]) - 1 - i)) * 10 ** (len(coins["long"]) - 1 - i)
+
+    return result
 
 
 
