@@ -25,7 +25,7 @@ Currently supported languages are:
 \todo clean up the code!!!
 '''
 __version__ = "1.1"
-__updated__ = "25.05.2020"
+__updated__ = "30.05.2020"
 ## \var supportedrpg
 # Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
@@ -663,7 +663,17 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
                          "en" : "permanent magical items"},
           "bonus c/s" :{"de" : "Bonus Kat/Talent",
                         "en" : "Bonus cat/skill"},
-
+          "realm" :{"de" : "Magiebereich",
+                    "en" : "realm",
+                    },
+          'spell list': {"de" : "Spruchliste",
+                         "en" : "Spell List"},
+          'spell' :{"de" : "Zauberspruch",
+                    "en" : "Spell"},
+          "lvl" :{"de": "Stufe",
+                  "en" : "level"},
+          "daily" :{"de":u"täglich",
+                    "en" : "daily"}
           }
 
 ##\var errmsg

@@ -7,6 +7,7 @@ from gui.winhelper import AutoScrollbar
 from rpgtoolbox import epcalc, rpgtools as rpg
 from rpgToolDefinitions.epcalcdefs import maneuvers
 from rpgToolDefinitions.inventory import *
+from rpgtoolbox.rolemaster import realms
 from pprint import pprint
 from rpgToolDefinitions import inventory as inv
 from tkinter import filedialog
@@ -15,7 +16,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "28.05.2020"
+__updated__ = "30.05.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.1"
@@ -519,8 +520,7 @@ class shopWin(blankWindow):
         \param charlist list of dictionaries holding: player, charname, EPs
         \param storepath path for storing the data into the character files.
         """
-        #debug
-        pprint(char["purse"])
+
         self.lang = lang
         self.character = char
         if "inventory" in self.character.keys():
@@ -820,8 +820,6 @@ class shopWin(blankWindow):
         # row 5/6
         c = 2
         for coin in ["MP", "PP", "GP", "SP", "BP", "CP", "TP", "IP"]:
-            #debug
-            print("purse {}: {}".format(coin, self.character["purse"][coin]))
             self.wcont[coin].set(self.character["purse"][coin])
             Label(self.window,
                   text = coin + ":",
@@ -1088,7 +1086,7 @@ class shopWin(blankWindow):
 
                 for i in range(0, len(char_inv_tv[self.shoptype])):
 
-                    if char_inv_tv[self.shoptype][i] != "worth" and str(item[char_inv_tv[self.shoptype][i]]) == self.curr_invitem[i]:
+                    if char_inv_tv[self.shoptype][i] != "worth" and str(item[char_inv_tv[self.shoptype][i]]) == str(self.curr_invitem[i]):
                        count += 1
                 if count >= len(char_inv_tv[self.shoptype]) - 1:
 
@@ -1104,7 +1102,6 @@ class shopWin(blankWindow):
         Gets dataset from shop treeview
         """
         self.curr_shop = self.shoptree.focus()
-#        print(self.shoptree.item(self.curr_shop))
 
 
     def buyItem(self):
@@ -1199,7 +1196,7 @@ class shopWin(blankWindow):
             for i in range(0, len(char_inv_tv[self.shoptype])):
                 if char_inv_tv[self.shoptype][i] != "worth" and str(item[char_inv_tv[self.shoptype][i]]) == self.curr_invitem[i]:
                     count += 1
-                    print("debug: {} - {}".format(count, len(char_inv_tv[self.shoptype])))
+
             if count >= len(char_inv_tv[self.shoptype]) - 1:
                 self.inv_char[self.shoptype].remove(item)
                 self.character["inventory"] = self.inv_char
@@ -1591,6 +1588,7 @@ class enchantItem(blankWindow):
                                 "piclink" : "./data/default/pics/default.jpg"
 
                                 }
+        pprint(item)
         self.item = item.copy()
         self.price = self.item["worth"].copy()
         self.enchantment = ("chose enchantment", "charged magic item", "daily item", "magic bonus item", "permanent magic item")
@@ -1626,8 +1624,6 @@ class enchantItem(blankWindow):
             if count == len(char_inv_tv[self.shoptype]):
                 self.item = invitem.copy()
                 self.elem = self.character["inventory"][self.shoptype].index(invitem)
-                #DEBUG
-                print("index {}".format(self.elem))
                 break
 
 
@@ -2043,9 +2039,103 @@ class enchantItem(blankWindow):
               text = labels["daily item"][self.lang],
               background = "white"
              ).grid(column = 0,
-                    columnspan = 6,
+                    columnspan = 9,
                     row = 0,
                     sticky = "NEWS")
+
+        Label(self.frame["daily item"],
+              text = labels["realm"][self.lang] + ":"
+              ).grid(column = 0,
+                    row = 1,
+                    sticky = "NEWS")
+
+        realm_list = []
+
+        for r in realms[self.lang]:
+
+            if type(r) == type(""):
+                realm_list.append(r)
+
+            elif type(r) == type([]):
+                dummy = str(r)
+                dummy = dummy.strip("[']")
+                dummy = dummy.replace("', '", "/")
+                realm_list.append(dummy)
+
+        self.realm = StringVar()
+        self.realm.set(realm_list[0])
+        OptionMenu(self.frame["daily item"],
+                   self.realm,
+                   *realm_list,
+#                   command = self.calcBonusItem
+                   ).grid(column = 1,
+                          row = 1,
+                          pady = 5,
+                          padx = 5,
+                          sticky = "NEWS")
+
+        Label(self.frame["daily item"],
+              text = labels["spell list"][self.lang] + ":"
+              ).grid(column = 2,
+                     row = 1,
+                     pady = 5,
+                     padx = 1,
+                     sticky = "NEWS")
+
+        self.spell_list = StringVar()
+        self.spell_list.set("")
+        Entry(self.frame["daily item"],
+              justify = "left",
+              textvariable = self.spell_list,
+              width = 48
+              ).grid(column = 3,
+                     row = 1,
+                     padx = 5,
+                     pady = 5,
+                     sticky = "NEWS"
+                     )
+
+        Label(self.frame["daily item"],
+              text = labels["spell"][self.lang] + ":"
+              ).grid(column = 4,
+                     row = 1,
+                     pady = 5,
+                     padx = 1,
+                     sticky = "NEWS")
+
+        self.spell = StringVar()
+        self.spell.set("")
+        Entry(self.frame["daily item"],
+              justify = "left",
+              textvariable = self.spell,
+              width = 48
+              ).grid(column = 5,
+                     row = 1,
+                     padx = 5,
+                     pady = 5,
+                     sticky = "NEWS"
+                     )
+
+        Label(self.frame["daily item"],
+              text = labels["spell"][self.lang] + " " + labels["lvl"][self.lang] + ":"
+              ).grid(column = 6,
+                     row = 1,
+                     pady = 5,
+                     padx = 1,
+                     sticky = "NEWS")
+
+        self.spell_lvl = IntVar()
+        self.spell_lvl.set(0)
+        Entry(self.frame["daily item"],
+              justify = "left",
+              textvariable = self.spell_lvl,
+              width = 48
+              ).grid(column = 7,
+                     row = 1,
+                     padx = 5,
+                     pady = 5,
+                     sticky = "NEWS"
+                     )
 
         # permanent items --------------------------------
         Label(self.frame["permanent magic item"],
@@ -2121,15 +2211,19 @@ class enchantItem(blankWindow):
             self.item["description"] += mb
 
         else:
+            print("rm bonus")
             self.item["description"] = self.item["description"].replace(mb, "")
 
         if weight_mult > 1 and wb not in self.item["description"]:
             self.item["description"] += wb
 
         else:
+            print("rm weight")
             self.item["description"] = self.item["description"].replace(wb, "")
 
         self.description.set(self.item["description"])
+        #DEEBUG
+        print("added: {} - {} ".format(self.description.get(), self.item["description"]))
 
         for key in self.item["worth"]:
             self.price[key] = self.item["worth"][key] * weight_mult * bonus_mult[bonus_choice]
@@ -2151,32 +2245,24 @@ class enchantItem(blankWindow):
         if self.price != self.character["inventory"][self.shoptype][self.elem]["worth"]:
 
             if choice == "magic bonus item":
-                self.calcBonusItem(0)
                 self.item["worth"] = self.price.copy()
-                self.item['bonus'] = self.bonus.get()
+                self.item['bonus'] = int(self.item["bonus"]) + int(self.bonus.get())
+                self.item["skill"] = self.catskill.get()
                 self.item['description'] = self.description.get()
-                print(self.description.get())
                 self.item["weight"] = round(self.item["weight"] * float(self.weight.get()) / 100.0, 2)
                 self.item["magic"] = True
                 newpurse = buyStuff(purse = self.character["purse"], prize = self.item["worth"])
+
                 for i in range(0, len(coins["long"])):
                     self.character["purse"][coins["short"][i].upper()] = newpurse[coins["long"][i]]
 
-                #DEBUG
-                print(80 * "=")
-                pprint(self.item)
-                print(80 * "-")
-                pprint(self.character["purse"])
-                print(80 * "-")
                 self.character["inventory"][self.shoptype][self.elem] = self.item.copy()
 
             elif choice == "charged magic item":
                 self.notdoneyet("pyEnchantment - buy charged items")
-                pass
 
             elif choice == "daily item":
                 self.notdoneyet("pyEnchantment - buy daily items")
-                pass
 
             elif choice == "permanent magic item":
                 self.notdoneyet("pyEnchantment - buy permanent items")

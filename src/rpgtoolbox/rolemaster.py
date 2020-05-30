@@ -14,7 +14,7 @@ This package holds RM specific tools like Character Skill Progression.
 \date 2019
 \copyright 2015-2019 Marcus Schwamberger
 '''
-__updated__ = "12.04.2020"
+__updated__ = "30.05.2020"
 
 catnames = {'de' : {'spells' : "Spells",
                     'weapon' : 'Weapon',
@@ -241,7 +241,7 @@ exceptions = ['Costs', 'Stats', 'Progression', 'rank', 'rank bonus', 'spec bonus
 realms = {'en': ('choice', 'Essence', 'Channeling', 'Mentalism',
                  ['Channeling', 'Mentalism'], ['Channeling', 'Essence'],
                  ['Essence', 'Mentalism']),
-          'de': ('wählbar', 'Essenz', 'Leitmagie', 'Mentalismus',
+          'de': (u'wählbar', 'Essenz', 'Leitmagie', 'Mentalismus',
                  ['Leitmagie', 'Mentalismus'], ['Leitmagie', 'Essenz'],
                  ['Essenz', 'Mentalismus']),
           }
@@ -312,7 +312,7 @@ speccat = {'en': ['Body Development', 'Power Point Development'],
 # \todo add more text to the description part of the types
 spelltypes = {'en' : {'E' : 'Elemental Spell',
                    'BE' : 'Ball Elemental Spell',
-                   'DE' : 'Directed Elemenal Spell',
+                   'DE' : 'Directed Elemental Spell',
                    'F' : 'Force Spell',
                    'P' : 'Passive Spell',
                    'U' : 'Utility Spell',
@@ -322,7 +322,7 @@ spelltypes = {'en' : {'E' : 'Elemental Spell',
                    },
               'de' : {'E' : 'Elementarzauber',
                    'BE' : 'elementarer Ballzauber',
-                   'DE' : 'gezielter Elemenarzauber',
+                   'DE' : 'gezielter Elementarzauber',
                    'F' : 'Kraftzauber',
                    'P' : 'Passivzauber',
                    'U' : 'Nützlichkeitszauber',

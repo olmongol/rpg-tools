@@ -11,7 +11,7 @@
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "24.05.2020"
+__updated__ = "30.05.2020"
 
 ## \var geartypes
 # (dictionary) list of different type of equipment like armor, weapon, tool...
@@ -51,9 +51,13 @@ treeformat = {"item" : 200,
              "form":80,
              "prep":70,
              "lvl":30,
-             "effect" :200,
-             "medical use":300,
+             "effect" :300,
+             "medical use":400,
              "other use": 200,
+             "capacity" : 40,
+             "volume" : 40,
+             "bonus" :50,
+             "skill":400,
              }
 ##\var char_inv_tv
 # header for character's armor for treeview display
@@ -62,7 +66,7 @@ char_inv_tv = {"armor" : ["name", "description", "AT", "weight", "worth"],
                "weapon" : ["name", "description", "bonus", "breakage", "weight", "magic", "mithril", 'slaying', "holy", "worth"],
                "services" :["name", "description", "weight", "worth"],
                "gems" : ["name", "description", "weight", "worth"],
-               "gear" : ["name", "description", "weight", "worth"],
+               "gear" : ["name", "description", "weight", "capacity", "volume", "bonus", "skill", "worth"],
                "transport" :["name", "description", "height/weight", "capacity", "OB", "worth"],
                "herbs" :["name", "type", "lvl", "description", "medical use", "other use", "worth"],
                "runes" :[],
@@ -139,6 +143,9 @@ gear = {"name": "",
          "skill" : "",
          "count" : 0,
          "type" : "",
+         "capacity":"",
+         "volume":"",
+         "type":"",
          "worth" : money.copy()
         }
 
