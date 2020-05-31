@@ -14,7 +14,7 @@ This package holds RM specific tools like Character Skill Progression.
 \date 2019
 \copyright 2015-2019 Marcus Schwamberger
 '''
-__updated__ = "12.04.2020"
+__updated__ = "31.05.2020"
 
 catnames = {'de' : {'spells' : "Spells",
                     'weapon' : 'Weapon',
@@ -241,7 +241,7 @@ exceptions = ['Costs', 'Stats', 'Progression', 'rank', 'rank bonus', 'spec bonus
 realms = {'en': ('choice', 'Essence', 'Channeling', 'Mentalism',
                  ['Channeling', 'Mentalism'], ['Channeling', 'Essence'],
                  ['Essence', 'Mentalism']),
-          'de': ('wählbar', 'Essenz', 'Leitmagie', 'Mentalismus',
+          'de': (u'wählbar', 'Essenz', 'Leitmagie', 'Mentalismus',
                  ['Leitmagie', 'Mentalismus'], ['Leitmagie', 'Essenz'],
                  ['Essenz', 'Mentalismus']),
           }
@@ -255,6 +255,22 @@ ppds = ("", "PPD Ess ", "PPD Chan ", "PPD Ment ",
 speccat = {'en': ['Body Development', 'Power Point Development'],
            'de': ['Body Development', 'Power Point Development'],
            }
+
+spellists = {"Essence" :["Essence_Open", "Essence_Closed", "Essence_Evil",
+                         "Base_List_Monk", "Base_List_Taoist-Monk", "Base_List_Dabbler",
+                         "Base_List_Magician", "Base_List_Illusionist"
+                         ],
+             "Channeling":["Channeling_Open", "Channeling_Closed", "Channeling_Evil",
+                           "Base_List_Ranger", "Base_List_Paladin", "Base_List_Cleric",
+                           "Base_List_Animist"
+                           ],
+             "Mentalism": ["Mentalism_Open", "Mentalism_Closed", "Mentalism_Evil",
+                           "Base_List_Zen-Monk", "Base_List_Bard", "Base_List_Magend",
+                           "Base_List_Lay-Healer", "Base_List_Mentalist"
+                           ],
+             "Channeling/Mentalism":["Base_List_Healer"],
+             "Channeling/Essence":["Base_List_Sorcerer"],
+             "Essence/Mentalism" :["Base_List_Mystic"]}
 ###\var sltype
 ## dictionary of lists of spell list types
 ##\todo translate German part
@@ -312,7 +328,7 @@ speccat = {'en': ['Body Development', 'Power Point Development'],
 # \todo add more text to the description part of the types
 spelltypes = {'en' : {'E' : 'Elemental Spell',
                    'BE' : 'Ball Elemental Spell',
-                   'DE' : 'Directed Elemenal Spell',
+                   'DE' : 'Directed Elemental Spell',
                    'F' : 'Force Spell',
                    'P' : 'Passive Spell',
                    'U' : 'Utility Spell',
@@ -322,7 +338,7 @@ spelltypes = {'en' : {'E' : 'Elemental Spell',
                    },
               'de' : {'E' : 'Elementarzauber',
                    'BE' : 'elementarer Ballzauber',
-                   'DE' : 'gezielter Elemenarzauber',
+                   'DE' : 'gezielter Elementarzauber',
                    'F' : 'Kraftzauber',
                    'P' : 'Passivzauber',
                    'U' : 'Nützlichkeitszauber',

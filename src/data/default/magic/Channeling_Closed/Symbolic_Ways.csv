@@ -1,1 +1,28 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Analyze Symbol,1 symbol,---,50',I,Caster learns what spell is emplaced within one Symbol within 50'. The Symbol will not be triggered (unless specifically created to be triggered by an Analyze Symbol spell).
+2,Spell Prime,caster,varies,self,U,"This spell “primes” the next spell cast by the caster—that spell is treated as if it were instantaneous. The PP cost of this spell is equal to the highest level that the caster desires to be primed. For example, if the caster wants any fourth level spell (or less) to be treated as instantaneous, this spell will cost 4 PPs. In addition, when casting this spell, the caster must pray for one minute per PP spent in the spell. For example, if the caster spends 4 PPs on this spell, he must pray for 4 minutes before this spell is completed. Any interruption of this process results in the failure of this spell. The effects of this spell end when the caster casts his next spell (even if the next spell is higher level than the number of PPs expended on this spell). (Got all that?)"
+3,Unsymbol I,1 symbol,P,10',F,Caster can remove one Symbol I (an emplaced 1st level spell). The Symbol's RR is based on the level of the spell in the Symbol spell (the target level) and the level of the Unsymbol spell (the attack level).
+5,Symbol I,varies,P,10',U,"Caster can emplace one 1st level spell on any 1 given non-mobile stone (see below). Within one minute, the spell to be emplaced must also be cast (within 10'). The symbol is usually visible, but is only required to be visible if reading is the trigger (see below). 
+\begin{itemize}
+\item The Symbol must be placed on a slab of stone (block, piece, etc.) weighing at least 2,000 pounds. Only one Symbol may be placed on each continuous slab. The stone may not be moved without dispelling the Symbol.
+\item A Symbol can be triggered by one of the following (decided by caster): time period, specified movements, specified sounds, touch, reading, violent actions in the area, etc. The triggering range is normally 10' or the range of the emplaced spell, whichever is larger. 
+\item If the spell emplaced is an attack spell, the attack level isCaster can emplace one 1st level spell on any 1 given non-mobile stone (see below). Within one minute, the spell to be emplaced must also be cast (within 10'). The symbol is usually visible, but is only required to be visible if reading is the trigger (see below). \item The Symbol must be placed on a slab of stone (block, piece, etc.) weighing at least 2,000 pounds. Only one Symbol may be placed on each continuous slab. The stone may not be moved without dispelling the Symbol. 
+\item A Symbol can be triggered by one of the following (decided by caster): time period, specified movements, specified sounds, touch, reading, violent actions in the area, etc. The triggering range is normally 10' or the range of the emplaced spell, whichever is larger. \item If the spell emplaced is an attack spell, the attack level is the spell's level (i.e., for Symbol I the attack level is always 1st level, not the level of the caster). If the spell is an elemental attack, the OB is normally +0. However, the attack can be focused on a location (as opposed to simply the person who triggers the symbol). In this case, the OB is +50. 
+\item Normally, if the Symbol affects a being or thing (e.g., healing, attacks, etc.), it can be triggered only once per day. 
+\end{itemize}"
+7,Symbol II,varies,P,10',U,"As above, except a 2nd level spell is emplaced."
+8,Unsymbol II,1 symbol,P,10',F,"As above, except 2nd level spell is removed."
+9,Symbol III,varies,P,10',U,"As above, except a 3rd level spell is emplaced."
+10,Analyze Symbol True,varies,---,50',I,"As Analyze Symbol, except caster learns what spells are emplaced in all Symbols within a 50'R."
+11,Symbol V,varies,P,10',U,"As above, except a 5th level spell may be emplaced."
+12,Unsymbol III,1 symbol,P,10',F,"As above, except 3rd level spell is removed."
+13,Symbol VI,varies,P,10',U,"As above, except a 6th level spell is removed."
+15,Symbol VII,varies,P,10',U,"As above, except 7th level spell is emplaced."
+16,Unsymbol V,1 symbol,P,10',F,"As above, except 5th level spell is removed."
+17,Symbol VIII,varies,P,10',U,"As above, except a 8th level spell is emplaced."
+18,Unsymbol X,1 symbol,P,10',F,"As above, except 10th level spell is removed."
+19,Symbol IX,varies,P,10',U,"As above, except a 9th level spell is emplaced."
+20,Symbol X,varies,P,10',U,"As above, except a 10th level spell is emplaced."
+25,Lord Research,special,special,special,E,See Section 7.4.
+30,Lord Symbol,varies,P,10',U,"As above, except a 20th level spell is emplaced."
+50,Unsymbol True,1 symbol,P,10',F,"As above, except caster can remove any spell of a level less than his own (e.g., a 50th level Cleric could remove a 49th level spell, but not a 50th level spell)."

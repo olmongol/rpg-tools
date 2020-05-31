@@ -12,7 +12,7 @@ will be generated for printouts
 \version 1.1
 '''
 
-__updated__ = "20.04.2020"
+__updated__ = "20.05.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -548,7 +548,6 @@ class spellbook(object):
     def compilePDF(self):
         '''
         This runs the pdflatex compiler to generate the PDF
-        @todo has to be fully implemented
         '''
         currpath = os.getcwd()
         os.chdir(self.charpath)
