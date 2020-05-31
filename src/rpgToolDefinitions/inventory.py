@@ -11,11 +11,11 @@
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "30.05.2020"
+__updated__ = "31.05.2020"
 
 ## \var geartypes
 # (dictionary) list of different type of equipment like armor, weapon, tool...
-geartypes = {"en": ["clothes", "tool", "container", "food", "equipment"],
+geartypes = {"en": ["clothes", "tool", "container", "food", "gear"],
             "de" :["Kleidung", "Werkzeug", u"Behälter", "Nahrung", u"Ausrüstung"]
             }
 ##\var treeformat
@@ -217,7 +217,8 @@ constant_item = {"name" : "",
 # prototype dictionary for daily items
 daily_item = {"name" : "",
               "description" : "",
-              "use times" : 0,
+              "daily" : 0,
+              "spell list" :"",
               "spell" : "",
               "realm" : "",
               "lvl" : 0,

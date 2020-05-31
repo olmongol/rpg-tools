@@ -1447,9 +1447,10 @@ class shopWin(blankWindow):
             self.character = dict(self.charlist).copy()
             self.updWidgedCont()
             self.invlabel.config(text = submenu["inventory"][self.lang]["armor"] + " " + self.character["name"])
+
         elif type(self.charlist) == [] :
             print("char list computing is not implemented yet")
-            pass
+
         else:
             print("ERROR: wrong data format in {}".format(self.opendir))
 
@@ -2068,7 +2069,7 @@ class enchantItem(blankWindow):
         OptionMenu(self.frame["daily item"],
                    self.realm,
                    *realm_list,
-                   command = self.getRealm
+                   command = self.updDaily
                    ).grid(column = 1,
                           row = 1,
                           pady = 5,
@@ -2152,16 +2153,18 @@ class enchantItem(blankWindow):
 
         self.daily = IntVar()
         self.daily.set(0)
-        Entry(self.frame["daily item"],
+        self.dailyE = Entry(self.frame["daily item"],
               justify = "left",
               textvariable = self.daily,
               width = 4
-              ).grid(column = 1,
-                     row = 2,
-                     padx = 5,
-                     pady = 5,
-                     sticky = "NEWS"
-                     )
+              )
+        self.dailyE.bind('<FocusOut>', self.updDaily)
+        self.dailyE.grid(column = 1,
+                        row = 2,
+                        padx = 5,
+                        pady = 5,
+                        sticky = "NEWS"
+                        )
 
         Label(self.frame["daily item"],
               text = labels["descr"][self.lang] + ":"
@@ -2195,24 +2198,20 @@ class enchantItem(blankWindow):
                     sticky = "NEWS")
 
 
-    def getRealm(self, selection):
-        """
-        Get selections for daily items
-        ----
-        @todo has to be fully implemented
-        """
-        self.spellrealm = selection
-        #debug
-        print("choosen spell realm: {}".format(self.spellrealm))
-
-
     def updDaily(self, event):
         """
         Updates display for daily items
-        ----
-        @todo has to be implemented fully.
         """
-        self.notdoneyet("updDaily")
+        self.spellrealm = self.realm.get()
+        self.splvl = self.spell_lvl.get()
+        self.price = self.item["worth"].copy()
+        descadd = "; Enhancement({}-daily x{}): {}, lvl {}".format(self.spellrealm, self.daily.get(), self.spell.get(), self.splvl)
+        if "; Enhancement(" in self.item["description"]:
+            self.item["description"] = self.item["description"][:self.item["description"].find("; Enhancement(")]
+        self.item["description"] += descadd
+        self.description.set(self.item["description"])
+        self.calcDaily()
+        self.cost.set(self.getCosts())
 
 
     def calcDaily(self):
@@ -2224,6 +2223,7 @@ class enchantItem(blankWindow):
         spell_prices = [15, 50, 100, 150, 200, 300, 400, 500, 600, 750]
         daily_use = self.daily.get()
         sum = 20
+
         if ("Channeling" or "Leitmagie") in self.spellrealm:
             chan = 2
         else:
@@ -2232,10 +2232,10 @@ class enchantItem(blankWindow):
         daily_mult = 1
 
         for i in range(1, daily_use + 1):
-            sum += chan * daily_use * spell_prices[self.spell_lvl.get() - 1]
+            sum += chan * daily_mult * spell_prices[self.splvl - 1]
             daily_mult = 0.5
 
-        self.item["worth"]["gold"] += sum
+        self.price["gold"] += round(sum)
 
 
     def getChoice(self, selection):
@@ -2278,8 +2278,6 @@ class enchantItem(blankWindow):
 
         bonus_choice = self.bonus.get()
         weight_choice = self.weight.get()
-        #DEBUG
-        print("+{} / {}%".format(bonus_choice, weight_choice))
 
         if 79 < weight_choice < 100:
             weight_mult = 10
@@ -2312,8 +2310,6 @@ class enchantItem(blankWindow):
             self.item["description"] = self.item["description"].replace(wb, "")
 
         self.description.set(self.item["description"])
-        #DEEBUG
-        print("added: {} - {} ".format(self.description.get(), self.item["description"]))
 
         for key in self.item["worth"]:
             self.price[key] = self.item["worth"][key] * weight_mult * bonus_mult[bonus_choice]
@@ -2333,31 +2329,48 @@ class enchantItem(blankWindow):
         choice = self.chosen.get()
 
         if self.price != self.character["inventory"][self.shoptype][self.elem]["worth"]:
+            self.item["worth"] = self.price.copy()
+            pos = -1
+
+            # calcolate worth in smallest unit.
+            for i in range(len(coins["long"]) - 1, -1, -1):
+                if self.item["worth"][coins["long"][i]] > 0:
+                    pos = i
+                    break
+            for j in range(pos - 1, -1, -1):
+                self.item["worth"][coins["long"][pos]] += self.item["worth"][coins["long"][j]] * 10 ** (pos - j)
+                self.item["worth"][coins["long"][j]] = 0
 
             if choice == "magic bonus item":
-                self.item["worth"] = self.price.copy()
                 self.item['bonus'] = int(self.item["bonus"]) + int(self.bonus.get())
                 self.item["skill"] = self.catskill.get()
                 self.item['description'] = self.description.get()
                 self.item["weight"] = round(self.item["weight"] * float(self.weight.get()) / 100.0, 2)
                 self.item["magic"] = True
-                newpurse = buyStuff(purse = self.character["purse"], prize = self.item["worth"])
-
-                for i in range(0, len(coins["long"])):
-                    self.character["purse"][coins["short"][i].upper()] = newpurse[coins["long"][i]]
-
-                self.character["inventory"][self.shoptype][self.elem] = self.item.copy()
 
             elif choice == "charged magic item":
                 self.notdoneyet("pyEnchantment - buy charged items")
 
             elif choice == "daily item":
-                self.notdoneyet("pyEnchantment - buy daily items")
+                self.item["daily"] = self.daily.get()
+                self.item["description"] = self.description.get()
+                self.item["realm"] = self.realm.get()
+                self.item["spell list"] = self.spell_list.get()
+                self.item["spell"] = self.spell.get()
+                self.item["lvl"] = self.spell_lvl.get()
 
             elif choice == "permanent magic item":
                 self.notdoneyet("pyEnchantment - buy permanent items")
         else:
             pass
+
+        # subtract the costs from purse
+        newpurse = buyStuff(purse = self.character["purse"], prize = self.item["worth"])
+
+        for i in range(0, len(coins["long"])):
+            self.character["purse"][coins["short"][i].upper()] = newpurse[coins["long"][i]]
+
+        self.character["inventory"][self.shoptype][self.elem] = self.item.copy()
 
         self.__quit()
 
@@ -2367,7 +2380,7 @@ class enchantItem(blankWindow):
         Creates display string of costs
         """
         result = ""
-        for key in self.price:
+        for key in coins["long"]:
             if self.price[key] > 0:
                 result += str(self.price[key]) + key[0] + "p"
         return result
