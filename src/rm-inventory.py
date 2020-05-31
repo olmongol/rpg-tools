@@ -7,7 +7,7 @@ from gui.winhelper import AutoScrollbar
 from rpgtoolbox import epcalc, rpgtools as rpg
 from rpgToolDefinitions.epcalcdefs import maneuvers
 from rpgToolDefinitions.inventory import *
-from rpgtoolbox.rolemaster import realms
+from rpgtoolbox.rolemaster import realms, spellists
 from pprint import pprint
 from rpgToolDefinitions import inventory as inv
 from tkinter import filedialog
@@ -16,7 +16,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "30.05.2020"
+__updated__ = "31.05.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.1"
@@ -2037,7 +2037,8 @@ class enchantItem(blankWindow):
         # daily items -----------------------------------
         Label(self.frame["daily item"],
               text = labels["daily item"][self.lang],
-              background = "white"
+              background = "gray89",
+              anchor = N
              ).grid(column = 0,
                     columnspan = 9,
                     row = 0,
@@ -2067,7 +2068,7 @@ class enchantItem(blankWindow):
         OptionMenu(self.frame["daily item"],
                    self.realm,
                    *realm_list,
-#                   command = self.calcBonusItem
+                   command = self.getRealm
                    ).grid(column = 1,
                           row = 1,
                           pady = 5,
@@ -2105,16 +2106,18 @@ class enchantItem(blankWindow):
 
         self.spell = StringVar()
         self.spell.set("")
-        Entry(self.frame["daily item"],
-              justify = "left",
-              textvariable = self.spell,
-              width = 48
-              ).grid(column = 5,
-                     row = 1,
-                     padx = 5,
-                     pady = 5,
-                     sticky = "NEWS"
-                     )
+        self.spellE = Entry(self.frame["daily item"],
+                            justify = "left",
+                            textvariable = self.spell,
+                            width = 48
+                            )
+        self.spellE.grid(column = 5,
+                         row = 1,
+                         padx = 5,
+                         pady = 5,
+                         sticky = "NEWS"
+                         )
+        self.spellE.bind('<FocusOut>', self.updDaily)
 
         Label(self.frame["daily item"],
               text = labels["spell"][self.lang] + " " + labels["lvl"][self.lang] + ":"
@@ -2126,12 +2129,56 @@ class enchantItem(blankWindow):
 
         self.spell_lvl = IntVar()
         self.spell_lvl.set(0)
+        self.spell_lvlE = Entry(self.frame["daily item"],
+                                justify = "left",
+                                textvariable = self.spell_lvl,
+                                width = 48
+                                )
+        self.spell_lvlE.grid(column = 7,
+                             row = 1,
+                             padx = 5,
+                             pady = 5,
+                             sticky = "NEWS"
+                             )
+        self.spell_lvlE.bind('<FocusOut>', self.updDaily)
+
+        Label(self.frame["daily item"],
+              text = labels["daily"][self.lang] + ":",
+              ).grid(column = 0,
+                     row = 2,
+                     pady = 5,
+                     padx = 1,
+                     sticky = "NEWS")
+
+        self.daily = IntVar()
+        self.daily.set(0)
         Entry(self.frame["daily item"],
               justify = "left",
-              textvariable = self.spell_lvl,
-              width = 48
-              ).grid(column = 7,
-                     row = 1,
+              textvariable = self.daily,
+              width = 4
+              ).grid(column = 1,
+                     row = 2,
+                     padx = 5,
+                     pady = 5,
+                     sticky = "NEWS"
+                     )
+
+        Label(self.frame["daily item"],
+              text = labels["descr"][self.lang] + ":"
+              ).grid(column = 2,
+                     row = 2,
+                     pady = 5,
+                     padx = 1,
+                     sticky = "NEWS")
+
+        self.description.set(self.item["description"])
+        Entry(self.frame["daily item"],
+              justify = "left",
+              textvariable = self.description,
+              width = 4
+              ).grid(column = 3,
+                     row = 2,
+                     columnspan = 9,
                      padx = 5,
                      pady = 5,
                      sticky = "NEWS"
@@ -2146,6 +2193,49 @@ class enchantItem(blankWindow):
                     columnspan = 9,
                     row = 0,
                     sticky = "NEWS")
+
+
+    def getRealm(self, selection):
+        """
+        Get selections for daily items
+        ----
+        @todo has to be fully implemented
+        """
+        self.spellrealm = selection
+        #debug
+        print("choosen spell realm: {}".format(self.spellrealm))
+
+
+    def updDaily(self, event):
+        """
+        Updates display for daily items
+        ----
+        @todo has to be implemented fully.
+        """
+        self.notdoneyet("updDaily")
+
+
+    def calcDaily(self):
+        """
+        This method calculates the price for a daily item
+        ----
+        @todo has to be fully implemented
+        """
+        spell_prices = [15, 50, 100, 150, 200, 300, 400, 500, 600, 750]
+        daily_use = self.daily.get()
+        sum = 20
+        if ("Channeling" or "Leitmagie") in self.spellrealm:
+            chan = 2
+        else:
+            chan = 1
+
+        daily_mult = 1
+
+        for i in range(1, daily_use + 1):
+            sum += chan * daily_use * spell_prices[self.spell_lvl.get() - 1]
+            daily_mult = 0.5
+
+        self.item["worth"]["gold"] += sum
 
 
     def getChoice(self, selection):

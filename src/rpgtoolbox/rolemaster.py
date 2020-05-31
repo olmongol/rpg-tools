@@ -14,7 +14,7 @@ This package holds RM specific tools like Character Skill Progression.
 \date 2019
 \copyright 2015-2019 Marcus Schwamberger
 '''
-__updated__ = "30.05.2020"
+__updated__ = "31.05.2020"
 
 catnames = {'de' : {'spells' : "Spells",
                     'weapon' : 'Weapon',
@@ -255,6 +255,22 @@ ppds = ("", "PPD Ess ", "PPD Chan ", "PPD Ment ",
 speccat = {'en': ['Body Development', 'Power Point Development'],
            'de': ['Body Development', 'Power Point Development'],
            }
+
+spellists = {"Essence" :["Essence_Open", "Essence_Closed", "Essence_Evil",
+                         "Base_List_Monk", "Base_List_Taoist-Monk", "Base_List_Dabbler",
+                         "Base_List_Magician", "Base_List_Illusionist"
+                         ],
+             "Channeling":["Channeling_Open", "Channeling_Closed", "Channeling_Evil",
+                           "Base_List_Ranger", "Base_List_Paladin", "Base_List_Cleric",
+                           "Base_List_Animist"
+                           ],
+             "Mentalism": ["Mentalism_Open", "Mentalism_Closed", "Mentalism_Evil",
+                           "Base_List_Zen-Monk", "Base_List_Bard", "Base_List_Magend",
+                           "Base_List_Lay-Healer", "Base_List_Mentalist"
+                           ],
+             "Channeling/Mentalism":["Base_List_Healer"],
+             "Channeling/Essence":["Base_List_Sorcerer"],
+             "Essence/Mentalism" :["Base_List_Mystic"]}
 ###\var sltype
 ## dictionary of lists of spell list types
 ##\todo translate German part
