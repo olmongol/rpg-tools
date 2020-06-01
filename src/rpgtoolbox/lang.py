@@ -25,7 +25,7 @@ Currently supported languages are:
 \todo clean up the code!!!
 '''
 __version__ = "1.1"
-__updated__ = "30.05.2020"
+__updated__ = "01.06.2020"
 ## \var supportedrpg
 # Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
@@ -673,7 +673,11 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
           "lvl" :{"de": "Stufe",
                   "en" : "level"},
           "daily" :{"de":u"täglich",
-                    "en" : "daily"}
+                    "en" : "daily"},
+          "spell adder" :{"de" : "Spruchvermehrer",
+                          "en" : "Spell Adder"},
+          "pp mult" :{"de" : "Magiepunktevermehrer",
+                      "en" : "PP Multiplier"}
           }
 
 ##\var errmsg

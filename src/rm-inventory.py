@@ -8,7 +8,6 @@ from rpgtoolbox import epcalc, rpgtools as rpg
 from rpgToolDefinitions.epcalcdefs import maneuvers
 from rpgToolDefinitions.inventory import *
 from rpgtoolbox.rolemaster import realms, spellists
-from pprint import pprint
 from rpgToolDefinitions import inventory as inv
 from tkinter import filedialog
 from tkinter.ttk import *
@@ -16,7 +15,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "31.05.2020"
+__updated__ = "01.06.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.1"
@@ -1589,7 +1588,6 @@ class enchantItem(blankWindow):
                                 "piclink" : "./data/default/pics/default.jpg"
 
                                 }
-        pprint(item)
         self.item = item.copy()
         self.price = self.item["worth"].copy()
         self.enchantment = ("chose enchantment", "charged magic item", "daily item", "magic bonus item", "permanent magic item")
@@ -2178,7 +2176,7 @@ class enchantItem(blankWindow):
         Entry(self.frame["daily item"],
               justify = "left",
               textvariable = self.description,
-              width = 4
+              width = 40
               ).grid(column = 3,
                      row = 2,
                      columnspan = 9,
@@ -2193,9 +2191,92 @@ class enchantItem(blankWindow):
               anchor = N,
               background = "white"
              ).grid(column = 0,
-                    columnspan = 9,
+                    columnspan = 15,
                     row = 0,
                     sticky = "NEWS")
+
+        Label(self.frame["permanent magic item"],
+              text = labels["spell adder"][self.lang] + ":"
+              ).grid(column = 0,
+                     row = 1,
+                     pady = 5,
+                     padx = 5,
+                     sticky = "NEWS")
+        sa_list = ["+0"] + list(perm_item["spell adder"].keys())
+        sa_list.sort()
+        self.spell_adder = StringVar()
+        self.spell_adder.set(sa_list[0])
+        OptionMenu(self.frame["permanent magic item"],
+                   self.spell_adder,
+                   *sa_list,
+                   command = self.updPerm
+                   ).grid(column = 1,
+                          row = 1,
+                          pady = 5,
+                          padx = 5,
+                          sticky = "NEWS")
+
+        Label(self.frame["permanent magic item"],
+              text = labels["pp mult"][self.lang] + ":"
+              ).grid(column = 2,
+                     row = 1,
+                     pady = 5,
+                     padx = 5,
+                     sticky = "NEWS")
+
+        ppm_list = ["x1"] + list(perm_item["pp mult"].keys())
+        ppm_list.sort()
+        self.pp_mult = StringVar()
+        self.pp_mult.set(ppm_list[0])
+        OptionMenu(self.frame["permanent magic item"],
+                   self.pp_mult,
+                   *ppm_list,
+                   command = self.updPerm
+                   ).grid(column = 3,
+                          row = 1,
+                          pady = 5,
+                          padx = 5,
+                          sticky = "NEWS")
+
+        Label(self.frame["permanent magic item"],
+              text = labels["descr"][self.lang] + ":",
+              ).grid(column = 4,
+                     row = 1,
+                     pady = 5,
+                     padx = 5,
+                     sticky = "NEWS")
+
+        self.description.set(self.item["description"])
+        Entry(self.frame["permanent magic item"],
+              justify = "left",
+              textvariable = self.description,
+              width = 40
+              ).grid(column = 5,
+                     row = 1,
+                     columnspan = 9,
+                     padx = 5,
+                     pady = 5,
+                     sticky = "NEWS"
+                     )
+
+
+    def updPerm(self, event):
+        """
+        Updates display for permanent items
+        """
+        sa_selec = self.spell_adder.get()
+        ppm_selec = self.pp_mult.get()
+        desc = ""
+
+        if sa_selec != "+0":
+            desc += "; {} {}".format(labels["spell adder"][self.lang], sa_selec)
+
+        if ppm_selec != "x1":
+            desc += "; {} {}".format(labels["pp mult"][self.lang], ppm_selec)
+        self.description.set(self.item["description"] + desc)
+        self.price = self.item["worth"].copy()
+        self.price["gold"] += perm_item["spell adder"][sa_selec] + perm_item["pp mult"][ppm_selec]
+        self.cost.set(self.getCosts())
 
 
     def updDaily(self, event):
@@ -2217,8 +2298,6 @@ class enchantItem(blankWindow):
     def calcDaily(self):
         """
         This method calculates the price for a daily item
-        ----
-        @todo has to be fully implemented
         """
         spell_prices = [15, 50, 100, 150, 200, 300, 400, 500, 600, 750]
         daily_use = self.daily.get()
@@ -2332,7 +2411,7 @@ class enchantItem(blankWindow):
             self.item["worth"] = self.price.copy()
             pos = -1
 
-            # calcolate worth in smallest unit.
+            # calculate worth in smallest unit.
             for i in range(len(coins["long"]) - 1, -1, -1):
                 if self.item["worth"][coins["long"][i]] > 0:
                     pos = i
@@ -2349,6 +2428,7 @@ class enchantItem(blankWindow):
                 self.item["magic"] = True
 
             elif choice == "charged magic item":
+
                 self.notdoneyet("pyEnchantment - buy charged items")
 
             elif choice == "daily item":
@@ -2360,19 +2440,24 @@ class enchantItem(blankWindow):
                 self.item["lvl"] = self.spell_lvl.get()
 
             elif choice == "permanent magic item":
-                self.notdoneyet("pyEnchantment - buy permanent items")
+                self.item["description"] = self.description.get()
+                self.item["pp mult"] = int(self.pp_mult.get()[1])
+                self.item["add spell"] = int(self.spell_adder.get()[1])
+
         else:
             pass
 
         # subtract the costs from purse
         newpurse = buyStuff(purse = self.character["purse"], prize = self.item["worth"])
 
-        for i in range(0, len(coins["long"])):
-            self.character["purse"][coins["short"][i].upper()] = newpurse[coins["long"][i]]
+        if newpurse != self.character["purse"]:
+            for i in range(0, len(coins["long"])):
+                self.character["purse"][coins["short"][i].upper()] = newpurse[coins["long"][i]]
 
-        self.character["inventory"][self.shoptype][self.elem] = self.item.copy()
-
-        self.__quit()
+            self.character["inventory"][self.shoptype][self.elem] = self.item.copy()
+            self.__quit()
+        else:
+            print("not enough money - ohne Moos nix los!")
 
 
     def getCosts(self):

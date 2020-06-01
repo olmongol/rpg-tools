@@ -11,7 +11,7 @@
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "31.05.2020"
+__updated__ = "01.06.2020"
 
 ## \var geartypes
 # (dictionary) list of different type of equipment like armor, weapon, tool...
@@ -73,6 +73,18 @@ char_inv_tv = {"armor" : ["name", "description", "AT", "weight", "worth"],
                "constant item" :[],
                "daily item" :[],
                }
+
+perm_item = {"spell adder" :{"+0" :0,
+                             "+1" :50,
+                             "+2": 100,
+                             "+3": 200,
+                             "+4": 400
+                             },
+             "pp mult" :{"x1" :0,
+                         "x2" : 200,
+                         "x3" : 400,
+                         }
+            }
 
 ## \var money
 # This dictionary holds the different coins available
@@ -208,7 +220,7 @@ constant_item = {"name" : "",
                  "lvl" : 0,
                  "weight" : 0,
                  "add spell" : 0,
-                 "mult PP" : 0,
+                 "pp mult" : 0,
                  "location" : "",
                  "worth" : money.copy()
                 }
