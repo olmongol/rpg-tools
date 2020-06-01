@@ -1916,12 +1916,22 @@ class enchantItem(blankWindow):
                      pady = 1,
                      sticky = "EW"
                      )
+        # Buttons ------------------------------
+        Button(self.window,
+               text = txtbutton["but_add"][self.lang],
+               command = self.addMagicItem
+               ).grid(column = 5,
+                     columnspan = 2,
+                     row = 9,
+                     padx = 2, pady = 1,
+                     sticky = "EW"
+                     )
 
         Button(self.window,
                text = txtbutton["but_buy"][self.lang],
                command = self.payEnchantement
-               ).grid(column = 5,
-                      columnspan = 5,
+               ).grid(column = 7,
+                      columnspan = 3,
                       row = 9,
                       padx = 1,
                       pady = 1,
@@ -1973,7 +1983,10 @@ class enchantItem(blankWindow):
                      )
 
         self.catskill = StringVar()
-        self.catskill.set("Weapon - 1-H Edged/Broadsword")
+        if "skill" in self.item.keys():
+            self.catskill.set(self.item["skill"])
+        else:
+            self.catskill.set("<category>/<skill>")
         Entry(self.frame["magic bonus item"],
               textvariable = self.catskill,
               width = 42,
@@ -2469,6 +2482,15 @@ class enchantItem(blankWindow):
             if self.price[key] > 0:
                 result += str(self.price[key]) + key[0] + "p"
         return result
+
+
+    def addMagicItem(self):
+        '''
+        This method siply adds magic itemes instead of paying the bill
+        ----
+        @todo has to be fully implemented
+        '''
+        self.notdoneyet("addMagicItem")
 
 
     def updWidgedCont(self):

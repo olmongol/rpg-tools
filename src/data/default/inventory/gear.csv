@@ -54,6 +54,7 @@ Quill-pens (10),Goose feather quills.,0.25 lbs.,2 hrs,4cp,49,write,0,0,0,---
 Quiver,Holds 20 arrows/bolts.,0.5 lbs.,1 day,1bp,50,ammo,0,0,0,---
 Rope,Hemp. 50'.,4-7 lbs.,3 days,4bp,51,rope,0,0,0,---
 Rope (superior),Reinforced hemp. 50'.,2-4 lbs.,5 days,12bp,52,rope,0,0,0,---
+Rune Paper,magical prepared parchment,0.01-0.025 lbs.,1 day,1gp,77,magic,0,0,0,Power Perception/Read Runes
 Sack (50 lb),Holds 50 lbs. 3 cubic feet.,2-3 lbs.,2 hrs,8cp,53,container,50 lbs.,85l,0,---
 Saddle,Includes stirrups +  blanket. ,10-12 lbs.,6 days,5sp,54,gear,0,0,0,---
 Saddle bag,Holds 15 lbs. 1.5 cubic feet.,4-6 lbs.,2 days,8bp,55,container,15 lbs.,42.5l,0,---
@@ -69,6 +70,7 @@ Tent,Canvas. 5' x 8'. Two man.,8-10 lbs.,2 days,2sp,64,outdoor,0,0,0,---
 Tinderbox,Wood. Enough for 7 fires.,0.25 lbs.,0.5 days,2cp,65,tool,0,0,0,---
 Torch,Lights 20' diameter. (6 hrs).,1 lbs.,1 hr,3tp,66,light,0,0,0,---
 Vial,Glass. Holds 2 oz.,0.25 lbs.,2 hrs,2bp,67,container,0.12 lbs.,0.06l,0,---
+Vial for magic potions,prepared vial to hold magical potions,0.6-1 lbs.,1 hr,10gp,78,magic,0,0,0,---
 Water skin,Holds 1 pint (.5 lbs).,0.25 lbs.,6 hrs,1cp,68,container,0.5 lbs.,0.5l,0,---
 Weapon belt,Holds 2 scabbards +  3 pouches. ,1 lbs.,0.5 days,5bp,69,clothes,0,0,0,---
 Wedge (splitting),Iron.,3 lbs.,2 hrs,3cp,71,tool,0,0,0,---
