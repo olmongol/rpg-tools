@@ -1,1 +1,18 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+2,Text Analysis I,caster,1 min/lvl (C),self,U,"Caster can read text written in an unknown language, but only understand basic concepts of it. This spell gives the caster the equivalent of rank 2 knowledge in a written language."
+3,Stone Analysis,caster,---,10',I,"Gives nature and origin of natural stone, and when and how worked stone was obtained and worked."
+4,Metal Analysis,caster,---,10',I,"As Stone Analysis, except metal may be examined."
+5,Gas Analysis,caster,---,10',I,"As Stone Analysis, except gas may be examined."
+7,Text Analysis II,caster,1 min/lvl (C),self,U,"As Text Analysis I, except gives a complete technical analysis (vocabulary and syntax) but not an understanding of idioms (jargon), implications, or cultural references.This spell gives the caster the equivalent of rank 5 knowledge in a written language."
+8,Liquid Analysis,caster,---,10',I,"As Stone Analysis, except liquid may be examined."
+10,Delving,1 item,---,touch,I,Gives significant details about an item's construc- tion and purpose (not specific powers).
+11,Spell Analysis,1 spell,---,100',I,"Provides analysis of an active spell; giving its duration, the list it was cast from, and its type (not its level or exactly what spell it is)."
+14,Death Analysis,1 corpse,---,touch,I,"Gives information concerning a being's death (weapon, spell, time since, etc.); must be cast in place of death (within 24 hour) or in the presence of body (no time limit)."
+15,Text Analysis III,caster,1 min/lvl (C),self,U,"As Text Analysis II, except everything but implications is known (e.g., answers to riddles are not known automatically). This spell gives the caster the equivalent of rank 8 knowledge in a written language."
+16,Power Analysis,1 target,---,100',P,"As Spell Analysis, except will work on abilities/powers that are not currently active. One item, person, or place may be examined to see if it has power, which realm the power is from, a general idea of its origin, and its basic configuration."
+17,Conveyance,caster,10 min/lvl,self,U,"Caster's awareness leaves his body (which is inactive for the duration of the spell) and may travel at 1 mile per minute. However, it can only travel 10' per round when moving through solid material or when observing the world. If the spell expires before the caster returns to his body, he will return to his body at the fixed rate of 500' per round, and upon returning to his body, he must make a RR modified by -50 or die (the attack level is equal to the number of rounds overstayed)."
+18,Death's Delving,1 corpse,---,touch,I,"As Death Analysis, except gives a visual image of the killer, and a vague reason for death (e.g., revenge, robbery, accident, etc.)."
+20,Analysis,1 target,---,10',I,"Any of the lower level spells may be used together on one item, person, or place (Conveyance is not included)."
+25,Mass Analysis,1 tgt/rnd,1 rnd/lvl,10',I,"As Analysis, except one item per round may be examined."
+30,Power Analysis True,1 target,---,100',P,"As Power Analysis, except exact origin, creator, and detailed purpose are given; this includes exact spell (when appropriate)"
+50,Conveyance True,caster,10 min/lvl,self,U,"As Conveyance, except rate is 10 mile per minute (50' per round through solid material and while observing)."

@@ -1,1 +1,16 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Shrink Self,caster,1 min/lvl,self,U,Caster may shrink by up to 50\% his normal mass (height in most situations). The caster retains his previous strength.
+2,Enlarge Self,caster,1 min/lvl,self,U,"As Shrink Self, except caster may increase his mass by 50\% (height in most situations); there is no increase in his strength (except for movement purposes)."
+3,Change Lore,caster,---,100',P,Allows caster to analyze the form of another being for future use with True Change.
+5,Change to Kind,1 target,10 min/lvl,10',U,"Caster can alter the target's form to the form of any desired humanoid race. The form cannot be a specific form. For example, the target could take on the form of a Dwarf, but not the Dwarven king. Only physical form is gained (e.g., the target who becomes a Dwarf would not receive the dwarves ability to see in the dark). See Section 7.1.11."
+7,Shrink,1 target,10 min/lvl,10',U,"As Shrink Self, except the maximum decrease is 10\% of caster's mass per level (maximum of 90\% of the target's mass) and it can be cast on any material that is living or was once living."
+10,Enlarge,1 target,10 min/lvl,10',U,"As Shrink, except it increases target's mass up to 10\% of caster's mass per level."
+11,Change,1 target,10 min/lvl,10',U,"As Change to Kind, except alteration can be to any organic form within 50\% to 200\% target's current mass. Target gains no special abilities from the change."
+13,True Change,1 target,10 min/lvl,10',U,"As Change, except altered form can be that of a specific being analyzed by Change Lore."
+15,Changing,caster,10 min/lvl,self,U,"As True Change, except caster may assume a different form anytime during the spell, by concentrating for one round per change."
+17,Merging,1 target,varies,10',U,"Target can merge into any solid, inanimate material. While merged, the target cannot move or perceive. When the target emerges from the material, he can emerge from any side or face of the material. The target cannot move ''through'' material greater in width than his own body size plus 2 feet. The caster can exit at any time up to 1 hr/lvl; all other targets must emerge after a specified time (the caster specifies the time when the spell is cast, must be less than 1 hr/lvl)."
+19,Invulnerablity,1 target,1 min/lvl,10',U,Target has all critical hits lowered by one in severity (an 'A' critical is treated as an 'A' critical with a -20 modification).
+20,Passing,1 target,1 min/lvl,10',U,Target may pass through any inani- mate material up to 1' per level; it takes one round to pass through 2'.
+25,Mass Enlarge,1 target/lvl,1 min/lvl,10',U,"As Enlarge, except it simul- taneously enlarges (by up to 50\% of caster's mass) as many targets as the caster's level. All objects must enlarge the same percentage amount."
+30,Mass Change,1 target/lvl,10 min/lvl,10',U,"As Change, except affects up to the caster's level in targets (all targets must take the same type of form)."
+50,Mass Merging,1 target/lvl,varies,10',U,"As Merging, except affects up to the caster's level in targets. All targets must exit after a set time. If the caster is one of the targets, he may exit ant any time and all other targets can exit with him."

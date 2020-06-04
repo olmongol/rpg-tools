@@ -1,1 +1,22 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Anticipate Missile *,1 missile,---,100',U,Caster can attempt to avoid one missile shot fired at him. The missile must be in his field of vision when the spell is cast. The caster gets a bonus of +50 to his DB against this attack.
+2,Anticipate Blow \textasteriskcentered,1 attack,---,10',U,"As Anticipate Missile, except applies to one melee attack that the caster is aware of."
+3,Guess \textasteriskcentered,caster,---,self,I,"When faced with a choice about which he has little or no information (e.g., which corridor leads outside the quick- est) the caster may cast this spell and the Gamemaster will determine which way he goes, biasing the choice favorable by 25\% (e.g, roll 1-100: correct on 26-100, incorrect on 01-25)."
+4,Anticipate Spell \textasteriskcentered,1 spell,---,10',I,Caster can avoid one spell cast on him. The caster gets a bonus of +50 to his DB against a directed elemental attack; his normal DB against an area elemental attack; or the caster’s BAR suffers a -10 penalty (on all other spell attacks).
+5,Intuitions I,caster,---,self,I,Caster gains a vision of what will probably happen in the next minute if he takes a specified action.
+6,Anticipate Hostility,10'R,---,10',I,"Caster is aware of any being within the area of effect that has hostile intentions towards him. The hostility must be directed specifically at the caster or the spell reveals nothing. The being’s hostility must be active (i.e., driving the being to perform aggressive actions), not passive (i.e., hate exists, but no action is planned)."
+8,Dream I,caster,sleep,self,I,Caster has a dream relating to a topic decided upon just before retiring. This spell can only be used once per night. The caster must sleep a minimum of one normal sleep cycle.
+9,Room Feel I,1'R/lvl,varies,100',I,Caster has a vision of what has occurred in a room or place; limited to up to 1 minute per level into the past. The size of the room is limited to the area of effect.
+10,Anticipations \textasteriskcentered,caster,---,100',Pm,"Predicts most probable actions of a being in the next round; specifics are not learned (e.g., attack in melee, cast a spell; but no detail on attack target or what spell). This results in the caster being able to declare his statement of intent for the round after hearing what the target has decided to do. Note that the target is free to change his declared action with the requisite penalties."
+11,Intuitions II,caster,---,self,I,"As Intuitions I, except caster gets to gaze 2 minutes into the future."
+12,Room Feel II,caster,varies,100',I,"As Room Feel I, except limit is 1 hr/lvl."
+13,Anticipate Hostility True,10'R/lvl,1 min/lvl(C),10'/lvl,I,"As Anticipate Hostility, except for area of effect, duration and range."
+14,Dream II,caster,sleep,self,I,"As Dream I, except limit is 2 dreams/night on different topics."
+15,Spell Anticipation \textasteriskcentered,caster,---,100',Pm,"As Anticipations, except if action is to cast a spell, the spell to be cast and target are learned."
+16,Room Feel III,caster,varies,100',I,"As Room Feel I, except limit is 1 day/lvl."
+17,Dream III,caster,sleep,self,I,"As Dream I, except limit is 3 dreams/night on different topics."
+19,Room Feel True,caster,varies,100',I,"As Room Feel I, except limit is 1 week/ lvl."
+20,Intuitions True,caster,---,self,Pm,"As Intuitions I, except time limit extends 1 min/lvl into the future."
+25,Anticipations True \textasteriskcentered,caster,---,100',Pm,"As Anticipations, except caster can predict actions of all beings within 100' of him."
+30,Dream V,caster,sleep,self,I,"As Dream I, except limit is 5 dreams/night on any combination of topics the caster chooses."
+50,Spell Anticipation True \textasteriskcentered,caster,---,100',I,"As Anticipations True, except spell types and targets are learned."

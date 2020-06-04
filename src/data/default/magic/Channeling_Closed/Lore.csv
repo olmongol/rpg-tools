@@ -1,1 +1,19 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Afterthoughts,caster,---,self,I,Allows caster virtual total recall of any conversation or writing he encountered within a period of days equal to his level.
+2,Detect Evil,5'R,1 min/lvl,100',P,Detects ''true evil'' in an animate or inanimate target; caster can concentrate on a 5'R area each round.
+3,Detect Curse,5'R,1 min/lvl,100',P,"As Detect Evil, except caster can detect curses."
+4,Detect Emotion,5'R,1 min/lvl,100',Pm,"As Detect Evil, except caster can detect extremes of emotion (e.g., hatred, love, sadness, etc.). In addition, the caster learns which emotions the target is feeling in extreme. If there are no extremes of emotion (i.e., only normal feelings), this spell detects nothing."
+5,Light Lore I,1 item,---,10',P,Caster can ascertain the origin point and nature of any 1 ''holy item” that is not ''of darkness'' or ''of evil;'' will not give specific capabilities.
+6,Poison Lore,1 poison,---,10',P,"Caster can ascertain exact nature and type of poison; he can determine what cure may be used, but does not receive the required tools or skills."
+8,Life Lore,1 target,---,100',P,"Caster can determine the nature and type of any 1 living target. He will not be able to ascertain the target’s personal traits or capabilities, but will know the normal abilities associated with the target’s species."
+10,Curse Tales,1 curse,---,10',P,"Caster can determine nature and origin of any 1 curse, including the name of the one who bequeathed it."
+11,Dark Lore I,1 item,---,10',P,"As Light Lore I, except caster can ascertain the origin point and nature of any 1 item ''of darkness'' or ''of evil.''"
+12,Light Lore II,varies,---,10',P,"As Light Lore I, except that caster can ascertain the origin point and nature of any 2 ''holy items'' or caster can determine the nature, origin point, and the exact significance of any 1 ''holy item.''"
+15,Emotion Analysis,1 target,---,10',Pm,Caster can determine the nature and origin of extreme emotion(s) found within any 1 target (inanimate or animate); the degree and other details of the emotion(s) can also be acquired.
+17,Light Lore III,varies,---,10',P,"As Light Lore I, except that caster can ascertain the origin point and nature of any 3 ''holy items'' or caster can determine the age, origin point, name of the creator, and nature of any 1 ''holy item.'' Caster also learns item’!s specific capabilities."
+18,Dark Lore II,varies,---,10',P,"As Light Lore II, except that it can only be used on items ''of darkness'' or ''of evil.''"
+19,White Lore,1 item,---,100',P,"Caster can ascertain exact nature, origin, purpose, and history of any 1 ''holy item;'' it allows caster to visualize all who have possessed the item."
+20,Dark Lore III,varies,---,10',P,"As Light Lore III, except that it can be used only on items of evil or ''darkness.''"
+25,Life Lore True,1 target,---,10',P,"As Life Lore, except caster can determine specific traits and capabilities of any 1 target."
+30,Black Lore,1 target,---,100',P,"As White Lore, except it can only be used on an item ''of darkness'' or ''of evil.''"
+50,White Lore Mastery,varies,---,100',P,"As White Lore, except caster can acquire the information on all ''holy items'' within 100'."

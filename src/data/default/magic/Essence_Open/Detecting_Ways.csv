@@ -1,1 +1,18 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Detect Essence,5'R,1 min/lvl (C),100',P,Detects any active spell or item from the Essence realm. Caster can concentrate on a 5'R area each round.
+2,Detect Mentalism,5'R,1 min/lvl (C),100',P,"As Detect Essence, except realm is Mentalism."
+3,Detect Channeling,5'R,1 min/lvl (C),100',P,"As Detect Essence, except realm is Channeling."
+5,Detect Invisible,5'R,1 min/lvl (C),100',P,"As Detect Essence, except detects invisible things. All attacks against something so detected are modified by -50."
+6,Detect Traps,5'R,1 min/lvl (C),100',P,"As Detect Essence, except it gives a 75\% chance of detecting a trap (trap sophistication may modify this chance)."
+7,Detect Evil,5'R,1 min/lvl,100',P,"As Detect Essence, except detects if a being is evil or an item created by evil or long used by a very evil person."
+8,Location I,caster,1 min/lvl,100',P,Gives the direction and distance to any specific object or place that the caster is familiar with or has had described in detail.
+10,Perceive Power I,5'R,1 min/lvl (C),100',P,"As Detect Essence, except it will give an estimate of the power of the person (level) or item or spell examined."
+11,Detect Death,5'R,1 min/lvl (C),100',P,"As Detect Essence, except detects dead bodies and whether anything has died in the radius in the last 24 hours."
+12,Location III,caster,1 min/lvl,300',P,"As Location I, except range is 300'."
+15,Detect Spell,5'R,1 min/lvl (C),100',P,"As Detect Essence, except detects any spell that has been cast in the area examined. Gives exact spell that was cast."
+16,Location V,caster,1 min/lvl,500',P,"As Location I, except range is 500'."
+18,Perceive Power III,5'R,1 min/lvl (C),300',P,"As Perceive Power I, except range is 300'."
+20,Greater Location,caster,1 min/lvl,1 mile,P,"As Location I, except range is 1 mile."
+25,Detect Detections,5'R,1 min/lvl (C),100',P,"As Detect Essence, except detects any type of detection spell that is operating in the area examined (gives exact spell detected)."
+30,Detect True,5'R,1 rnd/lvl (C),100',P,Any of the lower level Detect spells can be used once per round.
+50,Location True,caster,1 min/lvl,1 mi/lvl,P,"As Location I, except range is 1 mile per level."

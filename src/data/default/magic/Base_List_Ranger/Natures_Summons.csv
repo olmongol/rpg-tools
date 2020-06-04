@@ -1,1 +1,21 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Summon Nourishment,1 creature,---,varies,U,"An animal will arrive bearing some form of nourishment for the caster. This may take the form of berries, nuts, or tubers (always some form of vegetable matter). The animal will drop the food and return to the wilderness."
+2,Summon Warmth,1 creature,8 hours,varies,U,A heavily-furred animal will arrive and lie down near the caster. The animal will allow the caster (and only the caster) to lie down next to it.
+3,Summon Guide,1 creature,24 hours (C),varies,U,An animal who knows the path to a specific location will arrive to guide the caster to that location. The animal will only guide the caster as long as he concentrates on the desired location.
+4,Summon Guardian,1 creature,8 hours,varies,U,"A suitable large animal will arrive. This animal will attempt to protect the caster from hostile attacks for the duration of the spell. The animal will be one that is capable of inflicting at least Medium animal attacks. The animal will only protect the caster as long as the caster remains in the same general area that the spell was cast (i.e., if the caster leaves the area, the animal will not travel with him)."
+5,Summon Mount,1 creature,24 hours,varies,U,A large animal will arrive and serve as a mount for the caster.
+6,Summon Hunter,1 creature,---,varies,U,An animal will arrive bearing a recently killed prey for the caster (some form of meat). The animal will drop the food close by and then return to the wilderness.
+7,Summon Sense,1 creature,24 hours (C),varies,U,"An animal with a specified heightened sense will arrive. For the duration of the spell, the animal will ''perceive'' for the caster. The caster can concentrate to have the animal communicate what he has been perceiving."
+9,Summon Group,1 group,24 hours,varies,U,"A ''group'' of animals will arrive and stay near the area where the spell was cast. For the purposes of this spell, the animals summoned must normally travel in groups (e.g., wolves, deer, birds, etc.)."
+10,Mass Summons,1 creature/lvl,varies,varies,U,"The caster can use any lower level spells on this list, except that one animal per level will be summoned. For example, a 10th level Ranger could summon 10 guardians. All of the animals will serve only the caster."
+12,Spread Plants,20'R,P,10',U,This spell produces ground covering of grasses and small plants of other varieties. The plants must already exist in the area of effect. This spell simply allows them to multiply and grow faster (coverage takes 20+d100 hours).
+13,Fog Prayer,500'R/lvl,varies,10',E,Caster prayers to his deity for fog. The chance that the prayer is answered is 2\% per level of the caster. See last note below.
+14,Rain Prayer,500'R/lvl,varies,10',E,"As Fog Prayer, except generates a light rain."
+15,Spread Plants II,20'R,P,10',U,"As Spread Plants I, except will also spread saplings and small trees."
+16,Storm Prayer,500'R/lvl,varies,10',E,"As Fog Prayer, except will generate a heavy thunderstorm."
+17,Hail Prayer,500'R/lvl,varies,10',E,"As Fog Prayer, except generates a hail storm."
+19,Lightning Prayer,500'R/lvl,varies,10',E,"As Fog Prayer, except will generate a lightning storm."
+20,Tornado Prayer,500'R/lvl,varies,10',E,"As Fog Prayer, except will generate weather that results in a tornado."
+25,Clear Weather Prayer,500'R/lvl,varies,10',E,"As Fog Prayer, except will ensure clear weather."
+30,Weather Prayer True,500'R/lvl,varies,10',E,"As Fog Prayer, except caster's deity will grant whatever weather would be most beneficial to the caster's current goal."
+50,Prayer Mastery,500'R/lvl,varies,10',E,"As any of the Prayer spells on this list, except chance of getting the effect is 95\%."

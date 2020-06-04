@@ -1,1 +1,24 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Sleep V,varies,---,100',Fm,"Causes target(s) to fall into a natural sleep. This spell can affect a number of targets whose levels total up to 5. The caster must be able to see all the targets. At the time of casting, the caster should designate target priority (i.e., affect target A; if levels are left, affect target B; etc.). The first 2 rounds of sleep are magical (the target cannot be awakened through normal means)."
+2,Charm Kind,1 target,1 hour/lvl,100',Fm,Target humanoid believes the caster is a good friend.
+3,Sleep VII,varies,---,100',Fm,"As Sleep V, except a total of 7 levels can be affected."
+4,Confusion,1 target,1 rnd/5 failure,100',Fm,"Target is incapable of making decisions or initiating action. However, the target may continue to fight if already engaged; he may also fight in self defense."
+5,Suggestion,1 target,varies,10',Fm,"Target will follow a single suggested act that is not completely alien to him (e.g., no suicide suggestions, no blinding himself suggestions, etc.)."
+6,Sleep X,varies,---,100',Fm,"As Sleep V, except a total of 10 levels may be affected."
+7,Hold Kind,1 target,C,100',Fm,Target humanoid is held to 25\% activity per round.
+8,Master of Kind,1 target,10 min/lvl,50',Fm,"Target humanoid must obey caster. However, he will not perform any act that is completely alien to him (e.g., no suicide suggestions, no blinding himself, etc.)."
+9,Lord Sleep,1 target,---,100',Fm,"As Sleep V, except a total of 20 levels may be affected."
+10,True Charm,1 target,1 hour/lvl,100',Fm,"As Charm Kind, except any sentient creature may be affected."
+11,Quest,1 target,varies,10',Fm,"Target is given one task, failure results in a penalty determined by the Gamemaster (task must be within capabilities of target). If the target ignores the quest, he will suffer the same effects as for failure."
+12,Word of Stunning,1 target,---,50',Fm,(RR Mod: -10) Target is stunned for 1 round per 10 failure.
+13,Word of Pain,1 target,---,50',Fm,"(RR Mod: -10) As Word of Stunning, except target takes 50\% of remaining concussion hits upon failure."
+14,Hold True,1 target,---,100',Fm,"As Hold Kind, except any sentient being can be affected."
+15,Word of Sleep,1 target,---,50',Fm,"(RR Mod: -10) As Word of Stunning, except target falls into a natural sleep. The first minute of sleep is magical; the target cannot be awakened through normal means."
+16,Word of Discord,1 target,1 day/10 fail,50',Fm,"(RR Mod: -10) As Word of Stunning, except target will not cooperate or agree with anyone for 1 day per 10 failure."
+17,Word of Calling,1 target,1 day/10 fail,50',Fm,"(RR Mod: -10) Target is forced to come and face the caster (fighting to get there if necessary). Once he faces the caster, he must remain immobile for 1 round per 10 failure. For the duration of this spell, the caster must remain immobile, or the spell is dispelled."
+18,Waiting Word,1 target,1 day/lvl,50',Fm,(RR Mod: -10) Any of the ''Words'' above can be set to go off at a specified time or if there is movement within a designated 10'R.
+19,Word of Death,1 target,---,50',Fm,(RR Mod: -10) Target suffers the results of an 'E' critical strike; the caster chooses the critical type.
+20,True Quest,1 target,varies,10',Fm,"As Quest, except failure is punished by the target suffering five 'E' critical strikes (choose which critical types randomly)."
+25,Phrase,1 target,---,50',Fm,"(RR Mod: -10) As Word of Stunning, except any three different ''Words'' may be used on the same round (a separate RR roll must be made for each one). If all three words are the same, and all three RR's fail, the effect is permanent."
+30,Mass Word,varies,---,50',Fm,"(RR Mod: -10) As Word of Stunning, except any ''Word'' may be used and it will affect a number of levels equal to the level of the caster (as Sleep)."
+50,Spirit Mastery,varies,1 rnd/lvl,100',Fm,Caster can use one spell/rnd on this list (10th level or lower).

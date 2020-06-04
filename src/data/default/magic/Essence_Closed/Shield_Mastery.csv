@@ -1,1 +1,20 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Enchanted Shield,1 shield,1 min/lvl,10',U,"Caster temporarily enchants a nonmagic, non-metal shield with a +10 Defensive Bonus (DB)."
+2,Shield *,caster,1 min/lvl,self,U,"Creates an invisible force shield in front of the caster. This functions as a normal shield (subtracting 25 from appropriate attacks, etc.), except it does not occupy a hand. This spell cannot be combined with a ''real'' shield."
+3,Blur *,1 target,1 min/lvl,10',U,Causes target to appear blurred to attackers. This subtracts 10 from all attacks.
+4,Enchanted Robes,1 robe,1 min/lvl,10',U,Caster temporarily enchants one robe to confer a +10 DB.
+5,Deflections I *,1 missile,---,100',U,Caster can deflect any one missile that passes within 100' of him (caster must be able to see the missile). This causes 100 to be subtracted from the missile's attack.
+6,Enchanted Leather,1 leather,1 min/lvl,10',U,Caster temporarily enchants one nonmagic suit of leather (usually a shirt) with a +10 DB.
+7,Bladeturn I *,1 attack,---,100',U,Caster can deflect any one melee attack that he can see (and is within range). This causes 50 to be subtracted from the attack.
+9,Deflections II *,2 missiles,---,100',U,"As Deflections I, except 2 missiles may be affected."
+10,Aim Untrue I *,1 missile,---,100',U,Caster can deflect any one missile that passes within 100' of him (caster must be able to see the missile). This causes the missile to automatically miss its target.
+11,Bladeturn II *,2 attacks,---,100',U,"As Bladeturn I, except 2 melee attacks may be affected."
+13,Deflections III *,3 missiles,---,100',U,"As Deflections I, except 3 missiles may be affected."
+15,Aim Untrue II *,2 missiles,---,100',U,"As Aim Untrue I, except 2 missiles may be affected."
+17,Bladeturn III *,3 attacks,---,100',U,"As Bladeturn I, except 3 melee attacks may be affected."
+18,Re-aiming *,1 missile,---,100',U,"One missile passing within 100' of caster is reversed and make an attack on its source. For the attack on the missile's source, use an OB of +5 (no other OB or DB modifiers apply)."
+19,Aim Untrue III *,3 missiles,---,100',U,"As Aim Untrue I, except 3 missiles may be affected."
+20,Mass Deflections *,varies,---,100',U,"As Deflections I, except as many missiles as the caster's level may be affected."
+25,Mass Bladeturn *,varies,---,100',U,"As Bladeturn I, except as many melee attacks as the caster's level may be affected."
+30,Mass Aim Untrue *,varies,---,100',U,"As Mass Deflections, except missiles automatically miss."
+50,Re-aiming True *,100'R,---,100',U,"As Re-aiming, except all missiles passing within 100' of caster are reversed. Each missile attacks its firer with a +20 OB."

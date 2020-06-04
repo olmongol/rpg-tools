@@ -1,0 +1,35 @@
+\documentclass[8pt,a4paper]{book}
+\usepackage{oldgerm}
+\usepackage[ngerman,english]{babel}
+\usepackage[table,dvipsnames]{xcolor}
+\usepackage{colortbl}
+\usepackage{graphicx}
+\usepackage{tcolorbox}
+\usepackage{longtable}
+\newcommand\initfamily{\usefont{U}{yinit}{m}{n}\color{red}}
+\DeclareTextFontCommand{\textinit}{\initfamily}
+
+\newdimen\ytmp
+\newcommand{\yinitpar}[1]{\setbox0=\hbox{\textinit{#1}} %
+  \hangindent=\wd0\hangafter=-4 \advance\hangindent by .25em
+  \ytmp=-.8\ht0 \hskip-\wd0 \hskip-.75em
+  \raisebox{\ytmp}[10pt][0pt]{\unhbox0}\hskip.25em}
+
+\definecolor{lightgray}{gray}{0.9}
+
+\parindent 0em
+\parskip 1.5ex plus0.5ex minus0.5ex
+
+\voffset -10mm
+\topmargin 8mm
+\oddsidemargin 10mm
+\evensidemargin 0mm
+\headheight 5mm
+\headsep 6mm
+\topskip 5mm
+\textwidth 170mm
+\textheight 225mm
+\hoffset -10mm
+\footskip 10mm
+
+\begin{document}

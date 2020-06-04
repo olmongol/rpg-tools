@@ -1,1 +1,36 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Ventriloquism,1 point,C,100',E,Caster can speak and his voice will appear to come from any point that he wants within 100' (point must be in his field of vision).
+2,Sound/Light Mirage,10'R,10 min/lvl,100',E,"Creates any simple, immobile image, scene, or sounds in an area up to 10'R, or creates a set of immobile sounds in an area up to 10'R."
+3,Taste/Smell Mirage,10'R,10 min/lvl,100',E,"As Sound/Light Mirage, except cre- ates a set of immobile smells in the area of effect, or a set of immobile tastes in the area of effect."
+4,Illusions II,10'R,1 min/lvl,100',E,"Creates a simple, immobile image or scene up to an area of 10'R. One of the following options may also be chosen: a) an extra sense can be added (not the tactile or Presence senses), b) the duration can be doubled, c) the range can be doubled, or d) the radius of the area of effect can be doubled. All parts of the area of effect must be within the range of the spell (and all parts of the range must be in the caster’s field of vision)."
+5,Phantasm I,10'R,1 min/lvl (C),100',E,"Creates the image of one object or being that will move however the caster wants (as long as the caster concentrates). When the caster stops concentrating, the image remains but stops moving. The caster may resume concentra- tion again later and make the image move again (presuming that the duration has not expired). The image can be of any size that would fit in a 10'R."
+6,Light Glamour,1 object,1 day/lvl,50',E,Changes the visual appearance of one object. The target can be no larger than 10 pounds per level.
+7,Waiting Illusion II,10'R,varies,50',E,"As Illusion II, except it can be delayed up to 24 hours. At the time of casting, the caster must decide upon the trigger for the spell. The caster can choose one of the following: 
+a) time period, 
+b) specified movements, 
+c) specified sounds, 
+d) specified smells, 
+e) specified tastes.
+If a sense is used to trigger the spell, that sense must be included in the illusion."
+8,Illusions III,10'R,1 min/lvl,100',E,"As Illusion II, except two options may be chosen. See the notes below for guidelines on how to combine the options."
+9,Phantasm II,10'R,1 min/lvl (C),100',E,"As Phantasm I, except one of the following options may also be chosen: 
+a) an extra sense can be added (not the tactile or Presence senses), 
+b) the duration can be doubled, 
+c) the range can be doubled, 
+d) the radius of the area of effect can be doubled, 
+e) another image can be created and moved inde- pendently of the first (all separate images must be within the caster’s field of vision and within range of the spell), or 
+f) limited repetitious sounds, movements, etc can be added that do not require concentration of the caster (the proper senses in- volved must also be included with the illusion)."
+10,Waiting Phantasm II,10'R,varies,100',E,"As Phantasm II, except it can be delayed as in Waiting Illusion II. The phantasm will move and act if given a simple command (at the time of casting), or it can deliver a short speech (if sound was one of the included senses)."
+11,Waiting Illusion III,10'R,varies,100',E,"As Waiting Illusion II, except two options may be chosen. See the notes below for guidelines on how to combine the options."
+12,Phantasm III,10'R,1 min/lvl (C),100',E,"As Phantasm II, except two options may be chosen. See the notes below for guidelines on how to combine the options."
+13,Illusions V,10'R,1 min/lvl,100',E,"As Illusions III, except four options may be chosen."
+14,Waiting Illusion IV,10'R,varies,100',E,"As Waiting Illusion III, except three options may be chosen."
+15,Waiting Phantasm III,10'R,varies,100',E,"As Waiting Phantasm III, except two options may be chosen."
+16,Waiting Illusion V,10'R,varies,100',E,"As Waiting Illusion III, except four options may be chosen."
+17,Phantasm IV,10'R,1 min/lvl (C),100',E,"As Phantasm III, except three options may be chosen."
+18,Waiting Phantasm IV,10'R,varies,100',E,"As Waiting Phantasm III, except three options may be chosen."
+19,Illusions VII,10'R,1 min/lvl,100',E,"As Illusions III, except six options may be chosen."
+20,Waiting Illusion VI,10'R,varies,100',E,"As Waiting Illusion III, except five options may be chosen."
+25,Phantasm V,10'R,1 min/lvl (C),100',E,"As Phantasm III, except four options may be chosen."
+30,Illusions X,10'R,1 min/lvl,100',E,"As Illusion III, except nine options may be chosen."
+50,Phantasm X,10'R,1 min/lvl (C),100',E,"As Phantasm III, except nine options may be chosen."

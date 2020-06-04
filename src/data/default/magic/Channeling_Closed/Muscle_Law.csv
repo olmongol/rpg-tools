@@ -1,0 +1,18 @@
+Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Muscle Lore,1 target,---,touch,I,"Caster acquires a complete understanding of any muscle damage, including the tools and methods required for healing; caster does not receive the skill or power to perform the cure."
+2,Tendon Lore,1 target,---,touch,I,"As Muscle Lore, except the knowledge obtained concerns the healing of tendon damage."
+3,Sprain Repair,1 target,P,touch,U,Allows caster to repair (not replace) 1 sprain; recovery time: 1 hour.
+4,Muscle Repair I,1 target,P,touch,U,Allows caster to repair (not replace) 1 damaged muscle; recovery time: 1 hour.
+5,Limb Preservation \ddagger \textasteriskcentered,1 target,1 day/lvl,touch,U,"Allows caster to prevent the deterioration of 1 limb (even while severed); also requires use of same spells from Nerve Law, Bone Law, and Blood Law."
+6,Tendon Repair I,1 target,P,touch,U,Allows caster to repair one damaged tendon; recovery time: 1 hour.
+9,Muscle Repair III,1 target,P,touch,U,"As Muscle Repair I, except caster can repair 3 damaged muscles."
+10,Tendon Repair III,1 target,P,touch,U,"As Tendon Repair I, except caster can repair 3 damaged tendons."
+12,Joining \ddagger \textasteriskcentered,1 target,P,touch,U,"Allows caster to reattach limb, but requires use of Bone Law, Blood Law, and Nerve Law Joining spells in order to restore functional status; limb is fully functional in 1-10 days."
+13,Muscle Repair True,1 target,P,touch,U,"As Muscle Repair I, except recovery is instantaneous and requires 1 minute ''operation'' (concentration by caster)."
+15,Tendon Repair True,1 target,P,touch,U,"As Tendon Repair I, except recovery is instantaneous and requires 1 minute ''operation'' (concentration by caster)."
+17,Mass Muscle Repair,varies,P,touch,U,"Allows repair of 1 muscle per level of the caster (e.g., a 17th level caster can repair 17 muscles); spell can be used as long as caster concentrates (i.e., caster can move from target to target until he has healed a number of muscles equal to his level); recovery time: 1 hour."
+19,Mass Tendon Repair,varies,P,touch,U,"As Mass Muscle Repair, except caster heals tendons."
+20,Muscle Regeneration,1 target,P,touch,U,"Allows caster to regenerate 1 muscle; regrowth takes 1-10 hrs, depending on extent of loss."
+25,Joining True \ddagger \textasteriskcentered,1 target,P,touch,U,"As Joining, except limb is fully functional in 10 minutes (provided caster also uses the other three Joining True spells)."
+30,Tendon Regeneration,1 target,P,touch,U,"Allows caster to regenerate 1 tendon; regrowth takes 1-10 hrs, depending on extent of loss."
+50,Mass Repair True,varies,P,100'R,U,"As Mass Muscle Repair, except any combination of muscles and tendons may be healed, the range is 100', and recovery is instantaneous."

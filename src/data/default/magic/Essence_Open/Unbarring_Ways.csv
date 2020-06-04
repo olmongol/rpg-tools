@@ -1,1 +1,24 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Lock,1 lock,---,100',U,Caster can cause any lock he can see within 100' to be locked (the lock is just normally locked and can be opened normally).
+2,Magic Lock,1 door,1 min/lvl,touch,U,"A door (or container) can be magically ''locked.'' The door can be broken down normally or the spell can be dispelled. Otherwise, the door cannot be opened for the duration of the spell."
+3,Locklore,1 lock,---,touch,I,"Gives the caster a +20 bonus for picking the lock analyzed. If the caster describes the information gained from this spell, that person will get a +10 bonus to picking the lock analyzed."
+4,Opening I,1 lock,---,touch,U,"When cast upon a lock, there is a 20\% chance a normal lock will open, and a 45\% chance that a Magic Lock will open. There is a 10\% chance that any associated traps are set off. Rolls are open-ended, and the sophistication of the lock may modify the roll (see Section 7.1.29)."
+5,Traplore,1 trap,---,touch,I,"As Locklore, except applies to disarming traps."
+6,Disarm I,1 trap,---,touch,U,"As Opening I, except its chances concern disarming traps (see Section 7.1.29)."
+7,Jamming,1 door,P,50',U,Causes a door to expand and jam into its frame. Roll d100 to determine the severity of the jam (a 01 means the door is only slightly stuck; a 100 means that the door is unopenable).
+8,Weakening,1 door,P,50',U,Reduces the inherent strength of a door by 50\%. All attempts to break down the door get a +50 bonus.
+9,Open Prison I,5'R/lvl,P,self,U,"When cast, there is a 20\% chance that all locks within the area of effect are unlocked (45\% chance for Magic Locks). Roll separately for each lock in the area of effect. Rolls are open-ended, and the sophistication of the lock may modify the roll (see Section 7.1.29)."
+10,Opening II,1 lock,---,touch,U,"As Opening I, except chance is 40\% (90\% for Magic Locks)."
+11,Undoor I,"6''x10'x10'",P,10',U,"Will vaporize a nonmagic door up to 6'' thick, 10' high and 10' wide (if the door is thicker than 6'' it will vaporize the closest 6 inches). This will only work on an object that is used as a door (i.e., a caster cannot Undoor a section of wall)."
+12,Disarm II,1 trap,---,touch,U,"As Disarm I, except chance is 40\% (90\% for magical traps)."
+13,Greater Magic Lock,1 door,1 hr/lvl,touch,U,"As Magic Lock, except duration is 1 hr/lvl and the chance that an Opening spell (or Open Prison) will work is reduced by 20\%."
+14,True Lock,1 door,1 hr/lvl,touch,U,"As Magic Lock, except door is unbreakable by normal means."
+15,Undoor II,2'x20'x20',P,self,U,"As Undoor I, except door can be up to 2'x20'x20'."
+16,Open Prison II,5'R/lvl,P,10',U,"As Open Prison I, except chance is 40\% (90\% for Magic Locks)."
+17,Undoor III,3'x50'x50',P,10',U,"As Undoor I, except door can be up to 3'x50'x50'."
+18,Magic Lock True,1 lock,1 day/lvl,touch,U,"As Magic Lock, except duration is 1 day/lvl and the chance that an Opening spell (or Open Prison) will work is reduced by 40\%."
+19,Undoor True,1 door,P,10',U,"As Undoor I, except any single door is vaporized."
+20,New Gate,"8'x5'x6''/lvl",P,touch,U,"A doorway (8'x5') is created in any wall up to 6'' deep per level of the caster."
+25,Lock Mastery,1 lock,---,touch,U,Gives the caster a 90\% chance of opening a lock. The roll is open-ended and the sophistication of the lock may modify the roll.
+30,Trap Mastery,1 trap,---,touch,U,"As Lock Mastery, except its chances concern disarming traps."
+50,Gate Cleaver,varies,1 rnd/lvl,varies,U,Caster can utilize any one of the lower level spells on this list each round.

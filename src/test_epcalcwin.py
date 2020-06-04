@@ -28,6 +28,12 @@ class EPCalcWin(blankWindow):
 
         self.lang = lang
         self.charlist = charlist
+        if self.charlist == []:
+            self.charlist.append({  "player": "Marcus",
+                                    "exp": 10000,
+                                    "prof": "Ranger",
+                                    "name": "Player1"
+                                })
         self.storepath = storepath
         blankWindow.__init__(self, self.lang)
         self.window.title("EP Calculator")
@@ -499,10 +505,18 @@ class EPCalcWin(blankWindow):
             self.charlist = json.load(fp)
         #set up new player group list
         self.players = []
+        self.group = {}
         for elem in self.charlist:
             self.players.append(elem["player"])
             self.group[elem["player"]] = epcalc.experience(elem["player"], elem["exp"])
             self.group[elem["player"]].updateInfo()
+
+        self.__selecPlayer.set(self.players[0])
+        self.__playerOpt = OptionMenu(self.window,
+                                      self.__selecPlayer,
+                                      *self.players,
+                                      command = self.__updSelec)
+        self.__playerOpt.grid(column = 0, row = 0, sticky = "W")
 
 
     def __quit(self):
@@ -569,22 +583,17 @@ class showGrpEP(object):
                 if os.path.exists(charpath):
                     with open(charpath + char['name'] + ".json", "w") as fp:
                         json.dump(char, fp, indent = 4)
-
+                    print("data saved to {}".format(charpath + char['name'] + ".json"))
                 else:
                     print("{} not found -> {}".format(charpath, os.getcwd()))
-
-        print("{} -> {}".format(os.getcwd(), self.storepath))
-        pass
 
 
     def saveGroup(self):
         '''
         Saves all data in a groupfile
         '''
-        if self.storepath[-1] != "/":
-            self.storepath += "/"
-
-        with open(self.storepath + "EPGroup.json", "w") as fp:
+        savedir = filedialog.asksaveasfilename(defaultextension = ".json", filetypes = [("Char Group Files", ".json")])
+        with open(savedir, "w") as fp:
             json.dump(self.charlist, fp, indent = 4)
 
 
@@ -614,7 +623,7 @@ class manWin(object):
         self.mantab = rpg.statManeuver()
         self.dice = dice
         self.window = Toplevel()
-        self.title = wintitle['rm_maneuver'][self.lang]
+        self.title = "{}: {} - {}".format(wintitle['rm_maneuver'][self.lang], self.character['player'], self.character['name'])
         self.window.title(self.title)
         self._buildwin()
         self.window.mainloop()
@@ -899,4 +908,6 @@ with open("/home/mongol/git/rpg-tools/src/data/groups/charparty.json", "r") as f
 
 mantan = rpg.statManeuver
 rrtab = rpg.RRroll
-win = EPCalcWin(charlist = cl)
+#win = EPCalcWin(charlist = cl)
+
+win = EPCalcWin()

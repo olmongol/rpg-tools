@@ -1,1 +1,16 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Nerve Lore,1 target,---,touch,I,"Caster acquires complete understanding of any nerve damage, including the tools and methods required for healing: caster does not receive the skill or power to perform the cure."
+4,Minor Nerve Repair,1 target,P,touch,U,Allows caster to repair minor damage to 1 nerve; requires 1 day recovery period. Minor damage is defined as any nerve damage that results in penalties up to -20.
+5,Limb Preservation \ddagger \textasteriskcentered,1 limb,1 day/lvl,touch,U,"Allows caster to prevent the deterioration of 1 limb (even while severed); also requires use of same spells from Muscle Law, Bone Law, and Blood Law."
+9,Major Nerve Repair,1 target,P,touch,U,"As Minor Nerve Repair, except will heal any nerve damage."
+10,Unparalysis,1 target,10 min/lvl,touch,U,Caster can cure any 1 paralysis problem.
+11,Minor Nerve Repair True,1 target,P,touch,U,"As Minor Nerve Repair, except there is no recovery time."
+12,Joining \ddagger \textasteriskcentered,1 target,P,touch,U,"Allows caster to reattach limb, but requires use of Bone Law, Muscle Law, and Blood Law Joining spells in order to restore functional status; limb is fully functional in 10-100 days."
+15,Minor Brain Repair,1 target,P,touch,U,Allows caster to repair minor brain damage (including recovery from coma); note that experience lost is not restored (% lost permanently dependent on severity of damage); requires a 1 hour operation; recovery time: 1-10 days.
+16,Major Nerve Repair True,1 target,P,touch,U,"As Major Nerve Repair, except that there is no recovery period required."
+18,Paralysis Cures,1 target,P,touch,U,Allows caster to cure paralysis in 1 target (recovery time of 1-10 days); paralysis must have resulted from a spell or disease (not a poison).
+19,Unpsychosis,1 target,P,touch,U,Allows caster to repair a minor psychosis in 1 target (recovery time of 1-10 days). Minor psychoses include mild to moderate phobias (see GM Law for more on mind diseases).
+20,Mass Nerve Repair True,varies,P,touch,U,"As Nerve Repair True, except that each spell cast affects 1 nerve per level of caster."
+25,Joining True \ddagger \textasteriskcentered,1 target,P,touch,U,"As Joining, except that limb is fully functional in only 10 minutes (provided caster also uses the other three Joining True spells)."
+30,Nerve Regeneration,1 target,P,touch,U,"Allows caster to regenerate lost nerve; regrowth takes 1-10 days, depending on extent of loss."
+50,Brain Regeneration,1 target,P,touch,U,"Allows caster to regenerate lost brain material; regrowth takes 10-100 days, depending on extent of damage; target is in coma during recovery; note that experience lost is not restored (amount lost permanently is dependent on severity of damage)."

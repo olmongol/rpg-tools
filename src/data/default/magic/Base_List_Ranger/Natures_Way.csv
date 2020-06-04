@@ -1,1 +1,23 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Trap Detection,5'R,1 min/lvl,50',P,Caster has a 75\% chance of detecting a trap in the area of effect. The caster can concentrate on a different area each round. There must be living plants or animals in the area of effect or no information will be gained.
+2,Water Finding I,1 mile R,---,self,I,"Caster can locate any natural source of running water, exposed groundwater, etc. exceeding 1 gallon. He will learn the approximate size and quality of source."
+3,Fire Starting I,1'R,---,1',E,Allows caster to set a fire of 1'R. Fire will burn as long as there is fuel. A target in the 1'R will take an 'A' Heat critical.
+5,Food Finding I,1 mile R,---,self,I,"Caster learns location, type, and approximate quantity of edible food (e.g., dead animal matter, plants, etc.). The food source must exceed 1 pound."
+6,Water Purification,varies,P,touch,E,Allows caster to purify a number of gallons of water equal to his level.
+7,Shelter Finding I,1 mile R,---,self,I,"Caster learns location, type, and approximate size of any waterproof, covered space exceeding 125 cubic feet. The shelter must have an entry (exceeding 2'R) opening onto open air."
+8,Lesser Traps,1-10'R,P,touch,E,"This spell creates a minor, normal trap (constructed magically). The trap can deliver up to a 'B' critical strike (must be either a Slash, a Krush, or a Puncture; specified by the caster at the time of casting) to any one target. The size of the trap can vary from 1'R to 10'R. The time to construct the trap is 1 round per 1'R."
+9,Weather Prediction I,caster,---,1 mi/lvl,I,"Gives caster a 95\% chance of predicting time, type, and severity of weather over next 24 hour period."
+10,Nature's Awareness I,100'R,C,self,I,"Caster can mointor animate activity in the area (e.g., he will be aware of sublte movements). For the duration of this spell, the caster cannot move."
+11,Water Finding II,10 mile R,---,self,I,"As Water Finding I, except range is 10 miles."
+12,Waiting Awareness I,10'R,1 hr/lvl,self,I,Allows caster to set up a natural ''alarm system'' in the area of effect. Any disturbing activity will cause caster to be alerted.
+13,Food Finding II,10 mile R,---,self,I,"As Food Finding I, except range is 10 miles."
+14,Major Traps,10'R,P,touch,E,"As Lesser Traps, except trap can deliver an 'E' critical hit."
+15,Shelter Finding II,10 mile R,---,self,I,"As Shelter Finding I, except range is 10 miles."
+16,Nature's Awareness III,300'R,C,self,I,"As Nature's Awareness I, except for the area of effect."
+17,Water Finding True,varies,---,self,I,inds the closet water source (as defined in Water Finding I). This spell gives only direction and distance; no information about the size and quality of the water source is gained.
+18,Food Finding True,varies,---,self,I,Finds the closest source of food (as defined in Food Finding I) This spell gives only direction and distance; no information about the quantity or quality of the food source is gained.
+19,Shelter Finding True,varies,---,self,I,Find the closet shelter (as defined in Shelter Finding I). This spell gives only direction and distance; no information about the size or type of shelter is gained.
+20,Nature's Awareness V,500'R,C,500'R,I,"As Nature's Awareness I, except for the area of effect."
+25,Weather Prediction V,caster,---,1 mi/lvl,I,"As Weather Prediction I, except period is 5 days."
+30,Waiting Awareness II,50'R,1 hr/lvl,self,I,"As Waiting Awareness II, except that the radius is 50'."
+50,Nature's Aware. True,100'R/lvl,C,self,I,"As Nature's Awareness I, except for the area of effect."

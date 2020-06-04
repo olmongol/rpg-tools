@@ -1,1 +1,22 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Run I *,1 target,10 min/lvl,10',U,"Target may run at double his normal walking pace; he expends exhaustion points at the same rate he would if he were walking, once he stops or performs some other action the spell is canceled."
+2,Speed I *,1 target,1 rnd,10',U,"Target may act at twice his normal rate (i.e., 200\% activity per round), but immediately afterwards must spend a number of rounds equal to the rounds speeded at half rate (i.e., only 50\% normal activity per round). See 7.1.24 for more information."
+3,Speed Reading,1 target,10 min/lvl,10',U,Target reads at a rate of 10 pages per minute.
+4,Speed II *,varies,varies,10',U,"As Speed I, except duration is 2 rounds for one target or 1 round for each of 2 targets."
+5,Sprint I *,1 target,10 min/lvl,10',U,Target may run at triple his normal walking pace and only expends exhaustion points at the same rate he would if he were walking. Once he stops or performs some other action the spell is canceled.
+6,Haste I *,1 target,1 rnd,10',U,"Target may act at twice his normal rate (i.e., 200\% activity). See Section 7.1.24 for more information."
+7,Speed III *,varies,varies,10',U,"As Speed I, except duration is 3 rounds split among one to three targets (in any combination)."
+8,Haste II *,varies,varies,10',U,"s Haste I, except duration is 2 rounds for one target or 1 round for each of 2 targets."
+9,Fast Sprint *,1 target,10 min/lvl,10',U,"Target may run at four times his normal walking pace and only expend exhaustion points at the same rate he would if he were walking, but once he stops or performs some other action the spell is canceled."
+10,Speed V *,varies,varies,10',U,"As Speed III, except duration is 5 rounds split among one to five targets (in any combination)."
+11,Run III *,3 targets,10 min/lvl,10',U,"As Run I, except 3 targets may be affected."
+12,Haste III *,varies,varies,10',U,"As Haste I, except duration is 3 rounds split among one to three targets (in any combination)."
+14,Sprint III *,3 targets,10 min/lvl,10',U,"As Sprint I, except 3 targets may be affected."
+15,Haste V *,varies,varies,10',U,"As Haste III, except duration is 5 rounds split among one to five targets (in any combination)."
+16,Run V *,5 targets,10 min/lvl,10',U,"As Run I, except 5 targets may be affected."
+17,Speed X *,varies,varies,10',U,"As Speed III, except duration is 10 rounds split among one to ten targets (in any combination)."
+18,Sprint V *,5 targets,10 min/lvl,10',U,"As Sprint I, except 5 targets may be affected."
+20,Haste X *,varies,varies,10',U,"As Haste III, except duration is 10 rounds split among one to ten targets (in any combination)."
+25,Mass Run *,1 target/lvl,10 min/lvl,10',U,"As Run I, except as many targets as the caster's level may be affected."
+30,Mass Speed *,varies,varies,10',U,"As Speed III, except duration is a number of rounds equal to the caster's level, split among any number of targets up to the caster's level (in any combination)."
+50,Mass Haste *,varies,varies,10',U,"As Haste III, except duration is a number of rounds equal to the caster's level, split among any number of targets up to the caster's level (in any combination)."

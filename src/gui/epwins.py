@@ -46,7 +46,7 @@ from gui.gmtools import *
 from gui.mangroup import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "25.02.2020"
+__updated__ = "13.04.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -83,13 +83,13 @@ class MainWindow(blankWindow):
         """
         if storepath == None:
             #needs to be changed
-            self.mypath = os.path.expanduser('~')
-#            self.mypath = os.getcwd()
-            logger.info('mainwindow: Set storepath to %s' % (storepath))
+#            self.mypath = os.path.expanduser('~')
+            self.mypath = os.getcwd() + "/data/"
+            logger.debug('mainwindow: Set storepath to %s' % (storepath))
 
         else:
             self.mypath = storepath
-            logger.info('mainwindow: storepath set to %s' % (storepath))
+            logger.debug('mainwindow: storepath set to %s' % (storepath))
 
         self.picpath = "./gui/pic/"
         self.lang = lang
@@ -138,8 +138,14 @@ class MainWindow(blankWindow):
                                   command = self.__saveFile)
         self.filemenu.add_command(label = submenu['file'][self.lang]['export'] + "(LaTeX/PDF)",
                                   command = self.__exportLaTeX)
-        self.filemenu.add_command(label = "{} {} {}".format("short format", submenu['file'][self.lang]['export'], "(LaTeX/PDF)"),
+        self.filemenu.add_command(label = "{} {} {}".format("short format",
+                                                            submenu['file'][self.lang]['export'],
+                                                            "(LaTeX/PDF)"),
                                   command = self.__exportShortLaTeX)
+        self.filemenu.add_command(label = "{} {} {}".format(labels["spellbook"][self.lang],
+                                                            submenu['file'][self.lang]['export'],
+                                                            "(LaTeX/PDF)"),
+                                  command = self.__exportSpellbook)
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['quit'],
                                   command = self.window.destroy)
@@ -224,6 +230,21 @@ class MainWindow(blankWindow):
             msg.showinfo("short LaTeX generated")  #
 
 
+    def __exportSpellbook(self):
+        '''
+        This generates a Spellbook PDF out aof character's data
+        '''
+        from rpgtoolbox.latexexport import spellbook
+        if self.char == None:
+            msg = messageWindow()
+            msg.showinfo(errmsg['no_data'][self.lang])
+
+        else:
+            spellbook(self.char, self.mypath)
+            msg = messageWindow()
+            msg.showinfo("Spellbook generated")
+
+
     def __addEditMenu(self):
         '''
         This method adds an edit menu to the menu bar
@@ -238,7 +259,7 @@ class MainWindow(blankWindow):
         self.edtmenu.add_command(label = submenu['edit'][self.lang]['statgain'],
                                  command = self.__statGainRoll)
         self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_BGO'],
-                                 command = self.__statGainRoll)
+                                 command = self.__BGOWin)
         self.edtmenu.add_separator()
         self.edtmenu.add_command(label = submenu['edit'][self.lang]['ed_EP'],
                                  command = self.__edtEPWin)
@@ -269,10 +290,8 @@ class MainWindow(blankWindow):
     def __edtgrpWin(self):
         """
         Opens a window for editing character parties
-        @todo edtgrpWin has to be implemented
         """
         grpwin = groupWin(self.lang)
-#        self.notdoneyet("edtgrpWin")
 
 
     def __BGOWin(self):
@@ -302,23 +321,6 @@ class MainWindow(blankWindow):
         @todo has to be implemented
         '''
         self.notdoneyet()
-
-#    def __edotherWin(self):
-#        '''
-#        Editing all for traveled distance, spells, maneuvers
-#        @todo not implemented yet
-#        '''
-#        self.notdoneyet()
-#
-#
-#    def __indivWin(self):
-#        '''
-#        Calculating and distributing pool for individual EPs.
-#        @todo not implemented yet
-#        '''
-#        self.notdoneyet()
-#        self.window.destroy()
-#        self.window = inputWin(self.lang)
 
 
     def __edcalcWin(self):
@@ -454,8 +456,6 @@ class confWindow(blankWindow):
 
     ----
     @todo The following has to be implemented:
-    - option for short/long LaTex exports: short means skills with rank = 0 won't
-      be displayed.
     - improve design of options window
 
     """
@@ -468,7 +468,7 @@ class confWindow(blankWindow):
         """
         self.lang = lang
         self._cnf = chkCfg(lang = self.lang)
-        pprint(self._cnf.cnfparam)
+        logger.debug("read cfg data: {}".format(self._cnf.cnfparam))
         blankWindow.__init__(self, self.lang)
         self.window.title(wintitle['opt_lang'][self.lang])
         self.wert = StringVar()
@@ -615,9 +615,9 @@ class confWindow(blankWindow):
         self._cnf.saveCnf(path = './conf',
                           filename = 'rpg-tools.cfg',
                           content = self.cont)
-        pprint(self.cont)
+
         self._cnf = chkCfg(lang = self.lang)
-        pprint(self._cnf.cnfparam)
+        logger.debug("saved cfg: {}".format(self._cnf.cnfparam))
         self.msg = messageWindow()
         self.msg.showinfo(processing['saved']
                           [self.lang] + '\n' + shortcut[self.lang])
@@ -1619,9 +1619,13 @@ class genAttrWin(blankWindow):
             os.mkdir(self.spath + self.character['player'])
 
         else:
-            with open(self.spath + self.character['player'] + '/' + self.character['name'] + ".json", "w") as outfile:
-                json.dump(self.character, outfile, sort_keys = True,
-                          indent = 4, ensure_ascii = False)
+            try:
+                with open(self.spath + self.character['player'] + '/' + self.character['name'] + ".json", "w") as outfile:
+                    json.dump(self.character, outfile, sort_keys = True,
+                              indent = 4, ensure_ascii = False)
+            except:
+                with open(self.spath + self.character['player'] + '/' + self.character['name'] + ".json", "w") as outfile:
+                    json.dump(self.character, outfile, indent = 4)
             self.window.destroy()
             self.window3 = priorizeWeaponsWin(
                 self.lang, self.spath, self.character)
@@ -1655,9 +1659,6 @@ class genAttrWin(blankWindow):
                                        'item bonus': 0,
                                        'rank': 0
                                        }
-            #DEBUG
-#            print("\naddCatnSkills ----------------------------{}".format(content[i][0]))
-#            pprint(skillcat[content[i][0]])
 
             for pb in list(self.profs[self.character['prof']]['Profession Bonusses'].keys()):
 
@@ -1676,18 +1677,13 @@ class genAttrWin(blankWindow):
                                                                  }
 
         del(content)
-
         self.profs = rm.choseProfession(self.lang)
+
         for key in skillcat.keys():
-            #DEBUG
-#            print("addCatnSkills: key - {}".format(key))
 
             for pbonus in self.profs[self.character['prof']]['Profession Bonusses'].keys():
 
                 if pbonus in skillcat.keys():
-                    #DEBUG
-#                    print("addCatnSkills: pbonus - {}".format(pbonus))
-
                     skillcat[key]['prof bonus'] = int(self.profs[self.character['prof']]['Profession Bonusses'][pbonus])
 
         fp = open('%s/default/SkillCat_%s.csv' % (self.spath, self.lang), 'r')
@@ -1745,15 +1741,18 @@ class genAttrWin(blankWindow):
                                                    self.character['realm'],
                                                    self.character['lvl']
                                                    )
-            #DEBUG
-            print("1610: addCatnSkills: spellbook:")
-            pprint(self.spellbook)
+            logger.debug("addCatnSkills: path: {}, prof: {}, realm: {}, lvl:{}".format(self.spath,
+                                                   self.character['prof'],
+                                                   self.character['realm'],
+                                                   self.character['lvl']))
 
             for cat in list(self.character['cat'].keys()):
 
                 if cat[:8] == "Spells -":
 
                     for slcat in list(self.spellbook.spelllists.keys()):
+                        print("DeBUG: addCatnSkills (slcat) {}".format(slcat))
+                        print("Debug: keys: {}".format(list(self.spellbook.spelllists[slcat].keys())))
 
                         if self.spellbook.spelllists[slcat]['Category'] in cat:
                             for spell in list(self.spellbook.spelllists[slcat].keys()):
@@ -1803,7 +1802,6 @@ class priorizeWeaponsWin(blankWindow):
         self.__catnames = catnames
 
         if storepath == None:
-#            self.spath = os.path.expanduser('~') + "/data"
             self.spath = os.getcwd() + "/data"
             logger.debug('Set storepath to %s' % (storepath)) + "/data"
 
@@ -2060,16 +2058,13 @@ class priorizeWeaponsWin(blankWindow):
             if self.character['race'] in races[l]:
                 param['lang'] = l
                 param['race'] = races['en'][races[l].index(self.character['race'])]
-            print("debug realm {}".format(self.character['realm']))
+
             if self.character['realm'] in realms[l]:
                 param['ppd'] = ppds[realms[l].index(self.character['realm'])]
                 param['Stats'] = magicstats[realms[l].index(self.character['realm'])]
 
-############ das könnte noch ein Bug sein: keine Progression....
         if type(param['ppd']) == type(''):
-            print("debug: race {} ppd {}".format(param['ppd'], param['race']))
             param['ppd'] = progressionType[param['ppd'] + param['race']]
-#            param['ppd'] = progressionType['null']
 
         elif type(param['ppd']) == type([]):
 
@@ -2093,10 +2088,15 @@ class priorizeWeaponsWin(blankWindow):
         '''
         import json
         charname = self.character['name']  #.replace(" ", "_")
-#        with open(self.spath + self.character['player'] + '/' + self.character['name'] + ".json", "w") as outfile:
-        with open(self.spath + self.character['player'] + '/' + charname + ".json", "w") as outfile:
-            json.dump(self.character, outfile, sort_keys = True,
-                      indent = 4, ensure_ascii = False)
+
+        try:
+            with open(self.spath + self.character['player'] + '/' + charname + ".json", "w") as outfile:
+                json.dump(self.character, outfile, sort_keys = True,
+                          indent = 4, ensure_ascii = False)
+        except:
+            logger.error("saveChar: could not save {} sorted".format(self.spath + self.character['player'] + '/' + charname + ".json"))
+            with open(self.spath + self.character['player'] + '/' + charname + ".json", "w") as outfile:
+                json.dump(self.character, outfile, indent = 4)
 
 
     def __getWeaponCats(self):
@@ -2747,9 +2747,6 @@ class skillcatWin(blankWindow):
             if self.__tree.item(self.__curItem)['tags'][0] != "category":
                 self.skillrank = self.__tree.item(self.__curItem)['values'][-2]
 
-        #DEBUG
-#        print(self.__tree.item(self.__curItem))
-
         if self.__tree.item(self.__curItem)['tags'] != "category":
             linkedcat = ""
 
@@ -3055,26 +3052,14 @@ class skillcatWin(blankWindow):
                 else:
                     messg = messageWindow()
                     messg.showinfo(screenmesg['epwins_no_dp'][self.lang])
-#################### hier gibt es noch ein problem
-        #DEBUG
-        print("takeValsSkill 3012.\n\tchar[DP]: {}\n\tusedDP; {}".format(self._character["DP"], self.__usedDP))
-        self.DPtext.set(str(self._character['DP'] - self.__usedDP))
 
+        self.DPtext.set(str(self._character['DP'] - self.__usedDP))
         self.__buildChangedTree()
 
 
     def __takeValsCat(self):
         '''
         This method takes added/modified skills/cats to a dict and treeview
-
-        @todo The following has to be implemented:
-        -# take care of non standard progression: do not "level" those categories
-        -# update total skill bonusses if there are skills
-
-        ----
-        @bug
-        - if you levelup a '+' skill, e.g. 'riding', first and rename it afterwards the level is set to 0 for the renamend skill  and even for the initial '+' skill
-          it seems to be a problem of lowval
         '''
         ## @var currcat
         # current category name
@@ -3188,7 +3173,7 @@ class skillcatWin(blankWindow):
         self._character = rm.refreshStatBonus(self._character)
         # remove usedDP from character's available DP
         self._character['DP'] -= self.__usedDP
-        handlemagic.updateSL(character = self._character, datadir = self.spath)
+#        handlemagic.updateSL(character = self._character, datadir = self.spath)
         self._character["soul dep"] = rm.raceHealingFactors[self._character["race"]]["soul dep"]
         self._character["Stat Loss"] = rm.raceHealingFactors[self._character["race"]]["Stat Loss"]
         self._character["Recovery"] = rm.raceHealingFactors[self._character["race"]]["Recovery"]
@@ -3232,7 +3217,7 @@ class skillcatWin(blankWindow):
 
                 else:
                     self._character['cat'][cat]['prof bonus'] = 0
-
+        handlemagic.updateSL(character = self._character, datadir = self.spath)
         # save character data
         self.__save('.json')
         if  self._character['DP'] > 0:
@@ -3707,8 +3692,6 @@ class charInfo(blankWindow):
                                         initialdir = self.mypath)
         if type(self.charpic) == type(""):
             self._character['piclink'] = self.charpic
-        #DEBUG
-#            print("mypath: {}\npiclink: {}".format(self.mypath, self._character['piclink']))
             from PIL import Image, ImageTk
             self.cpic = ImageTk.PhotoImage(Image.open(self.charpic).resize((300, 300), Image.ANTIALIAS))
             self.picLabel.configure(image = self.cpic)
@@ -3722,8 +3705,6 @@ class charInfo(blankWindow):
                                         initialdir = self.mypath)
         if type(self.charpic) == type(""):
             self._character['piclink'] = self.charpic
-        #DEBUG
-#            print("mypath: {}\npiclink: {}".format(self.mypath, self._character['piclink']))
             from PIL import Image, ImageTk
             self.cpic = ImageTk.PhotoImage(Image.open(self.charpic).resize((300, 300), Image.ANTIALIAS))
             self.picLabel.configure(image = self.cpic)
@@ -4001,9 +3982,6 @@ class statGainWin(blankWindow):
 
             else:
                 self.var[s].set(0)
-
-            #DEBUG
-#            print("DEBUG var[{}]: {}".format(s, self.var[s].get()))
 
         Button(self.window,
                text = txtbutton['but_all'][self.lang],

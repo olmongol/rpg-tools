@@ -14,7 +14,7 @@ This package holds RM specific tools like Character Skill Progression.
 \date 2019
 \copyright 2015-2019 Marcus Schwamberger
 '''
-__updated__ = "21.02.2020"
+__updated__ = "31.05.2020"
 
 catnames = {'de' : {'spells' : "Spells",
                     'weapon' : 'Weapon',
@@ -33,7 +33,8 @@ spellisttypes = {'de': ['Offene Leitmagie', 'Geschlossene Leitmagie',
                         'Mönch Basis', 'Hexer Basis', 'Böse Essenz',
                         'Offene Mentalismus', 'Geschlossene Mentalismus',
                         'Laienheiler Basis', 'Barden Basis', 'Mentalist Basis',
-                        'Magent Basis', 'Mystiker Basis', 'Böse Mentalistmus'
+                        'Magent Basis', 'Mystiker Basis', 'Böse Mentalistmus',
+                        "Taoist-Mönch Basis", "Zen-Mönch Basis"
                         ],
                  'en': ['Open Channeling', 'Closed Channeling',
                         'Animist Base', 'Cleric Base', 'Paladin Base',
@@ -43,7 +44,8 @@ spellisttypes = {'de': ['Offene Leitmagie', 'Geschlossene Leitmagie',
                         'Monk Base', 'Sorcerer Base', 'Evil Essence',
                         'Open Mentalism', 'Closed Mentalism',
                         'Lay Healer', 'Bard Base', 'Mentalist Base',
-                        'Magent Base', 'Mystic Base', 'Evil Mentalism'
+                        'Magent Base', 'Mystic Base', 'Evil Mentalism',
+                        "Taoist Monk Base", "Zen Monk Base"
                         ],
                  }
 ## @var sldirs
@@ -54,7 +56,7 @@ sldirs = ["Channeling_Open", "Channeling_Closed", "Base_List_Animist", "Base_Lis
           'Base_List_Dabbler', 'Base_List_Monk', 'Base_list_Sorcerer', 'Essence_Evil',
           'Mentalism_Open', 'Mentalism_Closed', 'Base_List_Lay-Healer', 'Base_List_Bard',
           'Base_List_Bard', 'Base_List_Mentalist', 'Base_List_Magent', 'Base_List_Mystic',
-          'Mentalism_Evil']
+          'Mentalism_Evil', "Base_List_Taoist-Monk", "Base_List_Zen-Monk"]
 ##\var races
 # just a dictionary for translation of the races' names
 races = {'de' : ['normale Menschen', 'vermischte Menschen', 'Hochmenschen',
@@ -239,7 +241,7 @@ exceptions = ['Costs', 'Stats', 'Progression', 'rank', 'rank bonus', 'spec bonus
 realms = {'en': ('choice', 'Essence', 'Channeling', 'Mentalism',
                  ['Channeling', 'Mentalism'], ['Channeling', 'Essence'],
                  ['Essence', 'Mentalism']),
-          'de': ('wählbar', 'Essenz', 'Leitmagie', 'Mentalismus',
+          'de': (u'wählbar', 'Essenz', 'Leitmagie', 'Mentalismus',
                  ['Leitmagie', 'Mentalismus'], ['Leitmagie', 'Essenz'],
                  ['Essenz', 'Mentalismus']),
           }
@@ -253,6 +255,22 @@ ppds = ("", "PPD Ess ", "PPD Chan ", "PPD Ment ",
 speccat = {'en': ['Body Development', 'Power Point Development'],
            'de': ['Body Development', 'Power Point Development'],
            }
+
+spellists = {"Essence" :["Essence_Open", "Essence_Closed", "Essence_Evil",
+                         "Base_List_Monk", "Base_List_Taoist-Monk", "Base_List_Dabbler",
+                         "Base_List_Magician", "Base_List_Illusionist"
+                         ],
+             "Channeling":["Channeling_Open", "Channeling_Closed", "Channeling_Evil",
+                           "Base_List_Ranger", "Base_List_Paladin", "Base_List_Cleric",
+                           "Base_List_Animist"
+                           ],
+             "Mentalism": ["Mentalism_Open", "Mentalism_Closed", "Mentalism_Evil",
+                           "Base_List_Zen-Monk", "Base_List_Bard", "Base_List_Magend",
+                           "Base_List_Lay-Healer", "Base_List_Mentalist"
+                           ],
+             "Channeling/Mentalism":["Base_List_Healer"],
+             "Channeling/Essence":["Base_List_Sorcerer"],
+             "Essence/Mentalism" :["Base_List_Mystic"]}
 ###\var sltype
 ## dictionary of lists of spell list types
 ##\todo translate German part
@@ -310,7 +328,7 @@ speccat = {'en': ['Body Development', 'Power Point Development'],
 # \todo add more text to the description part of the types
 spelltypes = {'en' : {'E' : 'Elemental Spell',
                    'BE' : 'Ball Elemental Spell',
-                   'DE' : 'Directed Elemenal Spell',
+                   'DE' : 'Directed Elemental Spell',
                    'F' : 'Force Spell',
                    'P' : 'Passive Spell',
                    'U' : 'Utility Spell',
@@ -320,7 +338,7 @@ spelltypes = {'en' : {'E' : 'Elemental Spell',
                    },
               'de' : {'E' : 'Elementarzauber',
                    'BE' : 'elementarer Ballzauber',
-                   'DE' : 'gezielter Elemenarzauber',
+                   'DE' : 'gezielter Elementarzauber',
                    'F' : 'Kraftzauber',
                    'P' : 'Passivzauber',
                    'U' : 'Nützlichkeitszauber',
@@ -749,7 +767,7 @@ def DPCostSpells(skill = 0, listtype = "Own Realm Own Base Lists", profession = 
                       "Magician", "Lay Healer", "Mentalist"
                       ]
     semispellusers = ["Paladin", "Ranger", "Dabbler",
-                      "Monk", "Bard", "Magent"
+                      "Monk", "Bard", "Magent", "Taoist-Monk", "Zen_Monk"
                       ]
 
     if 5 < no < 11:

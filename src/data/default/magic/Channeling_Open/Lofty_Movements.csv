@@ -1,1 +1,20 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+2,Edgewalking,1 target,1 min/lvl,10',U,"Target can walk along narrow edges (down to 2'' wide) that can support his weight. Maneuver rolls are not normally required."
+4,Limbwalking,1 target,1 min/lvl,10',U,Target can walk along tree limbs as if he were on level ground.
+5,Stonewalking,1 target,1 min/lvl,10',U,Target can walk on stone surfaces of up to 60 degree as if he were on level ground.
+6,Waterwalking,1 target,1 min/lvl,10',U,Target can walk on water as if he were on level ground; may not be used on rough water.
+7,Merging Organic,1 target,1 min/lvl,10',U,"Target can merge into organic material (live or dead). While merged, the target cannot move or perceive. When the target emerges from the material, he can emerge from any side or face of the material. The target cannot move ''through'' material greater in width than his own body size plus 2 feet."
+8,Store Sanctuary,1 target,P,self,U,"Caster ''stores'' a location for use with spells later on this list. While casting this spell, the caster must meditate for one hour in the location that will be stored. The caster can only have one sanctuary stored at a time. As long as this location remains ''stored,'' it will detect as a magical (i.e., ''holy'') place."
+9,Limbrunning,1 target,1 min/lvl,10',U,"As Limbwalking, except target can run."
+10,Stonerunning,1 target,1 min/lvl,10',U,"As Stonewalking, except target can run."
+11,Waterrunning,1 target,1 min/lvl,10',U,"As Waterwalking, except target can run."
+12,Windwalking,1 target,1 min/lvl,10',U,Target can walk on calm air. This spell only allows for horizontal movement. Vertical movement must be achieved by other means.
+13,Returning I,caster,---,self,U,Caster may return to his stored sanctuary so long as the sanctuary is no more than 1 mile away.
+15,Great Merging Organic,1 target,1 min/lvl,10',U,"As Merging Organic, except target may turn within the material and perceive the world outside of the material."
+16,Returning V,caster,---,self,U,"As Returning I, except the sanctuary can be up to 5 miles away."
+18,Windrunning,1 target,1 min/lvl,10',U,"As Windwalking, except target can run."
+19,Returning X,caster,---,self,U,"As Returning I, except the sanctuary can be up to 10 miles away."
+20,Merging True Organic,1 target,1 min/lvl,10',U,"As Great Merging Organic, except target may use spells on himself while merged."
+25,Windrunning True,1 target,1 min/lvl,10',U,"As Windrunning, except target can run up to twice the normal speed on calm air without expending energy."
+30,Word of Return *,caster,---,self,U,"As Returning I, except the sanctuary can be any distance away up to 10 miles per level of the caster."
+50,Rereturning *,caster,---,self,U,"Caster may go to his sanctuary (as per Word of Return), stay up to 1 round per level, and then return to the point where he cast his spell (thus making it a round trip)."
