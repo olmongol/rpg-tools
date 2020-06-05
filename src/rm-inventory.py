@@ -15,7 +15,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "03.06.2020"
+__updated__ = "05.06.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.1"
@@ -1944,6 +1944,19 @@ class enchantItem(blankWindow):
         for i in range(1, len(self.enchantment)):
             self.frame[self.enchantment[i]] = Frame(self.window)
 
+        realm_list = []
+
+        for r in realms[self.lang]:
+
+            if type(r) == type(""):
+                realm_list.append(r)
+
+            elif type(r) == type([]):
+                dummy = str(r)
+                dummy = dummy.strip("[']")
+                dummy = dummy.replace("', '", "/")
+                realm_list.append(dummy)
+
         # Bonus/weight reduced items ---------------------
         Label(self.frame["magic bonus item"],
               text = labels["bonus item"][self.lang],
@@ -2044,7 +2057,7 @@ class enchantItem(blankWindow):
         # charged items --------------------------------
         Label(self.frame["charged magic item"],
              text = labels["charged item"][self.lang],
-             background = "gray12",
+             background = "gray52",
              anchor = N
              ).grid(column = 0,
                     columnspan = 9,
@@ -2081,16 +2094,19 @@ class enchantItem(blankWindow):
 
         self.loads = IntVar()
         self.loads.set(0)
-        Entry(self.frame["charged magic item"],
-              justify = "left",
-              textvariable = self.loads
-              ).grid(column = 3,
-                     row = 1,
-                     padx = 5,
-                     pady = 5,
-                     sticky = "NEWS"
-                     )
+        self.loadsE = Entry(self.frame["charged magic item"],
+                          justify = "left",
+                          textvariable = self.loads,
+                          width = 4
+                          )
+        self.loadsE.grid(column = 3,
+                         row = 1,
+                         padx = 5,
+                         pady = 5,
+                         sticky = "NEWS"
+                         )
 
+        self.loadsE.bind('<FocusOut>', self.updCharged)
         Label(self.frame["charged magic item"],
               text = "max. " + labels["loads"][self.lang] + ":"
               ).grid(column = 4,
@@ -2103,13 +2119,152 @@ class enchantItem(blankWindow):
         self.maxloads.set(1)
         Label(self.frame["charged magic item"],
               textvariable = self.maxloads
+
               ).grid(column = 5,
                      row = 1,
                      pady = 5,
                      padx = 5,
                      sticky = "NEWS")
+        Label(self.frame["charged magic item"],
+              text = "To do:",
+              ).grid(column = 6,
+                     row = 1,
+                     pady = 5,
+                     padx = 5,
+                     sticky = "NEWS")
 
-        #xxxxxxxxxxxxxxx ------------------------------
+        self.action = StringVar()
+        self.action.set(charge_action[self.lang][0])
+
+        OptionMenu(self.frame["charged magic item"],
+                   self.action,
+                   *([charge_action[self.lang][0]] + charge_action[self.lang]),
+                   command = self.updCharged
+                   ).grid(column = 7,
+                          columnspan = 2,
+                          row = 1,
+                          pady = 5,
+                          padx = 5,
+                          sticky = "NEWS")
+
+        Label(self.frame["charged magic item"],
+              text = labels["realm"][self.lang].title() + ":",
+              ).grid(column = 0,
+                     row = 2,
+                     pady = 5,
+                     padx = 5,
+                     sticky = "NEWS")
+
+        self.realm = StringVar()
+        self.realm.set(realm_list[0])
+        OptionMenu(self.frame["charged magic item"],
+                   self.realm,
+                   *realm_list,
+                   command = self.updCharged
+                   ).grid(column = 1,
+                          row = 2,
+                          pady = 5,
+                          padx = 5,
+                          sticky = "NEWS")
+
+        Label(self.frame["charged magic item"],
+              text = labels["spell list"][self.lang] + ":"
+              ).grid(column = 2,
+                     row = 2,
+                     pady = 5,
+                     padx = 1,
+                     sticky = "NEWS")
+
+        self.spell_list = StringVar()
+        self.spell_list.set("")
+        Entry(self.frame["charged magic item"],
+              justify = "left",
+              textvariable = self.spell_list,
+              width = 48
+              ).grid(column = 3,
+                     row = 2,
+                     padx = 5,
+                     pady = 5,
+                     sticky = "NEWS"
+                     )
+
+        Label(self.frame["charged magic item"],
+              text = labels["spell"][self.lang] + ":"
+              ).grid(column = 4,
+                     row = 2,
+                     pady = 5,
+                     padx = 1,
+                     sticky = "NEWS")
+
+        self.spell = StringVar()
+        self.spell.set("")
+        self.spellE = Entry(self.frame["charged magic item"],
+                            justify = "left",
+                            textvariable = self.spell,
+                            width = 48
+                            )
+        self.spellE.grid(column = 5,
+                         row = 2,
+                         padx = 5,
+                         pady = 5,
+                         sticky = "NEWS"
+                         )
+        self.spellE.bind('<FocusOut>', self.updDaily)
+
+        Label(self.frame["charged magic item"],
+              text = labels["spell"][self.lang] + " " + labels["lvl"][self.lang] + ":"
+              ).grid(column = 6,
+                     row = 2,
+                     pady = 5,
+                     padx = 1,
+                     sticky = "NEWS")
+
+        self.spell_lvl = IntVar()
+        self.spell_lvl.set(0)
+        self.spell_lvlE = Entry(self.frame["charged magic item"],
+                                justify = "left",
+                                textvariable = self.spell_lvl,
+                                width = 4
+                                )
+        self.spell_lvlE.grid(column = 7,
+                             row = 2,
+                             padx = 5,
+                             pady = 5,
+                             sticky = "NEWS"
+                             )
+        self.spell_lvlE.bind('<FocusOut>', self.updDaily)
+
+        self.maxlvl = StringVar()
+        self.maxlvl.set("/10")
+        Label(self.frame["charged magic item"],
+              textvariable = self.maxlvl
+              ).grid(column = 8,
+                     row = 2,
+                     pady = 5,
+                     padx = 0,
+                     sticky = "NEWS")
+
+        Label(self.frame["charged magic item"],
+              text = labels["descr"][self.lang].title() + ":"
+              ).grid(column = 0,
+                     row = 3,
+                     pady = 5,
+                     padx = 0,
+                     sticky = "NEWS")
+
+        self.description = StringVar()
+        self.description.set(self.item["description"])
+        Entry(self.frame["charged magic item"],
+              justify = "left",
+              textvariable = self.description,
+              width = 40
+              ).grid(column = 1,
+                     row = 3,
+                     columnspan = 8,
+                     padx = 5,
+                     pady = 5,
+                     sticky = "NEWS"
+                     )
 
         # daily items -----------------------------------
         Label(self.frame["daily item"],
@@ -2126,19 +2281,6 @@ class enchantItem(blankWindow):
               ).grid(column = 0,
                     row = 1,
                     sticky = "NEWS")
-
-        realm_list = []
-
-        for r in realms[self.lang]:
-
-            if type(r) == type(""):
-                realm_list.append(r)
-
-            elif type(r) == type([]):
-                dummy = str(r)
-                dummy = dummy.strip("[']")
-                dummy = dummy.replace("', '", "/")
-                realm_list.append(dummy)
 
         self.realm = StringVar()
         self.realm.set(realm_list[0])
