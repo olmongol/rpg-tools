@@ -11,13 +11,25 @@
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "31.05.2020"
+__updated__ = "05.06.2020"
 
 ## \var geartypes
 # (dictionary) list of different type of equipment like armor, weapon, tool...
 geartypes = {"en": ["clothes", "tool", "container", "food", "gear"],
             "de" :["Kleidung", "Werkzeug", u"Behälter", "Nahrung", u"Ausrüstung"]
             }
+charged_item = {"de" :["Runenpapier", "Zaubertrank", "Zauberstab (30 cm)", "Zauberstab (75 cm)", "Zauberstab (150 cm)"],
+               "en" : ["Rune Paper", "Potion", "Wand (1')", "Rod (2.5')", "Staff (5')"]}
+## \var info_charged
+# holds max number of loads  (idx 0) and cost(=value) per level of spell(=idx)
+info_charged = {"rune paper" : [1, 2, 10, 20, 30, 40, 60, 80, 100, 125, 150],
+               "potion" :[10, 5, 15, 30, 45, 60, 90, 120, 150, 200, 225],
+               "wand" :[10, 10, 30],
+               "rod" :[30, 40, 80, 120, 150, 200],
+               "staff" :[100, 150, 200, 250, 300, 400, 500, 600, 700, 800]
+               }
+charge_action = {"de" : ["neu verzaubern", "aufladen"],
+                 "en": ["newly enchant", "recharge"]}
 ##\var treeformat
 # width of treeview columns
 treeformat = {"item" : 200,
@@ -73,6 +85,18 @@ char_inv_tv = {"armor" : ["name", "description", "AT", "weight", "worth"],
                "constant item" :[],
                "daily item" :[],
                }
+
+perm_item = {"spell adder" :{"+0" :0,
+                             "+1" :50,
+                             "+2": 100,
+                             "+3": 200,
+                             "+4": 400
+                             },
+             "pp mult" :{"x1" :0,
+                         "x2" : 200,
+                         "x3" : 400,
+                         }
+            }
 
 ## \var money
 # This dictionary holds the different coins available
@@ -208,7 +232,7 @@ constant_item = {"name" : "",
                  "lvl" : 0,
                  "weight" : 0,
                  "add spell" : 0,
-                 "mult PP" : 0,
+                 "pp mult" : 0,
                  "location" : "",
                  "worth" : money.copy()
                 }
