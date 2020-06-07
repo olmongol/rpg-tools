@@ -2357,19 +2357,6 @@ class enchantItem(blankWindow):
                              pady = 5,
                              sticky = "NEWS"
                              )
-# bug ----------------------------------
-#        self.spelllvlE = Entry(self.frame["daily item"],
-#                                justify = "left",
-#                                textvariable = self.spell_lvl,
-#                                width = 4
-#                                )
-#        self.spelllvlE.grid(column = 7,
-#                             row = 1,
-#                             padx = 5,
-#                             pady = 5,
-#                             sticky = "NEWS"
-#                             )
-#        self.spelllvlE.bind('<FocusOut>', self.updDaily)
 
         Label(self.frame["daily item"],
               text = labels["daily"][self.lang] + ":",
@@ -2688,8 +2675,13 @@ class enchantItem(blankWindow):
                 self.item["magic"] = True
 
             elif choice == "charged magic item":
+                self.item["type"] = self.typus.get()
+                self.item["spell"] = "{}\{}".format(self.spell_list.get(), self.spell.get())
+                self.item["lvl"] = self.spell_lvl.get()
+                self.item["description"] = self.description.get()
+                self.item["realm"] = self.realm.get()
 
-                self.notdoneyet("pyEnchantment - buy charged items")
+#                self.notdoneyet("pyEnchantment - buy charged items")
 
             elif choice == "daily item":
                 self.item["daily"] = self.daily.get()
@@ -2760,8 +2752,12 @@ class enchantItem(blankWindow):
                 self.item["magic"] = True
 
             elif choice == "charged magic item":
-
-                self.notdoneyet("pyEnchantment - buy charged items")
+                self.item["type"] = self.typus.get()
+                self.item["spell"] = "{}\{}".format(self.spell_list.get(), self.spell.get())
+                self.item["lvl"] = self.spell_lvl.get()
+                self.item["description"] = self.description.get()
+                self.item["realm"] = self.realm.get()
+#                self.notdoneyet("pyEnchantment - buy charged items")
 
             elif choice == "daily item":
                 self.item["daily"] = self.daily.get()
