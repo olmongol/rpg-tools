@@ -15,7 +15,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "05.06.2020"
+__updated__ = "07.06.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.1"
@@ -2198,18 +2198,18 @@ class enchantItem(blankWindow):
 
         self.spell = StringVar()
         self.spell.set("")
-        self.spellE = Entry(self.frame["charged magic item"],
+        self.spell_E = Entry(self.frame["charged magic item"],
                             justify = "left",
                             textvariable = self.spell,
                             width = 48
                             )
-        self.spellE.grid(column = 5,
+        self.spell_E.grid(column = 5,
                          row = 2,
                          padx = 5,
                          pady = 5,
                          sticky = "NEWS"
                          )
-        self.spellE.bind('<FocusOut>', self.updDaily)
+        self.spell_E.bind('<FocusOut>', self.updCharged)
 
         Label(self.frame["charged magic item"],
               text = labels["spell"][self.lang] + " " + labels["lvl"][self.lang] + ":"
@@ -2220,9 +2220,8 @@ class enchantItem(blankWindow):
                      sticky = "NEWS")
 
         self.spell_lvl = IntVar()
-        self.spell_lvl.set(0)
+        self.spell_lvl.set(1)
         self.spell_lvlE = Entry(self.frame["charged magic item"],
-                                justify = "left",
                                 textvariable = self.spell_lvl,
                                 width = 4
                                 )
@@ -2232,7 +2231,7 @@ class enchantItem(blankWindow):
                              pady = 5,
                              sticky = "NEWS"
                              )
-        self.spell_lvlE.bind('<FocusOut>', self.updDaily)
+        self.spell_lvlE.bind('<FocusOut>', self.updCharged)
 
         self.maxlvl = StringVar()
         self.maxlvl.set("/10")
@@ -2302,8 +2301,8 @@ class enchantItem(blankWindow):
                      padx = 1,
                      sticky = "NEWS")
 
-        self.spell_list = StringVar()
-        self.spell_list.set("")
+#        self.spell_list = StringVar()
+#        self.spell_list.set("")
         Entry(self.frame["daily item"],
               justify = "left",
               textvariable = self.spell_list,
@@ -2323,8 +2322,8 @@ class enchantItem(blankWindow):
                      padx = 1,
                      sticky = "NEWS")
 
-        self.spell = StringVar()
-        self.spell.set("")
+#        self.spell = StringVar()
+#        self.spell.set("")
         self.spellE = Entry(self.frame["daily item"],
                             justify = "left",
                             textvariable = self.spell,
@@ -2346,20 +2345,31 @@ class enchantItem(blankWindow):
                      padx = 1,
                      sticky = "NEWS")
 
-        self.spell_lvl = IntVar()
-        self.spell_lvl.set(0)
-        self.spell_lvlE = Entry(self.frame["daily item"],
+#        self.spell_lvl = IntVar()
+        self.spell_lvl.set(1)
+        Entry(self.frame["daily item"],
                                 justify = "left",
                                 textvariable = self.spell_lvl,
-                                width = 48
-                                )
-        self.spell_lvlE.grid(column = 7,
+                                width = 4
+                                ).grid(column = 7,
                              row = 1,
                              padx = 5,
                              pady = 5,
                              sticky = "NEWS"
                              )
-        self.spell_lvlE.bind('<FocusOut>', self.updDaily)
+# bug ----------------------------------
+#        self.spelllvlE = Entry(self.frame["daily item"],
+#                                justify = "left",
+#                                textvariable = self.spell_lvl,
+#                                width = 4
+#                                )
+#        self.spelllvlE.grid(column = 7,
+#                             row = 1,
+#                             padx = 5,
+#                             pady = 5,
+#                             sticky = "NEWS"
+#                             )
+#        self.spelllvlE.bind('<FocusOut>', self.updDaily)
 
         Label(self.frame["daily item"],
               text = labels["daily"][self.lang] + ":",
@@ -2484,7 +2494,31 @@ class enchantItem(blankWindow):
         """
         Updates charged items display
         """
-        self.notdoneyet("updCharged")
+        itemtype = self.typus.get()
+        itemtype = itemtype.lower().split(" ")[0]
+        self.maxloads.set(info_charged[itemtype][0])
+        print(self.spell.get())
+        desc = self.item["description"] + ";({}, Lvl {}, lds {}/{})".format(self.spell_list.get() + "/" + self.spell.get(), self.spell_lvl.get(), self.loads.get(), self.maxloads.get())
+        print(desc)
+        self.description.set(desc)
+
+        if self.action.get() == charge_action[self.lang][0]:
+            mult = 1
+        else:
+            mult = 0.5
+
+        self.loads.set(self.maxloads.get())
+
+        if self.loads.get() > info_charged[itemtype][0]:
+            self.loads.set(info_charged(itemtype)[0])
+
+        if self.spell_lvl.get() >= len(info_charged[itemtype]):
+            self.spell_lvl.set(len(info_charged[itemtype]) - 1)
+
+        self.maxlvl.set("/" + str(len(info_charged[itemtype]) - 1))
+        self.price = self.item["worth"].copy()
+        self.price["gold"] += info_charged[itemtype][0] + round(mult * info_charged[itemtype][self.spell_lvl.get()])
+        self.cost.set(self.getCosts())
 
 
     def updPerm(self, event):
@@ -2519,8 +2553,8 @@ class enchantItem(blankWindow):
         if "; Enhancement(" in self.item["description"]:
             self.item["description"] = self.item["description"][:self.item["description"].find("; Enhancement(")]
 
-        self.item["description"] += descadd
-        self.description.set(self.item["description"])
+#        self.item["description"] += descadd
+        self.description.set(self.item["description"] + descadd)
         self.calcDaily()
         self.cost.set(self.getCosts())
 
