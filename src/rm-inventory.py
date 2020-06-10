@@ -15,7 +15,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "07.06.2020"
+__updated__ = "10.06.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.1"
@@ -2644,14 +2644,9 @@ class enchantItem(blankWindow):
     def payEnchantement(self):
         """
         This does the payment of the enchantment
-        @todo has to be fully implemented:
-        - daily item
-        - charged magic item
-        - permanent magic item
-
         """
         choice = self.chosen.get()
-
+        self.item["magic"] = True
         if self.price != self.character["inventory"][self.shoptype][self.elem]["worth"]:
             self.item["worth"] = self.price.copy()
             pos = -1
@@ -2680,8 +2675,6 @@ class enchantItem(blankWindow):
                 self.item["lvl"] = self.spell_lvl.get()
                 self.item["description"] = self.description.get()
                 self.item["realm"] = self.realm.get()
-
-#                self.notdoneyet("pyEnchantment - buy charged items")
 
             elif choice == "daily item":
                 self.item["daily"] = self.daily.get()
@@ -2703,11 +2696,13 @@ class enchantItem(blankWindow):
         newpurse = buyStuff(purse = self.character["purse"], prize = self.item["worth"])
 
         if newpurse != self.character["purse"]:
+
             for i in range(0, len(coins["long"])):
                 self.character["purse"][coins["short"][i].upper()] = newpurse[coins["long"][i]]
 
             self.character["inventory"][self.shoptype][self.elem] = self.item.copy()
             self.__quit()
+
         else:
             print("not enough money - ohne Moos nix los!")
 
@@ -2726,11 +2721,9 @@ class enchantItem(blankWindow):
     def addMagicItem(self):
         '''
         This method siply adds magic itemes instead of paying the bill
-        ----
-        @todo has to be fully implemented
         '''
         choice = self.chosen.get()
-
+        self.item["magic"] = True
         if self.price != self.character["inventory"][self.shoptype][self.elem]["worth"]:
             self.item["worth"] = self.price.copy()
             pos = -1
@@ -2757,7 +2750,6 @@ class enchantItem(blankWindow):
                 self.item["lvl"] = self.spell_lvl.get()
                 self.item["description"] = self.description.get()
                 self.item["realm"] = self.realm.get()
-#                self.notdoneyet("pyEnchantment - buy charged items")
 
             elif choice == "daily item":
                 self.item["daily"] = self.daily.get()

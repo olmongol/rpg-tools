@@ -71,6 +71,7 @@ treeformat = {"item" : 200,
              "volume" : 40,
              "bonus" :50,
              "skill":400,
+             "area":70,
              }
 ##\var char_inv_tv
 # header for character's armor for treeview display
