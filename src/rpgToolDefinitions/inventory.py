@@ -11,12 +11,13 @@
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "06.06.2020"
+__updated__ = "10.06.2020"
 
 ## \var geartypes
 # (dictionary) list of different type of equipment like armor, weapon, tool...
-geartypes = {"en": ["clothes", "tool", "container", "food", "gear"],
-            "de" :["Kleidung", "Werkzeug", u"Behälter", "Nahrung", u"Ausrüstung"]
+geartypes = {"en": ["clothes", "tool", "container", "food", "gear", "ammo", "outdoor", "light", "write", "trap", "rope", "magic", "service", "transport"],
+            "de" :["Kleidung", "Werkzeug", u"Behälter", "Nahrung", u"Ausrüstung", "Munition", "Outdoor", "Licht", "Schreibzeug", "Falle", "Seil", "magisch", "Dienst", "Transport" ]
+
             }
 charged_item = {"de" :["Runenpapier", "Zaubertrank", "Zauberstab (30 cm)", "Zauberstab (75 cm)", "Zauberstab (150 cm)"],
                "en" : ["Rune Paper", "Potion", "Wand (1')", "Rod (2.5')", "Staff (5')"]}

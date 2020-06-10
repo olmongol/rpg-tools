@@ -1,79 +1,79 @@
 item,comment,weight,prod. time,cost,ID,type,capacity,volume,bonus,skill
-Arrows (20),Wooden shafts and iron tips.,3 lbs.,1 day,4bp,1,ammo,0,0,0,---
-Backpack,Leather or canvas. Holds 20 lbs; 1 cubic foot.,2-3 lbs.,1 day,2bp,2,container,20 lbs,27l,0,---
-Bedroll (heavy),Wool/fur. 4 season.,8-11 lbs,1 day,7bp,4,outdoor,0,0,0,---
-Bedroll (light),Wool blanket. 2 season.,4-7 lbs.,0.5 days,2bp,3,outdoor,0,0,0,---
-Boots,Leather.,3-4 lbs.,3 days,1sp,5,clothes,0,0,0,---
-Brush (writing),Wooden shaft with hair bristles. Capped.,0.25 lbs.,4 hrs,5cp,6,tool,0,0,0,---
+Arrows (20),Wooden shafts and iron tips.,3 lbs.,1 day,4bp,1,ammo,0 lbs.,0l,0,---
+Backpack,Leather or canvas. Holds 20 lbs; 1 cubic foot.,2-3 lbs.,1 day,2bp,2,container,20 lbs.,27l,0,---
+Bedroll (heavy),Wool/fur. 4 season.,8-11 lbs,1 day,7bp,4,outdoor,0 lbs.,0l,0,---
+Bedroll (light),Wool blanket. 2 season.,4-7 lbs.,0.5 days,2bp,3,outdoor,0 lbs.,0l,0,---
+Boots,Leather.,3-4 lbs.,3 days,1sp,5,clothes,0 lbs.,0l,0,---
+Brush (writing),Wooden shaft with hair bristles. Capped.,0.25 lbs.,4 hrs,5cp,6,tool,0 lbs.,0l,0,---
 Bucket,Copper. Holds 3 gallons.,2-3 lbs.,1 day,4bp,7,container,22 lbs.,11.36l,0,---
-Caltrops (5),Portable spike traps.,2 lbs.,1 day,8bp,8,trap,0,0,0,---
-Candle,Wax or tallow. Lights 10' diameter; burns 2 hrs.,0.25 lbs.,0.5 days,4cp,9,light,0,0,0,---
+Caltrops (5),Portable spike traps.,2 lbs.,1 day,8bp,8,trap,0 lbs.,0l,0,---
+Candle,Wax or tallow. Lights 10' diameter; burns 2 hrs.,0.25 lbs.,0.5 days,4cp,9,light,0 lbs.,0l,0,---
 Case,"Water-resist. Made of leather. 12"" x 3"" x 6"".",1 lbs.,2 days,4sp,10,container,7 lbs.,3.55l,0,---
 Cask,Wood. Holds 4 gallons.,5 lbs.,1.5 days,24bp,11,container,30 lbs.,15.14l,0,---
-Chain,Iron. 10'.,8-10 lbs,1 day,6bp,12,rope,0,0,0,---
-Chalk (10),"White. 5"" long.",0.25 lbs.,2 hrs,2bp,13,write,0,0,0,---
-Charcoal,Hot  4-hour fire. ,1 lbs.,0.5 days,22cp,14,light,0,0,0,---
-Chisel,Iron. -40 dagger.,1 lbs.,1 day,9bp,15,tool,0,0,-40,Weapon - 1-H Edged/Dagger
-Climbing pick,Iron. -15 war mattock.,2 lbs.,1 day,28bp,17,tool,0,0,0,---
-Cloak,Heavy linen or wool.,2-3 lbs.,1 day,9bp,16,clothes,0,0,0,---
-Coat,Leather or heavy linen.,5-9 lbs.,2 days,15bp,18,clothes,0,0,0,---
-Crossbow bolts (20),Wooden shafts with iron tips.,3 lbs.,2 days,11bp,19,ammo,0,0,0,---
-Fire-starting bow,Starts fire in 5 minutes.,0.5 lbs.,1 hr,8tp,20,tool,0,0,0,---
-Flint and steel,Starts fire in 3 minutes.,0.5 lbs.,—,1bp,21,tool,0,0,0,---
-Flute,Wood.,1 lbs.,1 day,11bp,75,music,0,0,0,---
+Chain,Iron. 10'.,8-10 lbs,1 day,6bp,12,rope,0 lbs.,0l,0,---
+Chalk (10),"White. 5"" long.",0.25 lbs.,2 hrs,2bp,13,write,0 lbs.,0l,0,---
+Charcoal,Hot  4-hour fire. ,1 lbs.,0.5 days,22cp,14,light,0 lbs.,0l,0,---
+Chisel,Iron. -40 dagger.,1 lbs.,1 day,9bp,15,tool,0 lbs.,0l,-40,Weapon - 1-H Edged/Dagger
+Climbing pick,Iron. -15 war mattock.,2 lbs.,1 day,28bp,17,tool,0 lbs.,0l,0,---
+Cloak,Heavy linen or wool.,2-3 lbs.,1 day,9bp,16,clothes,0 lbs.,0l,0,---
+Coat,Leather or heavy linen.,5-9 lbs.,2 days,15bp,18,clothes,0 lbs.,0l,0,---
+Crossbow bolts (20),Wooden shafts with iron tips.,3 lbs.,2 days,11bp,19,ammo,0 lbs.,0l,0,---
+Fire-starting bow,Starts fire in 5 minutes.,0.5 lbs.,1 hr,8tp,20,tool,0 lbs.,0l,0,---
+Flint and steel,Starts fire in 3 minutes.,0.5 lbs.,—,1bp,21,tool,0 lbs.,0l,0,---
+Flute,Wood.,1 lbs.,1 day,11bp,75,music,0 lbs.,0l,0,---
 Framepack,Canvas. Holds 45 lbs; 2 cubic feet.,3-4 lbs.,1.5 days,33cp,22,container,45 lbs.,56l,0,---
-Gloves,Heavy leather; lined.,0.5 lbs.,1 day,2bp,23,clothes,0,0,0,---
-Grappling hook,Iron. Grip fails on a 02-03 on a maneuver roll.,1 lbs.,1 day,1sp,24,tool,0,0,0,---
-Hammer,Iron. -30 mace.,1 lbs.,1 day,1sp,25,tool,0,0,-30,Weapon - 1H Concussion/Mace
-Hammock,Rope; wood spreaders; iron hooks.,2-3 lbs.,3 days,1bp,26,tool,0,0,0,---
-Harness,Leather/iron. Includes bit and reins.,4 lbs.,2 days,1sp,27,tool,0,0,0,---
-Hat,Leather.,1 lbs.,1 day,6bp,28,clothes,0,0,0,---
-Hood,Covers head & shoulders.,0.5 lbs.,0.5 day,16cp,29,tool,0,0,0,---
-Ink,Black; non-soluble.,0.25 lbs.,—,14cp,30,write,0,0,0,---
-Ladder,Wood. 10'. Bears 400 lbs.,15 lbs.,2 days,32cp,31,tool,0,0,0,---
-Lantern,Lights 40' diameter.,1-2 lbs.,4 days,12bp,32,light,0,0,0,---
-Lock pick kit,+5 skill bonus to Lock Picking.,0.5 lbs.,2 days,1sp,33,tool,0,0,5,Subterfudge Mechanics/Picking Locks
-Lute,Wood.,1.5 lbs.,2 days,3sp,74,music,0,0,0,---
-Mirror,"Silvered glass. 6"" x 4"".",0.5 lbs.,1 day,35bp,34,gear,0,0,0,---
-Nails (20),"Iron. 3"" length.",0.5 lbs.,3 hrs,9tp,35,tool,0,0,0,---
-Oar,Wood. 6'-8'.,4-5 lbs.,7 hrs,6cp,36,tool,0,0,0,---
-Oil flask,Includes 1 pint oil (6 hr refill).,1 lbs.,1 day,3bp,37,light,0,0,0,---
-Padded Undercoat,Heavy linen or wool.,2-4 lbs.,2 days,6bp,38,clothes,0,0,0,---
-Paddle,Wood. 4'-5'.,3 lbs.,5 hrs,5cp,39,tool,0,0,0,---
-Padlock,Iron; with 2 keys. +0 to Lock picking attempts.,1 lbs.,2 days,23bp,40,tool,0,0,0,---
-Pants,Linen.,1-2 lbs.,1 day,25cp,41,clothes,0,0,0,---
-Paper (10),"10 sheets. 12"" x 6"".",0.25 lbs.,1 day,12bp,42,write,0,0,0,---
-Parchment (10),"10 sheets. 12"" x 6"". Very durable.",0.25 lbs.,1 day,2sp,43,write,0,0,0,---
-Pegs (10),Wood.,2 lbs.,2 hrs,9tp,44,tool,0,0,0,---
-Pitons (10),Iron.,2-3 lbs.,1 day,2bp,45,tool,0,0,0,---
-Plank,"Wood. 10' x 6' x 2"". Bears 350 lbs.",11-12 lbs.,4 hrs,6tp,46,tool,0,0,0,---
-Pole,Wood. 10'.,5-10 lbs.,3 hrs,5cp,47,tool,0,0,0,---
+Gloves,Heavy leather; lined.,0.5 lbs.,1 day,2bp,23,clothes,0 lbs.,0l,0,---
+Grappling hook,Iron. Grip fails on a 02-03 on a maneuver roll.,1 lbs.,1 day,1sp,24,tool,0 lbs.,0l,0,---
+Hammer,Iron. -30 mace.,1 lbs.,1 day,1sp,25,tool,0 lbs.,0l,-30,Weapon - 1H Concussion/Mace
+Hammock,Rope; wood spreaders; iron hooks.,2-3 lbs.,3 days,1bp,26,tool,0 lbs.,0l,0,---
+Harness,Leather/iron. Includes bit and reins.,4 lbs.,2 days,1sp,27,tool,0 lbs.,0l,0,---
+Hat,Leather.,1 lbs.,1 day,6bp,28,clothes,0 lbs.,0l,0,---
+Hood,Covers head & shoulders.,0.5 lbs.,0.5 day,16cp,29,tool,0 lbs.,0l,0,---
+Ink,Black; non-soluble.,0.25 lbs.,—,14cp,30,write,0 lbs.,0l,0,---
+Ladder,Wood. 10'. Bears 400 lbs.,15 lbs.,2 days,32cp,31,tool,0 lbs.,0l,0,---
+Lantern,Lights 40' diameter.,1-2 lbs.,4 days,12bp,32,light,0 lbs.,0l,0,---
+Lock pick kit,+5 skill bonus to Lock Picking.,0.5 lbs.,2 days,1sp,33,tool,0 lbs.,0l,5,Subterfudge Mechanics/Picking Locks
+Lute,Wood.,1.5 lbs.,2 days,3sp,74,music,0 lbs.,0l,0,---
+Mirror,"Silvered glass. 6"" x 4"".",0.5 lbs.,1 day,35bp,34,gear,0 lbs.,0l,0,---
+Nails (20),"Iron. 3"" length.",0.5 lbs.,3 hrs,9tp,35,tool,0 lbs.,0l,0,---
+Oar,Wood. 6'-8'.,4-5 lbs.,7 hrs,6cp,36,tool,0 lbs.,0l,0,---
+Oil flask,Includes 1 pint oil (6 hr refill).,1 lbs.,1 day,3bp,37,light,0 lbs.,0l,0,---
+Padded Undercoat,Heavy linen or wool.,2-4 lbs.,2 days,6bp,38,clothes,0 lbs.,0l,0,---
+Paddle,Wood. 4'-5'.,3 lbs.,5 hrs,5cp,39,tool,0 lbs.,0l,0,---
+Padlock,Iron; with 2 keys. +0 to Lock picking attempts.,1 lbs.,2 days,23bp,40,tool,0 lbs.,0l,0,---
+Pants,Linen.,1-2 lbs.,1 day,25cp,41,clothes,0 lbs.,0l,0,---
+Paper (10),"10 sheets. 12"" x 6"".",0.25 lbs.,1 day,12bp,42,write,0 lbs.,0l,0,---
+Parchment (10),"10 sheets. 12"" x 6"". Very durable.",0.25 lbs.,1 day,2sp,43,write,0 lbs.,0l,0,---
+Pegs (10),Wood.,2 lbs.,2 hrs,9tp,44,tool,0 lbs.,0l,0,---
+Pitons (10),Iron.,2-3 lbs.,1 day,2bp,45,tool,0 lbs.,0l,0,---
+Plank,"Wood. 10' x 6' x 2"". Bears 350 lbs.",11-12 lbs.,4 hrs,6tp,46,tool,0 lbs.,0l,0,---
+Pole,Wood. 10'.,5-10 lbs.,3 hrs,5cp,47,tool,0 lbs.,0l,0,---
 Pot (cooking),Iron. Holds 2 gallons.,2-3 lbs.,1 day,7bp,48,container,15 lbs.,7.6l,0,---
 pouch,leather or canvas. Holds 2 lbs;  0.3 cubic foot.,1 lbs.,1 day,25cp,76,container,2 lbs,7.1l,0,---
-Quill-pens (10),Goose feather quills.,0.25 lbs.,2 hrs,4cp,49,write,0,0,0,---
-Quiver,Holds 20 arrows/bolts.,0.5 lbs.,1 day,1bp,50,ammo,0,0,0,---
-Rope,Hemp. 50'.,4-7 lbs.,3 days,4bp,51,rope,0,0,0,---
-Rope (superior),Reinforced hemp. 50'.,2-4 lbs.,5 days,12bp,52,rope,0,0,0,---
-Rune Paper,magical prepared parchment,0.01-0.025 lbs.,1 day,1gp,77,magic,0,0,0,Power Perception/Read Runes
+Quill-pens (10),Goose feather quills.,0.25 lbs.,2 hrs,4cp,49,write,0 lbs.,0l,0,---
+Quiver,Holds 20 arrows/bolts.,0.5 lbs.,1 day,1bp,50,ammo,0 lbs.,0l,0,---
+Rope,Hemp. 50'.,4-7 lbs.,3 days,4bp,51,rope,0 lbs.,0l,0,---
+Rope (superior),Reinforced hemp. 50'.,2-4 lbs.,5 days,12bp,52,rope,0 lbs.,0l,0,---
+Rune Paper,magical prepared parchment,0.01-0.025 lbs.,1 day,1gp,77,magic,0 lbs.,0l,0,Power Perception/Read Runes
 Sack (50 lb),Holds 50 lbs. 3 cubic feet.,2-3 lbs.,2 hrs,8cp,53,container,50 lbs.,85l,0,---
-Saddle,Includes stirrups +  blanket. ,10-12 lbs.,6 days,5sp,54,gear,0,0,0,---
+Saddle,Includes stirrups +  blanket. ,10-12 lbs.,6 days,5sp,54,gear,0 lbs.,0l,0,---
 Saddle bag,Holds 15 lbs. 1.5 cubic feet.,4-6 lbs.,2 days,8bp,55,container,15 lbs.,42.5l,0,---
-Saw,"Iron. 24"" wood-tool.",2-3 lbs.,2 days,23bp,56,tool,0,0,0,---
-Scabbard (belt),Holds one 1-h weapon.,1 lbs.,1 day,25bp,57,clothes,0,0,0,---
-Scabbard (shoulder),Holds one 2-h weapon.,1.5 lbs.,1 day,3sp,58,clothes,0,0,0,---
-Shirt,Linen,1 lbs.,1.5 days,3bp,59,clothes,0,0,0,---
-Spade,Iron. Wood shaft.,3-4 lbs.,1 day,16bp,60,tool,0,0,0,---
-Sundial,Iron. Gives approximate time.,1 lbs.,2 days,3sp,61,tool,0,0,0,---
-Surcoat,Linen,1-2 lbs.,1.5 days,9bp,62,clothes,0,0,0,---
-Tarp,Canvas. 5' x 8'.,3-5 lbs.,2 hrs,1bp,63,outdoor,0,0,0,---
-Tent,Canvas. 5' x 8'. Two man.,8-10 lbs.,2 days,2sp,64,outdoor,0,0,0,---
-Tinderbox,Wood. Enough for 7 fires.,0.25 lbs.,0.5 days,2cp,65,tool,0,0,0,---
-Torch,Lights 20' diameter. (6 hrs).,1 lbs.,1 hr,3tp,66,light,0,0,0,---
-Vial,Glass. Holds 2 oz.,0.25 lbs.,2 hrs,2bp,67,container,0.12 lbs.,0.06l,0,---
-Vial for magic potions,prepared vial to hold magical potions,0.6-1 lbs.,1 hr,10gp,78,magic,0,0,0,---
-Water skin,Holds 1 pint (.5 lbs).,0.25 lbs.,6 hrs,1cp,68,container,0.5 lbs.,0.5l,0,---
-Weapon belt,Holds 2 scabbards +  3 pouches. ,1 lbs.,0.5 days,5bp,69,clothes,0,0,0,---
-Wedge (splitting),Iron.,3 lbs.,2 hrs,3cp,71,tool,0,0,0,---
-Wedge (staying),Hardwood.,1 lbs.,1 hr,1cp,70,tool,0,0,0,---
-Whistle,"Wood/iron. 4"". Range 1+ mi.",0.5 lbs.,1 day,2sp,73,gear,0,0,0,---
-Wire (10 gauge),Iron. 100'.,3 lbs.,5 hrs,9bp,72,gear,0,0,0,---
+Saw,"Iron. 24"" wood-tool.",2-3 lbs.,2 days,23bp,56,tool,0 lbs.,0l,0,---
+Scabbard (belt),Holds one 1-h weapon.,1 lbs.,1 day,25bp,57,clothes,0 lbs.,0l,0,---
+Scabbard (shoulder),Holds one 2-h weapon.,1.5 lbs.,1 day,3sp,58,clothes,0 lbs.,0l,0,---
+Shirt,Linen,1 lbs.,1.5 days,3bp,59,clothes,0 lbs.,0l,0,---
+Spade,Iron. Wood shaft.,3-4 lbs.,1 day,16bp,60,tool,0 lbs.,0l,0,---
+Sundial,Iron. Gives approximate time.,1 lbs.,2 days,3sp,61,tool,0 lbs.,0l,0,---
+Surcoat,Linen,1-2 lbs.,1.5 days,9bp,62,clothes,0 lbs.,0l,0,---
+Tarp,Canvas. 5' x 8'.,3-5 lbs.,2 hrs,1bp,63,outdoor,0 lbs.,0l,0,---
+Tent,Canvas. 5' x 8'. Two man.,8-10 lbs.,2 days,2sp,64,outdoor,0 lbs.,0l,0,---
+Tinderbox,Wood. Enough for 7 fires.,0.25 lbs.,0.5 days,2cp,65,tool,0 lbs.,0l,0,---
+Torch,Lights 20' diameter. (6 hrs).,1 lbs.,1 hr,3tp,66,light,0 lbs.,0l,0,---
+Vial,Glass. Holds 2 oz.,0.25 lbs.,2 hrs,2bp,67,container,0.12 lbs.,0l.0l6l,0,---
+Vial for magic potions,prepared vial to hold magical potions,0.6-1 lbs.,1 hr,10gp,78,magic,0 lbs.,0l,0,---
+Water skin,Holds 1 pint (.5 lbs).,0.25 lbs.,6 hrs,1cp,68,container,0.5 lbs.,0l.5l,0,---
+Weapon belt,Holds 2 scabbards +  3 pouches. ,1 lbs.,0.5 days,5bp,69,clothes,0 lbs.,0l,0,---
+Wedge (splitting),Iron.,3 lbs.,2 hrs,3cp,71,tool,0 lbs.,0l,0,---
+Wedge (staying),Hardwood.,1 lbs.,1 hr,1cp,70,tool,0 lbs.,0l,0,---
+Whistle,"Wood/iron. 4"". Range 1+ mi.",0.5 lbs.,1 day,2sp,73,gear,0 lbs.,0l,0,---
+Wire (10 gauge),Iron. 100'.,3 lbs.,5 hrs,9bp,72,gear,0 lbs.,0l,0,---
