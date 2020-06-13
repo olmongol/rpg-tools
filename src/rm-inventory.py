@@ -2746,6 +2746,10 @@ class enchantItem(blankWindow):
         '''
         choice = self.chosen.get()
         self.item["magic"] = True
+
+        if "weight" not in self.item.keys():
+            self.item["weight"] = 0
+
         if self.price != self.character["inventory"][self.shoptype][self.elem]["worth"]:
             self.item["worth"] = self.price.copy()
             pos = -1
