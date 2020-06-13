@@ -1,4 +1,23 @@
 #!/usr/bin/python3
+'''
+\file rm-inventory.py
+\package rm_char_tools.py
+\brief This is a little tool for creating and keeping track of character's inventory
+
+This tool handles
+\li buying/finding/selling/dropping items
+\li enchanting items
+\li design special items
+\li equipp items/pack items into containers and calculate carried weights
+\li Export inventory as JSON, LaTex, PDF
+
+\date (C) 2020
+\author Marcus Schwamberger
+\email marcus@lederzeug.de
+\license GNU V3.0
+\version 1.1.0
+
+'''
 import os
 import json
 import random
@@ -15,16 +34,16 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "05.06.2020"
+__updated__ = "13.06.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
-__version__ = "0.1"
+__version__ = "0.5"
 
 
 
 class InventoryWin(blankWindow):
     """
-    This is a GUI for EP calculation for your character party.
+    This is a GUI character's inventory window.
     """
 
 
@@ -2198,18 +2217,18 @@ class enchantItem(blankWindow):
 
         self.spell = StringVar()
         self.spell.set("")
-        self.spellE = Entry(self.frame["charged magic item"],
+        self.spell_E = Entry(self.frame["charged magic item"],
                             justify = "left",
                             textvariable = self.spell,
                             width = 48
                             )
-        self.spellE.grid(column = 5,
+        self.spell_E.grid(column = 5,
                          row = 2,
                          padx = 5,
                          pady = 5,
                          sticky = "NEWS"
                          )
-        self.spellE.bind('<FocusOut>', self.updDaily)
+        self.spell_E.bind('<FocusOut>', self.updCharged)
 
         Label(self.frame["charged magic item"],
               text = labels["spell"][self.lang] + " " + labels["lvl"][self.lang] + ":"
@@ -2220,9 +2239,8 @@ class enchantItem(blankWindow):
                      sticky = "NEWS")
 
         self.spell_lvl = IntVar()
-        self.spell_lvl.set(0)
+        self.spell_lvl.set(1)
         self.spell_lvlE = Entry(self.frame["charged magic item"],
-                                justify = "left",
                                 textvariable = self.spell_lvl,
                                 width = 4
                                 )
@@ -2232,7 +2250,7 @@ class enchantItem(blankWindow):
                              pady = 5,
                              sticky = "NEWS"
                              )
-        self.spell_lvlE.bind('<FocusOut>', self.updDaily)
+        self.spell_lvlE.bind('<FocusOut>', self.updCharged)
 
         self.maxlvl = StringVar()
         self.maxlvl.set("/10")
@@ -2302,8 +2320,8 @@ class enchantItem(blankWindow):
                      padx = 1,
                      sticky = "NEWS")
 
-        self.spell_list = StringVar()
-        self.spell_list.set("")
+#        self.spell_list = StringVar()
+#        self.spell_list.set("")
         Entry(self.frame["daily item"],
               justify = "left",
               textvariable = self.spell_list,
@@ -2323,8 +2341,8 @@ class enchantItem(blankWindow):
                      padx = 1,
                      sticky = "NEWS")
 
-        self.spell = StringVar()
-        self.spell.set("")
+#        self.spell = StringVar()
+#        self.spell.set("")
         self.spellE = Entry(self.frame["daily item"],
                             justify = "left",
                             textvariable = self.spell,
@@ -2346,20 +2364,18 @@ class enchantItem(blankWindow):
                      padx = 1,
                      sticky = "NEWS")
 
-        self.spell_lvl = IntVar()
-        self.spell_lvl.set(0)
-        self.spell_lvlE = Entry(self.frame["daily item"],
+#        self.spell_lvl = IntVar()
+        self.spell_lvl.set(1)
+        Entry(self.frame["daily item"],
                                 justify = "left",
                                 textvariable = self.spell_lvl,
-                                width = 48
-                                )
-        self.spell_lvlE.grid(column = 7,
+                                width = 4
+                                ).grid(column = 7,
                              row = 1,
                              padx = 5,
                              pady = 5,
                              sticky = "NEWS"
                              )
-        self.spell_lvlE.bind('<FocusOut>', self.updDaily)
 
         Label(self.frame["daily item"],
               text = labels["daily"][self.lang] + ":",
@@ -2484,7 +2500,31 @@ class enchantItem(blankWindow):
         """
         Updates charged items display
         """
-        self.notdoneyet("updCharged")
+        itemtype = self.typus.get()
+        itemtype = itemtype.lower().split(" ")[0]
+        self.maxloads.set(info_charged[itemtype][0])
+        print(self.spell.get())
+        desc = self.item["description"] + ";({}, Lvl {}, lds {}/{})".format(self.spell_list.get() + "/" + self.spell.get(), self.spell_lvl.get(), self.loads.get(), self.maxloads.get())
+        print(desc)
+        self.description.set(desc)
+
+        if self.action.get() == charge_action[self.lang][0]:
+            mult = 1
+        else:
+            mult = 0.5
+
+        self.loads.set(self.maxloads.get())
+
+        if self.loads.get() > info_charged[itemtype][0]:
+            self.loads.set(info_charged(itemtype)[0])
+
+        if self.spell_lvl.get() >= len(info_charged[itemtype]):
+            self.spell_lvl.set(len(info_charged[itemtype]) - 1)
+
+        self.maxlvl.set("/" + str(len(info_charged[itemtype]) - 1))
+        self.price = self.item["worth"].copy()
+        self.price["gold"] += info_charged[itemtype][0] + round(mult * info_charged[itemtype][self.spell_lvl.get()])
+        self.cost.set(self.getCosts())
 
 
     def updPerm(self, event):
@@ -2519,8 +2559,8 @@ class enchantItem(blankWindow):
         if "; Enhancement(" in self.item["description"]:
             self.item["description"] = self.item["description"][:self.item["description"].find("; Enhancement(")]
 
-        self.item["description"] += descadd
-        self.description.set(self.item["description"])
+#        self.item["description"] += descadd
+        self.description.set(self.item["description"] + descadd)
         self.calcDaily()
         self.cost.set(self.getCosts())
 
@@ -2623,14 +2663,9 @@ class enchantItem(blankWindow):
     def payEnchantement(self):
         """
         This does the payment of the enchantment
-        @todo has to be fully implemented:
-        - daily item
-        - charged magic item
-        - permanent magic item
-
         """
         choice = self.chosen.get()
-
+        self.item["magic"] = True
         if self.price != self.character["inventory"][self.shoptype][self.elem]["worth"]:
             self.item["worth"] = self.price.copy()
             pos = -1
@@ -2654,8 +2689,11 @@ class enchantItem(blankWindow):
                 self.item["magic"] = True
 
             elif choice == "charged magic item":
-
-                self.notdoneyet("pyEnchantment - buy charged items")
+                self.item["type"] = self.typus.get()
+                self.item["spell"] = "{}\{}".format(self.spell_list.get(), self.spell.get())
+                self.item["lvl"] = self.spell_lvl.get()
+                self.item["description"] = self.description.get()
+                self.item["realm"] = self.realm.get()
 
             elif choice == "daily item":
                 self.item["daily"] = self.daily.get()
@@ -2677,11 +2715,13 @@ class enchantItem(blankWindow):
         newpurse = buyStuff(purse = self.character["purse"], prize = self.item["worth"])
 
         if newpurse != self.character["purse"]:
+
             for i in range(0, len(coins["long"])):
                 self.character["purse"][coins["short"][i].upper()] = newpurse[coins["long"][i]]
 
             self.character["inventory"][self.shoptype][self.elem] = self.item.copy()
             self.__quit()
+
         else:
             print("not enough money - ohne Moos nix los!")
 
@@ -2699,12 +2739,10 @@ class enchantItem(blankWindow):
 
     def addMagicItem(self):
         '''
-        This method siply adds magic itemes instead of paying the bill
-        ----
-        @todo has to be fully implemented
+        This method simply adds magic items instead of paying the bill
         '''
         choice = self.chosen.get()
-
+        self.item["magic"] = True
         if self.price != self.character["inventory"][self.shoptype][self.elem]["worth"]:
             self.item["worth"] = self.price.copy()
             pos = -1
@@ -2719,6 +2757,8 @@ class enchantItem(blankWindow):
                 self.item["worth"][coins["long"][j]] = 0
 
             if choice == "magic bonus item":
+                if 'bonus' not in self.item.keys():
+                    self.item['bonus'] = 0
                 self.item['bonus'] = int(self.item["bonus"]) + int(self.bonus.get())
                 self.item["skill"] = self.catskill.get()
                 self.item['description'] = self.description.get()
@@ -2726,8 +2766,11 @@ class enchantItem(blankWindow):
                 self.item["magic"] = True
 
             elif choice == "charged magic item":
-
-                self.notdoneyet("pyEnchantment - buy charged items")
+                self.item["type"] = self.typus.get()
+                self.item["spell"] = "{}\{}".format(self.spell_list.get(), self.spell.get())
+                self.item["lvl"] = self.spell_lvl.get()
+                self.item["description"] = self.description.get()
+                self.item["realm"] = self.realm.get()
 
             elif choice == "daily item":
                 self.item["daily"] = self.daily.get()
@@ -2868,6 +2911,496 @@ class enchantItem(blankWindow):
         '''
         self.window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, self.shoptype)
+
+
+
+class editinventory(blankWindow):
+    '''
+    Class for Editing indiviudal items and/or equip them as well adding newly edited items to a shop.
+    '''
+
+
+    def __init__(self, lang = "en", char = {}, item = {}, shoptype = "armor", storepath = "./data"):
+        """
+        Class constructor
+        \param lang The chosen language for window's and button's
+                    texts. At the moment, only English (en, default
+                    value) and German (de) are supported.
+        \param char dictionary holding chracter's data
+        \param item dictionary holding item values
+        \param shoptype item category
+        \param storepath path for storing the data into the character files.
+        """
+
+        self.lang = lang
+        self.character = char
+        self.item = item
+        self.shoptype = shoptype
+
+        if self.character == {}:
+            self.character = {  "player": "Marcus",
+                                "exp": 10000,
+                                'lvl' :1,
+                                "prof": "Ranger",
+                                "race" : "Woodmen",
+                                "name": "Woody",
+                                'realm' : 'Channeling',
+                                "piclink" : "./data/default/pics/default.jpg"
+
+                                }
+        self.wcont = {}
+        self.filterlist = ['player', 'exp', 'lvl', 'prof', 'race', 'name', 'piclink', 'realm']
+        self.bgfilter = ['act_age', 'carr_weight', "sex", "height", "weight"]
+        self.storepath = storepath
+        blankWindow.__init__(self, self.lang)
+        self.window.title("Item")
+        self.__addMenu()
+        self.__addHelpMenu()
+        self.__buildWin()
+        self.window.mainloop()
+
+
+    def __addMenu(self):
+        '''
+        This method adds the menu bar to the window
+        '''
+        self.filemenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
+                              menu = self.filemenu)
+        self.filemenu.add_command(label = submenu['file'][self.lang]['open'],
+                                  command = self.__open)
+        self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
+                                  command = self.__save)
+        self.filemenu.add_separator()
+        self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
+                                  command = self.__quit)
+        self.invmenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['menu_inventory'][self.lang],
+                              menu = self.invmenu)
+        self.invmenu.add_command(label = submenu['inventory'][self.lang]['armor'],
+                                 command = self.__armor)
+        self.invmenu.add_command(label = submenu["inventory"][self.lang]['weapon'],
+                                 command = self.__weapon)
+        self.invmenu.add_command(label = submenu['inventory'][self.lang]['gear'],
+                                                 command = self.__gear)
+        self.invmenu.add_command(label = submenu["inventory"][self.lang]["gems"],
+                                 command = self.__gems)
+        self.invmenu.add_command(label = submenu['inventory'][self.lang]["herbs"],
+                                 command = self.__herbs)
+        self.invmenu.add_separator()
+        self.invmenu.add_command(label = submenu["inventory"][self.lang]["spells"],
+                                 command = self.notdoneyet)
+        self.invmenu.add_command(label = submenu["inventory"][self.lang]["daily"],
+                                 command = self.notdoneyet)
+        self.invmenu.add_command(label = submenu['inventory'][self.lang]["PP_spell"],
+                                  command = self.notdoneyet)
+        self.invmenu.add_separator()
+        self.invmenu.add_command(label = submenu["inventory"][self.lang]["transport"],
+                                 command = self.__transport)
+        self.invmenu.add_command(label = submenu["inventory"][self.lang]["services"],
+                                 command = self.__services)
+
+
+    def __addHelpMenu(self):
+        """
+        This method defines a help menu.
+        """
+        self.helpmenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['help'][self.lang],
+                              menu = self.helpmenu)
+
+        self.helpmenu.add_separator()
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
+                                  command = self._helpAbout)
+
+
+    def __buildWin(self):
+        """
+        This method defines the window's layout
+        """
+        self.updWidgedCont()
+        self.picLabel = Label(master = self.window,
+                              image = self.wcont['piclink']
+                              )
+        # row 0
+        self.picLabel.grid(column = 0,
+                           row = 0,
+                           columnspan = 2,
+                           rowspan = 8,
+                           sticky = "NEWS",
+                           padx = 5,
+                           pady = 5)
+        Label(self.window,
+              textvariable = self.wcont["player"],
+              justify = LEFT
+              ).grid(column = 2,
+                     row = 0,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        Label(self.window,
+              textvariable = self.wcont["exp"],
+              justify = LEFT
+              ).grid(column = 3,
+                     row = 0,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        Label(self.window,
+              text = "Level:",
+              justify = RIGHT
+              ).grid(column = 4,
+                     row = 0,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        Label(self.window,
+              textvariable = self.wcont["lvl"],
+              justify = LEFT
+              ).grid(column = 5,
+                     row = 0,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        # row 1
+        Label(self.window,
+              textvariable = self.wcont["name"],
+              justify = LEFT
+              ).grid(column = 2,
+                     row = 1,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        Label(self.window,
+              textvariable = self.wcont["sex"],
+              justify = LEFT
+              ).grid(column = 3,
+                     row = 1,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        Label(self.window,
+              textvariable = self.wcont["prof"],
+              justify = LEFT
+              ).grid(column = 4,
+                     row = 1,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        Label(self.window,
+              textvariable = self.wcont["race"],
+              justify = LEFT
+              ).grid(column = 5,
+                     row = 1,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+
+        # row 2
+        Label(self.window,
+              text = charattribs['act_age'][self.lang] + ":"
+              ).grid(column = 2,
+                     row = 2,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        Label(self.window,
+              textvariable = self.wcont["act_age"]
+              ).grid(column = 3,
+                     row = 2,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        Label(self.window,
+              text = charattribs['height'][self.lang] + ":"
+              ).grid(column = 4,
+                     row = 2,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        Label(self.window,
+              textvariable = self.wcont["height"]
+              ).grid(column = 5,
+                     row = 2,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+
+        # row 3
+        Label(self.window,
+              text = charattribs['weight'][self.lang] + ":",
+              justify = RIGHT,
+              ).grid(column = 2,
+                     row = 3,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        Label(self.window,
+              textvariable = self.wcont["weight"]
+              ).grid(column = 3,
+                     row = 3,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        #row 4
+        Label(self.window,
+              text = charattribs['carr_weight'][self.lang] + ":"
+              ).grid(column = 2,
+                     row = 4,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        Label(self.window,
+              textvariable = self.wcont["carr_weight"]
+              ).grid(column = 3,
+                     row = 4,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        Label(self.window,
+              text = labels['MMP'][self.lang] + ":"
+              ).grid(column = 4,
+                     row = 4,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        Label(self.window,
+              textvariable = self.wcont["MMP"]
+              ).grid(column = 5,
+                     row = 4,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW"
+                     )
+        # row 5/6
+        c = 2
+        self.moneyEntry = {}
+        for coin in ["MP", "PP", "GP", "SP", "BP", "CP", "TP", "IP"]:
+            Label(self.window,
+                  text = coin + ":",
+                  ).grid(column = c,
+                         row = 5,
+                         padx = 1,
+                         pady = 1,
+                         sticky = "EW"
+                         )
+            self.moneyEntry[coin] = VarInt()
+            self.moneyEntry[coin].set(self.wcont[coin])
+            Entry(self.window,
+                  text = self.moneyEntry[coin],
+                  justify = "right"
+                  ).grid(column = c,
+                         row = 6,
+                         padx = 1,
+                         pady = 1,
+                         sticky = "EW"
+                         )
+            c += 1
+
+
+    def updWidgedCont(self):
+        '''
+        This method updates widget content like texts or images
+        '''
+
+        for elem in self.filterlist:
+
+            if elem == "piclink":
+
+                if elem in self.wcont.keys():
+                    self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.ANTIALIAS))
+                    self.picLabel.config(image = self.wcont[elem])
+
+                else:
+                    self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.ANTIALIAS))
+
+            elif type(self.character[elem]) == type(""):
+
+                if elem not in self.wcont.keys():
+                    self.wcont[elem] = StringVar()
+
+                self.wcont[elem].set(self.character[elem])
+
+            elif type(self.character[elem]) == type(0):
+                if elem not in self.wcont.keys():
+                    self.wcont[elem] = IntVar()
+
+                self.wcont[elem].set(self.character[elem])
+
+        for elem in self.bgfilter:
+
+            if "background" in self.character.keys():
+
+                if type(self.character["background"][elem]) == type(""):
+
+                    if elem not in self.wcont.keys():
+                        self.wcont[elem] = StringVar()
+
+                    self.wcont[elem].set(self.character["background"][elem])
+
+                elif type(self.character["background"][elem]) == type(0):
+
+                    if elem not in self.wcont.keys():
+                        self.wcont[elem] = IntVar()
+
+                    self.wcont[elem].set(self.character["background"][elem])
+            else:
+                self.wcont[elem] = StringVar()
+                self.wcont[elem].set("--")
+
+        if "MMṔ" not in self.wcont.keys():
+            self.wcont["MMP"] = IntVar()
+            self.wcont["MMP"].set(0)
+
+        elif "MMP" not in self.character.keys():
+            self.character["MMP"] = calcMMP(self.character)
+            self.wcont["MMP"].set(self.character["MMP"])
+
+        for coin in ["MP", "PP", "GP", "SP", "BP", "CP", "TP", "IP"]:
+            if "purse" not in self.character.keys():
+                self.character["purse"] = {}
+
+            if coin not in self.character['purse'].keys():
+                self.character["purse"][coin] = 0
+
+            if coin not in self.wcont.keys():
+                self.wcont[coin] = IntVar()
+
+            self.wcont[coin].set(self.character["purse"][coin])
+
+
+    def calcMMP(self, char = {}):
+        """
+        This method calculates the Movement Maneuver Penalty (MMP)
+        @param char full character data as dictionary
+        @retval mmp Movement Maneuver Penalty as integer
+        ----
+        @todo has to be fully implemented
+        """
+        mmp = 0
+        return mmp
+
+
+    def __open(self):
+        """
+        this method opens a character file
+        ----
+        @todo computation of character groups
+        """
+        self.opendir = filedialog.askopenfilename(defaultextension = ".json", filetypes = [("Character Files", ".json")])
+        with open(self.opendir, "r") as fp:
+            self.charlist = json.load(fp)
+
+        if type(self.charlist) == type({}):
+            self.character = dict(self.charlist).copy()
+            self.updWidgedCont()
+        elif type(self.charlist) == [] :
+            print("char list computing is not implemented yet")
+            pass
+        else:
+            print("ERROR: wrong data format in {}".format(self.opendir))
+
+        if "inventory" not in self.character.keys():
+            self.character["inventory"] = {'weapon' :[],
+                                           'armor' :[],
+                                           'gear' :[],
+                                           'transport':[],
+                                           'herbs':[],
+                                           'runes':[],
+                                           'constant item':[],
+                                           'daily item' :[],
+                                           'gems' :[]
+                                           }
+        self.inv_char = self.character["inventory"].copy()
+
+
+    def __save(self):
+        '''
+        This opens a file dialog window for saving
+        '''
+        savedir = filedialog.asksaveasfilename(defaultextension = ".json", filetypes = [("Character & Group Files", ".json")])
+        with open(savedir, "w") as fp:
+            json.dump(self.character, fp, indent = 4)
+
+
+    def __quit(self):
+        '''
+        This method closes the window
+        '''
+        self.window.destroy()
+
+
+    def __armor(self):
+        """
+        This opens a window for armor
+        """
+        self. window.destroy()
+        self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "armor")
+
+
+    def __weapon(self):
+        """
+        This opens a window for weapons
+        """
+        self. window.destroy()
+        self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "weapon")
+
+
+    def __gear(self):
+        """
+        This opens a window for equipment
+        """
+        self. window.destroy()
+        self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "gear")
+
+
+    def __transport(self):
+        """
+        This opens a window for animals and transports
+        """
+        self. window.destroy()
+        self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "transport")
+
+
+    def __services(self):
+        """
+        This opens a window for equipment
+        """
+        self. window.destroy()
+        self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "services")
+
+
+    def __gems(self):
+        """
+        This opens a window for gems and jewelery
+        """
+        self. window.destroy()
+        self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "gems")
+
+
+    def __herbs(self):
+        """
+        This opens a window for portions, herbs and poisons
+        """
+        self. window.destroy()
+        self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "herbs")
 
 
 

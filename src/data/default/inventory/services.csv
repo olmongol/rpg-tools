@@ -1,29 +1,29 @@
-item,comment,weight,cost,ID
-Beer/ale,Pint.,1 lbs.,2tp,301
-Brandy,Half-pint.,0.5 lbs.,10tp,302
-Cider,Pint.,1 lbs.,1tp,303
-Mead,Pint.,1 lbs.,5tp,304
-Wine,Pint.,1 lbs.,6tp,305
-Light meal,1% chance of illness*.,---,6tp,306
-Normal meal,1% chance of illness*.,---,10tp,307
-Heavy meal,1% chance of illness*.,---,12tp,308
-Week’s rations,Normal spoilage. 18 lbs.,18 lbs.,5cp,309
-Trail rations,1 week. Preserved. 14 lbs.,14 lbs.,1bp,310
-Greatbread,1 week. Preserved. 4 lbs.,4 lbs.,3gp,311
-Waybread,1 month. Preserved. 4 lbs.,4 lbs.,15gp,312
-Poor lodging,Per night. Communal sleeping.,---,1cp,313
-Average lodging,Per night. Separate bedding.,---,2cp,314
-Good lodging,Per night. Separate room.,---,22tp,315
-Stable,Per day. Includes food for beast.,---,2tp,316
-Hospitalization,2 times heal rate. Bedding + food + care. Often a fee in the form of a required ''contribution.‘‘,---,6cp**,317
-Library Access,4 hour visit. No withdrawals.,---,1sp,318
-Public Bath,1% chance of disease*. Gender separation.,---,5tp,319
-Private Bath,0% chance of disease*. Must pay extra for oils and perfumes.,---,1cp,320
-Scribe,Per page of simple text.,---,1cp,321
-Crier/Herald,Per announcement. Announced once per hour for 4 hours.,---,5tp,322
-Legal Services,Per legal appearance (approximately 3 hours of work).,---,3sp,323
-Laundry,Per laundry load (simple laundry care).,---,3tp,324
-Leather care,Per item to be handled (includes simple repairs and cleaning).,---,6tp,325
-Metal care,Per item to be handled (includes simple repairs and cleaning).,---,12tp,326
-Personal grooming,Per visit (approximately 1 hour).,---,3cp,327
-Research,Per simple topic.,---,1sp,328
+item,comment,weight,cost,ID,type
+Beer/ale,Pint.,1 lbs.,2tp,301,food
+Brandy,Half-pint.,0.5 lbs.,10tp,302,food
+Cider,Pint.,1 lbs.,1tp,303,food
+Mead,Pint.,1 lbs.,5tp,304,food
+Wine,Pint.,1 lbs.,6tp,305,food
+Light meal,1% chance of illness*.,---,6tp,306,food
+Normal meal,1% chance of illness*.,---,10tp,307,food
+Heavy meal,1% chance of illness*.,---,12tp,308,food
+Weeks rations,Normal spoilage. 18 lbs.,18 lbs.,5cp,309,food
+Trail rations,1 week. Preserved. 14 lbs.,14 lbs.,1bp,310,food
+Greatbread,1 week. Preserved. 4 lbs.,4 lbs.,3gp,311,food
+Waybread,1 month. Preserved. 4 lbs.,4 lbs.,15gp,312,food
+Poor lodging,Per night. Communal sleeping.,---,1cp,313,service
+Average lodging,Per night. Separate bedding.,---,2cp,314,service
+Good lodging,Per night. Separate room.,---,22tp,315,service
+Stable,Per day. Includes food for beast.,---,2tp,316,service
+Hospitalization,2 times heal rate. Bedding + food + care. Often a fee in the form of a required ''contribution.'',---,6cp**,317,service
+Library Access,4 hour visit. No withdrawals.,---,1sp,318,service
+Public Bath,1% chance of disease*. Gender separation.,---,5tp,319,service
+Private Bath,0% chance of disease*. Must pay extra for oils and perfumes.,---,1cp,320,service
+Scribe,Per page of simple text.,---,1cp,321,service
+Crier/Herald,Per announcement. Announced once per hour for 4 hours.,---,5tp,322,service
+Legal Services,Per legal appearance (approximately 3 hours of work).,---,3sp,323,service
+Laundry,Per laundry load (simple laundry care).,---,3tp,324,service
+Leather care,Per item to be handled (includes simple repairs and cleaning).,---,6tp,325,service
+Metal care,Per item to be handled (includes simple repairs and cleaning).,---,12tp,326,service
+Personal grooming,Per visit (approximately 1 hour).,---,3cp,327,service
+Research,Per simple topic.,---,1sp,328,service

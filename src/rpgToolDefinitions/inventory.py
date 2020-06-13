@@ -11,22 +11,23 @@
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "05.06.2020"
+__updated__ = "10.06.2020"
 
 ## \var geartypes
 # (dictionary) list of different type of equipment like armor, weapon, tool...
-geartypes = {"en": ["clothes", "tool", "container", "food", "gear"],
-            "de" :["Kleidung", "Werkzeug", u"Behälter", "Nahrung", u"Ausrüstung"]
+geartypes = {"en": ["clothes", "tool", "container", "food", "gear", "ammo", "outdoor", "light", "write", "trap", "rope", "magic", "service", "transport"],
+            "de" :["Kleidung", "Werkzeug", u"Behälter", "Nahrung", u"Ausrüstung", "Munition", "Outdoor", "Licht", "Schreibzeug", "Falle", "Seil", "magisch", "Dienst", "Transport" ]
+
             }
 charged_item = {"de" :["Runenpapier", "Zaubertrank", "Zauberstab (30 cm)", "Zauberstab (75 cm)", "Zauberstab (150 cm)"],
                "en" : ["Rune Paper", "Potion", "Wand (1')", "Rod (2.5')", "Staff (5')"]}
 ## \var info_charged
 # holds max number of loads  (idx 0) and cost(=value) per level of spell(=idx)
-info_charged = {"rune paper" : [1, 2, 10, 20, 30, 40, 60, 80, 100, 125, 150],
+info_charged = {"rune" : [1, 2, 10, 20, 30, 40, 60, 80, 100, 125, 150],
                "potion" :[10, 5, 15, 30, 45, 60, 90, 120, 150, 200, 225],
                "wand" :[10, 10, 30],
                "rod" :[30, 40, 80, 120, 150, 200],
-               "staff" :[100, 150, 200, 250, 300, 400, 500, 600, 700, 800]
+               "staff" :[100, 100, 150, 200, 250, 300, 400, 500, 600, 700, 800]
                }
 charge_action = {"de" : ["neu verzaubern", "aufladen"],
                  "en": ["newly enchant", "recharge"]}
@@ -70,6 +71,7 @@ treeformat = {"item" : 200,
              "volume" : 40,
              "bonus" :50,
              "skill":400,
+             "area":70,
              }
 ##\var char_inv_tv
 # header for character's armor for treeview display
