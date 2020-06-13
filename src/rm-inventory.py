@@ -1178,7 +1178,7 @@ class shopWin(blankWindow):
 
             for i in range(0, len(char_inv_tv[self.shoptype])):
 
-                if char_inv_tv[self.shoptype][i] != "worth" and str(item[char_inv_tv[self.shoptype][i]]) == self.curr_invitem[i]:
+                if char_inv_tv[self.shoptype][i] != "worth" and str(item[char_inv_tv[self.shoptype][i]]) == str(self.curr_invitem[i]):
                     count += 1
 
             if count >= len(char_inv_tv[self.shoptype]) - 1:
@@ -1205,16 +1205,19 @@ class shopWin(blankWindow):
     def removeItem(self):
         """
         This is for removing a piece of equipment (throw away)
+        ----
+        @bug shoptype equipment- only container items can be removed/sold from inventory
         """
         self.curr_inv = self.invtree.focus()
         self.curr_invitem = self.invtree.item(self.curr_inv)["values"]
-
+#        pprint(self.curr_invitem)
         for item in self.inv_char[self.shoptype]:
             count = 1
             for i in range(0, len(char_inv_tv[self.shoptype])):
-                if char_inv_tv[self.shoptype][i] != "worth" and str(item[char_inv_tv[self.shoptype][i]]) == self.curr_invitem[i]:
+#                print("DEbug: {} == {} ".format(item[char_inv_tv[self.shoptype][i]], self.curr_invitem[i]))
+                if char_inv_tv[self.shoptype][i] != "worth" and str(item[char_inv_tv[self.shoptype][i]]) == str(self.curr_invitem[i]):
                     count += 1
-
+#            print("DEbug: {} >= {}".format(count, len(char_inv_tv[self.shoptype]) - 1))
             if count >= len(char_inv_tv[self.shoptype]) - 1:
                 self.inv_char[self.shoptype].remove(item)
                 self.character["inventory"] = self.inv_char
