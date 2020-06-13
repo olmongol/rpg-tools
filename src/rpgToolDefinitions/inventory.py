@@ -11,7 +11,7 @@
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "10.06.2020"
+__updated__ = "13.06.2020"
 
 ## \var geartypes
 # (dictionary) list of different type of equipment like armor, weapon, tool...
@@ -24,7 +24,7 @@ charged_item = {"de" :["Runenpapier", "Zaubertrank", "Zauberstab (30 cm)", "Zaub
 ## \var info_charged
 # holds max number of loads  (idx 0) and cost(=value) per level of spell(=idx)
 info_charged = {"rune" : [1, 2, 10, 20, 30, 40, 60, 80, 100, 125, 150],
-               "potion" :[10, 5, 15, 30, 45, 60, 90, 120, 150, 200, 225],
+               "potion" :[1, 5, 15, 30, 45, 60, 90, 120, 150, 200, 225],
                "wand" :[10, 10, 30],
                "rod" :[30, 40, 80, 120, 150, 200],
                "staff" :[100, 100, 150, 200, 250, 300, 400, 500, 600, 700, 800]
@@ -39,6 +39,7 @@ treeformat = {"item" : 200,
              "description":450,
              "AT" :50,
              "prod. time":90,
+             "height":70,
              "weight":70,
              "cost" : 70,
              "worth": 90,
@@ -81,7 +82,7 @@ char_inv_tv = {"armor" : ["name", "description", "AT", "weight", "worth"],
                "services" :["name", "description", "weight", "worth"],
                "gems" : ["name", "description", "weight", "worth"],
                "gear" : ["name", "description", "weight", "capacity", "volume", "bonus", "skill", "worth"],
-               "transport" :["name", "description", "height/weight", "capacity", "OB", "worth"],
+               "transport" :["name", "description", "height", "weight", "capacity", "OB", "worth"],
                "herbs" :["name", "type", "lvl", "description", "medical use", "other use", "worth"],
                "runes" :[],
                "constant item" :[],
