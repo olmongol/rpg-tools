@@ -1210,14 +1210,11 @@ class shopWin(blankWindow):
         """
         self.curr_inv = self.invtree.focus()
         self.curr_invitem = self.invtree.item(self.curr_inv)["values"]
-#        pprint(self.curr_invitem)
         for item in self.inv_char[self.shoptype]:
             count = 1
             for i in range(0, len(char_inv_tv[self.shoptype])):
-#                print("DEbug: {} == {} ".format(item[char_inv_tv[self.shoptype][i]], self.curr_invitem[i]))
                 if char_inv_tv[self.shoptype][i] != "worth" and str(item[char_inv_tv[self.shoptype][i]]) == str(self.curr_invitem[i]):
                     count += 1
-#            print("DEbug: {} >= {}".format(count, len(char_inv_tv[self.shoptype]) - 1))
             if count >= len(char_inv_tv[self.shoptype]) - 1:
                 self.inv_char[self.shoptype].remove(item)
                 self.character["inventory"] = self.inv_char
@@ -1229,6 +1226,8 @@ class shopWin(blankWindow):
         """
         This is for adding a piece of equipment to shop
         """
+#        if "inventory" in self.character.keys():
+        self.__sortInventory()
         self.curr_shop = self.shoptree.focus()
         self.curr_item = self.shoptree.item(self.curr_shop)['values']
         newitem = {}
@@ -1267,6 +1266,7 @@ class shopWin(blankWindow):
                 newitem["description"] = self.curr_item[i]
 
             elif self.data[0][i] == "weight" :
+
                 if "-" in self.curr_item[i]:
                     a, b = self.curr_item[i].strip(" lbs.").split("-")
                     newitem["weight"] = round(random.uniform(float(a), float(b)), 2)
@@ -1432,7 +1432,7 @@ class shopWin(blankWindow):
             self.wcont[coin].set(self.character["purse"][coin])
 
 
-    def calcMMP(self, char = {}):
+    def calcMMP(self):
         """
         This method calculates the Movement Maneuver Penalty (MMP)
         @param char full character data as dictionary
@@ -1442,6 +1442,25 @@ class shopWin(blankWindow):
         """
         mmp = 0
         return mmp
+
+
+    def __sortInventory(self):
+        '''
+        This function sorts the inventory items of a given shoptype alphabethically.
+        '''
+
+        sortlist = []
+        for i in range(0, len(self.inv_char[self.shoptype])):
+            sortlist.append(self.inv_char[self.shoptype][i]["name"] + " | " + str(i))
+
+        sortlist.sort()
+        invlistsorted = []
+
+        for i in range(0, len(sortlist)):
+            pos = int(sortlist[i].split(' | ')[1])
+            invlistsorted.append(self.inv_char[self.shoptype][pos])
+
+        self.inv_char[self.shoptype] = list(invlistsorted)
 
 
     def __latexExport(self):
@@ -2273,7 +2292,7 @@ class enchantItem(blankWindow):
                      padx = 0,
                      sticky = "NEWS")
 
-        self.description = StringVar()
+#        self.description = StringVar()
         self.description.set(self.item["description"])
         Entry(self.frame["charged magic item"],
               justify = "left",
@@ -2506,9 +2525,7 @@ class enchantItem(blankWindow):
         itemtype = self.typus.get()
         itemtype = itemtype.lower().split(" ")[0]
         self.maxloads.set(info_charged[itemtype][0])
-        print(self.spell.get())
         desc = self.item["description"] + ";({}, Lvl {}, lds {}/{})".format(self.spell_list.get() + "/" + self.spell.get(), self.spell_lvl.get(), self.loads.get(), self.maxloads.get())
-        print(desc)
         self.description.set(desc)
 
         if self.action.get() == charge_action[self.lang][0]:
@@ -2526,6 +2543,10 @@ class enchantItem(blankWindow):
 
         self.maxlvl.set("/" + str(len(info_charged[itemtype]) - 1))
         self.price = self.item["worth"].copy()
+
+        if itemtype.title() in ["Potion", "Zaubertrank"]:
+            self.price["gold"] += 9
+
         self.price["gold"] += info_charged[itemtype][0] + round(mult * info_charged[itemtype][self.spell_lvl.get()])
         self.cost.set(self.getCosts())
 
@@ -2557,12 +2578,15 @@ class enchantItem(blankWindow):
         self.spellrealm = self.realm.get()
         self.splvl = self.spell_lvl.get()
         self.price = self.item["worth"].copy()
-        descadd = "; Enhancement({}-daily x{}): {}, lvl {}".format(self.spellrealm, self.daily.get(), self.spell.get(), self.splvl)
+        descadd = "; Enhancement({}-daily x{}): {}\{}, lvl {}".format(self.spellrealm,
+                                                                      self.daily.get(),
+                                                                      self.spell_list.get(),
+                                                                      self.spell.get(),
+                                                                      self.splvl)
 
         if "; Enhancement(" in self.item["description"]:
             self.item["description"] = self.item["description"][:self.item["description"].find("; Enhancement(")]
 
-#        self.item["description"] += descadd
         self.description.set(self.item["description"] + descadd)
         self.calcDaily()
         self.cost.set(self.getCosts())
