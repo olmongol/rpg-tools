@@ -34,7 +34,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "11.06.2020"
+__updated__ = "13.06.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.5"
@@ -2739,7 +2739,7 @@ class enchantItem(blankWindow):
 
     def addMagicItem(self):
         '''
-        This method siply adds magic itemes instead of paying the bill
+        This method simply adds magic items instead of paying the bill
         '''
         choice = self.chosen.get()
         self.item["magic"] = True
@@ -2757,6 +2757,8 @@ class enchantItem(blankWindow):
                 self.item["worth"][coins["long"][j]] = 0
 
             if choice == "magic bonus item":
+                if 'bonus' not in self.item.keys():
+                    self.item['bonus'] = 0
                 self.item['bonus'] = int(self.item["bonus"]) + int(self.bonus.get())
                 self.item["skill"] = self.catskill.get()
                 self.item['description'] = self.description.get()
