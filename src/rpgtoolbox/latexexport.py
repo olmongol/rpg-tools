@@ -12,7 +12,7 @@ will be generated for printouts
 \version 1.1
 '''
 
-__updated__ = "20.05.2020"
+__updated__ = "14.06.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -540,6 +540,166 @@ class spellbook(object):
         if not os.path.exists(self.charpath):
             os.mkdir(self.charpath)
 
+        fp = open(self.charpath + self.fn.replace(" ", "_"), "w")
+        fp.write(self.latex)
+        fp.close()
+
+
+    def compilePDF(self):
+        '''
+        This runs the pdflatex compiler to generate the PDF
+        '''
+        currpath = os.getcwd()
+        os.chdir(self.charpath)
+        try:
+            # to get the right table formating LaTeX has to be run twice
+            os.system("pdflatex {}".format(self.fn.replace(" ", "_")))
+            os.system("pdflatex {}".format(self.fn.replace(" ", "_")))
+            windoman = ["/usr/bin/xdg-open", "/usr/bin/gnome-open", "/usr/bin/kde-open", "/usr/bin/open"]
+
+            for wm in windoman:
+                if os.path.isfile(wm):
+                    os.system("{} {}.pdf".format(wm, self.fn.replace(" ", "_")[:-4]))
+
+        except Exception as error:
+            print("ERROR: Could not execute PDF LaTex! Please try it manually!!\n{}".format(error))
+            logger.error("compilePDF: {}".format(error))
+
+        finally:
+            os.chdir(currpath)
+
+
+
+class inventory(object):
+    '''
+    This class generates an inventory PDF from a character file if the character has an inventory.
+    '''
+
+
+    def __init__(self, character = {}, storepath = "./data/"):
+        '''
+        Class constructor
+        @param character dictionary holding character's data
+        @param storepath path to the main storage directory
+        '''
+        self.character = character
+        self.storepath = storepath
+
+        if self.storepath[-1] != "/" and self.storepath[-1] != "\\":
+            self.storepath += "/"
+
+        self.charpath = "{}{}/latex/".format(self.storepath, self.character["player"])
+        self.fn = "{}_inventory.tex".format(self.character["name"])
+
+        fp = open("{}default/latex/template_inventory.tex".format(self.storepath), "r")
+        self.latex = fp.read()
+        fp.close()
+
+        self.prepTemplate()
+        self.tblArmor()
+        self.tblWeapon()
+        self.tblGear()
+        self.tblHerb()
+        self.tblGems()
+        self.latex += "\n\\end{document}"
+        self.saveLatex()
+        self.compilePDF()
+
+
+    def prepTemplate(self):
+        '''
+        This exchanges the placeholder of the template with data from character's dictionary.
+        '''
+        rplmt = ["MMP", "carried", "name"]
+        rpurse = ["MP", "PP", "GP", "SP", "BP", "CP", "TP", "IP"]
+
+        for r  in rplmt:
+
+            if r in self.character.keys():
+                self.latex = self.latex.replace("==>{}".format(r), str(self.character[r]))
+
+            else:
+                self.latex = self.latex.replace("==>{}".format(r), "\_\_\_\_")
+
+        if "purse" in self.character.keys():
+
+            for r in rpurse:
+
+                if r in self.character["purse"].keys():
+                    self.latex = self.latex.replace("==>{}".format(r), str(self.character["purse"][r]))
+
+                else:
+                    self.latex = self.latex.replace("==>{}".format(r), "0")
+        else:
+
+            for r in rpurse:
+                self.latex = self.latex.replace("==>{}".format(r), "0")
+
+
+    def tblArmor(self):
+        """
+        this creates a table with all armor pieces.
+        ----
+        @todo has to be fully implemented
+        """
+        self.latex += "\n\\section{Armor}"
+        pass
+
+
+    def tblWeapon(self):
+        """
+        this creates a table with all weapons.
+        ----
+        @todo has to be fully implemented
+        """
+        self.latex += "\n\\section{Weapons}"
+        pass
+
+
+    def tblTransport(self):
+        """
+        this creates a table with all transports.
+        ----
+        @todo has to be fully implemented
+        """
+        self.latex += "\n\\section{Transports}"
+        pass
+
+
+    def tblGear(self):
+        """
+        this creates a table with all gear.
+        ----
+        @todo has to be fully implemented
+        """
+        self.latex += "\n\\section{Gear}"
+        pass
+
+
+    def tblHerb(self):
+        """
+        this creates a table with all herbs.
+        ----
+        @todo has to be fully implemented
+        """
+        self.latex += "\n\\section{Herbs, Potions \& Poison}"
+        pass
+
+
+    def tblGems(self):
+        """
+        this creates a table with all gems and jewellery.
+        ----
+        @todo has to be fully implemented
+        """
+        self.latex += "\n\\section{Gems \& Jewellery}"
+        pass
+
+
+    def saveLatex(self):
+        '''
+        This saves the generated LaTeX source code
+        '''
         fp = open(self.charpath + self.fn.replace(" ", "_"), "w")
         fp.write(self.latex)
         fp.close()

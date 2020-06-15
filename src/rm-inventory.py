@@ -34,7 +34,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "13.06.2020"
+__updated__ = "15.06.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.5"
@@ -1021,11 +1021,15 @@ class shopWin(blankWindow):
     def fillInventory(self):
         """
         This fills the  inventory treeview with character's items if there are any
+        ----
+        @bug height index causes trouble; shoptype: transport
         """
         for i in self.invtree.get_children():
             self.invtree.delete(i)
 
         count = 1
+        if self.shoptype not in self.inv_char.keys():
+            self.inv_char[self.shoptype] = []
 
         for item in self.inv_char[self.shoptype]:
             inpline = []
@@ -1033,6 +1037,8 @@ class shopWin(blankWindow):
             for column in char_inv_tv[self.shoptype]:
 
                 if column != "worth":
+                    if column not in item.keys():
+                        item[column] = ""
                     inpline.append(item[column])
                 else:
                     purse = ""
@@ -1060,6 +1066,54 @@ class shopWin(blankWindow):
             self.notdoneyet()
 
 
+    def getSelected(self):
+        """
+        This gets the selected item  from character's inventory treeview and saves it into a dictionary (self.item)
+        """
+        self.curr_inv = self.invtree.focus()
+        self.curr_invitem = self.invtree.item(self.curr_inv)["values"]
+        #add changes to charracter's inventory
+        self.character["inventory"] = self.inv_char.copy()
+        # transform self.item treeview item into character's inventory data struct
+        self.item = {}
+
+        if self.shoptype == "weapon":
+            self.item = weapon.copy()
+        elif self.shoptype == "armor" :
+            self.item = armor.copy()
+        elif self.shoptype == "gear":
+            self.item = gear.copy()
+        elif self.shoptype == "gems":
+            self.item = gems.copy()
+        elif self.shoptype == "runes":
+            self.item = runes.copy()
+        elif self.shoptype == "herbs" :
+            self.item = herbs.copy()
+        elif self.shoptype == "services":
+            self.item = services.copy()
+        elif self.shoptype == "constant item":
+            self.item = constant_item.copy()
+        elif self.shoptype == "daily item":
+            self.item = daily_item.copy()
+        elif self.shoptype == "transport":
+            self.item = transport.copy()
+        else:
+            print("ERROR: wrong shoptype")
+
+        for item in self.character["inventory"][self.shoptype]:
+            count = 1
+
+            for i in range(0, len(char_inv_tv[self.shoptype])):
+
+                if char_inv_tv[self.shoptype][i] != "worth" and str(item[char_inv_tv[self.shoptype][i]]) == str(self.curr_invitem[i]):
+                   count += 1
+            if count >= len(char_inv_tv[self.shoptype]) - 1:
+
+                for key in char_inv_tv[self.shoptype]:
+                    self.item[key] = item[key]
+#        print(self.item)
+
+
     def createMagic(self):
         """
         This is for creating a magic item from standard items
@@ -1069,50 +1123,50 @@ class shopWin(blankWindow):
         if self.shoptype == "herbs":
             messageWindow(self.lang).showinfo("Herbs/potions/poisons may not be enchanted!", "WARNING!")
         else:
-            self.curr_inv = self.invtree.focus()
-            self.curr_invitem = self.invtree.item(self.curr_inv)["values"]
-            #add changes to charracter's inventory
-            self.character["inventory"] = self.inv_char.copy()
-            # transform selected treeview item into character's inventory data struct
-            selected = {}
-
-            if self.shoptype == "weapon":
-                selected = weapon.copy()
-            elif self.shoptype == "armor" :
-                selected = armor.copy()
-            elif self.shoptype == "gear":
-                selected = gear.copy()
-            elif self.shoptype == "gems":
-                selected = gems.copy()
-            elif self.shoptype == "runes":
-                selected = runes.copy()
-            elif self.shoptype == "herbs" :
-                selected = herbs.copy()
-            elif self.shoptype == "services":
-                selected = services.copy()
-            elif self.shoptype == "constant item":
-                selected = constant_item.copy()
-            elif self.shoptype == "daily item":
-                selected = daily_item.copy()
-            elif self.shoptype == "transport":
-                selected = transport.copy()
-            else:
-                print("ERROR: wrong shoptype")
-
-            for item in self.character["inventory"][self.shoptype]:
-                count = 1
-
-                for i in range(0, len(char_inv_tv[self.shoptype])):
-
-                    if char_inv_tv[self.shoptype][i] != "worth" and str(item[char_inv_tv[self.shoptype][i]]) == str(self.curr_invitem[i]):
-                       count += 1
-                if count >= len(char_inv_tv[self.shoptype]) - 1:
-
-                    for key in char_inv_tv[self.shoptype]:
-                        selected[key] = item[key]
-
+#            self.curr_inv = self.invtree.focus()
+#            self.curr_invitem = self.invtree.item(self.curr_inv)["values"]
+#            #add changes to charracter's inventory
+#            self.character["inventory"] = self.inv_char.copy()
+#            # transform selected treeview item into character's inventory data struct
+#            selected = {}
+#
+#            if self.shoptype == "weapon":
+#                selected = weapon.copy()
+#            elif self.shoptype == "armor" :
+#                selected = armor.copy()
+#            elif self.shoptype == "gear":
+#                selected = gear.copy()
+#            elif self.shoptype == "gems":
+#                selected = gems.copy()
+#            elif self.shoptype == "runes":
+#                selected = runes.copy()
+#            elif self.shoptype == "herbs" :
+#                selected = herbs.copy()
+#            elif self.shoptype == "services":
+#                selected = services.copy()
+#            elif self.shoptype == "constant item":
+#                selected = constant_item.copy()
+#            elif self.shoptype == "daily item":
+#                selected = daily_item.copy()
+#            elif self.shoptype == "transport":
+#                selected = transport.copy()
+#            else:
+#                print("ERROR: wrong shoptype")
+#
+#            for item in self.character["inventory"][self.shoptype]:
+#                count = 1
+#
+#                for i in range(0, len(char_inv_tv[self.shoptype])):
+#
+#                    if char_inv_tv[self.shoptype][i] != "worth" and str(item[char_inv_tv[self.shoptype][i]]) == str(self.curr_invitem[i]):
+#                       count += 1
+#                if count >= len(char_inv_tv[self.shoptype]) - 1:
+#
+#                    for key in char_inv_tv[self.shoptype]:
+#                        selected[key] = item[key]
+            self.getSelected()
             self.window.destroy()
-            self.enchantWin = enchantItem(self.lang, self.character, self.storepath, selected, self.shoptype)
+            self.enchantWin = enchantItem(self.lang, self.character, self.storepath, self.item, self.shoptype)
 
 
     def selectShopItem(self, event):
@@ -1329,7 +1383,16 @@ class shopWin(blankWindow):
         ----
         @todo has to be fully implemented
         """
-        self.notdoneyet()
+
+#        self. window.destroy()
+#        pprint(self.item)
+#        try:
+#            self.getSelected()
+#            self.armorwin = editinventory(lang = self.lang, char = self.character, item = self.item, shoptype = self.shoptype, storepath = self.storepath)
+#        except:
+#            messageWindow().showinfo("Warning: select an item", "Error")
+#            self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = self.shoptype)
+#        XXXXXXXXXXXXXXXXXXXXXXXXXXX --------------------
 
 
     def saveShop(self):
@@ -1500,9 +1563,9 @@ class shopWin(blankWindow):
                                            'gear' :[],
                                            'transport':[],
                                            'herbs':[],
-                                           'runes':[],
-                                           'constant item':[],
-                                           'daily item' :[],
+#                                           'runes':[],
+#                                           'constant item':[],
+#                                           'daily item' :[],
                                            'gems' :[]
                                            }
         if "PP" not in self.character["purse"].keys():
@@ -2709,6 +2772,9 @@ class enchantItem(blankWindow):
                 self.item["worth"][coins["long"][j]] = 0
 
             if choice == "magic bonus item":
+                if "bonus" not in self.item.keys():
+                    self.item["bonus"] = 0
+
                 self.item['bonus'] = int(self.item["bonus"]) + int(self.bonus.get())
                 self.item["skill"] = self.catskill.get()
                 self.item['description'] = self.description.get()

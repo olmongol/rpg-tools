@@ -11,7 +11,7 @@
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "13.06.2020"
+__updated__ = "15.06.2020"
 
 ## \var geartypes
 # (dictionary) list of different type of equipment like armor, weapon, tool...
@@ -55,7 +55,6 @@ treeformat = {"item" : 200,
              "holy" : 40,
              "OB" :50,
              "man bonus" :60,
-             "height/weight" : 100,
              "capacity":100,
              "mi/hr":50,
              "ft/rnd":50,
@@ -136,6 +135,7 @@ weapon = {"name" : "",
           "soft/wooden" : 0,
           "location" : "",
           "range mod" :[],
+          "location": "unequipped",
           "worth" : money.copy()
          }
 
@@ -173,6 +173,7 @@ gear = {"name": "",
          "capacity":"",
          "volume":"",
          "type":"",
+         "location": "unequipped",
          "worth" : money.copy()
         }
 
