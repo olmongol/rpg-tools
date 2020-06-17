@@ -12,7 +12,7 @@ will be generated for printouts
 \version 1.1
 '''
 
-__updated__ = "14.06.2020"
+__updated__ = "17.06.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -27,7 +27,7 @@ import json
 import os
 import sys
 import string
-
+from rpgToolDefinitions.inventory import *
 logger = log.createLogger('latexreport', 'debug', '1 MB', 1, './')
 
 
@@ -642,7 +642,7 @@ class inventory(object):
         ----
         @todo has to be fully implemented
         """
-        self.latex += "\n\\section{Armor}"
+        self.latex += "\n\\section*{\\textcolor{Maroon}{Armor}}"
         pass
 
 
@@ -652,8 +652,160 @@ class inventory(object):
         ----
         @todo has to be fully implemented
         """
-        self.latex += "\n\\section{Weapons}"
-        pass
+        self.latex += "\n\\section*{\\textcolor{Maroon}{Weapons}}\n"
+        # melee combat ---------------------
+        self.latex += """
+        {\\fontsize{7pt}{7pt}
+            \\selectfont
+        \\begin{longtable}{|p{2.5cm}|p{1.5cm}|p{1.5cm}|p{1cm}|p{0.5cm}|p{3cm}|p{7cm}|}
+            \\caption*{\\textcolor{Maroon}{\\textbf{Weapons: Melee Combat}}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{break\\#} & \\textbf{fumble} & \\textbf{strength} &\\textbf{bonus} &\\textbf{category/skill} &\\textbf{description}\\\\
+            \\hline
+            \\endfirsthead
+            \\multicolumn{7}{c} {\\tablename\\ \\thetable\\ --\\textit{Continued from previous page}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{break\\#} & \\textbf{fumble} & \\textbf{strenght} &\\textbf{bonus} &\\textbf{category/skill} &\\textbf{description}\\\\
+            \\hline
+            \\endhead
+            \\hline
+            \\multicolumn{7}{r}{\\textit{continued on next page..}}\\\\
+            \\endfoot
+            \\hline
+            \\endlastfoot
+        """
+        for weapon in self.character["inventory"]["weapon"]:
+            if weapon["breakage"] != "---" and weapon["strength"] != "---" and weapon["wtype"] not in ["th", "mis"]:
+                rcolor = ""
+                descadd = ""
+                if weapon["magic"]:
+                    rcolor = "\\rowcolor{ProcessBlue!30}"
+                    descadd += ", magic weapon"
+                if weapon["mithril"]:
+                    rcolor = "\\rowcolor{Yellow!30}"
+                    descadd += ", mithril weapon"
+                if weapon["holy"]:
+                    rcolor = "\\rowcolor{Green!30}"
+                    descadd += ", holy weapon"
+                if weapon["slaying"] != "":
+                    rcolor = "\\rowcolor{Red!30}"
+                    descadd += ", slaying weapon ({})".format(weapon["slaying"])
+                self.latex += rcolor + " {} & {} & {} & {} & {} & {} & {}\\\\\n".format(weapon["name"],
+                                                                                     weapon["breakage"] + " " + str(weapon["soft/wooden"]),
+                                                                                     weapon["fumble"],
+                                                                                     weapon["strength"],
+                                                                                     weapon["bonus"],
+                                                                                     weapon["skill"],
+                                                                                     weapon["description"] + descadd
+                                                                                     )
+
+        self.latex += "\\end{longtable}\n"
+        self.latex += "}\n"
+        # ranged combat ----------------------
+        self.latex += """
+        {\\fontsize{7pt}{7pt}
+            \\selectfont
+        \\begin{longtable}{|p{2cm}|p{1cm}|p{0.7cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{2.5cm}|p{3.5cm}|}
+            \\caption*{\\textcolor{Maroon}{\\textbf{Weapons: Ranged Combat}}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{fumble} &\\textbf{bonus}& \\textbf{near} & \\textbf{short} &\\textbf{mediumm} &\\textbf{long}& \\textbf{extreme} &\\textbf{category/skill} &\\textbf{description}\\\\
+            \\hline
+            \\endfirsthead
+            \\multicolumn{10}{c} {\\tablename\\ \\thetable\\ --\\textit{Continued from previous page}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{fumble} & \\textbf{bonus}&\\textbf{near} & \\textbf{short} &\\textbf{medium} &\\textbf{long}& \\textbf{extreme}&\\textbf{category/skill} &\\textbf{description}\\\\
+            \\hline
+            \\endhead
+            \\hline
+            \\multicolumn{10}{r}{\\textit{continued on next page..}}\\\\
+            \\endfoot
+            \\hline
+            \\endlastfoot
+
+        """
+        for weapon in self.character["inventory"]["weapon"]:
+            if weapon["near"] != "---":
+                rcolor = ""
+                descadd = ""
+                if weapon["magic"]:
+                    rcolor = "\\rowcolor{ProcessBlue!30}"
+                    descadd += ", magic weapon"
+                if weapon["mithril"]:
+                    rcolor = "\\rowcolor{Yellow!30}"
+                    descadd += ", mithril weapon"
+                if weapon["holy"]:
+                    rcolor = "\\rowcolor{Green!30}"
+                    descadd += ", holy weapon"
+                if weapon["slaying"] != "":
+                    rcolor = "\\rowcolor{Red!30}"
+                    descadd += ", slaying weapon ({})".format(weapon["slaying"])
+
+                self.latex += rcolor + " {} & {} & {} & {} & {} & {} & {} & {} & {} & {}\\\\\n".format(weapon["name"],
+                                                                                              weapon["fumble"],
+                                                                                              weapon["bonus"],
+                                                                                              weapon["near"],
+                                                                                              weapon["short"],
+                                                                                              weapon["medium"],
+                                                                                              weapon["long"],
+                                                                                              weapon["extreme"],
+                                                                                              weapon["skill"],
+                                                                                              weapon["description"] + descadd
+                                                                                              )
+
+        self.latex += "\\end{longtable}\n"
+        self.latex += "}\n"
+        # Weapon description ------------------
+        self.latex += """
+        {\\fontsize{7pt}{7pt}
+            \\selectfont
+        \\begin{longtable}{|p{2.5cm}|p{1.5cm}|p{2.5cm}|p{2.5cm}|p{3.5cm}|p{5cm}|}
+            \\caption*{\\textcolor{Maroon}{\\textbf{Weapons: Further Information}}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{length} & \\textbf{weight} & \\textbf{worth} &\\textbf{location} &\\textbf{description}\\\\
+            \\hline
+            \\endfirsthead
+            \\multicolumn{6}{c} {\\tablename\\ \\thetable\\ --\\textit{Continued from previous page}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{length} & \\textbf{weight} & \\textbf{worth} &\\textbf{location} &\\textbf{description}\\\\
+            \\hline
+            \\endhead
+            \\hline
+            \\multicolumn{6}{r}{\\textit{continued on next page..}}\\\\
+            \\endfoot
+            \\hline
+            \\endlastfoot
+        """
+        for weapon in self.character["inventory"]["weapon"]:
+            rcolor = ""
+            descadd = ""
+            if weapon["magic"]:
+                rcolor = "\\rowcolor{ProcessBlue!30}"
+                descadd += ", magic weapon"
+            if weapon["mithril"]:
+                rcolor = "\\rowcolor{Yellow!30}"
+                descadd += ", mithril weapon"
+            if weapon["holy"]:
+                rcolor = "\\rowcolor{Green!30}"
+                descadd += ", holy weapon"
+            if weapon["slaying"] != "":
+                rcolor = "\\rowcolor{Red!30}"
+                descadd += ", slaying weapon ({})".format(weapon["slaying"])
+            worth = ""
+            for i in range(0, len(coins["long"])):
+                if weapon["worth"][coins["long"][i]] > 0:
+                    worth += "{}{} ".format(weapon["worth"][coins["long"][i]], coins["short"][i])
+            location = weapon["location"]
+            # GET LOCATION ---------
+            self.latex += rcolor + " {} & {} & {} &{} &{} &{}\\\\\n".format(weapon["name"],
+                                                                          weapon["length"],
+                                                                          weapon["weight"],
+                                                                          worth,
+                                                                          location,
+                                                                          weapon["description"] + descadd
+                                                                          )
+
+        self.latex += "\\end{longtable}\n"
+        self.latex += "}\n"
 
 
     def tblTransport(self):
