@@ -12,7 +12,7 @@ will be generated for printouts
 \version 1.1
 '''
 
-__updated__ = "17.06.2020"
+__updated__ = "18.06.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -642,8 +642,118 @@ class inventory(object):
         ----
         @todo has to be fully implemented
         """
+        # armor: combat values ----------------------------------
         self.latex += "\n\\section*{\\textcolor{Maroon}{Armor}}"
-        pass
+        self.latex += """
+        {\\fontsize{7pt}{7pt}
+            \\selectfont
+        \\begin{longtable}{|p{2.5cm}|p{0.5cm}|p{0.8cm}|p{0.5cm}|p{0.5cm}|p{0.7cm}|p{4cm}|p{1.5cm}|p{5cm}|}
+            \\caption*{\\textcolor{Maroon}{\\textbf{Armor: Combat Values}}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{AT} & \\textbf{magic} & \\textbf{OB} &\\textbf{DB} &\\textbf{man.} &\\textbf{category/skill} &\\textbf{location} & \\textbf{description}\\\\
+            \\hline
+            \\endfirsthead
+            \\multicolumn{9}{c} {\\tablename\\ \\thetable\\ --\\textit{Continued from previous page}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{AT} & \\textbf{magic} & \\textbf{OB} &\\textbf{DB} &\\textbf{man.} &\\textbf{category/skill} &\\textbf{location}& \\textbf{description}\\\\\\\\
+            \\hline
+            \\endhead
+            \\hline
+            \\multicolumn{9}{r}{\\textit{continued on next page..}}\\\\
+            \\endfoot
+            \\hline
+            \\endlastfoot
+        """
+        for armor in self.character["inventory"]["armor"]:
+            rowcolor = ""
+            descadd = ""
+            if "magic" in armor.keys():
+                if armor["magic"]:
+                    rcolor = "\\rowcolor{ProcessBlue!30}"
+                    descadd += ", magic armor"
+#                    if "daily" in armor.keys():
+#                        descadd += " ({}: {}/{} Lvl: {} {}x daily)".format(armor["realm"],
+#                                                                          armor["spell list"],
+#                                                                          armor["spell"],
+#                                                                          armor["lvl"],
+#                                                                          armor["daily"])
+##                    if "pp mult" in armor.keys():
+#                        descadd += ", PP x{}".format(armor["pp mult"])
+#                    if "add spell" in armor.keys():
+#                        descadd += ", Spelladder +{}".format(armor["add spell"])
+            else:
+                rcolor = ""
+
+            worth = ""
+
+#            for i in range(0, len(coins["long"])):
+#                if armor["worth"][coins["long"][i]] > 0:
+#                    worth += "{}{} ".format(armor["worth"][coins["long"][i]], coins["short"][i])
+
+            self.latex += rcolor + " {} & {} & {} & {} & {} & {} & {} & {} & {}\\\\\n\\hline\n".format(armor["name"],
+                                                                              armor["AT"],
+                                                                              armor["bonus"],
+                                                                              armor["bonus OB"],
+                                                                              armor["bonus DB"],
+                                                                              armor["bonus man"],
+                                                                              armor["skill"],
+                                                                              armor["location"],
+                                                                              armor["description"].replace("\\", "/") + descadd
+                                                                              )
+
+#        self.latex += "- & - & - & - & - & - &- &- & -\\\\\n"
+        self.latex += "\\end{longtable}\n"
+        self.latex += "}\n"
+
+        # armor: equiment values ---------------------------------
+        self.latex += """
+        {\\fontsize{7pt}{7pt}
+            \\selectfont
+        \\begin{longtable}{|p{3cm}|p{0.5cm}|p{1.5cm}|p{1.5cm}|p{3cm}|p{8cm}|}
+            \\caption*{\\textcolor{Maroon}{\\textbf{Armor: Further Information}}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{AT} & \\textbf{weight} & \\textbf{worth} & \\textbf{location} & \\textbf{description}\\\\
+            \\hline
+            \\endfirsthead
+            \\multicolumn{6}{c} {\\tablename\\ \\thetable\\ --\\textit{Continued from previous page}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{AT} & \\textbf{weight} & \\textbf{worth} & \\textbf{location} & \\textbf{description}\\\\
+            \\hline
+            \\endhead
+            \\hline
+            \\multicolumn{6}{r}{\\textit{continued on next page..}}\\\\
+            \\endfoot
+            \\hline
+            \\endlastfoot
+        """
+        for armor in self.character["inventory"]["armor"]:
+            rowcolor = ""
+            descadd = ""
+            if "magic" in armor.keys():
+                if armor["magic"]:
+                    rcolor = "\\rowcolor{ProcessBlue!30}"
+                    descadd += ", magic armor"
+
+            else:
+                rcolor = ""
+
+            worth = ""
+
+            for i in range(0, len(coins["long"])):
+                if armor["worth"][coins["long"][i]] > 0:
+                    worth += "{}{} ".format(armor["worth"][coins["long"][i]], coins["short"][i])
+
+            self.latex += rcolor + " {} & {} & {} & {} & {} & {} \\\\\n\\hline\n".format(armor["name"],
+                                                                                        armor["AT"],
+                                                                                        str(armor["weight"]) + " lbs.",
+                                                                                        worth,
+                                                                                        armor["location"],
+                                                                                        armor["description"].replace("\\", "/") + descadd
+                                                                                        )
+
+#        self.latex += "- & - & - & - & - &  \\\\\n"
+        self.latex += "\\end{longtable}\n"
+        self.latex += "}\n"
 
 
     def tblWeapon(self):
@@ -690,7 +800,7 @@ class inventory(object):
                 if weapon["slaying"] != "":
                     rcolor = "\\rowcolor{Red!30}"
                     descadd += ", slaying weapon ({})".format(weapon["slaying"])
-                self.latex += rcolor + " {} & {} & {} & {} & {} & {} & {}\\\\\n".format(weapon["name"],
+                self.latex += rcolor + " {} & {} & {} & {} & {} & {} & {}\\\\\n\\hline\n".format(weapon["name"],
                                                                                      weapon["breakage"] + " " + str(weapon["soft/wooden"]),
                                                                                      weapon["fumble"],
                                                                                      weapon["strength"],
@@ -708,7 +818,7 @@ class inventory(object):
         \\begin{longtable}{|p{2cm}|p{1cm}|p{0.7cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{2.5cm}|p{3.5cm}|}
             \\caption*{\\textcolor{Maroon}{\\textbf{Weapons: Ranged Combat}}}\\\\
             \\hline
-            \\textbf{Name} & \\textbf{fumble} &\\textbf{bonus}& \\textbf{near} & \\textbf{short} &\\textbf{mediumm} &\\textbf{long}& \\textbf{extreme} &\\textbf{category/skill} &\\textbf{description}\\\\
+            \\textbf{Name} & \\textbf{fumble} &\\textbf{bonus}& \\textbf{near} & \\textbf{short} &\\textbf{medium} &\\textbf{long}& \\textbf{extreme} &\\textbf{category/skill} &\\textbf{description}\\\\
             \\hline
             \\endfirsthead
             \\multicolumn{10}{c} {\\tablename\\ \\thetable\\ --\\textit{Continued from previous page}}\\\\
@@ -740,7 +850,7 @@ class inventory(object):
                     rcolor = "\\rowcolor{Red!30}"
                     descadd += ", slaying weapon ({})".format(weapon["slaying"])
 
-                self.latex += rcolor + " {} & {} & {} & {} & {} & {} & {} & {} & {} & {}\\\\\n".format(weapon["name"],
+                self.latex += rcolor + " {} & {} & {} & {} & {} & {} & {} & {} & {} & {}\\\\\n\\hline\n".format(weapon["name"],
                                                                                               weapon["fumble"],
                                                                                               weapon["bonus"],
                                                                                               weapon["near"],
@@ -758,7 +868,7 @@ class inventory(object):
         self.latex += """
         {\\fontsize{7pt}{7pt}
             \\selectfont
-        \\begin{longtable}{|p{2.5cm}|p{1.5cm}|p{2.5cm}|p{2.5cm}|p{3.5cm}|p{5cm}|}
+        \\begin{longtable}{|p{2.5cm}|p{1.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{6cm}|}
             \\caption*{\\textcolor{Maroon}{\\textbf{Weapons: Further Information}}}\\\\
             \\hline
             \\textbf{Name} & \\textbf{length} & \\textbf{weight} & \\textbf{worth} &\\textbf{location} &\\textbf{description}\\\\
@@ -796,9 +906,9 @@ class inventory(object):
                     worth += "{}{} ".format(weapon["worth"][coins["long"][i]], coins["short"][i])
             location = weapon["location"]
             # GET LOCATION ---------
-            self.latex += rcolor + " {} & {} & {} &{} &{} &{}\\\\\n".format(weapon["name"],
+            self.latex += rcolor + " {} & {} & {} &{} &{} &{}\\\\\n\\hline\n".format(weapon["name"],
                                                                           weapon["length"],
-                                                                          weapon["weight"],
+                                                                          str(weapon["weight"]) + " lbs.",
                                                                           worth,
                                                                           location,
                                                                           weapon["description"] + descadd
