@@ -27,6 +27,7 @@ from rpgtoolbox import epcalc, rpgtools as rpg
 from rpgToolDefinitions.epcalcdefs import maneuvers
 from rpgToolDefinitions.inventory import *
 from rpgtoolbox.rolemaster import realms, spellists
+from rpgtoolbox.latexexport import inventory
 from rpgToolDefinitions import inventory as inv
 from tkinter import filedialog
 from tkinter.ttk import *
@@ -34,7 +35,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "15.06.2020"
+__updated__ = "19.06.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.5"
@@ -61,7 +62,7 @@ class InventoryWin(blankWindow):
         self.character = char
 
         if self.character == {}:
-            self.character = {  "player": "Marcus",
+            self.character = {  "player": "Dummy",
                                 "exp": 10000,
                                 'lvl' :1,
                                 "prof": "Ranger",
@@ -94,6 +95,9 @@ class InventoryWin(blankWindow):
                                   command = self.__open)
         self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
                                   command = self.__save)
+        self.filemenu.add_separator()
+        self.filemenu.add_command(label = submenu['file'][self.lang]['pdf'],
+                                  command = self.__latex)
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
                                   command = self.__quit)
@@ -459,6 +463,13 @@ class InventoryWin(blankWindow):
             json.dump(self.character, fp, indent = 4)
 
 
+    def __latex(self):
+        '''
+        Creates LaTeX code from inventory data and generates PDF
+        '''
+        pdf = inventory(self.character, self.storepath)
+
+
     def __quit(self):
         '''
         This method closes the window
@@ -594,7 +605,7 @@ class shopWin(blankWindow):
                                   command = self.__save)
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['pdf'],
-                                  command = self.__latexExport)
+                                  command = self.__latex)
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
                                   command = self.__quit)
@@ -863,7 +874,7 @@ class shopWin(blankWindow):
             c += 1
         # row 8
         self.shoplabel = Label(self.window,
-                              text = labels['armor shop'][self.lang],
+                              text = labels[self.shoptype + ' shop'][self.lang],
                               anchor = N
                 #              bg = "white"
                               )
@@ -940,7 +951,7 @@ class shopWin(blankWindow):
         self.fillShoppe()
 
         self.invlabel = Label(self.window,
-                              text = submenu["inventory"][self.lang]["armor"] + " " + self.character["name"],
+                              text = submenu["inventory"][self.lang][self.shoptype] + " " + self.character["name"],
                               anchor = N
                               )
         self.invlabel.grid(column = 0,
@@ -1526,13 +1537,19 @@ class shopWin(blankWindow):
         self.inv_char[self.shoptype] = list(invlistsorted)
 
 
-    def __latexExport(self):
-        """
-        This exports data into  LaTeX template for PDF generation
-        ----
-        @todo has to be fully implemented
-        """
-        self.notdoneyet("LaTeX export")
+    def __latex(self):
+        '''
+        Creates LaTeX code from inventory data and generates PDF
+        '''
+        pdf = inventory(self.character, self.storepath)
+
+#    def __latexExport(self):
+#        """
+#        This exports data into  LaTeX template for PDF generation
+#        ----
+#        @todo has to be fully implemented
+#        """
+#        self.notdoneyet("LaTeX export")
 
 
     def __open(self):
@@ -1741,6 +1758,9 @@ class enchantItem(blankWindow):
                                   command = self.__open)
         self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
                                   command = self.__save)
+        self.filemenu.add_command(label = submenu['file'][self.lang]['pdf'],
+                                  command = self.__latexExport)
+        self.filemenu.add_separator()
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu["file"][self.lang]['sv_item'])
         self.filemenu.add_separator()
@@ -3002,6 +3022,13 @@ class enchantItem(blankWindow):
             json.dump(self.character, fp, indent = 4)
 
 
+    def __latex(self):
+        '''
+        Creates LaTeX code from inventory data and generates PDF
+        '''
+        pdf = inventory(self.character, self.storepath)
+
+
     def __quit(self):
         '''
         This method closes the window
@@ -3068,6 +3095,9 @@ class editinventory(blankWindow):
                                   command = self.__open)
         self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
                                   command = self.__save)
+        self.filemenu.add_command(label = submenu['file'][self.lang]['pdf'],
+                                  command = self.__latexExport)
+        self.filemenu.add_separator()
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
                                   command = self.__quit)
@@ -3435,6 +3465,13 @@ class editinventory(blankWindow):
         savedir = filedialog.asksaveasfilename(defaultextension = ".json", filetypes = [("Character & Group Files", ".json")])
         with open(savedir, "w") as fp:
             json.dump(self.character, fp, indent = 4)
+
+
+    def __latex(self):
+        '''
+        Creates LaTeX code from inventory data and generates PDF
+        '''
+        pdf = inventory(self.character, self.storepath)
 
 
     def __quit(self):

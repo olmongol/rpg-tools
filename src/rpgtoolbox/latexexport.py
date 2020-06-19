@@ -12,7 +12,7 @@ will be generated for printouts
 \version 1.1
 '''
 
-__updated__ = "18.06.2020"
+__updated__ = "19.06.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -598,6 +598,7 @@ class inventory(object):
         self.prepTemplate()
         self.tblArmor()
         self.tblWeapon()
+        self.tblTransport()
         self.tblGear()
         self.tblHerb()
         self.tblGems()
@@ -610,7 +611,7 @@ class inventory(object):
         '''
         This exchanges the placeholder of the template with data from character's dictionary.
         '''
-        rplmt = ["MMP", "carried", "name"]
+        rplmt = ["MMP", "carried", "name", "piclink"]
         rpurse = ["MP", "PP", "GP", "SP", "BP", "CP", "TP", "IP"]
 
         for r  in rplmt:
@@ -665,7 +666,7 @@ class inventory(object):
             \\endlastfoot
         """
         for armor in self.character["inventory"]["armor"]:
-            rowcolor = ""
+            rcolor = ""
             descadd = ""
             if "magic" in armor.keys():
                 if armor["magic"]:
@@ -727,7 +728,7 @@ class inventory(object):
             \\endlastfoot
         """
         for armor in self.character["inventory"]["armor"]:
-            rowcolor = ""
+            rcolor = ""
             descadd = ""
             if "magic" in armor.keys():
                 if armor["magic"]:
@@ -924,8 +925,65 @@ class inventory(object):
         ----
         @todo has to be fully implemented
         """
-        self.latex += "\n\\section{Transports}"
-        pass
+        self.latex += "\n\\section*{\\textcolor{Maroon}{Transport \& Animals}}"
+        self.latex += """
+        {\\fontsize{7pt}{7pt}
+            \\selectfont
+        \\begin{longtable}{|p{2.5cm}|p{1cm}|p{1cm}|p{2cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{3cm}|}
+            \\caption*{\\textcolor{Maroon}{\\textbf{Transport \& Animals}}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{height} & \\textbf{weight} & \\textbf{bonus} &\\textbf{man} &\\textbf{OB} & \\textbf{mi/hr} &\\textbf{ft/rnd}&\\textbf{capacity} &\\textbf{worth} & \\textbf{description}\\\\
+            \\hline
+            \\endfirsthead
+            \\multicolumn{11}{c} {\\tablename\\ \\thetable\\ --\\textit{Continued from previous page}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{height} & \\textbf{weight} & \\textbf{bonus} &\\textbf{man} &\\textbf{OB} & \\textbf{mi/hr} &\\textbf{ft/rnd}&\\textbf{capacity} &\\textbf{worth} & \\textbf{description}\\\\
+            \\hline
+            \\endhead
+            \\hline
+            \\multicolumn{11}{r}{\\textit{continued on next page..}}\\\\
+            \\endfoot
+            \\hline
+            \\endlastfoot
+        """
+        for transport in self.character["inventory"]["transport"]:
+            rcolor = ""
+            descadd = ""
+            if "magic" in transport.keys():
+                if transport["magic"]:
+                    rcolor = "\\rowcolor{ProcessBlue!30}"
+                    descadd += ", magic transport"
+
+            else:
+                rcolor = ""
+
+            worth = ""
+
+            for i in range(0, len(coins["long"])):
+                if transport["worth"][coins["long"][i]] > 0:
+                    worth += "{}{} ".format(transport["worth"][coins["long"][i]], coins["short"][i])
+
+            if "skill" in transport.keys():
+                skill = transport["skill"] + "; "
+            else:
+                skill = ""
+
+            self.latex += rcolor + "{} & {} & {} & {} & {} &{} & {} & {} & {} & {} & {}\\\\\n\\hline\n".format(transport["name"],
+                                                                                                                transport["height"],
+                                                                                                                str(transport["weight"]) + "lbs",
+                                                                                                                transport["bonus"],
+                                                                                                                transport["man bonus"],
+                                                                                                                transport["OB"],
+                                                                                                                transport["mi/hr"],
+                                                                                                                transport["ft/rnd"],
+                                                                                                                transport["capacity"],
+                                                                                                                worth,
+                                                                                                                skill + transport["description"] + descadd
+                                                                                                                )
+
+#        self.latex += "- & - & - & - & - &- & - & - & - & - & -\\\\\n"
+        self.latex += "\\end{longtable}\n"
+        self.latex += "}\n"
 
 
     def tblGear(self):
@@ -934,7 +992,7 @@ class inventory(object):
         ----
         @todo has to be fully implemented
         """
-        self.latex += "\n\\section{Gear}"
+        self.latex += "\n\\section*{\\textcolor{Maroon}{Gear}}"
         pass
 
 
@@ -944,17 +1002,17 @@ class inventory(object):
         ----
         @todo has to be fully implemented
         """
-        self.latex += "\n\\section{Herbs, Potions \& Poison}"
+        self.latex += "\n\\section*{\\textcolor{Maroon}{Herbs, Potions \& Poison}}"
         pass
 
 
     def tblGems(self):
         """
-        this creates a table with all gems and jewellery.
+        this creates a table with all gems and jewelry.
         ----
         @todo has to be fully implemented
         """
-        self.latex += "\n\\section{Gems \& Jewellery}"
+        self.latex += "\n\\section*{\\textcolor{Maroon}{Gems \& Jewelry}}"
         pass
 
 
