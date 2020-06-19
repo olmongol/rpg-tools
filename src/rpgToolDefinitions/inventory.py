@@ -11,7 +11,7 @@
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "17.06.2020"
+__updated__ = "19.06.2020"
 
 ## \var geartypes
 # (dictionary) list of different type of equipment like armor, weapon, tool...
@@ -78,7 +78,7 @@ treeformat = {"item" : 200,
              "capacity" : 40,
              "volume" : 40,
              "bonus" :50,
-             "skill":400,
+             "skill":300,
              "area":70,
              }
 ##\var char_inv_tv
@@ -271,6 +271,7 @@ transport = {"name" :"",
             "description":"",
             "magic":False,
             "bonus" : 0,
+            "skill" :"",
             "worth": money.copy()}
 
 services = {"name" : "",

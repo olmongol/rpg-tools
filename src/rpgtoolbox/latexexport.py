@@ -600,6 +600,7 @@ class inventory(object):
         self.tblWeapon()
         self.tblTransport()
         self.tblGear()
+        self.tblFood()
         self.tblHerb()
         self.tblGems()
         self.latex += "\n\\end{document}"
@@ -922,14 +923,12 @@ class inventory(object):
     def tblTransport(self):
         """
         this creates a table with all transports.
-        ----
-        @todo has to be fully implemented
         """
         self.latex += "\n\\section*{\\textcolor{Maroon}{Transport \& Animals}}"
         self.latex += """
         {\\fontsize{7pt}{7pt}
             \\selectfont
-        \\begin{longtable}{|p{2.5cm}|p{1cm}|p{1cm}|p{2cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{3cm}|}
+        \\begin{longtable}{|p{2.5cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{4cm}|}
             \\caption*{\\textcolor{Maroon}{\\textbf{Transport \& Animals}}}\\\\
             \\hline
             \\textbf{Name} & \\textbf{height} & \\textbf{weight} & \\textbf{bonus} &\\textbf{man} &\\textbf{OB} & \\textbf{mi/hr} &\\textbf{ft/rnd}&\\textbf{capacity} &\\textbf{worth} & \\textbf{description}\\\\
@@ -964,7 +963,7 @@ class inventory(object):
                     worth += "{}{} ".format(transport["worth"][coins["long"][i]], coins["short"][i])
 
             if "skill" in transport.keys():
-                skill = transport["skill"] + "; "
+                skill = "(\\textit{" + transport["skill"] + "}) "
             else:
                 skill = ""
 
@@ -981,7 +980,6 @@ class inventory(object):
                                                                                                                 skill + transport["description"] + descadd
                                                                                                                 )
 
-#        self.latex += "- & - & - & - & - &- & - & - & - & - & -\\\\\n"
         self.latex += "\\end{longtable}\n"
         self.latex += "}\n"
 
@@ -989,11 +987,59 @@ class inventory(object):
     def tblGear(self):
         """
         this creates a table with all gear.
-        ----
-        @todo has to be fully implemented
         """
         self.latex += "\n\\section*{\\textcolor{Maroon}{Gear}}"
-        pass
+        self.latex += """
+        {\\fontsize{7pt}{7pt}
+            \\selectfont
+        \\begin{longtable}{|p{2.5cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{2cm}|p{2.5cm}|p{1cm}|p{4.4cm}|}
+            \\caption*{\\textcolor{Maroon}{\\textbf{Gear \& Common Equipment}}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{bonus} &\\textbf{weight} &\\textbf{capacity} & \\textbf{volume} &\\textbf{location}&\\textbf{skill} &\\textbf{worth} & \\textbf{description}\\\\
+            \\hline
+            \\endfirsthead
+            \\multicolumn{9}{c} {\\tablename\\ \\thetable\\ --\\textit{Continued from previous page}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{bonus} &\\textbf{weight} &\\textbf{capacity} & \\textbf{volume} &\\textbf{location}&\\textbf{skill} &\\textbf{worth} & \\textbf{description}\\\\
+            \\hline
+            \\endhead
+            \\hline
+            \\multicolumn{9}{r}{\\textit{continued on next page..}}\\\\
+            \\endfoot
+            \\hline
+            \\endlastfoot
+        """
+        for gear in self.character["inventory"]["gear"]:
+            rcolor = ""
+            descadd = ""
+            if "magic" in gear.keys():
+                if gear["magic"]:
+                    rcolor = "\\rowcolor{ProcessBlue!30}"
+                    descadd += ", magic gear"
+
+            else:
+                rcolor = ""
+
+            worth = ""
+
+            for i in range(0, len(coins["long"])):
+                if gear["worth"][coins["long"][i]] > 0:
+                    worth += "{}{} ".format(gear["worth"][coins["long"][i]], coins["short"][i])
+
+            self.latex += rcolor + " {} & {} & {} & {} & {} &{} & {} & {} & {} \\\\\\hline\n".format(gear["name"],
+                                                                                           gear["bonus"],
+                                                                                           str(gear["weight"]) + " lbs.",
+                                                                                           gear["capacity"],
+                                                                                           gear["volume"],
+                                                                                           gear["location"],
+                                                                                           gear["skill"],
+                                                                                           worth,
+                                                                                           gear["description"] + descadd
+                                                                                           )
+
+#        self.latex += "- & - & - & - & - &- & - & - & - \\\\\n"
+        self.latex += "\\end{longtable}\n"
+        self.latex += "}\n"
 
 
     def tblHerb(self):
@@ -1003,7 +1049,46 @@ class inventory(object):
         @todo has to be fully implemented
         """
         self.latex += "\n\\section*{\\textcolor{Maroon}{Herbs, Potions \& Poison}}"
-        pass
+        self.latex += """
+        {\\fontsize{7pt}{7pt}
+            \\selectfont
+        \\begin{longtable}{|p{2.5cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{2cm}|p{2.5cm}|p{1cm}|p{4.4cm}|}
+            \\caption*{\\textcolor{Maroon}{\\textbf{Herbs, Potions \& Poison}}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{bonus} &\\textbf{weight} &\\textbf{capacity} & \\textbf{volume} &\\textbf{location}&\\textbf{skill} &\\textbf{worth} & \\textbf{description}\\\\
+            \\hline
+            \\endfirsthead
+            \\multicolumn{9}{c} {\\tablename\\ \\thetable\\ --\\textit{Continued from previous page}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{bonus} &\\textbf{weight} &\\textbf{capacity} & \\textbf{volume} &\\textbf{location}&\\textbf{skill} &\\textbf{worth} & \\textbf{description}\\\\
+            \\hline
+            \\endhead
+            \\hline
+            \\multicolumn{9}{r}{\\textit{continued on next page..}}\\\\
+            \\endfoot
+            \\hline
+            \\endlastfoot
+        """
+        for herbs in self.character["inventory"]["herbs"]:
+            rcolor = ""
+            descadd = ""
+            if "magic" in herbs.keys():
+                if herbs["magic"]:
+                    rcolor = "\\rowcolor{ProcessBlue!30}"
+                    descadd += ", magic herbs"
+
+            else:
+                rcolor = ""
+
+            worth = ""
+
+            for i in range(0, len(coins["long"])):
+                if herbs["worth"][coins["long"][i]] > 0:
+                    worth += "{}{} ".format(herbs["worth"][coins["long"][i]], coins["short"][i])
+
+        self.latex += "- & - & - & - & - &- & - & - & - \\\\\n"
+        self.latex += "\\end{longtable}\n"
+        self.latex += "}\n"
 
 
     def tblGems(self):
@@ -1013,6 +1098,16 @@ class inventory(object):
         @todo has to be fully implemented
         """
         self.latex += "\n\\section*{\\textcolor{Maroon}{Gems \& Jewelry}}"
+        pass
+
+
+    def tblFood(self):
+        """
+        this creates a table with all gems and jewelry.
+        ----
+        @todo has to be fully implemented
+        """
+        self.latex += "\n\\section*{\\textcolor{Maroon}{Food}}"
         pass
 
 

@@ -6,3 +6,4 @@ with open("./data/Marcus/Kaylea Orinka2.json","r") as fp:
 	testchar=json.load(fp)
 
 test=inventory(testchar)
+

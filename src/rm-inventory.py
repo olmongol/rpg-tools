@@ -1363,7 +1363,9 @@ class shopWin(blankWindow):
 
             elif self.data[0][i] != "ID":
                 newitem[self.data[0][i]] = self.curr_item[i]
-        if newitem["weight"] != 0.0:
+
+        pprint(newitem)
+        if newitem["weight"] != 0.0 or self.shoptype == "herbs":
             self.inv_char[self.shoptype].append(newitem.copy())
         del(newitem)
         self.fillInventory()
