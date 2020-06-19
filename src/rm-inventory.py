@@ -1759,7 +1759,7 @@ class enchantItem(blankWindow):
         self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
                                   command = self.__save)
         self.filemenu.add_command(label = submenu['file'][self.lang]['pdf'],
-                                  command = self.__latexExport)
+                                  command = self.__latex)
         self.filemenu.add_separator()
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu["file"][self.lang]['sv_item'])
