@@ -1052,15 +1052,15 @@ class inventory(object):
         self.latex += """
         {\\fontsize{7pt}{7pt}
             \\selectfont
-        \\begin{longtable}{|p{2.5cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{2cm}|p{2.5cm}|p{1cm}|p{4.4cm}|}
+        \\begin{longtable}{|p{3cm}|p{2.5cm}|p{0.5cm}|p{0.5cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{5.8cm}|}
             \\caption*{\\textcolor{Maroon}{\\textbf{Herbs, Potions \& Poison}}}\\\\
             \\hline
-            \\textbf{Name} & \\textbf{bonus} &\\textbf{weight} &\\textbf{capacity} & \\textbf{volume} &\\textbf{location}&\\textbf{skill} &\\textbf{worth} & \\textbf{description}\\\\
+            \\textbf{Type} & \\textbf{name} &\\textbf{lvl} &\\textbf{AF} & \\textbf{form} &\\textbf{prep}&\\textbf{location} &\\textbf{worth} & \\textbf{description}\\\\
             \\hline
             \\endfirsthead
             \\multicolumn{9}{c} {\\tablename\\ \\thetable\\ --\\textit{Continued from previous page}}\\\\
             \\hline
-            \\textbf{Name} & \\textbf{bonus} &\\textbf{weight} &\\textbf{capacity} & \\textbf{volume} &\\textbf{location}&\\textbf{skill} &\\textbf{worth} & \\textbf{description}\\\\
+            \\textbf{Type} & \\textbf{name} &\\textbf{lvl} &\\textbf{AF} & \\textbf{form} &\\textbf{prep}&\\textbf{location} &\\textbf{worth} & \\textbf{description}\\\\
             \\hline
             \\endhead
             \\hline
@@ -1086,7 +1086,18 @@ class inventory(object):
                 if herbs["worth"][coins["long"][i]] > 0:
                     worth += "{}{} ".format(herbs["worth"][coins["long"][i]], coins["short"][i])
 
-        self.latex += "- & - & - & - & - &- & - & - & - \\\\\n"
+            self.latex += rcolor + " {} & {} & {} & {} & {} &{} & {} & {} & {} \\\\\\hline\n".format(herbs["type"],
+                                                                                                     herbs["name"],
+                                                                                                       herbs["lvl"],
+                                                                                                       herbs["AF"],
+                                                                                                       herbs["form"],
+                                                                                                       herbs["prep"],
+                                                                                                       herbs["location"],
+                                                                                                       worth,
+                                                                                                       herbs["medical use"] + " \\textit{" + herbs["description"] + "} " + descadd
+                                                                                                       )
+
+#        self.latex += "- & - & - & - & - &- & - & - & - \\\\\n"
         self.latex += "\\end{longtable}\n"
         self.latex += "}\n"
 
