@@ -700,7 +700,7 @@ class inventory(object):
                                                                               armor["bonus man"],
                                                                               armor["skill"],
                                                                               armor["location"],
-                                                                              armor["description"].replace("\\", "/") + descadd
+                                                                              armor["description"].replace("\\", "/").replace("%", "\%") + descadd
                                                                               )
 
 #        self.latex += "- & - & - & - & - & - &- &- & -\\\\\n"
@@ -750,7 +750,7 @@ class inventory(object):
                                                                                         str(armor["weight"]) + " lbs.",
                                                                                         worth,
                                                                                         armor["location"],
-                                                                                        armor["description"].replace("\\", "/") + descadd
+                                                                                        armor["description"].replace("\\", "/").replace("%", "\%") + descadd
                                                                                         )
 
 #        self.latex += "- & - & - & - & - &  \\\\\n"
@@ -808,7 +808,7 @@ class inventory(object):
                                                                                      weapon["strength"],
                                                                                      weapon["bonus"],
                                                                                      weapon["skill"],
-                                                                                     weapon["description"] + descadd
+                                                                                     weapon["description"].replace("%", "\%") + descadd
                                                                                      )
 
         self.latex += "\\end{longtable}\n"
@@ -861,7 +861,7 @@ class inventory(object):
                                                                                               weapon["long"],
                                                                                               weapon["extreme"],
                                                                                               weapon["skill"],
-                                                                                              weapon["description"] + descadd
+                                                                                              weapon["description"].replace("%", "\%") + descadd
                                                                                               )
 
         self.latex += "\\end{longtable}\n"
@@ -913,7 +913,7 @@ class inventory(object):
                                                                           str(weapon["weight"]) + " lbs.",
                                                                           worth,
                                                                           location,
-                                                                          weapon["description"] + descadd
+                                                                          weapon["description"].replace("%", "\%") + descadd
                                                                           )
 
         self.latex += "\\end{longtable}\n"
@@ -924,7 +924,7 @@ class inventory(object):
         """
         this creates a table with all transports.
         """
-        self.latex += "\n\\section*{\\textcolor{Maroon}{Transport \& Animals}}"
+        self.latex += "\n\pagebreak\n\\section*{\\textcolor{Maroon}{Transport \& Animals}}"
         self.latex += """
         {\\fontsize{7pt}{7pt}
             \\selectfont
@@ -977,7 +977,7 @@ class inventory(object):
                                                                                                                 transport["ft/rnd"],
                                                                                                                 transport["capacity"],
                                                                                                                 worth,
-                                                                                                                skill + transport["description"] + descadd
+                                                                                                                skill + transport["description"].replace("%", "\%") + descadd
                                                                                                                 )
 
         self.latex += "\\end{longtable}\n"
@@ -1026,7 +1026,7 @@ class inventory(object):
                 if gear["worth"][coins["long"][i]] > 0:
                     worth += "{}{} ".format(gear["worth"][coins["long"][i]], coins["short"][i])
 
-            self.latex += rcolor + " {} & {} & {} & {} & {} &{} & {} & {} & {} \\\\\\hline\n".format(gear["name"],
+            self.latex += rcolor + " {} & {} & {} & {} & {} &{} & {} & {} & {} \\\\\n\hline\n".format(gear["name"],
                                                                                            gear["bonus"],
                                                                                            str(gear["weight"]) + " lbs.",
                                                                                            gear["capacity"],
@@ -1034,10 +1034,9 @@ class inventory(object):
                                                                                            gear["location"],
                                                                                            gear["skill"],
                                                                                            worth,
-                                                                                           gear["description"] + descadd
+                                                                                           gear["description"].replace("%", "\%") + descadd
                                                                                            )
 
-#        self.latex += "- & - & - & - & - &- & - & - & - \\\\\n"
         self.latex += "\\end{longtable}\n"
         self.latex += "}\n"
 
@@ -1045,10 +1044,8 @@ class inventory(object):
     def tblHerb(self):
         """
         this creates a table with all herbs.
-        ----
-        @todo has to be fully implemented
         """
-        self.latex += "\n\\section*{\\textcolor{Maroon}{Herbs, Potions \& Poison}}"
+        self.latex += "\n\\pagebreak\n\\section*{\\textcolor{Maroon}{Herbs, Potions \& Poison}}"
         self.latex += """
         {\\fontsize{7pt}{7pt}
             \\selectfont
@@ -1097,7 +1094,6 @@ class inventory(object):
                                                                                                        herbs["medical use"] + " \\textit{" + herbs["description"] + "} " + descadd
                                                                                                        )
 
-#        self.latex += "- & - & - & - & - &- & - & - & - \\\\\n"
         self.latex += "\\end{longtable}\n"
         self.latex += "}\n"
 
@@ -1105,11 +1101,54 @@ class inventory(object):
     def tblGems(self):
         """
         this creates a table with all gems and jewelry.
-        ----
-        @todo has to be fully implemented
         """
-        self.latex += "\n\\section*{\\textcolor{Maroon}{Gems \& Jewelry}}"
-        pass
+        self.latex += "\n\\pagebreak\n\\section*{\\textcolor{Maroon}{Gems \& Jewelry}}"
+        self.latex += """
+        {\\fontsize{7pt}{7pt}
+            \\selectfont
+        \\begin{longtable}{|p{3.5cm}|p{1cm}|p{1cm}|p{2cm}|p{11.1cm}|}
+            \\caption*{\\textcolor{Maroon}{\\textbf{Gems \& Jewelry}}}\\\\
+            \\hline
+            \\textbf{Name} &\\textbf{weight} &\\textbf{location} &\\textbf{worth} & \\textbf{description}\\\\
+            \\hline
+            \\endfirsthead
+            \\multicolumn{5}{c} {\\tablename\\ \\thetable\\ --\\textit{Continued from previous page}}\\\\
+            \\hline
+            \\textbf{Name} &\\textbf{weight} &\\textbf{location} &\\textbf{worth} & \\textbf{description}\\\\
+            \\hline
+            \\endhead
+            \\hline
+            \\multicolumn{5}{r}{\\textit{continued on next page..}}\\\\
+            \\endfoot
+            \\hline
+            \\endlastfoot
+        """
+        for gems in self.character["inventory"]["gems"]:
+            rcolor = ""
+            descadd = ""
+            if "magic" in gems.keys():
+                if gems["magic"]:
+                    rcolor = "\\rowcolor{ProcessBlue!30}"
+                    descadd += ", magic gems"
+
+            else:
+                rcolor = ""
+
+            worth = ""
+
+            for i in range(0, len(coins["long"])):
+                if gems["worth"][coins["long"][i]] > 0:
+                    worth += "{}{} ".format(gems["worth"][coins["long"][i]], coins["short"][i])
+
+            self.latex += rcolor + " {} & {} & {} & {} &{} \\\\\\hline\n".format(gems["name"],
+                                                                             gems["weight"],
+                                                                             gems["location"],
+                                                                             worth,
+                                                                             gems["description"] + descadd
+                                                                             )
+
+        self.latex += "\\end{longtable}\n"
+        self.latex += "}\n"
 
 
     def tblFood(self):
@@ -1118,8 +1157,53 @@ class inventory(object):
         ----
         @todo has to be fully implemented
         """
-        self.latex += "\n\\section*{\\textcolor{Maroon}{Food}}"
-        pass
+        self.latex += "\n\\section*{\\textcolor{Maroon}{Food \& Drinks}}"
+        self.latex += """
+        {\\fontsize{7pt}{7pt}
+            \\selectfont
+        \\begin{longtable}{|p{3.5cm}|p{1cm}|p{1cm}|p{13.1cm}|}
+            \\caption*{\\textcolor{Maroon}{\\textbf{Food \& Drinks}}}\\\\
+            \\hline
+            \\textbf{Name} &\\textbf{weight} &\\textbf{worth} & \\textbf{description}\\\\
+            \\hline
+            \\endfirsthead
+            \\multicolumn{4}{c} {\\tablename\\ \\thetable\\ --\\textit{Continued from previous page}}\\\\
+            \\hline
+            \\textbf{Name} &\\textbf{weight} &\\textbf{worth} & \\textbf{description}\\\\
+            \\hline
+            \\endhead
+            \\hline
+            \\multicolumn{4}{r}{\\textit{continued on next page..}}\\\\
+            \\endfoot
+            \\hline
+            \\endlastfoot
+        """
+        for food in self.character["inventory"]["services"]:
+            rcolor = ""
+            descadd = ""
+            if "magic" in food.keys():
+                if food["magic"]:
+                    rcolor = "\\rowcolor{ProcessBlue!30}"
+                    descadd += ", magic food"
+
+            else:
+                rcolor = ""
+
+            worth = ""
+
+            for i in range(0, len(coins["long"])):
+                if food["worth"][coins["long"][i]] > 0:
+                    worth += "{}{} ".format(food["worth"][coins["long"][i]], coins["short"][i])
+
+            self.latex += rcolor + " {} & {} & {} & {} \\\\\\hline\n".format(food["name"],
+                                                                             food["weight"],
+                                                                             worth,
+                                                                             food["description"]
+                                                                             )
+
+#        self.latex += "- & - & - & - & - &- & - & - & - \\\\\n"
+        self.latex += "\\end{longtable}\n"
+        self.latex += "}\n"
 
 
     def saveLatex(self):
