@@ -35,7 +35,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "19.06.2020"
+__updated__ = "21.06.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.5"
@@ -449,7 +449,8 @@ class InventoryWin(blankWindow):
                                            'runes':[],
                                            'constant item':[],
                                            'daily item' :[],
-                                           'gems' :[]
+                                           'gems' :[],
+                                           'services':[]
                                            }
         self.inv_char = self.character["inventory"].copy()
 
@@ -1396,15 +1397,17 @@ class shopWin(blankWindow):
         ----
         @todo has to be fully implemented
         """
-
-#        self. window.destroy()
+        self.getSelected()
+#        print(80 * "-" + "\nDEbug: self.item\n")
 #        pprint(self.item)
-#        try:
+        try:
 #            self.getSelected()
-#            self.armorwin = editinventory(lang = self.lang, char = self.character, item = self.item, shoptype = self.shoptype, storepath = self.storepath)
-#        except:
-#            messageWindow().showinfo("Warning: select an item", "Error")
-#            self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = self.shoptype)
+            item = self.item
+            self. window.destroy()
+            self.armorwin = editinventory(lang = self.lang, char = self.character, item = item, shoptype = self.shoptype, storepath = self.storepath)
+        except:
+            messageWindow().showinfo("Warning: select an item", "Error")
+            self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = self.shoptype)
 #        XXXXXXXXXXXXXXXXXXXXXXXXXXX --------------------
 
 
@@ -1585,7 +1588,8 @@ class shopWin(blankWindow):
 #                                           'runes':[],
 #                                           'constant item':[],
 #                                           'daily item' :[],
-                                           'gems' :[]
+                                           'gems' :[],
+                                           'services':[]
                                            }
         if "PP" not in self.character["purse"].keys():
             self.character["purse"] = 0
@@ -3010,7 +3014,8 @@ class enchantItem(blankWindow):
                                            'runes':[],
                                            'constant item':[],
                                            'daily item' :[],
-                                           'gems' :[]
+                                           'gems' :[],
+                                           'services':[]
                                            }
         self.inv_char = self.character["inventory"].copy()
 
@@ -3061,17 +3066,19 @@ class editinventory(blankWindow):
         self.lang = lang
         self.character = char
         self.item = item
+
         self.shoptype = shoptype
 
         if self.character == {}:
-            self.character = {  "player": "Marcus",
+            self.character = {  "player": "Dummy",
                                 "exp": 10000,
                                 'lvl' :1,
                                 "prof": "Ranger",
                                 "race" : "Woodmen",
                                 "name": "Woody",
                                 'realm' : 'Channeling',
-                                "piclink" : "./data/default/pics/default.jpg"
+                                "piclink" : "./data/default/pics/default.jpg",
+                                "inventory" :{}
 
                                 }
         self.wcont = {}
