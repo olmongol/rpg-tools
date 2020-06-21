@@ -1546,6 +1546,7 @@ class shopWin(blankWindow):
         '''
         Creates LaTeX code from inventory data and generates PDF
         '''
+        self.__save()
         pdf = inventory(self.character, self.storepath)
 
 #    def __latexExport(self):
@@ -3033,6 +3034,7 @@ class enchantItem(blankWindow):
         '''
         Creates LaTeX code from inventory data and generates PDF
         '''
+        self.__save()
         pdf = inventory(self.character, self.storepath)
 
 
@@ -3480,6 +3482,7 @@ class editinventory(blankWindow):
         '''
         Creates LaTeX code from inventory data and generates PDF
         '''
+        self.__save()
         pdf = inventory(self.character, self.storepath)
 
 
