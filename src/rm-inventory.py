@@ -556,6 +556,9 @@ class shopWin(blankWindow):
         self.character = char
         if "inventory" in self.character.keys():
             self.inv_char = self.character["inventory"].copy()
+            if "services" not in self.inv_char.keys():
+                self.inv_char["services"] = []
+
         else:
             self.inv_char = {'weapon' :[],
                              'armor' :[],
