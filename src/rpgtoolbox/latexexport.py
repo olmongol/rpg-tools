@@ -12,7 +12,7 @@ will be generated for printouts
 \version 1.1
 '''
 
-__updated__ = "19.06.2020"
+__updated__ = "21.06.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -1178,6 +1178,9 @@ class inventory(object):
             \\hline
             \\endlastfoot
         """
+        if "services" not in self.character["inventory"].keys():
+            self.character["inventory"]["services"] = []
+
         for food in self.character["inventory"]["services"]:
             rcolor = ""
             descadd = ""
