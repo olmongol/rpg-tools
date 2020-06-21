@@ -468,6 +468,7 @@ class InventoryWin(blankWindow):
         '''
         Creates LaTeX code from inventory data and generates PDF
         '''
+        self.character["inventory"] = self.inv_char
         pdf = inventory(self.character, self.storepath)
 
 
@@ -1546,7 +1547,8 @@ class shopWin(blankWindow):
         '''
         Creates LaTeX code from inventory data and generates PDF
         '''
-        self.__save()
+#        self.__save()
+        self.character["inventory"] = self.inv_char
         pdf = inventory(self.character, self.storepath)
 
 #    def __latexExport(self):
@@ -1633,6 +1635,7 @@ class shopWin(blankWindow):
         """
         This opens a window for armor
         """
+        self.character["inventory"] = self.inv_char
         self. window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "armor")
 
@@ -1641,6 +1644,7 @@ class shopWin(blankWindow):
         """
         This opens a window for weapons
         """
+        self.character["inventory"] = self.inv_char
         self. window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "weapon")
 
@@ -1649,6 +1653,7 @@ class shopWin(blankWindow):
         """
         This opens a window for equipment
         """
+        self.character["inventory"] = self.inv_char
         self. window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "gear")
 
@@ -1657,6 +1662,7 @@ class shopWin(blankWindow):
         """
         This opens a window for animals and transports
         """
+        self.character["inventory"] = self.inv_char
         self. window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "transport")
 
@@ -1665,6 +1671,7 @@ class shopWin(blankWindow):
         """
         This opens a window for equipment
         """
+        self.character["inventory"] = self.inv_char
         self. window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "services")
 
@@ -1673,6 +1680,7 @@ class shopWin(blankWindow):
         """
         This opens a window for gems and jewelery
         """
+        self.character["inventory"] = self.inv_char
         self. window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "gems")
 
@@ -1681,6 +1689,7 @@ class shopWin(blankWindow):
         """
         This opens a window for portions, herbs and poisons
         """
+        self.character["inventory"] = self.inv_char
         self. window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "herbs")
 
@@ -3034,7 +3043,8 @@ class enchantItem(blankWindow):
         '''
         Creates LaTeX code from inventory data and generates PDF
         '''
-        self.__save()
+#        self.__save()
+        self.character["inventory"] = self.inv_char
         pdf = inventory(self.character, self.storepath)
 
 
@@ -3049,7 +3059,7 @@ class enchantItem(blankWindow):
 
 class editinventory(blankWindow):
     '''
-    Class for Editing indiviudal items and/or equip them as well adding newly edited items to a shop.
+    Class for Editing individual items and/or equip them as well adding newly edited items to a shop.
     '''
 
 
@@ -3482,7 +3492,8 @@ class editinventory(blankWindow):
         '''
         Creates LaTeX code from inventory data and generates PDF
         '''
-        self.__save()
+#        self.__save()
+        self.character["inventory"] = self.inv_char
         pdf = inventory(self.character, self.storepath)
 
 
