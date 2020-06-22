@@ -19,7 +19,7 @@ This tool handles
 \version 1.1.0
 
 \todo design: individual/group history. maybe create an in-time calendar module...
-\todo design: Equipment, Shop, Treasures (Chris)
+\todo design: Treasures (Chris)
 \todo desing: herb store and search
 
 '''
@@ -29,7 +29,7 @@ from rpgtoolbox.confbox import *
 from rpgtoolbox import logbox as log
 
 __author__ = "Marcus Schwamberger"
-__updated__ = "25.02.2020"
+__updated__ = "11.06.2020"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + __author__
 __email__ = "marcus@lederzeug.de"
 __version__ = "1.1.0"

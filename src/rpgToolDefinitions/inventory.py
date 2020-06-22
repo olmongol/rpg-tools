@@ -11,13 +11,26 @@
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "31.05.2020"
+__updated__ = "13.06.2020"
 
 ## \var geartypes
 # (dictionary) list of different type of equipment like armor, weapon, tool...
-geartypes = {"en": ["clothes", "tool", "container", "food", "gear"],
-            "de" :["Kleidung", "Werkzeug", u"Behälter", "Nahrung", u"Ausrüstung"]
+geartypes = {"en": ["clothes", "tool", "container", "food", "gear", "ammo", "outdoor", "light", "write", "trap", "rope", "magic", "service", "transport"],
+            "de" :["Kleidung", "Werkzeug", u"Behälter", "Nahrung", u"Ausrüstung", "Munition", "Outdoor", "Licht", "Schreibzeug", "Falle", "Seil", "magisch", "Dienst", "Transport" ]
+
             }
+charged_item = {"de" :["Runenpapier", "Zaubertrank", "Zauberstab (30 cm)", "Zauberstab (75 cm)", "Zauberstab (150 cm)"],
+               "en" : ["Rune Paper", "Potion", "Wand (1')", "Rod (2.5')", "Staff (5')"]}
+## \var info_charged
+# holds max number of loads  (idx 0) and cost(=value) per level of spell(=idx)
+info_charged = {"rune" : [1, 2, 10, 20, 30, 40, 60, 80, 100, 125, 150],
+               "potion" :[1, 5, 15, 30, 45, 60, 90, 120, 150, 200, 225],
+               "wand" :[10, 10, 30],
+               "rod" :[30, 40, 80, 120, 150, 200],
+               "staff" :[100, 100, 150, 200, 250, 300, 400, 500, 600, 700, 800]
+               }
+charge_action = {"de" : ["neu verzaubern", "aufladen"],
+                 "en": ["newly enchant", "recharge"]}
 ##\var treeformat
 # width of treeview columns
 treeformat = {"item" : 200,
@@ -26,6 +39,7 @@ treeformat = {"item" : 200,
              "description":450,
              "AT" :50,
              "prod. time":90,
+             "height":70,
              "weight":70,
              "cost" : 70,
              "worth": 90,
@@ -58,6 +72,7 @@ treeformat = {"item" : 200,
              "volume" : 40,
              "bonus" :50,
              "skill":400,
+             "area":70,
              }
 ##\var char_inv_tv
 # header for character's armor for treeview display
@@ -67,12 +82,24 @@ char_inv_tv = {"armor" : ["name", "description", "AT", "weight", "worth"],
                "services" :["name", "description", "weight", "worth"],
                "gems" : ["name", "description", "weight", "worth"],
                "gear" : ["name", "description", "weight", "capacity", "volume", "bonus", "skill", "worth"],
-               "transport" :["name", "description", "height/weight", "capacity", "OB", "worth"],
+               "transport" :["name", "description", "height", "weight", "capacity", "OB", "worth"],
                "herbs" :["name", "type", "lvl", "description", "medical use", "other use", "worth"],
                "runes" :[],
                "constant item" :[],
                "daily item" :[],
                }
+
+perm_item = {"spell adder" :{"+0" :0,
+                             "+1" :50,
+                             "+2": 100,
+                             "+3": 200,
+                             "+4": 400
+                             },
+             "pp mult" :{"x1" :0,
+                         "x2" : 200,
+                         "x3" : 400,
+                         }
+            }
 
 ## \var money
 # This dictionary holds the different coins available
@@ -208,7 +235,7 @@ constant_item = {"name" : "",
                  "lvl" : 0,
                  "weight" : 0,
                  "add spell" : 0,
-                 "mult PP" : 0,
+                 "pp mult" : 0,
                  "location" : "",
                  "worth" : money.copy()
                 }
