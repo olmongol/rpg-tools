@@ -27,6 +27,7 @@ from rpgtoolbox import epcalc, rpgtools as rpg
 from rpgToolDefinitions.epcalcdefs import maneuvers
 from rpgToolDefinitions.inventory import *
 from rpgtoolbox.rolemaster import realms, spellists
+from rpgtoolbox.latexexport import inventory
 from rpgToolDefinitions import inventory as inv
 from tkinter import filedialog
 from tkinter.ttk import *
@@ -34,7 +35,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "13.06.2020"
+__updated__ = "21.06.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.5"
@@ -61,7 +62,7 @@ class InventoryWin(blankWindow):
         self.character = char
 
         if self.character == {}:
-            self.character = {  "player": "Marcus",
+            self.character = {  "player": "Dummy",
                                 "exp": 10000,
                                 'lvl' :1,
                                 "prof": "Ranger",
@@ -94,6 +95,9 @@ class InventoryWin(blankWindow):
                                   command = self.__open)
         self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
                                   command = self.__save)
+        self.filemenu.add_separator()
+        self.filemenu.add_command(label = submenu['file'][self.lang]['pdf'],
+                                  command = self.__latex)
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
                                   command = self.__quit)
@@ -445,7 +449,8 @@ class InventoryWin(blankWindow):
                                            'runes':[],
                                            'constant item':[],
                                            'daily item' :[],
-                                           'gems' :[]
+                                           'gems' :[],
+                                           'services':[]
                                            }
         self.inv_char = self.character["inventory"].copy()
 
@@ -457,6 +462,14 @@ class InventoryWin(blankWindow):
         savedir = filedialog.asksaveasfilename(defaultextension = ".json", filetypes = [("Character & Group Files", ".json")])
         with open(savedir, "w") as fp:
             json.dump(self.character, fp, indent = 4)
+
+
+    def __latex(self):
+        '''
+        Creates LaTeX code from inventory data and generates PDF
+        '''
+        self.character["inventory"] = self.inv_char
+        pdf = inventory(self.character, self.storepath)
 
 
     def __quit(self):
@@ -543,6 +556,9 @@ class shopWin(blankWindow):
         self.character = char
         if "inventory" in self.character.keys():
             self.inv_char = self.character["inventory"].copy()
+            if "services" not in self.character["inventory"].keys():
+                self.character["inventory"]["services"] = []
+
         else:
             self.inv_char = {'weapon' :[],
                              'armor' :[],
@@ -594,7 +610,7 @@ class shopWin(blankWindow):
                                   command = self.__save)
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['pdf'],
-                                  command = self.__latexExport)
+                                  command = self.__latex)
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
                                   command = self.__quit)
@@ -863,7 +879,7 @@ class shopWin(blankWindow):
             c += 1
         # row 8
         self.shoplabel = Label(self.window,
-                              text = labels['armor shop'][self.lang],
+                              text = labels[self.shoptype + ' shop'][self.lang],
                               anchor = N
                 #              bg = "white"
                               )
@@ -940,7 +956,7 @@ class shopWin(blankWindow):
         self.fillShoppe()
 
         self.invlabel = Label(self.window,
-                              text = submenu["inventory"][self.lang]["armor"] + " " + self.character["name"],
+                              text = submenu["inventory"][self.lang][self.shoptype] + " " + self.character["name"],
                               anchor = N
                               )
         self.invlabel.grid(column = 0,
@@ -1021,11 +1037,15 @@ class shopWin(blankWindow):
     def fillInventory(self):
         """
         This fills the  inventory treeview with character's items if there are any
+        ----
+        @bug height index causes trouble; shoptype: transport
         """
         for i in self.invtree.get_children():
             self.invtree.delete(i)
 
         count = 1
+        if self.shoptype not in self.inv_char.keys():
+            self.inv_char[self.shoptype] = []
 
         for item in self.inv_char[self.shoptype]:
             inpline = []
@@ -1033,6 +1053,8 @@ class shopWin(blankWindow):
             for column in char_inv_tv[self.shoptype]:
 
                 if column != "worth":
+                    if column not in item.keys():
+                        item[column] = ""
                     inpline.append(item[column])
                 else:
                     purse = ""
@@ -1060,6 +1082,54 @@ class shopWin(blankWindow):
             self.notdoneyet()
 
 
+    def getSelected(self):
+        """
+        This gets the selected item  from character's inventory treeview and saves it into a dictionary (self.item)
+        """
+        self.curr_inv = self.invtree.focus()
+        self.curr_invitem = self.invtree.item(self.curr_inv)["values"]
+        #add changes to charracter's inventory
+        self.character["inventory"] = self.inv_char.copy()
+        # transform self.item treeview item into character's inventory data struct
+        self.item = {}
+
+        if self.shoptype == "weapon":
+            self.item = weapon.copy()
+        elif self.shoptype == "armor" :
+            self.item = armor.copy()
+        elif self.shoptype == "gear":
+            self.item = gear.copy()
+        elif self.shoptype == "gems":
+            self.item = gems.copy()
+        elif self.shoptype == "runes":
+            self.item = runes.copy()
+        elif self.shoptype == "herbs" :
+            self.item = herbs.copy()
+        elif self.shoptype == "services":
+            self.item = services.copy()
+        elif self.shoptype == "constant item":
+            self.item = constant_item.copy()
+        elif self.shoptype == "daily item":
+            self.item = daily_item.copy()
+        elif self.shoptype == "transport":
+            self.item = transport.copy()
+        else:
+            print("ERROR: wrong shoptype")
+
+        for item in self.character["inventory"][self.shoptype]:
+            count = 1
+
+            for i in range(0, len(char_inv_tv[self.shoptype])):
+
+                if char_inv_tv[self.shoptype][i] != "worth" and str(item[char_inv_tv[self.shoptype][i]]) == str(self.curr_invitem[i]):
+                   count += 1
+            if count >= len(char_inv_tv[self.shoptype]) - 1:
+
+                for key in char_inv_tv[self.shoptype]:
+                    self.item[key] = item[key]
+#        print(self.item)
+
+
     def createMagic(self):
         """
         This is for creating a magic item from standard items
@@ -1069,50 +1139,50 @@ class shopWin(blankWindow):
         if self.shoptype == "herbs":
             messageWindow(self.lang).showinfo("Herbs/potions/poisons may not be enchanted!", "WARNING!")
         else:
-            self.curr_inv = self.invtree.focus()
-            self.curr_invitem = self.invtree.item(self.curr_inv)["values"]
-            #add changes to charracter's inventory
-            self.character["inventory"] = self.inv_char.copy()
-            # transform selected treeview item into character's inventory data struct
-            selected = {}
-
-            if self.shoptype == "weapon":
-                selected = weapon.copy()
-            elif self.shoptype == "armor" :
-                selected = armor.copy()
-            elif self.shoptype == "gear":
-                selected = gear.copy()
-            elif self.shoptype == "gems":
-                selected = gems.copy()
-            elif self.shoptype == "runes":
-                selected = runes.copy()
-            elif self.shoptype == "herbs" :
-                selected = herbs.copy()
-            elif self.shoptype == "services":
-                selected = services.copy()
-            elif self.shoptype == "constant item":
-                selected = constant_item.copy()
-            elif self.shoptype == "daily item":
-                selected = daily_item.copy()
-            elif self.shoptype == "transport":
-                selected = transport.copy()
-            else:
-                print("ERROR: wrong shoptype")
-
-            for item in self.character["inventory"][self.shoptype]:
-                count = 1
-
-                for i in range(0, len(char_inv_tv[self.shoptype])):
-
-                    if char_inv_tv[self.shoptype][i] != "worth" and str(item[char_inv_tv[self.shoptype][i]]) == str(self.curr_invitem[i]):
-                       count += 1
-                if count >= len(char_inv_tv[self.shoptype]) - 1:
-
-                    for key in char_inv_tv[self.shoptype]:
-                        selected[key] = item[key]
-
+#            self.curr_inv = self.invtree.focus()
+#            self.curr_invitem = self.invtree.item(self.curr_inv)["values"]
+#            #add changes to charracter's inventory
+#            self.character["inventory"] = self.inv_char.copy()
+#            # transform selected treeview item into character's inventory data struct
+#            selected = {}
+#
+#            if self.shoptype == "weapon":
+#                selected = weapon.copy()
+#            elif self.shoptype == "armor" :
+#                selected = armor.copy()
+#            elif self.shoptype == "gear":
+#                selected = gear.copy()
+#            elif self.shoptype == "gems":
+#                selected = gems.copy()
+#            elif self.shoptype == "runes":
+#                selected = runes.copy()
+#            elif self.shoptype == "herbs" :
+#                selected = herbs.copy()
+#            elif self.shoptype == "services":
+#                selected = services.copy()
+#            elif self.shoptype == "constant item":
+#                selected = constant_item.copy()
+#            elif self.shoptype == "daily item":
+#                selected = daily_item.copy()
+#            elif self.shoptype == "transport":
+#                selected = transport.copy()
+#            else:
+#                print("ERROR: wrong shoptype")
+#
+#            for item in self.character["inventory"][self.shoptype]:
+#                count = 1
+#
+#                for i in range(0, len(char_inv_tv[self.shoptype])):
+#
+#                    if char_inv_tv[self.shoptype][i] != "worth" and str(item[char_inv_tv[self.shoptype][i]]) == str(self.curr_invitem[i]):
+#                       count += 1
+#                if count >= len(char_inv_tv[self.shoptype]) - 1:
+#
+#                    for key in char_inv_tv[self.shoptype]:
+#                        selected[key] = item[key]
+            self.getSelected()
             self.window.destroy()
-            self.enchantWin = enchantItem(self.lang, self.character, self.storepath, selected, self.shoptype)
+            self.enchantWin = enchantItem(self.lang, self.character, self.storepath, self.item, self.shoptype)
 
 
     def selectShopItem(self, event):
@@ -1299,7 +1369,9 @@ class shopWin(blankWindow):
             elif self.data[0][i] != "ID":
                 newitem[self.data[0][i]] = self.curr_item[i]
 
-        self.inv_char[self.shoptype].append(newitem.copy())
+        pprint(newitem)
+        if newitem["weight"] != 0.0 or self.shoptype == "herbs":
+            self.inv_char[self.shoptype].append(newitem.copy())
         del(newitem)
         self.fillInventory()
 
@@ -1329,7 +1401,18 @@ class shopWin(blankWindow):
         ----
         @todo has to be fully implemented
         """
-        self.notdoneyet()
+        self.getSelected()
+#        print(80 * "-" + "\nDEbug: self.item\n")
+#        pprint(self.item)
+        try:
+#            self.getSelected()
+            item = self.item
+            self. window.destroy()
+            self.armorwin = editinventory(lang = self.lang, char = self.character, item = item, shoptype = self.shoptype, storepath = self.storepath)
+        except:
+            messageWindow().showinfo("Warning: select an item", "Error")
+            self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = self.shoptype)
+#        XXXXXXXXXXXXXXXXXXXXXXXXXXX --------------------
 
 
     def saveShop(self):
@@ -1463,13 +1546,21 @@ class shopWin(blankWindow):
         self.inv_char[self.shoptype] = list(invlistsorted)
 
 
-    def __latexExport(self):
-        """
-        This exports data into  LaTeX template for PDF generation
-        ----
-        @todo has to be fully implemented
-        """
-        self.notdoneyet("LaTeX export")
+    def __latex(self):
+        '''
+        Creates LaTeX code from inventory data and generates PDF
+        '''
+#        self.__save()
+        self.character["inventory"] = self.inv_char
+        pdf = inventory(self.character, self.storepath)
+
+#    def __latexExport(self):
+#        """
+#        This exports data into  LaTeX template for PDF generation
+#        ----
+#        @todo has to be fully implemented
+#        """
+#        self.notdoneyet("LaTeX export")
 
 
     def __open(self):
@@ -1500,10 +1591,11 @@ class shopWin(blankWindow):
                                            'gear' :[],
                                            'transport':[],
                                            'herbs':[],
-                                           'runes':[],
-                                           'constant item':[],
-                                           'daily item' :[],
-                                           'gems' :[]
+#                                           'runes':[],
+#                                           'constant item':[],
+#                                           'daily item' :[],
+                                           'gems' :[],
+                                           'services':[]
                                            }
         if "PP" not in self.character["purse"].keys():
             self.character["purse"] = 0
@@ -1546,6 +1638,7 @@ class shopWin(blankWindow):
         """
         This opens a window for armor
         """
+        self.character["inventory"] = self.inv_char
         self. window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "armor")
 
@@ -1554,6 +1647,7 @@ class shopWin(blankWindow):
         """
         This opens a window for weapons
         """
+        self.character["inventory"] = self.inv_char
         self. window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "weapon")
 
@@ -1562,6 +1656,7 @@ class shopWin(blankWindow):
         """
         This opens a window for equipment
         """
+        self.character["inventory"] = self.inv_char
         self. window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "gear")
 
@@ -1570,6 +1665,7 @@ class shopWin(blankWindow):
         """
         This opens a window for animals and transports
         """
+        self.character["inventory"] = self.inv_char
         self. window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "transport")
 
@@ -1578,6 +1674,7 @@ class shopWin(blankWindow):
         """
         This opens a window for equipment
         """
+        self.character["inventory"] = self.inv_char
         self. window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "services")
 
@@ -1586,6 +1683,7 @@ class shopWin(blankWindow):
         """
         This opens a window for gems and jewelery
         """
+        self.character["inventory"] = self.inv_char
         self. window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "gems")
 
@@ -1594,6 +1692,7 @@ class shopWin(blankWindow):
         """
         This opens a window for portions, herbs and poisons
         """
+        self.character["inventory"] = self.inv_char
         self. window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "herbs")
 
@@ -1678,6 +1777,9 @@ class enchantItem(blankWindow):
                                   command = self.__open)
         self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
                                   command = self.__save)
+        self.filemenu.add_command(label = submenu['file'][self.lang]['pdf'],
+                                  command = self.__latex)
+        self.filemenu.add_separator()
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu["file"][self.lang]['sv_item'])
         self.filemenu.add_separator()
@@ -2709,6 +2811,9 @@ class enchantItem(blankWindow):
                 self.item["worth"][coins["long"][j]] = 0
 
             if choice == "magic bonus item":
+                if "bonus" not in self.item.keys():
+                    self.item["bonus"] = 0
+
                 self.item['bonus'] = int(self.item["bonus"]) + int(self.bonus.get())
                 self.item["skill"] = self.catskill.get()
                 self.item['description'] = self.description.get()
@@ -2922,7 +3027,8 @@ class enchantItem(blankWindow):
                                            'runes':[],
                                            'constant item':[],
                                            'daily item' :[],
-                                           'gems' :[]
+                                           'gems' :[],
+                                           'services':[]
                                            }
         self.inv_char = self.character["inventory"].copy()
 
@@ -2936,6 +3042,15 @@ class enchantItem(blankWindow):
             json.dump(self.character, fp, indent = 4)
 
 
+    def __latex(self):
+        '''
+        Creates LaTeX code from inventory data and generates PDF
+        '''
+#        self.__save()
+        self.character["inventory"] = self.inv_char
+        pdf = inventory(self.character, self.storepath)
+
+
     def __quit(self):
         '''
         This method closes the window
@@ -2947,7 +3062,7 @@ class enchantItem(blankWindow):
 
 class editinventory(blankWindow):
     '''
-    Class for Editing indiviudal items and/or equip them as well adding newly edited items to a shop.
+    Class for Editing individual items and/or equip them as well adding newly edited items to a shop.
     '''
 
 
@@ -2966,17 +3081,19 @@ class editinventory(blankWindow):
         self.lang = lang
         self.character = char
         self.item = item
+
         self.shoptype = shoptype
 
         if self.character == {}:
-            self.character = {  "player": "Marcus",
+            self.character = {  "player": "Dummy",
                                 "exp": 10000,
                                 'lvl' :1,
                                 "prof": "Ranger",
                                 "race" : "Woodmen",
                                 "name": "Woody",
                                 'realm' : 'Channeling',
-                                "piclink" : "./data/default/pics/default.jpg"
+                                "piclink" : "./data/default/pics/default.jpg",
+                                "inventory" :{}
 
                                 }
         self.wcont = {}
@@ -3002,6 +3119,9 @@ class editinventory(blankWindow):
                                   command = self.__open)
         self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
                                   command = self.__save)
+        self.filemenu.add_command(label = submenu['file'][self.lang]['pdf'],
+                                  command = self.__latexExport)
+        self.filemenu.add_separator()
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
                                   command = self.__quit)
@@ -3369,6 +3489,15 @@ class editinventory(blankWindow):
         savedir = filedialog.asksaveasfilename(defaultextension = ".json", filetypes = [("Character & Group Files", ".json")])
         with open(savedir, "w") as fp:
             json.dump(self.character, fp, indent = 4)
+
+
+    def __latex(self):
+        '''
+        Creates LaTeX code from inventory data and generates PDF
+        '''
+#        self.__save()
+        self.character["inventory"] = self.inv_char
+        pdf = inventory(self.character, self.storepath)
 
 
     def __quit(self):

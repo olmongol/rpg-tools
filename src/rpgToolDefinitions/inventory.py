@@ -11,7 +11,7 @@
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "13.06.2020"
+__updated__ = "19.06.2020"
 
 ## \var geartypes
 # (dictionary) list of different type of equipment like armor, weapon, tool...
@@ -41,10 +41,18 @@ treeformat = {"item" : 200,
              "prod. time":90,
              "height":70,
              "weight":70,
+             "length":70,
              "cost" : 70,
              "worth": 90,
-             "short":50,
+             "near":50,
+             "shortc":40,
+             "short":60,
+             "medium":60,
+             "long":60,
+             "extreme":60,
              "type":100,
+             "wtype":100,
+             "mtype":100,
              "breakage":100,
              "strength":100,
              "fumble": 100,
@@ -55,7 +63,6 @@ treeformat = {"item" : 200,
              "holy" : 40,
              "OB" :50,
              "man bonus" :60,
-             "height/weight" : 100,
              "capacity":100,
              "mi/hr":50,
              "ft/rnd":50,
@@ -71,7 +78,7 @@ treeformat = {"item" : 200,
              "capacity" : 40,
              "volume" : 40,
              "bonus" :50,
-             "skill":400,
+             "skill":300,
              "area":70,
              }
 ##\var char_inv_tv
@@ -130,12 +137,14 @@ weapon = {"name" : "",
           "table" : "",
           "crit" : [],
           "weight" : 0,
+          "length" : 0,
           "breakage": "",
           "fumble" : "",
           "strength" : "",
-          "soft/wooden" : 0,
+          "soft/wooden" : "",
           "location" : "",
-          "range mod" :[],
+#          "range mod" :{},
+          "location": "unequipped",
           "worth" : money.copy()
          }
 
@@ -149,11 +158,12 @@ armor = {"name": "",
           "covers" : [],
           "weight" : 0,
           "bonus" : 0,
+          "magic" : False,
           "skill" : "",
           "bonus DB" :0,
           "bonus man": 0,
           "bonus OB": 0,
-          "location" : "",
+          "location" : "unequipped",
           "worth" : money.copy()
 
          }
@@ -165,7 +175,7 @@ gear = {"name": "",
          "description" : "",
          "skill" : "",
          "bonus" : 0,
-         "magical" : False,
+         "magic" : False,
          "weight" : 0,
          "skill" : "",
          "count" : 0,
@@ -173,6 +183,7 @@ gear = {"name": "",
          "capacity":"",
          "volume":"",
          "type":"",
+         "location": "unequipped",
          "worth" : money.copy()
         }
 
@@ -182,6 +193,7 @@ gems = {"name" : "",
          "description":"",
          "weight" : 0,
          "location" : "",
+         "magic":False,
 #         "realm":"",
 #         "spell": "",
 #         "lvl":0,
@@ -257,6 +269,9 @@ daily_item = {"name" : "",
 
 transport = {"name" :"",
             "description":"",
+            "magic":False,
+            "bonus" : 0,
+            "skill" :"",
             "worth": money.copy()}
 
 services = {"name" : "",

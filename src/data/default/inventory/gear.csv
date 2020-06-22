@@ -19,7 +19,7 @@ Cloak,Heavy linen or wool.,2-3 lbs.,1 day,9bp,16,clothes,0 lbs.,0l,0,---
 Coat,Leather or heavy linen.,5-9 lbs.,2 days,15bp,18,clothes,0 lbs.,0l,0,---
 Crossbow bolts (20),Wooden shafts with iron tips.,3 lbs.,2 days,11bp,19,ammo,0 lbs.,0l,0,---
 Fire-starting bow,Starts fire in 5 minutes.,0.5 lbs.,1 hr,8tp,20,tool,0 lbs.,0l,0,---
-Flint and steel,Starts fire in 3 minutes.,0.5 lbs.,—,1bp,21,tool,0 lbs.,0l,0,---
+Flint and steel,Starts fire in 3 minutes.,0.5 lbs.,---,1bp,21,tool,0 lbs.,0l,0,---
 Flute,Wood.,1 lbs.,1 day,11bp,75,music,0 lbs.,0l,0,---
 Framepack,Canvas. Holds 45 lbs; 2 cubic feet.,3-4 lbs.,1.5 days,33cp,22,container,45 lbs.,56l,0,---
 Gloves,Heavy leather; lined.,0.5 lbs.,1 day,2bp,23,clothes,0 lbs.,0l,0,---
@@ -29,7 +29,7 @@ Hammock,Rope; wood spreaders; iron hooks.,2-3 lbs.,3 days,1bp,26,tool,0 lbs.,0l,
 Harness,Leather/iron. Includes bit and reins.,4 lbs.,2 days,1sp,27,tool,0 lbs.,0l,0,---
 Hat,Leather.,1 lbs.,1 day,6bp,28,clothes,0 lbs.,0l,0,---
 Hood,Covers head & shoulders.,0.5 lbs.,0.5 day,16cp,29,tool,0 lbs.,0l,0,---
-Ink,Black; non-soluble.,0.25 lbs.,—,14cp,30,write,0 lbs.,0l,0,---
+Ink,Black; non-soluble.,0.25 lbs.,---,14cp,30,write,0 lbs.,0l,0,---
 Ladder,Wood. 10'. Bears 400 lbs.,15 lbs.,2 days,32cp,31,tool,0 lbs.,0l,0,---
 Lantern,Lights 40' diameter.,1-2 lbs.,4 days,12bp,32,light,0 lbs.,0l,0,---
 Lock pick kit,+5 skill bonus to Lock Picking.,0.5 lbs.,2 days,1sp,33,tool,0 lbs.,0l,5,Subterfudge Mechanics/Picking Locks
