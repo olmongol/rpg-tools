@@ -11,7 +11,7 @@
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "19.06.2020"
+__updated__ = "23.06.2020"
 
 ## \var geartypes
 # (dictionary) list of different type of equipment like armor, weapon, tool...
@@ -275,4 +275,5 @@ transport = {"name" :"",
             "worth": money.copy()}
 
 services = {"name" : "",
-            "description":""}
+            "description":"",
+            "location":"unequipped"}

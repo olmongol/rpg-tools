@@ -35,7 +35,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "21.06.2020"
+__updated__ = "23.06.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.5"
@@ -285,7 +285,7 @@ class InventoryWin(blankWindow):
                      )
         #row 4
         Label(self.window,
-              text = charattribs['carr_weight'][self.lang] + ":"
+              text = charattribs['carr_weight'][self.lang] + " (lbs):"
               ).grid(column = 2,
                      row = 4,
                      padx = 1,
@@ -409,16 +409,45 @@ class InventoryWin(blankWindow):
             self.wcont[coin].set(self.character["purse"][coin])
 
 
-    def calcMMP(self, char = {}):
+    def calcMMP(self):
         """
         This method calculates the Movement Maneuver Penalty (MMP)
-        @param char full character data as dictionary
-        @retval mmp Movement Maneuver Penalty as integer
         ----
         @todo has to be fully implemented
         """
         mmp = 0
-        return mmp
+        # calc MMP ---------------------
+
+        self.character["MMP"] = mmp
+        self.wcont["MMP"].set(mmp)
+
+
+    def calcCarriedWeight(self):
+        """
+        This method calculates the carried weight of a character
+        """
+        shoptypes = ["weapon", "gear", "gems", "services"]
+        unequipped = ["", "unequipped", "transport"]
+        carried = 0.0
+
+        if "inventory" in self.character.keys():
+
+            for cat in shoptypes:
+
+                if cat in self.character["inventory"].keys():
+                    for i in range(0, len(self.character["inventory"][cat])):
+
+                        if "location" in self.character["inventory"][cat][i].keys():
+
+                            if self.character["inventory"][cat][i]["location"] not in unequipped and "transport" not in self.character["inventory"][cat][i]["location"]:
+
+                                if "weight" in self.character["inventory"][cat][i].keys():
+                                    carried += float(self.character["inventory"][cat][i]["weight"])
+                                else:
+                                    self.character["inventory"][cat][i]["weight"] = 0.0
+
+        self.character["carried"] = carried
+        self.wcont["carr_weight"].set(carried)
 
 
     def __open(self):
@@ -453,12 +482,16 @@ class InventoryWin(blankWindow):
                                            'services':[]
                                            }
         self.inv_char = self.character["inventory"].copy()
+        self.calcCarriedWeight()
+        self.calcMMP()
 
 
     def __save(self):
         '''
         This opens a file dialog window for saving
         '''
+        self.calcCarriedWeight()
+        self.calcMMP()
         savedir = filedialog.asksaveasfilename(defaultextension = ".json", filetypes = [("Character & Group Files", ".json")])
         with open(savedir, "w") as fp:
             json.dump(self.character, fp, indent = 4)
@@ -589,11 +622,14 @@ class shopWin(blankWindow):
         self.storepath = storepath
         self.datafile = "{}/default/inventory/{}.csv".format(storepath, shoptype)
         self.loadData()
+
         blankWindow.__init__(self, self.lang)
         self.window.title(submenu["inventory"][self.lang][shoptype])
         self.__addMenu()
         self.__addHelpMenu()
         self.__buildWin()
+        self.calcCarriedWeight()
+        self.calcMMP()
         self.window.mainloop()
 
 
@@ -815,7 +851,7 @@ class shopWin(blankWindow):
                      )
         #row 4
         Label(self.window,
-              text = charattribs['carr_weight'][self.lang] + ":",
+              text = charattribs['carr_weight'][self.lang] + " (lbs):",
               anchor = W,
               justify = LEFT
               ).grid(column = 2,
@@ -1518,13 +1554,41 @@ class shopWin(blankWindow):
     def calcMMP(self):
         """
         This method calculates the Movement Maneuver Penalty (MMP)
-        @param char full character data as dictionary
-        @retval mmp Movement Maneuver Penalty as integer
         ----
         @todo has to be fully implemented
         """
         mmp = 0
-        return mmp
+        # calc MMP ---------------------
+
+        self.character["MMP"] = mmp
+        self.wcont["MMP"].set(mmp)
+
+
+    def calcCarriedWeight(self):
+        """
+        This method calculates the carried weight of a character
+        ----
+        @todo has to be fully implemented
+        """
+        shoptypes = ["weapon", "gear", "gems", "services"]
+        unequipped = ["", "unequipped", "transport"]
+        carried = 0
+
+        for cat in shoptypes:
+
+            for i in range(0, len(self.character["inventory"][cat])):
+
+                if "location" in self.character["inventory"][cat][i].keys():
+
+                    if self.character["inventory"][cat][i]["location"] not in unequipped and "transport" not in self.character["inventory"][cat][i]["location"]:
+
+                        if "weight" in self.character["inventory"][cat][i].keys():
+                            carried += float(self.character["inventory"][cat][i]["weight"])
+                        else:
+                            self.character["inventory"][cat][i]["weight"] = 0.0
+
+        self.character["carried"] = carried
+        self.wcont["carr_weight"].set(carried)
 
 
     def __sortInventory(self):
@@ -1550,17 +1614,10 @@ class shopWin(blankWindow):
         '''
         Creates LaTeX code from inventory data and generates PDF
         '''
-#        self.__save()
+        self.calcCarriedWeight()
+        self.calcMMP()
         self.character["inventory"] = self.inv_char
         pdf = inventory(self.character, self.storepath)
-
-#    def __latexExport(self):
-#        """
-#        This exports data into  LaTeX template for PDF generation
-#        ----
-#        @todo has to be fully implemented
-#        """
-#        self.notdoneyet("LaTeX export")
 
 
     def __open(self):
@@ -1570,6 +1627,8 @@ class shopWin(blankWindow):
         ----
         @todo computation of character groups
         """
+        self.calcCarriedWeight()
+        self.calcMMP()
         self.opendir = filedialog.askopenfilename(defaultextension = ".json", filetypes = [("Character Files", ".json")])
         with open(self.opendir, "r") as fp:
             self.charlist = json.load(fp)
@@ -1591,9 +1650,6 @@ class shopWin(blankWindow):
                                            'gear' :[],
                                            'transport':[],
                                            'herbs':[],
-#                                           'runes':[],
-#                                           'constant item':[],
-#                                           'daily item' :[],
                                            'gems' :[],
                                            'services':[]
                                            }
@@ -1607,6 +1663,8 @@ class shopWin(blankWindow):
         '''
         This opens a file dialog window for saving
         '''
+        self.calcCarriedWeight()
+        self.calcMMP()
         self.character["inventory"] = self.inv_char.copy()
         savedir = filedialog.asksaveasfilename(defaultextension = ".json", filetypes = [("Character & Group Files", ".json")])
         with open(savedir, "w") as fp:
@@ -1617,6 +1675,8 @@ class shopWin(blankWindow):
         '''
         This does a character quick save without opening a window
         '''
+        self.calcCarriedWeight()
+        self.calcMMP()
         self.character["inventory"] = self.inv_char.copy()
         try:
             with open(self.opendir, "w") as fp:
@@ -1638,6 +1698,8 @@ class shopWin(blankWindow):
         """
         This opens a window for armor
         """
+        self.calcCarriedWeight()
+        self.calcMMP()
         self.character["inventory"] = self.inv_char
         self. window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "armor")
@@ -1647,6 +1709,8 @@ class shopWin(blankWindow):
         """
         This opens a window for weapons
         """
+        self.calcCarriedWeight()
+        self.calcMMP()
         self.character["inventory"] = self.inv_char
         self. window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "weapon")
@@ -1656,6 +1720,8 @@ class shopWin(blankWindow):
         """
         This opens a window for equipment
         """
+        self.calcCarriedWeight()
+        self.calcMMP()
         self.character["inventory"] = self.inv_char
         self. window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "gear")
@@ -1665,6 +1731,8 @@ class shopWin(blankWindow):
         """
         This opens a window for animals and transports
         """
+        self.calcCarriedWeight()
+        self.calcMMP()
         self.character["inventory"] = self.inv_char
         self. window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "transport")
@@ -1674,6 +1742,8 @@ class shopWin(blankWindow):
         """
         This opens a window for equipment
         """
+        self.calcCarriedWeight()
+        self.calcMMP()
         self.character["inventory"] = self.inv_char
         self. window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "services")
@@ -1683,6 +1753,8 @@ class shopWin(blankWindow):
         """
         This opens a window for gems and jewelery
         """
+        self.calcCarriedWeight()
+        self.calcMMP()
         self.character["inventory"] = self.inv_char
         self. window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "gems")
@@ -1692,6 +1764,8 @@ class shopWin(blankWindow):
         """
         This opens a window for portions, herbs and poisons
         """
+        self.calcCarriedWeight()
+        self.calcMMP()
         self.character["inventory"] = self.inv_char
         self. window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "herbs")
@@ -1944,7 +2018,7 @@ class enchantItem(blankWindow):
                      )
         #row 4
         Label(self.window,
-              text = charattribs['carr_weight'][self.lang] + ":"
+              text = charattribs['carr_weight'][self.lang] + " (lbs):"
               ).grid(column = 2,
                      row = 4,
                      padx = 1,
@@ -2986,7 +3060,14 @@ class enchantItem(blankWindow):
             self.character["MMP"] = calcMMP(self.character)
             self.wcont["MMP"].set(self.character["MMP"])
 
+        if "carried" in self.character.keys():
+            self.wcont["carr_weight"].set(self.character["carried"])
+        else:
+            self.wcont["carr_weight"] = IntVar()
+            self.wcont["carr_weight"].set(0)
+
         for coin in ["MP", "PP", "GP", "SP", "BP", "CP", "TP", "IP"]:
+
             if "purse" not in self.character.keys():
                 self.character["purse"] = {}
 
@@ -3437,16 +3518,42 @@ class editinventory(blankWindow):
             self.wcont[coin].set(self.character["purse"][coin])
 
 
-    def calcMMP(self, char = {}):
+    def calcMMP(self):
         """
         This method calculates the Movement Maneuver Penalty (MMP)
-        @param char full character data as dictionary
-        @retval mmp Movement Maneuver Penalty as integer
         ----
         @todo has to be fully implemented
         """
         mmp = 0
-        return mmp
+        # calc MMP ---------------------
+
+        self.character["MMP"] = mmp
+
+
+    def calcCarriedWeight(self):
+        """
+        This method calculates the carried weight of a character
+        ----
+        @todo has to be fully implemented
+        """
+        shoptypes = ["weapon", "gear", "gems", "services"]
+        unequipped = ["", "unequipped", "transport"]
+        carried = 0
+
+        for cat in shoptypes:
+
+            for i in range(0, len(self.character["inventory"][cat])):
+
+                if "location" in self.character["inventory"][cat][i].keys():
+
+                    if self.character["inventory"][cat][i]["location"] not in unequipped and "transport" not in self.character["inventory"][cat][i]["location"]:
+
+                        if "weight" in self.character["inventory"][cat][i].keys():
+                            carried += float(self.character["inventory"][cat][i]["weight"])
+                        else:
+                            self.character["inventory"][cat][i]["weight"] = 0.0
+
+        self.character["carried"] = carried
 
 
     def __open(self):
@@ -3473,10 +3580,7 @@ class editinventory(blankWindow):
                                            'armor' :[],
                                            'gear' :[],
                                            'transport':[],
-                                           'herbs':[],
-                                           'runes':[],
-                                           'constant item':[],
-                                           'daily item' :[],
+                                           "services":[],
                                            'gems' :[]
                                            }
         self.inv_char = self.character["inventory"].copy()
@@ -3495,7 +3599,6 @@ class editinventory(blankWindow):
         '''
         Creates LaTeX code from inventory data and generates PDF
         '''
-#        self.__save()
         self.character["inventory"] = self.inv_char
         pdf = inventory(self.character, self.storepath)
 
