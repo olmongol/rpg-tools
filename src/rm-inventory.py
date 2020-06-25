@@ -35,7 +35,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "23.06.2020"
+__updated__ = "25.06.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.5"
@@ -115,13 +115,13 @@ class InventoryWin(blankWindow):
         self.invmenu.add_command(label = submenu['inventory'][self.lang]["herbs"],
                                  command = self.__herbs)
         self.invmenu.add_separator()
-        self.invmenu.add_command(label = submenu["inventory"][self.lang]["spells"],
-                                 command = self.notdoneyet)
-        self.invmenu.add_command(label = submenu["inventory"][self.lang]["daily"],
-                                 command = self.notdoneyet)
-        self.invmenu.add_command(label = submenu['inventory'][self.lang]["PP_spell"],
-                                  command = self.notdoneyet)
-        self.invmenu.add_separator()
+#        self.invmenu.add_command(label = submenu["inventory"][self.lang]["spells"],
+#                                 command = self.notdoneyet)
+#        self.invmenu.add_command(label = submenu["inventory"][self.lang]["daily"],
+#                                 command = self.notdoneyet)
+#        self.invmenu.add_command(label = submenu['inventory'][self.lang]["PP_spell"],
+#                                  command = self.notdoneyet)
+#        self.invmenu.add_separator()
         self.invmenu.add_command(label = submenu["inventory"][self.lang]["transport"],
                                  command = self.__transport)
         self.invmenu.add_command(label = submenu["inventory"][self.lang]["services"],
@@ -665,13 +665,13 @@ class shopWin(blankWindow):
         self.invmenu.add_command(label = submenu['inventory'][self.lang]["herbs"],
                                  command = self.__herbs)
         self.invmenu.add_separator()
-        self.invmenu.add_command(label = submenu["inventory"][self.lang]["spells"],
-                                 command = self.notdoneyet)
-        self.invmenu.add_command(label = submenu["inventory"][self.lang]["daily"],
-                                 command = self.notdoneyet)
-        self.invmenu.add_command(label = submenu['inventory'][self.lang]["PP_spell"],
-                                  command = self.notdoneyet)
-        self.invmenu.add_separator()
+#        self.invmenu.add_command(label = submenu["inventory"][self.lang]["spells"],
+#                                 command = self.notdoneyet)
+#        self.invmenu.add_command(label = submenu["inventory"][self.lang]["daily"],
+#                                 command = self.notdoneyet)
+#        self.invmenu.add_command(label = submenu['inventory'][self.lang]["PP_spell"],
+#                                  command = self.notdoneyet)
+#        self.invmenu.add_separator()
         self.invmenu.add_command(label = submenu["inventory"][self.lang]["transport"],
                                  command = self.__transport)
         self.invmenu.add_command(label = submenu["inventory"][self.lang]["services"],
@@ -1156,7 +1156,7 @@ class shopWin(blankWindow):
             count = 1
 
             for i in range(0, len(char_inv_tv[self.shoptype])):
-
+#                pprint(item[char_inv_tv[self.shoptype][i]])
                 if char_inv_tv[self.shoptype][i] != "worth" and str(item[char_inv_tv[self.shoptype][i]]) == str(self.curr_invitem[i]):
                    count += 1
             if count >= len(char_inv_tv[self.shoptype]) - 1:
@@ -1405,7 +1405,7 @@ class shopWin(blankWindow):
             elif self.data[0][i] != "ID":
                 newitem[self.data[0][i]] = self.curr_item[i]
 
-        pprint(newitem)
+#        pprint(newitem)
         if newitem["weight"] != 0.0 or self.shoptype == "herbs":
             self.inv_char[self.shoptype].append(newitem.copy())
         del(newitem)
@@ -1438,14 +1438,15 @@ class shopWin(blankWindow):
         @todo has to be fully implemented
         """
         self.getSelected()
-#        print(80 * "-" + "\nDEbug: self.item\n")
+        print(80 * "-" + "\nDEbug: self.item\n")
 #        pprint(self.item)
         try:
 #            self.getSelected()
             item = self.item
             self. window.destroy()
             self.armorwin = editinventory(lang = self.lang, char = self.character, item = item, shoptype = self.shoptype, storepath = self.storepath)
-        except:
+        except Exception as e:
+            print(e)
             messageWindow().showinfo("Warning: select an item", "Error")
             self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = self.shoptype)
 #        XXXXXXXXXXXXXXXXXXXXXXXXXXX --------------------
@@ -1851,9 +1852,9 @@ class enchantItem(blankWindow):
                                   command = self.__open)
         self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
                                   command = self.__save)
+        self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['pdf'],
                                   command = self.__latex)
-        self.filemenu.add_separator()
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu["file"][self.lang]['sv_item'])
         self.filemenu.add_separator()
@@ -3200,10 +3201,11 @@ class editinventory(blankWindow):
                                   command = self.__open)
         self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
                                   command = self.__save)
+        self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['pdf'],
-                                  command = self.__latexExport)
+                                  command = self.__latex)
         self.filemenu.add_separator()
-        self.filemenu.add_separator()
+
         self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
                                   command = self.__quit)
         self.invmenu = Menu(master = self.menu)
@@ -3426,25 +3428,26 @@ class editinventory(blankWindow):
         self.moneyEntry = {}
         for coin in ["MP", "PP", "GP", "SP", "BP", "CP", "TP", "IP"]:
             Label(self.window,
-                  text = coin + ":",
+                  text = coin,
+                  ).grid(column = c + 1,
+                         row = 5,
+                         padx = 1,
+                         pady = 1,
+                         sticky = "EW"
+                         )
+            self.moneyEntry[coin] = IntVar()
+            self.moneyEntry[coin].set(self.character["purse"][coin])
+            Entry(self.window,
+                  text = self.moneyEntry[coin],
+                  width = 10,
+                  justify = "right"
                   ).grid(column = c,
                          row = 5,
                          padx = 1,
                          pady = 1,
                          sticky = "EW"
                          )
-            self.moneyEntry[coin] = VarInt()
-            self.moneyEntry[coin].set(self.wcont[coin])
-            Entry(self.window,
-                  text = self.moneyEntry[coin],
-                  justify = "right"
-                  ).grid(column = c,
-                         row = 6,
-                         padx = 1,
-                         pady = 1,
-                         sticky = "EW"
-                         )
-            c += 1
+            c += 2
 
 
     def updWidgedCont(self):
@@ -3554,6 +3557,7 @@ class editinventory(blankWindow):
                             self.character["inventory"][cat][i]["weight"] = 0.0
 
         self.character["carried"] = carried
+        self.character["background"]["carr_weight"] = carried
 
 
     def __open(self):
