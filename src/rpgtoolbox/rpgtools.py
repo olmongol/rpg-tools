@@ -14,7 +14,7 @@ This module contains some helpful functions for role-playing games like:
 \email marcus@lederzeug.de
 \version 1.0
 '''
-__updated__ = "26.06.2020"
+__updated__ = "27.06.2020"
 
 import random
 from rpgtoolbox.globaltools import readCSV
@@ -233,8 +233,7 @@ class equipmentPenalities(object):
         self.character = character
         if "inventory" not in character.keys():
             exit()
-        rex = r"^([0-9]{1,6}[\.]{0,1}[0-9]{0,2})( +|)(lbs.|lbs|kg|)$"
-        self.checker = re.compile(rex)
+
         self.weightpenalty = 0
 
         self.AT = 1
@@ -248,12 +247,14 @@ class equipmentPenalities(object):
         """
         This calculates the weight penalty
         """
-        chk = self.checker(self.character["background"]["weight"])
+        rex = r"^([0-9]{1,6}[\.]{0,1}[0-9]{0,2})( +|)(lbs.|lbs|kg|)$"
+        checker = re.compile(rex)
+        chk = checker.match(self.character["background"]["weight"])
         if chk:
             if chk.group(3) in ["", "kg"]:
-                BWA = round(float(self.chk.group(1) * 2.2 / 10.0, 2))
+                BWA = round(float(chk.group(1)) * 2.2 / 10.0, 2)
             else:
-                BWA = round(float(self.chk.group(1) / 10.0, 2))
+                BWA = round(float(chk.group(1)) / 10.0, 2)
         limitfactor = 1
         while self.character["carried"] > BWA * limitfactor:
             self.weightpenalty -= 8
@@ -271,7 +272,9 @@ class equipmentPenalities(object):
                 if type(armor["AT"]) == type(2):
                     if armor["AT"] > self.AT:
                         self.AT = armor["AT"]
-                elif "greaves" in armor["name"].lower():
+
+                print("Debug: armor name {}".format(armor["name"]))
+                if "greaves" in armor["name"].lower():
                     greaves += 0.5
         if greaves > 1:
             greaves = 1
@@ -283,81 +286,91 @@ class equipmentPenalities(object):
         """
         This calculates all armor penalties.
         """
-        ## @var
+        ## @var self.minmanmod
+        # minimum maneuver modification
         self.minmanmod = 0
+        ## @var self.maxmanmod
+        # maximum maneuver modification
         self.maxmanmod = 0
+        ## @var self.msatpen
+        # missile attack penalty
         self.misatpen = 0
+        ## @var self.armqupen
+        # armor quickness penalty
         self.armqupen = 0
 
         if self.AT == 6:
-            self.maxmanmod = -20
+            self.maxmanmod = -20 + self.character["cat"]["Armor - Light"]["Skill"]["Soft Leather"]["total bonus"]
             self.misatpen = -5
         elif self.AT == 7:
             self.minmanmod = -10
-            self.maxmanmod = -40
+            self.maxmanmod = -40 + self.character["cat"]["Armor - Light"]["Skill"]["Soft Leather"]["total bonus"]
             self.misatpen = -15
             self.armqupen = -10
         elif self.AT == 8:
             self.minmanmod = -15
-            self.maxmanmod = -50
+            self.maxmanmod = -50 + self.character["cat"]["Armor - Light"]["Skill"]["Soft Leather"]["total bonus"]
             self.misatpen = -15
             self.armqupen = -15
         elif self.AT == 9:
             self.minmanmod = -5
-            self.maxmanmod = -50
+            self.maxmanmod = -50 + self.character["cat"]["Armor - Light"]["Skill"]["Rigid Leather"]["total bonus"]
         elif self.AT == 10:
             self.minmanmod = -10
-            self.maxmanmod = -70
+            self.maxmanmod = -70 + self.character["cat"]["Armor - Light"]["Skill"]["Rigid Leather"]["total bonus"]
             self.misatpen = -10
             self.armqupen = -5
         elif self.AT == 11:
             self.minmanmod = -15
-            self.maxmanmod = -90
+            self.maxmanmod = -90 + self.character["cat"]["Armor - Light"]["Skill"]["Rigid Leather"]["total bonus"]
             self.misatpen = -20
             self.armqupen = -15
         elif self.AT == 12:
             self.minmanmod = -15
-            self.maxmanmod = -110
+            self.maxmanmod = -110 + self.character["cat"]["Armor - Light"]["Skill"]["Rigid Leather"]["total bonus"]
             self.misatpen = -30
             self.armqupen = -15
         elif self.AT == 13:
             self.minmanmod = -10
-            self.maxmanmod = -70
+            self.maxmanmod = -70 + self.character["cat"]["Armor - Medium"]["Skill"]["Chain"]["total bonus"]
             self.armqupen = -5
         elif self.AT == 14:
             self.minmanmod = -15
-            self.maxmanmod = -90
+            self.maxmanmod = -90 + self.character["cat"]["Armor - Medium"]["Skill"]["Chain"]["total bonus"]
             self.misatpen = -10
             self.armqupen = -10
         elif self.AT == 15:
             self.minmanmod = -25
-            self.maxmanmod = -120
+            self.maxmanmod = -120 + self.character["cat"]["Armor - Medium"]["Skill"]["Chain"]["total bonus"]
             self.misatpen = -20
             self.armqupen = -20
         elif self.AT == 16:
             self.minmanmod = -25
-            self.maxmanmod = -130
+            self.maxmanmod = -130 + self.character["cat"]["Armor - Medium"]["Skill"]["Chain"]["total bonus"]
             self.misatpen = -20
             self.armqupen = -20
         elif self.AT == 17:
             self.minmanmod = -15
-            self.maxmanmod = -90
+            self.maxmanmod = -90 + self.character["cat"]["Armor - Heavy"]["Skill"]["Plate"]["total bonus"]
             self.armqupen = -10
         elif self.AT == 18:
             self.minmanmod = -20
-            self.maxmanmod = -110
+            self.maxmanmod = -110 + self.character["cat"]["Armor - Heavy"]["Skill"]["Plate"]["total bonus"]
             self.misatpen = -10
             self.armqupen = -20
         elif self.AT == 19:
             self.minmanmod = -35
-            self.maxmanmod = -150
+            self.maxmanmod = -150 + self.character["cat"]["Armor - Heavy"]["Skill"]["Plate"]["total bonus"]
             self.misatpen = -30
             self.armqupen = -30
         elif self.AT == 20:
             self.minmanmod = -45
-            self.maxmanmod = -165
+            self.maxmanmod = -165 + self.character["cat"]["Armor - Heavy"]["Skill"]["Plate"]["total bonus"]
             self.misatpen = -40
             self.armqupen = -40
+
+        if self.maxmanmod > self.minmanmod:
+            self.maxmanmod = self.minmanmod
 
 
 

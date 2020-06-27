@@ -35,7 +35,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "26.06.2020"
+__updated__ = "27.06.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.5"
@@ -76,6 +76,7 @@ class InventoryWin(blankWindow):
         self.filterlist = ['player', 'exp', 'lvl', 'prof', 'race', 'name', 'piclink', 'realm']
         self.bgfilter = ['act_age', 'carr_weight', "sex", "height", "weight"]
         self.storepath = storepath
+
         blankWindow.__init__(self, self.lang)
         self.window.title("Rucksack")
         self.__addMenu()
@@ -1175,47 +1176,6 @@ class shopWin(blankWindow):
         if self.shoptype == "herbs":
             messageWindow(self.lang).showinfo("Herbs/potions/poisons may not be enchanted!", "WARNING!")
         else:
-#            self.curr_inv = self.invtree.focus()
-#            self.curr_invitem = self.invtree.item(self.curr_inv)["values"]
-#            #add changes to charracter's inventory
-#            self.character["inventory"] = self.inv_char.copy()
-#            # transform selected treeview item into character's inventory data struct
-#            selected = {}
-#
-#            if self.shoptype == "weapon":
-#                selected = weapon.copy()
-#            elif self.shoptype == "armor" :
-#                selected = armor.copy()
-#            elif self.shoptype == "gear":
-#                selected = gear.copy()
-#            elif self.shoptype == "gems":
-#                selected = gems.copy()
-#            elif self.shoptype == "runes":
-#                selected = runes.copy()
-#            elif self.shoptype == "herbs" :
-#                selected = herbs.copy()
-#            elif self.shoptype == "services":
-#                selected = services.copy()
-#            elif self.shoptype == "constant item":
-#                selected = constant_item.copy()
-#            elif self.shoptype == "daily item":
-#                selected = daily_item.copy()
-#            elif self.shoptype == "transport":
-#                selected = transport.copy()
-#            else:
-#                print("ERROR: wrong shoptype")
-#
-#            for item in self.character["inventory"][self.shoptype]:
-#                count = 1
-#
-#                for i in range(0, len(char_inv_tv[self.shoptype])):
-#
-#                    if char_inv_tv[self.shoptype][i] != "worth" and str(item[char_inv_tv[self.shoptype][i]]) == str(self.curr_invitem[i]):
-#                       count += 1
-#                if count >= len(char_inv_tv[self.shoptype]) - 1:
-#
-#                    for key in char_inv_tv[self.shoptype]:
-#                        selected[key] = item[key]
             self.getSelected()
             self.window.destroy()
             self.enchantWin = enchantItem(self.lang, self.character, self.storepath, self.item, self.shoptype)
@@ -1231,7 +1191,6 @@ class shopWin(blankWindow):
     def buyItem(self):
         """
         This is for buying a piece of equipment
-        @todo a message window has to be implemented if not enoug money
         """
         self.curr_shop = self.shoptree.focus()
         self.curr_item = self.shoptree.item(self.curr_shop)['values']
@@ -1438,7 +1397,7 @@ class shopWin(blankWindow):
         @todo has to be fully implemented
         """
         self.getSelected()
-        print(80 * "-" + "\nDEbug: self.item\n")
+#        print(80 * "-" + "\nDEbug: self.item\n")
 #        pprint(self.item)
         try:
 #            self.getSelected()
@@ -1560,7 +1519,12 @@ class shopWin(blankWindow):
         """
         mmp = 0
         # calc MMP ---------------------
-
+        calcpen = rpg.equipmentPenalities(self.character)
+        mmp = calcpen.maxmanmod
+        self.character["AT"] = calcpen.AT
+        self.character["misslepen"] = calcpen.misatpen
+        self.character["armquickpen"] = calcpen.armqupen
+        self.character["armmanmod"] = calcpen.maxmanmod
         self.character["MMP"] = mmp
         self.wcont["MMP"].set(mmp)
 
@@ -1568,8 +1532,6 @@ class shopWin(blankWindow):
     def calcCarriedWeight(self):
         """
         This method calculates the carried weight of a character
-        ----
-        @todo has to be fully implemented
         """
         shoptypes = ["weapon", "gear", "gems", "services"]
         unequipped = ["", "unequipped", "transport"]
@@ -3187,6 +3149,7 @@ class editinventory(blankWindow):
         self.__addMenu()
         self.__addHelpMenu()
         self.__buildWin()
+        self.calcCarriedWeight()
         self.window.mainloop()
 
 
@@ -3529,15 +3492,24 @@ class editinventory(blankWindow):
         """
         mmp = 0
         # calc MMP ---------------------
-
+        print("Debug editinventory/calcMMp")
+        calcpen = rpg.equipmentPenalities(self.character)
+        mmp = calcpen.maxmanmod
+        print("AT: {}\n man: {}\n mis: {}\n qupen: {}\n".format(calcpen.AT,
+                                                                calcpen.maxmanmod,
+                                                                calcpen.misatpen,
+                                                                calcpen.armqupen))
+        self.character["AT"] = calcpen.AT
+        self.character["misslepen"] = calcpen.misatpen
+        self.character["armquickpen"] = calcpen.armqupen
+        self.character["armmanmod"] = calcpen.maxmanmod
         self.character["MMP"] = mmp
+        self.wcont["MMP"].set(mmp)
 
 
     def calcCarriedWeight(self):
         """
         This method calculates the carried weight of a character
-        ----
-        @todo has to be fully implemented
         """
         shoptypes = ["weapon", "gear", "gems", "services"]
         unequipped = ["", "unequipped", "transport"]
@@ -3558,6 +3530,7 @@ class editinventory(blankWindow):
 
         self.character["carried"] = carried
         self.character["background"]["carr_weight"] = carried
+        self.wcont["carr_weight"].set(carried)
 
 
     def __open(self):
@@ -3619,7 +3592,7 @@ class editinventory(blankWindow):
         This opens a window for armor
         """
         self. window.destroy()
-        self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "armor")
+        self.armorwin = editinventory(self.lang, self.character, self.storepath, shoptype = "armor")
 
 
     def __weapon(self):
@@ -3627,7 +3600,7 @@ class editinventory(blankWindow):
         This opens a window for weapons
         """
         self. window.destroy()
-        self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "weapon")
+        self.armorwin = editinventory(lang = self.lang, char = self.character, sotrepath = self.storepath, shoptype = "weapon")
 
 
     def __gear(self):
@@ -3635,7 +3608,7 @@ class editinventory(blankWindow):
         This opens a window for equipment
         """
         self. window.destroy()
-        self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "gear")
+        self.armorwin = editinventory(lang = self.lang, char = self.character, storepath = self.storepath, shoptype = "gear")
 
 
     def __transport(self):
@@ -3643,7 +3616,7 @@ class editinventory(blankWindow):
         This opens a window for animals and transports
         """
         self. window.destroy()
-        self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "transport")
+        self.armorwin = editinventory(lang = self.lang, char = self.character, storepath = self.storepath, shoptype = "transport")
 
 
     def __services(self):
@@ -3651,7 +3624,7 @@ class editinventory(blankWindow):
         This opens a window for equipment
         """
         self. window.destroy()
-        self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "services")
+        self.armorwin = editinventory(lang = self.lang, char = self.character, storepath = self.storepath, shoptype = "services")
 
 
     def __gems(self):
@@ -3659,7 +3632,7 @@ class editinventory(blankWindow):
         This opens a window for gems and jewelry
         """
         self. window.destroy()
-        self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "gems")
+        self.armorwin = editinventory(lang = self.lang, char = self.character, storepath = self.storepath, shoptype = "gems")
 
 
     def __herbs(self):
@@ -3667,7 +3640,7 @@ class editinventory(blankWindow):
         This opens a window for portions, herbs and poisons
         """
         self. window.destroy()
-        self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "herbs")
+        self.armorwin = editinventory(lang = self.lang, char = self.character, storepath = self.storepath, shoptype = "herbs")
 
 
 

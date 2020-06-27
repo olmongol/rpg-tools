@@ -12,7 +12,7 @@ will be generated for printouts
 \version 1.1
 '''
 
-__updated__ = "21.06.2020"
+__updated__ = "27.06.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -214,13 +214,20 @@ class charsheet(object):
         This creates a LaTeX sheet with RR, DB, AT
         '''
         vals = ["RRArc", "RRC/E", "RRChan", "RRDisease", "RRE/M", "RRC/M", "RREss", "RRFear",
-              "RRMent", "RRPoison"]
+              "RRMent", "RRPoison", "AT", "misslepen", "armmanmod", "MMP", "armquickpen"]
 
         template = readFile(self.storepath + "/default/latex/template_rr_at_db.tex")
         template = template.replace("==>ThreeQ", str(int(self.char["Qu"]["total"]) * 3))
-        template = template.replace("==>AdrenalDef", str(self.char["cat"]["Special Defenses"]["Skill"]["Adrenal Defense"]["total bonus"]))
+        if self.char["cat"]["Special Defenses"]["Skill"]["Adrenal Defense"]["rank"] > 0:
+            template = template.replace("==>AdrenalDef", str(self.char["cat"]["Special Defenses"]["Skill"]["Adrenal Defense"]["total bonus"]))
+        else:
+            template = template.replace("==>AdrenalDef", "\_\_")
+
         for v in vals:
-            template = template.replace("==>{}".format(v), str(int(self.char[v])))
+            if v in self.char.keys():
+                template = template.replace("==>{}".format(v), str(int(self.char[v])))
+            else:
+                template = template.replace("==>{}".format(v), "\_\_")
 
         saveFile(self.chardir + "{}_rr_at_db.tex".format(self.char['name'].replace(" ", "-")), template)
 
