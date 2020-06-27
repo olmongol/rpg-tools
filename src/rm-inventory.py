@@ -35,7 +35,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "25.06.2020"
+__updated__ = "26.06.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.5"
@@ -3656,7 +3656,7 @@ class editinventory(blankWindow):
 
     def __gems(self):
         """
-        This opens a window for gems and jewelery
+        This opens a window for gems and jewelry
         """
         self. window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "gems")

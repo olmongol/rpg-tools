@@ -14,7 +14,7 @@ This module contains some helpful functions for role-playing games like:
 \email marcus@lederzeug.de
 \version 1.0
 '''
-__updated__ = "25.06.2020"
+__updated__ = "26.06.2020"
 
 import random
 from rpgtoolbox.globaltools import readCSV
@@ -241,6 +241,7 @@ class equipmentPenalities(object):
 
         self.calcWeightPen()
         self.getAT()
+        self.calcArmorPen()
 
 
     def calcWeightPen(self):
@@ -282,6 +283,7 @@ class equipmentPenalities(object):
         """
         This calculates all armor penalties.
         """
+        ## @var
         self.minmanmod = 0
         self.maxmanmod = 0
         self.misatpen = 0
@@ -356,8 +358,6 @@ class equipmentPenalities(object):
             self.maxmanmod = -165
             self.misatpen = -40
             self.armqupen = -40
-
-    # XXXXXXXX--------------------
 
 
 
