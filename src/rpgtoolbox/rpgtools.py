@@ -14,7 +14,7 @@ This module contains some helpful functions for role-playing games like:
 \email marcus@lederzeug.de
 \version 1.0
 '''
-__updated__ = "27.06.2020"
+__updated__ = "28.06.2020"
 
 import random
 from rpgtoolbox.globaltools import readCSV
@@ -275,7 +275,7 @@ class equipmentPenalities(object):
                     if armor["AT"] > self.AT:
                         self.AT = armor["AT"]
 
-                print("Debug: armor name {}".format(armor["name"]))
+#                print("Debug: armor name {}".format(armor["name"]))
                 if "greaves" in armor["name"].lower():
                     greaves += 0.5
         if greaves > 1:

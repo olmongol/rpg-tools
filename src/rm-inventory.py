@@ -35,7 +35,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "27.06.2020"
+__updated__ = "28.06.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.5"
@@ -479,9 +479,9 @@ class InventoryWin(blankWindow):
                                            'gear' :[],
                                            'transport':[],
                                            'herbs':[],
-                                           'runes':[],
-                                           'constant item':[],
-                                           'daily item' :[],
+#                                           'runes':[],
+#                                           'constant item':[],
+#                                           'daily item' :[],
                                            'gems' :[],
                                            'services':[]
                                            }
@@ -602,9 +602,10 @@ class shopWin(blankWindow):
                              'gear' :[],
                              'transport':[],
                              'herbs':[],
-                             'runes':[],
-                             'constant item':[],
-                             'daily item' :[],
+#                             'herbs':[],
+#                             'runes':[],
+#                             'constant item':[],
+#                             'daily item' :[],
                              'gems' :[],
                              "services":[],
                            }
@@ -1077,8 +1078,6 @@ class shopWin(blankWindow):
     def fillInventory(self):
         """
         This fills the  inventory treeview with character's items if there are any
-        ----
-        @bug height index causes trouble; shoptype: transport
         """
         for i in self.invtree.get_children():
             self.invtree.delete(i)
@@ -1160,24 +1159,23 @@ class shopWin(blankWindow):
             count = 1
 
             for i in range(0, len(char_inv_tv[self.shoptype])):
-#                pprint(item[char_inv_tv[self.shoptype][i]])
+
                 if char_inv_tv[self.shoptype][i] != "worth" and str(item[char_inv_tv[self.shoptype][i]]) == str(self.curr_invitem[i]):
                    count += 1
+
             if count >= len(char_inv_tv[self.shoptype]) - 1:
 
                 for key in char_inv_tv[self.shoptype]:
                     self.item[key] = item[key]
-#        print(self.item)
 
 
     def createMagic(self):
         """
         This is for creating a magic item from standard items
-        ----
-        @todo has to be fully implemented
         """
         if self.shoptype == "herbs":
             messageWindow(self.lang).showinfo("Herbs/potions/poisons may not be enchanted!", "WARNING!")
+
         else:
             self.getSelected()
             self.window.destroy()
@@ -1367,9 +1365,9 @@ class shopWin(blankWindow):
             elif self.data[0][i] != "ID":
                 newitem[self.data[0][i]] = self.curr_item[i]
 
-#        pprint(newitem)
         if newitem["weight"] != 0.0 or self.shoptype == "herbs":
             self.inv_char[self.shoptype].append(newitem.copy())
+
         del(newitem)
         self.fillInventory()
 
@@ -1395,25 +1393,16 @@ class shopWin(blankWindow):
     def editItem(self):
         """
         This is for editing a single shop item
-        ----
-        @todo has to be fully implemented
         """
         self.getSelected()
-#        print(80 * "-" + "\nDEbug: self.item\n")
-#        pprint(self.item)
         try:
-#            self.getSelected()
             item = self.item
             self. window.destroy()
             self.armorwin = editinventory(lang = self.lang, char = self.character, item = item, shoptype = self.shoptype, storepath = self.storepath)
         except Exception as e:
-            print("Error:", e)
-#            self. window.destroy()
-#            self.armorwin = editinventory(lang = self.lang, char = self.character, shoptype = self.shoptype, storepath = self.storepath)
+            print("Error: [editItem]", e)
             messageWindow().showinfo("Warning: no item selected", "Warning")
-#            self.window.destroy()
             self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = self.shoptype)
-#        XXXXXXXXXXXXXXXXXXXXXXXXXXX --------------------
 
 
     def saveShop(self):
@@ -1526,11 +1515,9 @@ class shopWin(blankWindow):
     def calcMMP(self):
         """
         This method calculates the Movement Maneuver Penalty (MMP)
-        ----
-        @todo has to be fully implemented
         """
         mmp = 0
-        # calc MMP ---------------------
+        # calculate MMP ---------------------
         calcpen = rpg.equipmentPenalities(self.character)
         mmp = calcpen.weightpenalty
         self.character["AT"] = calcpen.AT
@@ -1544,9 +1531,12 @@ class shopWin(blankWindow):
     def calcCarriedWeight(self):
         """
         This method calculates the carried weight of a character
+        ----
+        @todo calculate total weight of containers
         """
         shoptypes = ["weapon", "gear", "gems", "services"]
-        unequipped = ["", "unequipped", "transport"]
+        unequipped = ["", "unequipped", "transport", "container"]
+        carried_containers = []
         carried = 0
 
         for cat in shoptypes:
@@ -1555,12 +1545,22 @@ class shopWin(blankWindow):
 
                 if "location" in self.character["inventory"][cat][i].keys():
 
-                    if self.character["inventory"][cat][i]["location"] not in unequipped and "transport" not in self.character["inventory"][cat][i]["location"]:
+                    if self.character["inventory"][cat][i]["location"] not in unequipped \
+                    and "transport" not in self.character["inventory"][cat][i]["location"] \
+                    and "container" not in self.character["inventory"][cat][i]["location"]:
 
                         if "weight" in self.character["inventory"][cat][i].keys():
                             carried += float(self.character["inventory"][cat][i]["weight"])
                         else:
                             self.character["inventory"][cat][i]["weight"] = 0.0
+
+                    if "type" in self.character["inventory"][cat][i].keys():
+
+                        if "container" in self.character["inventory"][cat][i]["type"] \
+                        and self.character["inventory"][cat][i]["location"] == "equipped":
+                            carried_containers.append(self.character["inventory"][cat][i]["type"])
+
+        #XXXXXXXXXXXXXx---
 
         self.character["carried"] = carried
         if "carr_weight" not in self.wcont.keys():
@@ -2138,7 +2138,7 @@ class enchantItem(blankWindow):
         self.frame = {}
 
         for i in range(1, len(self.enchantment)):
-            self.frame[self.enchantment[i]] = Frame(self.window)
+            self.frame = [self.enchantment[i]] = Frame(self.window)
 
         realm_list = []
 
@@ -2154,7 +2154,7 @@ class enchantItem(blankWindow):
                 realm_list.append(dummy)
 
         # Bonus/weight reduced items ---------------------
-        Label(self.frame["magic bonus item"],
+        Label(["magic bonus item"],
               text = labels["bonus item"][self.lang],
               background = "grey",
               anchor = N
@@ -2162,7 +2162,7 @@ class enchantItem(blankWindow):
                     columnspan = 9,
                     row = 0,
                     sticky = "NEWS")
-        Label(self.frame["magic bonus item"],
+        Label(["magic bonus item"],
               text = "Bonus:"
               ).grid(column = 0,
                      row = 1,
@@ -2171,9 +2171,9 @@ class enchantItem(blankWindow):
                      sticky = "EW"
                      )
 
-        self.bonus = IntVar(self.frame["magic bonus item"])
+        self.bonus = IntVar(["magic bonus item"])
         self.bonus.set(0)
-        OptionMenu(self.frame["magic bonus item"],
+        OptionMenu(["magic bonus item"],
                    self.bonus,
                    *(0, 0, 5, 10, 15, 20, 25),
                    command = self.calcBonusItem
@@ -2183,7 +2183,7 @@ class enchantItem(blankWindow):
                           padx = 5,
                           sticky = "EW")
 
-        Label(self.frame["magic bonus item"],
+        Label(["magic bonus item"],
               text = labels["bonus c/s"][self.lang] + ":",
               ).grid(column = 2,
                      row = 1,
@@ -2200,7 +2200,7 @@ class enchantItem(blankWindow):
         else:
             self.catskill.set("<category>/<skill>")
 
-        Entry(self.frame["magic bonus item"],
+        Entry(["magic bonus item"],
               textvariable = self.catskill,
               width = 42,
               ).grid(column = 3,
@@ -2209,7 +2209,7 @@ class enchantItem(blankWindow):
                      pady = 5,
                      sticky = "EW")
 
-        Label(self.frame["magic bonus item"],
+        Label(["magic bonus item"],
               text = labels["weight"][self.lang] + u"(%):"
               ).grid(column = 4,
                      row = 1,
@@ -2217,9 +2217,9 @@ class enchantItem(blankWindow):
                      padx = 5,
                      sticky = "EW")
 
-        self.weight = IntVar(self.frame["magic bonus item"])
+        self.weight = IntVar(["magic bonus item"])
         self.weight.set(100)
-        OptionMenu(self.frame["magic bonus item"],
+        OptionMenu(["magic bonus item"],
                    self.weight,
                    *(100, 100, random.randint(80, 99), random.randint(60, 79), random.randint(40, 59)),
                    command = self.calcBonusItem
@@ -2229,7 +2229,7 @@ class enchantItem(blankWindow):
                           padx = 5,
                           sticky = "NEWS")
 
-        Label(self.frame["magic bonus item"],
+        Label(["magic bonus item"],
               text = labels["descr"][self.lang] + ":",
               ).grid(column = 6,
                      row = 1,
@@ -2239,7 +2239,7 @@ class enchantItem(blankWindow):
 
         self.description = StringVar()
         self.description.set(self.item["description"])
-        Entry(self.frame["magic bonus item"],
+        Entry(["magic bonus item"],
               justify = "left",
               textvariable = self.description,
               width = 48
@@ -2251,7 +2251,7 @@ class enchantItem(blankWindow):
                      )
 
         # charged items --------------------------------
-        Label(self.frame["charged magic item"],
+        Label(["charged magic item"],
              text = labels["charged item"][self.lang],
              background = "gray52",
              anchor = N
@@ -2260,7 +2260,7 @@ class enchantItem(blankWindow):
                     row = 0,
                     sticky = "NEWS")
 
-        Label(self.frame["charged magic item"],
+        Label(["charged magic item"],
               text = labels["type"][self.lang] + ":"
               ).grid(column = 0,
                      row = 1,
@@ -2270,7 +2270,7 @@ class enchantItem(blankWindow):
 
         self.typus = StringVar()
         self.typus.set(charged_item[self.lang][0])
-        OptionMenu(self.frame["charged magic item"],
+        OptionMenu(["charged magic item"],
                    self.typus,
                    *([charged_item[self.lang][0]] + charged_item[self.lang]),
                    command = self.updCharged
@@ -2280,7 +2280,7 @@ class enchantItem(blankWindow):
                           padx = 5,
                           sticky = "NEWS")
 
-        Label(self.frame["charged magic item"],
+        Label(["charged magic item"],
               text = labels["loads"][self.lang] + ":"
               ).grid(column = 2,
                      row = 1,
@@ -2290,7 +2290,7 @@ class enchantItem(blankWindow):
 
         self.loads = IntVar()
         self.loads.set(0)
-        self.loadsE = Entry(self.frame["charged magic item"],
+        self.loadsE = Entry(["charged magic item"],
                           justify = "left",
                           textvariable = self.loads,
                           width = 4
@@ -2303,7 +2303,7 @@ class enchantItem(blankWindow):
                          )
 
         self.loadsE.bind('<FocusOut>', self.updCharged)
-        Label(self.frame["charged magic item"],
+        Label(["charged magic item"],
               text = "max. " + labels["loads"][self.lang] + ":"
               ).grid(column = 4,
                      row = 1,
@@ -2313,7 +2313,7 @@ class enchantItem(blankWindow):
 
         self.maxloads = IntVar()
         self.maxloads.set(1)
-        Label(self.frame["charged magic item"],
+        Label(["charged magic item"],
               textvariable = self.maxloads
 
               ).grid(column = 5,
@@ -2321,7 +2321,7 @@ class enchantItem(blankWindow):
                      pady = 5,
                      padx = 5,
                      sticky = "NEWS")
-        Label(self.frame["charged magic item"],
+        Label(["charged magic item"],
               text = "To do:",
               ).grid(column = 6,
                      row = 1,
@@ -2332,7 +2332,7 @@ class enchantItem(blankWindow):
         self.action = StringVar()
         self.action.set(charge_action[self.lang][0])
 
-        OptionMenu(self.frame["charged magic item"],
+        OptionMenu(["charged magic item"],
                    self.action,
                    *([charge_action[self.lang][0]] + charge_action[self.lang]),
                    command = self.updCharged
@@ -2343,7 +2343,7 @@ class enchantItem(blankWindow):
                           padx = 5,
                           sticky = "NEWS")
 
-        Label(self.frame["charged magic item"],
+        Label(["charged magic item"],
               text = labels["realm"][self.lang].title() + ":",
               ).grid(column = 0,
                      row = 2,
@@ -2353,7 +2353,7 @@ class enchantItem(blankWindow):
 
         self.realm = StringVar()
         self.realm.set(realm_list[0])
-        OptionMenu(self.frame["charged magic item"],
+        OptionMenu(["charged magic item"],
                    self.realm,
                    *realm_list,
                    command = self.updCharged
@@ -2363,7 +2363,7 @@ class enchantItem(blankWindow):
                           padx = 5,
                           sticky = "NEWS")
 
-        Label(self.frame["charged magic item"],
+        Label(["charged magic item"],
               text = labels["spell list"][self.lang] + ":"
               ).grid(column = 2,
                      row = 2,
@@ -2373,7 +2373,7 @@ class enchantItem(blankWindow):
 
         self.spell_list = StringVar()
         self.spell_list.set("")
-        Entry(self.frame["charged magic item"],
+        Entry(["charged magic item"],
               justify = "left",
               textvariable = self.spell_list,
               width = 48
@@ -2384,7 +2384,7 @@ class enchantItem(blankWindow):
                      sticky = "NEWS"
                      )
 
-        Label(self.frame["charged magic item"],
+        Label(["charged magic item"],
               text = labels["spell"][self.lang] + ":"
               ).grid(column = 4,
                      row = 2,
@@ -2394,7 +2394,7 @@ class enchantItem(blankWindow):
 
         self.spell = StringVar()
         self.spell.set("")
-        self.spell_E = Entry(self.frame["charged magic item"],
+        self.spell_E = Entry(["charged magic item"],
                             justify = "left",
                             textvariable = self.spell,
                             width = 48
@@ -2407,7 +2407,7 @@ class enchantItem(blankWindow):
                          )
         self.spell_E.bind('<FocusOut>', self.updCharged)
 
-        Label(self.frame["charged magic item"],
+        Label(["charged magic item"],
               text = labels["spell"][self.lang] + " " + labels["lvl"][self.lang] + ":"
               ).grid(column = 6,
                      row = 2,
@@ -2417,7 +2417,7 @@ class enchantItem(blankWindow):
 
         self.spell_lvl = IntVar()
         self.spell_lvl.set(1)
-        self.spell_lvlE = Entry(self.frame["charged magic item"],
+        self.spell_lvlE = Entry(["charged magic item"],
                                 textvariable = self.spell_lvl,
                                 width = 4
                                 )
@@ -2431,7 +2431,7 @@ class enchantItem(blankWindow):
 
         self.maxlvl = StringVar()
         self.maxlvl.set("/10")
-        Label(self.frame["charged magic item"],
+        Label(["charged magic item"],
               textvariable = self.maxlvl
               ).grid(column = 8,
                      row = 2,
@@ -2439,7 +2439,7 @@ class enchantItem(blankWindow):
                      padx = 0,
                      sticky = "NEWS")
 
-        Label(self.frame["charged magic item"],
+        Label(["charged magic item"],
               text = labels["descr"][self.lang].title() + ":"
               ).grid(column = 0,
                      row = 3,
@@ -2449,7 +2449,7 @@ class enchantItem(blankWindow):
 
 #        self.description = StringVar()
         self.description.set(self.item["description"])
-        Entry(self.frame["charged magic item"],
+        Entry(["charged magic item"],
               justify = "left",
               textvariable = self.description,
               width = 40
@@ -2462,7 +2462,7 @@ class enchantItem(blankWindow):
                      )
 
         # daily items -----------------------------------
-        Label(self.frame["daily item"],
+        Label(["daily item"],
               text = labels["daily item"][self.lang],
               background = "gray89",
               anchor = N
@@ -2471,7 +2471,7 @@ class enchantItem(blankWindow):
                     row = 0,
                     sticky = "NEWS")
 
-        Label(self.frame["daily item"],
+        Label(["daily item"],
               text = labels["realm"][self.lang] + ":"
               ).grid(column = 0,
                     row = 1,
@@ -2479,7 +2479,7 @@ class enchantItem(blankWindow):
 
         self.realm = StringVar()
         self.realm.set(realm_list[0])
-        OptionMenu(self.frame["daily item"],
+        OptionMenu(["daily item"],
                    self.realm,
                    *realm_list,
                    command = self.updDaily
@@ -2489,7 +2489,7 @@ class enchantItem(blankWindow):
                           padx = 5,
                           sticky = "NEWS")
 
-        Label(self.frame["daily item"],
+        Label(["daily item"],
               text = labels["spell list"][self.lang] + ":"
               ).grid(column = 2,
                      row = 1,
@@ -2499,7 +2499,7 @@ class enchantItem(blankWindow):
 
 #        self.spell_list = StringVar()
 #        self.spell_list.set("")
-        Entry(self.frame["daily item"],
+        Entry(["daily item"],
               justify = "left",
               textvariable = self.spell_list,
               width = 48
@@ -2510,7 +2510,7 @@ class enchantItem(blankWindow):
                      sticky = "NEWS"
                      )
 
-        Label(self.frame["daily item"],
+        Label(["daily item"],
               text = labels["spell"][self.lang] + ":"
               ).grid(column = 4,
                      row = 1,
@@ -2520,7 +2520,7 @@ class enchantItem(blankWindow):
 
 #        self.spell = StringVar()
 #        self.spell.set("")
-        self.spellE = Entry(self.frame["daily item"],
+        self.spellE = Entry(["daily item"],
                             justify = "left",
                             textvariable = self.spell,
                             width = 48
@@ -2533,7 +2533,7 @@ class enchantItem(blankWindow):
                          )
         self.spellE.bind('<FocusOut>', self.updDaily)
 
-        Label(self.frame["daily item"],
+        Label(["daily item"],
               text = labels["spell"][self.lang] + " " + labels["lvl"][self.lang] + ":"
               ).grid(column = 6,
                      row = 1,
@@ -2543,7 +2543,7 @@ class enchantItem(blankWindow):
 
 #        self.spell_lvl = IntVar()
         self.spell_lvl.set(1)
-        Entry(self.frame["daily item"],
+        Entry(["daily item"],
                                 justify = "left",
                                 textvariable = self.spell_lvl,
                                 width = 4
@@ -2554,7 +2554,7 @@ class enchantItem(blankWindow):
                              sticky = "NEWS"
                              )
 
-        Label(self.frame["daily item"],
+        Label(["daily item"],
               text = labels["daily"][self.lang] + ":",
               ).grid(column = 0,
                      row = 2,
@@ -2564,7 +2564,7 @@ class enchantItem(blankWindow):
 
         self.daily = IntVar()
         self.daily.set(0)
-        self.dailyE = Entry(self.frame["daily item"],
+        self.dailyE = Entry(["daily item"],
               justify = "left",
               textvariable = self.daily,
               width = 4
@@ -2577,7 +2577,7 @@ class enchantItem(blankWindow):
                         sticky = "NEWS"
                         )
 
-        Label(self.frame["daily item"],
+        Label(["daily item"],
               text = labels["descr"][self.lang] + ":"
               ).grid(column = 2,
                      row = 2,
@@ -2586,7 +2586,7 @@ class enchantItem(blankWindow):
                      sticky = "NEWS")
 
         self.description.set(self.item["description"])
-        Entry(self.frame["daily item"],
+        Entry(["daily item"],
               justify = "left",
               textvariable = self.description,
               width = 40
@@ -2599,7 +2599,7 @@ class enchantItem(blankWindow):
                      )
 
         # permanent items --------------------------------
-        Label(self.frame["permanent magic item"],
+        Label(["permanent magic item"],
               text = labels["perm item"][self.lang],
               anchor = N,
               background = "white"
@@ -2608,7 +2608,7 @@ class enchantItem(blankWindow):
                     row = 0,
                     sticky = "NEWS")
 
-        Label(self.frame["permanent magic item"],
+        Label(["permanent magic item"],
               text = labels["spell adder"][self.lang] + ":"
               ).grid(column = 0,
                      row = 1,
@@ -2619,7 +2619,7 @@ class enchantItem(blankWindow):
         sa_list.sort()
         self.spell_adder = StringVar()
         self.spell_adder.set(sa_list[0])
-        OptionMenu(self.frame["permanent magic item"],
+        OptionMenu(["permanent magic item"],
                    self.spell_adder,
                    *sa_list,
                    command = self.updPerm
@@ -2629,7 +2629,7 @@ class enchantItem(blankWindow):
                           padx = 5,
                           sticky = "NEWS")
 
-        Label(self.frame["permanent magic item"],
+        Label(["permanent magic item"],
               text = labels["pp mult"][self.lang] + ":"
               ).grid(column = 2,
                      row = 1,
@@ -2641,7 +2641,7 @@ class enchantItem(blankWindow):
         ppm_list.sort()
         self.pp_mult = StringVar()
         self.pp_mult.set(ppm_list[0])
-        OptionMenu(self.frame["permanent magic item"],
+        OptionMenu(["permanent magic item"],
                    self.pp_mult,
                    *ppm_list,
                    command = self.updPerm
@@ -2651,7 +2651,7 @@ class enchantItem(blankWindow):
                           padx = 5,
                           sticky = "NEWS")
 
-        Label(self.frame["permanent magic item"],
+        Label(["permanent magic item"],
               text = labels["descr"][self.lang] + ":",
               ).grid(column = 4,
                      row = 1,
@@ -2660,7 +2660,7 @@ class enchantItem(blankWindow):
                      sticky = "NEWS")
 
         self.description.set(self.item["description"])
-        Entry(self.frame["permanent magic item"],
+        Entry(["permanent magic item"],
               justify = "left",
               textvariable = self.description,
               width = 40
@@ -2776,13 +2776,13 @@ class enchantItem(blankWindow):
         #"charged magic item", "daily item", "magic bonus item", "permanent magic item"
         try:
             for elem in self.enchantment[1:]:
-                self.frame[elem].grid_forget()
+                [elem].grid_forget()
         except:
 
             pass
 
         finally:
-            self.frame[selection].grid(column = 0,
+            [selection].grid(column = 0,
                                        columnspan = 9,
                                        row = 10,
                                        rowspan = 6,
@@ -3143,7 +3143,8 @@ class editinventory(blankWindow):
         self.lang = lang
         self.character = char
         self.item = item
-
+        print("Debug: editinv - item\n")
+        pprint(self.item)
         self.shoptype = shoptype
 
         if self.character == {}:
@@ -3435,7 +3436,7 @@ class editinventory(blankWindow):
             c += 2
 
         Label(self.window,
-              test = labels["geartype"][self.lang] + ":"
+              text = labels["geartype"][self.lang] + ":"
               ).grid(column = 2,
                      columnspan = 2,
                       row = 6,
@@ -3445,13 +3446,14 @@ class editinventory(blankWindow):
                       )
 
         self.shops = ["armor", "armor", "weapon", "services", "gear", "gems", "herbs", "transport"]
-        self.choseshop = StringVar(self.window)
-        self.choseshop.set(self.shoptype)
+        self.shops.sort()
+        self.choseshop = StringVar()
+        self.choseshop.set(self.shops[0])
 
         self.opt = OptionMenu(self.window,
                            self.choseshop,
                            *tuple(self.shops),
-#                           command = self.getSop
+                           command = self.getShop
                            )
         self.opt.grid(column = 4,
                       columnspan = 2,
@@ -3460,6 +3462,107 @@ class editinventory(blankWindow):
                       pady = 1,
                       sticky = "EW"
                       )
+        if self.shoptype in self.shops:
+            print("debug: shoptype - ", self.shoptype)
+            self.choseshop.set(self.shops[self.shops.index(self.shoptype)])
+
+        Label(self.window,
+              text = labels["item"][self.lang] + ":"
+              ).grid(column = 6,
+                      row = 6,
+                      padx = 1,
+                      pady = 1,
+                      sticky = "EW"
+                      )
+        self.itemname = StringVar()
+
+        if self.item:
+            try:
+                self.itemname.set(self.item["name"])
+
+            except Exceptions as error:
+                print("Error: (editinventory - buildwin): ")
+                self.itemname.set("---")
+
+        else:
+            self.itemname.set("---")
+
+        Label(self.window,
+              textvariable = self.itemname
+              ).grid(column = 7,
+                     columnspan = 4,
+                     row = 6,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW")
+
+        Label(self.window,
+              text = labels["action"][self.lang] + ":"
+              ).grid(column = 11,
+                     columnspan = 2,
+                      row = 6,
+                      padx = 1,
+                      pady = 1,
+                      sticky = "EW"
+                      )
+
+        self.action = ["chose", "equip", "edit"]
+        self.chosenaction = StringVar()
+        self.chosenaction.set(self.action[0])
+        self.optact = OptionMenu(self.window,
+                           self.chosenaction,
+                           *tuple(self.action),
+                           command = self.getAction
+                           )
+        self.optact.grid(column = 13,
+                      columnspan = 2,
+                      row = 6,
+                      padx = 1,
+                      pady = 1,
+                      sticky = "EW"
+                      )
+        Button(self.window,
+               text = txtbutton["but_sav"][self.lang],
+               command = self.__save,
+               ).grid(column = 15,
+                      columnspan = 3,
+                      row = 6,
+                      sticky = "EW")
+
+        # define frames ---
+        self.frame = {}
+        self.frms = ['equip']
+        for  st in self.character["inventory"].keys():
+            self.frms += [st, "edit " + st]
+
+        for fn in self.frms:
+            self.frame[fn] = Frame(self.window)
+
+        # equip frame ---
+        Label(self.frame["equip"],
+              text = labels["location"][self.lang] + ":"
+              ).grid(column = 0,
+                     row = 0,
+                     padx = 1,
+                     pady = 1,
+                     sticky = "EW")
+
+        self.idxContainerTransport()
+        self.eqmlist = ["equip", "equip"] + self.contnamelist + self.transpnamelist
+        self.equloc = StringVar()
+        self.equloc.set(self.eqmlist[0])
+        self.optequ = OptionMenu(self.frame["equip"],
+                                 self.equloc,
+                                 *tuple(self.eqmlist),
+                                 command = self.getLocation
+                                 )
+        self.optequ.grid(column = 1,
+                         columnspan = 3,
+                         row = 0,
+                         padx = 1,
+                         pady = 1,
+                         sticky = "EW"
+                         )
 
 
     def updWidgedCont(self):
@@ -3540,8 +3643,6 @@ class editinventory(blankWindow):
         @todo has to be fully implemented
         """
         mmp = 0
-        # calc MMP ---------------------
-        print("Debug editinventory/calcMMp")
         calcpen = rpg.equipmentPenalities(self.character)
         mmp = calcpen.weightpenalty
         print("AT: {}\n man: {}\n mis: {}\n qupen: {}\nweight:{}".format(calcpen.AT,
@@ -3701,12 +3802,15 @@ class editinventory(blankWindow):
         """
         self.containers = []
         clist = []
+        self.contnamelist = []
         self.transports = []
         tlist = []
+        self.transpnamelist = []
         # make indices ---------------------
         for item in self.character["inventory"]["gear"]:
             if "container" in item["type"]:
                 clist.append(item["type"])
+                self.contnamelist.append(item["name"])
                 self.containers.append({"name":item["name"],
                                         "type": item["type"],
                                         "index": self.character["inventory"]["gear"].index(item)
@@ -3714,6 +3818,7 @@ class editinventory(blankWindow):
         for item in self.character["inventory"]["transport"]:
             if "transport" in item["type"]:
                 tlist.append(item["type"])
+                self.transpnamelist.append(item["name"])
                 self.transports.append({"name": item["name"],
                                         "type": item["type"],
                                         "index": self.character["inventory"]["transport"].index(item)
@@ -3727,8 +3832,7 @@ class editinventory(blankWindow):
                 clist[idx] += str(counter)
                 self.character["inventory"]["gear"][self.containers[idx]["index"]]["type"] += str(counter)
             counter += 1
-        print(80 * "=" + "\nDEbug idxcontainertransport\n")
-        pprint(self.containers)
+
         counter = 1
         while "transport" in tlist:
             idx = tlist.index("transport")
@@ -3739,8 +3843,75 @@ class editinventory(blankWindow):
                 self.character["inventory"]["transport"][self.transports[idx]["index"]]["type"] += str(counter)
             counter += 1
 
-        print(80 * "=" + "\n")
-        pprint(self.transports)
+        self.character["idxcontainer"] = self.containers.copy()
+        self.character["idxtransport"] = self.transports.copy()
+        self.contnamelist.sort()
+        self.transpnamelist.sort()
+
+
+#        def getChoice(self, selection):
+#            '''
+#            This switches the specific frames for the different types of magic items
+#            '''
+#            #"charged magic item", "daily item", "magic bonus item", "permanent magic item"
+#            try:
+#                for elem in self.enchantment[1:]:
+#                    [elem].grid_forget()
+#            except:
+#
+#                pass
+#
+#            finally:
+#                [selection].grid(column = 0,
+#                                           columnspan = 9,
+#                                           row = 10,
+#                                           rowspan = 6,
+#                                           padx = 3,
+#                                           pady = 3,
+#                                           sticky = "NEWS"
+#                                           )
+    def getShop(self, selection):
+        """
+        This gets the shop selection
+        """
+        if selection == "armor":
+            self.__armor()
+        elif selection == "gear":
+            self.__gear()
+        elif selection == "weapon":
+            self.__weapon()
+        elif selection == "services":
+            self.__services()
+        elif selection == "gems":
+            self.__gems()
+        elif selection == "herbs":
+            self.__herbs()
+        elif selection == "transport":
+            self.__transport()
+
+
+    def getAction(self, selection):
+        """
+        This get the type of action to be done: edit or equip item
+        """
+        print(selection)
+        if selection == "equip":
+            self.frame["equip"].grid(column = 6,
+                                     columnspan = 10,
+                                     row = 0,
+                                     rowspan = 4
+                                     )
+        else:
+            self.frame["equip"].grid_forget()
+            self.notdoneyet("getAction")
+
+
+    def getLocation(self, selection):
+        """
+        This get the location where to  put the item
+        """
+        print(selection)
+        self.notdoneyet("getLocation")
 
 
 

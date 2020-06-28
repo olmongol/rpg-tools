@@ -11,7 +11,7 @@
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "27.06.2020"
+__updated__ = "28.06.2020"
 
 ## \var geartypes
 # (dictionary) list of different type of equipment like armor, weapon, tool...
@@ -142,9 +142,12 @@ weapon = {"name" : "",
           "fumble" : "",
           "strength" : "",
           "soft/wooden" : "",
-          "location" : "",
-#          "range mod" :{},
-          "location": "unequipped",
+          "near": "---",
+          "short": "---",
+          "medium": "---",
+          "long": "---",
+          "extreme": "---",
+          "location": "equipped",
           "worth" : money.copy()
          }
 
@@ -163,7 +166,7 @@ armor = {"name": "",
           "bonus DB" :0,
           "bonus man": 0,
           "bonus OB": 0,
-          "location" : "unequipped",
+          "location" : "equipped",
           "worth" : money.copy()
 
          }
@@ -183,7 +186,7 @@ gear = {"name": "",
          "capacity":"",
          "volume":"",
          "type":"",
-         "location": "unequipped",
+         "location": "equipped",
          "worth" : money.copy()
         }
 
@@ -192,7 +195,7 @@ gear = {"name": "",
 gems = {"name" : "",
          "description":"",
          "weight" : 0,
-         "location" : "",
+         "location" : "equipped",
          "magic":False,
 #         "realm":"",
 #         "spell": "",
@@ -232,8 +235,8 @@ herbs = {"name" : "",
          "description" : "",
          "medical use" :"",
          "other use" : "",
-         "weight" : 0,
-         "location" : "",
+         "weight" : 0.1,
+         "location" : "equipped",
          "worth": money.copy()
          }
 
@@ -248,7 +251,7 @@ constant_item = {"name" : "",
                  "weight" : 0,
                  "add spell" : 0,
                  "pp mult" : 0,
-                 "location" : "",
+                 "location" : "equipped",
                  "worth" : money.copy()
                 }
 
@@ -276,4 +279,4 @@ transport = {"name" :"",
 
 services = {"name" : "",
             "description":"",
-            "location":"unequipped"}
+            "location":"equipped"}
