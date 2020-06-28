@@ -418,8 +418,11 @@ class InventoryWin(blankWindow):
         """
         mmp = 0
         # calc MMP ---------------------
+        if "MMP" in self.character.keys():
+            mmp = self.character["MMP"]
+        else:
+            self.character["MMP"] = mmp
 
-        self.character["MMP"] = mmp
         self.wcont["MMP"].set(mmp)
 
 
@@ -1380,14 +1383,13 @@ class shopWin(blankWindow):
 
         self.notdoneyet()
 
-
-    def editShopItem(self):
-        """
-        This is for editing a single shop item
-        ----
-        @todo has to be fully implemented
-        """
-        self.notdoneyet()
+#    def editShopItem(self):
+#        """
+#        This is for editing a single shop item
+#        ----
+#        @todo has to be fully implemented
+#        """
+#        self.notdoneyet()
 
 
     def editItem(self):
@@ -1405,8 +1407,11 @@ class shopWin(blankWindow):
             self. window.destroy()
             self.armorwin = editinventory(lang = self.lang, char = self.character, item = item, shoptype = self.shoptype, storepath = self.storepath)
         except Exception as e:
-            print(e)
-            messageWindow().showinfo("Warning: select an item", "Error")
+            print("Error:", e)
+#            self. window.destroy()
+#            self.armorwin = editinventory(lang = self.lang, char = self.character, shoptype = self.shoptype, storepath = self.storepath)
+            messageWindow().showinfo("Warning: no item selected", "Warning")
+#            self.window.destroy()
             self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = self.shoptype)
 #        XXXXXXXXXXXXXXXXXXXXXXXXXXX --------------------
 
@@ -1498,6 +1503,13 @@ class shopWin(blankWindow):
             self.character["MMP"] = calcMMP(self.character)
             self.wcont["MMP"].set(self.character["MMP"])
 
+        if "carr_weight" not in self.wcont.keys():
+            self.wcont["carr_weight"] = IntVar()
+            self.wcont["carr_weight"].set(0)
+
+            if "carried" in self.character.keys():
+                self.wcont["carr_weight"].set(self.character["carried"])
+
         for coin in ["MP", "PP", "GP", "SP", "BP", "CP", "TP", "IP"]:
             if "purse" not in self.character.keys():
                 self.character["purse"] = {}
@@ -1520,7 +1532,7 @@ class shopWin(blankWindow):
         mmp = 0
         # calc MMP ---------------------
         calcpen = rpg.equipmentPenalities(self.character)
-        mmp = calcpen.maxmanmod
+        mmp = calcpen.weightpenalty
         self.character["AT"] = calcpen.AT
         self.character["misslepen"] = calcpen.misatpen
         self.character["armquickpen"] = calcpen.armqupen
@@ -1551,6 +1563,8 @@ class shopWin(blankWindow):
                             self.character["inventory"][cat][i]["weight"] = 0.0
 
         self.character["carried"] = carried
+        if "carr_weight" not in self.wcont.keys():
+            self.wcont["carr_weight"] = IntVar()
         self.wcont["carr_weight"].set(carried)
 
 
@@ -2062,6 +2076,8 @@ class enchantItem(blankWindow):
                      pady = 1,
                      sticky = "EW"
                      )
+
+        # chosen: option menu -----
         self.chosen = StringVar(self.window)
         self.chosen.set(self.enchantment[0])
 
@@ -3024,6 +3040,8 @@ class enchantItem(blankWindow):
             self.wcont["MMP"].set(self.character["MMP"])
 
         if "carried" in self.character.keys():
+            if "carr_weight" not in self.wcont.keys():
+                self.wcont["carr_weight"] = IntVar()
             self.wcont["carr_weight"].set(self.character["carried"])
         else:
             self.wcont["carr_weight"] = IntVar()
@@ -3144,12 +3162,16 @@ class editinventory(blankWindow):
         self.filterlist = ['player', 'exp', 'lvl', 'prof', 'race', 'name', 'piclink', 'realm']
         self.bgfilter = ['act_age', 'carr_weight', "sex", "height", "weight"]
         self.storepath = storepath
+
         blankWindow.__init__(self, self.lang)
-        self.window.title("Item")
+        self.idxContainerTransport()
+        self.calcCarriedWeight()
+
+        self.window.title("Edit/Equip Items")
         self.__addMenu()
         self.__addHelpMenu()
         self.__buildWin()
-        self.calcCarriedWeight()
+
         self.window.mainloop()
 
 
@@ -3412,6 +3434,33 @@ class editinventory(blankWindow):
                          )
             c += 2
 
+        Label(self.window,
+              test = labels["geartype"][self.lang] + ":"
+              ).grid(column = 2,
+                     columnspan = 2,
+                      row = 6,
+                      padx = 1,
+                      pady = 1,
+                      sticky = "EW"
+                      )
+
+        self.shops = ["armor", "armor", "weapon", "services", "gear", "gems", "herbs", "transport"]
+        self.choseshop = StringVar(self.window)
+        self.choseshop.set(self.shoptype)
+
+        self.opt = OptionMenu(self.window,
+                           self.choseshop,
+                           *tuple(self.shops),
+#                           command = self.getSop
+                           )
+        self.opt.grid(column = 4,
+                      columnspan = 2,
+                      row = 6,
+                      padx = 1,
+                      pady = 1,
+                      sticky = "EW"
+                      )
+
 
     def updWidgedCont(self):
         '''
@@ -3494,11 +3543,12 @@ class editinventory(blankWindow):
         # calc MMP ---------------------
         print("Debug editinventory/calcMMp")
         calcpen = rpg.equipmentPenalities(self.character)
-        mmp = calcpen.maxmanmod
-        print("AT: {}\n man: {}\n mis: {}\n qupen: {}\n".format(calcpen.AT,
+        mmp = calcpen.weightpenalty
+        print("AT: {}\n man: {}\n mis: {}\n qupen: {}\nweight:{}".format(calcpen.AT,
                                                                 calcpen.maxmanmod,
                                                                 calcpen.misatpen,
-                                                                calcpen.armqupen))
+                                                                calcpen.armqupen,
+                                                                mmp))
         self.character["AT"] = calcpen.AT
         self.character["misslepen"] = calcpen.misatpen
         self.character["armquickpen"] = calcpen.armqupen
@@ -3530,6 +3580,8 @@ class editinventory(blankWindow):
 
         self.character["carried"] = carried
         self.character["background"]["carr_weight"] = carried
+        if "carr_weight" not in self.wcont.keys():
+            self.wcont["carr_weight"] = IntVar()
         self.wcont["carr_weight"].set(carried)
 
 
@@ -3600,7 +3652,7 @@ class editinventory(blankWindow):
         This opens a window for weapons
         """
         self. window.destroy()
-        self.armorwin = editinventory(lang = self.lang, char = self.character, sotrepath = self.storepath, shoptype = "weapon")
+        self.armorwin = editinventory(lang = self.lang, char = self.character, storepath = self.storepath, shoptype = "weapon")
 
 
     def __gear(self):
@@ -3641,6 +3693,54 @@ class editinventory(blankWindow):
         """
         self. window.destroy()
         self.armorwin = editinventory(lang = self.lang, char = self.character, storepath = self.storepath, shoptype = "herbs")
+
+
+    def idxContainerTransport(self):
+        """
+        This makes an index for container and transport type items.
+        """
+        self.containers = []
+        clist = []
+        self.transports = []
+        tlist = []
+        # make indices ---------------------
+        for item in self.character["inventory"]["gear"]:
+            if "container" in item["type"]:
+                clist.append(item["type"])
+                self.containers.append({"name":item["name"],
+                                        "type": item["type"],
+                                        "index": self.character["inventory"]["gear"].index(item)
+                                        })
+        for item in self.character["inventory"]["transport"]:
+            if "transport" in item["type"]:
+                tlist.append(item["type"])
+                self.transports.append({"name": item["name"],
+                                        "type": item["type"],
+                                        "index": self.character["inventory"]["transport"].index(item)
+                                        })
+        counter = 1
+        while "container" in clist:
+            idx = clist.index("container")
+
+            if "container{}".format(counter) not  in clist:
+                self.containers[idx]["type"] += str(counter)
+                clist[idx] += str(counter)
+                self.character["inventory"]["gear"][self.containers[idx]["index"]]["type"] += str(counter)
+            counter += 1
+        print(80 * "=" + "\nDEbug idxcontainertransport\n")
+        pprint(self.containers)
+        counter = 1
+        while "transport" in tlist:
+            idx = tlist.index("transport")
+
+            if "transport{}".format(counter) not in tlist:
+                self.transports[idx]["type"] += str(counter)
+                tlist[idx] += str(counter)
+                self.character["inventory"]["transport"][self.transports[idx]["index"]]["type"] += str(counter)
+            counter += 1
+
+        print(80 * "=" + "\n")
+        pprint(self.transports)
 
 
 

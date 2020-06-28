@@ -122,6 +122,8 @@ def calcTotals(charval = {}):
                 charval['cat'][cat]['Skill'][skill]['rank bonus'] = bonus
                 total = bonus + charval['cat'][cat]['total bonus'] + charval['cat'][cat]['Skill'][skill]['item bonus'] + charval['cat'][cat]['Skill'][skill]['spec bonus']
                 charval['cat'][cat]['Skill'][skill]['total bonus'] = total
+                if skill == "Body Development":
+                    charval['cat'][cat]['Skill'][skill]['total bonus'] += 10
 
     return charval
 

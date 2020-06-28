@@ -25,7 +25,7 @@ Currently supported languages are:
 \todo clean up the code!!!
 '''
 __version__ = "1.1"
-__updated__ = "19.06.2020"
+__updated__ = "27.06.2020"
 ## \var supportedrpg
 # Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
@@ -687,7 +687,9 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
           "type" :{"de" :"Typ",
                    "en" : "Type"},
           "loads" :{"de" : "Ladungen",
-                    "en" : "Charges"}
+                    "en" : "Charges"},
+          "geartype": {"de" : u"Art der Ausrüstung",
+                       "en" : "Type of Equipment"},
           }
 
 ##\var errmsg

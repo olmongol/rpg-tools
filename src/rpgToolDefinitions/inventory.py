@@ -11,7 +11,7 @@
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "23.06.2020"
+__updated__ = "27.06.2020"
 
 ## \var geartypes
 # (dictionary) list of different type of equipment like armor, weapon, tool...
@@ -91,9 +91,9 @@ char_inv_tv = {"armor" : ["name", "description", "AT", "weight", "worth"],
                "gear" : ["name", "description", "weight", "capacity", "volume", "bonus", "skill", "worth"],
                "transport" :["name", "description", "height", "weight", "capacity", "OB", "worth"],
                "herbs" :["name", "type", "lvl", "description", "medical use", "other use", "worth"],
-               "runes" :[],
-               "constant item" :[],
-               "daily item" :[],
+#               "runes" :[],
+#               "constant item" :[],
+#               "daily item" :[],
                }
 
 perm_item = {"spell adder" :{"+0" :0,
@@ -208,18 +208,18 @@ gems = {"name" : "",
 # prototype dictionary for magical potions or rune papers
 
 runes = {"name": "",
-            "description" : "",
-            "type" : "",  #potion,rune paper, rod, wand,staff
-            "spell" : "",
-            "lvl" : "",
-            "loads":1,
-            "max loads":1,
-            "skill" : "",
-            "realm" : "",
-            "weight" : 0,
-            "location" : "",
-            "worth" : money.copy()
-            }
+        "description" : "",
+        "type" : "",  #potion,rune paper, rod, wand,staff
+        "spell" : "",
+        "lvl" : "",
+        "loads":1,
+        "max loads":1,
+        "skill" : "",
+        "realm" : "",
+        "weight" : 0,
+        "location" : "",
+        "worth" : money.copy()
+        }
 
 ## \var herbs
 # prototype dictionary for herbs/ medical potions

@@ -1,1 +1,20 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Herb Lore,1 herb,---,touch,I,"Caster can understand the nature, origin, and value of any 1 herb. If the plant is not an herb, no information will be gained."
+2,Enhancement,1 herb,P,touch,U,"Allows caster to enhance the potency of any 1 growing herb by 100\% (i.e., x2). This spell may be used only once per herb."
+3,Herb Finding I,varies,1 rnd/lvl,100',I,"Allows caster to locate any 1 specific variety of herb that is sought, regardless of physical obstacles (gives exact direction, distance, and quantity)."
+4,Instant Herbal Cures,1 herb,1 day/lvl,touch,U,"Allows caster to make any 1 herb capable of being instantly effective. When the herb is subse- quently used, its benefits/dangers will be immediately felt. The herb will keep for 1 day per level of the caster."
+5,Herb Mastery II,1 herb,P,touch,U,Caster can double the potency of any 1 herb (growing or dead). This spell may be employed only once per herb. May not be combined with Herb Enhancement.
+6,Herb Finding III,varies,1 rnd/lvl,300',I,"As Herb Finding I, except that the range is 300'."
+7,Herb Production,1 seed,P,touch,U,Caster can grow an herb by planting the proper seed. The herb is sterile and the growth takes 1-10 rounds. 
+8,Herb Mastery III,1 herb,P,touch,U,"As Herb Mastery II, except potency is 3 times."
+9,Herb Finding V,varies,1 rnd/lvl,500',I,"Allows caster to remove any harmful poisons, by-products, or side effects from all herbs within range."
+10,Herb Cleansing,varies,P,10',U,"As Herb Finding I, except range is 500'."
+11,Herb Mastery V,1 herb,P,touch,U,"As Herb Mastery II, except potency is 5x."
+13,Herb Finding X,varies,1 rnd/lvl,1 mile,I,"As Herb Finding I, except range is 1 mile. Location is known within 10’R."
+15,Herb Mastery X,1 herb,P,touch,U,"As Herb Mastery II, except potency is 10x."
+17,Preserved Instant Herbal Cures,1 herb,1 week/lvl,touch,U,"As Instant Herbal Cures, except herb will keep for 1 week per level of the caster."
+18,Herb Finding XX,1 herb,P,touch,I,"As Herb Finding I, except range is 5 miles. Location is known within 25'R."
+20,Lord Herb Finding,1 herb,1 rnd/lvl,20 miles,I,"As Herb Finding I, except range is 20 miles; location is known within 100'R."
+25,Enhancement True,1 herb,P,touch,U,"As Enhancement, except that potency of 1 growing herb is increased 100\% x level of caster (e.g., a 30th level caster could increase the potency of a growing herb by 3000\% or 30 times its normal potency)."
+30,Herb Mastery True,1 herb,P,touch,U,"As Herb Mastery II, except that the potency fo 1 herb can be increased by 100\% x level of caster (e.g., a 50th level caster could increase the potency of any herb by 5000\% or 50 times its normal potency)."
+50,Herb Finding True,varies,1 rnd/lvl,1 mi/lvl,I,"As Herb Finding I, except that caster can locate any 1 herb variety within a range of 1 mile per level of caster (e.g., 50 miles for a 50th level caster). Location is known within 100'R."
