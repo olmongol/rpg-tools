@@ -35,7 +35,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "28.06.2020"
+__updated__ = "05.07.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.5"
@@ -3541,14 +3541,14 @@ class editinventory(blankWindow):
         # equip frame ---
         Label(self.frame["equip"],
               text = labels["location"][self.lang] + ":"
-              ).grid(column = 0,
+              ).grid(column = 20,
                      row = 0,
                      padx = 1,
                      pady = 1,
                      sticky = "EW")
 
         self.idxContainerTransport()
-        self.eqmlist = ["equip", "equip"] + self.contnamelist + self.transpnamelist
+        self.eqmlist = ["equipped", "equipped", "unequipped"] + self.contnamelist + self.transpnamelist
         self.equloc = StringVar()
         self.equloc.set(self.eqmlist[0])
         self.optequ = OptionMenu(self.frame["equip"],
@@ -3556,13 +3556,78 @@ class editinventory(blankWindow):
                                  *tuple(self.eqmlist),
                                  command = self.getLocation
                                  )
-        self.optequ.grid(column = 1,
-                         columnspan = 3,
-                         row = 0,
+        self.optequ.grid(column = 20,
+                         columnspan = 2,
+                         row = 1,
                          padx = 1,
                          pady = 1,
                          sticky = "EW"
                          )
+
+#        self.header = ["name", "description", "location", "weight"]
+        self.header = ["name", "description", "weight"]
+#        self.frame["equip"].grid(column = 0,
+#                            columnspan = 19,
+#                            row = 8,
+#                            rowspan = 6,
+#                            sticky = "NEWS")
+        self.invtree = Treeview(self.frame["equip"],
+                                 columns = self.header,
+                                 show = "headings"
+                                 )
+        vscroll = AutoScrollbar(orient = "vertical",
+                                command = self.invtree.yview
+                                )
+        hscroll = AutoScrollbar(orient = "horizontal",
+                                command = self.invtree.xview)
+        self.invtree.configure(yscrollcommand = vscroll.set,
+                                xscrollcommand = hscroll.set
+                                )
+        vscroll.grid(column = 1,
+                     row = 0,
+                     sticky = "NS",
+                     in_ = self.frame["equip"]
+                     )
+        hscroll.grid(column = 0,
+                     row = 1,
+                     sticky = "EW",
+                     in_ = self.frame["equip"]
+                     )
+        for header in  self.header:
+            if header in treeformat.keys():
+                self.invtree.column(header, width = treeformat[header])
+            self.invtree.heading(header, text = header)
+
+        self.invtree.grid(column = 0,
+                           row = 0,
+                           rowspan = 5,
+                           sticky = "NEWS", in_ = self.frame["equip"])
+        self.invtree.bind('<Double-Button-1>', self.selectItem)
+        self.__fillTree()
+# for...
+# self.shoptree.insert("", i, values = tuple(self.data[i]))
+
+
+    def __fillTree(self):
+        print("DEBUG " + 80 * "-" "Debug")
+        pprint(self.item)
+        focus = -1
+        for  i in range(0, len(self.character["inventory"][self.shoptype])):
+            f = -1
+            dummy = []
+            for h in self.header:
+                dummy.append(self.character["inventory"][self.shoptype][i][h])
+            if self.item ["name"] == self.character["inventory"][self.shoptype][i]["name"] \
+            and self.item ["description"] == self.character["inventory"][self.shoptype][i]["description"] \
+            and self.item ["weight"] == self.character["inventory"][self.shoptype][i]["weight"]:
+                focus = self.invtree.insert("", i, values = tuple(dummy))
+                f = i
+                print("focus", focus)
+            else:
+                self.invtree.insert("", i, values = tuple(dummy))
+
+        print("debug - {} -{} ".format(focus, f))
+        self.invtree.selection_set(focus)
 
 
     def updWidgedCont(self):
@@ -3796,6 +3861,10 @@ class editinventory(blankWindow):
         self.armorwin = editinventory(lang = self.lang, char = self.character, storepath = self.storepath, shoptype = "herbs")
 
 
+    def selectItem(self, selection):
+        pass
+
+
     def idxContainerTransport(self):
         """
         This makes an index for container and transport type items.
@@ -3897,7 +3966,7 @@ class editinventory(blankWindow):
         print(selection)
         if selection == "equip":
             self.frame["equip"].grid(column = 6,
-                                     columnspan = 10,
+                                     columnspan = 12,
                                      row = 0,
                                      rowspan = 4
                                      )
@@ -3911,7 +3980,12 @@ class editinventory(blankWindow):
         This get the location where to  put the item
         """
         print(selection)
-        self.notdoneyet("getLocation")
+        if selection in  ["equipped", "unequipped"]:
+            idx = self.character["inventory"][self.shoptype].index[self.item]
+            self.item[location] = selection
+            self.character["inventory"][self.shoptype][idx]["location"] = selection
+        else:
+            self.notdoneyet("getLocation")
 
 
 
