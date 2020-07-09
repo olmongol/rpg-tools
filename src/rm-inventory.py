@@ -35,7 +35,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "05.07.2020"
+__updated__ = "09.07.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.5"
@@ -3203,17 +3203,11 @@ class editinventory(blankWindow):
                                  command = self.__weapon)
         self.invmenu.add_command(label = submenu['inventory'][self.lang]['gear'],
                                                  command = self.__gear)
+        self.invmenu.add_separator()
         self.invmenu.add_command(label = submenu["inventory"][self.lang]["gems"],
                                  command = self.__gems)
         self.invmenu.add_command(label = submenu['inventory'][self.lang]["herbs"],
                                  command = self.__herbs)
-        self.invmenu.add_separator()
-        self.invmenu.add_command(label = submenu["inventory"][self.lang]["spells"],
-                                 command = self.notdoneyet)
-        self.invmenu.add_command(label = submenu["inventory"][self.lang]["daily"],
-                                 command = self.notdoneyet)
-        self.invmenu.add_command(label = submenu['inventory'][self.lang]["PP_spell"],
-                                  command = self.notdoneyet)
         self.invmenu.add_separator()
         self.invmenu.add_command(label = submenu["inventory"][self.lang]["transport"],
                                  command = self.__transport)
@@ -3480,9 +3474,11 @@ class editinventory(blankWindow):
             try:
                 self.itemname.set(self.item["name"])
 
-            except Exceptions as error:
-                print("Error: (editinventory - buildwin): ")
+            except Exception as error:
+                print("Error: (editinventory - buildwin): {}".format(error))
                 self.itemname.set("---")
+                print("dabug - item")
+                pprint(self.item)
 
         else:
             self.itemname.set("---")
@@ -3531,7 +3527,7 @@ class editinventory(blankWindow):
 
         # define frames ---
         self.frame = {}
-        self.frms = ['equip']
+        self.frms = ['equip', 'select']
         for  st in self.character["inventory"].keys():
             self.frms += [st, "edit " + st]
 
@@ -3566,12 +3562,7 @@ class editinventory(blankWindow):
 
 #        self.header = ["name", "description", "location", "weight"]
         self.header = ["name", "description", "weight"]
-#        self.frame["equip"].grid(column = 0,
-#                            columnspan = 19,
-#                            row = 8,
-#                            rowspan = 6,
-#                            sticky = "NEWS")
-        self.invtree = Treeview(self.frame["equip"],
+        self.invtree = Treeview(self.frame["select"],
                                  columns = self.header,
                                  show = "headings"
                                  )
@@ -3585,13 +3576,14 @@ class editinventory(blankWindow):
                                 )
         vscroll.grid(column = 1,
                      row = 0,
+                     rowspan = 5,
                      sticky = "NS",
-                     in_ = self.frame["equip"]
+                     in_ = self.frame["select"]
                      )
         hscroll.grid(column = 0,
                      row = 1,
                      sticky = "EW",
-                     in_ = self.frame["equip"]
+                     in_ = self.frame["select"]
                      )
         for header in  self.header:
             if header in treeformat.keys():
@@ -3601,33 +3593,159 @@ class editinventory(blankWindow):
         self.invtree.grid(column = 0,
                            row = 0,
                            rowspan = 5,
-                           sticky = "NEWS", in_ = self.frame["equip"])
+                           sticky = "NEWS", in_ = self.frame["select"])
         self.invtree.bind('<Double-Button-1>', self.selectItem)
         self.__fillTree()
+
+        # select frame ---
+        self.frame["select"].grid(column = 6,
+                                  columnspan = 10,
+                                  row = 0,
+                                  rowspan = 5,
+                                  sticky = "NEWS")
 # for...
 # self.shoptree.insert("", i, values = tuple(self.data[i]))
 
 
     def __fillTree(self):
+        '''
+        This fills the treeview widget with
+        '''
         print("DEBUG " + 80 * "-" "Debug")
         pprint(self.item)
         focus = -1
+        f = -1
         for  i in range(0, len(self.character["inventory"][self.shoptype])):
-            f = -1
+
             dummy = []
             for h in self.header:
                 dummy.append(self.character["inventory"][self.shoptype][i][h])
-            if self.item ["name"] == self.character["inventory"][self.shoptype][i]["name"] \
-            and self.item ["description"] == self.character["inventory"][self.shoptype][i]["description"] \
-            and self.item ["weight"] == self.character["inventory"][self.shoptype][i]["weight"]:
-                focus = self.invtree.insert("", i, values = tuple(dummy))
-                f = i
-                print("focus", focus)
+            if self.item:
+                if self.item ["name"] == self.character["inventory"][self.shoptype][i]["name"] \
+                and self.item ["description"] == self.character["inventory"][self.shoptype][i]["description"] \
+                and self.item ["weight"] == self.character["inventory"][self.shoptype][i]["weight"]:
+                    focus = self.invtree.insert("", i, values = tuple(dummy))
+                    f = i
+                    print("focus {}:{}".format(focus, i))
+                else:
+                    self.invtree.insert("", i, values = tuple(dummy))
             else:
                 self.invtree.insert("", i, values = tuple(dummy))
 
         print("debug - {} -{} ".format(focus, f))
-        self.invtree.selection_set(focus)
+        if focus != -1:
+            self.invtree.selection_set(focus)
+
+
+    def __buildEditFrame(self):
+        '''
+        This builds the frame for editing items dynamically
+        ----
+        @todo has to be fully implemented
+        '''
+
+        # prepare fields/fieldnames -----
+        self.fieldnames = ["name", "description", "weight", "worth"]
+        self.fields = {}
+        if self.item:
+            if self.shoptype == "herbs":
+
+                for key in inv.herbs.keys():
+
+                    if key not in self.fieldnames:
+                        self.fieldnames.append(key)
+
+                for key in inv.runes.keys():
+
+                    if key not in self.fieldnames:
+                        self.fieldnames.append(key)
+
+                for key in self.item.keys():
+                    if key not in self.fieldnames:
+                        self.fieldnames.append(key)
+
+            elif self.shoptype == "armor":
+                for key in inv.armor.keys():
+                    if key not in self.fieldnames:
+                        self.fieldnames.append(key)
+
+                for key in inv.runes.keys():
+                    if key not in self.fieldnames:
+                        self.fieldnames.append(key)
+
+                for key in self.item.keys():
+                    if key not in self.fieldnames:
+                        self.fieldnames.append(key)
+            elif self.shoptype == "weapon":
+                for key in inv.weapon.keys():
+                    if key not in self.fieldnames:
+                        self.fieldnames.append(key)
+
+                for key in inv.runes.keys():
+                    if key not in self.fieldnames:
+                        self.fieldnames.append(key)
+
+                for key in self.item.keys():
+                    if key not in self.fieldnames:
+                        self.fieldnames.append(key)
+
+            elif self.shoptype == "gear":
+                for key in inv.gear.keys():
+                    if key not in self.fieldnames:
+                        self.fieldnames.append(key)
+
+                for key in inv.runes.keys():
+                    if key not in self.fieldnames:
+                        self.fieldnames.append(key)
+
+                for key in self.item.keys():
+                    if key not in self.fieldnames:
+                        self.fieldnames.append(key)
+
+            elif self.shoptype == "gems":
+
+                for key in inv.gems.keys():
+                    if key not in self.fieldnames:
+                        self.fieldnames.append(key)
+
+                for key in inv.runes.keys():
+                    if key not in self.fieldnames:
+                        self.fieldnames.append(key)
+
+                for key in self.item.keys():
+                    if key not in self.fieldnames:
+                        self.fieldnames.append(key)
+
+            elif self.shoptype == "services":
+                for key in inv.services.keys():
+                    if key not in self.fieldnames:
+                        self.fieldnames.append(key)
+
+                for key in inv.runes.keys():
+                    if key not in self.fieldnames:
+                        self.fieldnames.append(key)
+
+                for key in self.item.keys():
+                    if key not in self.fieldnames:
+                        self.fieldnames.append(key)
+
+            elif self.shoptype == "transport":
+                for key in inv.transport.keys():
+                    if key not in self.fieldnames:
+                        self.fieldnames.append(key)
+
+                for key in inv.runes.keys():
+                    if key not in self.fieldnames:
+                        self.fieldnames.append(key)
+
+                for key in self.item.keys():
+                    if key not in self.fieldnames:
+                        self.fieldnames.append(key)
+
+            else:
+                pass
+
+        pprint(self.fieldnames)
 
 
     def updWidgedCont(self):
@@ -3704,17 +3822,15 @@ class editinventory(blankWindow):
     def calcMMP(self):
         """
         This method calculates the Movement Maneuver Penalty (MMP)
-        ----
-        @todo has to be fully implemented
         """
         mmp = 0
         calcpen = rpg.equipmentPenalities(self.character)
         mmp = calcpen.weightpenalty
-        print("AT: {}\n man: {}\n mis: {}\n qupen: {}\nweight:{}".format(calcpen.AT,
-                                                                calcpen.maxmanmod,
-                                                                calcpen.misatpen,
-                                                                calcpen.armqupen,
-                                                                mmp))
+#        print("AT: {}\n man: {}\n mis: {}\n qupen: {}\nweight:{}".format(calcpen.AT,
+#                                                                calcpen.maxmanmod,
+#                                                                calcpen.misatpen,
+#                                                                calcpen.armqupen,
+#                                                                mmp))
         self.character["AT"] = calcpen.AT
         self.character["misslepen"] = calcpen.misatpen
         self.character["armquickpen"] = calcpen.armqupen
@@ -3810,7 +3926,7 @@ class editinventory(blankWindow):
         This opens a window for armor
         """
         self. window.destroy()
-        self.armorwin = editinventory(self.lang, self.character, self.storepath, shoptype = "armor")
+        self.armorwin = editinventory(lang = self.lang, char = self.character, storepath = self.storepath, shoptype = "armor")
 
 
     def __weapon(self):
@@ -3965,13 +4081,14 @@ class editinventory(blankWindow):
         """
         print(selection)
         if selection == "equip":
-            self.frame["equip"].grid(column = 6,
-                                     columnspan = 12,
+            self.frame["equip"].grid(column = 16,
+                                     columnspan = 2,
                                      row = 0,
                                      rowspan = 4
                                      )
         else:
             self.frame["equip"].grid_forget()
+            self.__buildEditFrame()
             self.notdoneyet("getAction")
 
 
@@ -3980,10 +4097,10 @@ class editinventory(blankWindow):
         This get the location where to  put the item
         """
         print(selection)
-        if selection in  ["equipped", "unequipped"]:
+        if str(selection) in  ["equipped", "unequipped"]:
             idx = self.character["inventory"][self.shoptype].index[self.item]
-            self.item[location] = selection
-            self.character["inventory"][self.shoptype][idx]["location"] = selection
+            self.item[location] = str(selection)
+            self.character["inventory"][self.shoptype][idx]["location"] = str(selection)
         else:
             self.notdoneyet("getLocation")
 
