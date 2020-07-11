@@ -1,1 +1,24 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Cat’s Step,caster,1 min/lvl,self,U,Caster moves as quietly as a cat. Adds +20 to all Stalking manuevers.
+2,Chameleon Skin,caster,1 min/lvl,self,U,"Caster's skin takes on the coloration of the surrounding terrain. Adds +10 to +50 to all Stalking/Hiding manuevers. As caster moves, coloration changes to match the surrounding terrain. This spell does not affect gear or clothing."
+3,Wolf Sense,caster,1 min/lvl,self,U,Caster gains an increased sense of smell and hearing (subtle smells and higher sonic ranges included). Adds +50 to Perceptions with only these senses; +20 to Perceptions using these sense combined with others.
+4,Deer Speed I,caster,10 min/lvl,self,U,"Caster can run at two times normal pace (i.e., Run pace) and expend exhaustion points as if only walking."
+5,Bat Sense,caster,1 min/lvl,self,U,"Increases caster's ability to manuever without his sight. When blinded or otherwise without sight, this spell adds +10 to +50 to manuever rolls in the dark. Note that this spell does not negate penalties for blindness; it simply decreases them."
+6,Otterlungs,caster,1 min/lvl,self,U,Caster can safely hold his breath for the duration of this spell.
+7,Glide I,caster,1 min/lvl,self,U,"Caster can glide like a bird. The product of the caster's altitude and horizontal speed cannot exceed 100' per round. For example, a caster can glide along at a rate of 5' per round if he were 20' off the ground; or he could glide at the rate of 50' per round if he were 2' off the ground. Note that the total must equal 100' (i.e., the caster cannot choose to have a total less than or more than 100')."
+8,Hawk's Sense,caster,1 min/lvl,self,U,Caster gains the visual acuity of a hawk. Adds +50 to all Perceptions involving only sight; +20 to all Perceptions involving this sense combined with others.
+9,Tiger Skin,caster,1 min/lvl,self,U,Caster's skin has the resilience of a large cat (effective AT of 3).
+10,Boar Strength,caster,1 min/lvl,self,U,"Caster gains the ferosity of a wild boar. He gains +20 to his melee OB, but cannot parry or use missiles for the duration of the spell."
+11,Lion Claws,caster,1 min/lvl,self,U,"Caster gains the ability to make claw attacks as a lion. He may attack using the Claw Attack Table (from Arms Law), with a maximum of Medium results. The caster must develop skill (i.e., an OB) with these claws (cost to develop is the same as Martial Arts Striking; stat modifiers are St/St/Ag)."
+12,Insect Sense,10'R/lvl,1 min/lvl,self,U,Caster gains the vibratory sensitivity of an insect. He can sense vibrations in the ground (or other solid material) up to the area of effect. He will gain information indicating general movements and number of targets (±10\%). Treat as a +25 to +100 bonus to Perception (depending on the type of activity).
+13,Deer Speed II,caster,1 min/lvl,self,U,"As Deer Speed I, except the speed increase is three times (i.e., Sprint pace)."
+14,Bear Skin,caster,10 min/lvl,self,U,Caster's skin has the resilience of a bear (effective AT of 8).
+15,Bear Arms,caster,1 min/lvl,self,U,"Caster gains the ability to make grapple attacks as a bear. He may attack using the Grapple Attack Table (from Arms Law), with a maximum of Medium results.The caster must develop skill (i.e., an OB) with this attack (cost to develop is the same as Martial Arts Sweeps/Throws; stat modifiers are St/St/Ag)."
+16,Glide III,caster,1 min/lvl,self,U,"As Glide I, except product must equal 300'."
+17,Viperfang,caster,1 min/lvl,self,U,"Caster gains the ability to make bite attacks as a serpent. He may attack using the Bite Attack Table (from Arms Law), with a maximum of Medium results. The caster must develop skill (i.e., an OB) with this attack (cost to develop is the same as Martial Arts Strikingp; stat modifier are St/Ag/Ag)."
+18,Wyvern Skin,caster,1 min/lvl,self,U,Caster's skin has the resilience of a minor drake (effective AT of 12).
+19,Deer Speed III,caster,10 min/lvl,self,U,"As Deer Speed I, except the speed increase is four times (i.e., Fast Sprint pace)."
+20,Ox Strength,caster,1 min/lvl,self,U,"Caster gains the strength of an ox. He gains a +40 melee OB, but cannot parry or use missiles for the duration of the spell."
+25,Glide True,caster,1 min/lvl,self,U,"As Glide I, except product must be 500'."
+30,Deer Speed True,caster,10 min/lvl,self,U,"As Deer Speed I, except speed increase is five time (i.e., Dash pace)."
+50,Dragon Skin,caster,1 min/lvl,self,U,Caster's skin takes on the resilience of a lesser drake (effective AT of 20).

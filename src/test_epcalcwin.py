@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import os
 import json
 from gui.window import *
@@ -364,7 +365,7 @@ class EPCalcWin(blankWindow):
         grpbonus = 0
 
         for name in self.group.keys():
-            grpbonus = self.group[name].gainedep
+            grpbonus += self.group[name].gainedep
 
         grpbonus = int(round(grpbonus / len(self.group.keys())))
 

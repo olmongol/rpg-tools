@@ -12,7 +12,7 @@ will be generated for printouts
 \version 1.1
 '''
 
-__updated__ = "20.05.2020"
+__updated__ = "27.06.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -27,7 +27,7 @@ import json
 import os
 import sys
 import string
-
+from rpgToolDefinitions.inventory import *
 logger = log.createLogger('latexreport', 'debug', '1 MB', 1, './')
 
 
@@ -214,13 +214,20 @@ class charsheet(object):
         This creates a LaTeX sheet with RR, DB, AT
         '''
         vals = ["RRArc", "RRC/E", "RRChan", "RRDisease", "RRE/M", "RRC/M", "RREss", "RRFear",
-              "RRMent", "RRPoison"]
+              "RRMent", "RRPoison", "AT", "misslepen", "armmanmod", "MMP", "armquickpen"]
 
         template = readFile(self.storepath + "/default/latex/template_rr_at_db.tex")
         template = template.replace("==>ThreeQ", str(int(self.char["Qu"]["total"]) * 3))
-        template = template.replace("==>AdrenalDef", str(self.char["cat"]["Special Defenses"]["Skill"]["Adrenal Defense"]["total bonus"]))
+        if self.char["cat"]["Special Defenses"]["Skill"]["Adrenal Defense"]["rank"] > 0:
+            template = template.replace("==>AdrenalDef", str(self.char["cat"]["Special Defenses"]["Skill"]["Adrenal Defense"]["total bonus"]))
+        else:
+            template = template.replace("==>AdrenalDef", "\_\_")
+
         for v in vals:
-            template = template.replace("==>{}".format(v), str(int(self.char[v])))
+            if v in self.char.keys():
+                template = template.replace("==>{}".format(v), str(int(self.char[v])))
+            else:
+                template = template.replace("==>{}".format(v), "\_\_")
 
         saveFile(self.chardir + "{}_rr_at_db.tex".format(self.char['name'].replace(" ", "-")), template)
 
@@ -540,6 +547,679 @@ class spellbook(object):
         if not os.path.exists(self.charpath):
             os.mkdir(self.charpath)
 
+        fp = open(self.charpath + self.fn.replace(" ", "_"), "w")
+        fp.write(self.latex)
+        fp.close()
+
+
+    def compilePDF(self):
+        '''
+        This runs the pdflatex compiler to generate the PDF
+        '''
+        currpath = os.getcwd()
+        os.chdir(self.charpath)
+        try:
+            # to get the right table formating LaTeX has to be run twice
+            os.system("pdflatex {}".format(self.fn.replace(" ", "_")))
+            os.system("pdflatex {}".format(self.fn.replace(" ", "_")))
+            windoman = ["/usr/bin/xdg-open", "/usr/bin/gnome-open", "/usr/bin/kde-open", "/usr/bin/open"]
+
+            for wm in windoman:
+                if os.path.isfile(wm):
+                    os.system("{} {}.pdf".format(wm, self.fn.replace(" ", "_")[:-4]))
+
+        except Exception as error:
+            print("ERROR: Could not execute PDF LaTex! Please try it manually!!\n{}".format(error))
+            logger.error("compilePDF: {}".format(error))
+
+        finally:
+            os.chdir(currpath)
+
+
+
+class inventory(object):
+    '''
+    This class generates an inventory PDF from a character file if the character has an inventory.
+    '''
+
+
+    def __init__(self, character = {}, storepath = "./data/"):
+        '''
+        Class constructor
+        @param character dictionary holding character's data
+        @param storepath path to the main storage directory
+        '''
+        self.character = character
+        self.storepath = storepath
+
+        if self.storepath[-1] != "/" and self.storepath[-1] != "\\":
+            self.storepath += "/"
+
+        self.charpath = "{}{}/latex/".format(self.storepath, self.character["player"])
+        self.fn = "{}_inventory.tex".format(self.character["name"])
+
+        fp = open("{}default/latex/template_inventory.tex".format(self.storepath), "r")
+        self.latex = fp.read()
+        fp.close()
+
+        self.prepTemplate()
+        self.tblArmor()
+        self.tblWeapon()
+        self.tblTransport()
+        self.tblGear()
+        self.tblFood()
+        self.tblHerb()
+        self.tblGems()
+        self.latex += "\n\\end{document}"
+        self.saveLatex()
+        self.compilePDF()
+
+
+    def prepTemplate(self):
+        '''
+        This exchanges the placeholder of the template with data from character's dictionary.
+        '''
+        rplmt = ["MMP", "carried", "name", "piclink"]
+        rpurse = ["MP", "PP", "GP", "SP", "BP", "CP", "TP", "IP"]
+
+        for r  in rplmt:
+
+            if r in self.character.keys():
+                self.latex = self.latex.replace("==>{}".format(r), str(self.character[r]))
+
+            else:
+                self.latex = self.latex.replace("==>{}".format(r), "\_\_\_\_")
+
+        if "purse" in self.character.keys():
+
+            for r in rpurse:
+
+                if r in self.character["purse"].keys():
+                    self.latex = self.latex.replace("==>{}".format(r), str(self.character["purse"][r]))
+
+                else:
+                    self.latex = self.latex.replace("==>{}".format(r), "0")
+        else:
+
+            for r in rpurse:
+                self.latex = self.latex.replace("==>{}".format(r), "0")
+
+
+    def tblArmor(self):
+        """
+        this creates a table with all armor pieces.
+        ----
+        @todo has to be fully implemented
+        """
+        # armor: combat values ----------------------------------
+        self.latex += "\n\\section*{\\textcolor{Maroon}{Armor}}"
+        self.latex += """
+        {\\fontsize{7pt}{7pt}
+            \\selectfont
+        \\begin{longtable}{|p{2.5cm}|p{0.5cm}|p{0.8cm}|p{0.5cm}|p{0.5cm}|p{0.7cm}|p{4cm}|p{1.5cm}|p{5cm}|}
+            \\caption*{\\textcolor{Maroon}{\\textbf{Armor: Combat Values}}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{AT} & \\textbf{magic} & \\textbf{OB} &\\textbf{DB} &\\textbf{man.} &\\textbf{category/skill} &\\textbf{location} & \\textbf{description}\\\\
+            \\hline
+            \\endfirsthead
+            \\multicolumn{9}{c} {\\tablename\\ \\thetable\\ --\\textit{Continued from previous page}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{AT} & \\textbf{magic} & \\textbf{OB} &\\textbf{DB} &\\textbf{man.} &\\textbf{category/skill} &\\textbf{location}& \\textbf{description}\\\\\\\\
+            \\hline
+            \\endhead
+            \\hline
+            \\multicolumn{9}{r}{\\textit{continued on next page..}}\\\\
+            \\endfoot
+            \\hline
+            \\endlastfoot
+        """
+        for armor in self.character["inventory"]["armor"]:
+            rcolor = ""
+            descadd = ""
+            if "magic" in armor.keys():
+                if armor["magic"]:
+                    rcolor = "\\rowcolor{ProcessBlue!30}"
+                    descadd += ", magic armor"
+#                    if "daily" in armor.keys():
+#                        descadd += " ({}: {}/{} Lvl: {} {}x daily)".format(armor["realm"],
+#                                                                          armor["spell list"],
+#                                                                          armor["spell"],
+#                                                                          armor["lvl"],
+#                                                                          armor["daily"])
+##                    if "pp mult" in armor.keys():
+#                        descadd += ", PP x{}".format(armor["pp mult"])
+#                    if "add spell" in armor.keys():
+#                        descadd += ", Spelladder +{}".format(armor["add spell"])
+            else:
+                rcolor = ""
+
+            worth = ""
+
+#            for i in range(0, len(coins["long"])):
+#                if armor["worth"][coins["long"][i]] > 0:
+#                    worth += "{}{} ".format(armor["worth"][coins["long"][i]], coins["short"][i])
+
+            self.latex += rcolor + " {} & {} & {} & {} & {} & {} & {} & {} & {}\\\\\n\\hline\n".format(armor["name"],
+                                                                              armor["AT"],
+                                                                              armor["bonus"],
+                                                                              armor["bonus OB"],
+                                                                              armor["bonus DB"],
+                                                                              armor["bonus man"],
+                                                                              armor["skill"],
+                                                                              armor["location"],
+                                                                              armor["description"].replace("\\", "/").replace("%", "\%") + descadd
+                                                                              )
+
+#        self.latex += "- & - & - & - & - & - &- &- & -\\\\\n"
+        self.latex += "\\end{longtable}\n"
+        self.latex += "}\n"
+
+        # armor: equiment values ---------------------------------
+        self.latex += """
+        {\\fontsize{7pt}{7pt}
+            \\selectfont
+        \\begin{longtable}{|p{3cm}|p{0.5cm}|p{1.5cm}|p{1.5cm}|p{3cm}|p{8cm}|}
+            \\caption*{\\textcolor{Maroon}{\\textbf{Armor: Further Information}}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{AT} & \\textbf{weight} & \\textbf{worth} & \\textbf{location} & \\textbf{description}\\\\
+            \\hline
+            \\endfirsthead
+            \\multicolumn{6}{c} {\\tablename\\ \\thetable\\ --\\textit{Continued from previous page}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{AT} & \\textbf{weight} & \\textbf{worth} & \\textbf{location} & \\textbf{description}\\\\
+            \\hline
+            \\endhead
+            \\hline
+            \\multicolumn{6}{r}{\\textit{continued on next page..}}\\\\
+            \\endfoot
+            \\hline
+            \\endlastfoot
+        """
+        for armor in self.character["inventory"]["armor"]:
+            rcolor = ""
+            descadd = ""
+            if "magic" in armor.keys():
+                if armor["magic"]:
+                    rcolor = "\\rowcolor{ProcessBlue!30}"
+                    descadd += ", magic armor"
+
+            else:
+                rcolor = ""
+
+            worth = ""
+
+            for i in range(0, len(coins["long"])):
+                if armor["worth"][coins["long"][i]] > 0:
+                    worth += "{}{} ".format(armor["worth"][coins["long"][i]], coins["short"][i])
+
+            self.latex += rcolor + " {} & {} & {} & {} & {} & {} \\\\\n\\hline\n".format(armor["name"],
+                                                                                        armor["AT"],
+                                                                                        str(armor["weight"]) + " lbs.",
+                                                                                        worth,
+                                                                                        armor["location"],
+                                                                                        armor["description"].replace("\\", "/").replace("%", "\%") + descadd
+                                                                                        )
+
+#        self.latex += "- & - & - & - & - &  \\\\\n"
+        self.latex += "\\end{longtable}\n"
+        self.latex += "}\n"
+
+
+    def tblWeapon(self):
+        """
+        this creates a table with all weapons.
+        ----
+        @todo has to be fully implemented
+        """
+        self.latex += "\n\\section*{\\textcolor{Maroon}{Weapons}}\n"
+        # melee combat ---------------------
+        self.latex += """
+        {\\fontsize{7pt}{7pt}
+            \\selectfont
+        \\begin{longtable}{|p{2.5cm}|p{1.5cm}|p{1.5cm}|p{1cm}|p{0.5cm}|p{3cm}|p{7cm}|}
+            \\caption*{\\textcolor{Maroon}{\\textbf{Weapons: Melee Combat}}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{break\\#} & \\textbf{fumble} & \\textbf{strength} &\\textbf{bonus} &\\textbf{category/skill} &\\textbf{description}\\\\
+            \\hline
+            \\endfirsthead
+            \\multicolumn{7}{c} {\\tablename\\ \\thetable\\ --\\textit{Continued from previous page}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{break\\#} & \\textbf{fumble} & \\textbf{strenght} &\\textbf{bonus} &\\textbf{category/skill} &\\textbf{description}\\\\
+            \\hline
+            \\endhead
+            \\hline
+            \\multicolumn{7}{r}{\\textit{continued on next page..}}\\\\
+            \\endfoot
+            \\hline
+            \\endlastfoot
+        """
+        for weapon in self.character["inventory"]["weapon"]:
+            if weapon["breakage"] != "---" and weapon["strength"] != "---" and weapon["wtype"] not in ["th", "mis"]:
+                rcolor = ""
+                descadd = ""
+                if weapon["magic"]:
+                    rcolor = "\\rowcolor{ProcessBlue!30}"
+                    descadd += ", magic weapon"
+                if weapon["mithril"]:
+                    rcolor = "\\rowcolor{Yellow!30}"
+                    descadd += ", mithril weapon"
+                if weapon["holy"]:
+                    rcolor = "\\rowcolor{Green!30}"
+                    descadd += ", holy weapon"
+                if weapon["slaying"] != "":
+                    rcolor = "\\rowcolor{Red!30}"
+                    descadd += ", slaying weapon ({})".format(weapon["slaying"])
+                self.latex += rcolor + " {} & {} & {} & {} & {} & {} & {}\\\\\n\\hline\n".format(weapon["name"],
+                                                                                     weapon["breakage"] + " " + str(weapon["soft/wooden"]),
+                                                                                     weapon["fumble"],
+                                                                                     weapon["strength"],
+                                                                                     weapon["bonus"],
+                                                                                     weapon["skill"],
+                                                                                     weapon["description"].replace("%", "\%") + descadd
+                                                                                     )
+
+        self.latex += "\\end{longtable}\n"
+        self.latex += "}\n"
+        # ranged combat ----------------------
+        self.latex += """
+        {\\fontsize{7pt}{7pt}
+            \\selectfont
+        \\begin{longtable}{|p{2cm}|p{1cm}|p{0.7cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{2.5cm}|p{3.5cm}|}
+            \\caption*{\\textcolor{Maroon}{\\textbf{Weapons: Ranged Combat}}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{fumble} &\\textbf{bonus}& \\textbf{near} & \\textbf{short} &\\textbf{medium} &\\textbf{long}& \\textbf{extreme} &\\textbf{category/skill} &\\textbf{description}\\\\
+            \\hline
+            \\endfirsthead
+            \\multicolumn{10}{c} {\\tablename\\ \\thetable\\ --\\textit{Continued from previous page}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{fumble} & \\textbf{bonus}&\\textbf{near} & \\textbf{short} &\\textbf{medium} &\\textbf{long}& \\textbf{extreme}&\\textbf{category/skill} &\\textbf{description}\\\\
+            \\hline
+            \\endhead
+            \\hline
+            \\multicolumn{10}{r}{\\textit{continued on next page..}}\\\\
+            \\endfoot
+            \\hline
+            \\endlastfoot
+
+        """
+        for weapon in self.character["inventory"]["weapon"]:
+            if weapon["near"] != "---":
+                rcolor = ""
+                descadd = ""
+                if weapon["magic"]:
+                    rcolor = "\\rowcolor{ProcessBlue!30}"
+                    descadd += ", magic weapon"
+                if weapon["mithril"]:
+                    rcolor = "\\rowcolor{Yellow!30}"
+                    descadd += ", mithril weapon"
+                if weapon["holy"]:
+                    rcolor = "\\rowcolor{Green!30}"
+                    descadd += ", holy weapon"
+                if weapon["slaying"] != "":
+                    rcolor = "\\rowcolor{Red!30}"
+                    descadd += ", slaying weapon ({})".format(weapon["slaying"])
+
+                self.latex += rcolor + " {} & {} & {} & {} & {} & {} & {} & {} & {} & {}\\\\\n\\hline\n".format(weapon["name"],
+                                                                                              weapon["fumble"],
+                                                                                              weapon["bonus"],
+                                                                                              weapon["near"],
+                                                                                              weapon["short"],
+                                                                                              weapon["medium"],
+                                                                                              weapon["long"],
+                                                                                              weapon["extreme"],
+                                                                                              weapon["skill"],
+                                                                                              weapon["description"].replace("%", "\%") + descadd
+                                                                                              )
+
+        self.latex += "\\end{longtable}\n"
+        self.latex += "}\n"
+        # Weapon description ------------------
+        self.latex += """
+        {\\fontsize{7pt}{7pt}
+            \\selectfont
+        \\begin{longtable}{|p{2.5cm}|p{1.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{6cm}|}
+            \\caption*{\\textcolor{Maroon}{\\textbf{Weapons: Further Information}}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{length} & \\textbf{weight} & \\textbf{worth} &\\textbf{location} &\\textbf{description}\\\\
+            \\hline
+            \\endfirsthead
+            \\multicolumn{6}{c} {\\tablename\\ \\thetable\\ --\\textit{Continued from previous page}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{length} & \\textbf{weight} & \\textbf{worth} &\\textbf{location} &\\textbf{description}\\\\
+            \\hline
+            \\endhead
+            \\hline
+            \\multicolumn{6}{r}{\\textit{continued on next page..}}\\\\
+            \\endfoot
+            \\hline
+            \\endlastfoot
+        """
+        for weapon in self.character["inventory"]["weapon"]:
+            rcolor = ""
+            descadd = ""
+            if weapon["magic"]:
+                rcolor = "\\rowcolor{ProcessBlue!30}"
+                descadd += ", magic weapon"
+            if weapon["mithril"]:
+                rcolor = "\\rowcolor{Yellow!30}"
+                descadd += ", mithril weapon"
+            if weapon["holy"]:
+                rcolor = "\\rowcolor{Green!30}"
+                descadd += ", holy weapon"
+            if weapon["slaying"] != "":
+                rcolor = "\\rowcolor{Red!30}"
+                descadd += ", slaying weapon ({})".format(weapon["slaying"])
+            worth = ""
+            for i in range(0, len(coins["long"])):
+                if weapon["worth"][coins["long"][i]] > 0:
+                    worth += "{}{} ".format(weapon["worth"][coins["long"][i]], coins["short"][i])
+            location = weapon["location"]
+            # GET LOCATION ---------
+            self.latex += rcolor + " {} & {} & {} &{} &{} &{}\\\\\n\\hline\n".format(weapon["name"],
+                                                                          weapon["length"],
+                                                                          str(weapon["weight"]) + " lbs.",
+                                                                          worth,
+                                                                          location,
+                                                                          weapon["description"].replace("%", "\%") + descadd
+                                                                          )
+
+        self.latex += "\\end{longtable}\n"
+        self.latex += "}\n"
+
+
+    def tblTransport(self):
+        """
+        this creates a table with all transports.
+        """
+        self.latex += "\n\pagebreak\n\\section*{\\textcolor{Maroon}{Transport \& Animals}}"
+        self.latex += """
+        {\\fontsize{7pt}{7pt}
+            \\selectfont
+        \\begin{longtable}{|p{2.5cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{4cm}|}
+            \\caption*{\\textcolor{Maroon}{\\textbf{Transport \& Animals}}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{height} & \\textbf{weight} & \\textbf{bonus} &\\textbf{man} &\\textbf{OB} & \\textbf{mi/hr} &\\textbf{ft/rnd}&\\textbf{capacity} &\\textbf{worth} & \\textbf{description}\\\\
+            \\hline
+            \\endfirsthead
+            \\multicolumn{11}{c} {\\tablename\\ \\thetable\\ --\\textit{Continued from previous page}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{height} & \\textbf{weight} & \\textbf{bonus} &\\textbf{man} &\\textbf{OB} & \\textbf{mi/hr} &\\textbf{ft/rnd}&\\textbf{capacity} &\\textbf{worth} & \\textbf{description}\\\\
+            \\hline
+            \\endhead
+            \\hline
+            \\multicolumn{11}{r}{\\textit{continued on next page..}}\\\\
+            \\endfoot
+            \\hline
+            \\endlastfoot
+        """
+        for transport in self.character["inventory"]["transport"]:
+            rcolor = ""
+            descadd = ""
+            if "magic" in transport.keys():
+                if transport["magic"]:
+                    rcolor = "\\rowcolor{ProcessBlue!30}"
+                    descadd += ", magic transport"
+
+            else:
+                rcolor = ""
+
+            worth = ""
+
+            for i in range(0, len(coins["long"])):
+                if transport["worth"][coins["long"][i]] > 0:
+                    worth += "{}{} ".format(transport["worth"][coins["long"][i]], coins["short"][i])
+
+            if "skill" in transport.keys():
+                skill = "(\\textit{" + transport["skill"] + "}) "
+            else:
+                skill = ""
+
+            self.latex += rcolor + "{} & {} & {} & {} & {} &{} & {} & {} & {} & {} & {}\\\\\n\\hline\n".format(transport["name"],
+                                                                                                                transport["height"],
+                                                                                                                str(transport["weight"]) + "lbs",
+                                                                                                                transport["bonus"],
+                                                                                                                transport["man bonus"],
+                                                                                                                transport["OB"],
+                                                                                                                transport["mi/hr"],
+                                                                                                                transport["ft/rnd"],
+                                                                                                                transport["capacity"],
+                                                                                                                worth,
+                                                                                                                skill + transport["description"].replace("%", "\%") + descadd
+                                                                                                                )
+
+        self.latex += "\\end{longtable}\n"
+        self.latex += "}\n"
+
+
+    def tblGear(self):
+        """
+        this creates a table with all gear.
+        """
+        self.latex += "\n\\section*{\\textcolor{Maroon}{Gear}}"
+        self.latex += """
+        {\\fontsize{7pt}{7pt}
+            \\selectfont
+        \\begin{longtable}{|p{2.5cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{2cm}|p{2.5cm}|p{1cm}|p{4.4cm}|}
+            \\caption*{\\textcolor{Maroon}{\\textbf{Gear \& Common Equipment}}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{bonus} &\\textbf{weight} &\\textbf{capacity} & \\textbf{volume} &\\textbf{location}&\\textbf{skill} &\\textbf{worth} & \\textbf{description}\\\\
+            \\hline
+            \\endfirsthead
+            \\multicolumn{9}{c} {\\tablename\\ \\thetable\\ --\\textit{Continued from previous page}}\\\\
+            \\hline
+            \\textbf{Name} & \\textbf{bonus} &\\textbf{weight} &\\textbf{capacity} & \\textbf{volume} &\\textbf{location}&\\textbf{skill} &\\textbf{worth} & \\textbf{description}\\\\
+            \\hline
+            \\endhead
+            \\hline
+            \\multicolumn{9}{r}{\\textit{continued on next page..}}\\\\
+            \\endfoot
+            \\hline
+            \\endlastfoot
+        """
+        for gear in self.character["inventory"]["gear"]:
+            rcolor = ""
+            descadd = ""
+            if "magic" in gear.keys():
+                if gear["magic"]:
+                    rcolor = "\\rowcolor{ProcessBlue!30}"
+                    descadd += ", magic gear"
+
+            else:
+                rcolor = ""
+
+            worth = ""
+
+            for i in range(0, len(coins["long"])):
+                if gear["worth"][coins["long"][i]] > 0:
+                    worth += "{}{} ".format(gear["worth"][coins["long"][i]], coins["short"][i])
+
+            self.latex += rcolor + " {} & {} & {} & {} & {} &{} & {} & {} & {} \\\\\n\hline\n".format(gear["name"],
+                                                                                           gear["bonus"],
+                                                                                           str(gear["weight"]) + " lbs.",
+                                                                                           gear["capacity"],
+                                                                                           gear["volume"],
+                                                                                           gear["location"],
+                                                                                           gear["skill"],
+                                                                                           worth,
+                                                                                           gear["description"].replace("%", "\%") + descadd
+                                                                                           )
+
+        self.latex += "\\end{longtable}\n"
+        self.latex += "}\n"
+
+
+    def tblHerb(self):
+        """
+        this creates a table with all herbs.
+        """
+        self.latex += "\n\\pagebreak\n\\section*{\\textcolor{Maroon}{Herbs, Potions \& Poison}}"
+        self.latex += """
+        {\\fontsize{7pt}{7pt}
+            \\selectfont
+        \\begin{longtable}{|p{3cm}|p{2.5cm}|p{0.5cm}|p{0.5cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{5.8cm}|}
+            \\caption*{\\textcolor{Maroon}{\\textbf{Herbs, Potions \& Poison}}}\\\\
+            \\hline
+            \\textbf{Type} & \\textbf{name} &\\textbf{lvl} &\\textbf{AF} & \\textbf{form} &\\textbf{prep}&\\textbf{location} &\\textbf{worth} & \\textbf{description}\\\\
+            \\hline
+            \\endfirsthead
+            \\multicolumn{9}{c} {\\tablename\\ \\thetable\\ --\\textit{Continued from previous page}}\\\\
+            \\hline
+            \\textbf{Type} & \\textbf{name} &\\textbf{lvl} &\\textbf{AF} & \\textbf{form} &\\textbf{prep}&\\textbf{location} &\\textbf{worth} & \\textbf{description}\\\\
+            \\hline
+            \\endhead
+            \\hline
+            \\multicolumn{9}{r}{\\textit{continued on next page..}}\\\\
+            \\endfoot
+            \\hline
+            \\endlastfoot
+        """
+        for herbs in self.character["inventory"]["herbs"]:
+            rcolor = ""
+            descadd = ""
+            if "magic" in herbs.keys():
+                if herbs["magic"]:
+                    rcolor = "\\rowcolor{ProcessBlue!30}"
+                    descadd += ", magic herbs"
+
+            else:
+                rcolor = ""
+
+            worth = ""
+
+            for i in range(0, len(coins["long"])):
+                if herbs["worth"][coins["long"][i]] > 0:
+                    worth += "{}{} ".format(herbs["worth"][coins["long"][i]], coins["short"][i])
+
+            self.latex += rcolor + " {} & {} & {} & {} & {} &{} & {} & {} & {} \\\\\\hline\n".format(herbs["type"],
+                                                                                                     herbs["name"],
+                                                                                                       herbs["lvl"],
+                                                                                                       herbs["AF"],
+                                                                                                       herbs["form"],
+                                                                                                       herbs["prep"],
+                                                                                                       herbs["location"],
+                                                                                                       worth,
+                                                                                                       herbs["medical use"] + " \\textit{" + herbs["description"] + "} " + descadd
+                                                                                                       )
+
+        self.latex += "\\end{longtable}\n"
+        self.latex += "}\n"
+
+
+    def tblGems(self):
+        """
+        this creates a table with all gems and jewelry.
+        """
+        self.latex += "\n\\pagebreak\n\\section*{\\textcolor{Maroon}{Gems \& Jewelry}}"
+        self.latex += """
+        {\\fontsize{7pt}{7pt}
+            \\selectfont
+        \\begin{longtable}{|p{3.5cm}|p{1cm}|p{1cm}|p{2cm}|p{11.1cm}|}
+            \\caption*{\\textcolor{Maroon}{\\textbf{Gems \& Jewelry}}}\\\\
+            \\hline
+            \\textbf{Name} &\\textbf{weight} &\\textbf{location} &\\textbf{worth} & \\textbf{description}\\\\
+            \\hline
+            \\endfirsthead
+            \\multicolumn{5}{c} {\\tablename\\ \\thetable\\ --\\textit{Continued from previous page}}\\\\
+            \\hline
+            \\textbf{Name} &\\textbf{weight} &\\textbf{location} &\\textbf{worth} & \\textbf{description}\\\\
+            \\hline
+            \\endhead
+            \\hline
+            \\multicolumn{5}{r}{\\textit{continued on next page..}}\\\\
+            \\endfoot
+            \\hline
+            \\endlastfoot
+        """
+        for gems in self.character["inventory"]["gems"]:
+            rcolor = ""
+            descadd = ""
+            if "magic" in gems.keys():
+                if gems["magic"]:
+                    rcolor = "\\rowcolor{ProcessBlue!30}"
+                    descadd += ", magic gems"
+
+            else:
+                rcolor = ""
+
+            worth = ""
+
+            for i in range(0, len(coins["long"])):
+                if gems["worth"][coins["long"][i]] > 0:
+                    worth += "{}{} ".format(gems["worth"][coins["long"][i]], coins["short"][i])
+
+            self.latex += rcolor + " {} & {} & {} & {} &{} \\\\\\hline\n".format(gems["name"],
+                                                                             gems["weight"],
+                                                                             gems["location"],
+                                                                             worth,
+                                                                             gems["description"] + descadd
+                                                                             )
+
+        self.latex += "\\end{longtable}\n"
+        self.latex += "}\n"
+
+
+    def tblFood(self):
+        """
+        this creates a table with all gems and jewelry.
+        ----
+        @todo has to be fully implemented
+        """
+        self.latex += "\n\\section*{\\textcolor{Maroon}{Food \& Drinks}}"
+        self.latex += """
+        {\\fontsize{7pt}{7pt}
+            \\selectfont
+        \\begin{longtable}{|p{3.5cm}|p{1cm}|p{1cm}|p{13.1cm}|}
+            \\caption*{\\textcolor{Maroon}{\\textbf{Food \& Drinks}}}\\\\
+            \\hline
+            \\textbf{Name} &\\textbf{weight} &\\textbf{worth} & \\textbf{description}\\\\
+            \\hline
+            \\endfirsthead
+            \\multicolumn{4}{c} {\\tablename\\ \\thetable\\ --\\textit{Continued from previous page}}\\\\
+            \\hline
+            \\textbf{Name} &\\textbf{weight} &\\textbf{worth} & \\textbf{description}\\\\
+            \\hline
+            \\endhead
+            \\hline
+            \\multicolumn{4}{r}{\\textit{continued on next page..}}\\\\
+            \\endfoot
+            \\hline
+            \\endlastfoot
+        """
+        if "services" not in self.character["inventory"].keys():
+            self.character["inventory"]["services"] = []
+
+        for food in self.character["inventory"]["services"]:
+            rcolor = ""
+            descadd = ""
+            if "magic" in food.keys():
+                if food["magic"]:
+                    rcolor = "\\rowcolor{ProcessBlue!30}"
+                    descadd += ", magic food"
+
+            else:
+                rcolor = ""
+
+            worth = ""
+
+            for i in range(0, len(coins["long"])):
+                if food["worth"][coins["long"][i]] > 0:
+                    worth += "{}{} ".format(food["worth"][coins["long"][i]], coins["short"][i])
+
+            self.latex += rcolor + " {} & {} & {} & {} \\\\\\hline\n".format(food["name"],
+                                                                             food["weight"],
+                                                                             worth,
+                                                                             food["description"]
+                                                                             )
+
+#        self.latex += "- & - & - & - & - &- & - & - & - \\\\\n"
+        self.latex += "\\end{longtable}\n"
+        self.latex += "}\n"
+
+
+    def saveLatex(self):
+        '''
+        This saves the generated LaTeX source code
+        '''
         fp = open(self.charpath + self.fn.replace(" ", "_"), "w")
         fp.write(self.latex)
         fp.close()

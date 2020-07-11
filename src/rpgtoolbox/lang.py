@@ -25,7 +25,7 @@ Currently supported languages are:
 \todo clean up the code!!!
 '''
 __version__ = "1.1"
-__updated__ = "03.06.2020"
+__updated__ = "28.06.2020"
 ## \var supportedrpg
 # Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
@@ -643,14 +643,20 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
                     'en' : 'cost'},
           "weight" :{"de" : "Gewicht",
                      "en" : "weight"},
-          "item_shop" : {'de' : "Kramladen",
+          "gear shop" : {'de' : "Kramladen",
                          "en" : "General Store"},
           "weapon shop": {'de' : 'Waffenschmied',
                           'en' : 'Weapon Smith'},
           "armor shop": {'de' : u"Rüstungsbauer",
                          'en' : "armor maker"},
-          "food shop" : {'de' : u'Markt & Kneipe',
+          "services shop" : {'de' : u'Markt & Kneipe',
                          'en' : u'Grocery  & Pub'},
+          "gems shop" : {"de":"Juwelier",
+                         "en":"Gems & jewelry Shoppe"},
+          "transport shop" : {"de" : "Transport & Viehmarkt",
+                              "en" : "transports & Animal Market"},
+          "herbs shop" :{"de":u"Kräuterladen",
+                         "en":"herbs shoppe"},
           "magic shop" : {'de' : u"Magiekrämer",
                           'en' : "The Magical Shoppe"},
           'bonus item': {"de" : u'Bonusgegenstände und Gewichtsreduktion',
@@ -681,9 +687,18 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
           "type" :{"de" :"Typ",
                    "en" : "Type"},
           "loads" :{"de" : "Ladungen",
-                    "en" : "Charges"}
+                    "en" : "Charges"},
+          "geartype": {"de" : u"Art der Ausrüstung",
+                       "en" : "Type of Equipment"},
+          "action": {"de" : "Handlung",
+                     "en" : "Action"},
+          "location": {"de": "Ort",
+                       "en": "Location"},
+
           }
 
+invedtacts = {"de": [u"wählen", u"ausgerüstet", "unausgerüstet"],
+              "en": ["choice", "equipped", "unequipped"]}
 ##\var errmsg
 #Error messages for all opportunities
 errmsg = {'no_file' : {'de' : 'Datei existiert nicht!',

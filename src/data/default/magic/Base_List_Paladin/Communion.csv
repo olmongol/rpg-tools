@@ -1,1 +1,23 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Detect Enemies I,50'R,1 min/lvl(C),100'/lvl,P,Detects the total number of ''enemies'' (giving approximate direction and distance). This spell also reveals the most heavily represented type of enemy (by total levels). Caster can concentrate on a different 50'R each round.
+2,Cancel Channeling,caster,1 min/lvl,self,F,"When the caster of this spell is a target of a spell from the realm of Channeling, the ''incoming'' spell must first make an RR. For RR purposes, each spell uses a level equal to its caster’s level. If the ''incoming'' spell passes the RR, it may target the caster normally; otherwise the incoming spell has no effect on this target."
+3,Cancel Essence,caster,1 min/lvl,self,F,"As Cancel Channeling, except affects spells from the realm of Essence."
+4,Cancel Mentalism,caster,1 min/lvl,self,F,"As Cancel Channeling, except affects spells from the realm of Mentalism."
+5,Dream I,caster,sleep,self,I,Caster has a dream relating to a topic decided upon just before retiring. The caster must sleep for a normal sleep cycle (minimum of 4 hours) for this spell to work.
+6,Enemy Speech,caster,1 min/lvl,self,I,"For the duration of this spell, the caster can read and speak one ''enemy'' language with skill rank 8."
+7,Dispel Channeling,1 target,---,10',F,"Any active spell from the realm of Channeling that is on the target must make an RR (use the level of that spell’s caster as the spell’s level). If the spell fails it RR, it is dispelled."
+8,Dispel Essence,1 target,---,10',F,"As Dispel Channeling, except affects spells from the realm of Essence."
+9,Dispel Mentalism,1 target,---,10',F,"As Dispel Channeling, except affects spells from the realm of Mentalism."
+10,Detect Enemies II,100'R,1 min/lvl(C),500'/lvl,P,"As Detect Enemies I, except for range and area of effect."
+11,Dreams III,caster,sleep,self,I,"As Dream I, except limit is 3 dreams per night on different topics."
+12,Death’s Tale,caster,---,self,I,Caster gets a vision of the events surrounding the death of any 1 dead target through the eyes of the deceased. He also gets a view of the killer (if any). The caster must be within 10' of the corpse. Corpse must have died within a number of years equal to caster’s level.
+13,Channel Opening I,1 being,C,1 mile/lvl,U,Caster can make contact with any 1 known target he his acquainted with. This spell will enable the caster to learn the specific location (direction and distance only) of the other being. This spell is often used with a Channels spell (see Cleric Base List 2.4.1).
+14,Dispel Channeling Sphere I,10'R,C,self,F,"As Dispel Channeling, except for the area of effect (centered on the caster). If the radius encounters an already existing spell, the spell must make an RR (with a +30 modifier) or be cancelled (not dispelled) for as long as the active spell is inside the radius."
+15,Dispel Essence Sphere I,10'R,C,self,F,"As Dispel Channeling Sphere I, except affects spells from the realm of Essence."
+16,Dispel Mentalism Sphere I,10'R,C,self,F,"As Dispel Channeling Sphere I, except affects spells from the realm of Mentalism."
+17,Commune I,caster,C,self,U,Caster receives (usually from his patron deity) a ''yes'' or a ''no'' answer to a question on a single topic. This spell may be used a maximum of once per day.
+19,Death’s Tale True,caster,---,self,I,"Caster gets a vision of the events surrounding the death of any 1 dead target within 10 feet. Caster gets an understanding of the reason(s) the deceased died, exactly who the killer was (if any), and who was ultimately responsible (if anyone). Corpse may be of any age."
+20,Detect Enemies True,200'R,1 min/lvl(C),1000'/lvl,P,"As Detect Enemies I, except for range and area of effect."
+25,Commune True,caster,C,self,U,"As Commune I, except caster can receive a more detailed answer (e.g., a name or short phrase) to a question involving only 1 concept."
+30,Channel Opening True,1 being,C,1 mile/lvl,U,"As Channel Opening I, except caster can open a channel to anyone he chooses, regardless of whether or not he is acquainted with the being The caster must specify the type of being he is seeking (e.g., a priest of a specific deity, a warrior with blue eyes, etc.)."
+50,High Prayer,caster,C,self,U,Caster receives detailed information from his deity on a single topic question.

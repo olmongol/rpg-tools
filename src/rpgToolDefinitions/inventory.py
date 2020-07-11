@@ -11,7 +11,7 @@
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "13.06.2020"
+__updated__ = "28.06.2020"
 
 ## \var geartypes
 # (dictionary) list of different type of equipment like armor, weapon, tool...
@@ -41,10 +41,18 @@ treeformat = {"item" : 200,
              "prod. time":90,
              "height":70,
              "weight":70,
+             "length":70,
              "cost" : 70,
              "worth": 90,
-             "short":50,
+             "near":50,
+             "shortc":40,
+             "short":60,
+             "medium":60,
+             "long":60,
+             "extreme":60,
              "type":100,
+             "wtype":100,
+             "mtype":100,
              "breakage":100,
              "strength":100,
              "fumble": 100,
@@ -55,7 +63,6 @@ treeformat = {"item" : 200,
              "holy" : 40,
              "OB" :50,
              "man bonus" :60,
-             "height/weight" : 100,
              "capacity":100,
              "mi/hr":50,
              "ft/rnd":50,
@@ -71,7 +78,7 @@ treeformat = {"item" : 200,
              "capacity" : 40,
              "volume" : 40,
              "bonus" :50,
-             "skill":400,
+             "skill":300,
              "area":70,
              }
 ##\var char_inv_tv
@@ -84,9 +91,9 @@ char_inv_tv = {"armor" : ["name", "description", "AT", "weight", "worth"],
                "gear" : ["name", "description", "weight", "capacity", "volume", "bonus", "skill", "worth"],
                "transport" :["name", "description", "height", "weight", "capacity", "OB", "worth"],
                "herbs" :["name", "type", "lvl", "description", "medical use", "other use", "worth"],
-               "runes" :[],
-               "constant item" :[],
-               "daily item" :[],
+#               "runes" :[],
+#               "constant item" :[],
+#               "daily item" :[],
                }
 
 perm_item = {"spell adder" :{"+0" :0,
@@ -130,12 +137,17 @@ weapon = {"name" : "",
           "table" : "",
           "crit" : [],
           "weight" : 0,
+          "length" : 0,
           "breakage": "",
           "fumble" : "",
           "strength" : "",
-          "soft/wooden" : 0,
-          "location" : "",
-          "range mod" :[],
+          "soft/wooden" : "",
+          "near": "---",
+          "short": "---",
+          "medium": "---",
+          "long": "---",
+          "extreme": "---",
+          "location": "equipped",
           "worth" : money.copy()
          }
 
@@ -149,11 +161,12 @@ armor = {"name": "",
           "covers" : [],
           "weight" : 0,
           "bonus" : 0,
+          "magic" : False,
           "skill" : "",
           "bonus DB" :0,
           "bonus man": 0,
           "bonus OB": 0,
-          "location" : "",
+          "location" : "equipped",
           "worth" : money.copy()
 
          }
@@ -165,7 +178,7 @@ gear = {"name": "",
          "description" : "",
          "skill" : "",
          "bonus" : 0,
-         "magical" : False,
+         "magic" : False,
          "weight" : 0,
          "skill" : "",
          "count" : 0,
@@ -173,6 +186,7 @@ gear = {"name": "",
          "capacity":"",
          "volume":"",
          "type":"",
+         "location": "equipped",
          "worth" : money.copy()
         }
 
@@ -181,7 +195,8 @@ gear = {"name": "",
 gems = {"name" : "",
          "description":"",
          "weight" : 0,
-         "location" : "",
+         "location" : "equipped",
+         "magic":False,
 #         "realm":"",
 #         "spell": "",
 #         "lvl":0,
@@ -196,18 +211,18 @@ gems = {"name" : "",
 # prototype dictionary for magical potions or rune papers
 
 runes = {"name": "",
-            "description" : "",
-            "type" : "",  #potion,rune paper, rod, wand,staff
-            "spell" : "",
-            "lvl" : "",
-            "loads":1,
-            "max loads":1,
-            "skill" : "",
-            "realm" : "",
-            "weight" : 0,
-            "location" : "",
-            "worth" : money.copy()
-            }
+        "description" : "",
+        "type" : "",  #potion,rune paper, rod, wand,staff
+        "spell" : "",
+        "lvl" : "",
+        "loads":1,
+        "max loads":1,
+        "skill" : "",
+        "realm" : "",
+        "weight" : 0,
+        "location" : "",
+        "worth" : money.copy()
+        }
 
 ## \var herbs
 # prototype dictionary for herbs/ medical potions
@@ -220,8 +235,8 @@ herbs = {"name" : "",
          "description" : "",
          "medical use" :"",
          "other use" : "",
-         "weight" : 0,
-         "location" : "",
+         "weight" : 0.1,
+         "location" : "equipped",
          "worth": money.copy()
          }
 
@@ -236,7 +251,7 @@ constant_item = {"name" : "",
                  "weight" : 0,
                  "add spell" : 0,
                  "pp mult" : 0,
-                 "location" : "",
+                 "location" : "equipped",
                  "worth" : money.copy()
                 }
 
@@ -257,7 +272,11 @@ daily_item = {"name" : "",
 
 transport = {"name" :"",
             "description":"",
+            "magic":False,
+            "bonus" : 0,
+            "skill" :"",
             "worth": money.copy()}
 
 services = {"name" : "",
-            "description":""}
+            "description":"",
+            "location":"equipped"}

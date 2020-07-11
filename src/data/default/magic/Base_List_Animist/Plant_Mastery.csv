@@ -1,1 +1,23 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Plant Lore,1 plant,---,touch,I,Caster learns nature and history of any 1 plant
+2,Speed Growth I,10'R,1 day,10',U,Allows caster to increase speed of growth for any 1 species of plant within the area of effect by 10 times.
+3,Plant Tongues,caster,1 min/lvl,touch,I,Allows caster to understand and “speak” the language of any 1 plant species.
+4,Plant Restore,1 plant,P,touch,U,"Heals damage to one plant that is less complex than a tree (especially severe damage may get a RR to avoid the effects of this spell, GM discretion)."
+5,Speed Growth II,10'R,1 day,10',U,"As Speed Growth I, except growth rate is 100 times normal."
+6,Plant Location,1 mi R,---,self,I,Caster can locate members of any 1 species of plant or he can find out what species are in the area of effect.
+7,Plant Growth II,1 plant,P,touch,U,Allows caster to double the size of any 1 plant. The growth takes place over the course of 1 day.
+8,Plant Control I,1 plant,1 min/lvl,100',Fm,"Caster can control the automatic and/or mental processes of any 1 plant. The caster can also control the plant's movements, though this spell doesn't allow movement beyond normal allowances."
+9,Speed Growth III,100'R,1 day,100',U,"As Speed Growth I, except the area of effect is 100'R, and the range is 100'."
+10,Plant Growth III,1 plant,P,touch,U,"As Plant Growth I, except size increase is 3 times."
+11,Plant Control III,3 plants,1 min/lvl,touch,Fm,"As Plant Control I, except caster can control any 3 plants."
+12,Tree Restore,1 tree,P,touch,U,"As Plant Restore, except it can affect any plant (including trees)."
+13,Plant Growth V,1 plant,P,touch,U,"As Plant Growth I, except size increase is 5 times."
+14,Speed Growth IV,100'R,1 day,100',U,"As Speed Growth II, except the area of effect is 100'R and the range is 100'."
+15,Plant Control V,5 plants,1 min/lvl,100',Fm,"As Plant Control I, except caster can control any 5 plants."
+16,Wall of Thorns,10'R/lvl,10 min/lvl,100',E,"Summons a wall of very tough (but pliable) thorns. The wall is up to 10' x 10' x 5'. Anyone moving through the wall receives d10 dagger attacks (use a +50 dagger attack on the Dagger Attack Table from Arms Law, if available) per foot of wall moved through. The wall must rest on a solid surface."
+17,Firestop,1 plant,10 min/lvl,100',U,This spell will put out any fires upon living materials that are in the area of effect.
+18,Plant Growth X,1 plant,P,touch,U,"As Plant Growth I, except size increase is 10 times."
+20,Plant Growth True,100'R,P,100',U,"As Plant Growth I, except affects all plants in the area of effect."
+25,Speed Growth True,10'R/lvl,1 day,10'/lvl,U,"As Speed Growth I, except for the range and area of effect."
+30,Plant Control True,100'R,1 min/lvl,100',Fm,"As Plant Control I, except caster can control all plants within the area of effect."
+50,Plant Animation,1 plant,1 min/lvl,100',U,"Caster can animate any 1 plant. The plant can then move slowly, carrying any root system it may possess along."
