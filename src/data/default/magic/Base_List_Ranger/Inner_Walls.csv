@@ -4,7 +4,7 @@ Lvl,Spell,Area of Effect,Duration,Range,Type,Description
 3,Resistance I,caster,1 min/lvl,self,U,Caster gets a +5 bonus to his RRs and DB
 4,Bless I,caster,1 min/lvl,self,U,Caster gets a +5 bonus to his manuever rolls and DB.
 5,Prayer I,caster,1 min/lvl,self,U,Caster gets a +5 bonus to his RRs and manuever rolls
-7,Sterilization,1 cu'/lvl,---,touch,U,"Caster can sterilize 1 cubic foot per level of any solid or liquid. This will not affect inert poisons or harm creatures larger than 0.25'' in length."
+7,Sterilization,1 cu'/lvl,---,touch,U,Caster can sterilize 1 cubic foot per level of any solid or liquid. This will not affect inert poisons or harm creatures larger than 0.25'' in length.
 8,Resistance II,caster,1 min/lvl,self,U,"As Resistance I, except bonus is +10."
 9,Bless II,caster,1 min/lvl,self,U,"As Bless I , except bonus is +10."
 10,Prayer II,caster,1 min/lvl,self,U,"As Prayer I , except bonus is +10."
