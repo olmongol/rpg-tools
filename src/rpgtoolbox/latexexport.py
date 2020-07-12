@@ -12,7 +12,7 @@ will be generated for printouts
 \version 1.1
 '''
 
-__updated__ = "27.06.2020"
+__updated__ = "12.07.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -592,6 +592,22 @@ class inventory(object):
         self.character = character
         self.storepath = storepath
 
+        # set correct locations
+        for cat in self.character["inventory"].keys():
+
+            if cat != "transport":
+
+                for i in range(0, len(self.character["inventory"][cat])):
+                    for elem in self.character["idxcontainer"]:
+
+                        if elem ["type"] == self.character["inventory"][cat][i]["location"]:
+                            self.character["inventory"][cat][i]["location"] = elem["name"]
+
+                    for trans in self.character["idxtransport"]:
+
+                        if trans["type"] == self.character["inventory"][cat][i]["location"]:
+                            self.character["inventory"][cat][i]["location"] = trans["name"]
+
         if self.storepath[-1] != "/" and self.storepath[-1] != "\\":
             self.storepath += "/"
 
@@ -648,8 +664,6 @@ class inventory(object):
     def tblArmor(self):
         """
         this creates a table with all armor pieces.
-        ----
-        @todo has to be fully implemented
         """
         # armor: combat values ----------------------------------
         self.latex += "\n\\section*{\\textcolor{Maroon}{Armor}}"
@@ -1113,7 +1127,7 @@ class inventory(object):
         self.latex += """
         {\\fontsize{7pt}{7pt}
             \\selectfont
-        \\begin{longtable}{|p{3.5cm}|p{1cm}|p{1cm}|p{2cm}|p{11.1cm}|}
+        \\begin{longtable}{|p{3.5cm}|p{1cm}|p{1cm}|p{2cm}|p{10cm}|}
             \\caption*{\\textcolor{Maroon}{\\textbf{Gems \& Jewelry}}}\\\\
             \\hline
             \\textbf{Name} &\\textbf{weight} &\\textbf{location} &\\textbf{worth} & \\textbf{description}\\\\
