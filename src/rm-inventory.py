@@ -435,25 +435,35 @@ class InventoryWin(blankWindow):
         shoptypes = ["weapon", "gear", "gems", "services"]
         unequipped = ["", "unequipped", "transport"]
         carried = 0.0
+        unequcont = []
+        for elem in self.character["inventory"]["gear"]:
+            if "container" in elem["type"] and ("transport" in elem["location"] or elem["location"] in unequipped):
+                unequcont.append(elem["type"])
 
-        if "inventory" in self.character.keys():
+        for cat in shoptypes:
 
-            for cat in shoptypes:
+            for i in range(0, len(self.character["inventory"][cat])):
 
-                if cat in self.character["inventory"].keys():
-                    for i in range(0, len(self.character["inventory"][cat])):
+                if "location" in self.character["inventory"][cat][i].keys():
 
-                        if "location" in self.character["inventory"][cat][i].keys():
+                    if self.character["inventory"][cat][i]["location"] not in unequipped \
+                    and "transport" not in self.character["inventory"][cat][i]["location"] \
+                    and self.character["inventory"][cat][i]["location"] not in unequcont:
 
-                            if self.character["inventory"][cat][i]["location"] not in unequipped and "transport" not in self.character["inventory"][cat][i]["location"]:
+                        if "weight" in self.character["inventory"][cat][i].keys():
+                            if not(cat == "armor" and self.character['inventory'][cat][i]["location"] in ["equipped", "unequipped"]) \
+                            and not (cat == "gear" and self.character["inventory"][cat][i]["type"] == "clothes" and self.character["inventory"][cat][i]["location"] in ["equipped", "unequipped"]):
+                                carried += float(self.character["inventory"][cat][i]["weight"])
+                        else:
+                            self.character["inventory"][cat][i]["weight"] = 0.0
 
-                                if "weight" in self.character["inventory"][cat][i].keys():
-                                    carried += float(self.character["inventory"][cat][i]["weight"])
-                                else:
-                                    self.character["inventory"][cat][i]["weight"] = 0.0
-
-        print("debug: carried")
+        carried = round(carried, 2)
         self.character["carried"] = carried
+        self.character["background"]["carr_weight"] = carried
+
+        if "carr_weight" not in self.wcont.keys():
+            self.wcont["carr_weight"] = DoubleVar()
+
         self.wcont["carr_weight"].set(carried)
 
 
@@ -1536,38 +1546,35 @@ class shopWin(blankWindow):
     def calcCarriedWeight(self):
         """
         This method calculates the carried weight of a character
-        ----
-        @todo calculate total weight of containers
         """
         shoptypes = ["weapon", "gear", "gems", "services"]
         unequipped = ["", "unequipped", "transport"]
-        carried_containers = []
-        carried = 0
-        if "inventory" in self.character.keys():
-            for cat in shoptypes:
+        carried = 0.0
+        unequcont = []
+        for elem in self.character["inventory"]["gear"]:
+            if "container" in elem["type"] and ("transport" in elem["location"] or elem["location"] in unequipped):
+                unequcont.append(elem["type"])
 
-                for i in range(0, len(self.character["inventory"][cat])):
+        for cat in shoptypes:
 
-                    if "location" in self.character["inventory"][cat][i].keys():
+            for i in range(0, len(self.character["inventory"][cat])):
 
-                        if self.character["inventory"][cat][i]["location"] not in unequipped \
-                        and "transport" not in self.character["inventory"][cat][i]["location"]:
+                if "location" in self.character["inventory"][cat][i].keys():
 
-                            if "weight" in self.character["inventory"][cat][i].keys():
-                                if not(cat == "armor" and self.character['inventory'][cat][i]["location"] in ["equipped", "unequipped"]):
-                                    carried += float(self.character["inventory"][cat][i]["weight"])
-                            else:
-                                self.character["inventory"][cat][i]["weight"] = 0.0
+                    if self.character["inventory"][cat][i]["location"] not in unequipped \
+                    and "transport" not in self.character["inventory"][cat][i]["location"] \
+                    and self.character["inventory"][cat][i]["location"] not in unequcont:
 
-                        if "type" in self.character["inventory"][cat][i].keys():
+                        if "weight" in self.character["inventory"][cat][i].keys():
+                            if not(cat == "armor" and self.character['inventory'][cat][i]["location"] in ["equipped", "unequipped"]) \
+                            and not (cat == "gear" and self.character["inventory"][cat][i]["type"] == "clothes" and self.character["inventory"][cat][i]["location"] in ["equipped", "unequipped"]):
+                                carried += float(self.character["inventory"][cat][i]["weight"])
+                        else:
+                            self.character["inventory"][cat][i]["weight"] = 0.0
 
-                            if "container" in self.character["inventory"][cat][i]["type"] \
-                            and self.character["inventory"][cat][i]["location"] == "equipped":
-                                carried_containers.append(self.character["inventory"][cat][i]["type"])
-
-        #XXXXXXXXXXXXXx---
-
+        carried = round(carried, 2)
         self.character["carried"] = carried
+        self.character["background"]["carr_weight"] = carried
 
         if "carr_weight" not in self.wcont.keys():
             self.wcont["carr_weight"] = DoubleVar()
@@ -3628,7 +3635,11 @@ class editinventory(blankWindow):
 
             dummy = []
             for h in self.header:
-                dummy.append(self.character["inventory"][self.shoptype][i][h])
+                if "medical use" not in self.character["inventory"][self.shoptype][i].keys() \
+                or h != "description":
+                    dummy.append(self.character["inventory"][self.shoptype][i][h])
+                elif h == "description":
+                    dummy.append(self.character["inventory"][self.shoptype][i]["medical use"] + " " + self.character["inventory"][self.shoptype][i]["description"])
 
             if self.item:
                 if self.item ["name"] == self.character["inventory"][self.shoptype][i]["name"] \
@@ -4088,11 +4099,11 @@ class editinventory(blankWindow):
         """
         shoptypes = ["weapon", "gear", "gems", "services"]
         unequipped = ["", "unequipped", "transport"]
-        carried = 0
-        equcont = []
+        carried = 0.0
+        unequcont = []
         for elem in self.character["inventory"]["gear"]:
-            if "container" in elem["type"]:
-                equcont.append(elem["type"])
+            if "container" in elem["type"] and ("transport" in elem["location"] or elem["location"] in unequipped):
+                unequcont.append(elem["type"])
 
         for cat in shoptypes:
 
@@ -4101,18 +4112,23 @@ class editinventory(blankWindow):
                 if "location" in self.character["inventory"][cat][i].keys():
 
                     if self.character["inventory"][cat][i]["location"] not in unequipped \
-                    and "transport" not in self.character["inventory"][cat][i]["location"]:
+                    and "transport" not in self.character["inventory"][cat][i]["location"] \
+                    and self.character["inventory"][cat][i]["location"] not in unequcont:
 
                         if "weight" in self.character["inventory"][cat][i].keys():
-                            if not(cat == "armor" and self.character['inventory'][cat][i]["location"] in ["equipped", "unequipped"]):
+                            if not(cat == "armor" and self.character['inventory'][cat][i]["location"] in ["equipped", "unequipped"]) \
+                            and not (cat == "gear" and self.character["inventory"][cat][i]["type"] == "clothes" and self.character["inventory"][cat][i]["location"] in ["equipped", "unequipped"]):
                                 carried += float(self.character["inventory"][cat][i]["weight"])
                         else:
                             self.character["inventory"][cat][i]["weight"] = 0.0
+
         carried = round(carried, 2)
         self.character["carried"] = carried
         self.character["background"]["carr_weight"] = carried
+
         if "carr_weight" not in self.wcont.keys():
             self.wcont["carr_weight"] = DoubleVar()
+
         self.wcont["carr_weight"].set(carried)
 
 
