@@ -35,7 +35,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "12.07.2020"
+__updated__ = "13.07.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.5"
@@ -1551,35 +1551,39 @@ class shopWin(blankWindow):
         unequipped = ["", "unequipped", "transport"]
         carried = 0.0
         unequcont = []
-        for elem in self.character["inventory"]["gear"]:
-            if "container" in elem["type"] and ("transport" in elem["location"] or elem["location"] in unequipped):
-                unequcont.append(elem["type"])
+        if "inventory" in self.character.keys():
 
-        for cat in shoptypes:
+            for elem in self.character["inventory"]["gear"]:
+                if "container" in elem["type"] and ("transport" in elem["location"] or elem["location"] in unequipped):
+                    unequcont.append(elem["type"])
 
-            for i in range(0, len(self.character["inventory"][cat])):
+            for cat in shoptypes:
 
-                if "location" in self.character["inventory"][cat][i].keys():
+                for i in range(0, len(self.character["inventory"][cat])):
 
-                    if self.character["inventory"][cat][i]["location"] not in unequipped \
-                    and "transport" not in self.character["inventory"][cat][i]["location"] \
-                    and self.character["inventory"][cat][i]["location"] not in unequcont:
+                    if "location" in self.character["inventory"][cat][i].keys():
 
-                        if "weight" in self.character["inventory"][cat][i].keys():
-                            if not(cat == "armor" and self.character['inventory'][cat][i]["location"] in ["equipped", "unequipped"]) \
-                            and not (cat == "gear" and self.character["inventory"][cat][i]["type"] == "clothes" and self.character["inventory"][cat][i]["location"] in ["equipped", "unequipped"]):
-                                carried += float(self.character["inventory"][cat][i]["weight"])
-                        else:
-                            self.character["inventory"][cat][i]["weight"] = 0.0
+                        if self.character["inventory"][cat][i]["location"] not in unequipped \
+                        and "transport" not in self.character["inventory"][cat][i]["location"] \
+                        and self.character["inventory"][cat][i]["location"] not in unequcont:
 
-        carried = round(carried, 2)
-        self.character["carried"] = carried
-        self.character["background"]["carr_weight"] = carried
+                            if "weight" in self.character["inventory"][cat][i].keys():
+                                if not(cat == "armor" and self.character['inventory'][cat][i]["location"] in ["equipped", "unequipped"]) \
+                                and not (cat == "gear" and self.character["inventory"][cat][i]["type"] == "clothes" and self.character["inventory"][cat][i]["location"] in ["equipped", "unequipped"]):
+                                    carried += float(self.character["inventory"][cat][i]["weight"])
+                            else:
+                                self.character["inventory"][cat][i]["weight"] = 0.0
 
-        if "carr_weight" not in self.wcont.keys():
-            self.wcont["carr_weight"] = DoubleVar()
+            carried = round(carried, 2)
+            self.character["carried"] = carried
+            self.character["background"]["carr_weight"] = carried
 
-        self.wcont["carr_weight"].set(carried)
+            if "carr_weight" not in self.wcont.keys():
+                self.wcont["carr_weight"] = DoubleVar()
+
+            self.wcont["carr_weight"].set(carried)
+        else:
+            pass
 
 
     def __sortInventory(self):
@@ -3162,7 +3166,7 @@ class editinventory(blankWindow):
         print("Debug: editinv - item\n")
         pprint(self.item)
         self.shoptype = shoptype
-
+        self.editinput = {}
         if self.character == {}:
             self.character = {  "player": "Dummy",
                                 "exp": 10000,
@@ -3983,28 +3987,88 @@ class editinventory(blankWindow):
                           row = 0,
                           sticky = "NEWS"
                           )
-        self.editinput = Text(self.frame["edit"],
-                              width = 20,
-                              height = 10)
-        self.editinput.insert(END, self.item["name"])
-#        self.edtinput = Entry(self.frame["edit"],
-#                              textvariable = self.fields['name'],
-#                              width = 30,
-#                              )
 
-        self.editinput.grid(column = 0,
-                           columnspan = 2,
-                           row = 1,
-                           rowspan = 4,
-                           sticky = "NEWS")
-#        self.fields["name"].set(self.item["name"])
+        self.editinput["name"] = Entry(self.frame["edit"],
+                                       textvariable = self.fields['name'],
+                                       width = 30,
+                                       )
+        self.editinput["name"].bind('<FocusOut>', self.updItem)
+        self.editinput["name"].bind('<Return>', self.updItem)
+
+        self.editinput["name"].grid(column = 0,
+                                    columnspan = 2,
+                                    row = 1,
+                                    rowspan = 4,
+                                    sticky = "NEWS")
+        self.fields["name"].set(self.item["name"])
 
 
     def updEdtFrame(self, selection):
         '''
         Updates input fields in edit frame
         '''
+        # hide all widgets
+        for key in self.editinput.keys():
+            self.editinput[key].grid_forget()
+
+        # display selected widget
+        if selection not in ["description", "magic", "holy", "mithril"]:
+            if selection not in self.editinput.keys():
+                self.editinput[selection] = Entry(self.frame["edit"],
+                                                  textvariable = self.fields[selection],
+                                                  width = 30,
+                                                  )
+                self.editinput[selection].bind('<FocusOut>', self.updItem)
+                self.editinput[selection].bind('<Return>', self.updItem)
+
+            self.editinput[selection].grid(column = 0,
+                                           columnspan = 2,
+                                           row = 1,
+                                           rowspan = 4,
+                                           sticky = "NEWS")
+
+            if selection in self.item.keys():
+                if selection != "worth":
+                    self.fields[selection].set(self.item[selection])
+                else:
+                    wert = worth2string(self.item[selection])
+                    print("Debug: {}\n{}".format(wert, self.item[selection]))
+                    self.fields[selection].set(wert)
+
+        elif selection == "description":
+            self.editinput[selection] = Text(self.frame["edit"],
+                                              width = 30,
+                                              height = 10)
+            self.editinput[selection].insert(END, self.item[selection])
+            self.editinput[selection].bind('<FocusOut>', self.updItem)
+
+        elif selection in["magic", "holy", "mithril"]:
+            self.editinput[selection] = Checkbutton(self.frame["edit"],
+                                                    text = selection,
+                                                    variable = self.fields[selection])
+            self.fields[selection].set(int(self.item[selection]))
+            self.editinput[selection].bind('<FocusOut>', self.updItem)
+
+        self.editinput[selection].grid(column = 0,
+                                        columnspan = 2,
+                                        row = 1,
+                                        rowspan = 4,
+                                        sticky = "NEWS")
+        print(selection)
         pass
+
+
+    def updItem(self, event):
+        '''
+        This updates the parameter of the selected item with the changed entries.
+        '''
+        print("Debug: \n\n{}".format(self.editinput["description"].get('1.0', END)))
+        if self.editinput["description"].get('1.0', END) == "":
+            print("leer")
+#        for key in self.fields.keys():
+
+#        print("Debug upditem")
+#        pass
 
 
     def updWidgedCont(self):
@@ -4453,7 +4517,7 @@ def buyStuff(purse = {}, prize = {}):
 
 
 
-def worth2string(self, worth = {}):
+def worth2string(worth = {}):
     '''
     This converts the worth dictionary to a string
     @param worth dictionary that holds the values for mithril, gold, silver etc.
