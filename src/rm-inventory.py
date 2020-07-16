@@ -35,7 +35,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "13.07.2020"
+__updated__ = "16.07.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.5"
@@ -1551,39 +1551,47 @@ class shopWin(blankWindow):
         unequipped = ["", "unequipped", "transport"]
         carried = 0.0
         unequcont = []
-        if "inventory" in self.character.keys():
+        if "inventory" not in self.character.keys():
+            self.character["inventory"] = {"armor":[],
+                                         "gear" :[],
+                                         "gems" :[],
+                                         "herbs":[],
+                                         "weapon":[],
+                                         "transport":[],
+                                         "services":[]
+                                         }
 
-            for elem in self.character["inventory"]["gear"]:
-                if "container" in elem["type"] and ("transport" in elem["location"] or elem["location"] in unequipped):
-                    unequcont.append(elem["type"])
+        for elem in self.character["inventory"]["gear"]:
+            if "container" in elem["type"] and ("transport" in elem["location"] or elem["location"] in unequipped):
+                unequcont.append(elem["type"])
 
-            for cat in shoptypes:
+        for cat in shoptypes:
 
-                for i in range(0, len(self.character["inventory"][cat])):
+            for i in range(0, len(self.character["inventory"][cat])):
 
-                    if "location" in self.character["inventory"][cat][i].keys():
+                if "location" in self.character["inventory"][cat][i].keys():
 
-                        if self.character["inventory"][cat][i]["location"] not in unequipped \
-                        and "transport" not in self.character["inventory"][cat][i]["location"] \
-                        and self.character["inventory"][cat][i]["location"] not in unequcont:
+                    if self.character["inventory"][cat][i]["location"] not in unequipped \
+                    and "transport" not in self.character["inventory"][cat][i]["location"] \
+                    and self.character["inventory"][cat][i]["location"] not in unequcont:
 
-                            if "weight" in self.character["inventory"][cat][i].keys():
-                                if not(cat == "armor" and self.character['inventory'][cat][i]["location"] in ["equipped", "unequipped"]) \
-                                and not (cat == "gear" and self.character["inventory"][cat][i]["type"] == "clothes" and self.character["inventory"][cat][i]["location"] in ["equipped", "unequipped"]):
-                                    carried += float(self.character["inventory"][cat][i]["weight"])
-                            else:
-                                self.character["inventory"][cat][i]["weight"] = 0.0
+                        if "weight" in self.character["inventory"][cat][i].keys():
+                            if not(cat == "armor" and self.character['inventory'][cat][i]["location"] in ["equipped", "unequipped"]) \
+                            and not (cat == "gear" and self.character["inventory"][cat][i]["type"] == "clothes" and self.character["inventory"][cat][i]["location"] in ["equipped", "unequipped"]):
+                                carried += float(self.character["inventory"][cat][i]["weight"])
+                        else:
+                            self.character["inventory"][cat][i]["weight"] = 0.0
 
-            carried = round(carried, 2)
-            self.character["carried"] = carried
-            self.character["background"]["carr_weight"] = carried
+        carried = round(carried, 2)
+        self.character["carried"] = carried
+        self.character["background"]["carr_weight"] = carried
 
-            if "carr_weight" not in self.wcont.keys():
-                self.wcont["carr_weight"] = DoubleVar()
+        if "carr_weight" not in self.wcont.keys():
+            self.wcont["carr_weight"] = DoubleVar()
 
-            self.wcont["carr_weight"].set(carried)
-        else:
-            pass
+        self.wcont["carr_weight"].set(carried)
+#        else:
+#            pass
 
 
     def __sortInventory(self):
@@ -1622,8 +1630,8 @@ class shopWin(blankWindow):
         ----
         @todo computation of character groups
         """
-        self.calcCarriedWeight()
-        self.calcMMP()
+#        self.calcCarriedWeight()
+#        self.calcMMP()
         self.opendir = filedialog.askopenfilename(defaultextension = ".json", filetypes = [("Character Files", ".json")])
         with open(self.opendir, "r") as fp:
             self.charlist = json.load(fp)
@@ -3166,6 +3174,7 @@ class editinventory(blankWindow):
         print("Debug: editinv - item\n")
         pprint(self.item)
         self.shoptype = shoptype
+        self.itemidx = -1
         self.editinput = {}
         if self.character == {}:
             self.character = {  "player": "Dummy",
@@ -3623,16 +3632,11 @@ class editinventory(blankWindow):
                                   rowspan = 5,
                                   sticky = "NEWS")
 
-# for...
-# self.shoptree.insert("", i, values = tuple(self.data[i]))
-
 
     def __fillTree(self):
         '''
         This fills the treeview widget with
         '''
-#        print("DEBUG " + 80 * "-" "Debug")
-#        pprint(self.item)
         focus = -1
         f = -1
         for  i in range(0, len(self.character["inventory"][self.shoptype])):
@@ -3651,15 +3655,21 @@ class editinventory(blankWindow):
                 and self.item ["weight"] == self.character["inventory"][self.shoptype][i]["weight"]:
                     focus = self.invtree.insert("", i, values = tuple(dummy))
                     f = i
-#                    print("focus {}:{}".format(focus, i))
                 else:
                     self.invtree.insert("", i, values = tuple(dummy))
             else:
                 self.invtree.insert("", i, values = tuple(dummy))
 
-#        print("debug - {} -{} ".format(focus, f))
         if focus != -1:
             self.invtree.selection_set(focus)
+
+
+    def __emptyTree(self):
+        """
+        REmoves all rows from treeview
+        """
+        for row in self.invtree.get_children():
+            self.invtree.delete(row)
 
 
     def __buildEditFrame(self):
@@ -3676,7 +3686,6 @@ class editinventory(blankWindow):
                        "weight":IntVar(),
                        'worth': StringVar()
                        }
-#        stringtype = [type(""), type([]), type({})]
         inttype = [type(0), type(True)]
 
         if self.item:
@@ -3696,6 +3705,13 @@ class editinventory(blankWindow):
                         else:
                             self.fields[key] = StringVar()
 
+                    if key in self.item.keys() and key != "worth":
+                        self.fields[key].set(self.item[key])
+                    elif key == "worth":
+                        self.fields[key].set(worth2string(self.item[key]))
+                    else:
+                        self.fields[key].set(int(self.item[key]))
+
                 for key in inv.runes.keys():
                     if key not in self.fieldnames:
                         self.fieldnames.append(key)
@@ -3709,11 +3725,19 @@ class editinventory(blankWindow):
                         else:
                             self.fields[key] = StringVar()
 
+                    if key in self.item.keys():
+                        if key not in ["magic", "holy", "mithril", "worth"]:
+                            self.fields[key].set(self.item[key])
+                        elif key == "worth":
+                            self.fields[key].set(worth2string(self.item[key]))
+                        else:
+                            self.fields[key].set(int(self.item[key]))
+
                 for key in self.item.keys():
                     if key not in self.fieldnames:
                         self.fieldnames.append(key)
 
-                        if type(self.item[key]) in inttype:
+                        if type(self.item[key]) == type(1):
                             self.fields[key] = IntVar()
 
                         elif type(self.item[key]) == type(0.0):
@@ -3721,6 +3745,13 @@ class editinventory(blankWindow):
 
                         else:
                             self.fields[key] = StringVar()
+                    if key in self.item.keys():
+                        if key not in ["magic", "holy", "mithril"]:
+                            self.fields[key].set(self.item[key])
+                        elif key == "worth":
+                            self.fields[key].set(worth2string(self.item[key]))
+                        else:
+                            self.fields[key].set(int(self.item[key]))
 
             elif self.shoptype == "armor":
                 for key in inv.armor.keys():
@@ -3735,6 +3766,13 @@ class editinventory(blankWindow):
 
                         else:
                             self.fields[key] = StringVar()
+                    if key in self.item.keys():
+                        if key in self.item.keys() and key not in ["worth", "magic"]:
+                            self.fields[key].set(self.item[key])
+                        elif key == "worth":
+                            self.fields[key].set(worth2string(self.item[key]))
+                        else:
+                            self.fields[key].set(int(self.item[key]))
 
                 for key in inv.runes.keys():
                     if key not in self.fieldnames:
@@ -3749,6 +3787,14 @@ class editinventory(blankWindow):
                         else:
                             self.fields[key] = StringVar()
 
+                    if key in self.item.keys():
+                        if key not in ["magic", "holy", "mithril", "worth"]:
+                            self.fields[key].set(self.item[key])
+                        elif key == "worth":
+                            self.fields[key].set(worth2string(self.item[key]))
+                        else:
+                            self.fields[key].set(int(self.item[key]))
+
                 for key in self.item.keys():
                     if key not in self.fieldnames:
                         self.fieldnames.append(key)
@@ -3761,6 +3807,14 @@ class editinventory(blankWindow):
 
                         else:
                             self.fields[key] = StringVar()
+
+                    if key in self.item.keys():
+                        if key not in ["magic", "holy", "mithril", "worth"]:
+                            self.fields[key].set(self.item[key])
+                        elif key == "worth":
+                            self.fields[key].set(worth2string(self.item[key]))
+                        else:
+                            self.fields[key].set(int(self.item[key]))
 
             elif self.shoptype == "weapon":
                 for key in inv.weapon.keys():
@@ -3776,6 +3830,14 @@ class editinventory(blankWindow):
                         else:
                             self.fields[key] = StringVar()
 
+                    if key in self.item.keys():
+                        if key in self.item.keys() and key not in ["worth", "magic", "holy", "mithril"]:
+                            self.fields[key].set(self.item[key])
+                        elif key == "worth":
+                            self.fields[key].set(worth2string(self.item[key]))
+                        else:
+                            self.fields[key].set(int(self.item[key]))
+
                 for key in inv.runes.keys():
                     if key not in self.fieldnames:
                         self.fieldnames.append(key)
@@ -3789,6 +3851,14 @@ class editinventory(blankWindow):
                         else:
                             self.fields[key] = StringVar()
 
+                    if key in self.item.keys():
+                        if key not in ["magic", "holy", "mithril", "worth"]:
+                            self.fields[key].set(self.item[key])
+                        elif key == "worth":
+                            self.fields[key].set(worth2string(self.item[key]))
+                        else:
+                            self.fields[key].set(int(self.item[key]))
+
                 for key in self.item.keys():
                     if key not in self.fieldnames:
                         self.fieldnames.append(key)
@@ -3801,6 +3871,14 @@ class editinventory(blankWindow):
 
                         else:
                             self.fields[key] = StringVar()
+
+                    if key in self.item.keys():
+                        if key not in ["magic", "holy", "mithril", "worth"]:
+                            self.fields[key].set(self.item[key])
+                        elif key == "worth":
+                            self.fields[key].set(worth2string(self.item[key]))
+                        else:
+                            self.fields[key].set(int(self.item[key]))
 
             elif self.shoptype == "gear":
                 for key in inv.gear.keys():
@@ -3816,6 +3894,14 @@ class editinventory(blankWindow):
                         else:
                             self.fields[key] = StringVar()
 
+                    if key in self.item.keys():
+                        if key not in ["magic", "holy", "mithril", "worth"]:
+                            self.fields[key].set(self.item[key])
+                        elif key == "worth":
+                            self.fields[key].set(worth2string(self.item[key]))
+                        else:
+                            self.fields[key].set(int(self.item[key]))
+
                 for key in inv.runes.keys():
                     if key not in self.fieldnames:
                         self.fieldnames.append(key)
@@ -3829,6 +3915,14 @@ class editinventory(blankWindow):
                         else:
                             self.fields[key] = StringVar()
 
+                    if key in self.item.keys():
+                        if key not in ["magic", "holy", "mithril", "worth"]:
+                                self.fields[key].set(self.item[key])
+                        elif key == "worth":
+                            self.fields[key].set(worth2string(self.item[key]))
+                        else:
+                            self.fields[key].set(int(self.item[key]))
+
                 for key in self.item.keys():
                     if key not in self.fieldnames:
                         self.fieldnames.append(key)
@@ -3841,6 +3935,14 @@ class editinventory(blankWindow):
 
                         else:
                             self.fields[key] = StringVar()
+
+                    if key in self.item.keys():
+                        if key not in ["magic", "holy", "mithril", "worth"]:
+                            self.fields[key].set(self.item[key])
+                        elif key == "worth":
+                            self.fields[key].set(worth2string(self.item[key]))
+                        else:
+                            self.fields[key].set(int(self.item[key]))
 
             elif self.shoptype == "gems":
 
@@ -3856,6 +3958,13 @@ class editinventory(blankWindow):
 
                         else:
                             self.fields[key] = StringVar()
+                    if key in self.item.keys():
+                        if key not in ["magic", "holy", "mithril", "worth"]:
+                            self.fields[key].set(self.item[key])
+                        elif key == "worth":
+                            self.fields[key].set(worth2string(self.item[key]))
+                        else:
+                            self.fields[key].set(int(self.item[key]))
 
                 for key in inv.runes.keys():
                     if key not in self.fieldnames:
@@ -3870,6 +3979,14 @@ class editinventory(blankWindow):
                         else:
                             self.fields[key] = StringVar()
 
+                    if key in self.item.keys():
+                        if key not in ["magic", "holy", "mithril", "worth"]:
+                            self.fields[key].set(self.item[key])
+                        elif key == "worth":
+                            self.fields[key].set(worth2string(self.item[key]))
+                        else:
+                            self.fields[key].set(int(self.item[key]))
+
                 for key in self.item.keys():
                     if key not in self.fieldnames:
                         self.fieldnames.append(key)
@@ -3882,6 +3999,14 @@ class editinventory(blankWindow):
 
                         else:
                             self.fields[key] = StringVar()
+
+                    if key in self.item.keys():
+                        if key not in ["magic", "holy", "mithril", "worth"]:
+                            self.fields[key].set(self.item[key])
+                        elif key == "worth":
+                            self.fields[key].set(worth2string(self.item[key]))
+                        else:
+                            self.fields[key].set(int(self.item[key]))
 
             elif self.shoptype == "services":
                 for key in inv.services.keys():
@@ -3897,6 +4022,14 @@ class editinventory(blankWindow):
                         else:
                             self.fields[key] = StringVar()
 
+                    if key in self.item.keys():
+                        if key not in ["magic", "holy", "mithril", "worth"]:
+                            self.fields[key].set(self.item[key])
+                        elif key == "worth":
+                            self.fields[key].set(worth2string(self.item[key]))
+                        else:
+                            self.fields[key].set(int(self.item[key]))
+
                 for key in inv.runes.keys():
                     if key not in self.fieldnames:
                         self.fieldnames.append(key)
@@ -3910,6 +4043,14 @@ class editinventory(blankWindow):
                         else:
                             self.fields[key] = StringVar()
 
+                    if key in self.item.keys():
+                        if key not in ["magic", "holy", "mithril", "worth"]:
+                            self.fields[key].set(self.item[key])
+                        elif key == "worth":
+                            self.fields[key].set(worth2string(self.item[key]))
+                        else:
+                            self.fields[key].set(int(self.item[key]))
+
                 for key in self.item.keys():
                     if key not in self.fieldnames:
                         self.fieldnames.append(key)
@@ -3922,6 +4063,14 @@ class editinventory(blankWindow):
 
                         else:
                             self.fields[key] = StringVar()
+
+                    if key in self.item.keys():
+                        if key not in ["magic", "holy", "mithril", "worth"]:
+                            self.fields[key].set(self.item[key])
+                        elif key == "worth":
+                            self.fields[key].set(worth2string(self.item[key]))
+                        else:
+                            self.fields[key].set(int(self.item[key]))
 
             elif self.shoptype == "transport":
                 for key in inv.transport.keys():
@@ -3937,6 +4086,14 @@ class editinventory(blankWindow):
                         else:
                             self.fields[key] = StringVar()
 
+                    if key in self.item.keys():
+                        if key not in ["magic", "holy", "mithril", "worth"]:
+                            self.fields[key].set(self.item[key])
+                        elif key == "worth":
+                            self.fields[key].set(worth2string(self.item[key]))
+                        else:
+                            self.fields[key].set(int(self.item[key]))
+
                 for key in inv.runes.keys():
                     if key not in self.fieldnames:
                         self.fieldnames.append(key)
@@ -3950,6 +4107,14 @@ class editinventory(blankWindow):
                         else:
                             self.fields[key] = StringVar()
 
+                    if key in self.item.keys():
+                        if key not in ["magic", "holy", "mithril", "worth"]:
+                            self.fields[key].set(self.item[key])
+                        elif key == "worth":
+                            self.fields[key].set(worth2string(self.item[key]))
+                        else:
+                            self.fields[key].set(int(self.item[key]))
+
                 for key in self.item.keys():
                     if key not in self.fieldnames:
                         self.fieldnames.append(key)
@@ -3962,6 +4127,14 @@ class editinventory(blankWindow):
 
                         else:
                             self.fields[key] = StringVar()
+
+                    if key in self.item.keys():
+                        if key not in ["magic", "holy", "mithril", "worth"]:
+                            self.fields[key].set(self.item[key])
+                        elif key == "worth":
+                            self.fields[key].set(worth2string(self.item[key]))
+                        else:
+                            self.fields[key].set(int(self.item[key]))
 
             else:
                 pass
@@ -4040,7 +4213,7 @@ class editinventory(blankWindow):
                                               width = 30,
                                               height = 10)
             self.editinput[selection].insert(END, self.item[selection])
-            self.editinput[selection].bind('<FocusOut>', self.updItem)
+            self.editinput[selection].bind('<FocusOut>', self.__updDescription)
 
         elif selection in["magic", "holy", "mithril"]:
             self.editinput[selection] = Checkbutton(self.frame["edit"],
@@ -4055,22 +4228,87 @@ class editinventory(blankWindow):
                                         rowspan = 4,
                                         sticky = "NEWS")
         print(selection)
-        pass
+
+
+    def __updDescription(self, event):
+        """
+        Gets item's description and saves it into self.item
+        """
+        self.fields["description"].set(self.editinput["description"].get('1.0', END))
+        self.updItem(event)
 
 
     def updItem(self, event):
         '''
         This updates the parameter of the selected item with the changed entries.
         '''
-        print("Debug: \n\n{}".format(self.editinput["description"].get('1.0', END)))
-        if self.editinput["description"].get('1.0', END) == "":
-            print("leer")
-#        for key in self.fields.keys():
+        for key in self.fields.keys():
+            if key in ["mithril", "holy", "magic"]:
+                self.item[key] = bool(self.fields[key].get())
+            if key == "worth":
+                self.item[key] = string2worth(self.fields[key].get())
+            else:
+                self.item[key] = self.fields[key].get()
 
-#        print("Debug upditem")
-#        pass
+        self.__item2char()
+        self.__emptyTree()
+        self.__fillTree()
+#        self.curr_inv = self.invtree.focus()
+#        self.curr_inventry = self.invtree.item(self.curr_inv)
+#        tvitem = self.invtree.index(self.curr_inv)
+#
+#        print("debug {}\n {}\n  {} ".format(self.curr_inv, self.curr_inventry, tvitem))
+#        if tvitem != 0:
+#            self.invtree.delete(self.curr_inv)
+#            desc = ""
+#            if "medical use" in self.item.keys():
+#                desc += self.item["medical use"] + " "
+#            desc += self.item["description"]
+#            self.invtree.insert('', tvitem, iid = self.curr_inv, values = (self.item["name"],
+#                                                         desc,
+#                                                         self.item["weight"]))
+
+        print("Debug: updItem")
+        pprint(self.item)
 
 
+    def __updtItem(self):
+        """
+        Updates all entries of the selected item
+        """
+        self.itemname.set(self.item["name"])
+        if "location" not in self.item.keys():
+            self.item["location"] = ""
+
+        if "container" in self.item["location"]:
+            for cont in self.character["idxcontainer"]:
+                if self.item["location"] == cont["type"]:
+                    self.equloc.set(cont["name"])
+                    break
+
+        elif "transport" in self.item['location']:
+            for cont in self.character["idxtransport"]:
+                if self.item["location"] == cont["type"]:
+                    self.equloc.set(cont["name"])
+                    break
+
+        else:
+            self.equloc.set(self.item["location"])
+        self.__item2char()
+        self.__emptyTree()
+        self.__fillTree()
+        self.edtselect.set("name")
+        self.updEdtFrame("name")
+
+
+#        self.invtree.delete(self.curr_inv)
+#        desc = ""
+#        if "medical use" in self.item.keys():
+#            desc += self.item["medical use"] + " "
+#        desc += self.item["description"]
+#        self.invtree.insert('', self.curr_inv, values = (self.item["name"],
+#                                                     desc,
+#                                                     self.item["weight"]))
     def updWidgedCont(self):
         '''
         This method updates widget content like texts or images
@@ -4230,6 +4468,7 @@ class editinventory(blankWindow):
         '''
         This opens a file dialog window for saving
         '''
+#        self.__item2char()
         savedir = filedialog.asksaveasfilename(defaultextension = ".json", filetypes = [("Character & Group Files", ".json")])
         with open(savedir, "w") as fp:
             json.dump(self.character, fp, indent = 4)
@@ -4239,7 +4478,6 @@ class editinventory(blankWindow):
         '''
         Creates LaTeX code from inventory data and generates PDF
         '''
-#        self.character["inventory"] = self.inv_char
         pdf = inventory(self.character, self.storepath)
 
 
@@ -4307,44 +4545,52 @@ class editinventory(blankWindow):
         self.armorwin = editinventory(lang = self.lang, char = self.character, storepath = self.storepath, shoptype = "herbs")
 
 
+    def __item2char(self):
+        """
+        This adds the edited item back to character's inventory
+        """
+        try:
+            for coin in self.moneyEntry.keys():
+                self.character["purse"][coin] = self.moneyEntry[coin].get()
+            for b in ["magic", "holy", "mithril"]:
+                self.item[b] = bool(self.item[b])
+            self.character["inventory"][self.shoptype][self.itemidx] = self.item
+        except:
+            print("Debug item could not be added")
+            pass
+
+
     def selectItem(self, event):
         """
         This get the selection of the treeview widget.
         """
+#        try:
+#            self.__item2char()
+#            self.invtree.delete(self.curr_inv)
+#            desc = ""
+#            if "medical use" in self.item.keys():
+#                desc += self.item["medical use"] + " "
+#            desc += self.item["description"]
+#            self.invtree.insert('', iid=self.curr_inv, values = (self.item["name"],
+#                                                         desc,
+#                                                         self.item["weight"]))
+#        except:
+#            pass
+
         self.curr_inv = self.invtree.focus()
+        self.curr_inventry = self.invtree.item(self.curr_inv)
         self.selected_item = self.invtree.item(self.curr_inv)['values']
+        print("DEbug  selectedItem {}-{}\n{}".format(self.curr_inv, self.selected_item, self.curr_inventry))
         self.itempos = -1
 
         for i in range(0, len(self.character["inventory"][self.shoptype])):
-            if self.character["inventory"][self.shoptype][i]["name"] == self.selected_item[0] \
-            and self.character["inventory"][self.shoptype][i]["description"] == self.selected_item[1] \
-            and self.character["inventory"][self.shoptype][i]["weight"] == float(self.selected_item[2]):
-                self.itempos = i
-                self.item = self.character["inventory"][self.shoptype][i]
-                self.__updtItem()
-#                self.itemname.set(self.item["name"])
-#                self.equloc.set(self.item["location"])
-
-#        print(self.selected_item)
-
-
-    def __updtItem(self):
-        """
-        Updates all entries of the selected item
-        """
-        self.itemname.set(self.item["name"])
-        if "container" in self.item["location"]:
-            for cont in self.character["idxcontainer"]:
-                if self.item["location"] == cont["type"]:
-                    self.equloc.set(cont["name"])
-                    break
-        elif "transport" in self.item['location']:
-            for cont in self.character["idxtransport"]:
-                if self.item["location"] == cont["type"]:
-                    self.equloc.set(cont["name"])
-        else:
-            self.equloc.set(self.item["location"])
-        self.__buildEditFrame()
+            if self.selected_item:
+                if self.character["inventory"][self.shoptype][i]["name"] == self.selected_item[0] \
+                and self.character["inventory"][self.shoptype][i]["description"] == self.selected_item[1] \
+                and self.character["inventory"][self.shoptype][i]["weight"] == float(self.selected_item[2]):
+                    self.itemidx = i
+                    self.item = self.character["inventory"][self.shoptype][i]
+                    self.__updtItem()
 
 
     def idxContainerTransport(self):
@@ -4405,6 +4651,8 @@ class editinventory(blankWindow):
         This gets the shop selection
         """
         self.shoptype = selection
+#        self.__item2char()
+        self.itemidx = -1
 
         if selection == "armor":
             self.__armor()
@@ -4432,6 +4680,8 @@ class editinventory(blankWindow):
         """
         This get the type of action to be done: edit or equip item
         """
+#        self.__item2char()
+
         if selection == "equip":
             self.frame["edit"].grid_forget()
             self.frame["equip"].grid(column = 16,

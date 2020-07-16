@@ -11,7 +11,7 @@
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "28.06.2020"
+__updated__ = "15.07.2020"
 
 ## \var geartypes
 # (dictionary) list of different type of equipment like armor, weapon, tool...
@@ -137,7 +137,7 @@ weapon = {"name" : "",
           "table" : "",
           "crit" : [],
           "weight" : 0,
-          "length" : 0,
+          "length" : "",
           "breakage": "",
           "fumble" : "",
           "strength" : "",
