@@ -35,7 +35,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "16.07.2020"
+__updated__ = "17.07.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.5"
@@ -3683,7 +3683,7 @@ class editinventory(blankWindow):
         self.fieldnames = ["name", "description", "weight", "worth"]
         self.fields = {'name': StringVar(),
                        'description' : StringVar(),
-                       "weight":IntVar(),
+                       "weight":DoubleVar(),
                        'worth': StringVar()
                        }
         inttype = [type(0), type(True)]
@@ -4301,14 +4301,6 @@ class editinventory(blankWindow):
         self.updEdtFrame("name")
 
 
-#        self.invtree.delete(self.curr_inv)
-#        desc = ""
-#        if "medical use" in self.item.keys():
-#            desc += self.item["medical use"] + " "
-#        desc += self.item["description"]
-#        self.invtree.insert('', self.curr_inv, values = (self.item["name"],
-#                                                     desc,
-#                                                     self.item["weight"]))
     def updWidgedCont(self):
         '''
         This method updates widget content like texts or images
