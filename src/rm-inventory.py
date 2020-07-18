@@ -4480,6 +4480,7 @@ class editinventory(blankWindow):
                                            'gems' :[]
                                            }
         self.inv_char = self.character["inventory"].copy()
+        self.__setMoney()
 
 
     def __save(self):
