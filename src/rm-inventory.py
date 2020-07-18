@@ -35,7 +35,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "17.07.2020"
+__updated__ = "18.07.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.5"
@@ -3171,11 +3171,10 @@ class editinventory(blankWindow):
         self.lang = lang
         self.character = char
         self.item = item
-        print("Debug: editinv - item\n")
-        pprint(self.item)
         self.shoptype = shoptype
         self.itemidx = -1
         self.editinput = {}
+
         if self.character == {}:
             self.character = {  "player": "Dummy",
                                 "exp": 10000,
@@ -3633,6 +3632,22 @@ class editinventory(blankWindow):
                                   sticky = "NEWS")
 
 
+    def __getMoney(self):
+        """
+        Gets a values from coin entries
+        """
+        for coin in inv.coins["short"]:
+            self.character["purse"][coin.upper()] = self.moneyEntry[coin.upper()].get()
+
+
+    def __setMoney(self):
+        """
+        Sets values form character's purse in Entry widgets
+        """
+        for coin in inv.coins["short"]:
+            self.moneyEntry[coin.upper()].set(self.character["purse"][coin.upper()])
+
+
     def __fillTree(self):
         '''
         This fills the treeview widget with
@@ -3692,7 +3707,6 @@ class editinventory(blankWindow):
             if self.shoptype == "herbs":
 
                 for key in inv.herbs.keys():
-
                     if key not in self.fieldnames:
                         self.fieldnames.append(key)
 
@@ -3707,8 +3721,10 @@ class editinventory(blankWindow):
 
                     if key in self.item.keys() and key != "worth":
                         self.fields[key].set(self.item[key])
+
                     elif key == "worth":
                         self.fields[key].set(worth2string(self.item[key]))
+
                     else:
                         self.fields[key].set(int(self.item[key]))
 
@@ -4227,14 +4243,20 @@ class editinventory(blankWindow):
                                         row = 1,
                                         rowspan = 4,
                                         sticky = "NEWS")
-        print(selection)
+
+        self.__getMoney()
+        self.__setMoney()
 
 
     def __updDescription(self, event):
         """
         Gets item's description and saves it into self.item
         """
-        self.fields["description"].set(self.editinput["description"].get('1.0', END))
+        if len(self.editinput["description"].get('1.0', END)) > 1:
+            self.fields["description"].set(self.editinput["description"].get('1.0', END))
+        else:
+            self.fields["description"].set("")
+
         self.updItem(event)
 
 
@@ -4253,6 +4275,8 @@ class editinventory(blankWindow):
         self.__item2char()
         self.__emptyTree()
         self.__fillTree()
+        self.__getMoney()
+        self.__setMoney()
 #        self.curr_inv = self.invtree.focus()
 #        self.curr_inventry = self.invtree.item(self.curr_inv)
 #        tvitem = self.invtree.index(self.curr_inv)
@@ -4297,6 +4321,8 @@ class editinventory(blankWindow):
         self.__item2char()
         self.__emptyTree()
         self.__fillTree()
+        self.__getMoney()
+        self.__setMoney()
         self.edtselect.set("name")
         self.updEdtFrame("name")
 
@@ -4461,6 +4487,7 @@ class editinventory(blankWindow):
         This opens a file dialog window for saving
         '''
 #        self.__item2char()
+        self.__getMoney()
         savedir = filedialog.asksaveasfilename(defaultextension = ".json", filetypes = [("Character & Group Files", ".json")])
         with open(savedir, "w") as fp:
             json.dump(self.character, fp, indent = 4)
@@ -4470,6 +4497,7 @@ class editinventory(blankWindow):
         '''
         Creates LaTeX code from inventory data and generates PDF
         '''
+        self.__getMoney()
         pdf = inventory(self.character, self.storepath)
 
 
@@ -4477,6 +4505,7 @@ class editinventory(blankWindow):
         '''
         This method closes the window
         '''
+        self.__getMoney()
         self.window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, self.shoptype)
 
@@ -4485,6 +4514,7 @@ class editinventory(blankWindow):
         """
         This opens a window for armor
         """
+        self.__getMoney()
         self. window.destroy()
         self.armorwin = editinventory(lang = self.lang, char = self.character, storepath = self.storepath, shoptype = "armor")
 
@@ -4493,6 +4523,7 @@ class editinventory(blankWindow):
         """
         This opens a window for weapons
         """
+        self.__getMoney()
         self. window.destroy()
         self.armorwin = editinventory(lang = self.lang, char = self.character, storepath = self.storepath, shoptype = "weapon")
 
@@ -4501,6 +4532,7 @@ class editinventory(blankWindow):
         """
         This opens a window for equipment
         """
+        self.__getMoney()
         self. window.destroy()
         self.armorwin = editinventory(lang = self.lang, char = self.character, storepath = self.storepath, shoptype = "gear")
 
@@ -4509,6 +4541,7 @@ class editinventory(blankWindow):
         """
         This opens a window for animals and transports
         """
+        self.__getMoney()
         self. window.destroy()
         self.armorwin = editinventory(lang = self.lang, char = self.character, storepath = self.storepath, shoptype = "transport")
 
@@ -4517,6 +4550,7 @@ class editinventory(blankWindow):
         """
         This opens a window for equipment
         """
+        self.__getMoney()
         self. window.destroy()
         self.armorwin = editinventory(lang = self.lang, char = self.character, storepath = self.storepath, shoptype = "services")
 
@@ -4525,6 +4559,7 @@ class editinventory(blankWindow):
         """
         This opens a window for gems and jewelry
         """
+        self.__getMoney()
         self. window.destroy()
         self.armorwin = editinventory(lang = self.lang, char = self.character, storepath = self.storepath, shoptype = "gems")
 
@@ -4533,6 +4568,7 @@ class editinventory(blankWindow):
         """
         This opens a window for portions, herbs and poisons
         """
+        self.__getMoney()
         self. window.destroy()
         self.armorwin = editinventory(lang = self.lang, char = self.character, storepath = self.storepath, shoptype = "herbs")
 
@@ -4542,8 +4578,9 @@ class editinventory(blankWindow):
         This adds the edited item back to character's inventory
         """
         try:
-            for coin in self.moneyEntry.keys():
-                self.character["purse"][coin] = self.moneyEntry[coin].get()
+#            for coin in self.moneyEntry.keys():
+#                self.character["purse"][coin] = self.moneyEntry[coin].get()
+            self.__getMoney()
             for b in ["magic", "holy", "mithril"]:
                 self.item[b] = bool(self.item[b])
             self.character["inventory"][self.shoptype][self.itemidx] = self.item
@@ -4573,16 +4610,25 @@ class editinventory(blankWindow):
         self.curr_inventry = self.invtree.item(self.curr_inv)
         self.selected_item = self.invtree.item(self.curr_inv)['values']
         print("DEbug  selectedItem {}-{}\n{}".format(self.curr_inv, self.selected_item, self.curr_inventry))
-        self.itempos = -1
+        self.itemidx = -1
 
         for i in range(0, len(self.character["inventory"][self.shoptype])):
             if self.selected_item:
-                if self.character["inventory"][self.shoptype][i]["name"] == self.selected_item[0] \
-                and self.character["inventory"][self.shoptype][i]["description"] == self.selected_item[1] \
-                and self.character["inventory"][self.shoptype][i]["weight"] == float(self.selected_item[2]):
-                    self.itemidx = i
-                    self.item = self.character["inventory"][self.shoptype][i]
-                    self.__updtItem()
+                if self.shoptype != "herbs":
+                    if self.character["inventory"][self.shoptype][i]["name"] == self.selected_item[0] \
+                    and self.character["inventory"][self.shoptype][i]["description"] == self.selected_item[1] \
+                    and self.character["inventory"][self.shoptype][i]["weight"] == float(self.selected_item[2]):
+                        self.itemidx = i
+                        self.item = self.character["inventory"][self.shoptype][i]
+                        self.__updtItem()
+                else:
+                     if self.character["inventory"][self.shoptype][i]["name"] == self.selected_item[0] \
+                    and self.character["inventory"][self.shoptype][i]["medical use"] + " " + \
+                    self.character["inventory"][self.shoptype][i]["description"] == self.selected_item[1] \
+                    and self.character["inventory"][self.shoptype][i]["weight"] == float(self.selected_item[2]):
+                        self.itemidx = i
+                        self.item = self.character["inventory"][self.shoptype][i]
+                        self.__updtItem()
 
 
     def idxContainerTransport(self):
