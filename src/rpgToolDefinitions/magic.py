@@ -13,6 +13,18 @@
 __version__ = "0.1"
 __updated__ = "20.07.2020"
 
+magic_range_mod = {0 : 30,
+                 10: 10,
+                 50: 0,
+                 100:-10,
+                 300:-20,
+                 10000000:-30
+                 }
+
+situation_mods = {"Full Cover" :-20,
+                 "Partial Cover" :-10,
+                 "Static Target":+10}
+
 
 
 def readBasicTable(filename = "./data/default/tables/basic_spell_table.csv"):
@@ -38,3 +50,4 @@ def readBasicTable(filename = "./data/default/tables/basic_spell_table.csv"):
                 table[header[column]].append(cont[row].split(",")[column])
 
     return table
+

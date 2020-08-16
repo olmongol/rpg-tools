@@ -328,7 +328,7 @@ def readCSV(fname = "test.csv"):
     @todo handle problems with wierd unicode characters
     '''
     result = []
-    with open(fname) as csvfile:
+    with open(fname, "r") as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             result.append(row)

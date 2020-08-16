@@ -3556,8 +3556,6 @@ class editinventory(blankWindow):
         # define frames ---
         self.frame = {}
         self.frms = ['equip', 'select', 'edit']
-#        for  st in self.character["inventory"].keys():
-#            self.frms += [st, "edit " + st]
 
         for fn in self.frms:
             self.frame[fn] = Frame(self.window)
@@ -3690,8 +3688,6 @@ class editinventory(blankWindow):
     def __buildEditFrame(self):
         '''
         This builds the frame for editing items dynamically
-        ----
-        @todo has to be fully implemented
         '''
 
         # prepare fields/fieldnames -----
@@ -4277,23 +4273,6 @@ class editinventory(blankWindow):
         self.__fillTree()
         self.__getMoney()
         self.__setMoney()
-#        self.curr_inv = self.invtree.focus()
-#        self.curr_inventry = self.invtree.item(self.curr_inv)
-#        tvitem = self.invtree.index(self.curr_inv)
-#
-#        print("debug {}\n {}\n  {} ".format(self.curr_inv, self.curr_inventry, tvitem))
-#        if tvitem != 0:
-#            self.invtree.delete(self.curr_inv)
-#            desc = ""
-#            if "medical use" in self.item.keys():
-#                desc += self.item["medical use"] + " "
-#            desc += self.item["description"]
-#            self.invtree.insert('', tvitem, iid = self.curr_inv, values = (self.item["name"],
-#                                                         desc,
-#                                                         self.item["weight"]))
-
-        print("Debug: updItem")
-        pprint(self.item)
 
 
     def __updtItem(self):
@@ -4487,7 +4466,6 @@ class editinventory(blankWindow):
         '''
         This opens a file dialog window for saving
         '''
-#        self.__item2char()
         self.__getMoney()
         savedir = filedialog.asksaveasfilename(defaultextension = ".json", filetypes = [("Character & Group Files", ".json")])
         with open(savedir, "w") as fp:
@@ -4579,8 +4557,6 @@ class editinventory(blankWindow):
         This adds the edited item back to character's inventory
         """
         try:
-#            for coin in self.moneyEntry.keys():
-#                self.character["purse"][coin] = self.moneyEntry[coin].get()
             self.__getMoney()
             for b in ["magic", "holy", "mithril"]:
                 self.item[b] = bool(self.item[b])
@@ -4594,23 +4570,9 @@ class editinventory(blankWindow):
         """
         This get the selection of the treeview widget.
         """
-#        try:
-#            self.__item2char()
-#            self.invtree.delete(self.curr_inv)
-#            desc = ""
-#            if "medical use" in self.item.keys():
-#                desc += self.item["medical use"] + " "
-#            desc += self.item["description"]
-#            self.invtree.insert('', iid=self.curr_inv, values = (self.item["name"],
-#                                                         desc,
-#                                                         self.item["weight"]))
-#        except:
-#            pass
-
         self.curr_inv = self.invtree.focus()
         self.curr_inventry = self.invtree.item(self.curr_inv)
         self.selected_item = self.invtree.item(self.curr_inv)['values']
-        print("DEbug  selectedItem {}-{}\n{}".format(self.curr_inv, self.selected_item, self.curr_inventry))
         self.itemidx = -1
 
         for i in range(0, len(self.character["inventory"][self.shoptype])):
@@ -4690,7 +4652,6 @@ class editinventory(blankWindow):
         This gets the shop selection
         """
         self.shoptype = selection
-#        self.__item2char()
         self.itemidx = -1
 
         if selection == "armor":
@@ -4719,8 +4680,6 @@ class editinventory(blankWindow):
         """
         This get the type of action to be done: edit or equip item
         """
-#        self.__item2char()
-
         if selection == "equip":
             self.frame["edit"].grid_forget()
             self.frame["equip"].grid(column = 16,
@@ -4750,9 +4709,11 @@ class editinventory(blankWindow):
             and self.item["weight"] == self.character["inventory"][self.shoptype][i]["weight"]:
                 idx = i
         pos = selection
+
         for cont in self.character["idxcontainer"]:
             if selection == cont["name"]:
                 pos = cont["type"]
+
         for cont in self.character["idxtransport"]:
             if selection == cont["name"]:
                 pos = cont["type"]

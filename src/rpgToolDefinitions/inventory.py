@@ -8,10 +8,10 @@
 \date (C) 2020
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
-\version 0.1
+\version 1.0
 '''
-__version__ = "0.1"
-__updated__ = "15.07.2020"
+__version__ = "1.0"
+__updated__ = "20.07.2020"
 
 ## \var geartypes
 # (dictionary) list of different type of equipment like armor, weapon, tool...
