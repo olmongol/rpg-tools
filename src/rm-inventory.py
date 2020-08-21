@@ -35,7 +35,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "18.07.2020"
+__updated__ = "21.08.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.5"
@@ -1354,6 +1354,17 @@ class shopWin(blankWindow):
 
             elif self.data[0][i] == "effect":
                 newitem["medical use"] = self.curr_item[i]
+            elif self.data[0][i] == "strength":
+                if self.curr_item[i] != "---":
+                    numbers = self.curr_item[i]
+                    t = ""
+                    if "(" in self.curr_item[i]:
+                        numbers, t = self.curr_item[i].split("(")
+                        t = "(" + t
+
+                    newitem["strength"] = "{} {}".format(int(round(random.uniform(int(numbers.split("-")[0]), int(numbers.split("-")[1])), 0)), t)
+                else:
+                    newitem["strength"] = "---"
 
             elif self.data[0][i] == "cost":
 
