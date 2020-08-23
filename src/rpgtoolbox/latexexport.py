@@ -12,7 +12,7 @@ will be generated for printouts
 \version 1.1
 '''
 
-__updated__ = "12.07.2020"
+__updated__ = "23.08.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -218,6 +218,9 @@ class charsheet(object):
 
         template = readFile(self.storepath + "/default/latex/template_rr_at_db.tex")
         template = template.replace("==>ThreeQ", str(int(self.char["Qu"]["total"]) * 3))
+        template = template.replace("==>BD", str(self.char["cat"]["Body Development"]["Skill"]["Body Development"]["total bonus"]))
+        template = template.replace("==>PP", str(self.char["cat"]["Power Point Development"]["Skill"]["Power Point Development"]["total bonus"]))
+
         if self.char["cat"]["Special Defenses"]["Skill"]["Adrenal Defense"]["rank"] > 0:
             template = template.replace("==>AdrenalDef", str(self.char["cat"]["Special Defenses"]["Skill"]["Adrenal Defense"]["total bonus"]))
         else:
