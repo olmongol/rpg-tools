@@ -14,7 +14,7 @@ This package holds RM specific tools like Character Skill Progression.
 \date 2019
 \copyright 2015-2019 Marcus Schwamberger
 '''
-__updated__ = "20.10.2019"
+__updated__ = "31.05.2020"
 
 catnames = {'de' : {'spells' : "Spells",
                     'weapon' : 'Weapon',
@@ -33,19 +33,30 @@ spellisttypes = {'de': ['Offene Leitmagie', 'Geschlossene Leitmagie',
                         'Mönch Basis', 'Hexer Basis', 'Böse Essenz',
                         'Offene Mentalismus', 'Geschlossene Mentalismus',
                         'Laienheiler Basis', 'Barden Basis', 'Mentalist Basis',
-                        'Magent Basis', 'Mystiker Basis', 'Böse Mentalistmus'
+                        'Magent Basis', 'Mystiker Basis', 'Böse Mentalistmus',
+                        "Taoist-Mönch Basis", "Zen-Mönch Basis"
                         ],
                  'en': ['Open Channeling', 'Closed Channeling',
                         'Animist Base', 'Cleric Base', 'Paladin Base',
-                        'Ranger Basis', 'Healer Basis', 'Evil Channeling',
+                        'Ranger Base', 'Healer Base', 'Evil Channeling',
                         'Open Essence', 'Closed Essence',
                         'Illusionist Base', 'Magican Base', 'Dabbler Base',
                         'Monk Base', 'Sorcerer Base', 'Evil Essence',
                         'Open Mentalism', 'Closed Mentalism',
                         'Lay Healer', 'Bard Base', 'Mentalist Base',
-                        'Magent Base', 'Mystic Base', 'Evil Mentalism'
+                        'Magent Base', 'Mystic Base', 'Evil Mentalism',
+                        "Taoist Monk Base", "Zen Monk Base"
                         ],
                  }
+## @var sldirs
+# name of the subdirs of specific spell list types
+sldirs = ["Channeling_Open", "Channeling_Closed", "Base_List_Animist", "Base_List_Cleric",
+          'Base_List_Paladin', 'Base_List_Ranger', 'Base_List_Healer', 'Channeling_Evil',
+          'Essence_Open', 'Essence_Closed', 'Base_List_Illusionist', 'Base_List_Magician',
+          'Base_List_Dabbler', 'Base_List_Monk', 'Base_list_Sorcerer', 'Essence_Evil',
+          'Mentalism_Open', 'Mentalism_Closed', 'Base_List_Lay-Healer', 'Base_List_Bard',
+          'Base_List_Bard', 'Base_List_Mentalist', 'Base_List_Magent', 'Base_List_Mystic',
+          'Mentalism_Evil', "Base_List_Taoist-Monk", "Base_List_Zen-Monk"]
 ##\var races
 # just a dictionary for translation of the races' names
 races = {'de' : ['normale Menschen', 'vermischte Menschen', 'Hochmenschen',
@@ -63,6 +74,39 @@ cultures = {'de' : ['Huegelmenschen', 'Corsaren', 'Nomaden', 'Landvolk', 'Stadtm
                    'Dwarves', 'Halflings']
 
            }
+
+##\var langpack
+# starting language packs by culture
+langpack = {'de' : {'Huegelmenschen' : {},
+                    'Corsaren' : {},
+                    'Nomaden' : {},
+                    'Landvolk' : {},
+                    'Stadtmenschen'  : {},
+                    'Waldmenschen' : {},
+                    'Hochmenschen' : {},
+                    'Waldelben' : {},
+                    'Grauelben' : {},
+                    'Hochelben' : {},
+                    'Halbelben' : {},
+                    'Zwerge' : {},
+                    'Halblinge' : {}
+                    },
+            'en' : {'Hillmen' : {},
+                    'Mariners' : {},
+                    'Nomads' : {},
+                    'Ruralmen' : {},
+                    'Urbanmen' : {},
+                    'Woodmen' : {},
+                    'High Men' : {},
+                    'Wood Elves' : {},
+                    'Grey Elves' : {},
+                    'High Elves' : {},
+                    'Half Elves' : {},
+                    'Dwarves' : {},
+                    'Halflings' : {}
+                    }
+            }
+
 ## \var culturalDefinition
 # this dictionary holds average values and starting languages based on races
 # \todo this has to be filled for all races for English and German
@@ -197,7 +241,7 @@ exceptions = ['Costs', 'Stats', 'Progression', 'rank', 'rank bonus', 'spec bonus
 realms = {'en': ('choice', 'Essence', 'Channeling', 'Mentalism',
                  ['Channeling', 'Mentalism'], ['Channeling', 'Essence'],
                  ['Essence', 'Mentalism']),
-          'de': ('wählbar', 'Essenz', 'Leitmagie', 'Mentalismus',
+          'de': (u'wählbar', 'Essenz', 'Leitmagie', 'Mentalismus',
                  ['Leitmagie', 'Mentalismus'], ['Leitmagie', 'Essenz'],
                  ['Essenz', 'Mentalismus']),
           }
@@ -211,6 +255,22 @@ ppds = ("", "PPD Ess ", "PPD Chan ", "PPD Ment ",
 speccat = {'en': ['Body Development', 'Power Point Development'],
            'de': ['Body Development', 'Power Point Development'],
            }
+
+spellists = {"Essence" :["Essence_Open", "Essence_Closed", "Essence_Evil",
+                         "Base_List_Monk", "Base_List_Taoist-Monk", "Base_List_Dabbler",
+                         "Base_List_Magician", "Base_List_Illusionist"
+                         ],
+             "Channeling":["Channeling_Open", "Channeling_Closed", "Channeling_Evil",
+                           "Base_List_Ranger", "Base_List_Paladin", "Base_List_Cleric",
+                           "Base_List_Animist"
+                           ],
+             "Mentalism": ["Mentalism_Open", "Mentalism_Closed", "Mentalism_Evil",
+                           "Base_List_Zen-Monk", "Base_List_Bard", "Base_List_Magend",
+                           "Base_List_Lay-Healer", "Base_List_Mentalist"
+                           ],
+             "Channeling/Mentalism":["Base_List_Healer"],
+             "Channeling/Essence":["Base_List_Sorcerer"],
+             "Essence/Mentalism" :["Base_List_Mystic"]}
 ###\var sltype
 ## dictionary of lists of spell list types
 ##\todo translate German part
@@ -236,7 +296,7 @@ speccat = {'en': ['Body Development', 'Power Point Development'],
 #                  'Monk Base',
 #                  'Dabbler Base',
 #                  'Bard Base',
-#                  'Magend Base',
+#                  'Magent Base',
 #                  'Arcane'],
 #           'de': ['Open Channeling',
 #                  'Closed Channeling',
@@ -260,7 +320,7 @@ speccat = {'en': ['Body Development', 'Power Point Development'],
 #                  'Monk Base',
 #                  'Dabbler Base',
 #                  'Bard Base',
-#                  'Magend Base',
+#                  'Magent Base',
 #                  'Arcane'],
 #           }
 ## \var spelltypes
@@ -268,7 +328,7 @@ speccat = {'en': ['Body Development', 'Power Point Development'],
 # \todo add more text to the description part of the types
 spelltypes = {'en' : {'E' : 'Elemental Spell',
                    'BE' : 'Ball Elemental Spell',
-                   'DE' : 'Directed Elemenal Spell',
+                   'DE' : 'Directed Elemental Spell',
                    'F' : 'Force Spell',
                    'P' : 'Passive Spell',
                    'U' : 'Utility Spell',
@@ -278,7 +338,7 @@ spelltypes = {'en' : {'E' : 'Elemental Spell',
                    },
               'de' : {'E' : 'Elementarzauber',
                    'BE' : 'elementarer Ballzauber',
-                   'DE' : 'gezielter Elemenarzauber',
+                   'DE' : 'gezielter Elementarzauber',
                    'F' : 'Kraftzauber',
                    'P' : 'Passivzauber',
                    'U' : 'Nützlichkeitszauber',
@@ -645,6 +705,46 @@ raceAbilities = {'Common Men': {'Ag' : 0,
                                 'Hobby Ranks': 12,
                                 },
                  }
+##\var raceHealingFactors
+# this dictionary holds race based information about Stat Loss Type, Rnds to soul
+# departure and recovery multiplier.
+raceHealingFactors = {"Common Men" : {"soul dep": 12,
+                                      "Stat Loss" : 2,
+                                      "Recovery" : 1.0
+                                      },
+                      "Mixed Men" : {"soul dep": 11,
+                                      "Stat Loss" : 2,
+                                      "Recovery" : 0.9
+                                      },
+                      "High Men" : {"soul dep": 10,
+                                      "Stat Loss" : 2,
+                                      "Recovery" : 0.75
+                                      },
+                      "Wood Elves" : {"soul dep": 3,
+                                      "Stat Loss" : 3,
+                                      "Recovery" : 1.5
+                                      },
+                      "Grey Elves" : {"soul dep": 2,
+                                      "Stat Loss" : 4,
+                                      "Recovery" : 2.0
+                                      },
+                      "High Elves" : {"soul dep": 1,
+                                      "Stat Loss" : 5,
+                                      "Recovery" : 3.0
+                                      },
+                      "Half Elves" : {"soul dep": 6,
+                                      "Stat Loss" : 3,
+                                      "Recovery" : 1.5
+                                      },
+                      "Dwarves" : {"soul dep": 21,
+                                      "Stat Loss" : 1,
+                                      "Recovery" : 0.5
+                                      },
+                      "Halflings" : {"soul dep": 18,
+                                      "Stat Loss" : 1,
+                                      "Recovery" : 0.5
+                                      }
+                      }
 
 
 
@@ -667,7 +767,7 @@ def DPCostSpells(skill = 0, listtype = "Own Realm Own Base Lists", profession = 
                       "Magician", "Lay Healer", "Mentalist"
                       ]
     semispellusers = ["Paladin", "Ranger", "Dabbler",
-                      "Monk", "Bard", "Magent"
+                      "Monk", "Bard", "Magent", "Taoist-Monk", "Zen_Monk"
                       ]
 
     if 5 < no < 11:
@@ -1244,6 +1344,43 @@ def statbonus(statvalue = 20):
 
 
 
+def refreshStatBonus(character = {}):
+    '''
+    This function recalculates Stat bonusses and refreshes their bunus values in
+    the complete character data structure: Stat, Category
+    @param character data in a dictionary/JSON
+    @retval result refreshed character data
+    '''
+    result = character
+    statlist = ["Ag", "Co", "Me", "Re", "In", "Pr", "SD", "Em", "Qu", "St"]
+
+    for s in statlist:
+        result[s]["std"] = statbonus(result[s]["temp"])
+        result[s]["total"] = result[s]["std"] + result[s]["spec"] + result[s]["race"]
+
+    for cat in list(result["cat"].keys()):
+        dummy = 0
+
+        if type(result["cat"][cat]["Stats"]) == type("") and len(result["cat"][cat]["Stats"]) == 2:
+            cng = result["cat"][cat]["Stats"]
+            result["cat"][cat]["Stats"] = [cng]
+
+        for s in result["cat"][cat]["Stats"]:
+
+            if s == "":
+                pass
+            elif s.strip(" ") != "SD":
+                dummy += result[s.strip(" ").capitalize()]["total"]
+
+            else:
+                dummy += result[s]["total"]
+
+        result["cat"][cat]["stat bonus"] = dummy
+
+    return result
+
+
+
 def bgoMoney(purse = {}):
     '''
     Extra money by BGO
@@ -1304,5 +1441,43 @@ def bgoMoney(purse = {}):
 
     elif roll == 100:
         result['GP'] += 200
+
+    return result
+
+
+
+def calcEncumberance(charweight = 80, maxv = 15):
+    '''
+    '''
+    bwa = (charweight * 2) // 10
+    result = {}
+
+    for i in range(1, maxv + 1):
+        result["{}x BWA"] = {"kg": bwa * i, "Enc. Pen.": 8 * (i - 1)}
+
+    return result
+
+
+
+def calcHitMods(char = {}):
+    '''
+    This calculates all data concerning hits like recovery or modifikations by injuries.
+    @param char whole character dictionary/JSON
+    @reval result dictionary holding all calculated data
+    '''
+    Co = char["Co"]['total']
+    result = {"total hits": char["cat"]["Body Development"]["Skill"]["Body Development"]["total bonus"]}
+    result["active"] = "1 hit/3 hours"
+    result["resting"] = "{} hits/hour".format(round(Co / 2 + 0.01))
+    result["sleep"] = "{} hits/sleep cycle".format(Co * 2)
+    r = result['total hits'] % 4
+    p = result["total hits"] // 4
+
+    for i in range(1, 4):
+        result["mod{}".format(i)] = {"hits":p * i + 1,
+                                     "mod":i * -10
+                                     }
+        if (i == 1 and r > 2) or (i == 2 and r > 1) or (i == 3 and r > 0) :
+            result["mod{}".format(i)]["hits"] += 1
 
     return result

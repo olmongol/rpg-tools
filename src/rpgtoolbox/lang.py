@@ -18,14 +18,14 @@ Currently supported languages are:
 
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
-\date (c) 2015-2019
+\date (c) 2015-2020
 \version 1.1
 \license GNU V3.0
 
 \todo clean up the code!!!
 '''
 __version__ = "1.1"
-__updated__ = "11.10.2019"
+__updated__ = "28.06.2020"
 ## \var supportedrpg
 # Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
@@ -192,13 +192,35 @@ txtbutton = {'but_ok'   : {'de' : 'OK',
                           'en' : 'rename'
                           },
              'but_story': {'de': 'Hintergrundgeschichte',
-                           'en': u'Background\nStory'},
+                           'en': u'Background\nStory'
+                           },
              'but_all': {'de': u'alles auswählen',
                          'en': 'select all'
                          },
              'but_none': {'de': u'nichts auswählen',
                           'en': 'select none'
                           },
+             'but_save_char' : {'de': "Character(e) speichern",
+                                'en': "save character(s)"
+                                },
+             'but_save_grp' : {'de' : "Gruppe speichern",
+                               'en' : 'save group'
+                               },
+             'but_result': {'de' : "Ergebnis ermitteln",
+                            'en' : 'check result'
+                            },
+             'but_buy' :{"de" : "kaufen",
+                         'en' : 'buy'},
+             'but_sell' :{"de": "verkaufen",
+                          "en": "sell"},
+             'but_away' :{'de' : "wegwerfen",
+                          'en' : 'throw away'},
+             'but_edit' : {"de": "bearbeiten",
+                           "en" : "edit"},
+             "but_details" : {"de":"Details",
+                              "en":"details"},
+             'but_magic' : {"de" : "verzaubern",
+                            "en" : "enchant"}
              }
 
 ## \var txtmenu
@@ -243,6 +265,10 @@ txtmenu = {'menu_help'     : {'de' : 'Hilfe',
            'menu_grp'      : {'de' : 'Charaktergruppe',
                               'en' : 'Character Party'
                               },
+           'menu_inventory' : {'de' : 'Inventar berarbeiten',
+                               'en' : 'edit inventory'
+                               },
+
           }
 
 ## \var submenu
@@ -252,22 +278,26 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                           'new'   : 'Neue Datei',
                           'save'  : 'Datei speichern',
                           'sv_as' : 'Datei speichern unter...',
+                          'sv_item': "Ggst im Laden speichern",
                           'quit'  : 'Beenden',
                           'export' : 'Exportieren',
                           'new_char': 'Neuer Charakter',
                           'new_grp' : 'Neue Charaktergruppe',
-                          'print': 'Drucken'
+                          'print': 'Drucken',
+                          'pdf' : "PDF erstellen",
                           },
                     'en':{'open'  : 'Open file',
                           'close' : 'Close file',
                           'new'   : 'New file',
                           'save'  : 'Save file',
                           'sv_as' : 'Save as',
+                          'sv_item' : "save item in shop",
                           'quit'  : 'Quit',
                           'export' : 'Export',
                           'new_char' : "New character",
                           'new_grp' : "New character party",
-                          'print': 'Print'
+                          'print': 'Print',
+                          'pdf' : "PDF generation"
                           },
                     },
            'opts'  :{'de' : {'lang' : 'Einstellungen',
@@ -353,13 +383,41 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                       },
            'group' : {'de' : {'add/rem' : "Charakter hinzuf\xc3\xbcgen/entfernen",
                               'new'     : "Neue Charaktergruppe",
-                              'gmview'  : "Spielleiter\xc3\xbcbersicht",
+                              'gmview'  : u"Spielleiterübersicht",
                               },
                       'en' : {'add/rem' : "Add/remove characters",
                               'new'     : "New party",
                               'gmview'  : "Gamemaster's overview",
                               },
-                      }
+                      },
+           'inventory' :  {'de' : {"armor" : u'Rüstung',
+                                   "weapon" : "Waffen",
+                                   "gear" : u'Ausrüstung',
+                                   "herbs" : "Kräuter/Tränke/Gifte",
+                                   "gems" : "Schmuck/Juwelen/Edelsteine",
+                                   "spells": u"Runenpapier/Zauberstäbe",
+                                   "daily" : u'täglich verwendbare Ggst.',
+                                   "PP_spell" : "MP-Vermehrer/Zaubervermehrer",
+                                   'transport' : "Tiere und Transporte",
+                                   'services' : "Nahrung und Dienstleistungen",
+                                   },
+                           'en' : {"armor" : 'Amor',
+                                   "weapon" : "Weapons",
+                                   "gear" :  'Equipment',
+                                   "herbs" : "Herbs/Potions/Poisons",
+                                   "gems" : "Jewelry/Gems",
+                                   "spells": u"Runepaper/Wands/Rods",
+                                   "daily" : u'daily Items',
+                                   "PP_spell" : "PP-Multiplier/Spelladder",
+                                   'transport' : "Animals and Transports",
+                                   'services' : 'Food and Services',
+                                   },
+                           },
+            'add items' : {"de" : {"items": u"neue Gegenstände hinzufügen"
+                                   },
+                           "de" : {"items":"add new items"
+                                   }
+                           }
            }
 
 ## \var txtwin
@@ -452,6 +510,12 @@ wintitle = {'opt_lang' : {'de' : 'Spracheinstellungen',
             'rm_statgain': {'de' : "RM Attributssteigerungen",
                             'en' : "RM Stat Gain Rolls"
                             },
+            'rm_groupEP' : {'de' : u"Gruppen EP Übersicht",
+                            'en' : 'Group EP Overview'
+                            },
+            'rm_maneuver': {"de" : "Manöverproben",
+                            'en' : 'Maneuver Window'
+                            },
             }
 
 ## \var labels
@@ -525,9 +589,116 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
                   },
           'new_ep': {'de' : 'neue EP',
                      'en' : 'new EP'
-                     }
+                     },
+          'comment' :{'de': 'Kommentar',
+                      'en' : 'Comment'
+                      },
+          'lvl_enemy' : {'de': 'Stufe Gegner',
+                         'en': 'Level enemy'
+                         },
+          'kill' : {'de' : u'Tötung',
+                    'en':'kill'
+                    },
+          'diary' :{'de':'Tagebuch',
+                    'en' : 'Diary'},
+          'win_man' :{'de' : u"Manöverfenster",
+                      'en' : "maneuver window"
+                      },
+          'win_casting' : {'de' : "Zauber wirken (Fenster)",
+                           'en' : "spell casting (window)"
+                           },
+          'win_fight' : {'de' : 'Kampf-Fenster',
+                         'en' : 'Fighting window'
+                         },
+          'modifier' : {'de' : "Modifikator",
+                        "en" : "modifier"
+                        },
+          'roll' :{'de' : u"Würfelwurf",
+                   'en' : "dice roll"
+                   },
+          'class' : {'de' : "Klassifikation",
+                     'en' : "classification"
+                     },
+          'descr' : {'de' : "Beschreibung",
+                     'en' : 'description'
+                     },
+          'perc' : {'de' : 'Prozent',
+                    'en' : 'percentage'
+                    },
+          'time' : {'de': 'Zeit',
+                    'en' : 'time'
+                    },
+          'spellbook' :{'de' : "Zauberbuch",
+                        'en' : "Spellbook"
+                        },
+          'MMP' : {'de': "BMM",
+                   'en' : "MMP"
+                   },
+          "MMP_long" : {'de' : u"Bewegungsmanövermod.",
+                        'en' : "Movement Maneuver Penalty"},
+          "item" :{"de" : "Gegenstand",
+                   "en" : "Item"
+                   },
+          "cost" : {'de' : "Kosten",
+                    'en' : 'cost'},
+          "weight" :{"de" : "Gewicht",
+                     "en" : "weight"},
+          "gear shop" : {'de' : "Kramladen",
+                         "en" : "General Store"},
+          "weapon shop": {'de' : 'Waffenschmied',
+                          'en' : 'Weapon Smith'},
+          "armor shop": {'de' : u"Rüstungsbauer",
+                         'en' : "armor maker"},
+          "services shop" : {'de' : u'Markt & Kneipe',
+                         'en' : u'Grocery  & Pub'},
+          "gems shop" : {"de":"Juwelier",
+                         "en":"Gems & jewelry Shoppe"},
+          "transport shop" : {"de" : "Transport & Viehmarkt",
+                              "en" : "transports & Animal Market"},
+          "herbs shop" :{"de":u"Kräuterladen",
+                         "en":"herbs shoppe"},
+          "magic shop" : {'de' : u"Magiekrämer",
+                          'en' : "The Magical Shoppe"},
+          'bonus item': {"de" : u'Bonusgegenstände und Gewichtsreduktion',
+                         "en" : "bonus items and reduced weight"},
+          "charged item" : {"de" : u"aufgeladene magische Gegenstände",
+                            "en" : "charged magical items"},
+          "daily item" :{"de":u"täglich verwendbare Gegenstände",
+                         "en": "daily items"},
+          "perm item" : {"de" : u"permanente magische Gegenstände",
+                         "en" : "permanent magical items"},
+          "bonus c/s" :{"de" : "Bonus Kat/Talent",
+                        "en" : "Bonus cat/skill"},
+          "realm" :{"de" : "Magiebereich",
+                    "en" : "realm",
+                    },
+          'spell list': {"de" : "Spruchliste",
+                         "en" : "Spell List"},
+          'spell' :{"de" : "Zauberspruch",
+                    "en" : "Spell"},
+          "lvl" :{"de": "Stufe",
+                  "en" : "level"},
+          "daily" :{"de":u"täglich",
+                    "en" : "daily"},
+          "spell adder" :{"de" : "Spruchvermehrer",
+                          "en" : "Spell Adder"},
+          "pp mult" :{"de" : "Magiepunktevermehrer",
+                      "en" : "PP Multiplier"},
+          "type" :{"de" :"Typ",
+                   "en" : "Type"},
+          "loads" :{"de" : "Ladungen",
+                    "en" : "Charges"},
+          "geartype": {"de" : u"Art der Ausrüstung",
+                       "en" : "Type of Equipment"},
+          "action": {"de" : "Handlung",
+                     "en" : "Action"},
+          "location": {"de": "Ort",
+                       "en": "Location"},
+
           }
 
+invedtacts = {"de": [u"wählen", u"ausgerüstet", "unausgerüstet"],
+              "en": ["choice", "equipped", "unequipped"]}
 ##\var errmsg
 #Error messages for all opportunities
 errmsg = {'no_file' : {'de' : 'Datei existiert nicht!',
@@ -608,19 +779,19 @@ infomsg = {'help_info' : {'de' : 'F\xc3\xbcr eine genauere Information '\
 ##\var s_elem_def
 #Descriptions of the default elements for calculating EPs from.
 s_elem_def = {'CRITICAL' : {'de' : 'Ausgeteilte kritische Treffer',
-                            'en' : 'Made critical hits',
+                            'en' : 'Caused Critical',
                            },
               'HITS'     : {'de' : 'Erhaltene Trefferpunkte',
                             'en' : 'Gained hit points.',
                             },
               'H_CRITS'  : {'de' : 'Erhaltene kritische Treffer',
-                            'en': 'Gained criticals',
+                            'en': 'Gained Criticals',
                            },
               'SPELL'    : {'de' : 'Stufe angewendeter Zauber',
                             'en' : 'Level of used spell',
                            },
               'MANEUVER' : {'de' : 'Erfolgreiche Man\xc3\xb6ver',
-                           'en' : 'Successful maneuver.',
+                           'en' : 'Successful maneuver',
                            },
               'TRAVEL'   : {'de' : 'Reisestrecke',
                            'en' : 'Traveled distance',
@@ -629,7 +800,13 @@ s_elem_def = {'CRITICAL' : {'de' : 'Ausgeteilte kritische Treffer',
                             'en' : 'Killed enemies/monster',
                             },
               'INDIVIDUAL' : {'de' : 'Individuelle Punkte.',
-                              'en' : 'Individual EPs.',
+                              'en' : 'Individual EPs',
+                             },
+              'IDEAS'     : {'de' : "Ideen",
+                             'en' : "Ideas"
+                             },
+              'COUNT'     : {'de' : "Anzahl",
+                             'en' : "number"
                              },
               }
 

@@ -1,0 +1,23 @@
+Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Breezes,10'R/lvl,C,10'/lvl,E,Causes a light breeze (up to 20' per round) as long as the caster concentrates. Any gasses in the area are moved by the breeze.
+2,Airwall,10'x10'x3',C,100',E,"Creates a wall of dense churning air up to 10' x 10' x 3'. This wall reduces all movement through it by 50\%. In addition, all attacks through the wall suffer a -50 penalty."
+3,Slumber Mist,5'R/lvl,C,5'/lvl,F,"By concentrating, the caster can remove most of the oxygen from the area of effect. After three rounds of concentration, all targets in the area of effect must make an RR each round in the area of effect or fall asleep (1 round per 10 failure). All fire spells in the area suffers a -20 penalty (or are 20\% less effective in the case of non-attack spells)."
+4,Stun Cloud I,5'R,6 rnds,10',E,"Creates a 5'R cloud of charged gas particles. This cloud delivers a 'C' Electricity critical to all within the area of effect on the first and second rounds; a 'B' on the third and fourth rounds; and an 'A' on the fifth and sixth rounds (after 6 rounds, the cloud dissi- pates). This cloud drifts with the wind. The cloud takes one round to form (so anyone in the radius when it is cast may make a maneuver to move out of the radius without taking a critical). It will then stayed formed for six rounds."
+5,Air Stop I,10'R,C,100',F,"Stops all generalized air movement (e.g., wind) up to winds of 30 mph; cuts stronger winds by 30 mph in the area of effect."
+6,Stun Cloud II,10'R,6 rnds,20',E,"As Stun Cloud I, except radius is 10'."
+7,Vacuum I,5'R,---,100',F,"Creates a 5'R near vacuum. Anyone inside the radius must make a successful RR or take a 'B' Impact critical, as air leaves and rushes back in."
+8,Air Stop II,20'R,C,100',F,"As Air Stop I, except radius is 20'."
+9,Slumber Cloud,1'R/lvl,1 min/lvl,5'/lvl,F,"As Slumber Mist, except for the duration, and it drifts with the wind."
+10,Stun Cloud IV,20'R,6 rnds,40',E,"As Stun Cloud V, except radius is 20'."
+11,Death Cloud I,5'R,10 rnds,10',E,"As Stun Cloud I, except delivers an 'E' on rounds 1 and 2, a 'D' on rounds 3 and 4, a 'C' on rounds 5 and 6, a 'B' on rounds 7 and 8, and an 'A' on rounds 9 and 10."
+12,Vacuum II,10'R,---,100',F,"As Vacuum I, except radius is 10'."
+13,Air Stop X,100'R,C,100',F,"As Air Stop I, except radius is 100'."
+14,Whirlwind,10'R,C,100',E,A 10'R whirlwind is created. This whirlwind delivers an 'A' Impact critical to all inside (every round). All movement through or within the whirlwind is reduced by 80\%. The caster can move the whirlwind 1' per round.
+15,Death Cloud II,10'R,10 rnds,40',E,"As Death Cloud I, except radius is 10'."
+17,Vacuum IV,20'R,---,100',F,"As Vacuum I, except radius is 20'."
+18,Great Vacuum,5'R,---,100',F,"As Vacuum I, except delivers a 'D' Impact critical."
+19,Stun Cloud True,20'R,6 rnds,100',E,"As Stun Cloud IV, except by concentrating the caster can move it 10' per round up to 100' away."
+20,Reverse Winds,100'R/lvl,C,100'/lvl,E,Allows the caster to change the direction of the wind within the radius.
+25,Hard Wind,300'x25'R,1 rnd/lvl,300',E,"Caster must outstretch arms and then a hard wind comes forth from them, fanning out till it has a 25'R at 300'. All within the cone receive a 'B' Impact critical."
+30,Storm Call,1 mi R/lvl,varies,1 mi/lvl,E,"Summons forces of nature in a fierce thunder- storm. This storm will include heavy rain, 25-60 mph winds, lightning (random), and a blizzard (if correct climate). The storm can be delayed for up to 1 hour per level of the caster."
+50,Wind Mastery,varies,1 rnd/lvl,varies,U,Caster can use one lower level spell (on this list) each round.

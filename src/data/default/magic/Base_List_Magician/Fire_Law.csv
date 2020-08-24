@@ -1,0 +1,24 @@
+Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Boil Liquid,1 cu'/lvl,C,10',F,"For each level of caster, one cubic foot of liquid can be heated to boiling at a rate of 1 cubic feet per round."
+2,Warm Solid,1 cu'/lvl,24 hr,10',F,"Any solid inanimate, non-metal material (up to 1 cubic foot per level) can be warmed to 100 F at a rate of 1 cubic foot per round of concentration."
+3,Woodfires,1'R,----,self ,F,Causes any wood to ignite and burn. All wood ignited must be within 1' of caster's palm.
+5,Heat Solid,1 cu'/lvl ,1 min/lvl (C),10',F,"As Warm Solid, except for duration and material can be heated to 500 F at a rate of 50 F per round. The caster must concentrate to increase the temperature (without concen- tration, the material will remain at its current temperature for the duration of the spell)."
+4,Wall of Fire,10'x10'x6',1 rnd/lvl,100',E,Creates an opaque wall of fire (up to 10' x 10' x 6'). Anyone passing through it takes an 'A' Heat critical (no RR).
+6,Fire Bolt I,1 target,----,100',DE,A bolt of fire is shot from the palm of the caster. Resolve attack on the Fire Bolt Table.
+7,Call Flame I,10'x10'x10',1 rnd/lvl,10',E,"As Wall of Fire, except it creates a cube of flame (up to 10' x 10' x 10'). The cube takes a complete round to form and be effective. Anyone passing through (or that is caught inside) the cube takes an 'A' Heat critical."
+8,Fire Ball,10'R,----,100',BE,"A 1' diameter ball of fire is shot from the palm of the caster. Upon reaching its target, it explodes to affect a 10'R area. Resolve attack on the Fire Ball Table."
+9,Ignite,5'R/lvl,P,5'/lvl,E,"The caster may designate a type of light source to ignite or extinguish (e.g., candles, torches, fireplaces, and lanterns, etc.). This spell will affect all of the light sources of the specified type(s) within the area of effect."
+10,Circle Aflame,10'R,1 rnd/lvl,self,E,"As Wall of Fire, except ''wall'' is 10' high and forms a 10'R circle (6'' thick) with the caster at the center (the wall will not move with the caster)."
+11,Fire Bolt III,1 target,----,300',DE,"As Fire Bolt I, except range is 300'."
+12,Call Flame II,20'x20'x20',1 rnd/lvl,20',E,"As Call Flame I, except cube is up to 20'x20'x20' in size and the range is 20'."
+13,Waiting Flame,10'x10'x10',varies,20',E,"As Call Flame I, except the effect can be delayed for up to 24 hours. The effect can be triggered by one of the following (decided by caster at the time of casting): time period, specific movements, specific sounds, touch, violent actions in the area, etc."
+14,Firestorm,10'x10'x10',1 rnd/lvl,20',E,"As Call Flame, except small balls of flame rain down in a 10' cube causing a 'B' Heat critical to all passing through (or caught within)."
+15,Metal Fires,1 lb/lvl,1 rnd/lvl,100',F,"Causes a metal object to burst into flames. The object can be up to 1 lb/lvl in mass. If the object is on a being, it gets a RR. If the RR fails, the being takes an automatic Heat critical of a severity to be determined by its location on the being's body. If the object is touching exposed flesh, the being takes a 'C' Heat critical; if the object is touching through cloth, the being takes a 'B' Heat critical; in all other cases, the being takes an 'A' Heat critical."
+16,Triad of Flame,3 targets,----,100',DE,Three bolts of fire are shot from the palm of the caster. They can strike up to three different targets (as long as they are all withing 60 degrees of each other; and they are visible to the caster). Caster may apply his directed spell skill (Firebolt) to only one of the attacks (others get a +0 OB).
+17,Fire Bolt V,1 target,----,500',DE,"As Fire Bolt I, except the range is 500'."
+18,Waiting Firestorm,10'x10'x10',varies,20',E,"As Waiting Flame, except a Firestorm can be delayed."
+19,Call Flame V,50'x50'x50',1 rnd/lvl,50',E,"As Call Flame I, except size is up to a 50' cube and the range is 50'."
+20,Corner Fires,1 target,----,300',DE,"As Fire Bolt III, except caster can make the bolt turn once up to 90 degree before striking the target (the caster must know the target's location). The OB for the bolt is halved after making the turn."
+25,Following Fires,1 target,----,300',DE,"As Corner Fires, except bolt can make as many turns as necessary and go through openings (must be larger than 6'' radius) to strike the target."
+30,Stone Fires,300 sq',1 rnd/lvl,100',F,"As Metal Fires, except up to a 300 square foot stone surface is affected and a 'C' Heat critical is given each round passing through (or caught within) the 3' flames."
+50,Fire Mastery,varies,1 rnd/lvl,varies,U,Caster can use any one lower level spell (on this list) each round.

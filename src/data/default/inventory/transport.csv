@@ -1,0 +1,34 @@
+item,height,weight,man bonus,OB,capacity,mi/hr,ft/rnd,cost,ID,type
+Camel (draft),7',900 lbs.,10,---,350 lbs.,4,60,12gp,401,transport
+Camel (racing),7',750 lbs.,20,---,200 lbs.,6,90,40gp,402,transport
+Elephant,12',11000 lbs.,10,---,1000 lbs.,8,120,50gp,403,transport
+Horse (light),5',800 lbs.,40,5,200 lbs.,7,100,45sp,404,transport
+Horse (medium),6',900 lbs.,25,5,300 lbs.,7.5,110,60sp,405,transport
+Horse (heavy),6'+,1300 lbs.,10,5,400 lbs.,5,80,80sp,406,transport
+Llama/alpaca,4',200 lbs.,30,---,50 lbs.,7,100,7gp,407,transport
+Mule/donkey,4'+,550 lbs.,20,---,250 lbs.,6,90,32sp,408,transport
+Ox,5',2000 lbs.,20,---,700 lbs.,4,60,95sp,409,transport
+Pony (mature),4',500 lbs.,30,---,180 lbs.,4.5,70,40sp,410,transport
+Sled dog,2.5',85 lbs.,20,---,40 lbs.,7.5,110,13sp,411,transport
+Warhorse (lesser),6',950 lbs.,30,20,350 lbs.,6,90,20gp,412,transport
+Warhorse (greater),6'+,1100 lbs.,40,30,375 lbs.,5,80,75gp,413,transport
+Boat (small),10',200 lbs.,---,---,1000 lbs. ,2.5,30,7gp,414,transport
+Boat (medium),20',800 lbs.,---,---,4000 lbs. ,3,40,11gp,415,transport
+Boat (large),30',2000 lbs.,---,---,7000 lbs. ,2.5,30,40gp,416,transport
+Canoe,15',130 lbs.,---,---,700 lbs.,3.5,50,8gp,417,transport
+Chariot (war),15',400 lbs.,20,25,400 lbs.,6,90,16gp,418,transport
+Coracle,7',140 lbs.,---,---,700 lbs.,2.5,30,8sp,419,transport
+Dog-sled,11'+,350 lbs.,-10,---,450 lbs.,6,90,7gp,420,transport
+Hand-cart,4.5',100 lbs.,-70,---,250 lbs.,3,40,11sp,421,transport
+Horse-cart (open),6',450 lbs.,-25,---,800 lbs.,3.5,50,4gp,422,transport
+Ship (small),45',6000 lbs.,---,---,19000 lbs. ,3,40,80gp,423,transport
+Ship (medium),60',12000 lbs.,---,---,35000 lbs. ,2.5,30,190gp,424,transport
+Ship (large),80',20000 lbs.,---,---,55000 lbs. ,2.5,30,650gp,425,transport
+Skis,6',15 lbs.,-10,---,300 lbs.,6,90,7cp,426,transport
+Sledge (covered),10',100 lbs.,-20,---,400 lbs.,4.5,70,12cp,427,transport
+Wagon (open),8',600 lbs.,-30,---,1200 lbs. ,3.5,50,6gp,428,transport
+Wagon (closed),9',850 lbs.,-40,---,1300 lbs. ,3,40,9gp,429,transport
+Coach service (per mi),0',0 lbs.,---,---,---,4,60,11cp,430,service
+Ferry service (per mi),0',0 lbs.,---,---,---,2.5,30,12cp,431,service
+Ship passage (per mi),0',0 lbs.,---,---,---,2.5,30,502tp,432,service
+Toll charge,0',0 lbs.,---,---,---,---,---,1cp,433,service

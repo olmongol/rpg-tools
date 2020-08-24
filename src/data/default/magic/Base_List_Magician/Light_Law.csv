@@ -1,0 +1,22 @@
+Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Projected Light,50' beam,10 min/lvl,self,E,"Beam of light (like a flashlight) springs from the caster's palm. This light has a 50' effective range. If the caster closes his fist, the light will turn off; when the fist is opened, the light will come back on (so long as the duration of the spell has not expired)."
+2,Shock Bolt I,1 target,---,100',DE,"A bolt of intense, charged light is shot from the palm of the caster. Attack is resolved on the Shock Bolt Attack Table."
+3,Light I,10'R,10 min/lvl,touch,E,"Lights a 10'R area about the point touched. If the point is on a mobile object or being, it will move with the object / being. See Section 7.1.17."
+4,Shade,100'R,10 min/lvl,touch,E,All shadows in the area of effect deepen. This results in a +25 bonus to hiding manuevers and +10 to stalking manuevers.
+5,Sudden Light,10'R,---,100',F,Causes a 10'R burst of intense light. All those in the area of effect are stunned 1 round per 5 failure.
+6,Dark I,10'R,10 min/lvl(C),touch,E,"As Light I, except the radius is as a dark night."
+7,Light V,50'R,10 min/lvl,touch,E,"As Light I, except radius can be up to 50' (the exact radius can be changed by concentrating for one round)."
+8,Shock Bolt III,1 target,---,300',DE,"As Shock Bolt I, except range is 300'"
+9,Dark V,50'R,10 min/lvl,touch,E,"As Dark I, except radius can be up to 50' (the exact radius can be changed by concentrating for one round)."
+10,Lightning Bolt I,1 target,---,100',DE,"As Shock Bolt, except a Lightning Bolt is shot. Resolve attack on the Lightning Bolt Attack Table."
+11,Waiting Light,varies,varies,100',E,"This spell is cast in conjunction with any Light or Dark spell (i.e., this spell is cast and then the light/dark spell is cast within 1 minute). It can delay the action of that spell for up to 24 hours. It can be triggered by one of the following (decided by caster at the time of casting): time period, specific movements, specific sounds, touch, violent actions in the area, etc."
+12,Shock Bolt V,1 target,---,500‘,DE,"As Shock Bolt I, except range is 500'."
+13,Beacon V,5 miles,1 min/lvl,self,E,A ray of light (any color) springs from caster's palm. This ray can be up to 5 miles long.
+15,Lightning Bolt III,1 target,---,300',DE,"As Lightning Bolt I, except range is 300'."
+17,Utterlight,100'R,1 min/lvl,touch,E,"As Light I, except radius is 100' and the light also nullifies all magically created darkness. Any magical darkness inside the radius will return when this spell expires."
+18,Utterdark,100'R,1 min/lvl,touch,E,"As Dark I, except radius is 100' and no nonmagical light can exist inside. Any light inside the radius will return when this spell expires."
+19,Beacon X,10 miles,1 min/lvl,self,E,"As Beacon V, except beacon can be up to 10 miles long."
+20,Lightning Bolt V,1 target,---,500‘,DE,"As Lightning Bolt I, except range is 500'."
+25,Corner Lightn. Bolt,1 target,---,300',DE,"As Lightning Bolt III, except caster can make the bolt turn once up to 90 degree before striking the target (the caster must know the target's location). The OB for the bolt is halved after making the turn."
+30,Following Lightn. Bolt,1 target,---,300',DE,"As Corner Lightning Bolt, except bolt can make as many turns as necessary and go through openings (must be larger than 6'' radius) to strike the target."
+50,Light Mastery,varies,1 rnd/lvl,varies,U,Caster can use one lower level spell (on this list) each round.

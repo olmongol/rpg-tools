@@ -1,0 +1,18 @@
+Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Condensation,1 cu' water,P,touch,E,Condenses 1 cubic foot of water from the surrounding air. Water gradually condenses into caster's hands and may be funneled into any suitable recepticle.
+2,Fog,10'R/lvl,P,100',E,Creates dense fog within up to 10'R per level of the caster. See Section 7.1.19.
+3,Waterwall,10'x10'x1',C,100',E,"Creates a wall of water up to 10' x 10' x 1'. This wall reduces all movement through it by 80\%. In addition, all attacks through the wall suffer a -80 penalty."
+4,Water Bolt I,1 target,---,100',DE,A bolt of water is shot from the caster's palm. Resolve attack onthe Water Bolt Attack Table.
+5,Unfog,10'R/lvl,P,100',F,"isperses any fog in the area of effect. If all of a fog is not dispersed (i.e., the fog covers a greater area than the area of effect for this spell), the fog will refill the area of effect at a rate of 10'R every 1-5 minutes."
+8,Calm Water,100'R,C,100',F,Water within radius is calmed. Waves are cut by 20' in center and less towards the perimeter.
+10,Waterwall True,10'x10'x1,C,100',E,"As Waterwall, except for the duration."
+11,Water Bolt III,1 target,---,300',DE,"As Water Bolt I, except range is 300'."
+13,Call Rain,100'R/lvl,10 min/lvl,100'/lvl,E,"If there are clouds in the sky, it rains (outdoors) for the duration of the spell."
+15,Water Bolt V,1 target,---,500',DE,"As Water Bolt I, except range is 500'."
+16,Triad of Water,3 targets,---,100',DE,Three bolts of water are shot from the palm of the caster. They can strike up to three different targets (as long as they are all withing 60 degree of each other; and they are visible to the caster). Caster may apply his directed spell skill (Waterbolt) to only one of the attacks (the others get a +0 OB)
+17,Command Current,special,C,self,E,"The area of effect for this spell is the water immediately surrounding the boat that the caster is on. For as long as the caster concentrates, the speed of the boat can be increased by 50' per round (approximately 3 miles per hour)."
+18,Calm Water True,100'R/lvl,10 min/lvl,100'/lvl,F,"As Calm Water, except waves are cut by 50' in center and caster need not concentrate."
+20,Whirlpool,50'R,C,1000',E,Creates a 50' whirlpool that will draw in any unpowered object within 500' (takes 2 minutes of concentration to start). Powered objects may make manuever rolls to resist the pull of the whirlpool.
+25,Part Water,10'x100'x100'/lvl,C,100'/lvl,F,Caster can part water up to 100' deep and 100' per level long and 10' wide at bottom (50' at top).
+30,Sea Storm,1 mi R/lvl,varies,100'/lvl,F,"Summons forces of nature in a fierce sea storm (must be created over a large body of water). This storm will include waves of 20-50', heavy rain, and winds of 25-60 mph. The storm can be delayed up to 1 hour per level. After the storm is summoned, it will dissipate normally."
+50,Water Mastery,varies,1 rnd/lvl,varies,U,Caster can use one lower level spell (on this list) each round.

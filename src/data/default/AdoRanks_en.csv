@@ -1,47 +1,85 @@
 Name,Hillmen,Mariners,Nomads,Ruralmen,Urbanmen,Woodmen,High Men,Wood Elves,Grey Elves,High Elves,Half Elves,Dwarves,Halflings
-Armor - Light			,1,2,1,1,1,1,1,0,0,0,1,1,0
--Soft Leather			,0,0,0,1,0,1,0,0,0,0,0,0,0
--Rigid Leather			,1,2,0,1,0,0,1,0,0,0,1,1,0
-Armor - Medium			,0,0,0,0,0,0,2,0,0,0,1,3,0
--Chain				,0,0,0,0,0,0,2,0,0,0,1,3,0
+Armor - Light		,1,2,1,1,1,1,1,0,0,0,1,1,0
+-Soft Leather		,0,0,0,1,0,1,0,0,0,0,0,0,0
+-Rigid Leather		,1,2,0,1,0,0,1,0,0,0,1,1,0
+Armor - Medium		,0,0,0,0,0,0,2,0,0,0,1,3,0
+-Chain		,0,0,0,0,0,0,2,0,0,0,1,3,0
 Athletic - Brawn		,1,1,1,1,1,1,1,1,1,1,1,1,1
 Athletic - Endurance		,1,1,1,1,1,1,1,1,1,1,1,1,1
--Swimming			,1,5,0,1,1,1,1,3,2,2,1,0,0
+-Swimming		,1,5,0,1,1,1,1,3,2,2,1,0,0
 Athletic - Gymnastics		,1,1,1,1,1,1,1,1,1,1,1,1,1
--Climbing			,5,0,0,0,0,3,0,2,1,0,1,1,2
+-Climbing		,5,0,0,0,0,3,0,2,1,0,1,1,2
 Awareness - Perception		,0,0,0,0,0,0,0,0,0,0,0,0,0
--Alerness			,2,2,2,2,2,2,2,6,6,6,2,4,8
+-Alerness		,2,2,2,2,2,2,2,6,6,6,2,4,8
 Awareness - Searching		,1,1,1,1,1,1,1,1,1,1,1,1,1
 Body Development		,0,0,0,0,0,0,0,0,0,0,0,0,0
 -Body Development		,3,2,2,2,1,2,3,1,1,1,1,3,2
-Communications			,1,1,1,1,3,1,3,2,3,4,3,1,1
+Communications		,1,1,1,1,3,1,3,2,3,4,3,1,1
 -Language (spoken)+		,4,10,4,8,10,4,10,10,10,10,8,8,6
 -Language (written)+		,0,0,0,0,0,0,2,2,6,10,0,0,0
-Lore - General			,3,3,3,3,3,3,3,3,3,3,3,3,2
--Region Lore+			,3,3,3,3,3,3,3,3,3,3,3,3,3
--Culture Lore+			,3,3,3,3,3,3,3,3,3,3,3,3,3
+-Sindarin (Grey Elvish - spoken)		,0,0,0,0,0,4,6,8,10,8,8,0,0
+-Quenya (High Elvish - spoken)		,0,0,0,0,0,0,2,4,6,10,6,0,0
+-Silvan (Elvish - spoken)		,0,0,0,0,0,0,0,10,8,8,0,4,0
+-Westron (Common Speech - spoken)		,8,8,4,8,8,6,8,8,8,8,8,5,8
+-Adunaic (High Speech - spoken)		,0,8,0,0,0,0,8,0,0,0,0,0,0
+-Dunael (Hill Speech - spoken)		,8,0,0,0,0,0,0,0,0,0,0,0,0
+-Adunaic (Sea Speech - spoken)		,0,8,0,0,0,0,0,0,0,0,0,0,0
+-Kuduk (Small Speech - spoken)		,0,0,0,0,0,0,0,0,0,0,0,0,8
+-Haradaic (Plains Speech - spoken)		,0,0,8,0,0,0,0,0,0,0,0,0,0
+-Nahaiduk (Woods Speech - spoken)		,0,0,0,0,0,8,0,0,0,0,0,0,0
+-Black Speech (spoken)		,0,0,0,0,0,0,0,0,0,0,0,0,0
+-Rohirric (spoken)		,0,0,0,0,0,0,0,0,0,0,0,0,0
+-Varadje (Variags - spoken)		,0,0,0,0,0,0,0,0,0,0,0,0,0
+-Pukael (Whoses - spoken)		,0,0,0,0,0,0,0,0,0,0,0,0,0
+-Atliduk (Beorninger - spoken)		,0,0,0,0,0,0,0,0,0,0,0,0,0
+-Waildyk (Nature sounds - spoken)		,0,0,0,0,0,0,0,0,0,0,0,0,0
+-Lobba (Snow manish - spoken)		,0,0,0,0,0,0,0,0,0,0,0,0,0
+-Logathig (Easterlings - spoken)		,0,0,0,0,0,0,0,0,0,0,0,0,0
+-Orcish (spoken)		,0,0,0,0,0,0,0,0,0,0,0,0,0
+-Sindarin (Grey Elvish - written)		,0,0,0,0,0,3,6,6,10,6,6,0,0
+-Quenya (High Elvish - written)		,0,0,0,0,0,0,2,4,4,10,5,0,0
+-Silvan (Elvish - written)		,0,0,0,0,0,0,0,10,6,6,0,4,0
+-Westron (Common Speech - written)		,4,6,4,6,6,4,6,6,6,6,6,5,6
+-Adunaic (High Speech - written)		,0,6,0,0,0,0,6,0,0,0,0,0,0
+-Dunael (Hill Speech - written)		,4,0,0,0,0,0,0,0,0,0,0,0,0
+-Adunaic (Sea Speech - written)		,0,6,0,0,0,0,0,0,0,0,0,0,0
+-Kuduk (Small Speech - written)		,0,0,0,0,0,0,0,0,0,0,0,0,6
+-Haradaic (Plains Speech - written)		,0,0,6,0,0,0,0,0,0,0,0,0,0
+-Nahaiduk (Woods Speech - written)		,0,0,0,0,0,6,0,0,0,0,0,0,0
+-Black Speech (written)		,0,0,0,0,0,0,0,0,0,0,0,0,0
+-Rohirric (written)		,0,0,0,0,0,0,0,0,0,0,0,0,0
+-Varadje (Variags - written)		,0,0,0,0,0,0,0,0,0,0,0,0,0
+-Pukael (Whoses - written)		,0,0,0,0,0,0,0,0,0,0,0,0,0
+-Atliduk (Beorninger - written)		,0,0,0,0,0,0,0,0,0,0,0,0,0
+-Waildyk (Nature sounds - written)		,0,0,0,0,0,0,0,0,0,0,0,0,0
+-Lobba (Snow manish - written)		,0,0,0,0,0,0,0,0,0,0,0,0,0
+-Logathig (Easterlings - written)		,0,0,0,0,0,0,0,0,0,0,0,0,0
+-Orcish (written)		,0,0,0,0,0,0,0,0,0,0,0,0,0
+Lore - General		,3,3,3,3,3,3,3,3,3,3,3,3,2
+-Region Lore+		,3,3,3,3,3,3,3,3,3,3,3,3,3
+-Culture Lore+		,3,3,3,3,3,3,3,3,3,3,3,3,3
 Outdoor - Animal		,0,0,5,1,0,0,1,1,1,1,1,0,0
--Riding+  			,0,0,5,1,0,0,1,1,1,1,1,0,0
+-Riding+		,0,0,5,1,0,0,1,1,1,1,1,0,0
 Outdoor - Environmental		,4,1,3,2,0,5,1,5,4,3,3,2,1
-Power Awareness			,0,0,0,0,2,0,1,1,1,2,1,0,0
-Science/Analytic - Basic	,0,1,0,0,1,0,1,1,1,2,1,1,0
-Spells - Own Realm Open Lists	,0,0,0,0,0,0,0,0,0,0,0,0,0
--Spell List+   			,0,1,0,0,2,0,0,2,3,4,1,0,0
+Power Awareness		,0,0,0,0,2,0,1,1,1,2,1,0,0
+Science/Analytic - Basic		,0,1,0,0,1,0,1,1,1,2,1,1,0
+Spells - Own Realm Open Lists		,0,0,0,0,0,0,0,0,0,0,0,0,0
+-Spell List+		,0,1,0,0,2,0,0,2,3,4,1,0,0
 Subterfudge - Stealth		,2,0,0,1,0,4,0,4,3,2,2,0,5
--Stalking			,2,0,0,1,0,4,0,4,3,2,2,0,5
--Hiding				,2,0,0,1,0,4,0,4,3,2,2,0,5
-Technical/Trade - General	,1,1,1,1,1,1,1,1,1,1,1,1,1
-Urban				,0,1,0,0,5,0,0,0,0,0,0,0,0
+-Stalking		,2,0,0,1,0,4,0,4,3,2,2,0,5
+-Hiding		,2,0,0,1,0,4,0,4,3,2,2,0,5
+Technical/Trade - General		,1,1,1,1,1,1,1,1,1,1,1,1,1
+Urban		,0,1,0,0,5,0,0,0,0,0,0,0,0
 Weapon - 1-H Concussion		,1,0,0,0,0,0,0,0,0,0,0,4,0
--Weapon - 1-H Concussion+	,1,0,0,0,0,0,0,0,0,0,0,4,0
+-Weapon - 1-H Concussion+		,1,0,0,0,0,0,0,0,0,0,0,4,0
 Weapon - 1-H Edged		,0,2,1,1,1,1,2,1,1,1,1,0,0
 -Weapon - 1-H Edged+		,0,2,1,1,1,1,2,1,1,1,1,0,0
 Weapon - 2-Handed		,0,0,0,0,0,0,1,0,0,0,0,0,0
 -Weapon - 2-Handed+		,0,0,0,0,0,0,1,0,0,0,0,0,0
 Weapon - Missile		,1,1,2,1,1,1,1,3,2,1,2,0,2
 -Weapon - Missile+		,1,1,2,1,1,1,1,3,2,1,2,0,2
-Weapon - Missile Artillery	,0,0,0,0,0,0,0,0,0,0,0,0,0
+Weapon - Missile Artillery		,0,0,0,0,0,0,0,0,0,0,0,0,0
 Weapon - Pole Arms		,2,0,2,1,0,1,1,0,0,0,0,0,0
 -Weapon - Pole Arms+		,2,0,2,1,0,1,1,0,0,0,0,0,0
-Weapon - Thrown			,2,1,1,1,0,1,0,0,0,0,0,1,2
+Weapon - Thrown		,2,1,1,1,0,1,0,0,0,0,0,1,2
 -Weapon - Thrown+		,2,1,1,1,0,1,0,0,0,0,0,1,2

@@ -1,4 +1,25 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+<<<<<<< HEAD
 1,Light Wall I,"20' x 20' x 1""",C,50',E,"Creates a wall a black, insubstantial wall up to  20' x 20' x 1"" that light cannot pass into ort through (i.e., it does not hinder movement, but it blocks vision)."
 2,Airwall,10' x 10' x 3',C,50',E,"Creates a wall if dense churning air up to 10' x 10' x 3'. This reduces all Movement through it by 50%. In addition, all attacks through the wall suffers a -50 penalty."
 3,Light Wall II,"20' x 20' x 1""",1 min/lvl,50',E,"As Light Wall I, except for duration."
+=======
+1,Light Wall I,"20' x 20' x 1''",C,50',E,"Creates a wall a black, insubstantial wall up to  20' x 20' x 1'' that light cannot pass into ort through (i.e., it does not hinder movement, but it blocks vision)."
+2,Airwall,10' x 10' x 3',C,50',E,"Creates a wall if dense churning air up to 10' x 10' x 3'. This reduces all Movement through it by 50%. In addition, all attacks through the wall suffers a -50 penalty."
+3,Light Wall II,"20' x 20' x 1''",1 min/lvl,50',E,"As Light Wall I, except for duration."
+4,Waterwall,"10'x10'x1''",C,50',E,"Creates a wall of water up to 10' x 10' x 1'. This wall reduces all movement through it by 80%. In addition, all attacks through the wall suffer a -80 penalty."
+5,Woodwall,"10'x20'x2''",1 min/lvl,50',E,"Creates a wall of wood up to 10' x 20' x 2''. This wall can be burned though, chopped through, or toppled (if not propped up somehow)."
+7,Earthwall,10'x10'x3',1 min/lvl,50',E,"As Woodwall, except wall is made of earth and has a size up to 10' x 10' x (3' at base, 1' at top) of packed earth."
+8,Icewall I,10'x10'x2',P,50',E,"As Woodwall, except wall is made of ice and has a size up to 10' x 10' x (2' at base, 1' at top). It can be melted through, chipped through, or toppled (if not propped up somehow)."
+10,Barrier Pit,varies,P,50',E,Opens a pit (500 cubic feet in stone; 1000 cubic feet in earth or ice). The entire pit must be within 50' of caster. A pit may not be opened except on a horizontal surface with an incline of less than 45 degree.
+11,Airwall True,10'x10'x3',1 min/lvl,50',E,"As Airwall, except for duration."
+12,Stonewall,10'x10'x1',1 min/lvl,50',E,"As Woodwall, except wall is made of stone and has a size up to 10' x 10' x 1'. It can be chipped through."
+13,Waterwall True,10'x10'x1',1 min/lvl,50',E,"As Waterwall, except for duration."
+15,Woodwall True,"10'x20'x2''",P,50',E,"As Woodwall, except for duration."
+17,Earthwall True,10'x10'x3',P,50',E,"As Earth Wall, except for duration."
+18,Icewall II,20'x20'x4',P,50',E,"As Icewall I, except wall is up to 20' x 20' x (4' at base, 2' at top)."
+20,Stonewall True,10'x10'x1',P,50',E,"As Stonewall, except for duration."
+25,Meld Walls,varies,P,touch,E,Fuses 2 touching walls (seam can be up to 20' long) or fuses a section of stone blocks (up to 100 cubic feet).
+30,Curved Wall,varies,varies,50',E,"As any one of the lower level ''wall'' spells on this list, except the wall can be curved up to a semicircle."
+50,Wall of Force,"10'x20'x1''",1 rnd/lvl,100',E,"By directly Channeling the power of his deity, the caster creates a transparent wall of ''force'' that is absolutely impassable by anyone or anything. It can be up to 10' x 20' x 1''."
+>>>>>>> py3

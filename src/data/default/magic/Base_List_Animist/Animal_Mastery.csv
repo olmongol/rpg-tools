@@ -1,1 +1,24 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Animal Sleep I,1 animal,1 min/lvl,100',F,"Puts any animal (i.e., non-humanoid) to sleep. Will not affect enchanted creatures or creatures with greater than animal intelligence."
+2,Animal Restoration I,1 animal,P,touch,U,Caster may heal any non-fatal damage in any animal up to 10 pounds in weight. Healing takes 6-600 minutes.
+3,Animal Tongues,caster,1 min/lvl,self,I,Allows caster to understand and ''speak'' the language of any 1 animal species.
+4,Animal Sleep III,3 animals,1 min/lvl,100',F,"As Animal Sleep I, except can put up to 3 animals to sleep."
+5,Animal Mastery I,1 animal,C,100',Fm,Allows caster to control the actions of any 1 animal.
+6,Animal Location,caster,---,1 mile R,I,Caster can locate members of any 1 species of animal or he can find out what species are in the area.
+7,Befriending,all animals,C,10',F,All animals within 10' will act friendly toward caster. This spell does not control the animals.
+8,Animal Restoration II,1 animal,P,touch,U,"As Animal Restoration I, except will affect an animal up to 150 pounds in weight, or an animal up to 10 pounds in weight can be healed of fatal damage (though not brought back from the dead)."
+9,Animal Empathy,1 animal,C,100',I,Caster can understand and/or visualize the thoughts and emotions of any 1 animal.
+10,Animal Summons I,1 animal,varies,100',E,"Caster magically summons a 1st- level, non-intelligent creature from the surrounding area. The caster can specify the type of creature, but the GM should determine the type of creature that answers the summons. If the animal can understand the caster (e.g., Animal Tongues), the creature can be controlled through normal communication. Otherwise, control is maintained only through concentration of the caster. If the animal summoned is used for a task that is not dangerous (in its own perception), the duration for this spell is 10 minutes per level. However, if the animal is ever put into a dangerous situation, the duration immediately drops to 1 round per level."
+11,Animal Mastery III,3 animals,C,100',Fm,"As Animal Mastery I, except caster can control 3 animals."
+12,Animal Summons III,varies,varies,100',E,"As Animal Summons I, except caster can also choose two of the following options: a) the level of the summoned creature is increased by one, b) an extra 1st level creature can be summoned, or c) the duration can be doubled."
+13,Animal Call,1 animal,---,1 mile/lvl,U,"Caster can ''call'' any 1 known, specific animal. If it is physically possible, the animal will come to him."
+14,Animal Reviving I,1 animal,P,touch,U,"Will return any animal up to 10 pounds in weight from the dead. The dead animal must make a roll (d100, open-ended) and add 2 times its previous level. There is an additional modifier of -2 per day that the animal was dead. If the result is over 100, the animal is returned from the dead. If the result is less than 100, the animal may not be returned from the dead by this caster (until the caster gains another level). The animal will be at -100 to all actions for a number of days equal to 20 days per day dead."
+15,Call of the Wild,1 animal,P,touch,U,"When cast upon any domesticated animal, that animal will return to its ''wild'' state. The animal will have no difficulty adapting to the harsh requirements of the wilder- ness (and have no desire to return to domestication)."
+16,Animal Mastery V,5 animals,C,100',Fm,"As Animal Mastery I, except caster can control 5 animals."
+17,Animal Restoration III,1 animal,P,touch,U,"As Animal Restoration I, except will affect an animal up to 3000 pounds in weight, or an animal up to 150 pounds in weight may be healed of fatal damage (though not brought back from the dead)."
+18,Animal Summons V,varies,varies,100',E,"As Animal Summons II, except four options can be chosen."
+19,Animal Reviving II,1 animal,P,touch,U,"As Animal Reviving I, except modifier is -1 for every two deads deady and there is no recovery time."
+20,Animal Summons X,varies,varies,100',E,"As Animal Summons II, except nine options may be chosen."
+25,Animal Master True,varies,C,10'/lvl,Fm,"As Animal Mastery I, except caster can control all animals of a given species within 10'R per level."
+30,Animal Reviving III,1 animal,varies,100',U,"As Animal Reviving III, except target is automatically brought back from the dead and there is no recovery period; and the range is 100'."
+50,Animal Summons True,varies,varies,100',E,"As Animal Summons I, except caster can select one option for every two levels of experience."

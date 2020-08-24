@@ -1,4 +1,25 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
 1,Healing I,1 target,P,touch,U,Target is healed of d10 concussion hits.
 2,Frost/Burn Relief I,1 target,P,touch,U,Target ist healed of one area up to mild frostbite or 1st degree burn.
+<<<<<<< HEAD
 3,Min. Irritation Relief,1 target,P,touch,U,"Target is healed of one minor irritation (e.g., headachem toothache, bee-sting, hangover, etc.)."
+=======
+3,Minor Irritation Relief,1 target,P,touch,U,"Target is healed of one minor irritation (e.g., headachem toothache, bee-sting, hangover, etc.)."
+4,Healing III,1 target,P,touch,U,"As Healing I, except that target is healed of 3d10 concussion hits."
+5,Stun Relief *,1 target,P,touch,Us,Target is relieved of 1 round's worth of accumulated stun effects. See Section 7.1.1 for more information.
+6,Frost/Burn Relief II,1 target,P,touch,U,"As Frost/Burn Relief I, except caster can heal 2 areas of mild damage or 1 area of moderate damage (e.g., 2nd degree burn)."
+7,Regeneration I,1 target,C,touch,Us,Will reduce damage target has by 1 hit every minute as long as caster concentrates. If the caster is unconscious this spell will operate on him without concentration. See Appendix 7.1.1 for more on subconscious spells.
+8,Healing V,1 target,P,touch,U,As Healing I except that target is healed of 5d10 concussion hits.
+9,Frost/Burn Relief III,1 target,P,touch,U,"As Frost/Burn Relief I, except caster can heal 3 areas of mild damage or 1 area of severe damage (e.g., 3rd degree burn) or a combination of 1 mild and 1 moderate area of damage."
+10,Awakening,1 target,---,100',U,Target is instantly awake.
+11,Healing VII,1 target,P,touch,U,"As Healing I, except that target is healed of 7d10 concussion hits."
+12,Regeneration II,1 target,C,touch,U,"As Regeneration I, except target's damage is reduced by 2 hits per minute of concentration."
+13,Frost/Burn Relief IV,1 target,P,touch,U,"As Frost/Burn Relief I, except caster can heal 4 mild or 2 moderate or 1 mild and 1 severe or 2 mild and 1 moderate area(s) of damage."
+15,Healing X,1 target,P,touch,U,"As Healing I, except that target is healed of 10d10 concussion hits"
+17,Long Stun Relief,1 target,C,100',Us,"As Stun Relief, except that the caster's range is 100'."
+18,Regeneration III,1 target,P,touch,U,"As Regeneration I, except target's damage is reduced by 3 hits per minute."
+20,Healing XV,1 target,C,touch,U,"As Healing I, except that target is healed of 15d10 concussion hits."
+25,Regeneration V,1 target,P,touch,U,"As Regeneration I, except target's damage is reduced by 5 hits per minute."
+30,"True HealingAs Healing I, except that target is healed of all concussion hits.",1 target,P,100',U,"As Healing I, except that target is healed of all concussion hits."
+50,Mass True Healing,varies,P,100',U,Allows caster to heal all concussion hits in a number of targets equal to level of caster.
+>>>>>>> py3

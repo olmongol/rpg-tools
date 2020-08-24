@@ -9,10 +9,10 @@ Athletic - Endurance,Athletic Games (Endurance)+;Distance Running;Rowing;Scaling
 Athletic - Gymnastics,Athletic Games (Gymnastics)+;Acrobatics;Climbing;Contortions;Diving;Flying/Gliding;Juggling;Pole-vaulting;Rappeling;Skating;Skiing;Stilt Walking;Surfing;Tightrope-walking;Tumbling,Standard
 Awareness - Perception,Alerness;Sense Ambush,Skill only
 Awareness - Searching,Detect Traps;Lie Perception;Locate Hidden;Observation;Poison Perception;Reading Tracks;Surveillance;Tracking,Standard
-Awareness - Senses,Direction Sense;Reality Awareness;Situational Awareness+;Spacial Location Awareness,Sense Awareness+,Time Sense,Standard
+Awareness - Senses,Direction Sense;Reality Awareness;Situational Awareness+;Spacial Location Awareness;Sense Awareness+;Time Sense,Standard
 Body Development,Body Development,DB
 Combat Maneuvers,Adrenal Deflecting;Mounted Combat;Quickdraw;Reverse Stroke+;Subdual;Swashbuckling;Tumbling Evasion;Two-weapon Combat,Combined
-Communications,Language (spoken)+;Language (written)+;Lip Reading;Magical Languages;Signaling,Standard
+Communications,Language (spoken)+;Language (written)+;Sindarin (Grey Elvish - spoken);Quenya (High Elvish - spoken);Silvan (Elvish - spoken);Westron (Common Speech - spoken);Adunaic (High Speech - spoken);Dunael (Hill Speech - spoken);Adunaic (Sea Speech - spoken);Kuduk (Small Speech - spoken);Haradaic (Plains Speech - spoken);Nahaiduk (Woods Speech - spoken);Black Speech (spoken);Rohirric (spoken);Varadje (Variags - spoken);Pukael (Whoses - spoken);Atliduk (Beorninger - spoken);Waildyk (Nature sounds - spoken);Lobba (Snow manish - spoken);Logathig (Easterlings - spoken);Orcish (spoken);Sindarin (Grey Elvish - written);Quenya (High Elvish - written);Silvan (Elvish - written);Westron (Common Speech - written);Adunaic (High Speech - written);Dunael (Hill Speech - written);Adunaic (Sea Speech - written);Kuduk (Small Speech - written);Haradaic (Plains Speech - written);Nahaiduk (Woods Speech - written);Black Speech (written);Rohirric (written);Varadje (Variags - written);Pukael (Whoses - written);Atliduk (Beorninger - written);Waildyk (Nature sounds - written);Lobba (Snow manish - written);Logathig (Easterlings - written);Orcish (written);Lip Reading;Magical Languages;Signaling,Standard
 Crafts,drafting;Cooking;Fletching;Horticulture;Leather Crafts+;Metal Crafts+;Rope Mastery;Scribing;Service;Sewing/Weaving;Skinning;Stone-crafts+;Trapping;Wood-crafts+,Combined
 Directed Spells, Type of Attack+,Standard
 Influence,Bribery;Diplomacy;Duping;Interrogation;Leadership;Propaganda;Public Speaking;Seduction;Trading,Standard
@@ -20,7 +20,7 @@ Lore - General,Culture Lore+;History+;Fauna Lore;Flora Lore;Heraldry;Philosophy;
 Lore - Magical,Artifact Lore;Circle Lore;Planar Lore;Spell Lore;Symbol Lore;Undead Lore;Warding Lore,Standard
 Lore - Obscure,Demon/Devil Lore;Dragon Lore;Faerie Lore;Xeno-lore+,Standard
 Lore - Technical,Herb Lore;Lock Lore;Metal Lore;Poison Lore;Stone Lore;Traiding Lore,Standard
-Martial Arts - Striking,Boxing;Strinking Degree 1;Striking Degree 2;Striking Degree 3;Striking Degree 4;Tackling,Standard
+Martial Arts - Striking,Boxing;Striking Degree 1;Striking Degree 2;Striking Degree 3;Striking Degree 4;Tackling,Standard
 Martial Arts - Sweeps,Blocking;Sweeps Degree 1;Sweeps Degree 2;Sweeps Degree 3;Sweeps Degree 4;Wrestling,Standard
 Outdoor - Animal,Animal Handling+;Animal Healing+;Animal Mastery+;Animal Training+;Driving+;Herding+;Riding+,Standard
 Outdoor - Environmental,Caving;Foraging;Hunting;Star-gazing;Survival+;Weather Watching,Standard

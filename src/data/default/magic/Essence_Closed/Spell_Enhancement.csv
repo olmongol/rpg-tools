@@ -1,1 +1,23 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Special Effects *,1 spell,varies,self,U,"Caster can add a minor smell, visual, or audio aspect to the next spell that he casts. This minor effect cannot increase or change the effects of the spell in any fashion."
+2,Extension II,1 spell,varies,self,U,Causes the next spell that the caster casts (within 1 minute) to have double the normal duration. This spell is not cumulative with any other Extension spells.
+4,Ranging I,1 spell,varies,self,U,Causes the next spell that the caster casts (within 1 minute) to have its range increased by 50'. This spell is not cumulative with any other Ranging spells.
+5,Extension III,1 spell,varies,self,U,"As Extension II, except duration is 3 times normal."
+6,Instant Ranging I *,1 spell,varies,self,U,"As Ranging I, except the casting time is instant."
+7,Increased Radius I,1 spell,varies,self,U,Causes the next spell that the caster casts (within 1 minute) to have its area of effect increased by 5'. This spell is not cumulative with other Increased Radius spells.
+8,Ranging II,1 spell,varies,self,U,"As Ranging I, except range increase is 100'."
+9,Extension IV,1 spell,varies,self,U,"As Extension II, except duration is 4 times normal."
+10,Instant Ranging II *,1 spell,varies,self,U,"As Instant Ranging I, except range is increased by 100'."
+11,Increased Radius II,1 spell,varies,self,U,"As Increased Radius I, except area of effect is increased by 10'."
+12,Ranging III,1 spell,varies,self,U,"As Ranging I, except range increase is 200'."
+13,Extension V,1 spell,varies,self,U,"As Extension II, except duration is 5 times normal."
+14,Instant Ranging III *,1 spell,varies,self,U,"As Instant Ranging I, except range is increased by 200'."
+15,Increased Radius III,1 spell,varies,self,U,"As Increased Radius I, except area of effect is increased by 15'."
+16,Ranging IV,1 spell,varies,self,U,"As Ranging I, except range increase is 300'."
+17,Extension X,1 spell,varies,self,U,"As Extension II, except duration is 10 times normal."
+18,Instant Ranging IV *,1 spell,varies,self,U,"As Instant Ranging I, except range is increased by 300'."
+19,Increased Radius IV,1 spell,varies,self,U,"As Increased Radius II, except area of effect is increased by 20'."
+20,Ranging V,1 spell,varies,self,U,"As Ranging I, except range increase is 500'."
+25,Greater Extension,1 spell,varies,self,U,"As Extension II, except duration is increased by 12 hours."
+30,Extension True,1 spell,varies,self,U,"As Extension II, except duration is increased by 24 hours."
+50,Permanent,1 spell,varies,self,U,"As Extension II, except duration is permanent. Only one permanent spell can be in effect at a time for each spell caster."

@@ -1,1 +1,24 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Healing I,1 target,P,touch,U,Target is healed of d10 concussion hits.
+2,Flowstop I,1 target,P,touch,U,"Allows caster to stop bleeding on a wound that is bleeding 1 hit per round. Target may not be moved, or bleeding will resume at prior rate."
+3,Frost/Burn Relief I,1 target,P,touch,U,Target is healed of one area of mild frostbite or first degree burn.
+4,Minor Fracture Repair,1 target,P,touch,U,"Allows caster to mend one simple fracture (not compound fractures, shatters, joint damage, etc.). Recovery time is one day."
+5,Healing III,1 target,P,touch,U,"As Healing I, except heals 3d10 concussion hits."
+6,Stun Relief I *,1 target,P,touch,Us,Target is relieved of one round’s worth of accumulated stun. See Section 7.1.1 for more information.
+7,Major Fracture Repair,1 target,P,touch,U,"As Minor Fracture Repair, except that the caster can also repair compound fractures. Recovery time is one day."
+8,Disease Resistance I,1 target,10 min/lvl,touch,U,"For the duration of this spell, the target gets an additional RR versus any disease(s)."
+9,Poison Resistance I,1 target,10 min/lvl,touch,U,"For the duration of this spell, the target gets an additional RR versus any poison(s)."
+10,Minor Vessel Repair,1 target,P,touch,U,"Allows caster to completely mend a damaged minor blood vessel (a vessel that bleeds at up to 2 hits per round, not major arteries or veins)."
+11,Healing V,1 target,P,touch,U,"As Healing I, except heals 5d10 concussion hits."
+12,Muscle/Tendon Repair I,1 target,P,touch,U,Allows caster to repair (not replace) one damaged muscle or tendon. Recovery time is 1 hour.
+13,Frost/Burn Relief III,1 target,P,touch,U,"As Frost/Burn Relief I, except caster can heal 3 areas of mild damage or 1 area of severe damage (e.g., third degree burns) or a combination of 1 mild and 1 moderate area of damage."
+14,Stun Relief II,1 target,P,touch,Us,"As Stun Relief I, except relieves 2 rounds of stun."
+15,Unparalysis,1 target,P,touch,U,Caster can cure any one paralyis problem.
+16,Healing X,1 target,P,touch,U,"As Healing I, except heals 10d10 concussion hits."
+17,Frost/Burn Relief IV,1 target,P,touch,U,"As Frost Burn Relief I, except caster can heal 4 mild or 2 moderate or 1 mild and 1 severe or 2 mild and 1 moderate areas of damage."
+18,Undisease,1 target,P,touch,U,Caster can remove any one disease from the target.
+19,Unpoison,1 target,P,touch,U,Caster can remove any one poison from the target.
+20,Stun Relief True *,1 target,P,touch,Us,"As Stun Relief I, except relieves all rounds of stun."
+25,Healing XV,1 target,P,touch,U,"As Healing I, except heals 15d10 concussion hits."
+30,Healing True,1 target,P,touch,U,"As Healing I, except heals all concussion damage."
+50,Laying on Hands True,1 target,P,touch,U,Caster can use any lower level spell on this list once per round.

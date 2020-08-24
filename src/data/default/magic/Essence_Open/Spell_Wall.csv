@@ -1,1 +1,23 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Protection I,1 target,1 min/lvl,10',U,Subtracts 5 from elemental attack rolls against the target and adds 5 to all of the target's RRs versus spells.
+2,Cancel Essence,1 spell,C,self,F,"When the caster of this spell is a target of a spell from the realm of Essence, the ''incoming'' spell must first make an RR before the caster makes an RR. For RR purposes, each spell uses a level equal to its caster's level. If the ''incoming'' spell passes the RR, it may target the caster of this spell normally; otherwise the incoming spell has no effect on this target."
+3,Protection Sphere I,10'R,1 min/lvl,self,U,"As Protection I, except all beings within 10'R of target get the benefits."
+4,Cancel Mentalism,1 spell,C,self,F,As Cancel Essence except affects spells from the realm of Mentalism.
+5,Protection II,1 target,1 min/lvl,10',U,"As Protection I, except bonuses are 10."
+6,Cancel Channeling,1 spell,C,self,F,"as Cancel Essence, except affects spells from the realm of Channeling."
+7,Protection Sphere II,10'R,1 min/lvl,self,U,"As Protection II, except it has a 10'R as in Protection Sphere I."
+8,Dispel Essence Sphere I,10'R,C,self,F,"As Cancel Essence, except for the area of effect (centered on the caster). If the radius encounters an already existing spell, that spell must make an RR (with a +30 modifier) or be cancelled."
+9,Essence Shield,caster,C,self,U,"Creates a shimmering shield in front of the caster. This shield subtracts 10 from all frontal Essence attack rolls on the caster (base and elemental). If the caster performs no other actions during a round, he can ''parry'' (as with a normal shield) one spell attack. The parry bonus is equal to the sum of all the bonuses that the caster would normally have for his spell's base attack roll."
+10,Mind Shield,caster,C,self,U,"As Essence Shield, except is effective only against Mentalism spells."
+11,Protection III,1 target,1 min/lvl,10',U,"As Protection I, except bonuses are 15."
+12,Dispel Mentalism Sphere I,10'R,C,self,F,"As Dispel Essence Sphere I, except affects spells from the realm of Mentalism."
+13,Channeling Shield,caster,C,self,U,"As Essence Shield, except it is effec- tive only against Channeling spells."
+14,Spell Shield,caster,C,self,U,"As Essence Shield, except it is effective against any two of the three realms."
+15,Protection IV,1 target,1 min/lvl,10',U,"As Protection I, except bonuses are 20."
+16,Dispel Channeling Sphere I,10'R,C,self,F,"As Dispel Essence Sphere I, except affects spells from the realm of Channeling."
+18,Spell Shield True,caster,C,self,U,"As Essence Shield, except is effective against all three realms."
+19,Protection V,1 target,1 min/lvl,10',U,"As Protection I, except bonuses are 25."
+20,Essence Resistance,1 target,C,100',U,Target gets a +50 bonus for all RRs versus Essence spells.
+25,Mentalism Resistance,1 target,C,100',U,"As Essence Resistance, except is only effective against Mentalism spells."
+30,Channeling Resistance,1 target,C,100',U,"As Essence Resistance, except is only effective against Channeling spells."
+50,Resistance True,1 target,C,100',U,"As Essence Resistance, except all three realms are affected."

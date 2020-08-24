@@ -1,0 +1,5 @@
+When using Guess, the caster must have a limited number of options (i.e., finite and countable). After the spell is cast, the caster may not cast another Guess for the same information until his experience level has increased (see Section 7.1.4).
+
+A path is defined as either: a trodden path/way or a road/way/track made for a particular purpose. (See also Section 7.1.25).
+
+When using any Location spell, the caster must provide an unambiguous description of the object being sought. This includes a minimum of: the item's dimensions (within 10\% of actual size) and at least two other identifying attributes (e.g., color, weight, shape, texture, etc.). Often, it will take more than two other attributes to make the description ''unique'' (i.e., no other item within range can possibly match the description).

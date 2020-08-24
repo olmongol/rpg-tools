@@ -1,0 +1,22 @@
+Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Enchanted Rope,10‘/lvl,C,touch,U,If caster holds one end of a rope he can cause the rope to move up to its length (within the area of effect) in any direction and to tie itself in knots (it cannot attack or tie up a living being)
+2,Loosen Earth,100 cu',P,100',F,Loosens 100 cu' of earth to the con- sistency of plowed ground.
+4,Earthwall,10'x10'x3',1 min/lvl,100',E,"Creates of wall of earth up to 10' x 10' x (3' at the base, 1' at the top). This wall can be dug through."
+5,Cracks Call,10'x10'x10',---,100',F,Any previous cracks or flaws in material up to 10'x10'x10' section will extend to their limit.
+6,Repair,1 object,P,touch,U,"The caster may mend a single break in a small (up to 2 pounds) inorganic object or multiple breaks, rips, or cracks in a larger (up to 10 pounds) organic object. All component parts of the object must be within a 10' radius."
+7,Stonewall,10'x10'x1',1 min/lvl,100',E,"As Earthwall, except wall is up to 10'x10'x1' of stone. It can be chipped through."
+8,Earthen Spikes,20' x 20',10 min/lvl1,100',E,"This spell causes the area of effect to bristle with hundreds of 6'' to 12'' sharp edges and blades. The exact composition of these spikes will depend on the material the ground is made of. The area of effect must be placed horizontally on a surface (i.e., it cannot be placed on walls). Most animals and creatures cannot be induced to walk through the area. Anyone moving through the area must make a manuever roll (at least Extremely Hard difficulty) for every 5' moved through. Anyone who falls inside the area of effect receives an 'A' Puncture critical strike."
+9,Stone/Earth,100 cu',P,100',F,Changes 100 cubic feet of stone to packed earth. This change is gradual (taking three rounds for complete change).
+10,Earthwall True,10'x10'x3',P,100',E,"As Earthwall, except duration is permanent."
+11,Earth/Mud,100 cu',P,100',F,"As Stone/Earth, except changes earth to soft mud."
+12,Earth/Stone,100 cu',P,100',F,"As Stone/Earth, except changes packed earth to solid stone and loose earth to gravel."
+13,Stonewall True,10'x10'x1',P,100',E,"As Stonewall, except duration is permanent."
+14,Mud/Earth,100 cu',P,100',F,"As Stone/Earth, except changes mud to packed earth."
+15,Unearth,100 cu',P,100',F,"Disintegrates (i.e., nothing is left ) 100 cubic feet of earth."
+16,Meld Wall,varies,P,touch,F,Fuses two touching walls together (seam can be up to 20' long) or fuses a section of stone blocks (up to 100 cubic feet).
+17,Stone/Mud,100 cu',P,100',F,"As Stone/Earth, except changes stone to mud."
+18,Curved Wall,10'x10'x1',P,100',E,"As Stonewall True, except wall may be curved up to a semicircle."
+20,Unstone,100 cu',P,100',F,"As Unearth, except affects stone."
+25,Unmetal,1 cu',P,100',F,"As Unearth, except affects 1 cubic foot of metal."
+30,Tremors,varies,1 rnd,100'/lvl,F,Causes a very minor earthquake which could cause shoddy construction to collapse (this can be very terrifying). This is approximately 5.5 on the Richter scale.
+50,Earth Mastery,varies,1 rnd/lvl,varies,U,Caster can use one lower level spell (on this list) each round
