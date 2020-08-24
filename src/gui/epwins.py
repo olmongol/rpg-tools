@@ -35,7 +35,7 @@ from gui.window import *
 from gui.gmtools import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "20.10.2019"
+__updated__ = "12.12.2019"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -3663,7 +3663,8 @@ class charInfo(blankWindow):
         '''
         This method gets all data from entries, puts them into character data struct and saves the updated character.
         '''
-
+        if self.spath[-1] not in ["\\", "/"]:
+            self.spath += "/"
         bg = {}
         self._character["motivation"] = self.tw2.get("0.0", END)
         self._character['history'] = self.tw1.get("0.0", END)
