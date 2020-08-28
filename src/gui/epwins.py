@@ -46,11 +46,8 @@ from gui.gmtools import *
 from gui.mangroup import *
 from pprint import pprint  # for debugging purposes only
 
-<<<<<<< HEAD
-__updated__ = "12.12.2019"
-=======
-__updated__ = "13.04.2020"
->>>>>>> py3
+__updated__ = "27.08.2020"
+
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
