@@ -196,7 +196,18 @@ def showFindings(finding=[]):
     This function just displays the found herbs on the screen.
     @param finding list of dictionaries (herbs)
     """
+    old = {}
+    count =1
     for herb in finding:
-        print("{}  - {}: {} - {}\n\t{}\n".format(herb["name"],herb["type"],herb["form"],herb["prep"],herb["medical use"] + " "+herb["description"]))
-        
+        if old != herb:
+    
+            print("doses: ",count)
+            count =1
+            old = herb
+            print("\n{}  - {}: {} - {}\n\t{}".format(herb["name"],herb["type"],herb["form"],herb["prep"],herb["medical use"] + " "+herb["description"]))
+        else:
+            count +=1
+    print("doses: ",count)
+
+            
         
