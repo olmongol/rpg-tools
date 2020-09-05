@@ -21,12 +21,19 @@ from rpgtoolbox.rpgtools import statManeuver as statMan
 from rpgtoolbox.rpgtools import dice
 from rpgToolDefinitions import inventory as inv
 from rpgToolDefinitions.epcalcdefs import maneuvers as manmod
+from rpgToolDefinitions.middleearth import *
 
 defaultpath = "data/default/inventory/"
 herbsfile = "herbs.csv"
 
 herbs = readCSV(defaultpath + herbsfile)
-
+climate=[]
+locale=[]
+for h in herbs:
+    if h["climate"] not in climate:
+        climate.append(h["climate"])
+    if h["locale"] not in locale:
+        locale.append(h["locale"])
 
 
 def string2worth(worth = ""):
@@ -196,7 +203,22 @@ def showFindings(finding=[]):
     This function just displays the found herbs on the screen.
     @param finding list of dictionaries (herbs)
     """
-    for herb in finding:
-        print("{}  - {}: {} - {}\n\t{}\n".format(herb["name"],herb["type"],herb["form"],herb["prep"],herb["medical use"] + " "+herb["description"]))
+    count = 1
+    for i in range(0,len(finding)):
+        if i < len(finding)-1:
+            if finding[i] == finding[i+1]:
+                count +=1
+            else:
+                print("{}x {}  - {}: {} - {}\n\t{}\n".format(count,
+                                                             finding[i]["name"],
+                                                             finding[i]["type"],
+                                                             finding[i]["form"],
+                                                             finding[i]["prep"],
+                                                             finding[i]["medical use"] + " "+finding[i]["description"]
+                                                             )
+                      )
+                count = 1
+##    for herb in finding:
+##        print("{}  - {}: {} - {}\n\t{}\n".format(herb["name"],herb["type"],herb["form"],herb["prep"],herb["medical use"] + " "+herb["description"]))
         
         

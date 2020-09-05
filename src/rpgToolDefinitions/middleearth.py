@@ -15,8 +15,8 @@ __updated__ = "05.09.2020"
 
 areas = {"Shire" : ["Old Forrest", "Bockland", "Westmarch", "Baranduin", "Hobbiton", "Baranduin"],
         "Breeland" : ["Weather Hills", "Weather Top", "Barrow Downs", "Old Forest", "Bree", "Midgewater"],
-        "Angmar" :["Cam Dum", "Gundaband", "Ettenmoors"],
-        "Anor" : ["Nenuial", "Hills of Evendim", "North Downs", "Rhudaur", "Shire", \
+        "Angmar" :["Cam Dum", "Gundaband", "Ettenmoors", "Misty Mountains"],
+        "Arnor" : ["Nenuial", "Hills of Evendim", "North Downs", "Rhudaur", "Shire", \
                   "Breeland", "Arthedain", "Cardolan", "Minhirath", \
                   "Hoarwell", "Lune", "Tyrn Gorthad"],
         "Cardolan" :["Breeland", "South Downs", "Minhiriath", "Tharbad", "Eryn Vorn", "Gwathlo", \
@@ -43,34 +43,80 @@ areas = {"Shire" : ["Old Forrest", "Bockland", "Westmarch", "Baranduin", "Hobbit
         "Ered Nimrais" :["White Mouintains"],
         "Gwathlo" :["Greyflood"],
         "Baranduin" :["Brandywine"],
-        "Harad" :["Far Harad", "Near Harad"],
-        "Eriador" :["Arnor"],
+        "Harad" :["Far Harad", "Near Harad", "Khand", "Haradwaith"],
+        "Far Harad":[],
+        "Near Harad":["Harnen"],
+        "Haradwaith" :["Sutherland"],
+        "Khand" :[],
+        "Eriador" :["Arnor", "Imladris", "Agnmar", "Eregion"],
         "Amon Sul" : ["Weathertop"],
-        "Eregion" :[],
-        "Moria" : ["Khazaddum"],
+        "Eregion" :["Bruinen", "Glanduin", "Ost-in-Edhil", "Nin-in-Eilph", "Misty Mountains"],
+        "Moria" : ["Khazaddum", "Misty Mountains"],
         "Imladris" :["Rivendell", "Bruinen", "Misty Mountains"],
         "Bruinen" : ["Loudwater"],
         "Mitheithel" :["Hoarwell"],
-        "Rhovanion":["Wilderland", "Mirkwood", "Sea of Rhun", "Celduin", "Laketown", "Dale", "Erebor", \
-                     "Iron Hills", "Dol Guldur", "Woodland"],
-        "northwestern Endor" : ["Rhovanion", "Arnor", "Angmar", "Calenardhon", "Eriador", \
-                                 "Moria"],
-        "northeastern Endor":[],
+        "Rhovanion":["Wilderland", "Mirkwood", "Sea of Rhun", "Celduin", "Esgaroth", "Dale", "Erebor", \
+                     "Iron Hills", "Dol Guldur", "Woodland", "Anduin", "Brown Lands", "Emyn Muil", \
+                     "Dagorlad"],
+        "northwestern Endor" : [ "Arnor", "Angmar", "Calenardhon", "Eriador", \
+                                 "Moria", "Forodwaith", "Beleriand"],
+        "northeastern Endor":["Rhovanion", "Rhun", "Dorwinion", "Iron Hills", "Ered Mithrin"],
         "northern Endor" :["northwestern Endor", "northeastern Endor"],
-        "middle Endor" :["Misty Mountains", "Rohan", "Rhovanion"],
-        "southwestern Endor" :[],
-        "southeastern Endor" :[],
+        "middle Endor" :["Misty Mountains", "Rohan", "Rhovanion", "Mordor", "Rhun", "Lorien", "Fangorn"],
+        "southwestern Endor" :["Gondor", ],
+        "southeastern Endor" :["Harad", "Khand", "Umbar"],
         "southern Endor" : ["southwestern Endor", "southeastern Endor"],
         "Ered Nimrais" :["White Mountains"],
         "Rohan":["Gap of Rohan", "West Emnet", "East Emnet", "Entwash", "Eastfold", "Westfold", \
                  "Folde", "West March", "Folde", "Isen", "Edoras", "Aldburg", "Hornburg", "Helms Deep", \
                  "Anduin", "Fangorn"],
         "Isengard" :["Isen", "Misty Mountains"],
-        "Misty Mountains": ["Hitheaglir", "Imladris", "Moria", "Caradhras", "Danuidhol", "Celebdil", \
-                            "Gobblintown", "Dunland", "Eregion", "Agnmar"],
+        "Misty Mountains": ["Hitheaglir", "Caradhras", "Danuidhol", "Celebdil"],
+        "Goblintown" :["Misty Mountains"],
         "Lothlorien" : ["Lorien"],
         "Fangorn" : ["Entwash"],
         "Forodwaith" :[],
-        "Dunland" :["Enedhwaith"],
+        "Dunland" :["Enedhwaith", "Misty Mountains"],
         "Enedhwaith":["Tharbad", "Lond Daer"],
+        "Belfalas":["Dol Amroth", " Bay of Belfalas"],
+        "Mordor":["Gorgoroth", "Udun", "Minas Morgul", "Nurn", "Sea of Nurnen", "Ered Lithui", "Baraddur", \
+                  "Ephel Duath", "Mor Annon"],
+        "Ered Lithui":["Ash Mountains"],
+        "Ephel Duath" : ["Mountains of Shadow"],
+        "Umbar" : [],
         }
+
+
+
+def getAllRegions(region = "everywhere"):
+    """
+    This function delivers a list of all included regions in ME for the herb hunt.
+    @param region region to generate the list of.
+    @retval result list of all included regions.
+    """
+    global areas
+    result = [region]
+    checked = []
+
+    if region in areas.keys() and region not in checked:
+        result += areas[region]
+        result = list(set(result))
+        checked.append(region)
+        result.sort()
+        checked.sort()
+        checked = list(set(checked))
+
+        while checked != result:
+
+            for r in result:
+
+                if r in areas.keys() and r not in checked:
+                    result += areas[r]
+
+                result = list(set(result))
+                checked.append(r)
+                checked = list(set(checked))
+                result.sort()
+                checked.sort()
+
+    return result
