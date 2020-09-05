@@ -27,13 +27,14 @@ defaultpath = "data/default/inventory/"
 herbsfile = "herbs.csv"
 
 herbs = readCSV(defaultpath + herbsfile)
-climate=[]
-locale=[]
+climate = []
+locale = []
 for h in herbs:
     if h["climate"] not in climate:
         climate.append(h["climate"])
     if h["locale"] not in locale:
         locale.append(h["locale"])
+
 
 
 def string2worth(worth = ""):
@@ -82,14 +83,7 @@ def findHerbs(roll = 0, skill = -15, area = ["---"], climate = [], locale = []):
     """
     if "everywhere" not in area:
         area.append("everywhere")
-##    if "---" not in area:
-##        area.append("---")
-##    if "---" not in climate and climate !=[]:
-##        climate.append("---")
-##
-##    if "---" not in locale and locale != []:
-##        locale.append("---")
-        
+
     herbs = readCSV(defaultpath + herbsfile)
     result = []
     protoherb = {"name":"",
@@ -120,11 +114,9 @@ def findHerbs(roll = 0, skill = -15, area = ["---"], climate = [], locale = []):
         plant["worth"] = string2worth(plant["worth"])
         plant["weight"] = 0.1
         plant["location"] = "equipped"
-##        plant["other use"] = ""
-##        plant["other name"] = []
-        
+
         if climate != [] and locale != []:
-            
+
             if plant["area"] in area and plant["climate"] == climate and plant["locale"] == locale:
                 mod = manmod[plant["difficulty"]]["mod"]
 
@@ -146,11 +138,8 @@ def findHerbs(roll = 0, skill = -15, area = ["---"], climate = [], locale = []):
                     result.append(plant)
 
         elif climate == []:
-##            print("switch locale")
-            
+
             if plant["area"] in area and plant["locale"] in locale:
-##                print("all locale")
-##                pprint(plant)
                 mod = manmod[plant["difficulty"]]["mod"]
 
                 if roll != 100 and roll != 66:
@@ -171,11 +160,8 @@ def findHerbs(roll = 0, skill = -15, area = ["---"], climate = [], locale = []):
                     result.append(plant)
 
         elif locale == []:
-##            print("switch climate")
-            
+
             if plant["area"] in area and plant["climate"] in climate:
-##                print("all climate")
-##                pprint(plant)
                 mod = manmod[plant["difficulty"]]["mod"]
 
                 if roll != 100 and roll != 66:
@@ -193,32 +179,30 @@ def findHerbs(roll = 0, skill = -15, area = ["---"], climate = [], locale = []):
                     no = 0
 
                 for i in range(0, no):
-                    result.append(plant)            
+                    result.append(plant)
 
     return result
 
 
-def showFindings(finding=[]):
+
+def showFindings(finding = []):
     """
     This function just displays the found herbs on the screen.
     @param finding list of dictionaries (herbs)
     """
     count = 1
-    for i in range(0,len(finding)):
-        if i < len(finding)-1:
-            if finding[i] == finding[i+1]:
-                count +=1
+    for i in range(0, len(finding)):
+        if i < len(finding) - 1:
+            if finding[i] == finding[i + 1]:
+                count += 1
             else:
                 print("{}x {}  - {}: {} - {}\n\t{}\n".format(count,
                                                              finding[i]["name"],
                                                              finding[i]["type"],
                                                              finding[i]["form"],
                                                              finding[i]["prep"],
-                                                             finding[i]["medical use"] + " "+finding[i]["description"]
+                                                             finding[i]["medical use"] + " " + finding[i]["description"]
                                                              )
                       )
                 count = 1
-##    for herb in finding:
-##        print("{}  - {}: {} - {}\n\t{}\n".format(herb["name"],herb["type"],herb["form"],herb["prep"],herb["medical use"] + " "+herb["description"]))
-        
-        
+
