@@ -220,7 +220,7 @@ txtbutton = {'but_ok'   : {'de' : 'OK',
              "but_details" : {"de":"Details",
                               "en":"details"},
              'but_magic' : {"de" : "verzaubern",
-                            "en" : "enchant"}
+                            "en" : "enchant"},
              }
 
 ## \var txtmenu
@@ -699,6 +699,12 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
           "region" : {"de" : "Gegend",
                       "en" : "Region"
                       },
+          "locale" : {"de" : "Umgebung",
+                      "en" : "Environment"
+                      },
+          "climate" : {"de" : "Klima",
+                       "en" : "Climate"
+                       },
 
           }
 

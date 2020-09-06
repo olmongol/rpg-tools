@@ -88,6 +88,22 @@ class searchHerbsWin(blankWindow):
             self.defaultpath = self.defaultpath.replace("//", "/")
 
         self.herbs = readCSV(self.defaultpath + self.herbsfile)
+        for plant in self.herbs:
+            if "item" in plant.keys():
+                plant["name"] = plant.pop("item")
+
+            if "comment" in plant.keys():
+                plant["description"] = plant.pop("comment")
+
+            if "effect" in plant.keys():
+                plant["medical use"] = plant.pop("effect")
+
+            if "cost" in plant.keys():
+                plant["worth"] = plant.pop("cost")
+
+            plant["worth"] = string2worth(plant["worth"])
+            plant["weight"] = 0.1
+            plant["location"] = "equipped"
         self.climate = []
         self.locale = []
         self.regions = []
@@ -112,7 +128,9 @@ class searchHerbsWin(blankWindow):
         self.climate.sort()
         self.locale.sort()
         self.regions.sort()
-
+        self.searchclimate = []
+        self.searchlocale = []
+        #window components
         blankWindow.__init__(self, self.lang)
         self.window.title("Herb Searching window")
         self.__addMenu()
@@ -153,7 +171,6 @@ class searchHerbsWin(blankWindow):
     def __buildWin(self):
         """
         This method builds the window content.
-        @todo this has to be fully implemented
         """
         # row 0
         self.__selecPlayer = StringVar()
@@ -236,8 +253,51 @@ class searchHerbsWin(blankWindow):
                                       self.__selecRegion,
                                       *self.regions,
                                       command = self.__updRegion)
-        self.__regionOpt.grid(row = 1, column = 2, sticky = "W")
-        pass
+        self.__regionOpt.grid(row = 1,
+                              column = 2,
+                              columnspan = 3,
+                              sticky = "W")
+
+        Label(self.window,
+              text = labels['locale'][self.lang] + ":"
+              ).grid(row = 1, column = 4, sticky = "NEWS")
+
+        self.__selecLocale = StringVar()
+        self.__selecLocale.set(self.locale[0])
+        self.__localeOpt = OptionMenu(self.window,
+                                      self.__selecLocale,
+                                      *self.locale,
+                                      command = self.__updLocale)
+        self.__localeOpt.grid(row = 1, column = 5, sticky = "W")
+
+        Label(self.window,
+              text = labels['climate'][self.lang] + ":"
+              ).grid(row = 1, column = 6, sticky = "NEWS")
+
+        self.__selecClimate = StringVar()
+        self.__selecClimate.set(self.climate[0])
+        self.__climateOpt = OptionMenu(self.window,
+                                      self.__selecClimate,
+                                      *self.climate,
+                                      command = self.__updClimate)
+        self.__climateOpt.grid(row = 1, column = 7, sticky = "W")
+
+        Button(self.window,
+               text = txtbutton["but_result"][self.lang],
+               command = self.__checkResult
+               ).grid(row = 1, column = 9, sticky = "EW")
+
+        vscroll = Scrollbar(self.window, orient = VERTICAL)
+        self.displayTxt = Text(self.window,
+                               yscrollcommand = vscroll.set,
+                               height = 20
+                               )
+        vscroll.config(command = self.displayTxt.yview)
+#        vscroll.grid(row = 2, colum = 10, sticky = "NSW")
+        self.displayTxt.grid(row = 2,
+                             column = 0,
+                             columnspan = 10,
+                             sticky = "NEWS")
 
 
     def __rollDice(self):
@@ -246,17 +306,31 @@ class searchHerbsWin(blankWindow):
         print("Result: {}\nUMR:{}".format(result, self.umr))
 
 
+    def __updClimate(self, selection):
+        """
+        This gets the selected climate
+        """
+        self.searchclimate = [selection]
+
+
+    def __updLocale(self, selection):
+        """
+        This gets the selected locale
+        """
+        self.searchlocale = [selection]
+
+
     def __updRegion(self, selection):
         """
         This updates the window by the selected region
         """
         self.__region.set(selection)
+        self.searchregion = [selection]
 
 
     def __updSelec(self, selection):
         """
         Updating window by selected Character
-        @todo has to be fully implemented
         """
         print(selection)
         idx = self.playerlist.index(selection)
@@ -314,6 +388,19 @@ class searchHerbsWin(blankWindow):
         self.window.destroy()
 
 
+    def __checkResult(self):
+        """
+        This initiaties teh search for herbs by the given parameters
+        """
+        searchskill = self.__charskill.get()
+        searchmod = self.__mod.get()
+        searchroll = self.__roll.get()
+        self.searchregion = [self.__region.get()]
+        self.findHerbs(roll = searchroll, skill = searchskill, area = self.searchregion, \
+                       climate = self.searchclimate, locale = self.searchlocale)
+        self.printFindings()
+
+
     def findHerbs(self, roll = 0, skill = -15, area = ["---"], climate = [], locale = []):
         """
         This function searches for herbs by area, climate and locale dependend on difficulty of
@@ -328,36 +415,34 @@ class searchHerbsWin(blankWindow):
         if "everywhere" not in area:
             area.append("everywhere")
 
-#        herbs = readCSV(defaultpath + herbsfile)
+        if climate == ["---"]:
+            climate = []
+
+        if locale == ["---"]:
+            locale = []
+
         self.foundherbs = []
-        protoherb = {"name":"",
-                    "AF" : 0,
-                    "climate":"",
-                    "description":"",
-                    "worth":{},
-                    "difficulty":"",
-                    "medical use":"",
-                    "form":"",
-                    "locale":"",
-                    "lvl":0,
-                    "type":"",
-                    "area":"",
-                    "weight":0.1,
-                    "other use":"",
-                    "location": "equipped",
-                    "other name":[],
-                    "found":[]
-                }
+#        protoherb = {"name":"",
+#                    "AF" : 0,
+#                    "climate":"",
+#                    "description":"",
+#                    "worth":{},
+#                    "difficulty":"",
+#                    "medical use":"",
+#                    "form":"",
+#                    "locale":"",
+#                    "lvl":0,
+#                    "type":"",
+#                    "area":"",
+#                    "weight":0.1,
+#                    "other use":"",
+#                    "location": "equipped",
+#                    "other name":[],
+#                    "found":[]
+#                }
 
         statman = statMan()
         for plant in self.herbs:
-            plant["name"] = plant.pop("item")
-            plant["description"] = plant.pop("comment")
-            plant["medical use"] = plant.pop("effect")
-            plant["worth"] = plant.pop("cost")
-            plant["worth"] = string2worth(plant["worth"])
-            plant["weight"] = 0.1
-            plant["location"] = "equipped"
 
             if climate != [] and locale != []:
 
@@ -377,7 +462,7 @@ class searchHerbsWin(blankWindow):
                         no = 2
                     else:
                         no = 0
-
+                    print("success all")
                     for i in range(0, no):
                         self.foundherbs.append(plant)
 
@@ -425,13 +510,16 @@ class searchHerbsWin(blankWindow):
                     for i in range(0, no):
                         self.foundherbs.append(plant)
 
+        print("finished findHerbs ", len(self.foundherbs))
+
 
     def printFindings(self):
         """
         This function just displays the found herbs on the screen.
         """
         count = 1
-
+        self.displayTxt.delete("1.0", "end")
+        found = ""
         for i in range(0, len(self.foundherbs)):
 
             if i < len(self.foundherbs) - 1:
@@ -447,8 +535,19 @@ class searchHerbsWin(blankWindow):
                                                                  self.foundherbs[i]["prep"],
                                                                  self.foundherbs[i]["medical use"] + " " + self.foundherbs[i]["description"]
                                                                  )
+
                           )
+                    found += "\n{}\n{}x {}  - {}: {} - {}\n\t{}\n".format(80 * "=",
+                                                                          count,
+                                                                          self.foundherbs[i]["name"],
+                                                                          self.foundherbs[i]["type"],
+                                                                          self.foundherbs[i]["form"],
+                                                                          self.foundherbs[i]["prep"],
+                                                                          self.foundherbs[i]["medical use"] + " " + self.foundherbs[i]["description"]
+                                                                          )
                     count = 1
+
+        self.displayTxt.insert(END, found)
 
 
 
