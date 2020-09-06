@@ -1,4 +1,15 @@
 #!/usr/bin/python3
+'''
+\file test_epcalcwin.py
+\package rm_char_tools.py
+\brief This is a little tool for tracking the EPs  of Role Master Characters
+
+\date (C) 2015-2020
+\author Marcus Schwamberger
+\email marcus@lederzeug.de
+\license GNU V3.0
+\version 1.1.0
+'''
 import os
 import json
 from gui.window import *
