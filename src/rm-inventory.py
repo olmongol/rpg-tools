@@ -35,7 +35,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "21.08.2020"
+__updated__ = "21.09.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.5"
@@ -467,6 +467,59 @@ class InventoryWin(blankWindow):
         self.wcont["carr_weight"].set(carried)
 
 
+    def idxContainerTransport(self):
+        """
+        This makes an index for container and transport type items.
+        """
+        self.containers = []
+        clist = []
+        self.contnamelist = []
+        self.transports = []
+        tlist = []
+        self.transpnamelist = []
+        # make indices ---------------------
+        for item in self.character["inventory"]["gear"]:
+            if "container" in item["type"]:
+                clist.append(item["type"])
+                self.contnamelist.append(item["name"])
+                self.containers.append({"name":item["name"],
+                                        "type": item["type"],
+                                        "index": self.character["inventory"]["gear"].index(item)
+                                        })
+        for item in self.character["inventory"]["transport"]:
+            if "transport" in item["type"]:
+                tlist.append(item["type"])
+                self.transpnamelist.append(item["name"])
+                self.transports.append({"name": item["name"],
+                                        "type": item["type"],
+                                        "index": self.character["inventory"]["transport"].index(item)
+                                        })
+        counter = 1
+        while "container" in clist:
+            idx = clist.index("container")
+
+            if "container{}".format(counter) not  in clist:
+                self.containers[idx]["type"] += str(counter)
+                clist[idx] += str(counter)
+                self.character["inventory"]["gear"][self.containers[idx]["index"]]["type"] += str(counter)
+            counter += 1
+
+        counter = 1
+        while "transport" in tlist:
+            idx = tlist.index("transport")
+
+            if "transport{}".format(counter) not in tlist:
+                self.transports[idx]["type"] += str(counter)
+                tlist[idx] += str(counter)
+                self.character["inventory"]["transport"][self.transports[idx]["index"]]["type"] += str(counter)
+            counter += 1
+
+        self.character["idxcontainer"] = self.containers.copy()
+        self.character["idxtransport"] = self.transports.copy()
+        self.contnamelist.sort()
+        self.transpnamelist.sort()
+
+
     def __open(self):
         """
         this method opens a character file
@@ -501,6 +554,7 @@ class InventoryWin(blankWindow):
         self.inv_char = self.character["inventory"].copy()
         self.calcCarriedWeight()
         self.calcMMP()
+        self.idxContainerTransport()
 
 
     def __save(self):
@@ -1605,6 +1659,59 @@ class shopWin(blankWindow):
 #            pass
 
 
+    def idxContainerTransport(self):
+        """
+        This makes an index for container and transport type items.
+        """
+        self.containers = []
+        clist = []
+        self.contnamelist = []
+        self.transports = []
+        tlist = []
+        self.transpnamelist = []
+        # make indices ---------------------
+        for item in self.character["inventory"]["gear"]:
+            if "container" in item["type"]:
+                clist.append(item["type"])
+                self.contnamelist.append(item["name"])
+                self.containers.append({"name":item["name"],
+                                        "type": item["type"],
+                                        "index": self.character["inventory"]["gear"].index(item)
+                                        })
+        for item in self.character["inventory"]["transport"]:
+            if "transport" in item["type"]:
+                tlist.append(item["type"])
+                self.transpnamelist.append(item["name"])
+                self.transports.append({"name": item["name"],
+                                        "type": item["type"],
+                                        "index": self.character["inventory"]["transport"].index(item)
+                                        })
+        counter = 1
+        while "container" in clist:
+            idx = clist.index("container")
+
+            if "container{}".format(counter) not  in clist:
+                self.containers[idx]["type"] += str(counter)
+                clist[idx] += str(counter)
+                self.character["inventory"]["gear"][self.containers[idx]["index"]]["type"] += str(counter)
+            counter += 1
+
+        counter = 1
+        while "transport" in tlist:
+            idx = tlist.index("transport")
+
+            if "transport{}".format(counter) not in tlist:
+                self.transports[idx]["type"] += str(counter)
+                tlist[idx] += str(counter)
+                self.character["inventory"]["transport"][self.transports[idx]["index"]]["type"] += str(counter)
+            counter += 1
+
+        self.character["idxcontainer"] = self.containers.copy()
+        self.character["idxtransport"] = self.transports.copy()
+        self.contnamelist.sort()
+        self.transpnamelist.sort()
+
+
     def __sortInventory(self):
         '''
         This function sorts the inventory items of a given shoptype alphabethically.
@@ -1671,6 +1778,7 @@ class shopWin(blankWindow):
             self.character["purse"] = 0
         self.inv_char = self.character['inventory'].copy()
         self.fillInventory()
+        self.idxContainerTransport()
 
 
     def __save(self):
@@ -3100,6 +3208,59 @@ class enchantItem(blankWindow):
             self.wcont[coin].set(self.character["purse"][coin])
 
 
+    def idxContainerTransport(self):
+        """
+        This makes an index for container and transport type items.
+        """
+        self.containers = []
+        clist = []
+        self.contnamelist = []
+        self.transports = []
+        tlist = []
+        self.transpnamelist = []
+        # make indices ---------------------
+        for item in self.character["inventory"]["gear"]:
+            if "container" in item["type"]:
+                clist.append(item["type"])
+                self.contnamelist.append(item["name"])
+                self.containers.append({"name":item["name"],
+                                        "type": item["type"],
+                                        "index": self.character["inventory"]["gear"].index(item)
+                                        })
+        for item in self.character["inventory"]["transport"]:
+            if "transport" in item["type"]:
+                tlist.append(item["type"])
+                self.transpnamelist.append(item["name"])
+                self.transports.append({"name": item["name"],
+                                        "type": item["type"],
+                                        "index": self.character["inventory"]["transport"].index(item)
+                                        })
+        counter = 1
+        while "container" in clist:
+            idx = clist.index("container")
+
+            if "container{}".format(counter) not  in clist:
+                self.containers[idx]["type"] += str(counter)
+                clist[idx] += str(counter)
+                self.character["inventory"]["gear"][self.containers[idx]["index"]]["type"] += str(counter)
+            counter += 1
+
+        counter = 1
+        while "transport" in tlist:
+            idx = tlist.index("transport")
+
+            if "transport{}".format(counter) not in tlist:
+                self.transports[idx]["type"] += str(counter)
+                tlist[idx] += str(counter)
+                self.character["inventory"]["transport"][self.transports[idx]["index"]]["type"] += str(counter)
+            counter += 1
+
+        self.character["idxcontainer"] = self.containers.copy()
+        self.character["idxtransport"] = self.transports.copy()
+        self.contnamelist.sort()
+        self.transpnamelist.sort()
+
+
     def __open(self):
         """
         this method opens a character file
@@ -3132,6 +3293,7 @@ class enchantItem(blankWindow):
                                            'services':[]
                                            }
         self.inv_char = self.character["inventory"].copy()
+        self.idxContainerTransport()
 
 
     def __save(self):
@@ -4471,6 +4633,7 @@ class editinventory(blankWindow):
                                            }
         self.inv_char = self.character["inventory"].copy()
         self.__setMoney()
+        self.idxContainerTransport()
 
 
     def __save(self):

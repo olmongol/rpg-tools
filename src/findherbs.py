@@ -528,15 +528,14 @@ class searchHerbsWin(blankWindow):
                     count += 1
 
                 else:
-                    print("{}x {}  - {}: {} - {}\n\t{}\n".format(count,
-                                                                 self.foundherbs[i]["name"],
-                                                                 self.foundherbs[i]["type"],
-                                                                 self.foundherbs[i]["form"],
-                                                                 self.foundherbs[i]["prep"],
-                                                                 self.foundherbs[i]["medical use"] + " " + self.foundherbs[i]["description"]
-                                                                 )
-
-                          )
+#                    print("{}x {}  - {}: {} - {}\n\t{}\n".format(count,
+#                                                                 self.foundherbs[i]["name"],
+#                                                                 self.foundherbs[i]["type"],
+#                                                                 self.foundherbs[i]["form"],
+#                                                                 self.foundherbs[i]["prep"],
+#                                                                 self.foundherbs[i]["medical use"] + " " + self.foundherbs[i]["description"]
+#                                                                 )
+#                          )
                     found += "\n{}\n{}x {}  - {}: {} - {}\n\t{}\n".format(80 * "=",
                                                                           count,
                                                                           self.foundherbs[i]["name"],
