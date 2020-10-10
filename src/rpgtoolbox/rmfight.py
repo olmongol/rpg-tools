@@ -51,7 +51,22 @@ def readOpponentTable(filename = "monsters.csv"):
 
 
 def createCombatants():
+    '''
+    @todo hast to be fully implemented
+    '''
     pass
+
+
+
+class attackTable(object):
+    '''
+    This class creates objects of attack tables which deliver attack results.
+    @todo has to be fully implemented.
+    '''
+
+
+    def __init__(self, datapath = "./data/default/fight/", filename = "Battle_Axe.csv"):
+        pass
 
 
 
