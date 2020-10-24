@@ -35,7 +35,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "21.09.2020"
+__updated__ = "24.10.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.5"
@@ -432,30 +432,30 @@ class InventoryWin(blankWindow):
         """
         This method calculates the carried weight of a character
         """
-        shoptypes = ["weapon", "gear", "gems", "services"]
+        shoptypes = ["weapon", "gear", "gems", "services", "herbs"]
+
         unequipped = ["", "unequipped", "transport"]
         carried = 0.0
-        unequcont = []
-        for elem in self.character["inventory"]["gear"]:
-            if "container" in elem["type"] and ("transport" in elem["location"] or elem["location"] in unequipped):
-                unequcont.append(elem["type"])
+        #transports are no weight
+        for elem in self.character["idxtransport"]:
+            if elem["name"] not in unequipped:
+                unequipped.append(elem["name"])
+
+        # containers on transports are no weight
+        for elem in self.character["idxcontainer"]:
+            if self.character["inventory"]["gear"][elem["index"]]["location"] in unequipped:
+                if elem["name"] not in unequipped:
+                    unequipped.append(elem["name"])
 
         for cat in shoptypes:
 
-            for i in range(0, len(self.character["inventory"][cat])):
-
-                if "location" in self.character["inventory"][cat][i].keys():
-
-                    if self.character["inventory"][cat][i]["location"] not in unequipped \
-                    and "transport" not in self.character["inventory"][cat][i]["location"] \
-                    and self.character["inventory"][cat][i]["location"] not in unequcont:
-
-                        if "weight" in self.character["inventory"][cat][i].keys():
-                            if not(cat == "armor" and self.character['inventory'][cat][i]["location"] in ["equipped", "unequipped"]) \
-                            and not (cat == "gear" and self.character["inventory"][cat][i]["type"] == "clothes" and self.character["inventory"][cat][i]["location"] in ["equipped", "unequipped"]):
-                                carried += float(self.character["inventory"][cat][i]["weight"])
-                        else:
-                            self.character["inventory"][cat][i]["weight"] = 0.0
+            for elem in self.character["inventory"][cat]:
+                if elem["location"] not in unequipped:
+                    if cat == "gear":
+                        if elem["type"] == "clothes" and elem["location"] != "equipped":
+                            carried += elem["weight"]
+                    else:
+                        carried += elem["weight"]
 
         carried = round(carried, 2)
         self.character["carried"] = carried
@@ -1612,40 +1612,30 @@ class shopWin(blankWindow):
         """
         This method calculates the carried weight of a character
         """
-        shoptypes = ["weapon", "gear", "gems", "services"]
+        shoptypes = ["weapon", "gear", "gems", "services", "herbs"]
+
         unequipped = ["", "unequipped", "transport"]
         carried = 0.0
-        unequcont = []
-        if "inventory" not in self.character.keys():
-            self.character["inventory"] = {"armor":[],
-                                         "gear" :[],
-                                         "gems" :[],
-                                         "herbs":[],
-                                         "weapon":[],
-                                         "transport":[],
-                                         "services":[]
-                                         }
+        #transports are no weight
+        for elem in self.character["idxtransport"]:
+            if elem["name"] not in unequipped:
+                unequipped.append(elem["name"])
 
-        for elem in self.character["inventory"]["gear"]:
-            if "container" in elem["type"] and ("transport" in elem["location"] or elem["location"] in unequipped):
-                unequcont.append(elem["type"])
+        # containers on transports are no weight
+        for elem in self.character["idxcontainer"]:
+            if self.character["inventory"]["gear"][elem["index"]]["location"] in unequipped:
+                if elem["name"] not in unequipped:
+                    unequipped.append(elem["name"])
 
         for cat in shoptypes:
 
-            for i in range(0, len(self.character["inventory"][cat])):
-
-                if "location" in self.character["inventory"][cat][i].keys():
-
-                    if self.character["inventory"][cat][i]["location"] not in unequipped \
-                    and "transport" not in self.character["inventory"][cat][i]["location"] \
-                    and self.character["inventory"][cat][i]["location"] not in unequcont:
-
-                        if "weight" in self.character["inventory"][cat][i].keys():
-                            if not(cat == "armor" and self.character['inventory'][cat][i]["location"] in ["equipped", "unequipped"]) \
-                            and not (cat == "gear" and self.character["inventory"][cat][i]["type"] == "clothes" and self.character["inventory"][cat][i]["location"] in ["equipped", "unequipped"]):
-                                carried += float(self.character["inventory"][cat][i]["weight"])
-                        else:
-                            self.character["inventory"][cat][i]["weight"] = 0.0
+            for elem in self.character["inventory"][cat]:
+                if elem["location"] not in unequipped:
+                    if cat == "gear":
+                        if elem["type"] == "clothes" and elem["location"] != "equipped":
+                            carried += elem["weight"]
+                    else:
+                        carried += elem["weight"]
 
         carried = round(carried, 2)
         self.character["carried"] = carried
@@ -1655,8 +1645,6 @@ class shopWin(blankWindow):
             self.wcont["carr_weight"] = DoubleVar()
 
         self.wcont["carr_weight"].set(carried)
-#        else:
-#            pass
 
 
     def idxContainerTransport(self):
@@ -4569,30 +4557,30 @@ class editinventory(blankWindow):
         """
         This method calculates the carried weight of a character
         """
-        shoptypes = ["weapon", "gear", "gems", "services"]
+        shoptypes = ["weapon", "gear", "gems", "services", "herbs"]
+
         unequipped = ["", "unequipped", "transport"]
         carried = 0.0
-        unequcont = []
-        for elem in self.character["inventory"]["gear"]:
-            if "container" in elem["type"] and ("transport" in elem["location"] or elem["location"] in unequipped):
-                unequcont.append(elem["type"])
+        #transports are no weight
+        for elem in self.character["idxtransport"]:
+            if elem["name"] not in unequipped:
+                unequipped.append(elem["name"])
+
+        # containers on transports are no weight
+        for elem in self.character["idxcontainer"]:
+            if self.character["inventory"]["gear"][elem["index"]]["location"] in unequipped:
+                if elem["name"] not in unequipped:
+                    unequipped.append(elem["name"])
 
         for cat in shoptypes:
 
-            for i in range(0, len(self.character["inventory"][cat])):
-
-                if "location" in self.character["inventory"][cat][i].keys():
-
-                    if self.character["inventory"][cat][i]["location"] not in unequipped \
-                    and "transport" not in self.character["inventory"][cat][i]["location"] \
-                    and self.character["inventory"][cat][i]["location"] not in unequcont:
-
-                        if "weight" in self.character["inventory"][cat][i].keys():
-                            if not(cat == "armor" and self.character['inventory'][cat][i]["location"] in ["equipped", "unequipped"]) \
-                            and not (cat == "gear" and self.character["inventory"][cat][i]["type"] == "clothes" and self.character["inventory"][cat][i]["location"] in ["equipped", "unequipped"]):
-                                carried += float(self.character["inventory"][cat][i]["weight"])
-                        else:
-                            self.character["inventory"][cat][i]["weight"] = 0.0
+            for elem in self.character["inventory"][cat]:
+                if elem["location"] not in unequipped:
+                    if cat == "gear":
+                        if elem["type"] == "clothes" and elem["location"] != "equipped":
+                            carried += elem["weight"]
+                    else:
+                        carried += elem["weight"]
 
         carried = round(carried, 2)
         self.character["carried"] = carried
