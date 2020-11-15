@@ -14,7 +14,7 @@ This module contains some helpful functions for role-playing games like:
 \email marcus@lederzeug.de
 \version 1.0
 '''
-__updated__ = "28.06.2020"
+__updated__ = "12.11.2020"
 
 import random
 from rpgtoolbox.globaltools import readCSV
@@ -222,8 +222,7 @@ def statGain(dicelow = 1, dicehigh = 1, temp = 50, pot = 75):
 
 class equipmentPenalities(object):
     """
-    This class calculates MMP and armor penalties
-    @todo has to be fully implemented
+    This class calculates MMP and armor penalties.
     """
 
 

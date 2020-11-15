@@ -35,7 +35,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "24.10.2020"
+__updated__ = "12.11.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.5"
@@ -415,8 +415,7 @@ class InventoryWin(blankWindow):
     def calcMMP(self):
         """
         This method calculates the Movement Maneuver Penalty (MMP)
-        ----
-        @todo has to be fully implemented
+
         """
         mmp = 0
         # calc MMP ---------------------
@@ -437,15 +436,17 @@ class InventoryWin(blankWindow):
         unequipped = ["", "unequipped", "transport"]
         carried = 0.0
         #transports are no weight
-        for elem in self.character["idxtransport"]:
-            if elem["name"] not in unequipped:
-                unequipped.append(elem["name"])
-
-        # containers on transports are no weight
-        for elem in self.character["idxcontainer"]:
-            if self.character["inventory"]["gear"][elem["index"]]["location"] in unequipped:
+        if "idxtransport" in self.character.keys():
+            for elem in self.character["idxtransport"]:
                 if elem["name"] not in unequipped:
                     unequipped.append(elem["name"])
+
+        # containers on transports are no weight
+        if "idxcontainer" in self.character.keys():
+            for elem in self.character["idxcontainer"]:
+                if self.character["inventory"]["gear"][elem["index"]]["location"] in unequipped:
+                    if elem["name"] not in unequipped:
+                        unequipped.append(elem["name"])
 
         for cat in shoptypes:
 
@@ -1617,11 +1618,17 @@ class shopWin(blankWindow):
         unequipped = ["", "unequipped", "transport"]
         carried = 0.0
         #transports are no weight
+        if "idxtransport" not in self.character.keys():
+            self.character["idxtransport"] = []
+
         for elem in self.character["idxtransport"]:
             if elem["name"] not in unequipped:
                 unequipped.append(elem["name"])
 
         # containers on transports are no weight
+        if "idxcontainer" not in self.character.keys():
+            self.character["idxcontainer"] = []
+
         for elem in self.character["idxcontainer"]:
             if self.character["inventory"]["gear"][elem["index"]]["location"] in unequipped:
                 if elem["name"] not in unequipped:
@@ -4522,7 +4529,8 @@ class editinventory(blankWindow):
             self.wcont["MMP"].set(0)
 
         elif "MMP" not in self.character.keys():
-            self.character["MMP"] = calcMMP(self.character)
+            #self.character["MMP"] = calcMMP(self.character)
+            self.calcMMP()
             self.wcont["MMP"].set(self.character["MMP"])
 
         for coin in ["MP", "PP", "GP", "SP", "BP", "CP", "TP", "IP"]:

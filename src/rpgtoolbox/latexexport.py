@@ -12,7 +12,7 @@ will be generated for printouts
 \version 1.1
 '''
 
-__updated__ = "23.08.2020"
+__updated__ = "12.11.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -601,15 +601,17 @@ class inventory(object):
             if cat != "transport":
 
                 for i in range(0, len(self.character["inventory"][cat])):
-                    for elem in self.character["idxcontainer"]:
+                    if "idxcontainer" in self.character.keys():
+                        for elem in self.character["idxcontainer"]:
 
-                        if elem ["type"] == self.character["inventory"][cat][i]["location"]:
-                            self.character["inventory"][cat][i]["location"] = elem["name"]
+                            if elem ["type"] == self.character["inventory"][cat][i]["location"]:
+                                self.character["inventory"][cat][i]["location"] = elem["name"]
 
-                    for trans in self.character["idxtransport"]:
+                    if "idxtransport" in self.character.keys():
+                        for trans in self.character["idxtransport"]:
 
-                        if trans["type"] == self.character["inventory"][cat][i]["location"]:
-                            self.character["inventory"][cat][i]["location"] = trans["name"]
+                            if trans["type"] == self.character["inventory"][cat][i]["location"]:
+                                self.character["inventory"][cat][i]["location"] = trans["name"]
 
         if self.storepath[-1] != "/" and self.storepath[-1] != "\\":
             self.storepath += "/"

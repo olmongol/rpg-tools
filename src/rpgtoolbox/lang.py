@@ -25,7 +25,7 @@ Currently supported languages are:
 \todo clean up the code!!!
 '''
 __version__ = "1.1"
-__updated__ = "06.09.2020"
+__updated__ = "08.11.2020"
 ## \var supportedrpg
 # Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
@@ -283,6 +283,8 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                           'export' : 'Exportieren',
                           'new_char': 'Neuer Charakter',
                           'new_grp' : 'Neue Charaktergruppe',
+                          'open_char': 'Charakterdatei öffnen',
+                          'open_party': 'Charaktergruppe öffnen',
                           'print': 'Drucken',
                           'pdf' : "PDF erstellen",
                           },
@@ -296,6 +298,8 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                           'export' : 'Export',
                           'new_char' : "New character",
                           'new_grp' : "New character party",
+                          'open_file' : 'Open Character file',
+                          'open_party' : 'Open Chargroup file',
                           'print': 'Print',
                           'pdf' : "PDF generation"
                           },
@@ -516,6 +520,8 @@ wintitle = {'opt_lang' : {'de' : 'Spracheinstellungen',
             'rm_maneuver': {"de" : "Manöverproben",
                             'en' : 'Maneuver Window'
                             },
+            'rm_RR' : {'de' : 'Widerstandswurftester',
+                       'en' : 'Resistance Roll Checker'},
             }
 
 ## \var labels
@@ -705,6 +711,15 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
           "climate" : {"de" : "Klima",
                        "en" : "Climate"
                        },
+          "attacker" : {"de" : "Angreifer",
+                        "en" : "Attacker"
+                        },
+          "defender" : {"de" : "Verteidiger",
+                        "en" : "Defender"
+                        },
+          "target" : {"de": "Ziel",
+                      "en" : "Target"
+                      },
 
           }
 
