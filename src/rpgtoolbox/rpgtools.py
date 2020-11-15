@@ -14,7 +14,7 @@ This module contains some helpful functions for role-playing games like:
 \email marcus@lederzeug.de
 \version 1.0
 '''
-__updated__ = "28.06.2020"
+__updated__ = "15.11.2020"
 
 import random
 from rpgtoolbox.globaltools import readCSV
@@ -48,7 +48,7 @@ def getLvl(ep = 10000):
     \return level of character as integer ValueError
     '''
     if ep <= 50000:
-        lvl = ep / 10000
+        lvl = int(ep / 10000)
     elif ep > 50000 and ep <= 150000:
         lvl = round((ep - 50000) / 20000) + 5
     elif ep > 150000 and ep <= 300000:
@@ -222,8 +222,7 @@ def statGain(dicelow = 1, dicehigh = 1, temp = 50, pot = 75):
 
 class equipmentPenalities(object):
     """
-    This class calculates MMP and armor penalties
-    @todo has to be fully implemented
+    This class calculates MMP and armor penalties.
     """
 
 

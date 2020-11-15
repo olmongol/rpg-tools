@@ -396,7 +396,7 @@ class searchHerbsWin(blankWindow):
         searchmod = self.__mod.get()
         searchroll = self.__roll.get()
         self.searchregion = [self.__region.get()]
-        self.findHerbs(roll = searchroll, skill = searchskill, area = self.searchregion, \
+        self.findHerbs(roll = searchroll, skill = searchskill + searchmod, area = self.searchregion, \
                        climate = self.searchclimate, locale = self.searchlocale)
         self.printFindings()
 
@@ -412,6 +412,8 @@ class searchHerbsWin(blankWindow):
         @param locale local environment conditions like 'desert'
         @retval result list of dictionaries holding the found herbs
         """
+
+        print("debug: skill {}".format(skill))
         if "everywhere" not in area:
             area.append("everywhere")
 
@@ -422,26 +424,8 @@ class searchHerbsWin(blankWindow):
             locale = []
 
         self.foundherbs = []
-#        protoherb = {"name":"",
-#                    "AF" : 0,
-#                    "climate":"",
-#                    "description":"",
-#                    "worth":{},
-#                    "difficulty":"",
-#                    "medical use":"",
-#                    "form":"",
-#                    "locale":"",
-#                    "lvl":0,
-#                    "type":"",
-#                    "area":"",
-#                    "weight":0.1,
-#                    "other use":"",
-#                    "location": "equipped",
-#                    "other name":[],
-#                    "found":[]
-#                }
-
         statman = statMan()
+
         for plant in self.herbs:
 
             if climate != [] and locale != []:
@@ -528,14 +512,6 @@ class searchHerbsWin(blankWindow):
                     count += 1
 
                 else:
-#                    print("{}x {}  - {}: {} - {}\n\t{}\n".format(count,
-#                                                                 self.foundherbs[i]["name"],
-#                                                                 self.foundherbs[i]["type"],
-#                                                                 self.foundherbs[i]["form"],
-#                                                                 self.foundherbs[i]["prep"],
-#                                                                 self.foundherbs[i]["medical use"] + " " + self.foundherbs[i]["description"]
-#                                                                 )
-#                          )
                     found += "\n{}\n{}x {}  - {}: {} - {}\n\t{}\n".format(80 * "=",
                                                                           count,
                                                                           self.foundherbs[i]["name"],

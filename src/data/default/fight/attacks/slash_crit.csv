@@ -1,0 +1,96 @@
+crit,roll,description,hits,hits/rnd,mod,mod_attacker,stunned,die,ooo,no_parry,parry,cover,alternate,damage_type
+A,5,Weak strike.,0,0,0,0,0,-1,0,0,0,,,
+A,10,"Good form, but it disappoints.",1,0,0,0,0,-1,0,0,0,,,
+A,15,Blade misses foe's face by inches. You receive initiative next round.,1,0,0,0,0,-1,0,0,0,,,
+A,20,Strike passes under foe's arm. It fails to bite deep. He recoils.,1,0,0,0,0,-1,0,0,1,,,
+A,35,Foe's evasion puts him out of an aggressive posture.,2,0,0,10,0,-1,0,0,1,,,
+A,45,Minor thigh wound. Cut foe with the smallest of slashes.,0,1,0,0,0,-1,0,0,0,,,muscles
+A,50,Blow to foe's back. Foe attempts to ward you off with a wild swing.,2,0,-30,0,0,-1,0,0,1,,,muscles
+A,55,Blow to foe's chest. Foe stumbles back and puts up a feeble guard.,2,1,-25,0,0,-1,0,0,1,,,muscles
+A,60,You recover from your initial swing and bring edge across foe's thigh.,3,2,0,0,0,-1,0,0,1,,,muscles
+A,65,You feign high and strike low. Slash foe in back of upper leg.,3,2,-10,0,0,-1,0,0,0,,,muscles
+A,66,Foe blocks your attack with his shield arm. Shoulder is broken and arm is useless. You have initiative.,9,0,0,10,3,-1,0,0,0,,,bones
+A,70,Strike lands close against foe's neck. Foe is horrified.,6,0,0,0,3,-1,0,1,0,,,
+A,75,Blow falls on lower leg. Slash tendons. Poor sucker.,4,2,-30,0,2,-1,0,1,0,,,tendons
+A,80,"Foe goes low, but you still catch his upper arm. It's a bleeder.",5,3,-25,0,2,-1,0,2,0,,,muscles
+A,85,Foe steps right into your swing. You make a large wound.,6,6,0,20,5,-1,0,0,0,,,muscles
+A,90,Foe turns out and away from your swing. You still catch his side.,8,2,-10,0,2,-1,0,2,0,,,muscles
+A,95,"Blow to foe's head. If no helmet, cut off foe's ear (all hearing ability is halved).",3,0,0,0,2,-1,0,2,0,head,hits:3;hits/rnd:3;stunned:3;no_parry:1,cartilage
+A,99,The tip of your weapon slashes foe's nose. Minor wound and a permanent scar.,2,2,-30,0,6,-1,0,0,0,,,cartilage
+A,100,"Strike severs carotid artery and jugular vein, breaking foe's neck. Foe dies in 6 rounds of agony.",0,0,0,0,0,6,0,0,0,,,bones/veins
+B,5,Feeble strike falls clear of target.,0,0,0,0,0,-1,0,0,0,,,
+B,10,Hard strike with no edge. Foe steps clear before you sort it out.,2,0,0,0,0,-1,0,0,0,,,
+B,15,Foe steps quickly out of your reach. You receive initiative next round,3,0,0,0,0,-1,0,0,0,,,
+B,20,Blow to foe's side. Foe defends energetically.,2,0,-10,0,0,-1,0,0,1,,,muscles
+B,35,Foe is shaken by your blow to his side. His defensive measures look clumsy,2,0,-20,0,0,-1,0,0,1,,,muscles
+B,45,"Strike foe in shin. If he doesn't have greaves, you slash open foe's shin.",2,0,0,0,0,-1,0,0,1,leg,hits:2;hits/rnd:1,muscles
+B,50,Foe twists oddly to avoid your attack. Blow strikes foe's back.,4,0,-30,0,0,-1,0,1,0,,,muscles
+B,55,"Quality strike. Minor chest wound. If foe has armor, he only staggers. If not, the wound is effective.",4,0,0,0,0,-1,0,0,1,chest,hits;3;hits/rnd:1;mod:-5;parry:2,muscles
+B,60,Edge makes contact well enough. Minor thigh wound.,4,2,0,0,0,-1,0,0,2,,,muscles
+B,65,Nick foe in his forearm. Wound bleeds surprisingly strongly.,4,2,-10,0,1,-1,0,0,0,,,muscles
+B,66,Your strike misses torso and breaks foe's elbow. Foe drops his weapon and his weapon arm is useless.,8,0,0,0,4,-1,0,2,0,,,bones/muscles
+B,70,Your attempt to behead foe almost works. Neck strike. Foe is not happy,7,3,-5,0,2,-1,0,0,0,,,muscles
+B,75,Slash muscle in foe's calf. Foe is in too much pain to regain footing quickly.,6,0,-40,0,3,-1,0,1,0,,,muscles
+B,80,Foe moves his shield arm too slowly. You gladly slash his arm.,6,3,-30,0,2,-1,0,2,0,,,muscles
+B,85,Your edge bites half its width into foe. Open up a terrible wound. Blood goes everywhere.,7,6,0,0,2,-1,0,2,0,,,muscles
+B,90,Stike to to back. Strike back. Foe Foe goes goes prone trying to to avoid your strike. He gets up facing the wrong direction.,10,3,0,0,3,-1,0,3,0,,,muscles
+B,95,"Strike to foe's hip. The blow has little edge, but much impact. Your blow staggers foe. His recovery is slow.",7,0,-20,10,3,-1,0,1,0,,,bones/muscles
+B,99,Strike to foe's head breaks skull and causes massive brain damage. Foe drops and dies in 6 rounds.,20,0,0,0,0,6,0,0,0,,,bones/nerves
+B,100,"Disembowel foe, killing him instantly. 25% chance your weapon is stuck in opponent for 1 round.",0,0,0,0,0,0,0,0,0,,,
+C,5,Firm shot. Good recovery. Try again.,1,0,0,0,0,-1,0,0,0,,,
+C,10,Strike foe with more force than edge,3,0,0,0,0,-1,0,0,0,,,
+C,15,Blow to foe's side yields the initiative to you next round.,6,0,0,0,0,-1,0,0,0,,,
+C,20,Your assault catches foe in side and forces him back 5 feet.,4,0,-20,0,0,-1,0,0,1,,,muscles
+C,35,You break foe's rib with a lightning strike to his chest. He recovers quickly. His shield side still faces you.,3,0,0,0,1,-1,0,0,0,,,bones
+C,45,The blow does nothing more than open a wide cut in foe.,2,2,0,0,0,-1,0,0,0,,,muscles
+C,50,Blow to foe's back. Foe twists out of it and you turn your weapon to magnify the wound. Foe yells out.,3,1,0,0,1,-1,0,1,0,,,muscles
+C,55,"Blow lands solidly upon foe's chest. You get some slashing action, but not a mortal wound.",4,2,-10,0,0,-1,0,0,1,,,muscles
+C,60,Strike to side slips down onto foe's thigh. The wound is effective.,5,2,0,0,1,-1,0,0,0,,,muscles
+C,65,Catch part of foe's forearm. You make long slice in foe's arm.,4,3,-10,0,1,-1,0,0,0,,,muscles
+C,66,Your swing falls short when foe leaps back. You shatter foe's knee. Foe is knocked down.,6,0,-90,0,0,-1,0,0,3,,,bones/tendons
+C,70,Slash foe's neck. Your weapon cuts neck garments (and armor) free.,8,10,0,0,4,-1,0,2,0,,,muscles
+C,75,Slash muscle and tendons in foe's lower leg. Foe stumbles forward into you with his guard down.,7,0,-45,0,2,-1,0,2,0,,,muscles/tendons
+C,80,You come in high and fast. Slash muscle and tendons in foe's shield arm. Foe's arm is useless.,9,4,0,0,6,-1,0,0,0,,,muscles/tendons
+C,85,You follow your training well. You extend on your slashing arc. Strike lands against foe's side.,8,4,-20,0,2,-1,0,2,0,,,muscles
+C,90,Blast to back breaks bone. Foe stumbles forward before falling down. He is having trouble standing.,9,0,-10,0,4,-1,0,4,0,,,bones
+C,95,Chop the top of foe's thigh. Sever foe's eg. Foe drops immediately and dies in 6 rounds due to shock and blood loss.,20,0,0,0,0,6,0,0,0,,,bones/muscles/tendons/organs
+C,99,You cleave shield and arm in half Foe attempts to catch his falling arm. Foe is in shock for 12 rounds then dies.,18,0,0,0,12,12,0,12,0,,,bones/muscles
+C,100,"Strike up, in, and across foe's forehead. Destroy foe's eyes. Foe flips onto his back in pain.",5,0,0,0,30,-1,0,30,0,,,organs
+D,5,Strike lands poorly.,2,0,0,0,0,-1,0,0,0,,,
+D,10,An opening appears and all you can to is smack foe lightly.,4,0,0,0,0,-1,0,0,0,,,
+D,15,You force your opponent back. He keeps you at bay with wild swings.,3,0,0,0,0,-1,0,0,1,,,
+D,20,You lean in and slash foe's side. You receive initiative next round.,2,0,-10,0,0,-1,0,0,0,,,muscles
+D,35,Arm and chest strike. Foe cannot defend himself for a moment. You step around his shielded side.,3,0,0,0,1,-1,0,1,0,,,
+D,45,Foe blocks your attack on his chest. You slash foe's upper area.,3,2,0,0,0,-1,0,0,0,,,muscles
+D,50,"Reach long and catch foe in his lower back. He twists out of it, but is unbalanced.",3,2,0,0,1,-1,0,1,0,,,muscles
+D,55,"Heavy blow to upper torso. Wound falls open and foe is in pain. His guard is still up, amazingly enough.",5,3,-15,0,0,-1,0,0,1,,,muscles
+D,60,Tip of your blade gets a hit on foe's thigh. You twist your weapon.,6,2,0,0,2,-1,0,0,0,,,muscles
+D,65,You are lucky to strike foe's forearm while recovering from a lunge.,4,3,-10,0,2,-1,0,0,0,,,muscles
+D,66,You knock foe out for 6 hours with a strike to side of head. If foe has no helm you kill him instantly.,15,0,0,0,0,-1,1080,0,0,head,die:0,
+D,70,You strike foe's shoulder and slash muscles.,5,0,-20,10,3,-1,0,0,0,,,muscles
+D,75,Slash muscle and sever tendons in foe's ower leg. He can't stand much longer. His guard is feeble.,0,0,-50,0,3,-1,0,2,0,,,muscles/tendons
+D,80,Foe mistakenly brings his weapon arm across your blade. Sever tendons. Foe's arm is limp and useless.,10,0,0,0,4,-1,0,2,0,,,muscles/tendons
+D,85,You plunge your weapon into foe's stomach. Major abdomenal wound. Foe is instantly pale from blood loss.,10,8,-10,0,4,-1,0,2,0,,,organs
+D,90,Your attempt to disarm foe is even more effective. Sever opponent's hand. Foe is in shock for 6 rounds and then dies.,6,0,0,0,6,6,0,6,0,,,bones/muscles/tendons
+D,95,"Sever foe's weapon arm and bury your sword into foe's side. Foe falls prone. Foe is in shock for 12 rounds, then dies.",15,0,0,0,9,12,0,9,0,,,bones/muscles/organs
+D,99,Slash foe's side. Foe dies in 3 rounds due to internal organ damage. Foe is down and unconscious immediately.,20,0,0,0,0,3,3,0,0,,,organs
+D,100,Impale foe in heart. Foe dies instantly. Heart is destroyed. 25% chance your weapon is stuck in for 2 rounds.,12,0,0,0,0,0,0,0,0,,,
+E,5,Your attack is weak.,3,0,0,0,0,-1,0,0,0,,,
+E,10,Unbalance foe. You receive initiative next round.,5,0,0,0,0,-1,0,0,0,,,
+E,15,You push aside foe's weapon and force him back.,4,0,0,0,0,-1,0,0,1,,,
+E,20,Strong blow to foe's ribs. Foe drops his guard and almost his weapon.,0,0,0,10,1,-1,0,1,0,,,
+E,35,"Foe avoids your main effort, but you nick him on your recovery. Foe receives minor side wound and stumbles back 10 feet.",3,1,-10,0,0,-1,0,0,0,,,muscles
+E,45,Blow to foe's upper leg. Leg armor helps block the blow.,5,0,0,0,0,-1,0,0,0,leg,Hits:3;hits/rnd:3,muscles
+E,50,Strike to foe's stomach. He doubles over in pain and you pull your sword clean with one more sweep,4,3,0,0,1,-1,0,1,0,,,organs
+E,55,Cut foe open with little grace. You are unsure of your success until you see all the blood coming out of his chest.,6,4,-10,0,2,-1,0,0,0,,,muscles
+E,60,Thigh wound. Your blow cuts deep and severs an important vein.,8,5,0,0,2,-1,0,0,0,,,veins
+E,65,Foe tries to disarm you and pays with a nasty cut to his forearm.,6,3,-15,0,2,-1,0,0,0,,,muscles
+E,66,Block foe's weapon arm away and then sever it. Foe drops immediately and expires in 12 rounds. Good shot!,12,0,0,10,0,12,0,0,0,,,bones/muscles
+E,70,Slash tendons and crush the bones in foe's shield arm shoulder. Arm is useless.,0,2,0,0,4,-1,0,0,0,,,bones/tendons
+E,75,Slash foe's lower leg and sever muscle and tendons. Foe will fall without something to lean against.,8,0,-70,0,6,-1,0,0,0,,,muscles/tendons
+E,80,Foe reaches out to block your blow. You sever two fingers and break his shield arm making it useless.,12,0,0,0,3,-1,0,3,0,,,bones/tendons
+E,85,"Sever opponent's hand. Sad. Foe is down and in shock for 12 rounds, then dies.",5,0,0,0,12,12,0,12,0,,,bones
+E,90,Meat chopping strike severs foe's leg. Foe drops and lapses in unconsciousness. Foe dies in 9 rounds.,15,0,0,10,0,9,9,0,0,,,bones/muscles/tendons
+E,95,"Sever foe's spine. Foe collapses, paralyzed from the neck down permanently.",20,0,0,0,0,-1,1000000000000,0,0,,,bones/nerves
+E,99,Strike to foe's head destroys brain and makes life difficult for the poor fool. Foe expires in a heap – immediately.,0,0,0,0,0,0,0,0,0,,,nerves
+E,100,Very close! Strike to foe's groin area. All vital organs are destroyed immediately. Foe dies after 24 rounds of agony.,10,0,0,0,24,24,0,24,0,,,organs
