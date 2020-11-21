@@ -1,22 +1,22 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
 1,Run *,caster,10 min/lvl,self,U,"Allows caster to move at two time normal walking pace (i.e. Run pace). He only expends exhaustion points as if he were walking. Once he stops or performs some other action, the spell is canceled."
 2,Longjump *,caster,---,self,U,"The caster may jump (from any pace) up to 10' plus 5' per level of the caster horizontally, or 5' plus 2' per level of the caster vertically. This spell will allow the caster to always land safely from jumps of this distance or less."
-3,Landing *,caster,---,self,U,Allows the caster to land safely in a fall up to 20' per level of the caster; and the caster can take that distance off the severity of any longer fall.
+3,Landing *,caster,---,self,U,Allows the caster to land safely in a fall up to 20' per level of the caster  and the caster can take that distance off the severity of any longer fall.
 4,Shadow Steps,caster,1 min/lvl,self,U,"Allows the caster to cloak all of his move- ments in complete silence, so long as he moves no faster than a walking pace."
 5,Underwater Movement,caster,10 min/lvl,self,U,The caster may move underwater as if he were on land.
 6,Balance I *,caster,1 rnd/lvl,self,U,"With this spell, the caster gets a +50 bonus to any movement manuevers performed at a walking pace."
-7,Spider’s Step,caster,1 min/lvl,self,U,"The caster can move (at half walking pace) along any solid surface angled up to 90 ̊; so long as he keeps at least a 3-point contact with the surface (e.g., both feet and one hand)."
-8,,caster,---,self,U,
-9,,caster,C,self,U,
-10,,caster,1 min/lvl,self,U,
-11,,caster,1 min/lvl,self,U,
-12,,caster,1 min/lvl,self,U,
-13,,caster,1 rnd/lvl,self,U,
-14,,caster,---,self,U,
-15,,caster,1 min/lvl,self,U,
-16,,caster,1 min/lvl,self,U,
-18,,caster,1 rnd/lvl,self,U,
-20,,caster,1 min/lvl,self,U,
-25,,caster,1 min/lvl,self,U,
-30,,caster,1 rnd/lvl,self,U,
-50,,caster,1 min/lvl,self,U,
+7,Spider's Step,caster,1 min/lvl,self,U,"The caster can move (at half walking pace) along any solid surface angled up to 90 degree; so long as he keeps at least a 3-point contact with the surface (e.g., both feet and one hand)."
+8,Long Dive *,caster,---,self,U,Caster can safely dive through the air up to 50' per level if water deep enough is present (at least 2' of water per 50' dived).
+9,Traceless Passing,caster,C,self,U,Caster can move at a walking pace without leaving tracks or other visible signs of his passing.
+10,Spider's Step True,caster,1 min/lvl,self,U,"As Spider's Step, except caster can move along any surface (including ceilings)."
+11,Float *,caster,1 min/lvl,self,U,"This spell allows the caster to float upon the air. While floating, the caster is at the mercy of the pervailing winds and cannot control any aspect of his flight without access to some other motive force (i.e., pulling along a rope or wall, being towed, etc.)."
+12,Spider's Walk,caster,1 min/lvl,self,U,"As Spider's Step, except caster may move at a normal walking pace and he needs only to maintain a 2-point contact with the wall."
+13,Balance II *,caster,1 rnd/lvl,self,U,"As Balance I, except caster may move at two times normal walking pace (i.e., Run pace)."
+14,Shadow Landing *,caster,---,self,U,Caster will safely fall from any distance 99% of the time and will land without making a sound.
+15,Spider's Run,caster,1 min/lvl,self,U,"As Spider's Walk, except caster can move at two times normal walking pace (i.e., Run pace)."
+16,Glide I,caster,1 min/lvl,self,U,"Caster can glide like a bird. The product of caster's altitude and horizontal speed cannot exceed 100' per round. For example, a caster can glide along at a rate of 5' per round if he were 20' off the ground; or he could glide at the rate of 50' per round is he were 2' off of the ground. Note that the product must equal 100' (i.e., the caster cannot choose to have a total less than or more than 100')."
+18,Balance III *,caster,1 rnd/lvl,self,U,"As Balance I, except caster can move at three times normal walking pace (i.e., Sprint pace)."
+20,Spider's Walk True,caster,1 min/lvl,self,U,"As Spiders Walk, except caster can move along any surface (including ceilings)."
+25,Windwalking,caster,1 min/lvl,self,U,"Allows the caster to walk on calm air; movement must be at a constant height (the caster may move vertically, but must do so under his own power -- the spell provides no vertical movement capability)."
+30,Balance True *,caster,1 rnd/lvl,self,U,"As Balance I, except caster can move at any pace."
+50,Movement Mastery *,caster,1 min/lvl,self,U,Caster may use any lower level spell from this list once per round.
