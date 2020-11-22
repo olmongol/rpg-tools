@@ -1,14 +1,14 @@
 #!/usr/bin/python3
 '''
-\file test_epcalcwin.py
-\package rm_char_tools.py
-\brief This is a little tool for tracking the EPs  of Role Master Characters
+@file test_epcalcwin.py
+@package rm_char_tools.py
+@brief This is a little tool for tracking the EPs  of Role Master Characters
 
-\date (C) 2015-2020
-\author Marcus Schwamberger
-\email marcus@lederzeug.de
-\license GNU V3.0
-\version 1.1.0
+@date (C) 2015-2020
+@author Marcus Schwamberger
+@email marcus@lederzeug.de
+@license GNU V3.0
+@version 1.1.0
 '''
 import os
 import json
@@ -31,11 +31,11 @@ class EPCalcWin(blankWindow):
     def __init__(self, lang = "en", charlist = [], storepath = "./data"):
         """
         Class constructor
-        \param lang The chosen language for window's and button's
+        @param lang The chosen language for window's and button's
                     texts. At the moment, only English (en, default
                     value) and German (de) are supported.
-        \param charlist list of dictionaries holding: player, charname, EPs
-        \param storepath path for storing the data into the character files.
+        @param charlist list of dictionaries holding: player, charname, EPs
+        @param storepath path for storing the data into the character files.
         """
 
         self.lang = lang
@@ -347,7 +347,7 @@ class EPCalcWin(blankWindow):
     def __updDispay(self, curPlayer = ""):
         '''
         Updates display of current player
-        \param curPlayer name of selected player
+        @param curPlayer name of selected player
         '''
         self.group[curPlayer].updateInfo()
         self.__gained.set("+{}".format(self.group[curPlayer].gainedep))
@@ -548,7 +548,7 @@ class showGrpEP(object):
     def __init__(self, charlist = [], storepath = "./data", lang = 'en'):
         """
         Constructor
-        \param lang contains the chosen display language.
+        @param lang contains the chosen display language.
         """
         self.lang = lang
         self.storepath = storepath
@@ -906,8 +906,8 @@ class manWin(object):
 #    def maneuver_ep(self, manlvl = "routine", number = 0):
 #        '''
 #        Adds EPs by maneuvers.
-#        \param manlvl difficulty of maneuver
-#        \param number number of maneuvers of this level
+#        @param manlvl difficulty of maneuver
+#        @param number number of maneuvers of this level
 #        '''
 #        from rpgToolDefinitions.epcalcdefs import maneuvers
 #

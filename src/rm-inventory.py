@@ -1,21 +1,21 @@
 #!/usr/bin/python3
 '''
-\file rm-inventory.py
-\package rm_char_tools.py
-\brief This is a little tool for creating and keeping track of character's inventory
+@file rm-inventory.py
+@package rm_char_tools.py
+@brief This is a little tool for creating and keeping track of character's inventory
 
 This tool handles
-\li buying/finding/selling/dropping items
-\li enchanting items
-\li design special items
-\li equipp items/pack items into containers and calculate carried weights
-\li Export inventory as JSON, LaTex, PDF
+@li buying/finding/selling/dropping items
+@li enchanting items
+@li design special items
+@li equipp items/pack items into containers and calculate carried weights
+@li Export inventory as JSON, LaTex, PDF
 
-\date (C) 2020
-\author Marcus Schwamberger
-\email marcus@lederzeug.de
-\license GNU V3.0
-\version 1.1.0
+@date (C) 2020
+@author Marcus Schwamberger
+@email marcus@lederzeug.de
+@license GNU V3.0
+@version 1.1.0
 
 '''
 import os
@@ -35,7 +35,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "12.11.2020"
+__updated__ = "22.11.2020"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.5"
@@ -51,11 +51,11 @@ class InventoryWin(blankWindow):
     def __init__(self, lang = "en", char = {}, storepath = "./data"):
         """
         Class constructor
-        \param lang The chosen language for window's and button's
+        @param lang The chosen language for window's and button's
                     texts. At the moment, only English (en, default
                     value) and German (de) are supported.
-        \param charlist list of dictionaries holding: player, charname, EPs
-        \param storepath path for storing the data into the character files.
+        @param charlist list of dictionaries holding: player, charname, EPs
+        @param storepath path for storing the data into the character files.
         """
 
         self.lang = lang
@@ -650,11 +650,11 @@ class shopWin(blankWindow):
     def __init__(self, lang = "en", char = {}, storepath = "./data", shoptype = "armor"):
         """
         Class constructor
-        \param lang The chosen language for window's and button's
+        @param lang The chosen language for window's and button's
                     texts. At the moment, only English (en, default
                     value) and German (de) are supported.
-        \param charlist list of dictionaries holding: player, charname, EPs
-        \param storepath path for storing the data into the character files.
+        @param charlist list of dictionaries holding: player, charname, EPs
+        @param storepath path for storing the data into the character files.
         """
 
         self.lang = lang
@@ -1898,11 +1898,11 @@ class enchantItem(blankWindow):
     def __init__(self, lang = "en", char = {}, storepath = "./data", item = {}, shoptype = ""):
         """
         Class constructor
-        \param lang The chosen language for window's and button's
+        @param lang The chosen language for window's and button's
                     texts. At the moment, only English (en, default
                     value) and German (de) are supported.
-        \param charlist list of dictionaries holding: player, charname, EPs
-        \param storepath path for storing the data into the character files.
+        @param charlist list of dictionaries holding: player, charname, EPs
+        @param storepath path for storing the data into the character files.
         """
 
         self.lang = lang
@@ -3327,13 +3327,13 @@ class editinventory(blankWindow):
     def __init__(self, lang = "en", char = {}, item = {}, shoptype = "armor", storepath = "./data"):
         """
         Class constructor
-        \param lang The chosen language for window's and button's
+        @param lang The chosen language for window's and button's
                     texts. At the moment, only English (en, default
                     value) and German (de) are supported.
-        \param char dictionary holding chracter's data
-        \param item dictionary holding item values
-        \param shoptype item category
-        \param storepath path for storing the data into the character files.
+        @param char dictionary holding chracter's data
+        @param item dictionary holding item values
+        @param shoptype item category
+        @param storepath path for storing the data into the character files.
         """
 
         self.lang = lang
@@ -4898,9 +4898,9 @@ class editinventory(blankWindow):
 def buyStuff(purse = {}, prize = {}):
     """
     This function does the payment calculations
-    \param purse of character
-    \param prize to pay
-    \retvar result new
+    @param purse of character
+    @param prize to pay
+    @retvar result new
     """
     clong = list(coins['long'])
     clong.reverse()

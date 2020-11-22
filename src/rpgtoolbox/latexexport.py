@@ -1,18 +1,18 @@
 '''
-\file latexexport.py
-\package rpgtoolbox.latexexport
-\brief Export class for LaTeX
+@file latexexport.py
+@package rpgtoolbox.latexexport
+@brief Export class for LaTeX
 
 This holds a class to export a character JSON to a LaTeX file from which a PDF
 will be generated for printouts
 .
-\date (C) 2016-2020
-\author Marcus Schwamberger
-\email marcus@lederzeug.de
-\version 1.1
+@date (C) 2016-2020
+@author Marcus Schwamberger
+@email marcus@lederzeug.de
+@version 1.1
 '''
 
-__updated__ = "12.11.2020"
+__updated__ = "22.11.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"

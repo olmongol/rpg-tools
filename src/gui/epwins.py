@@ -2,15 +2,15 @@
 # -*- coding: utf-8 -*-
 
 '''
-\file epwins.py
-\package gui.epwins
-\brief Windows classes for epcalc gui
+@file epwins.py
+@package gui.epwins
+@brief Windows classes for epcalc gui
 
 This holds window classes for generating and updating (level ups) characters.
-\date (C) 2016-2020
-\author Marcus Schwamberger
-\email marcus@lederzeug.de
-\version 1.5
+@date (C) 2016-2020
+@author Marcus Schwamberger
+@email marcus@lederzeug.de
+@version 1.5
 
 ----
 @todo The following has to be implemented:
@@ -46,7 +46,7 @@ from gui.gmtools import *
 from gui.mangroup import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "27.08.2020"
+__updated__ = "22.11.2020"
 
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
@@ -62,11 +62,11 @@ logger = log.createLogger('window', 'debug', '1 MB', 1, './')
 class MainWindow(blankWindow):
     """
     This is the class for the main window object.
-    \param lang The chosen language for window's and button's texts. At
+    @param lang The chosen language for window's and button's texts. At
                 the moment, only English (en, default value) and German
                 (de) are supported.
-    \param title title of the window
-    \param storepath path where things like options have to be stored
+    @param title title of the window
+    @param storepath path where things like options have to be stored
     @todo storepath has to be changed to default installation path empty
     """
 
@@ -75,12 +75,12 @@ class MainWindow(blankWindow):
                  char = None):
         """
         Class constructor
-        \param lang The chosen language for window's and button's
+        @param lang The chosen language for window's and button's
                     texts. At the moment, only English (en, default
                     value) and German (de) are supported.
-        \param title title of the window
-        \param storepath path where things like options have to be stored
-        \param char Character as JSON
+        @param title title of the window
+        @param storepath path where things like options have to be stored
+        @param char Character as JSON
         """
         if storepath == None:
             #needs to be changed
@@ -453,7 +453,7 @@ class confWindow(blankWindow):
     This class builds a window for selecting and saving options of
     rpg-tools. For now it is just choosing the language for menus and
     dialogues.
-    \param lang Laguage which shall be used in messages and menus.
+    @param lang Laguage which shall be used in messages and menus.
 
     ----
     @todo The following has to be implemented:
@@ -465,7 +465,7 @@ class confWindow(blankWindow):
     def __init__(self, lang = 'en'):
         """
         Class constructor
-        \param lang Laguage which shall be used in messages and menus
+        @param lang Laguage which shall be used in messages and menus
         """
         self.lang = lang
         self._cnf = chkCfg(lang = self.lang)
@@ -639,11 +639,11 @@ class inputWin(blankWindow):
     """
     Objects of this class type are windows for input the wanted data
     structure. A exp structure will be build of the input.
-    \param lang This parameter holds the language chosen for the menus
+    @param lang This parameter holds the language chosen for the menus
                 and messages. Default value is 'en'.
-    \param filename this holds the filename of a read exp file holding
+    @param filename this holds the filename of a read exp file holding
                     the functional structure.
-    \param storepath the path where the XML files shall be stored in.
+    @param storepath the path where the XML files shall be stored in.
     """
 
 
@@ -654,12 +654,12 @@ class inputWin(blankWindow):
                  storepath = None):
         """
         Constructor
-        \param lang This parameter holds the language chosen for the
+        @param lang This parameter holds the language chosen for the
                     menus and messages. Default value is 'en'
-        \param csvcontent a dictionary holding the information of CSV
-        \param filename this holds the filename and path of a read data
+        @param csvcontent a dictionary holding the information of CSV
+        @param filename this holds the filename and path of a read data
                         file containing the functional structure.
-        \param storepath the path where the data files shall be stored
+        @param storepath the path where the data files shall be stored
                          in.
         """
         self.lang = lang
@@ -837,8 +837,8 @@ class genAttrWin(blankWindow):
 
     def __init__(self, lang = 'en', storepath = './data', rpg = "RoleMaster"):
         '''
-        \param lang Choosen display language (default en)
-        \param storepath Path to store data (default: ./data)
+        @param lang Choosen display language (default en)
+        @param storepath Path to store data (default: ./data)
         '''
 
         if rpg == "RoleMaster":
@@ -847,13 +847,13 @@ class genAttrWin(blankWindow):
         else:
             self.notdoneyet("support for %s" % (rpg))
 
-        # \var self.character
+        # @var self.character
         # the attribute where to store the character data in as 'JSON'
         self.character = {}
-        # \var self.lang
+        # @var self.lang
         # used language
         self.lang = lang
-        # \var self.spath
+        # @var self.spath
         # storage path for character data file
         self.spath = storepath
 
@@ -861,46 +861,46 @@ class genAttrWin(blankWindow):
             self.spath += "/"
 
         self.__cultures = rm.cultures[self.lang][:6]
-        # \var self.profs
+        # @var self.profs
         # a dictionary/JSON structure where a profession specific data (read from
         # a CSV file) is stored in
         self.profs = rm.choseProfession(self.lang)
-        # \var proflist
+        # @var proflist
         # list of all available professions
         proflist = list(self.profs.keys())
-        # \var rmraces
+        # @var rmraces
         # a list of all the RoleMaster races
         rmraces = rm.races[self.lang]
-        # \var rmcultures
+        # @var rmcultures
         # list of available cultures
         rmcultures = rm.cultures[self.lang]
-        # \var self.stats
+        # @var self.stats
         # holds player, name, profession, race, realm and temp stats
         self.stats = {}
-        # \var self.pots
+        # @var self.pots
         # holds potential stats (maximum values)
         self.pots = {}
-        # \var self.specs
+        # @var self.specs
         # holds special stats if anyrger
         self.specs = {}
-        # \var self.__race
+        # @var self.__race
         # holds race stats bonuses
         self.__race = {}
-        # \var self.__rr
+        # @var self.__rr
         # holds all resistance roll bonusses
         self.__rr = {}
         self.__labels = {}
-        # \var self..__totals
+        # @var self..__totals
         # holds total stat bonusses
         self.__totals = {}
-        # \var self.__std
+        # @var self.__std
         #  holds standard stat bonusses
         self.__std = {}
         self.__count = 0
-        # \var self.__rmstats
+        # @var self.__rmstats
         # list of all stats' short cuts in English
         self.__rmstats = rm.stats
-        # \var self.__rangeOK
+        # @var self.__rangeOK
         # just for check up whether the stats are in the correct ranges
         self.__rangeOK = True
 
@@ -1140,7 +1140,7 @@ class genAttrWin(blankWindow):
     def __addHelpMenu(self):
         """
         This methods defines a help menu.
-        \todo The following has to be implemented:
+        @todo The following has to be implemented:
         - global help information (function)
         - window help information
         """
@@ -1321,16 +1321,16 @@ class genAttrWin(blankWindow):
         '''
         This method checks whether the right magic realm is chosen for the
         selected profession
-        \param event object event given by OptionMenu but not used
+        @param event object event given by OptionMenu but not used
 
 
         ----
-        \bug potential cause for false DP calculations. It is not clear how to
+        @bug potential cause for false DP calculations. It is not clear how to
         reproduce this bug.
-        \bug  if testr != self.profs[testp]['Realm'] and self.profs[testp]['Realm'] != "choice": KeyError: ''
-        \bug if realm chosen before profession an error occurs (sdtout)
+        @bug  if testr != self.profs[testp]['Realm'] and self.profs[testp]['Realm'] != "choice": KeyError: ''
+        @bug if realm chosen before profession an error occurs (sdtout)
 
-        \note bug should be fixed
+        @note bug should be fixed
         '''
         testr = self.stats['realm'].get()
         testp = self.stats['prof'].get()
@@ -1345,7 +1345,7 @@ class genAttrWin(blankWindow):
         '''
         This method sets the races bonusses , the race based RR bonusses,
         Background Options and Hobby Ranks.
-        \param event object event given by OptionMenu but not used
+        @param event object event given by OptionMenu but not used
 
         ----
 
@@ -1373,7 +1373,7 @@ class genAttrWin(blankWindow):
     def __setRealm(self, event):
         '''
         Sets the connected Realm if profession is chosen
-        \param event object event given by OptionMenu but not used
+        @param event object event given by OptionMenu but not used
         '''
         testp = self.stats['prof'].get()
         self.stats['realm'].set(self.profs[testp]['Realm'])
@@ -1383,9 +1383,9 @@ class genAttrWin(blankWindow):
     def __creatPot(self, temp = 20, fixed = False):
         '''
         This method creates a potential stat from a temporary stat.
-        \param temp value of the temporary stat
-        \param fixed a parameter that turns the fixed creation mode on/off
-        \retval result the resulting potential stat value
+        @param temp value of the temporary stat
+        @param fixed a parameter that turns the fixed creation mode on/off
+        @retval result the resulting potential stat value
         '''
 
         result = 1
@@ -1527,9 +1527,9 @@ class genAttrWin(blankWindow):
     def dice(self, sides = 6, number = 1):
         '''
         This function delivers the result of a dice roll as a list.
-        \param sides number of sides of the used dice
-        \param number number of used dices/rolls
-        \retval result sum of the dice rolls
+        @param sides number of sides of the used dice
+        @param number number of used dices/rolls
+        @retval result sum of the dice rolls
         '''
         i = 0
         result = 0
@@ -1636,7 +1636,7 @@ class genAttrWin(blankWindow):
         '''
         This method adds skill categories and skills to the character's dictionary
         as well as bonus (special, profession and items)
-        \note Skills wont have a profession bonus. It is already applied to the
+        @note Skills wont have a profession bonus. It is already applied to the
         category.
         '''
         from rpgtoolbox import rolemaster as rm
@@ -1784,7 +1784,7 @@ class priorizeWeaponsWin(blankWindow):
     This is the class for a window object to chose the priority of weapon skills
     at the character's generation. It will also set the category and skill ranks
     during adolescence.
-    \bug sometimes double chosen weapon categories cause list index errors and
+    @bug sometimes double chosen weapon categories cause list index errors and
     were not detected as doublets.
     """
 
@@ -1792,12 +1792,12 @@ class priorizeWeaponsWin(blankWindow):
     def __init__(self, lang = 'en', storepath = os.getcwd() + "/data", char = None):
         """
         Class constructor
-        \param lang The chosen language for window's and button's
+        @param lang The chosen language for window's and button's
                     texts. At the moment, only English (en, default
                     value) and German (de) are supported.
-        \param title title of the window
-        \param storepath path where things like options have to be stored
-        \param char Character as JSON
+        @param title title of the window
+        @param storepath path where things like options have to be stored
+        @param char Character as JSON
         """
         from rpgtoolbox.rolemaster import catnames
         self.__catnames = catnames
@@ -1871,9 +1871,9 @@ class priorizeWeaponsWin(blankWindow):
     def __getPrio(self, event):
         '''
         This generates the priority list by the chosen priorities.
-        \param event has to be catched but is not used
+        @param event has to be catched but is not used
         @todo check for double priorities. If any don't proceed
-        \bug when you chose double entries:  File "/home/mongol/git/rpg-tools/src/gui/epwins.py", line 1808, in __getPrio
+        @bug when you chose double entries:  File "/home/mongol/git/rpg-tools/src/gui/epwins.py", line 1808, in __getPrio
         for i in range(len(content) - 7, len(content)):
         IndexError: list index out of range
         '''
@@ -1934,10 +1934,10 @@ class priorizeWeaponsWin(blankWindow):
         It also calculates the rank bonus for the first time.
         '''
         from rpgtoolbox.rolemaster import races, labels, progressionType, rankbonus, catnames, exceptions, cultures
-        # \var prof
+        # @var prof
         # dummy variable that holds character's profession
         prof = self.character['prof']
-        # \var crace
+        # @var crace
         # dummy variable that holds character's race
         crace = races['en'][races[self.lang].index(self.character['race'])]
 
@@ -2180,12 +2180,12 @@ class skillcatWin(blankWindow):
     def __init__(self, lang = 'en', storepath = os.getcwd() + "/data", char = None):
         """
         Class constructor
-        \param lang The chosen language for window's and button's
+        @param lang The chosen language for window's and button's
                     texts. At the moment, only English (en, default
                     value) and German (de) are supported.
-        \param title title of the window
-        \param storepath path where things like options have to be stored
-        \param char Character as JSON
+        @param title title of the window
+        @param storepath path where things like options have to be stored
+        @param char Character as JSON
         """
         from rpgtoolbox.rolemaster import catnames, rankbonus
 
@@ -2210,7 +2210,7 @@ class skillcatWin(blankWindow):
             self.__changed = readJSON("{}/{}/{}_changes.json".format(self.spath, self._character['player'], self._character['name']))
 
         else:
-            # \var self.__changed
+            # @var self.__changed
             # dictionary with the changed categories/skills
             self.__changed = {'name': self._character['name'],
                               'player': self._character['player'],
@@ -2301,14 +2301,14 @@ class skillcatWin(blankWindow):
         self.catcost = []
         self.skillcost = []
         self.__calcDP()
-        # \var self.__changes
+        # @var self.__changes
         # list of edited/added skills and categories
         self.__changes = {}
 
         for key in ['skill', 'progress', 'costs', 'rank', 'total']:
             self.__treecolumns.append(rmlabels[self.lang][key])
 
-        ## \var self.__tree
+        ## @var self.__tree
         # The first Treeview widget with the character data to change
         self.__tree = Treeview(self.__treeframe,
                                columns = self.__treecolumns,
@@ -2321,7 +2321,7 @@ class skillcatWin(blankWindow):
         self.__tree.grid(column = 0, row = 0, sticky = "NEWS", in_ = self.__treeframe)
         vscroll.grid(column = 1, row = 0, in_ = self.__treeframe, sticky = "NS")
         hscroll.grid(column = 0, row = 1, in_ = self.__treeframe, sticky = "EW")
-        ## \var self.__chgtree
+        ## @var self.__chgtree
         # The second Treeview widged where the changes will be shown.
         self.__chgtree = Treeview(self.window,
                                   columns = self.__treecolumns,
@@ -2689,7 +2689,7 @@ class skillcatWin(blankWindow):
     def __selectTreeItem(self, event):
         '''
         Select an item from the treeview list.
-        \param event responding treeview event which is not used for anything.
+        @param event responding treeview event which is not used for anything.
         '''
         self.__curItem = self.__tree.focus()
         self.DPcost.set(self.__tree.item(self.__curItem)['values'][2])
@@ -2859,7 +2859,7 @@ class skillcatWin(blankWindow):
         newrank = int(self._skillspin.get())
 
         if type(self.__tree.item(self.__curItem)['values'][1]) != type(2):
-            ## \val currdev
+            ## @val currdev
             # list of current development progression
             currdev = self.__tree.item(self.__curItem)['values'][1].split(" ")
         else:
@@ -2868,7 +2868,7 @@ class skillcatWin(blankWindow):
         for i in range(0, len(currdev)):
             currdev[i] = float(currdev[i])
 
-        ## \var oldtotal
+        ## @var oldtotal
         # Total bonus before any manipulation.
         oldtotal = self.__tree.item(self.__curItem)['values'][-1]
         newtotal = self.__calcRanks(currdev, int(newrank)) - self.__calcRanks(currdev, int(oldval)) + int(oldtotal)
@@ -2906,7 +2906,7 @@ class skillcatWin(blankWindow):
                     diffcost = 0
 
                     if 'lvlups' not in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
-                        ##\var lowval
+                        ##@var lowval
                         # if a skill was not leveled up maximum times this is a marker where to
                         # start with further leveling.
                         lowval = 0
@@ -3071,17 +3071,17 @@ class skillcatWin(blankWindow):
         ## @var newval
         # new/changed category's rank value
         newval = int(self._catspin.get())
-        ## \val currdev
+        ## @val currdev
         # list of current development progression
         currdev = self.__tree.item(self.__curItem)['values'][1].split(" ")
 
         for i in range(0, len(currdev)):
             currdev[i] = float(currdev[i])
 
-        ## \var oldtotal
+        ## @var oldtotal
         # Total bonus before any manipulation.
         oldtotal = self.__tree.item(self.__curItem)['values'][-1]
-        ## \var newtotal
+        ## @var newtotal
         # Total bonus after manipulation
         newtotal = self.__calcRanks(currdev, int(newval)) - self.__calcRanks(currdev, int(oldval)) + int(oldtotal)
         # calc DP consume:
@@ -3765,12 +3765,12 @@ class statGainWin(blankWindow):
     def __init__(self, lang = 'en', storepath = os.getcwd() + "/data", char = None):
         """
         Class constructor
-        \param lang The chosen language for window's and button's
+        @param lang The chosen language for window's and button's
                     texts. At the moment, only English (en, default
                     value) and German (de) are supported.
-        \param title title of the window
-        \param storepath path where things like options have to be stored
-        \param char Character as JSON/dictionary
+        @param title title of the window
+        @param storepath path where things like options have to be stored
+        @param char Character as JSON/dictionary
         """
 
         if storepath == None:
@@ -4103,12 +4103,12 @@ class editEPWin(blankWindow):
     def __init__(self, lang = 'en', storepath = os.getcwd() + "/data", char = None):
         """
         Class constructor
-        \param lang The chosen language for window's and button's
+        @param lang The chosen language for window's and button's
                     texts. At the moment, only English (en, default
                     value) and German (de) are supported.
-        \param title title of the window
-        \param storepath path where things like options have to be stored
-        \param char Character as JSON/dictionary
+        @param title title of the window
+        @param storepath path where things like options have to be stored
+        @param char Character as JSON/dictionary
         """
 
         if storepath == None:
@@ -4360,12 +4360,12 @@ class BGOselectWin(blankWindow):
     def __init__(self, lang = 'en', storepath = os.getcwd() + "/data", char = None):
         """
         Class constructor
-        \param lang The chosen language for window's and button's
+        @param lang The chosen language for window's and button's
                     texts. At the moment, only English (en, default
                     value) and German (de) are supported.
-        \param title title of the window
-        \param storepath path where things like options have to be stored
-        \param char Character as JSON/dictionary
+        @param title title of the window
+        @param storepath path where things like options have to be stored
+        @param char Character as JSON/dictionary
         """
 
         if storepath == None:

@@ -1,20 +1,20 @@
 #!/usr/bin/env python
 '''
-\package rpgtoolbox.rpgtools
-\file rpgtools.py
-\brief RPG helpful functions
+@package rpgtoolbox.rpgtools
+@file rpgtools.py
+@brief RPG helpful functions
 This module contains some helpful functions for role-playing games like:
 - dice() for dic rolling
 - getLvl() for calculate actual level of char
 
 
-\date (C) 2015-2020
-\license GNU V3.0
-\author Marcus Schwamberger
-\email marcus@lederzeug.de
-\version 1.0
+@date (C) 2015-2020
+@license GNU V3.0
+@author Marcus Schwamberger
+@email marcus@lederzeug.de
+@version 1.0
 '''
-__updated__ = "15.11.2020"
+__updated__ = "22.11.2020"
 
 import random
 from rpgtoolbox.globaltools import readCSV
@@ -26,9 +26,9 @@ import re
 def dice(sides = 6, number = 1):
     '''
     This function delivers the result of (number of) dice roll(s) as a list.
-    \param sides number of sides of the used dice
-    \param number number of used dices/rolls
-    \retval result list containing integer numbers of the dice rolls
+    @param sides number of sides of the used dice
+    @param number number of used dices/rolls
+    @retval result list containing integer numbers of the dice rolls
     '''
     i = 0
     result = []
@@ -44,7 +44,7 @@ def dice(sides = 6, number = 1):
 def getLvl(ep = 10000):
     '''
     This function calculates the level of a MERP/RM character.
-    \param ep experience point of the character
+    @param ep experience point of the character
     \return level of character as integer ValueError
     '''
     if ep <= 50000:
@@ -274,7 +274,6 @@ class equipmentPenalities(object):
                     if armor["AT"] > self.AT:
                         self.AT = armor["AT"]
 
-#                print("Debug: armor name {}".format(armor["name"]))
                 if "greaves" in armor["name"].lower():
                     greaves += 0.5
         if greaves > 1:
@@ -394,8 +393,8 @@ class statManeuver(object):
     def checkRoll(self, roll):
         '''
         Checks the rolled number + bonusses for success.
-        \param roll the modified roll result (number)
-        \retval result table row as dictionary.
+        @param roll the modified roll result (number)
+        @retval result table row as dictionary.
         '''
         result = {}
 

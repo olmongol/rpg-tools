@@ -2,37 +2,37 @@
 # -*- coding: utf-8 -*-
 
 '''
-\package rpgtoolbox.lang
-\file lang.py
+@package rpgtoolbox.lang
+@file lang.py
 
-\brief multi-language support module for rpg-tools
+@brief multi-language support module for rpg-tools
 
 Here are all the things implemented that are needed for the switching of
 language in the rpg-tools. So this file consists mainly
 of dictionary structures.
 Currently supported languages are:
-\li English
-\li Deutsch
+@li English
+@li Deutsch
 
-\attention At the moment just Linux/Unix is supported!
+@attention At the moment just Linux/Unix is supported!
 
-\author Marcus Schwamberger
-\email marcus@lederzeug.de
-\date (c) 2015-2020
-\version 1.1
-\license GNU V3.0
+@author Marcus Schwamberger
+@email marcus@lederzeug.de
+@date (c) 2015-2020
+@version 1.1
+@license GNU V3.0
 
-\todo clean up the code!!!
+@todo clean up the code!!!
 '''
 __version__ = "1.1"
-__updated__ = "08.11.2020"
-## \var supportedrpg
+__updated__ = "22.11.2020"
+## @var supportedrpg
 # Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
                 'en' : ('MERP', 'RoleMaster')
                 }
 
-## \var screenmesg
+## @var screenmesg
 #This holds general screen messages.
 screenmesg = {'welcome'     : {'de' : "Willkommen bei den RPG-Tools",
                                'en' : "Welcome at the RPG tools",
@@ -80,7 +80,7 @@ winhelpmsg = {"genAttrWin" :{"de": u"Mit 'Würfeln' kann man dreimal sein Glück
                                     " 1. enter names\n2. chose race\n3. choose culture\n4. choose profession \n5. choose magic realm (if you have the opportunity)\n6. fill in the temp fields for you attributes. " +
                                     "Clicking the 'calculate' button will calculate the remaining points you have left.\n7. when you have finished distributing points click 'next"},
                             }
-## \var charattribs
+## @var charattribs
 # This holds speciffic character attributes/parameter.,
 charattribs = { 'sex' : {'de': 'Geschlecht',
                          'en': 'Sex'
@@ -138,7 +138,7 @@ charattribs = { 'sex' : {'de': 'Geschlecht',
                                 }
                 }
 
-## \var txtbutton
+## @var txtbutton
 #This holds the texts written on buttons.
 txtbutton = {'but_ok'   : {'de' : 'OK',
                            'en' : 'ok',
@@ -223,7 +223,7 @@ txtbutton = {'but_ok'   : {'de' : 'OK',
                             "en" : "enchant"},
              }
 
-## \var txtmenu
+## @var txtmenu
 #This holds the texts of the main menu bar mixed up with button labels
 #\todo it has to be clearly seperated menu and buttons
 txtmenu = {'menu_help'     : {'de' : 'Hilfe',
@@ -271,7 +271,7 @@ txtmenu = {'menu_help'     : {'de' : 'Hilfe',
 
           }
 
-## \var submenu
+## @var submenu
 #This holds the texts of the submenu cascades.
 submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                           'close' : 'Datei schlie\xc3\x9fen',
@@ -424,7 +424,7 @@ submenu = {'file' :{'de':{'open'  : 'Datei \xc3\xb6ffnen',
                            }
            }
 
-## \var txtwin
+## @var txtwin
 #This holds the content of selectable  file types while open/close files.
 txtwin = {'all_files' : {'de' : ("alle Dateien", '.*'),
                          'en' : ("all files", '.*'),
@@ -457,7 +457,7 @@ txtwin = {'all_files' : {'de' : ("alle Dateien", '.*'),
                          'en': ('PNG Pics', '.png')}
           }
 
-## \var processing
+## @var processing
 #some processing messages
 processing = {'saved' : {'de' : 'Gespeichert...',
                          'en' : 'Saved...',
@@ -467,13 +467,13 @@ processing = {'saved' : {'de' : 'Gespeichert...',
                             }
             }
 
-## \var shortcut
+## @var shortcut
 #language shortcuts / supported languages
 shortcut = {'de' : 'Deutsch',
             'en' : 'English',
             }
 
-##\var wintitle
+##@var wintitle
 #these are the titles of the windows
 wintitle = {'opt_lang' : {'de' : 'Spracheinstellungen',
                           'en' : 'Language Settings',
@@ -524,7 +524,7 @@ wintitle = {'opt_lang' : {'de' : 'Spracheinstellungen',
                        'en' : 'Resistance Roll Checker'},
             }
 
-## \var labels
+## @var labels
 #labels for window elements (labels, listboxes etc.)
 #\todo clean up!!
 labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei',
@@ -725,7 +725,7 @@ labels = {'cfg_path' : {'de' : 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei'
 
 invedtacts = {"de": [u"wählen", u"ausgerüstet", "unausgerüstet"],
               "en": ["choice", "equipped", "unequipped"]}
-##\var errmsg
+##@var errmsg
 #Error messages for all opportunities
 errmsg = {'no_file' : {'de' : 'Datei existiert nicht!',
                        'en' : 'File does not exists!',
@@ -791,7 +791,7 @@ errmsg = {'no_file' : {'de' : 'Datei existiert nicht!',
 
           }
 
-##\var infomsg
+##@var infomsg
 #Simply some info messages for the help window
 infomsg = {'help_info' : {'de' : 'F\xc3\xbcr eine genauere Information '\
                                  '\xc3\xbcber die '\
@@ -802,7 +802,7 @@ infomsg = {'help_info' : {'de' : 'F\xc3\xbcr eine genauere Information '\
                          }
            }
 
-##\var s_elem_def
+##@var s_elem_def
 #Descriptions of the default elements for calculating EPs from.
 s_elem_def = {'CRITICAL' : {'de' : 'Ausgeteilte kritische Treffer',
                             'en' : 'Caused Critical',
@@ -841,7 +841,7 @@ s_elem_def = {'CRITICAL' : {'de' : 'Ausgeteilte kritische Treffer',
 # \todo shall be transfered to merp.py
 #----------------------------------------------------------------------------
 
-##\var trhelptext
+##@var trhelptext
 # Contains help text for class treasure
 trhelptext = {'description' : {'de' : 'Schatzgenerator:\nErzeugt einen Text, der den Inhalt eines Schatzes beschreibt.\nParameter der Funktion findTreasure:\n',
                              'en' : 'Treasure Generator:\nCreates a text describing the content of a treasure.\nParameters of the function findTreasure:\n'
@@ -854,20 +854,20 @@ trhelptext = {'description' : {'de' : 'Schatzgenerator:\nErzeugt einen Text, der
                             }
             }
 
-##\var trtypelist
+##@var trtypelist
 # Contains categories of richness of a treasure
 trtypelist = {'de': ('sehr arm', 'arm', 'normal', 'reich', 'sehr reich'),
               'en': ('very poor', 'poor', 'normal', 'rich', 'very rich'),
               'num': (1, 2, 3, 4, 5)
               }
 
-##\var trheader
+##@var trheader
 # Contains header for treasure description
 trheader = {'de' : "Schatzinhalt",
             'en' : "Content of Treasure"
             }
 
-##\var valueTranslation
+##@var valueTranslation
 # Contains descriptions of money units
 valueTranslation = {"ZS": {"de": "Zinnst\xc3\xbccke",
                            "en": "tin pieces"
@@ -895,7 +895,7 @@ valueTranslation = {"ZS": {"de": "Zinnst\xc3\xbccke",
                             }
                     }
 
-##\var itemTranslation
+##@var itemTranslation
 # Contains description of items in a treasure
 itemTranslation = {"normal": {"de": "normaler Gegenstand",
                                 "en": "normal item"
@@ -944,7 +944,7 @@ itemTranslation = {"normal": {"de": "normaler Gegenstand",
                              }
                      }
 
-##\var itemTypes
+##@var itemTypes
 # This holds the type of the magical item
 itemTypes = {'1-40': {'de': 'Runenpapier',
                       'en': 'Rune Paper'
@@ -975,7 +975,7 @@ itemTypes = {'1-40': {'de': 'Runenpapier',
                         }
              }
 
-##\var spellRealms
+##@var spellRealms
 # This holds the realm of the spells
 spellRealms = {'1-30': {'de': 'Offene Essenz',
                          'en': 'Open Essence'
@@ -994,7 +994,7 @@ spellRealms = {'1-30': {'de': 'Offene Essenz',
                           },
                }
 
-##\var spellList
+##@var spellList
 # This holds the spell list
 spellLists = {'1-2' : {'Open Essence': {'de': 'Fluch',
                                         'en': 'Curse'

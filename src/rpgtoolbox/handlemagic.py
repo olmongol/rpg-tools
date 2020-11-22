@@ -1,18 +1,18 @@
 #!/usr/bin/env python
 '''
-\file handlemagic.py
-\package rpgtoolbox.handlemagic
+@file handlemagic.py
+@package rpgtoolbox.handlemagic
 
-\brief This  module holds helpers handling all spell list/magical issues.
+@brief This  module holds helpers handling all spell list/magical issues.
 
-\date (C) 2015-2020
-\license GNU V3.0
-\author Marcus Schwamberger
-\email marcus@lederzeug.de
-\version 0.8
+@date (C) 2015-2020
+@license GNU V3.0
+@author Marcus Schwamberger
+@email marcus@lederzeug.de
+@version 0.8
 '''
 __version__ = "0.8"
-__updated__ = "13.04.2020"
+__updated__ = "22.11.2020"
 
 import os
 from . import logbox as log
@@ -27,7 +27,7 @@ logger = log.createLogger('magic', 'debug', '1 MB', 1, './' , 'handlemagic.log')
 
 class getSpells(object):
     '''
-    \class getSpells
+    @class getSpells
     This class generates an object to get all spell lists into the right context
     for a single character.
 
@@ -38,11 +38,11 @@ class getSpells(object):
         '''
         This class generates an object to get all spell lists into the right context
         for a single character.
-        \param datadir directory where to find the magic directory
-        \param charprof profession of the character
-        \param charrealm realm(s) of magic
-        \param charlvl character's lvl to calculate costs
-        \callgraph
+        @param datadir directory where to find the magic directory
+        @param charprof profession of the character
+        @param charrealm realm(s) of magic
+        @param charlvl character's lvl to calculate costs
+        @callgraph
 
         '''
         self.prof = charprof
@@ -63,7 +63,7 @@ class getSpells(object):
     def __getAllLists(self, datadir):
         '''
         Get all spell lists and spell categories from disc
-        \param datadir path to the magic directory
+        @param datadir path to the magic directory
         '''
         spellcat = os.listdir(datadir)
         spellcat.sort()
@@ -98,7 +98,7 @@ class getSpells(object):
         '''
         This private method categorizes spell lists for identifying the developing
         costs for a player character
-        \callgraph
+        @callgraph
         @todo categorize Bae lists for non-spell users
         '''
         purespellusers = {"Animist": ["Channeling"],
