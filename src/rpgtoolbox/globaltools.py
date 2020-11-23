@@ -337,6 +337,39 @@ def readCSV(fname = "test.csv"):
 
 
 
+def splitExceptBetween(inputstr = 'bla,fasel', delimiter = ',', quotes = '"'):
+    '''
+    This function splits a string into a list by delimiter but excepts delimiters
+    placed between quotes
+    @param inputstr string to split into a list
+    @param delimiter for the elements to separate into list
+    @param quotes to mark areas which should not be separated even if delimiters
+           are inside.
+    @retval result the separated list.
+    '''
+    inside = -1
+    result = []
+    oldt = 0
+
+    for index, letter in enumerate(inputstr):
+
+        if letter == quotes:
+            inside = -inside
+
+        elif letter == delimiter and inside == -1:
+            result.append(inputstr[oldt:index])
+            oldt = index + 1
+
+    if oldt < len(inputstr):
+        result.append(inputstr[oldt:])
+
+    if inputstr[-1] == delimiter:
+        result.append("")
+
+    return result
+
+
+
 def writeCSV(fname = "test.csv", cont = [{'Spam' : 'Ham'}, {'Spam':'eggs'}]):
     '''
     This function creates a CSV file from a given list of dictionaries
