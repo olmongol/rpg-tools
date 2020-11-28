@@ -13,7 +13,7 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "23.11.2020"
+__updated__ = "27.11.2020"
 __author__ = "Marcus Schwamberger"
 
 import re
@@ -83,20 +83,22 @@ class crittable():
         """
         #read file content
         with open(self.filename, "r") as fp:
-            self.__fcont = fp.read()
+            self.fcont = fp.read()
+
+        print("read {}".format(self.filename))
 
         #transform csv to json
-        self.__fcont = self.fcont.strip("\n").split("\n")
+        self.fcont = self.fcont.strip("\n").split("\n")
         self.crittable = {}
-        header = self.__fcont[0].split(",")
+        header = self.fcont[0].split(",")
 
-        for i in range(1, len(self.__fcont)):
+        for i in range(1, len(self.fcont)):
 
-            if '"' in self.__fcont[i]:
-                line = splitE(self.__fcont[i], ",", '"')
+            if '"' in self.fcont[i]:
+                line = splitE(self.fcont[i], ",", '"')
 
             else:
-                line = self.__fcont[i].split(",")
+                line = self.fcont[i].split(",")
 
             if line[0] not in self.crittable.keys():
                 self.crittable[line[0]] = {}
@@ -116,18 +118,23 @@ class crittable():
                                                              "rnd":int(mr[1])}
 
                     else:
-                        self.crittable[crit][roll]["mod"] = {"mod":int(self.crittable[crit][roll]["mod"]),
-                                                             "rnd":90 * 24 * 60 * 6}
+
+#                        print("Debug mod -> {}".format(self.crittable[crit][roll]["mod"]))
+                        if type(self.crittable[crit][roll]["mod"]) != type({}):
+                            self.crittable[crit][roll]["mod"] = {"mod":int(self.crittable[crit][roll]["mod"]),
+                                                             "    rnd":90 * 24 * 60 * 6}
 
                     if "x" in self.crittable[crit][roll]["mod_attacker"]:
                         mr = self.crittable[crit][roll]["mod_attacker"].split('x')
                         self.crittable[crit][roll]["mod_attacker"] = {"mod_attacker":int(mr[0]),
                                                              "rnd":int(mr[1])}
                     else:
-                        self.crittable[crit][roll]["mod_attacker"] = {"mod_attacker":int(self.crittable[crit][roll]["mod_attacker"]),
+#                        print("Debug mod_attacker -> {}".format(self.crittable[crit][roll]["mod_attacker"]))
+                        if type(self.crittable[crit][roll]["mod_attacker"]) != type({}):
+                            self.crittable[crit][roll]["mod_attacker"] = {"mod_attacker":int(self.crittable[crit][roll]["mod_attacker"]),
                                                              "rnd":90 * 24 * 60 * 6}
 
-                    if self.crittable[crit][roll]["alternate"] != "":
+                    if self.crittable[crit][roll]["alternate"] != "" and type(self.crittable[crit][roll]["alternate"]) == type("") :
                         self.crittable[crit][roll]["alternate"] = switch(self.crittable[crit][roll]["alternate"])
 
                     else:
@@ -135,3 +142,5 @@ class crittable():
 
                     for elem in ["hits", "hits/rnd", "stunned", "die", "ooo", "parry", "no_parry"]:
                         self.crittable[crit][roll][elem] = int(self.crittable[crit][roll][elem])
+
+#slash = crittable(critfilename = "/home/mongol/git/rpg-tools/src/data/default/fight/crits/slash_crit.csv")

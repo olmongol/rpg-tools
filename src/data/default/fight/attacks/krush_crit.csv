@@ -23,7 +23,7 @@ B,10,Thud.,2,0,0,0,0,-1,0,0,0,,,
 B,15,Foe evades frantically. You have the initiative next round,3,0,0,0,0,-1,0,0,0,,,
 B,20,Foe is concerned with his own preservation. He steps back 5 feet,4,0,-10,0,0,-1,0,0,1,,,muscles
 B,35,Foe loses some resolve from your solid strike.,4,0,-20,0,0,-1,0,0,1,,,muscles
-B,45,Blow to foe's left calf. You gain initiative.,8,0,0,0,0,-1,0,0,2,leg,hit:6;mod:-20/2,
+B,45,Blow to foe's left calf. You gain initiative.,8,0,0,0,0,-1,0,0,2,leg,hit:6;mod:-20;2,
 B,50,Solid blow to back. Foe seeks to avoid this attack again. He has lost his way.,6,0,-25,0,0,-1,0,0,1,,,muscles
 B,55,Foe recoils before your blow impacts. He steps back 5 feet to defend himself,6,0,0,0,0,-1,0,0,2,,,
 B,60,Strike passes under shield arm and hands on foe's thigh. Big bruise.,6,0,-5,0,0,-1,0,0,1,,,muscles
