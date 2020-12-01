@@ -13,7 +13,7 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "27.11.2020"
+__updated__ = "01.12.2020"
 __author__ = "Marcus Schwamberger"
 
 import re
@@ -142,5 +142,77 @@ class crittable():
 
                     for elem in ["hits", "hits/rnd", "stunned", "die", "ooo", "parry", "no_parry"]:
                         self.crittable[crit][roll][elem] = int(self.crittable[crit][roll][elem])
+
+
+
+class attacktable():
+    """
+    this class delivers the result from an attack table
+    """
+
+
+    def __init__(self, lang = "en", tabfilename = "data/default/fight/attacks/Broadsword.csv"):
+        """
+        Constructor
+        @param lang configured language: en, de
+        @param tavfilename name and path of the attack table csv to read
+        """
+        self.lang = lang
+        self.filename = tabfilename
+
+        self.__makeTable()
+
+
+    def __makeTable(self):
+        """
+        Reads table data from csv file and creates the dictionary structures
+        """
+        with open(self.filename, "r") as fp:
+            cont = fp.read()
+
+        cont = cont.split("\n")
+        header = cont[0].split(",")
+        self.attack = {}
+        for i in range(1, len(cont)):
+            dummy = cont[i].split(",")
+            self.attack[dummy[0]] = {}
+            for j in range(1, len(header)):
+                self.attack[dummy[0]][header[j]] = int(dummy[j])
+
+
+    def getHits(self, roll = 50, AT = "1", AS = "H"):
+        """
+        Caculates the hitpoints
+        @param roll dice roll result on the table
+        @param AT armor type to lock up (string)
+        @param AS max. attack size: H,L,M,S   - huge, large, medium, small
+        """
+        attacksize = {"H" : 150,
+                    "L" : 135,
+                    "M" : 120,
+                    "S" : 105
+                    }
+
+        if roll > attacksize[AS]:
+            roll = attacksize[AS]
+
+        self.crit = ""
+        self.crittype = ""
+        self.hits = 0
+
+        if roll >= self.attack[AT]["start"]:
+            #calc quotient
+            q = int((150 - self.attack[AT]["start"]) / (self.attack[AT]["high"] - self.attack[AT]["low"]))
+            self.hits = int(self.attack[AT]["low"] + (roll - self.attack[AT]["start"] / q))
+
+        for c in "ABCDE":
+            if roll >= self.attack[AT][c]:
+                self.crit = c
+        if roll >= self.attack[AT]["first"]:
+            self.crittype = self.attack[AT]["type"]
+
+        else:
+            p = (roll - self.attack[AT]["start"]) % len(self.attack[AT]["pattern"])
+            self.crittype = self.attack[AT]["pattern"][p]
 
 #slash = crittable(critfilename = "/home/mongol/git/rpg-tools/src/data/default/fight/crits/slash_crit.csv")
