@@ -1,4 +1,4 @@
-AT,start,low ,high,A,B,C,D,E,pattern,first,type
+AT,start,low,high,A,B,C,D,E,pattern,first,type
 1,80,8,30,85,89,94,102,122,KPS,117,S
 2,70,8,28,75,81,89,101,121,SKP,128,S
 3,80,6,25,90,95,103,113,130,KPS,123,S
