@@ -13,7 +13,7 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "02.12.2020"
+__updated__ = "04.12.2020"
 __author__ = "Marcus Schwamberger"
 
 import re
@@ -239,4 +239,24 @@ class attacktable():
             p = (roll - self.attack[AT]["start"]) % len(self.attack[AT]["pattern"])
             self.crittype = self.attack[AT]["pattern"][p]
 
+
+
+class combat():
+    """
+    This class handles all combat issues
+    - combines comatant groups
+    - manages battle rounds, initiatives damage etc.
+    - vreates a log file of the battle
+    """
+
+
+    def __init__(self, lang = "en", attacker = [], defender = [], log = "battle.log"):
+        """
+        Constructor
+         @param lang chosen Language
+         @param attacker list of dictionaries of "attackers"
+         @param defender list of dictionaries of "defenders"
+         @param log name an path of the file where to log the battle
+        """
+        pass
 #slash = crittable(critfilename = "/home/mongol/git/rpg-tools/src/data/default/fight/crits/slash_crit.csv")

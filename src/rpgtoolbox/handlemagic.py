@@ -12,7 +12,7 @@
 @version 0.8
 '''
 __version__ = "0.8"
-__updated__ = "22.11.2020"
+__updated__ = "05.12.2020"
 
 import os
 from . import logbox as log
@@ -21,7 +21,7 @@ from .globaltools import readCSV
 from .rolemaster import DPCostSpells
 from pprint import pprint
 
-logger = log.createLogger('magic', 'debug', '1 MB', 1, './' , 'handlemagic.log')
+logger = log.createLogger('magic', 'info', '1 MB', 1, './' , 'handlemagic.log')
 
 
 
