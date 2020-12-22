@@ -13,11 +13,12 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "04.12.2020"
+__updated__ = "22.12.2020"
 __author__ = "Marcus Schwamberger"
 
 import re
 from rpgtoolbox.globaltools import splitExceptBetween as splitE
+from rpgtoolbox.globaltools import getCSVNames
 
 #def splitExceptBetween(inputstr, delimiter, quotes):
 #    inside = -1
@@ -37,6 +38,9 @@ from rpgtoolbox.globaltools import splitExceptBetween as splitE
 
 def switch(mystr):
     '''
+    This makes a dictionary with int values from the "modifications" column
+    @param mystr the cell entry (string)
+    @retval result dictionary with "mod" and "rnd" (both int)
     '''
     result = {}
     dummy = mystr.split(";")

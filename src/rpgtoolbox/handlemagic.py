@@ -12,7 +12,7 @@
 @version 0.8
 '''
 __version__ = "0.8"
-__updated__ = "05.12.2020"
+__updated__ = "22.12.2020"
 
 import os
 from . import logbox as log
@@ -91,7 +91,6 @@ class getSpells(object):
                     self.spelllists[slcat][slist]['Spells'] = readCSV(datadir + spellcat[i] + "/" + splst[j])
 
         logger.debug("getAllLists: self.spelllists:\n{}".format(self.spelllists))
-#        print("getAllLists: self.spelllists:\n{}".format(self.spelllists))
 
 
     def __categorizeSLs(self):
@@ -99,7 +98,7 @@ class getSpells(object):
         This private method categorizes spell lists for identifying the developing
         costs for a player character
         @callgraph
-        @todo categorize Bae lists for non-spell users
+        @todo categorize Base lists for non-spell users
         '''
         purespellusers = {"Animist": ["Channeling"],
                         "Cleric" : ["Channeling"],
@@ -123,7 +122,7 @@ class getSpells(object):
                          }
         nonspellusers = {"Fighter":['choice'],
                         "Thief":['choice'],
-                        "Rogue":[],
+                        "Rogue":["choice"],
                         "Warrior Monk":['choice'],
                         "Layman":['choice']
                         }
