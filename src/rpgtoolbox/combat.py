@@ -17,8 +17,14 @@ __updated__ = "22.12.2020"
 __author__ = "Marcus Schwamberger"
 
 import re
+
 from rpgtoolbox.globaltools import splitExceptBetween as splitE
 from rpgtoolbox.globaltools import getCSVNames
+from rpgtoolbox.globaltools import sortTupleList
+from rpgtoolbox.rpgtools import dice
+from rpgtoolbox.lang import attackc
+
+from rpgToolDefinitions.helptools import RMDice
 
 #def splitExceptBetween(inputstr, delimiter, quotes):
 #    inside = -1
@@ -33,6 +39,18 @@ from rpgtoolbox.globaltools import getCSVNames
 #    if oldt<len(inputstr):
 #        result.append(inputstr[oldt:])
 #    return result
+
+
+
+def rollInitative(Qu = 0, mod = 0):
+    """
+    This rolls a initiative based on Quickness and additional modifiers
+    @param Qu Quickness bonus
+    @param mod modifier
+    @retval roll initiative result
+    """
+    roll = dice(19)[0] + 1 + Qu + mod
+    return roll
 
 
 

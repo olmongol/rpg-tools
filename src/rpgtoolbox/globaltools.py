@@ -356,6 +356,17 @@ def getCSVNames(chkpath = "data/default/fight/attacks"):
 
 
 
+def sortTupleList(tuplelist, sortindex = 0, desc = True):
+    """
+    This sorts a list of tuples by the given index.
+    @param tuplelist list of the tuples
+    @param sortindex index of tuple by which list should be sorted
+    @param desc determines whether list shall be sorted descending (true/false)
+    """
+    tuplelist.sort(key = lambda x:x[sortindex], reverse = desc)
+
+
+
 def splitExceptBetween(inputstr = 'bla,fasel', delimiter = ',', quotes = '"'):
     '''
     This function splits a string into a list by delimiter but excepts delimiters

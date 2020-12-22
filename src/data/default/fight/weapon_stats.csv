@@ -1,0 +1,61 @@
+item,shortc,wtype,breakage,strength,fumble,near,short,medium,long,extreme,table,crits
+Axe,ax,1he,1-7,56-64-w,01-04,10': -30,---,---,---,---,Handaxe,krush/slash
+Bastard Sword,bd,1he/2h,1-4/1-5,68-82,01-04/05,---,---,---,---,---,Broadsword/Two-Handed_Sword,krush/slash/puncture
+Battle Axe,ba,2h,1-8,65-75-w,01-05,---,---,---,---,---,Battle_Axe,krush/slash
+Blackjack,bj,1hc,1-8,47-53-s,1,---,---,---,---,---,Club,subdual
+Blowpipe,bp,mis,---,---,01-05,10': 0,25': 0,50': -20,100': -40,---,Sling,puncture
+Boar Spear,br,pa,1-5,47-53-w,01-05,10': -15,25': -30,---,---,---,Spear,krush/slash/puncture
+Bola (2 handed),bo,th,1-6,47-53-s,01-07,50':0,100':-20,150':-40,---,---,Bola,grapple/krush
+Boomerang,bm,th,1-7,47-53-w,01-04,10': 0,25': 0,50': 0,100: -20,150': -30,Club,krush
+Broadsword,bs,1he,1-7,75-86,01-03,---,---,---,---,---,Broadsword,krush/slash/puncture
+Cat-o’-nine tails,ca,1hc/1he,1-4,56-64-s,01-07,---,---,---,---,---,Whip,slash/unbalance/krush/grapple
+Claymore,cm,2he,1-8,68-82,01-04,---,---,---,---,---,Two-Handed_Sword,krush/slash/puncture
+Club,cl,1hc,1-8,46-54-w,01-04,10':-40,---,---,---,---,Club,krush
+Composite Bow,cb,mis,---,---,01-04,10': 25,100': 0,200': -35,300': -60,---,Composite_Bow,krush/puncture
+Crossbow  Hvy,xh,mis,---,---,01-05,20': +30,100': 0,200': -25,300': -40,360': -55,Heavy_Crossbow,krush/puncture
+Crossbow  Lt.,xl,mis,---,---,01-05,10': 15,100': 0,200': -35,300': -50,360': -75,Light_Crossbow,krush/puncture
+Cudgel,cd,1hc/2h,1-8,47-53-w,01-03,---,---,---,---,---,Club,krush
+Cutlass,cu,1he,1-6,73-87,01-03,---,---,---,---,---,Broadsword,krush/slash/puncture
+Dagger,da,1he/th,1-6,74-86,1,10': -10,25': -20,50': -30,---,---,Dagger,krush/slash/puncture
+Dart,dt,th,1-6,38-42-w,01-05,10': 0,25': -10,50': -20,---,---,Dagger,krush/slash/puncture
+Dirk,di,1he,1-6,73-87,1,10': -10,25': -20,50': -30,---,---,Dagger,krush/slash/puncture
+Falchion,fa,1he,1-7,74-86,01-05,---,---,---,---,---,Falchion,krush/slash
+Flail,fl,2h,1-7,65-75,01-08,---,---,---,---,---,Flail,krush/puncture
+Foil,fo,1he,1-3,28-32,01-03,---,---,---,---,---,Dagger,puncture
+Halbard,hb,pa,1-7,65-75-w,01-07,---,---,---,---,---,Polearm,krush/slash/puncture
+Handaxe,ha,1he,1-7,65-75-w,01-04,10': -15,25': -30,50': -45,---,---,Handaxe,krush/slash
+Harpoon,hp,th,1-6,47-53-w,01-04,,,,,---,Javelin,krush/puncture
+Javelin,ja,pa/th,1-5,38-42-w,01-04,10': 0,50': -20,100': -40,---,---,Javelin,krush/puncture
+Jo,jo,1hc/2h,1-6/1-7,47-53-w,01-03/05,---,---,---,---,---,Quarterstaff,krush
+Katana,ka,1hs/2h,1-7,76-92,01-03,---,---,---,---,---,Falchion,krush/slash
+Lance,la,pa,1-8,56-74-w,01-07,---,---,---,---,---,Lance,krush/puncture
+Lasso,lo,th,1-4,46-54-s,01-06,,,,,---,Grapple_Grasp_Envelop_Swallow,grapple
+Long Bow,lb,mis,---,---,01-05,10': 20,100': 0,200': -30,300': -40,400': -50,Long_Bow,krush/puncture
+Long Sword,ls,1he,1-6,64-76,01-04,---,---,---,---,---,Broadsword,krush/slash/puncture
+Mace,ma,1hc,1-8,74-86-w,01-02,10': -35,---,---,---,---,Mace,krush
+Main Gauche,mg,1he,1-6,65-75,01-02,10': -15,---,---,---,---,Main_Gauche,krush/slash/puncture
+Morning Star,ms,1hc,1-7,65-75-w,01-08,---,---,---,---,---,Morning_Star,krush/puncture
+Net (fishing),nf,1hc/th,1-5,56-64-s,01-08,10': -5,---,---,---,---,Grapple_Grasp_Envelop_Swallow,grapple
+Net (gladiator),ng,1hc/th,1-5,56-64-s,01-05,10':0,---,---,---,---,Grapple_Grasp_Envelop_Swallow,grapple
+No-dachi,nd,2h,1-7,68-82,01-05,---,---,---,---,---,Two-Handed_Sword,krush/slash/puncture
+Nunchaku,nu,1hc/2h,1-7,47-53-w,01-07,---,---,---,---,---,Morning_Star,krush
+Pick,pi,2h,1-8,47-53-w,01-06,---,---,---,---,---,War_Mattock,krush
+Pilum,pl,pa/th,1-6,38-42-w,01-05,10': 0,25': -20,50': -30,---,---,Javelin,krush/puncture
+Polearm,pa,pa,1-7,65-75-w,01-07,---,---,--,--,--,Polearm,krush/slash/puncture
+Quarterstaff,qs,2h,1-7,66-74-w,01-03,---,---,---,---,---,Quarterstaff,krush
+Rapier,ra,1he,1-4,38-42,01-04,---,---,---,---,---,Rapier,krush/slash/puncture
+Sabre,sa,1he,1-5,64-76,01-03,---,---,---,---,---,Scimitar,krush/slash
+Sai,si,1he,1-5,64-76,01-02,10': -20,25': -20,---,---,---,Main_Gauche,krush/slash/puncture
+Scimitar,sc,1he,1-5,56-64,01-04,---,---,---,---,---,Scimitar,krush/slash
+Short Bow,sb,mis,---,---,01-04,10': 10,100': 0,180': -40,240': -70,---,Short_Bow,krush/puncture
+Short Sword,ss,1he,1-6,74-86,01-02,10': -30,---,---,---,---,Short_Sword,krush/slash/puncture
+Shuriken,sh,th,1-5,55-65,01-05,10': 0,25': 0,50': -20,100': -30,---,Dagger,krush/slash/puncture
+Sling,sl,mis,---,---,01-06,10': 15,60': 0,120': -40,180': -65,---,Sling,krush
+Spear,sp,pa/th,1-5,47-53-w,01-05,10': -10,25': -20,50': -30,---,---,Spear,krush/slash/puncture
+Tomahawk,to,1he/th,1-7,47-53-w,01-02,10': -5,25': -15,50': -30,---,---,Handaxe,krush/slash
+Tonfa,tf,1hc,1-7,47-53-w,01-04,---,---,---,---,---,Club,krush
+Trident,tr,pa,1-6,38-42-w,01-05,10':-15,25': -30,50': -30,---,---,Spear,krush/slash/puncture
+Two-Hand Sword,ts,2h,1-8,69-81,01-05,---,---,---,---,---,Two-Handed_Sword,krush/slash/puncture
+War Hammer,wh,1hc,1-8,74-86-w,01-04,10': -20,25': -40,50': -60,---,---,War_Hammer,krush/puncture
+War Mattock,wm,2h,1-8,65-75-w,01-06,---,---,---,---,---,War_Mattock,krush
+Whip,wp,1hc,1-4,65-75-s,01-06,---,---,---,---,---,Whip,slash/unbalance/krush/grapple

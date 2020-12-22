@@ -25,7 +25,7 @@ Currently supported languages are:
 @todo clean up the code!!!
 '''
 __version__ = "1.1"
-__updated__ = "22.11.2020"
+__updated__ = "22.12.2020"
 ## @var supportedrpg
 # Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
@@ -1157,6 +1157,26 @@ spellLists = {'1-2' : {'Open Essence': {'de': 'Fluch',
                                          },
                          }
               }
+
+##
+# @val attackc
+# this maps abbrevations of weapons to skill categories
+attackc = { "1he": {"en": "Weapon - 1-H Edged",
+                   },
+            "1hc": {"en": "Weapon - 1-H Concussion",
+                    },
+            "2h": {"en" : "Weapon - 2-Handed",
+                   },
+            "mis" :{"en" : "Weapon - Missile",
+                    },
+            "ma": {"en": "Weapon - Missile Artillery",
+                   },
+            "pa": {"en": "Weapon - Pole Arms",
+                   },
+            "th": {"en" : "Weapon - Thrown",
+                   },
+
+          }
 #----------------------------------------------------------------------------
 # End of block
 #----------------------------------------------------------------------------
