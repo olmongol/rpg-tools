@@ -25,7 +25,7 @@ Currently supported languages are:
 @todo clean up the code!!!
 '''
 __version__ = "1.1"
-__updated__ = "22.12.2020"
+__updated__ = "23.12.2020"
 ## @var supportedrpg
 # Supported RPG systems
 supportedrpg = {'de' : ("MERS", "RoleMaster"),
@@ -1175,8 +1175,44 @@ attackc = { "1he": {"en": "Weapon - 1-H Edged",
                    },
             "th": {"en" : "Weapon - Thrown",
                    },
-
+            "ds": {"en" :"Directed Spells",
+                   },
           }
+
+##
+# @val critc
+# this maps abbrevations of crits to names of crit tables
+critc = {"P": {"en":"puncture",
+              },
+        "S": {"en":"slash",
+              },
+        "K" :{"en":"krush",
+              },
+        "U" : {"en": "unbalance",
+               },
+        "G" : {"en" : "grapple",
+               },
+        "T" :{"en": "tiny",
+              },
+
+        "st":{"en":"ma-strikes",
+              },
+        "sw":{"en":"ma-sweeps",
+              },
+
+        "br" :{"en":"brawling",
+               },
+        "sd" : {"en" : "subdual",
+                },
+        "C" : {"en": "cold",
+               },
+        "H" : {"en": "heat",
+               },
+        "I" : {"en": "impact",
+               },
+        "E" : {"en": "electricity",
+               }
+        }
 #----------------------------------------------------------------------------
 # End of block
 #----------------------------------------------------------------------------

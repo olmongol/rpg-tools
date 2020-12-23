@@ -13,7 +13,7 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "22.12.2020"
+__updated__ = "23.12.2020"
 __author__ = "Marcus Schwamberger"
 
 import re
@@ -22,7 +22,7 @@ from rpgtoolbox.globaltools import splitExceptBetween as splitE
 from rpgtoolbox.globaltools import getCSVNames
 from rpgtoolbox.globaltools import sortTupleList
 from rpgtoolbox.rpgtools import dice
-from rpgtoolbox.lang import attackc
+from rpgtoolbox.lang import attackc, critc
 
 from rpgToolDefinitions.helptools import RMDice
 
@@ -81,13 +81,23 @@ def switch(mystr):
 
 
 
+def createCombatList(filename):
+    """
+    This creates a list of combatants for @class combat from a CSV file (NSCs,
+    Monster etc.) or JSON (Character/Group file)
+    @todo has to be implemented
+    """
+    pass
+
+
+
 class crittable():
     """
     This Class delivers results from crit tables to a combatant.
     """
 
 
-    def __init__(self, lang = "en", critfilename = "./data/default/fight/crits/puncture_crit.csv"):
+    def __init__(self, critfilename = "./data/default/fight/crits/puncture_crit.csv", lang = "en"):
         """
         Constructor
         @param lang configured language: en, de
@@ -190,15 +200,14 @@ class attacktable():
     """
 
 
-    def __init__(self, lang = "en", tabfilename = "data/default/fight/attacks/Broadsword.csv"):
+    def __init__(self, tabfilename = "data/default/fight/attacks/Broadsword.csv", lang = "en"):
         """
         Constructor
-        @param lang configured language: en, de
         @param tavfilename name and path of the attack table csv to read
+        @param lang configured language: en, de
         """
-        self.lang = lang
         self.filename = tabfilename
-
+        self.lang = lang
         self.__makeTable()
 
 
@@ -259,7 +268,10 @@ class attacktable():
 
         else:
             p = (roll - self.attack[AT]["start"]) % len(self.attack[AT]["pattern"])
-            self.crittype = self.attack[AT]["pattern"][p]
+            if self.attack[AT]["pattern"] != self.attack[AT]["pattern"].lower():
+                self.crittype = self.attack[AT]["pattern"][p]
+            else:
+                self.crittype = self.attack[AT]["pattern"]
 
 
 
@@ -280,5 +292,28 @@ class combat():
          @param defender list of dictionaries of "defenders"
          @param log name an path of the file where to log the battle
         """
-        pass
+        self.attacklog = log
+        self.lang = lang
+        self.attackers = attacker
+        self.defenders = defender
+
+        self.getTables()
+
+
+    def getTables(self):
+        """
+        Makes objects from attack tables and critical tables.
+        """
+        atpath = "data/default/fight/attacks/"
+        crpath = "data/default/fight/crits/"
+
+        self.attacktabs = {}
+        self.crittabs = {}
+
+        for tab in  getCSVNames(atpath):
+            self.attacktabs[tab.split(".")[0].replace("_", " ")] = attacktable(atpath + tab)
+
+        for tab in getCSVNames(crpath):
+            self.crittabs[tab.split("_")[0]] = crittable(crpath + tab)
+
 #slash = crittable(critfilename = "/home/mongol/git/rpg-tools/src/data/default/fight/crits/slash_crit.csv")
