@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-'''
+'''!
 @file epwins.py
 @package gui.epwins
 @brief Windows classes for epcalc gui
@@ -46,7 +46,7 @@ from gui.gmtools import *
 from gui.mangroup import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "22.11.2020"
+__updated__ = "28.12.2020"
 
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
@@ -60,7 +60,7 @@ logger = log.createLogger('window', 'debug', '1 MB', 1, './')
 
 
 class MainWindow(blankWindow):
-    """
+    """!
     This is the class for the main window object.
     @param lang The chosen language for window's and button's texts. At
                 the moment, only English (en, default value) and German
@@ -189,7 +189,7 @@ class MainWindow(blankWindow):
 
 
     def __saveFile(self):
-        '''
+        '''!
         This method opens a file dialogue window (Tk) for saving the results
         of the EP calculation into an .json or .grp file.
         @todo has to be implemented
@@ -296,7 +296,7 @@ class MainWindow(blankWindow):
 
 
     def __BGOWin(self):
-        '''
+        '''!
         Opens a window to enter and store new EPs in character data
         @todo edtEPWin has to be fully implemented
         '''
@@ -317,7 +317,7 @@ class MainWindow(blankWindow):
 
 
     def __edfightWin(self):
-        '''
+        '''!
         Editing all Hits/Crits/Killed Monsters for calculating EPs
         @todo has to be implemented
         '''
@@ -325,7 +325,7 @@ class MainWindow(blankWindow):
 
 
     def __edcalcWin(self):
-        '''
+        '''!
         Calculating and displaying the whole EPs for the RPG party.
         @todo not implemented yet
         '''
@@ -425,7 +425,7 @@ class MainWindow(blankWindow):
 
 
     def helpHandbook(self):
-        """
+        """!
         This method will show the rpg-tools Handbook
         @todo this needs to be implemented
         """
@@ -449,7 +449,7 @@ class MainWindow(blankWindow):
 
 
 class confWindow(blankWindow):
-    """
+    """!
     This class builds a window for selecting and saving options of
     rpg-tools. For now it is just choosing the language for menus and
     dialogues.
@@ -494,7 +494,7 @@ class confWindow(blankWindow):
 
 
     def __buildWinRadio(self):
-        """
+        """!
         This private method builds the option's window with radio
         buttons of supported languages dynamically.
         @todo switch language chooser from radio buttons to pull-down
@@ -591,7 +591,7 @@ class confWindow(blankWindow):
 
 
     def __save(self):
-        """
+        """!
         A method for saving options in the user directory.
         @todo variables to store have to be completed/adapted
         """
@@ -625,7 +625,7 @@ class confWindow(blankWindow):
 
 
     def __closewin(self):
-        """
+        """!
         A method for closing the window and opening the main window.
         @todo give RPG type to main window
         """
@@ -636,7 +636,7 @@ class confWindow(blankWindow):
 
 
 class inputWin(blankWindow):
-    """
+    """!
     Objects of this class type are windows for input the wanted data
     structure. A exp structure will be build of the input.
     @param lang This parameter holds the language chosen for the menus
@@ -653,7 +653,7 @@ class inputWin(blankWindow):
                  filename = None,
                  storepath = None):
         """
-        Constructor
+        Constructor!
         @param lang This parameter holds the language chosen for the
                     menus and messages. Default value is 'en'
         @param csvcontent a dictionary holding the information of CSV
@@ -739,7 +739,7 @@ class inputWin(blankWindow):
 
 
     def __creategroup(self):
-        '''
+        '''!
         Method to create a now character party/group
         @todo chreategroup has to be implemented
         '''
@@ -748,7 +748,7 @@ class inputWin(blankWindow):
 
 
     def __editchar(self):
-        '''
+        '''!
         Method to edit a character for the EP sheet.
         @todo editchar is to be implemented
         '''
@@ -757,7 +757,7 @@ class inputWin(blankWindow):
 
 
     def __editgrp(self):
-        '''
+        '''!
         Method to edit a character group and keep track on it
         @todo editgrp has to be implemented
         '''
@@ -765,7 +765,7 @@ class inputWin(blankWindow):
 
 
     def __epfight(self):
-        '''
+        '''!
         Method to calculate EPs from a fight (hits and criticals)
         @todo epfight has to be implemented
         '''
@@ -773,7 +773,7 @@ class inputWin(blankWindow):
 
 
     def __epother(self):
-        '''
+        '''!
         Method to calculate EPs from Spells, maneuvers, travel.
         @todo epother has to be implemented
         '''
@@ -781,7 +781,7 @@ class inputWin(blankWindow):
 
 
     def __epindiv(self):
-        '''
+        '''!
         Method for adding invidual EPs
         @todo epindiv has to be implemented
         '''
@@ -789,7 +789,7 @@ class inputWin(blankWindow):
 
 
     def __epcalc(self):
-        '''
+        '''!
         Method to finalize EP calculation for a single gaming date
         @todo epcalc has to be implemented
         '''
@@ -797,7 +797,7 @@ class inputWin(blankWindow):
 
 
     def __fightsim(self):
-        '''
+        '''!
         Method for simulating a fight and calculate potential EPs
         @todo fightsim has to be implemented
         '''
@@ -813,7 +813,7 @@ class inputWin(blankWindow):
 
 
     def __helppage(self):
-        """
+        """!
         Method for help on this page.
         @todo helppage has to be implemented
         """
@@ -836,7 +836,7 @@ class genAttrWin(blankWindow):
 
 
     def __init__(self, lang = 'en', storepath = './data', rpg = "RoleMaster"):
-        '''
+        '''!
         @param lang Choosen display language (default en)
         @param storepath Path to store data (default: ./data)
         '''
@@ -1138,7 +1138,7 @@ class genAttrWin(blankWindow):
 
 
     def __addHelpMenu(self):
-        """
+        """!
         This methods defines a help menu.
         @todo The following has to be implemented:
         - global help information (function)
@@ -1234,7 +1234,7 @@ class genAttrWin(blankWindow):
 
 
     def __setPStats(self):
-        '''
+        '''!
         Sets the primary (and magic) stats for a profession
         @todo set the magic stat for chosen realms to semi spell users
         '''
@@ -1318,7 +1318,7 @@ class genAttrWin(blankWindow):
 
 
     def __chkRealm(self, event):
-        '''
+        '''!
         This method checks whether the right magic realm is chosen for the
         selected profession
         @param event object event given by OptionMenu but not used
@@ -1342,14 +1342,14 @@ class genAttrWin(blankWindow):
 
 
     def __setRBonus(self, event):
-        '''
+        '''!
         This method sets the races bonusses , the race based RR bonusses,
         Background Options and Hobby Ranks.
         @param event object event given by OptionMenu but not used
 
         ----
 
-        @param prepare race based additional bonusses which may be added when going to
+        @todo prepare race based additional bonusses which may be added when going to
         the next window.
         '''
         from rpgtoolbox import rolemaster as rm
@@ -1371,7 +1371,7 @@ class genAttrWin(blankWindow):
 
 
     def __setRealm(self, event):
-        '''
+        '''!
         Sets the connected Realm if profession is chosen
         @param event object event given by OptionMenu but not used
         '''
@@ -1381,7 +1381,7 @@ class genAttrWin(blankWindow):
 
 
     def __creatPot(self, temp = 20, fixed = False):
-        '''
+        '''!
         This method creates a potential stat from a temporary stat.
         @param temp value of the temporary stat
         @param fixed a parameter that turns the fixed creation mode on/off
@@ -1525,7 +1525,7 @@ class genAttrWin(blankWindow):
 
 
     def dice(self, sides = 6, number = 1):
-        '''
+        '''!
         This function delivers the result of a dice roll as a list.
         @param sides number of sides of the used dice
         @param number number of used dices/rolls
@@ -1633,7 +1633,7 @@ class genAttrWin(blankWindow):
 
 
     def __addCatnSkills(self):
-        '''
+        '''!
         This method adds skill categories and skills to the character's dictionary
         as well as bonus (special, profession and items)
         @note Skills wont have a profession bonus. It is already applied to the
@@ -1780,7 +1780,7 @@ class genAttrWin(blankWindow):
 
 
 class priorizeWeaponsWin(blankWindow):
-    """
+    """!
     This is the class for a window object to chose the priority of weapon skills
     at the character's generation. It will also set the category and skill ranks
     during adolescence.
@@ -1790,7 +1790,7 @@ class priorizeWeaponsWin(blankWindow):
 
 
     def __init__(self, lang = 'en', storepath = os.getcwd() + "/data", char = None):
-        """
+        """!
         Class constructor
         @param lang The chosen language for window's and button's
                     texts. At the moment, only English (en, default
@@ -1869,7 +1869,7 @@ class priorizeWeaponsWin(blankWindow):
 
 
     def __getPrio(self, event):
-        '''
+        '''!
         This generates the priority list by the chosen priorities.
         @param event has to be catched but is not used
         @todo check for double priorities. If any don't proceed
@@ -2163,7 +2163,7 @@ class priorizeWeaponsWin(blankWindow):
 
 
 class skillcatWin(blankWindow):
-    """
+    """!
     This is the class for a window object to chose the priority of weapon skills
     at the character's generation. It will also set the category and skill ranks
     during adolescence.
@@ -2277,12 +2277,12 @@ class skillcatWin(blankWindow):
 
 
     def __buildWin(self):
-        '''
+        '''!
         Builds the window's elements.
         - a frame containing:
-            1. treeview widget
-            2. vertical (auto)scrollbar linked to the treeview widget
-            3. horizontal (auto)scrollbar linked to the treeview widget
+            -# treeview widget
+            -# vertical (auto)scrollbar linked to the treeview widget
+            -# horizontal (auto)scrollbar linked to the treeview widget
         - Labels for specific category/skill values
 
         '''
@@ -2532,9 +2532,9 @@ class skillcatWin(blankWindow):
 
 
     def __buildTree(self):
-        '''
+        '''!
         Fills the treeview widget with skills and categories etc.
-        @todo this has to be fully implemented
+        @todo this has to be implemented:
             - Menu save functionality will save the current work state if not finalized.
             - force a name modify of skills with +
             - If not finalized clicking on items in edit skill/cat treeview will
@@ -2591,7 +2591,7 @@ class skillcatWin(blankWindow):
 
 
     def __buildChangedTree(self):
-        '''
+        '''!
         Adding all Changed cat/skill entries to the self.__chgtree
         @todo the following has to be done:
             -# selected items have to be taken to the entry fields
@@ -2687,7 +2687,7 @@ class skillcatWin(blankWindow):
 
 
     def __selectTreeItem(self, event):
-        '''
+        '''!
         Select an item from the treeview list.
         @param event responding treeview event which is not used for anything.
         '''
@@ -2758,7 +2758,7 @@ class skillcatWin(blankWindow):
 
 
     def __selectChangedItem(self, event):
-        '''
+        '''!
         Getting cat/skill entries from  self.__chgtree for further modification.
         @todo It has to be fully implemented
         '''
@@ -2810,8 +2810,8 @@ class skillcatWin(blankWindow):
 
 
     def __calcRanks(self, progression, rank):
-        '''
-        This method caculates the rank bonusses of a category or skill. if a
+        '''!
+        This method calculates the rank bonusses of a category or skill. if a
         single category or skill is given to this method only this single one will
         be (re-)calculated
 
@@ -2843,7 +2843,7 @@ class skillcatWin(blankWindow):
 
 
     def __takeValsSkill(self):
-        '''
+        '''!
         This method takes added/modified skills/cats to a dict and treeview
         @todo The following__chgtree has to be implemented:
         -# check whether it is a new skill.
@@ -3239,7 +3239,7 @@ class skillcatWin(blankWindow):
 
 
     def __renameSkill(self):
-        '''
+        '''!
         This method renames all skill+ and adds new ones
         ----
         @todo checkup whether values exist in self.__changed. If so take rank value from self.__changed.
@@ -3295,7 +3295,7 @@ class skillcatWin(blankWindow):
 
 
     def __info(self, text = ""):
-        '''
+        '''!
         This method just opens a message window to display information.
         @param text the text to display
 
@@ -3305,7 +3305,7 @@ class skillcatWin(blankWindow):
 
 
     def __helpAWin(self):
-        '''
+        '''!
         Help information about this window.
         @todo has to be implemented
         '''
@@ -3320,8 +3320,8 @@ class charInfo(blankWindow):
 
 
     def __init__(self, lang = 'en', storepath = os.getcwd() + "/data", char = None):
-        """
-        Class constructor
+        """!
+        Class constructor charInfo
         @param lang The chosen language for window's and button's
                     texts. At the moment, only English (en, default
                     value) and German (de) are supported.
@@ -3726,7 +3726,8 @@ class charInfo(blankWindow):
 
     def __saveAndExit(self):
         '''
-        This method gets all data from entries, puts them into character data struct and saves the updated character.
+        This method gets all data from entries, puts them into character data struct
+        and saves the updated character.
         '''
         if self.spath[-1] not in ["\\", "/"]:
             self.spath += "/"
@@ -3763,8 +3764,8 @@ class statGainWin(blankWindow):
 
 
     def __init__(self, lang = 'en', storepath = os.getcwd() + "/data", char = None):
-        """
-        Class constructor
+        """!
+        Class constructor statGainWin
         @param lang The chosen language for window's and button's
                     texts. At the moment, only English (en, default
                     value) and German (de) are supported.
@@ -4101,8 +4102,8 @@ class editEPWin(blankWindow):
 
 
     def __init__(self, lang = 'en', storepath = os.getcwd() + "/data", char = None):
-        """
-        Class constructor
+        """!
+        Class constructor editEPWin
         @param lang The chosen language for window's and button's
                     texts. At the moment, only English (en, default
                     value) and German (de) are supported.
@@ -4346,7 +4347,7 @@ class editEPWin(blankWindow):
 
 
 class BGOselectWin(blankWindow):
-    '''
+    '''!
     This window class will display the choices one have for his BGOs
     @todo The following has to be impemented
     - window building
@@ -4358,8 +4359,8 @@ class BGOselectWin(blankWindow):
 
 
     def __init__(self, lang = 'en', storepath = os.getcwd() + "/data", char = None):
-        """
-        Class constructor
+        """!
+        Class constructor BGOselectWin
         @param lang The chosen language for window's and button's
                     texts. At the moment, only English (en, default
                     value) and German (de) are supported.
@@ -4418,7 +4419,7 @@ class BGOselectWin(blankWindow):
 
 
     def __addEditMenu(self):
-        '''
+        '''!
         This adds an select menu to the menu bar.
         @todo to be implemented:
         -# extra money
@@ -4495,7 +4496,7 @@ class BGOselectWin(blankWindow):
 
 
     def __helpWin(self):
-        '''
+        '''!
         Help windows
         @todo this has to be fully implemented
         '''
@@ -4503,7 +4504,7 @@ class BGOselectWin(blankWindow):
 
 
     def __buildWin(self):
-        '''
+        '''!
         This method builds all window components
         @todo This has to be fully implemented.
         '''

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-'''
+'''!
 @package rpgtoolbox.rpgtools
 @file rpgtools.py
 @brief RPG helpful functions
@@ -8,13 +8,13 @@ This module contains some helpful functions for role-playing games like:
 - getLvl() for calculate actual level of char
 
 
-@date (C) 2015-2020
+@date (C) 2015-2021
 @license GNU V3.0
 @author Marcus Schwamberger
 @email marcus@lederzeug.de
 @version 1.0
 '''
-__updated__ = "22.11.2020"
+__updated__ = "28.12.2020"
 
 import random
 from rpgtoolbox.globaltools import readCSV
@@ -24,7 +24,7 @@ import re
 
 
 def dice(sides = 6, number = 1):
-    '''
+    '''!
     This function delivers the result of (number of) dice roll(s) as a list.
     @param sides number of sides of the used dice
     @param number number of used dices/rolls
@@ -42,7 +42,7 @@ def dice(sides = 6, number = 1):
 
 
 def getLvl(ep = 10000):
-    '''
+    '''!
     This function calculates the level of a MERP/RM character.
     @param ep experience point of the character
     \return level of character as integer ValueError
@@ -62,7 +62,7 @@ def getLvl(ep = 10000):
 
 
 def calcTotals(charval = {}):
-    '''
+    '''!
      This function calculates total bonusses for all categories and skills of a
      character.
      It saves rank bonusses and totals in the character's data dictionary
@@ -130,7 +130,7 @@ def calcTotals(charval = {}):
 
 
 def RRroll(attacklvl, targetlvl, roll):
-    '''
+    '''!
     This function checks out whether a RR roll has worked out.
 
     @param attacklvl level of the attack or attacker
@@ -174,7 +174,7 @@ def RRroll(attacklvl, targetlvl, roll):
 
 
 def statGain(dicelow = 1, dicehigh = 1, temp = 50, pot = 75):
-    '''
+    '''!
     This function calculates the stat gain roll: a temporary steat could raise ore fall.
     @param dicelow result of the lower result of the  d10 roll
     @param dicehight result of the higher result of the d10 roll
@@ -223,12 +223,14 @@ def statGain(dicelow = 1, dicehigh = 1, temp = 50, pot = 75):
 class equipmentPenalities(object):
     """
     This class calculates MMP and armor penalties.
+    ----
+    @bug sometimes armor penalties are not correctly calculated
     """
 
 
     def __init__(self, character = {}):
         """
-        Constructor
+        Constructor equipmentPenalties
         @param character JSON structure with all character data
         """
         self.character = character
@@ -383,15 +385,15 @@ class statManeuver(object):
 
 
     def __init__(self, tablefile = "./data/default/tables/general_smt.csv"):
-        '''
-        Constructor which needs the table to use.
+        '''!
+        Constructor statManeuver
         @param tablefile CSV containing the table which shall be used for static maneuver rolls.
         '''
         self.table = readCSV(tablefile)
 
 
     def checkRoll(self, roll):
-        '''
+        '''!
         Checks the rolled number + bonusses for success.
         @param roll the modified roll result (number)
         @retval result table row as dictionary.

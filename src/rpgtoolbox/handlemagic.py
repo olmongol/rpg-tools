@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-'''
+'''!
 @file handlemagic.py
 @package rpgtoolbox.handlemagic
 
@@ -12,7 +12,7 @@
 @version 0.8
 '''
 __version__ = "0.8"
-__updated__ = "22.12.2020"
+__updated__ = "28.12.2020"
 
 import os
 from . import logbox as log
@@ -26,7 +26,7 @@ logger = log.createLogger('magic', 'info', '1 MB', 1, './' , 'handlemagic.log')
 
 
 class getSpells(object):
-    '''
+    '''!
     @class getSpells
     This class generates an object to get all spell lists into the right context
     for a single character.
@@ -35,7 +35,7 @@ class getSpells(object):
 
 
     def __init__(self, datadir = "./data", charprof = "", charrealm = [], charlvl = 1):
-        '''
+        '''!
         This class generates an object to get all spell lists into the right context
         for a single character.
         @param datadir directory where to find the magic directory
@@ -61,7 +61,7 @@ class getSpells(object):
 
 
     def __getAllLists(self, datadir):
-        '''
+        '''!
         Get all spell lists and spell categories from disc
         @param datadir path to the magic directory
         '''
@@ -94,31 +94,31 @@ class getSpells(object):
 
 
     def __categorizeSLs(self):
-        '''
+        '''!
         This private method categorizes spell lists for identifying the developing
         costs for a player character
         @callgraph
         @todo categorize Base lists for non-spell users
         '''
         purespellusers = {"Animist": ["Channeling"],
-                        "Cleric" : ["Channeling"],
-                        "Illusionist" : ["Essence"],
-                        "Magician" : ["Essence"],
-                        "Lay Healer" : ["Mentalism"],
-                        "Mentalist" : ["Mentalism"],
+                        "Cleric": ["Channeling"],
+                        "Illusionist": ["Essence"],
+                        "Magician": ["Essence"],
+                        "Lay Healer": ["Mentalism"],
+                        "Mentalist": ["Mentalism"],
                         }
-        hybridspellusers = {"Healer" : ["Channeling", "Mentalism"],
-                            "Mystic" : ["Essence", "Mentalism"],
+        hybridspellusers = {"Healer": ["Channeling", "Mentalism"],
+                            "Mystic": ["Essence", "Mentalism"],
                             "Sorcerer": ["Channeling", "Essence"]
                             }
-        semispellusers = {"Paladin" : ["Channeling"],
-                         "Ranger" : ["Channeling"],
+        semispellusers = {"Paladin": ["Channeling"],
+                         "Ranger": ["Channeling"],
                          "Dabbler": ["Essence"],
                          "Monk": ["Essence"],
-                         "Bard" : ["Mentalism"],
+                         "Bard": ["Mentalism"],
                          "Magent": ["Mentalism"],
-                         "Taoist Monk" : ["Essence"],
-                         "Zen Monk" : ["Mentalism"]
+                         "Taoist Monk": ["Essence"],
+                         "Zen Monk": ["Mentalism"]
                          }
         nonspellusers = {"Fighter":['choice'],
                         "Thief":['choice'],
@@ -219,7 +219,7 @@ class getSpells(object):
 
 
 def updateSL(character = {}, datadir = "./data"):
-    '''
+    '''!
     This function updates the character's spell abilities if new spells/spell lists
     are defined.
     @param character a dictionary holding the character's full data.

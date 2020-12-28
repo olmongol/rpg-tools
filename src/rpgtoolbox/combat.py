@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-'''
+'''!
 @file /home/mongol/git/rpg-tools/src/rpgtoolbox/combat.py
 @package rpgtoolbox
 @brief Rolemaster combat module
@@ -13,10 +13,11 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "23.12.2020"
+__updated__ = "28.12.2020"
 __author__ = "Marcus Schwamberger"
 
 import re
+import json
 
 from rpgtoolbox.globaltools import splitExceptBetween as splitE
 from rpgtoolbox.globaltools import getCSVNames
@@ -42,8 +43,90 @@ from rpgToolDefinitions.helptools import RMDice
 
 
 
-def rollInitative(Qu = 0, mod = 0):
+def makeCombatant(jcont):
     """
+    """
+    atklvl = {"1":"S",
+              "2":"M",
+              "3":"L",
+              "4":"H"
+              }
+
+    combatant = {"name": jcont["name"],
+                 "Qu": jcont["Qu"]["total"],
+                 "hits": jcont["cat"]["Body Development"]["Skill"]["Body Development"]["total bonus"],
+                 "PP": jcont["cat"]["Power Point Development"]["Skill"]["Power Point Development"]["total bonus"],
+                 "DB": 3 * jcont["Qu"]["total"] + jcont["armquickpen"],
+                 "AT": jcont["AT"],
+                 "OB melee":[],
+                 "weapon melee":[],
+                 "OB missile":[],
+                 "weapon missile":[],
+                 "ammo":[],
+                 "shield":[],
+                 "status":{"cur hits":jcont["cat"]["Body Development"]["Skill"]["Body Development"]["total bonus"],
+                            "mod":0,
+                            "temp mod":[],
+                            "hits/rnd": 0,
+                            "stunned":0,
+                            "die":-1,
+                            "ooo": 0,
+                            "injuries":[],
+                            "parry":0,
+                            "no_parry":0,
+                            "ob_mod":0,
+                           },
+                 "log": {"gained hits":0,
+                          "gained crits": {"A":0,
+                                            "B":0,
+                                            "C":0,
+                                            "D":0,
+                                            "E":0
+                                            },
+                          "crits":{"A":[],
+                                    "B":[],
+                                    "C":[],
+                                    "D":[],
+                                    "E":[]
+                                    },
+                          "kill":[],
+                          "spells":{},
+                         },
+                 "size":"M"
+
+                 }
+    # determine weaponless combat skills:
+    if ["Brawling", "S", jcont["cat"]["Special Attacks"]["Skill"]["Brawling"]["rank"]] > 0:
+        combatant["OB melee"].append(["Brawling", "S", jcont["cat"]["Special Attacks"]["Skill"]["Brawling"]["total bonus"]])
+        combatant["OB weapon"].append(["bare hands", "data/default/fight/attacks/Brawling.csv", "data/default/fight/brawling_crit.csv"])
+
+    for c in ["Martial Arts - Striking", "Martial Arts - Sweeps"]:
+        dummy = []
+
+        for s in jcont["cat"][c]["Skill"].keys():
+
+            if s not in ["Progression"]:
+
+                if jcont["cat"][c]["Skill"][s]["rank"] > 0:
+                    dummy.append(s)
+
+                    if s[-1] in atklvl.keys():
+                        dummy.append(atklvl[s[-1]])
+
+                    else:
+                        dummy.append(atklvl["1"])
+
+                    dummy.append(jcont["cat"][c]["Skill"][s]["total bonus"])
+
+    if combatant["DB"] < 0:
+        combatant["DB"] = 0
+
+    return combatant
+
+
+
+def rollInitative(Qu = 0, mod = 0):
+    """!
     This rolls a initiative based on Quickness and additional modifiers
     @param Qu Quickness bonus
     @param mod modifier
@@ -55,7 +138,7 @@ def rollInitative(Qu = 0, mod = 0):
 
 
 def switch(mystr):
-    '''
+    '''!
     This makes a dictionary with int values from the "modifications" column
     @param mystr the cell entry (string)
     @retval result dictionary with "mod" and "rnd" (both int)
@@ -82,7 +165,7 @@ def switch(mystr):
 
 
 def createCombatList(filename):
-    """
+    """!
     This creates a list of combatants for @class combat from a CSV file (NSCs,
     Monster etc.) or JSON (Character/Group file)
     @todo has to be implemented
@@ -98,7 +181,7 @@ class crittable():
 
 
     def __init__(self, critfilename = "./data/default/fight/crits/puncture_crit.csv", lang = "en"):
-        """
+        """!
         Constructor
         @param lang configured language: en, de
         @param critfilename name and path of the crit table csv to read
@@ -165,7 +248,7 @@ class crittable():
                             self.crittable[crit][roll]["mod_attacker"] = {"mod_attacker":int(self.crittable[crit][roll]["mod_attacker"]),
                                                              "rnd":90 * 24 * 60 * 6}
 
-                    if self.crittable[crit][roll]["alternate"] != "" and type(self.crittable[crit][roll]["alternate"]) == type("") :
+                    if self.crittable[crit][roll]["alternate"] != "" and type(self.crittable[crit][roll]["alternate"]) == type(""):
                         self.crittable[crit][roll]["alternate"] = switch(self.crittable[crit][roll]["alternate"])
 
                     else:
@@ -200,14 +283,15 @@ class attacktable():
     """
 
 
-    def __init__(self, tabfilename = "data/default/fight/attacks/Broadsword.csv", lang = "en"):
-        """
+    def __init__(self, tabfilename = "data/default/fight/attacks/Broadsword.csv", lang = "en", override = ""):
+        """!
         Constructor
         @param tavfilename name and path of the attack table csv to read
         @param lang configured language: en, de
         """
         self.filename = tabfilename
         self.lang = lang
+        self.override = override
         self.__makeTable()
 
 
@@ -231,21 +315,24 @@ class attacktable():
                 if header[j] not in ["pattern", "type"]:
                     self.attack[dummy[0].strip(" ")][header[j].strip(" ")] = int(dummy[j])
 
+                elif self.override:
+                    self.attack[dummy[0].strip(" ")][header[j].strip(" ")] = self.override
+
                 else:
                     self.attack[dummy[0].strip(" ")][header[j].strip(" ")] = dummy[j]
 
 
     def getHits(self, roll = 50, AT = "1", AS = "H"):
-        """
+        """!
         Caculates the hitpoints
         @param roll dice roll result on the table
         @param AT armor type to lock up (string)
         @param AS max. attack size: H,L,M,S   - huge, large, medium, small
         """
-        attacksize = {"H" : 150,
-                    "L" : 135,
-                    "M" : 120,
-                    "S" : 105
+        attacksize = {"H": 150,
+                    "L": 135,
+                    "M": 120,
+                    "S": 105
                     }
 
         if roll > attacksize[AS]:
@@ -276,7 +363,7 @@ class attacktable():
 
 
 class combat():
-    """
+    """!
     This class handles all combat issues
     - combines comatant groups
     - manages battle rounds, initiatives damage etc.
@@ -284,36 +371,48 @@ class combat():
     """
 
 
-    def __init__(self, lang = "en", attacker = [], defender = [], log = "battle.log"):
+    def __init__(self, lang = "en", log = "battle.log"):
         """
         Constructor
          @param lang chosen Language
-         @param attacker list of dictionaries of "attackers"
-         @param defender list of dictionaries of "defenders"
          @param log name an path of the file where to log the battle
         """
         self.attacklog = log
         self.lang = lang
-        self.attackers = attacker
-        self.defenders = defender
+        self.battle = {"initiative": [],
+                       "charparty": [],
+                       "enemies": []}
 
-        self.getTables()
 
+    def addCombatants(self, filename, grp = "charparty"):
+        """!
+        This creates/fills the lists of combatants:
+        -# charparty: characters and all who fight with them
+        -# enemies: monster, nscs and all who fight against the characters
 
-    def getTables(self):
+        @param filename file to load: this might be a JSON for single character
+                        file or group of characters or a CSV for NSCs, monsters
+                        etc.
+        @param grp the group to add data to:
+                - charparty: all who fight with the characters
+                - enemies: all who fight against the characters
+
         """
-        Makes objects from attack tables and critical tables.
-        """
-        atpath = "data/default/fight/attacks/"
-        crpath = "data/default/fight/crits/"
+        if ".json" == filename.lower()[-5:]:
+            with open(filename, "r") as fp:
+                jcont = json.load(fp)
 
-        self.attacktabs = {}
-        self.crittabs = {}
+            if type(jcont) == type([]):
+                # character group
+                pass
 
-        for tab in  getCSVNames(atpath):
-            self.attacktabs[tab.split(".")[0].replace("_", " ")] = attacktable(atpath + tab)
+            elif type(jcont) == type({}):
+                # single character file
+                pass
 
-        for tab in getCSVNames(crpath):
-            self.crittabs[tab.split("_")[0]] = crittable(crpath + tab)
+        elif ".csv" == filename.lower()[-4:]:
+            pass
+        else:
+            print("Error: {] has the wrong file type!".format(filename))
 
 #slash = crittable(critfilename = "/home/mongol/git/rpg-tools/src/data/default/fight/crits/slash_crit.csv")

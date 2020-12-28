@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-'''
+'''!
 @file helptools.py
 @package rpgToolDefinitions
 @brief help functions for rpg
@@ -15,7 +15,7 @@ from random import randrange as rrange
 
 
 def RMDice(sides = 100, nod = 1, rules = "MERS", low = 4, high = 96):
-    '''
+    '''!
     This functions simulates the sides and number of dices thrown at RPG
     @param sides number of sides of the dice(s)
     @param nod number of dices

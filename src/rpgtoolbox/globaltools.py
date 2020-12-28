@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-'''
+'''!
 \package rpgtoolbox
 \file globaltools.py
 
@@ -15,11 +15,11 @@ This module holds some nice small helper functions like I/O things.
 \todo checkout whether all functions are really needed for this project.
 '''
 
-__msg__ = {'ERR_NO_DATA'     : "ERROR: no data to compute :(",
-           'ERR_NO_FILENAME' : "ERROR: no file name :(",
-           'ERR_WRONG_TYPE'  : "ERROR: wrong data/variable type",
-           'ERR_WRONG_MODE'  : "ERROR: wrong FS I/O mode!",
-           'OK'              : "OK: job is done :D"
+__msg__ = {'ERR_NO_DATA': "ERROR: no data to compute :(",
+           'ERR_NO_FILENAME': "ERROR: no file name :(",
+           'ERR_WRONG_TYPE': "ERROR: wrong data/variable type",
+           'ERR_WRONG_MODE': "ERROR: wrong FS I/O mode!",
+           'OK': "OK: job is done :D"
           }
 
 import os
@@ -33,7 +33,7 @@ logger = log.createLogger('global', 'warning', '1 MB', 1, './' , 'globaltools.lo
 
 
 def readFile(path = './', file_name = None, mode = 'r'):
-    '''
+    '''!
     This function reads a file and returns its content.
     This function is designed to read files from a file system. It knows two
     modes of reading: text and binary mode.
@@ -74,7 +74,7 @@ def readFile(path = './', file_name = None, mode = 'r'):
 
 
 def writeFile(path = './', file_name = 'output', data = None, mode = 'w'):
-    '''
+    '''!
     This function simply (over)writes a file with given data.
     This function is designed to dump some data into a file. It is possible to
     write binary files or text files.
@@ -127,7 +127,7 @@ def writeFile(path = './', file_name = 'output', data = None, mode = 'w'):
 
 
 def checkFiles(path = './', file_list = []):
-    """
+    """!
     This function check out whether a list of files exists in a specific
     directory.
 
@@ -163,14 +163,14 @@ def checkFiles(path = './', file_list = []):
             result[str(file_list)] = False
 
     else:
-        result = {'path' : False}
+        result = {'path': False}
 
     return result
 
 
 
 def sortIndex(dic = {}):
-    """
+    """!
     \brief This function is a little helper when sorting a dictionary.
 
     This function gets a dictionary and gives back the dictionary index as a
@@ -187,7 +187,7 @@ def sortIndex(dic = {}):
 
 
 def array2dict(array = [], expr = '=', comment = '#'):
-    """
+    """!
     This function transforms an array <str1>=<str2> into a dictionary
     { <str1> : <str2>}
 
@@ -214,7 +214,7 @@ def array2dict(array = [], expr = '=', comment = '#'):
 
 
 def list2str(array = []):
-    """
+    """!
     This function transforms a list/tuple into a string where the elements are
     separated by spaces.
     @param array List/tupel to be transformed to string
@@ -231,7 +231,7 @@ def list2str(array = []):
 
 
 def tstr2list(string = '(1,2,3)'):
-    """
+    """!
     This function transforms a string which 'looks like a tuple' into a list
     @param string input 'tuple' string
     @retval result list of 'tuple' string elements
@@ -250,7 +250,7 @@ def tstr2list(string = '(1,2,3)'):
 
 
 def makeKeyList(dic = {}, klist = []):
-    '''
+    '''!
     This function simply extracts/compares the key index of a given dictionary
     with a list. If the list is lacking entries they will be added from the key
     index. Finally, the list will be returned and compared with the index list.
@@ -272,7 +272,7 @@ def makeKeyList(dic = {}, klist = []):
 
 
 def writeJSON(filename = "", content = {}):
-    '''
+    '''!
     This function writes a dictionary into a JSON file.
 
     @param filename  path+file where to save the data in
@@ -289,7 +289,7 @@ def writeJSON(filename = "", content = {}):
 
 
 def readJSON(filename):
-    '''
+    '''!
     This function reads JSON files into a dictionary.
 
     @param filename path+file of the JSON file to read.
@@ -308,7 +308,7 @@ def readJSON(filename):
 
 
 def getLast(string = "/", sep = '/'):
-    '''
+    '''!
     This function gives the last element of a list stored in a string.
     @param string where the list is stored.
     @param sep separator of the list elements. E.g., '/' or ','
@@ -320,7 +320,7 @@ def getLast(string = "/", sep = '/'):
 
 
 def readCSV(fname = "test.csv"):
-    '''
+    '''!
     This function reads a CSV file and returns a dictionary
     @param fname name (and path) of the CSV file
     @retval result a list containing dictionaries with keys from CSV header line
@@ -338,7 +338,7 @@ def readCSV(fname = "test.csv"):
 
 
 def getCSVNames(chkpath = "data/default/fight/attacks"):
-    """
+    """!
     This returns a list of CSV files from a path, but CSVs <name>-.csv are excluded
     too
     @param chkpath path to search for the CSV file names
@@ -357,7 +357,7 @@ def getCSVNames(chkpath = "data/default/fight/attacks"):
 
 
 def sortTupleList(tuplelist, sortindex = 0, desc = True):
-    """
+    """!
     This sorts a list of tuples by the given index.
     @param tuplelist list of the tuples
     @param sortindex index of tuple by which list should be sorted
@@ -368,7 +368,7 @@ def sortTupleList(tuplelist, sortindex = 0, desc = True):
 
 
 def splitExceptBetween(inputstr = 'bla,fasel', delimiter = ',', quotes = '"'):
-    '''
+    '''!
     This function splits a string into a list by delimiter but excepts delimiters
     placed between quotes
     @param inputstr string to split into a list
@@ -400,8 +400,8 @@ def splitExceptBetween(inputstr = 'bla,fasel', delimiter = ',', quotes = '"'):
 
 
 
-def writeCSV(fname = "test.csv", cont = [{'Spam' : 'Ham'}, {'Spam':'eggs'}]):
-    '''
+def writeCSV(fname = "test.csv", cont = [{'Spam': 'Ham'}, {'Spam':'eggs'}]):
+    '''!
     This function creates a CSV file from a given list of dictionaries
     @param fname file name of the CSV
     @param cont list of dictionaries
@@ -419,7 +419,7 @@ def writeCSV(fname = "test.csv", cont = [{'Spam' : 'Ham'}, {'Spam':'eggs'}]):
 
 
 def readMagic(root = "./data/default/magic", slgroup = None):
-    '''
+    '''!
     This function runs trough the magic root dir and collects the spell list groups
     (dirs) and the names of the spell lists (files). It filters if a spell list
     group is given.

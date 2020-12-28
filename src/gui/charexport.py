@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-'''
+'''!
 @file charexport.py
 @package gui.charexport
 @brief Module for export RPG Characters to LaTeX/PDF.
@@ -26,7 +26,7 @@ __email__ = "marcus@lederzeug.de"
 __version__ = "1.0"
 __license__ = "GNU V3.0"
 __me__ = "A RPG tool package for Python 2.7"
-__updated__ = "22.11.2020"
+__updated__ = "28.12.2020"
 __copyright__ = "(C) 2015-%s %s" % (__updated__[-4:], __author__)
 
 Template.delimiter = "=>"

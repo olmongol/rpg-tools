@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-'''
+'''!
 @file rm_char_tools.py
 @package rm_char_tools.py
 @brief This is a little tool for creating and keeping track of Role Master Characters
@@ -19,7 +19,6 @@ This tool handles
 @version 1.1.0
 
 @todo design: individual/group history. maybe create an in-time calendar module...
-@todo design: Treasures (Chris)
 @todo desing: herb store and search
 
 '''
@@ -29,7 +28,7 @@ from rpgtoolbox.confbox import *
 from rpgtoolbox import logbox as log
 
 __author__ = "Marcus Schwamberger"
-__updated__ = "22.11.2020"
+__updated__ = "28.12.2020"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + __author__
 __email__ = "marcus@lederzeug.de"
 __version__ = "1.1.0"

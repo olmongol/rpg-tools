@@ -1,4 +1,5 @@
-'''
+#!/usr/bin/env python
+'''!
 \package rpgtoolbox.confbox
 \file confbox.py
 
@@ -6,7 +7,7 @@
 
 
 \author Marcus Schwamberger
-\date (c) 2012-2016
+\date (c) 2012-2021
 \version 0.5
 \email marcus@lederzeug.de
 \license GNU V3.0
@@ -15,81 +16,81 @@ import os, locale
 import rpgtoolbox.globaltools as rpgtools
 from rpgtoolbox.lang import *
 __version__ = "0.5"
-__updated__ = "10.06.2018"
+__updated__ = "28.12.2020"
 
 defaultconfigpath = "conf/"
 defaultconfigfile = "rpg-tools.cfg"
 defaultlang = locale.getdefaultlocale()[0][:2]
 ## cfgopts
 # holds allowed configuration options and their descriptions
-cfgopts = {'lang' :'''
+cfgopts = {'lang':'''
 #-------------------------------------------------------------------------------
 # The parameter lang describes the used language.
 # Supported are: (de, en)
 #-------------------------------------------------------------------------------
 ''',
-           'datapath' : '''
+           'datapath': '''
 #-------------------------------------------------------------------------------
 # path is the default storage path for generated CSV files
 #-------------------------------------------------------------------------------
 ''',
-            'logpath' : '''
+            'logpath': '''
 #-------------------------------------------------------------------------------
 # path where the log files shall be stored
 #-------------------------------------------------------------------------------
 ''',
-            'logcount' : '''
+            'logcount': '''
 #-------------------------------------------------------------------------------
 # Number of maximum log files stored. Default: 3
 #-------------------------------------------------------------------------------
 ''',
-            'logfile' : '''
+            'logfile': '''
 #-------------------------------------------------------------------------------
 # Name of the log file. Default: rpgtools.log
 #-------------------------------------------------------------------------------
 ''',
-            'logsize' : '''
+            'logsize': '''
 #-------------------------------------------------------------------------------
 # Maximum size of a log file. Default: 1 M
 #-------------------------------------------------------------------------------
 ''',
-            'loglevel' : '''
+            'loglevel': '''
 #-------------------------------------------------------------------------------
 # Loglevel. Default: error
 # Available: debug, info, warning, error, critical
 #-------------------------------------------------------------------------------
 ''',
-            'db_type' : '''
+            'db_type': '''
 #-------------------------------------------------------------------------------
 # Database type: CSV, MySQL, SQLLite
 # Actually only CSV is supported
 #-------------------------------------------------------------------------------
 ''',
-            'db_host' : '''
+            'db_host': '''
 #-------------------------------------------------------------------------------
 # Address of database host. Default: localhost
 # The use of databases is actually not supported
 #-------------------------------------------------------------------------------
 ''',
-            'db_name' : '''
+            'db_name': '''
 #-------------------------------------------------------------------------------
 # Name of the used database. Default: rpgtools
 # The use of databases is actually not supported
 #-------------------------------------------------------------------------------
 ''',
-            'db_port' : '''
+            'db_port': '''
 #-------------------------------------------------------------------------------
 # Database port. Default: 3306 (MySQL
 # The use of databases is actually not supported
 #-------------------------------------------------------------------------------
 ''',
-            'db_user' : '''
+            'db_user': '''
 #-------------------------------------------------------------------------------
 # Database user. Default rpgtools
 # The use of databases is actually not supported
 #-------------------------------------------------------------------------------
 ''',
-            'db_passwd' : '''
+            'db_passwd': '''
 #-------------------------------------------------------------------------------
 # Password of database user. Default: secred
 # The use of databases is actually not supported
@@ -100,20 +101,20 @@ cfgopts = {'lang' :'''
 
 ##defval
 # holds default values for a configuration file.
-defval = {'lang' : 'en',
-          'datapath' : './data',
-          'logpath'  : '/tmp/',
-          'rpg'      : 'RoleMaster',
-          'logcount' : 5,
-          'logsize'  : '1M',
-          'logfile'  : 'rpgtools.log',
-          'loglevel' : 'error',
-          'db_type'  : 'csv',
-          'db_host'  : 'localhost',
-          'db_port'  : 3306,
-          'db_user'  : 'rpgtools',
+defval = {'lang': 'en',
+          'datapath': './data',
+          'logpath': '/tmp/',
+          'rpg': 'RoleMaster',
+          'logcount': 5,
+          'logsize': '1M',
+          'logfile': 'rpgtools.log',
+          'loglevel': 'error',
+          'db_type': 'csv',
+          'db_host': 'localhost',
+          'db_port': 3306,
+          'db_user': 'rpgtools',
           'db_passwd': 'secred',
-          'db_name'  : 'rpgtools',
+          'db_name': 'rpgtools',
           'calc_type': 'simple',
           }
 
@@ -132,8 +133,8 @@ class chkCfg(object):
 
     def __init__(self, path = defaultconfigpath, filename = defaultconfigfile,
                  lang = 'en', exp = '=', comment = '#'):
-        '''
-        Constructor
+        '''!
+        Constructor chkCfg
         \param path Path to the config file
         \param filename Name of the config file
         \param lang used language for messages
@@ -147,7 +148,7 @@ class chkCfg(object):
 
     def __cfg2dic(self, path = defaultconfigpath, filename = defaultconfigfile, lang = 'en', \
                   exp = '=', comment = '#', logpath = None):
-        '''
+        '''!
         This method reads out a config file and stores the data into a
         dictionary named \e cnfparam.
         \param path Path to the config file
@@ -194,7 +195,7 @@ class chkCfg(object):
 
     def createDefault(self, path = defaultconfigpath, filename = defaultconfigfile,
                       logpath = "/tmp", exp = '=', comment = '#'):
-        '''
+        '''!
         This method creates a default configuration file for the rpg-tools.
 
         \param path Path to the config file
@@ -222,7 +223,7 @@ class chkCfg(object):
 
 
     def _coCfg(self, lang = 'en'):
-        """
+        """!
         This method checks whether all configurational parameter are set.
         \param lang contains the language that is chosen.
         """
@@ -274,7 +275,7 @@ class chkCfg(object):
 
 
     def loadCnf(self, path = defaultconfigpath, filename = defaultconfigfile):
-        """
+        """!
         This method loads the config data from default config file.
         \param path path of the config file
         \param filename name of config file
@@ -298,7 +299,7 @@ class chkCfg(object):
 
 
     def saveCnf(self, path = defaultconfigpath, filename = defaultconfigfile, content = "Error 40"):
-        """
+        """!
         This method writes config data into a file
         \param path path to the config file
         \param filename name of the config file

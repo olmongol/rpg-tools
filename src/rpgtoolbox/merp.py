@@ -1,8 +1,8 @@
 #!/usr/bin/env python
-'''
+'''!
 \file /home/mongol/git/rpg-tools/src/rpgtoolbox/merp.py
 \package rpgtoolbox.merp
-\brief 
+\brief
 
 
 \date (C) 2017

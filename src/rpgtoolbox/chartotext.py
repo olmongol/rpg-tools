@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-'''
+'''!
 \package rpgtoolbox.chartotext
 \file chartotext.py
 
@@ -11,11 +11,11 @@ Detailed description
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
 \date 22.09.2018
-\copyright 2018
+\copyright 2018-2021
 \version 0.1
 \license GNU V3.0
 '''
-__updated__ = "01.01.2000"
+__updated__ = "28.12.2020"
 __me__ = "/home/mongol/git/rpg-tools/src/rpgtoolbox/chartotext.py"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
@@ -47,19 +47,18 @@ class latexsheets(object):
 
 
     def __init__(self, charfile = None, defaultpath = "./data/default"):
-        '''
-        Constructor of a chartolatex object.
-
+        '''!
+        Constructor latexsheets
         @param charfile path and name of the character file to transform into a latex document.
         '''
         self.charfile = charfile
         self.__tmplfiles = {'main':'template_charsheet.tex',
-                            'general' : 'template_gen_info.tex',
+                            'general': 'template_gen_info.tex',
                             'categories':'template_cats.tex',
                             'skills': 'template_skills.tex',
                             'rr_at_db': 'template_rr_at_db.tex',
                             'stats': 'template_stats.tex',
-                            'spells' : 'template_spells.tex',
+                            'spells': 'template_spells.tex',
                             'training': 'template_trainpack.tex'
                             }
 
@@ -106,7 +105,7 @@ class latexsheets(object):
 
 
     def selectData(self, page = 'main'):
-        '''
+        '''!
         This constructs a data set for each LaTeX file which shall be generated from templates.
         @param page this defines the data structure generation for which part of the character sheet. The options are:
                - main: main template

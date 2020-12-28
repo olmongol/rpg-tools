@@ -1,4 +1,4 @@
-'''
+'''!
 @file latexexport.py
 @package rpgtoolbox.latexexport
 @brief Export class for LaTeX
@@ -12,7 +12,7 @@ will be generated for printouts
 @version 1.1
 '''
 
-__updated__ = "22.11.2020"
+__updated__ = "28.12.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -33,7 +33,7 @@ logger = log.createLogger('latexreport', 'debug', '1 MB', 1, './')
 
 
 def readFile(filename = ""):
-    '''
+    '''!
     This reads a text file/LaTeX template file
     @param filename path + name of the file to read
     @retval content content of the file
@@ -56,7 +56,7 @@ def readFile(filename = ""):
 
 
 def saveFile(filename = "", content = ""):
-    '''
+    '''!
     This saves a file
     @param filename path + name of the file to store
     @param content content to store in the file
@@ -76,7 +76,7 @@ class charsheet(object):
 
 
     def __init__(self, char = {}, storepath = "./", short = True):
-        '''
+        '''!
         Constructor:
         @param char character data in a dictionary
         @param storepath configured store path.
@@ -433,7 +433,7 @@ class charsheet(object):
 
 
     def createSpells(self):
-        '''
+        '''!
         This makes a sheet with all learned spells
         @todo this has to be fully implemented
         '''
@@ -473,7 +473,7 @@ class spellbook(object):
 
 
     def __init__(self, character = {}, storepath = "./data/"):
-        '''
+        '''!
         Class constructor
         @param character dictionary which hold full character data.
         @param storepath path to the main storage directory.
@@ -587,7 +587,7 @@ class inventory(object):
 
 
     def __init__(self, character = {}, storepath = "./data/"):
-        '''
+        '''!
         Class constructor
         @param character dictionary holding character's data
         @param storepath path to the main storage directory
@@ -785,10 +785,10 @@ class inventory(object):
 
 
     def tblWeapon(self):
-        """
+        """!
         this creates a table with all weapons.
         ----
-        @todo has to be fully implemented
+        @todo the skill bonus has to be added
         """
         self.latex += "\n\\section*{\\textcolor{Maroon}{Weapons}}\n"
         # melee combat ---------------------

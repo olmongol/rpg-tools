@@ -1,19 +1,19 @@
 #!/usr/bin/env python
-'''
+'''!
 \file magic.py
 \package rpgToolDefinitions.magic
 \brief definition of data structures for spell casting and magic actions.
 
 
-\date (C) 2020
+\date (C) 2020-2021
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "20.07.2020"
+__updated__ = "28.12.2020"
 
-magic_range_mod = {0 : 30,
+magic_range_mod = {0: 30,
                  10: 10,
                  50: 0,
                  100:-10,
@@ -21,14 +21,14 @@ magic_range_mod = {0 : 30,
                  10000000:-30
                  }
 
-situation_mods = {"Full Cover" :-20,
-                 "Partial Cover" :-10,
+situation_mods = {"Full Cover":-20,
+                 "Partial Cover":-10,
                  "Static Target":+10}
 
 
 
 def readBasicTable(filename = "./data/default/tables/basic_spell_table.csv"):
-    """
+    """!
     This reads the basic spell csv and converts it to an internal dictionary structure
     @param filename path+name of the basic spell table
     @retval table dictionary holding CSV as dictionary table

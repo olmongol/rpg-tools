@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-'''
+'''!
 @file rm-fighting.py
 @brief Manager for RM fights
 
@@ -11,7 +11,7 @@ This program helps to handle fights between PCs,NPCs, animals, monsters etc.
 @version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "22.11.2020"
+__updated__ = "28.12.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + __author__
 __email__ = "marcus@lederzeug.de"

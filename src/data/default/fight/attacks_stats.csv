@@ -1,6 +1,6 @@
 attack,shortc,atype,fumble,near,short,medium,long,extreme,table,crits
-MA Strikes,st,melee,2,---,---,---,---,---,MA_Strikes,ma-strikes
-MA Sweeps,sw,melee,2,---,---,---,---,---,MA_Sweeps,ma-sweeps
+Martial Arts - Striking,st,melee,2,---,---,---,---,---,Martial_Arts_-_Striking,martail_arts_-_striking
+Martial Arts - Sweeps,sw,melee,2,---,---,---,---,---,Martial_Arts_-_Sweeps,martial_arts_-_sweeps
 Horn,ho,melee,2,---,---,---,---,---,Horn_Tusk,unbalance/krush/puncture
 Tusk,tu,melee,2,---,---,---,---,---,Horn_Tusk,unbalance/krush/puncture
 Claw,cl,melee,2,---,---,---,---,---,Claw_Talon,tiny/krush/puncture/slash
