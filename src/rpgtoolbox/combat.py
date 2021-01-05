@@ -13,7 +13,7 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "28.12.2020"
+__updated__ = "30.12.2020"
 __author__ = "Marcus Schwamberger"
 
 import re
@@ -44,7 +44,10 @@ from rpgToolDefinitions.helptools import RMDice
 
 
 def makeCombatant(jcont):
-    """
+    """!
+    This function creates a combatant dictionary out of a character dictionary.
+    \param jcont character dictionary
+    \retval combatant unified combatant dictionary
     """
     atklvl = {"1":"S",
               "2":"M",
