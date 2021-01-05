@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-'''
+'''!
 \file find_herbs.py
 \brief This is a little tool for finding herbs in different areas of Middle-Earth
 
@@ -29,7 +29,7 @@ from tkinter import filedialog
 
 
 def string2worth(worth = ""):
-    '''
+    '''!
     This converts a string like "2gp 42cp" into a worth dictionary
     @param worth string that holds the worth like "3gp 65bp". Important: space is
     delimiter and the shorts have to be lower characters.
@@ -47,7 +47,7 @@ def string2worth(worth = ""):
 
 
 def sumDices(sides = 4, number = 1):
-    """
+    """!
     Rolls number D sides and returns the sum of the results
     @param sides of the dice to roll
     @param number of the dices to roll
@@ -61,7 +61,7 @@ def sumDices(sides = 4, number = 1):
 
 
 class searchHerbsWin(blankWindow):
-    """
+    """!
     This is the GUI for searching herbs in Middle-Earth.
     A list of characters can be loaded and a single character can be chosen for
     the foragin check.
@@ -71,8 +71,8 @@ class searchHerbsWin(blankWindow):
 
 
     def __init__(self, lang = "en", charlist = [], storepath = "./data", herbsfile = "herbs.csv"):
-        """
-        Constructor for main window of herb search
+        """!
+        Constructor searchHerbsWin
         @param lang chosen language for window content.
         @param charlist list of characters
         @param storepath configured storepath
@@ -109,7 +109,7 @@ class searchHerbsWin(blankWindow):
         self.regions = []
         self.playerlist = ["dummy"]
         self.charlist = [{"player":"dummy",
-                          "prof" : "Layman",
+                          "prof": "Layman",
                           "name": "Sigurt",
                           "skill":-15
                           }]
@@ -390,7 +390,7 @@ class searchHerbsWin(blankWindow):
 
     def __checkResult(self):
         """
-        This initiaties teh search for herbs by the given parameters
+        This initiates the search for herbs by the given parameters
         """
         searchskill = self.__charskill.get()
         searchmod = self.__mod.get()
@@ -402,7 +402,7 @@ class searchHerbsWin(blankWindow):
 
 
     def findHerbs(self, roll = 0, skill = -15, area = ["---"], climate = [], locale = []):
-        """
+        """!
         This function searches for herbs by area, climate and locale dependend on difficulty of
         finding and the success of the skill (foraging) roll.
         @param roll result of the dice roll

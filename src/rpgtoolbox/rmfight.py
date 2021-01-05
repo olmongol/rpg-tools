@@ -1,11 +1,11 @@
 #!/usr/bin/python3
-'''
+'''!
 \file rmfight.py
 \package rpgtoolbox.py
 \brief fighting module (home rules - based on RM)
 
 
-\date (C) 2020
+\date (C) 2020-2021
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
 \license GNU V3.0
@@ -23,7 +23,7 @@ __version__ = "0.1"
 
 
 def readOpponentTable(filename = "monsters.csv"):
-    '''
+    '''!
     This reads a complete CSV with NSCs, monsters, animals etc. and converts it into
     a list of dictionaries like "light SCs"
     @reftval result list of dictionaries holding all opponents data
@@ -51,7 +51,7 @@ def readOpponentTable(filename = "monsters.csv"):
 
 
 def createCombatants():
-    '''
+    '''!
     @todo hast to be fully implemented
     '''
     pass
@@ -59,7 +59,7 @@ def createCombatants():
 
 
 class attackTable(object):
-    '''
+    '''!
     This class creates objects of attack tables which deliver attack results.
     @todo has to be fully implemented.
     '''
@@ -71,14 +71,14 @@ class attackTable(object):
 
 
 class combatant(object):
-    """
+    """!
     This creates a combatant in a battle.
     """
 
 
     def __init__(self, data = {}, datatype = "char", lang = "en", storepath = "./data/"):
-        """
-        Constructor
+        """!
+        Constructor combatant
         @param data dictionary that holds the fight credentials of an opponent:
                chat, monster,creature,nsc
         @param datatype tells wich kind of dataset \param data is,
@@ -111,13 +111,13 @@ class combatant(object):
 
     def calcCurrOB(self):
         """
-        Thsi (re-)calculates the combatant's current OB
+        This (re-)calculates the combatant's current OB
         """
         pass
 
 
     def rollAttack(self, obindex = 0, dbtarget = 0, roll = None):
-        """
+        """!
         This executes & solves the attack roll
         @param obindex index of OB list which indicates which attack (bonus, table etc) to use.
         @param dbtarget the attack roll's modification by the defensive abilities of the target.

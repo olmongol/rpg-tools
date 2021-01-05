@@ -1,1 +1,23 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Gauge Wealth,1 target,---,10',P,"The caster gets a feeling for how much the target of this spell believes he is worth (i.e., his net worth). Note that this could be drastically different than how much money the target has (as wealth could include land, livestock, etc.)."
+2,Weigh Pockets,1 target,---,10',P,The caster knows approximately how much ''wealth'' the target has upon his person.
+3,Mark Target,1 target,1 hr/lvl,touch,P,The caster magically ''marks'' a target for use with the Locate Target spell. The caster can only have one target marked at a time.
+4,Find Buyer I,500'R/lvl,---,self,I,Locates the nearest person (within the area of effect; direction and distance) who wants a specific object. The caster must be touching the object at the time this spell is cast.
+5,Locate Target,50'R/lvl,---,self,I,The caster knows the exact location (direction and distance) of a ''marked'' target.
+6,Jewel/Metal Assessment,1 object,---,self,I,Caster can assess the value of jewels and metals within 10\% of actual value. This spell allows him to calculate different values for all the cultures he is familiar with. Note that this spell evaluates the materials only (not the craftsmanship or the magical properties).
+7,Item Assessment,1 object,---,self,I,"As Jewel/ Metal Assessment, except this spell will take into account the craftsmanship of the item. Magical properties are not evaluated."
+8,Find Buyer II,500'R/lvl,---,self,I,Locates the nearest person (within the area of effect; direction and distance) who wants a specific object and is will- ing to acquire it at this time. The caster must be touching the object at the time this spell is cast.
+9,Detect Power,1 object,---,self,I,Detects magical power in an item (but not the realm or how much power is in the item).
+10,Item Analysis I,1 object,---,self,I,"Caster has a 10\% chance of determining the enchanted abilities of an object (roll separately for each ability). Once this spell has been cast on an item, it may not be cast on the same item again until the caster has gained a level of experience. See Section 7.1.4."
+11,Find Owner I,1 mile R,---,self,I,"The caster knows the location of the owner of a specified object (the caster must be touching the object at the time that this spell is cast). The owner must be within the area of effect. For the purposes of this spell, the owner of an object is defined as someone who has ''legal'' ownership of the object. The GM must determine what constitutes legal ownership in his world (e.g., the creator, the purchaser of the created item, possessor, etc.)."
+12,Find Buyer III,500'R/lvl,---,self,I,"Locates the nearest person (within the area of effect; direction and distance) who wants a specific object, is willing to acquire it at this time, and is willing to acquire it in a non-violent fashion. The caster must be touching the object at the time this spell is cast."
+13,Assessment True,1 object,---,self,I,"As Item Assessment, except that any item can be assessed (e.g., livestock, houses, boats, etc.)."
+14,Significance,1 object,---,self,I,Determines if the item examined has any cultural or historical significance (but not exactly what the significance is).
+15,Find Owner II,5 miles R,---,self,I,"As Find Owner I, except for area of effect."
+16,Find Buyer IV,500'R/lvl,---,self,I,"Locates the nearest person (within the area of effect; direction and distance) who wants a specific object, is willing to acquire it at this time (in a non-violent fashion), and is willing to pay the best price. The caster must be touching the object at the time this spell is cast."
+18,Origins,1 object,---,self,I,"Gives the area of origin of the item, the race of the being who created it, and when it was made (within 100 years)."
+19,Find Owner III,10 miles R,---,self,I,"As Find Owner I, except for area of effect."
+20,Owner Vision,caster,---,self,I,Caster gets a visual image of the owner of an item.
+25,Item Vision,1 object,---,self,I,Gives a vision of a significant event in the item's past.
+30,Origins True,1 object,---,self,I,"As Origins, except it gives the exact place of origin, the being who made it, and when it was made."
+50,Find Owner True,unlimited,---,self,I,"As Find Owner I, except for area of effect."

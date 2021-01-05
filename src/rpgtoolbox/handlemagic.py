@@ -1,18 +1,18 @@
 #!/usr/bin/env python
-'''
-\file handlemagic.py
-\package rpgtoolbox.handlemagic
+'''!
+@file handlemagic.py
+@package rpgtoolbox.handlemagic
 
-\brief This  module holds helpers handling all spell list/magical issues.
+@brief This  module holds helpers handling all spell list/magical issues.
 
-\date (C) 2015-2020
-\license GNU V3.0
-\author Marcus Schwamberger
-\email marcus@lederzeug.de
-\version 0.8
+@date (C) 2015-2020
+@license GNU V3.0
+@author Marcus Schwamberger
+@email marcus@lederzeug.de
+@version 0.8
 '''
 __version__ = "0.8"
-__updated__ = "13.04.2020"
+__updated__ = "28.12.2020"
 
 import os
 from . import logbox as log
@@ -21,13 +21,13 @@ from .globaltools import readCSV
 from .rolemaster import DPCostSpells
 from pprint import pprint
 
-logger = log.createLogger('magic', 'debug', '1 MB', 1, './' , 'handlemagic.log')
+logger = log.createLogger('magic', 'info', '1 MB', 1, './' , 'handlemagic.log')
 
 
 
 class getSpells(object):
-    '''
-    \class getSpells
+    '''!
+    @class getSpells
     This class generates an object to get all spell lists into the right context
     for a single character.
 
@@ -35,14 +35,14 @@ class getSpells(object):
 
 
     def __init__(self, datadir = "./data", charprof = "", charrealm = [], charlvl = 1):
-        '''
+        '''!
         This class generates an object to get all spell lists into the right context
         for a single character.
-        \param datadir directory where to find the magic directory
-        \param charprof profession of the character
-        \param charrealm realm(s) of magic
-        \param charlvl character's lvl to calculate costs
-        \callgraph
+        @param datadir directory where to find the magic directory
+        @param charprof profession of the character
+        @param charrealm realm(s) of magic
+        @param charlvl character's lvl to calculate costs
+        @callgraph
 
         '''
         self.prof = charprof
@@ -61,9 +61,9 @@ class getSpells(object):
 
 
     def __getAllLists(self, datadir):
-        '''
+        '''!
         Get all spell lists and spell categories from disc
-        \param datadir path to the magic directory
+        @param datadir path to the magic directory
         '''
         spellcat = os.listdir(datadir)
         spellcat.sort()
@@ -91,39 +91,38 @@ class getSpells(object):
                     self.spelllists[slcat][slist]['Spells'] = readCSV(datadir + spellcat[i] + "/" + splst[j])
 
         logger.debug("getAllLists: self.spelllists:\n{}".format(self.spelllists))
-#        print("getAllLists: self.spelllists:\n{}".format(self.spelllists))
 
 
     def __categorizeSLs(self):
-        '''
+        '''!
         This private method categorizes spell lists for identifying the developing
         costs for a player character
-        \callgraph
-        @todo categorize Bae lists for non-spell users
+        @callgraph
+        @todo categorize Base lists for non-spell users
         '''
         purespellusers = {"Animist": ["Channeling"],
-                        "Cleric" : ["Channeling"],
-                        "Illusionist" : ["Essence"],
-                        "Magician" : ["Essence"],
-                        "Lay Healer" : ["Mentalism"],
-                        "Mentalist" : ["Mentalism"],
+                        "Cleric": ["Channeling"],
+                        "Illusionist": ["Essence"],
+                        "Magician": ["Essence"],
+                        "Lay Healer": ["Mentalism"],
+                        "Mentalist": ["Mentalism"],
                         }
-        hybridspellusers = {"Healer" : ["Channeling", "Mentalism"],
-                            "Mystic" : ["Essence", "Mentalism"],
+        hybridspellusers = {"Healer": ["Channeling", "Mentalism"],
+                            "Mystic": ["Essence", "Mentalism"],
                             "Sorcerer": ["Channeling", "Essence"]
                             }
-        semispellusers = {"Paladin" : ["Channeling"],
-                         "Ranger" : ["Channeling"],
+        semispellusers = {"Paladin": ["Channeling"],
+                         "Ranger": ["Channeling"],
                          "Dabbler": ["Essence"],
                          "Monk": ["Essence"],
-                         "Bard" : ["Mentalism"],
+                         "Bard": ["Mentalism"],
                          "Magent": ["Mentalism"],
-                         "Taoist Monk" : ["Essence"],
-                         "Zen Monk" : ["Mentalism"]
+                         "Taoist Monk": ["Essence"],
+                         "Zen Monk": ["Mentalism"]
                          }
         nonspellusers = {"Fighter":['choice'],
                         "Thief":['choice'],
-                        "Rogue":[],
+                        "Rogue":["choice"],
                         "Warrior Monk":['choice'],
                         "Layman":['choice']
                         }
@@ -220,7 +219,7 @@ class getSpells(object):
 
 
 def updateSL(character = {}, datadir = "./data"):
-    '''
+    '''!
     This function updates the character's spell abilities if new spells/spell lists
     are defined.
     @param character a dictionary holding the character's full data.

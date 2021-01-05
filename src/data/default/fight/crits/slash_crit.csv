@@ -80,7 +80,7 @@ E,10,Unbalance foe. You receive initiative next round.,5,0,0,0,0,-1,0,0,0,,,
 E,15,You push aside foe's weapon and force him back.,4,0,0,0,0,-1,0,0,1,,,
 E,20,Strong blow to foe's ribs. Foe drops his guard and almost his weapon.,0,0,0,10,1,-1,0,1,0,,,
 E,35,"Foe avoids your main effort, but you nick him on your recovery. Foe receives minor side wound and stumbles back 10 feet.",3,1,-10,0,0,-1,0,0,0,,,muscles
-E,45,Blow to foe's upper leg. Leg armor helps block the blow.,5,0,0,0,0,-1,0,0,0,leg,Hits:3;hits/rnd:3,muscles
+E,45,Blow to foe's upper leg. Leg armor helps block the blow.,5,0,0,0,0,-1,0,0,0,leg,hits:3;hits/rnd:3,muscles
 E,50,Strike to foe's stomach. He doubles over in pain and you pull your sword clean with one more sweep,4,3,0,0,1,-1,0,1,0,,,organs
 E,55,Cut foe open with little grace. You are unsure of your success until you see all the blood coming out of his chest.,6,4,-10,0,2,-1,0,0,0,,,muscles
 E,60,Thigh wound. Your blow cuts deep and severs an important vein.,8,5,0,0,2,-1,0,0,0,,,veins

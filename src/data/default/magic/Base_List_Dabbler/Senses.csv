@@ -1,1 +1,22 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Sly Ears,caster,10 min/lvl,self,U,"Caster gains double normal hearing. This results in +50 to Perception involving only hearing, +25 to Perception involving hearing and other senses."
+2,Nightvision,caster,10 min/lvl,self,U,Caster can see 100' on a normal night as if it were daylight. See Section 7.1.19.
+3,Scent,caster,10 min/lvl,self,U,"Caster gains an extremely acute sense of smell. This results in +50 to Perception involving only smell, +25 to Perception involving smell and other senses."
+4,Sensory Marker,caster,P,touch,U,One location is ''marked'' so that the caster can find it again later with a Far Sense spell. The marker is automatically located when the caster casts a Far Sense spell if the marker is within range of the Far Sense spell. A marker can be placed on any inanimate object. The caster can only have as many markers as he has levels
+5,Far Sense I,caster,1 min/lvl(C),50'/lvl,U,"Caster may designate one of his senses to be used at any ''marked'' location within range (see Sensory Marker). The caster can use any perception skill he has at the time (e.g., if he is currently under the effects of Nightvision, he will have Nightvision at the marked location). The remote sensory point may be rotated to face any direction. While he is sensing at the marked location, he must remain immobile and concentrate."
+6,Sidevision,caster,10 min/lvl,self,U,Caster has a 300 degree field of vision. The flank bonus for attacks against the caster is lowered to +5 and the rear bonus is lowered to +15.
+7,Touch,caster,10 min/lvl,self,U,"Caster gains extreme tactile sensitivity. This results in a +25 to all actions that depend on the tactile sense (e.g., pick locks, disarm traps, etc.)."
+8,Watervision,caster,10 min/lvl,self,U,Caster can see 100' in any water (including murky water) as if it were daylight.
+9,Darkvision,caster,10 min/lvl,self,U,"As Nightvision, except any darkness can be seen through. Also, no light is needed for this spell to work."
+10,Far Sense II,caster,1 min/lvl(C),50'/lvl,U,"As Far Sense I, except caster may designate up to two senses at the marked location."
+11,Woodsight,caster,C,self,U,"Caster can see through wood (up to 1''/lvl)."
+12,Lightvision,caster,10 min/lvl,self,U,Caster can see in any brightness of light (including that which would be blinding or glaring). This spell does not work in the absence of light.
+14,Greater Far Sense I,caster,1 min/lvl(C),50'/lvl,U,"As Far Sense I, except caster can move (though he must continue to concentrate)."
+15,Long Far Sense I,caster,1 min/lvl,500'/lvl,U,"As Far Sense I, except for range."
+16,Stonesight,caster,C,self,U,"As Woodsight, except that caster can see through stone."
+18,Greater Far Sense II,caster,1 min/lvl(C),50'/lvl,U,"As Far Sense II, except caster can move (though he must continue to concentrate)."
+19,Ironsight,caster,C,self,U,"As Woodsight, except that caster can see through iron (or steel)."
+20,Long Far Sense II,caster,1 min/lvl(C),500'/lvl,U,"As Far Sense II, except for range."
+25,Vision True,caster,10 min/lvl,self,U,As all Vision spells on this list operating at the same time.
+30,Senses True,caster,1 min/lvl,1 mile/lvl,U,"Caster has the effects of Sly Ears, Scent, Touch, and all Vision spells simultaneously."
+50,Sense Mastery,caster,10 min/lvl,self,U,Caster may use any lower level spell on this list once per round.

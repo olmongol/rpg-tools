@@ -14,7 +14,7 @@ A,70,Solid strike to foe's chest. Knocks the breath out of foe.,8,3,0,0,0,-1,0,1
 A,75,Shot takes foe in lower leg. He fails to jump over it.,5,2,-20,0,0,-1,0,2,0,,,muscles
 A,80,"Blow to foe's shield arm destroys shield. If no shield, arm is broken.",0,0,0,0,0,-1,0,0,0,shield,,bones
 A,85,Blow to foe's side sends him stumbling 5 feet to your right.,10,2,-20,0,0,-1,0,2,0,,,muscles
-A,90,Strike foe in lower back. Muscles and cartilege are damaged.,12,3,-25,0,0,-1,0,3,0,,,muscles/cartilege
+A,90,Strike foe in lower back. Muscles and cartilege are damaged.,12,3,-25,0,0,-1,0,3,0,,,muscles/cartilage
 A,95,Break foe's nose.,10,2,0,0,0,-1,0,2,0,face,hits:15;hits/rnd:3;no_parry:3,bones
 A,99,"Blow to foe's head. If foe has no helm, he is dead. If foe has a helm, he is knocked down.",20,6,0,0,0,-1,0,0,0,head,die:0,bones
 A,100,Crush foe's jaw. Drive bone through brain. Foe dies instantly.,50,0,0,20,0,-1,0,0,0,,,bones
@@ -23,7 +23,7 @@ B,10,Thud.,2,0,0,0,0,-1,0,0,0,,,
 B,15,Foe evades frantically. You have the initiative next round,3,0,0,0,0,-1,0,0,0,,,
 B,20,Foe is concerned with his own preservation. He steps back 5 feet,4,0,-10,0,0,-1,0,0,1,,,muscles
 B,35,Foe loses some resolve from your solid strike.,4,0,-20,0,0,-1,0,0,1,,,muscles
-B,45,Blow to foe's left calf. You gain initiative.,8,0,0,0,0,-1,0,0,2,leg,hit:6;mod:-20/2,
+B,45,Blow to foe's left calf. You gain initiative.,8,0,0,0,0,-1,0,0,2,leg,hit:6;mod:-20x2,
 B,50,Solid blow to back. Foe seeks to avoid this attack again. He has lost his way.,6,0,-25,0,0,-1,0,0,1,,,muscles
 B,55,Foe recoils before your blow impacts. He steps back 5 feet to defend himself,6,0,0,0,0,-1,0,0,2,,,
 B,60,Strike passes under shield arm and hands on foe's thigh. Big bruise.,6,0,-5,0,0,-1,0,0,1,,,muscles
@@ -36,13 +36,13 @@ B,85,Blow thunders as it connects. Foe's ribs crackle in response. It hurts.,12,
 B,90,Foe makes a mistake and pays. You send him prone with a fell strike. Tendons are smashed,0,0,-30,0,4,-1,0,4,0,,,tendons
 B,95,"Strike to foe's head. If he has no helm, he falls into a coma for 3 weeks.",20,0,0,0,12,-1,0,0,0,,ooo:90720,bones
 B,99,Blast foe's chest. Send ribcage into heart. Foe drops and dies in 6 rounds.,0,0,0,20,0,6,0,0,0,,,organs
-B,100,Blow snaps neck. Foe is paralyzed from the shoulders down,25,0,0,0,15,-1,1E+023,0,0,,,bones/nerves
+B,100,Blow snaps neck. Foe is paralyzed from the shoulders down,25,0,0,0,15,-1,10000000000,0,0,,,bones/nerves
 C,5,Practice this one.,1,0,0,0,0,-1,0,0,0,,,
 C,10,You should have swung much harder.,3,0,0,0,0,-1,0,0,0,,,
 C,15,Really solid strike to foe's shield side. You have initiative.,7,0,0,0,0,-1,0,0,0,,,
 C,20,Blow to foe's waist. He spins sideways.,1,0,-20,0,0,-1,0,0,1,,,muscles
 C,35,Disorient foe with a tricky shot. He is at a loss for words.,5,0,0,0,1,-1,0,0,0,,,
-C,45,"Catch foe in lower leg. You gain initiative, while foe regains footing.",9,0,-25;2,0,0,-1,0,0,0,,,
+C,45,"Catch foe in lower leg. You gain initiative, while foe regains footing.",9,0,-25x2,0,0,-1,0,0,0,,,
 C,50,He leans to your shield side and you hit him in the back. You have the initiative for 2 rounds.,5,0,0,0,1,-1,0,1,0,,,
 C,55,"Hard strike to chest, armor does not help.",5,0,-10,0,1,-1,0,0,0,,,
 C,60,Strike grazes across left thigh and lands on right. It lands solid.,6,0,-5,10,0,-1,0,0,1,,,muscles
@@ -71,7 +71,7 @@ D,70,Blow to shoulder.,6,0,0,0,1,-1,0,1,0,shoulder,mod:-20;stunned:2;no_parry:2,
 D,75,Blow lands with a crack. Leg bone is broken. Major cartilage damage.,12,0,-50,0,2,-1,0,2,0,,,bones
 D,80,Blow breaks foe's weapon arm. Sling foe's weapon to the right 5 feet. Foe's arm is useless. Tendon damage.,8,0,0,0,1,-1,1,0,0,,,bones/tendons
 D,85,Blow lands on foe's side. He goes down hard. Victory is close.,15,0,0,15,3,-1,0,3,0,,,
-D,90,"Blow to foe's neck. If foe has a throat protector, he is paralyzed from the neck down. If not, he dies in two rounds.",25,0,0,0,0,-1,1E+023,0,0,throat,die:2,
+D,90,"Blow to foe's neck. If foe has a throat protector, he is paralyzed from the neck down. If not, he dies in two rounds.",25,0,0,0,0,-1,10000000000,0,0,throat,die:2,
 D,95,Strike comes down on the shield shoulder of foe. Arm shatters. Foe dies from shock and blood loss in 9 rounds.,0,0,0,0,0,9,0,0,0,,,tendons/muscles/bones
 D,99,"Crush foe's chest cavity. He grips your arm, looks into your eyes, then drops and dies in 3 rounds.",0,0,0,25,0,3,0,0,0,,,bones/organs
 D,100,Blast to foe's heart. It stops. He dies. You consider yourself to be deadly. Fine work. You are ready to slay.,25,0,0,0,0,-1,0,0,0,,,organs
@@ -93,4 +93,4 @@ E,85,Blow to foe's armpit. Crush ribs and destroy organs. Foe dies in 3 rounds.,
 E,90,Neck strike shatters bone and severs an artery. Foe cannot breath. Foe is inactive and suffocates in 12 rounds.,0,0,0,0,0,12,12,0,0,,,bones/veins
 E,95,Blast to foe's back. A bone is driven into vital organs. Foe is down and dies in six rounds.,25,0,0,0,0,6,0,0,0,,,bones/organs
 E,99,"Blow to foe's face. If visored, the visor is driven into his face and foe dies in 10 rounds. Without a visor, he dies instantly. You have half the round left.",30,0,0,20,0,10,0,0,0,face,die:0,
-E,100,Blow turns hip to dust. Foe falls down. Attempts to stand. Falls again and dies in 6 rounds.,35,0,-30;6,0,2,6,0,0,0,,,bones
+E,100,Blow turns hip to dust. Foe falls down. Attempts to stand. Falls again and dies in 6 rounds.,35,0,-30x6,0,2,6,0,0,0,,,bones

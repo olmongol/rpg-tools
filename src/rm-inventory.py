@@ -1,21 +1,21 @@
 #!/usr/bin/python3
-'''
-\file rm-inventory.py
-\package rm_char_tools.py
-\brief This is a little tool for creating and keeping track of character's inventory
+'''!
+@file rm-inventory.py
+@package rm_char_tools.py
+@brief This is a little tool for creating and keeping track of character's inventory
 
 This tool handles
-\li buying/finding/selling/dropping items
-\li enchanting items
-\li design special items
-\li equipp items/pack items into containers and calculate carried weights
-\li Export inventory as JSON, LaTex, PDF
+@li buying/finding/selling/dropping items
+@li enchanting items
+@li design special items
+@li equipp items/pack items into containers and calculate carried weights
+@li Export inventory as JSON, LaTex, PDF
 
-\date (C) 2020
-\author Marcus Schwamberger
-\email marcus@lederzeug.de
-\license GNU V3.0
-\version 1.1.0
+@date (C) 2020
+@author Marcus Schwamberger
+@email marcus@lederzeug.de
+@license GNU V3.0
+@version 1.1.0
 
 '''
 import os
@@ -35,7 +35,11 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "15.11.2020"
+<<<<<<< HEAD
+__updated__ = "05.01.2021"
+=======
+__updated__ = "28.12.2020"
+>>>>>>> py3
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.5"
@@ -51,11 +55,11 @@ class InventoryWin(blankWindow):
     def __init__(self, lang = "en", char = {}, storepath = "./data"):
         """
         Class constructor
-        \param lang The chosen language for window's and button's
+        @param lang The chosen language for window's and button's
                     texts. At the moment, only English (en, default
                     value) and German (de) are supported.
-        \param charlist list of dictionaries holding: player, charname, EPs
-        \param storepath path for storing the data into the character files.
+        @param charlist list of dictionaries holding: player, charname, EPs
+        @param storepath path for storing the data into the character files.
         """
 
         self.lang = lang
@@ -64,12 +68,12 @@ class InventoryWin(blankWindow):
         if self.character == {}:
             self.character = {  "player": "Dummy",
                                 "exp": 10000,
-                                'lvl' :1,
+                                'lvl':1,
                                 "prof": "Ranger",
-                                "race" : "Woodmen",
+                                "race": "Woodmen",
                                 "name": "Woody",
-                                'realm' : 'Channeling',
-                                "piclink" : "./data/default/pics/default.jpg"
+                                'realm': 'Channeling',
+                                "piclink": "./data/default/pics/default.jpg"
 
                                 }
         self.wcont = {}
@@ -522,7 +526,7 @@ class InventoryWin(blankWindow):
 
 
     def __open(self):
-        """
+        """!
         this method opens a character file
         ----
         @todo computation of character groups
@@ -534,22 +538,22 @@ class InventoryWin(blankWindow):
         if type(self.charlist) == type({}):
             self.character = dict(self.charlist).copy()
             self.updWidgedCont()
-        elif type(self.charlist) == [] :
+        elif type(self.charlist) == []:
             print("char list computing is not implemented yet")
             pass
         else:
             print("ERROR: wrong data format in {}".format(self.opendir))
 
         if "inventory" not in self.character.keys():
-            self.character["inventory"] = {'weapon' :[],
-                                           'armor' :[],
-                                           'gear' :[],
+            self.character["inventory"] = {'weapon':[],
+                                           'armor':[],
+                                           'gear':[],
                                            'transport':[],
                                            'herbs':[],
 #                                           'runes':[],
 #                                           'constant item':[],
 #                                           'daily item' :[],
-                                           'gems' :[],
+                                           'gems':[],
                                            'services':[]
                                            }
         self.inv_char = self.character["inventory"].copy()
@@ -648,13 +652,13 @@ class shopWin(blankWindow):
 
 
     def __init__(self, lang = "en", char = {}, storepath = "./data", shoptype = "armor"):
-        """
+        """!
         Class constructor
-        \param lang The chosen language for window's and button's
+        @param lang The chosen language for window's and button's
                     texts. At the moment, only English (en, default
                     value) and German (de) are supported.
-        \param charlist list of dictionaries holding: player, charname, EPs
-        \param storepath path for storing the data into the character files.
+        @param charlist list of dictionaries holding: player, charname, EPs
+        @param storepath path for storing the data into the character files.
         """
 
         self.lang = lang
@@ -665,28 +669,28 @@ class shopWin(blankWindow):
                 self.character["inventory"]["services"] = []
 
         else:
-            self.inv_char = {'weapon' :[],
-                             'armor' :[],
-                             'gear' :[],
+            self.inv_char = {'weapon':[],
+                             'armor':[],
+                             'gear':[],
                              'transport':[],
                              'herbs':[],
 #                             'herbs':[],
 #                             'runes':[],
 #                             'constant item':[],
 #                             'daily item' :[],
-                             'gems' :[],
+                             'gems':[],
                              "services":[],
                            }
         self.shoptype = shoptype
         if self.character == {}:
             self.character = {  "player": "Marcus",
                                 "exp": 10000,
-                                'lvl' :1,
+                                'lvl':1,
                                 "prof": "Ranger",
-                                "race" : "Woodmen",
+                                "race": "Woodmen",
                                 "name": "Woody",
-                                'realm' : 'Channeling',
-                                "piclink" : "./data/default/pics/default.jpg"
+                                'realm': 'Channeling',
+                                "piclink": "./data/default/pics/default.jpg"
 
                                 }
         self.wcont = {}
@@ -1178,7 +1182,7 @@ class shopWin(blankWindow):
 
 
     def createMagicShop(self):
-        """
+        """!
         This is for creating a magic item from standard items
         ----
         @todo has to be fully implemented
@@ -1202,7 +1206,7 @@ class shopWin(blankWindow):
 
         if self.shoptype == "weapon":
             self.item = weapon.copy()
-        elif self.shoptype == "armor" :
+        elif self.shoptype == "armor":
             self.item = armor.copy()
         elif self.shoptype == "gear":
             self.item = gear.copy()
@@ -1210,7 +1214,7 @@ class shopWin(blankWindow):
             self.item = gems.copy()
         elif self.shoptype == "runes":
             self.item = runes.copy()
-        elif self.shoptype == "herbs" :
+        elif self.shoptype == "herbs":
             self.item = herbs.copy()
         elif self.shoptype == "services":
             self.item = services.copy()
@@ -1368,7 +1372,7 @@ class shopWin(blankWindow):
 
         if self.shoptype == "weapon":
             newitem = weapon.copy()
-        elif self.shoptype == "armor" :
+        elif self.shoptype == "armor":
             newitem = armor.copy()
         elif self.shoptype == "gear":
             newitem = gear.copy()
@@ -1376,7 +1380,7 @@ class shopWin(blankWindow):
             newitem = gems.copy()
         elif self.shoptype == "runes":
             newitem = runes.copy()
-        elif self.shoptype == "herbs" :
+        elif self.shoptype == "herbs":
             newitem = herbs.copy()
         elif self.shoptype == "services":
             newitem = services.copy()
@@ -1399,7 +1403,7 @@ class shopWin(blankWindow):
             elif self.data[0][i] == "comment":
                 newitem["description"] = self.curr_item[i]
 
-            elif self.data[0][i] == "weight" :
+            elif self.data[0][i] == "weight":
 
                 if "-" in self.curr_item[i]:
                     a, b = self.curr_item[i].strip(" lbs.").split("-")
@@ -1452,7 +1456,7 @@ class shopWin(blankWindow):
 
 
     def addItem(self):
-        """
+        """!
         This is for adding a piece of equipment to shop
         ----
         @todo has to be fully implemented
@@ -1485,7 +1489,7 @@ class shopWin(blankWindow):
 
 
     def saveShop(self):
-        """
+        """!
         This is for saving shop inventory
         ----
         @todo has to be fully implemented
@@ -1495,7 +1499,7 @@ class shopWin(blankWindow):
 
     def fillShoppe(self):
         """
-        This fills the treview widget of the shop items
+        This fills the treeview widget of the shop items
         """
         for i in range(1, len(self.data)):
             self.shoptree.insert("", i, values = tuple(self.data[i]))
@@ -1618,33 +1622,33 @@ class shopWin(blankWindow):
         unequipped = ["", "unequipped", "transport"]
         carried = 0.0
         #transports are no weight
-<<<<<<< HEAD
-=======
-        if "idxtransport" not in self.character.keys():
-            self.character["idxtransport"] = []
-
->>>>>>> py3
+#<<<<<<< HEAD
+#=======
+#        if "idxtransport" not in self.character.keys():
+#            self.character["idxtransport"] = []
+#
+#>>>>>>> py3
         for elem in self.character["idxtransport"]:
             if elem["name"] not in unequipped:
                 unequipped.append(elem["name"])
 
         # containers on transports are no weight
-<<<<<<< HEAD
-        for elem in self.character["idxcontainer"]:
-            if self.character["inventory"]["gear"][elem["index"]]["location"] in unequipped:
-                if elem["name"] not in unequipped:
-                    unequipped.append(elem["name"])
-
-=======
-        if "idxcontainer" not in self.character.keys():
-            self.character["idxcontainer"] = []
-
-        for elem in self.character["idxcontainer"]:
-            if self.character["inventory"]["gear"][elem["index"]]["location"] in unequipped:
-                if elem["name"] not in unequipped:
-                    unequipped.append(elem["name"])
-
->>>>>>> py3
+# <<<<<<< HEAD
+#        for elem in self.character["idxcontainer"]:
+#            if self.character["inventory"]["gear"][elem["index"]]["location"] in unequipped:
+#                if elem["name"] not in unequipped:
+#                    unequipped.append(elem["name"])
+#
+#=======
+#        if "idxcontainer" not in self.character.keys():
+#            self.character["idxcontainer"] = []
+#
+#        for elem in self.character["idxcontainer"]:
+#            if self.character["inventory"]["gear"][elem["index"]]["location"] in unequipped:
+#                if elem["name"] not in unequipped:
+#                    unequipped.append(elem["name"])
+#
+#>>>>>>> py3
         for cat in shoptypes:
 
             for elem in self.character["inventory"][cat]:
@@ -1749,7 +1753,7 @@ class shopWin(blankWindow):
 
     def __open(self):
 
-        """
+        """!
         this method opens a character file
         ----
         @todo computation of character groups
@@ -1765,19 +1769,19 @@ class shopWin(blankWindow):
             self.updWidgedCont()
             self.invlabel.config(text = submenu["inventory"][self.lang]["armor"] + " " + self.character["name"])
 
-        elif type(self.charlist) == [] :
+        elif type(self.charlist) == []:
             print("char list computing is not implemented yet")
 
         else:
             print("ERROR: wrong data format in {}".format(self.opendir))
 
         if "inventory" not in self.character.keys():
-            self.character["inventory"] = {'weapon' :[],
-                                           'armor' :[],
-                                           'gear' :[],
+            self.character["inventory"] = {'weapon':[],
+                                           'armor':[],
+                                           'gear':[],
                                            'transport':[],
                                            'herbs':[],
-                                           'gems' :[],
+                                           'gems':[],
                                            'services':[]
                                            }
         if "PP" not in self.character["purse"].keys():
@@ -1907,13 +1911,13 @@ class enchantItem(blankWindow):
 
 
     def __init__(self, lang = "en", char = {}, storepath = "./data", item = {}, shoptype = ""):
-        """
+        """!
         Class constructor
-        \param lang The chosen language for window's and button's
+        @param lang The chosen language for window's and button's
                     texts. At the moment, only English (en, default
                     value) and German (de) are supported.
-        \param charlist list of dictionaries holding: player, charname, EPs
-        \param storepath path for storing the data into the character files.
+        @param charlist list of dictionaries holding: player, charname, EPs
+        @param storepath path for storing the data into the character files.
         """
 
         self.lang = lang
@@ -1922,12 +1926,12 @@ class enchantItem(blankWindow):
         if self.character == {}:
             self.character = {  "player": "Marcus",
                                 "exp": 10000,
-                                'lvl' :1,
+                                'lvl':1,
                                 "prof": "Ranger",
-                                "race" : "Woodmen",
+                                "race": "Woodmen",
                                 "name": "Woody",
-                                'realm' : 'Channeling',
-                                "piclink" : "./data/default/pics/default.jpg"
+                                'realm': 'Channeling',
+                                "piclink": "./data/default/pics/default.jpg"
 
                                 }
         self.item = item.copy()
@@ -3268,7 +3272,7 @@ class enchantItem(blankWindow):
 
 
     def __open(self):
-        """
+        """!
         this method opens a character file
         ----
         @todo computation of character groups
@@ -3280,22 +3284,22 @@ class enchantItem(blankWindow):
         if type(self.charlist) == type({}):
             self.character = dict(self.charlist).copy()
             self.updWidgedCont()
-        elif type(self.charlist) == [] :
+        elif type(self.charlist) == []:
             print("char list computing is not implemented yet")
             pass
         else:
             print("ERROR: wrong data format in {}".format(self.opendir))
 
         if "inventory" not in self.character.keys():
-            self.character["inventory"] = {'weapon' :[],
-                                           'armor' :[],
-                                           'gear' :[],
+            self.character["inventory"] = {'weapon':[],
+                                           'armor':[],
+                                           'gear':[],
                                            'transport':[],
                                            'herbs':[],
                                            'runes':[],
                                            'constant item':[],
-                                           'daily item' :[],
-                                           'gems' :[],
+                                           'daily item':[],
+                                           'gems':[],
                                            'services':[]
                                            }
         self.inv_char = self.character["inventory"].copy()
@@ -3336,15 +3340,15 @@ class editinventory(blankWindow):
 
 
     def __init__(self, lang = "en", char = {}, item = {}, shoptype = "armor", storepath = "./data"):
-        """
+        """!
         Class constructor
-        \param lang The chosen language for window's and button's
+        @param lang The chosen language for window's and button's
                     texts. At the moment, only English (en, default
                     value) and German (de) are supported.
-        \param char dictionary holding chracter's data
-        \param item dictionary holding item values
-        \param shoptype item category
-        \param storepath path for storing the data into the character files.
+        @param char dictionary holding chracter's data
+        @param item dictionary holding item values
+        @param shoptype item category
+        @param storepath path for storing the data into the character files.
         """
 
         self.lang = lang
@@ -3357,13 +3361,13 @@ class editinventory(blankWindow):
         if self.character == {}:
             self.character = {  "player": "Dummy",
                                 "exp": 10000,
-                                'lvl' :1,
+                                'lvl':1,
                                 "prof": "Ranger",
-                                "race" : "Woodmen",
+                                "race": "Woodmen",
                                 "name": "Woody",
-                                'realm' : 'Channeling',
-                                "piclink" : "./data/default/pics/default.jpg",
-                                "inventory" :{}
+                                'realm': 'Channeling',
+                                "piclink": "./data/default/pics/default.jpg",
+                                "inventory":{}
 
                                 }
         self.wcont = {}
@@ -3858,7 +3862,7 @@ class editinventory(blankWindow):
 
     def __emptyTree(self):
         """
-        REmoves all rows from treeview
+        Removes all rows from treeview
         """
         for row in self.invtree.get_children():
             self.invtree.delete(row)
@@ -3872,7 +3876,7 @@ class editinventory(blankWindow):
         # prepare fields/fieldnames -----
         self.fieldnames = ["name", "description", "weight", "worth"]
         self.fields = {'name': StringVar(),
-                       'description' : StringVar(),
+                       'description': StringVar(),
                        "weight":DoubleVar(),
                        'worth': StringVar()
                        }
@@ -4624,19 +4628,19 @@ class editinventory(blankWindow):
         if type(self.charlist) == type({}):
             self.character = dict(self.charlist).copy()
             self.updWidgedCont()
-        elif type(self.charlist) == [] :
+        elif type(self.charlist) == []:
             print("char list computing is not implemented yet")
             pass
         else:
             print("ERROR: wrong data format in {}".format(self.opendir))
 
         if "inventory" not in self.character.keys():
-            self.character["inventory"] = {'weapon' :[],
-                                           'armor' :[],
-                                           'gear' :[],
+            self.character["inventory"] = {'weapon':[],
+                                           'armor':[],
+                                           'gear':[],
                                            'transport':[],
                                            "services":[],
-                                           'gems' :[]
+                                           'gems':[]
                                            }
         self.inv_char = self.character["inventory"].copy()
         self.__setMoney()
@@ -4907,11 +4911,11 @@ class editinventory(blankWindow):
 
 
 def buyStuff(purse = {}, prize = {}):
-    """
+    """!
     This function does the payment calculations
-    \param purse of character
-    \param prize to pay
-    \retvar result new
+    @param purse of character
+    @param prize to pay
+    @retvar result new
     """
     clong = list(coins['long'])
     clong.reverse()
@@ -4949,7 +4953,7 @@ def buyStuff(purse = {}, prize = {}):
 
 
 def worth2string(worth = {}):
-    '''
+    '''!
     This converts the worth dictionary to a string
     @param worth dictionary that holds the values for mithril, gold, silver etc.
     '''
@@ -4967,7 +4971,7 @@ def worth2string(worth = {}):
 
 
 def string2worth(worth = ""):
-    '''
+    '''!
     This converts a string like "2gp 42cp" into a worth dictionary
     @param worth string that holds the worth like "3gp 65bp". Important: space is
     delimiter and the shorts have to be lower characters.
