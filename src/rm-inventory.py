@@ -35,11 +35,8 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-<<<<<<< HEAD
-__updated__ = "05.01.2021"
-=======
-__updated__ = "28.12.2020"
->>>>>>> py3
+__updated__ = "09.01.2021"
+
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "0.5"
