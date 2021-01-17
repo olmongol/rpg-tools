@@ -19,11 +19,12 @@ from pprint import pprint
 from rpgToolDefinitions.helptools import RMDice as dice
 from tkinter import filedialog
 import re
+import pickle
 
 
 
 class EPCalcWin(blankWindow):
-    """
+    """!
     This is a GUI for EP calculation for your character party.
     """
 
@@ -52,11 +53,12 @@ class EPCalcWin(blankWindow):
         self.__addMenu()
         self.__addHelpMenu()
         self.__buildWin()
+        self.__loadAutosave()
         self.window.mainloop()
 
 
     def __addMenu(self):
-        '''
+        '''!
         This methods adds the menu bar to the window
         '''
         self.filemenu = Menu(master = self.menu)
@@ -72,7 +74,7 @@ class EPCalcWin(blankWindow):
 
 
     def __addHelpMenu(self):
-        """
+        """!
         This methods defines a help menu.
         """
         self.helpmenu = Menu(master = self.menu)
@@ -85,7 +87,7 @@ class EPCalcWin(blankWindow):
 
 
     def __buildWin(self):
-        """
+        """!
         This method builds the window content.
         """
         ## \var self.players
@@ -356,7 +358,7 @@ class EPCalcWin(blankWindow):
 
 
     def __updSelec(self, event):
-        """
+        """!
         Update selected Player data
         """
         selected = self.__selecPlayer.get()
@@ -369,8 +371,27 @@ class EPCalcWin(blankWindow):
         self.__newlvl.set(self.group[self.charlist[ind]["player"]].newlvl)
 
 
+    def __autoSave(self):
+        """!
+        This function is for aut saving the group object in case of a program / computer crash
+        """
+        with open("autosave.pkl", "wb") as fp:
+            pickle.dump(self.group, fp)
+
+
+    def __loadAutosave(self):
+        """!
+        This loads an autosave file if there is any
+        """
+        if os.path.exists("autosave.pkl"):
+            with open("autosave.pkl", "rb") as fp:
+                self.group = pickle.load(fp)
+
+            os.remove("autosave.pkl")
+
+
     def __grpBonus(self):
-        '''
+        '''!
         This methods calculates the group bonus while finalize process.
         '''
         grpbonus = 0
@@ -384,9 +405,11 @@ class EPCalcWin(blankWindow):
             self.group[name].gainedep += grpbonus
             self.group[name].updateInfo()
 
+        self.__autoSave()
+
 
     def __calcMan(self):
-        '''
+        '''!
         This computes EPs for each successful maneuver and add them to character's
         gained EPs
         '''
@@ -395,22 +418,24 @@ class EPCalcWin(blankWindow):
         number = self.__cMan.get()
 
         self.group[curPlayer].maneuver(curManLvl, number)
+        self.__autoSave()
         self.__updDispay(curPlayer)
 
 
     def __calcSpell(self):
-        '''
+        '''!
         This computes EPs for a given number aof spells aof the same level
         '''
         curPlayer = self.__selecPlayer.get()
         spellLvl = self.__lvlSpell.get()
         spellNo = self.__cSpell.get()
         self.group[curPlayer].spell(spellLvl, spellNo)
+        self.__autoSave()
         self.__updDispay(curPlayer)
 
 
     def __calcGCrit(self):
-        '''
+        '''!
         This calculates EP for gained criticals and hits
         '''
         curPlayer = self.__selecPlayer.get()
@@ -424,11 +449,12 @@ class EPCalcWin(blankWindow):
             self.group[curPlayer].gainedHits(hits)
             self.group[curPlayer].gainedCrit(gCrit, 1)
 
+        self.__autoSave()
         self.__updDispay(curPlayer)
 
 
     def __calcCrit(self):
-        '''
+        '''!
         This calculates EP for caused criticals against an enemy of a certain level
         '''
         curPlayer = self.__selecPlayer.get()
@@ -440,6 +466,7 @@ class EPCalcWin(blankWindow):
         elif crit == "KILL":
             self.group[curPlayer].killedNPC(lvlEnem, 1)
 
+        self.__autoSave()
         self.__updDispay(curPlayer)
 
 
@@ -454,6 +481,7 @@ class EPCalcWin(blankWindow):
         comm = self.__comtravel.get()
         self.group[curPlayer].travelled(travel)
 
+        self.__autoSave()
         self.__updDispay(curPlayer)
 
 
@@ -468,6 +496,7 @@ class EPCalcWin(blankWindow):
         comm = self.__comideas.get()
         self.group[curPlayer].ideas(ideas)
 
+        self.__autoSave()
         self.__updDispay(curPlayer)
 
 
@@ -486,11 +515,12 @@ class EPCalcWin(blankWindow):
             self.charlist[i]["exp"] = self.group[name].newep
             self.charlist[i]['old_exp'] = self.group[name].ep
 
+        self.__autoSave()
         gw = showGrpEP(self.charlist, self.storepath, self.lang)
 
 
     def __callManWin(self):
-        '''
+        '''!
         Opens Maneuver Window for maneuver rolls
         '''
         who = self.__selecPlayer.get()
@@ -500,7 +530,7 @@ class EPCalcWin(blankWindow):
 
 
     def __save(self):
-        '''
+        '''!
         This opens a file dialog window for saving
         '''
         savedir = filedialog.asksaveasfilename(defaultextension = ".json", filetypes = [("Char Group Files", ".json")])
@@ -509,7 +539,7 @@ class EPCalcWin(blankWindow):
 
 
     def __open(self):
-        '''
+        '''!
         This opens a file dialog window for opening a group file.
         '''
         opendir = filedialog.askopenfilename(defaultextension = ".json", filetypes = [("Char Group Files", ".json")])
@@ -532,7 +562,7 @@ class EPCalcWin(blankWindow):
 
 
     def __quit(self):
-        '''
+        '''!
         This method closes the window
         '''
         self.window.destroy()
@@ -540,7 +570,7 @@ class EPCalcWin(blankWindow):
 
 
 class showGrpEP(object):
-    '''
+    '''!
     Display and save window for group EPs
     '''
 
@@ -582,7 +612,7 @@ class showGrpEP(object):
 
 
     def saveChars(self):
-        '''
+        '''!
         This saves all single characters separated from group
         '''
         if self.storepath[-1] != "/":
@@ -599,14 +629,20 @@ class showGrpEP(object):
                 else:
                     print("{} not found -> {}".format(charpath, os.getcwd()))
 
+#        if os.path.exists("autosave.pkl"):
+#            os.remove("autosave.pkl")
+
 
     def saveGroup(self):
-        '''
+        '''!
         Saves all data in a groupfile
         '''
         savedir = filedialog.asksaveasfilename(defaultextension = ".json", filetypes = [("Char Group Files", ".json")])
         with open(savedir, "w") as fp:
             json.dump(self.charlist, fp, indent = 4)
+
+        if os.path.exists("autosave.pkl"):
+            os.remove("autosave.pkl")
 
 
 
@@ -915,11 +951,12 @@ class manWin(object):
 
 
 
-with open("/home/mongol/git/rpg-tools/src/data/groups/charparty.json", "r") as fp:
-    cl = json.load(fp)
+if __name__ == '__main__':
+    with open("/home/mongol/git/rpg-tools/src/data/groups/charparty.json", "r") as fp:
+        cl = json.load(fp)
 
-mantan = rpg.statManeuver
-rrtab = rpg.RRroll
-#win = EPCalcWin(charlist = cl)
+    mantan = rpg.statManeuver
+    rrtab = rpg.RRroll
+    #win = EPCalcWin(charlist = cl)
 
-win = EPCalcWin()
+    win = EPCalcWin()
