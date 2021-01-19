@@ -5,7 +5,7 @@
 @brief help functions for rpg
 
 
-@date (C) 2015-2020
+@date (C) 2015-2021
 @author Marcus Schwamberger
 @email marcus@lederzeug.de
 
@@ -37,7 +37,9 @@ def RMDice(sides = 100, nod = 1, rules = "MERS", low = 4, high = 96):
 
     for d in range(nod):
         throw = rrange(1, sides)
-        if rules == "RM " or rules == "MERS":
+
+        if rules == "RM" or rules == "MERS":
+
             if throw <= low:
                 throw2 = rrange(1, sides)
                 dummy = throw2

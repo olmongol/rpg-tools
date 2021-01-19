@@ -11,7 +11,7 @@ This program helps to handle fights between PCs,NPCs, animals, monsters etc.
 @version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "28.12.2020"
+__updated__ = "17.01.2021"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + __author__
 __email__ = "marcus@lederzeug.de"
@@ -25,7 +25,8 @@ import os
 from pprint import pprint
 
 if __name__ == '__main__':
-    mycfg = chkCfg()
-    datapath = "{}/{}/default/fight/".format(os.getcwd(), mycfg.cnfparam["datapath"].strip("./"))
-    pprint(mycfg.cnfparam)
-    print(datapath)
+#    mycfg = chkCfg()
+#    datapath = "{}/{}/default/fight/".format(os.getcwd(), mycfg.cnfparam["datapath"].strip("./"))
+#    pprint(mycfg.cnfparam)
+#    print(datapath)
+    

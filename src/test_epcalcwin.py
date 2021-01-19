@@ -1,14 +1,21 @@
 #!/usr/bin/python3
 '''!
 @file test_epcalcwin.py
-@package rm_char_tools.py
+@package test_epcalcwin.py
 @brief This is a little tool for tracking the EPs  of Role Master Characters
 
-@date (C) 2015-2020
+@date (C) 2015-2021
 @author Marcus Schwamberger
 @email marcus@lederzeug.de
 @license GNU V3.0
-@version 1.1.0
+@version 1.2.0
+----
+@todo
+- adding a RR window
+- adding a cat/skill checker window for the whole group (select skill once and check for all)
+- adding spellcasting windpw (stat man)
+
+
 '''
 import os
 import json
@@ -957,6 +964,5 @@ if __name__ == '__main__':
 
     mantan = rpg.statManeuver
     rrtab = rpg.RRroll
-    #win = EPCalcWin(charlist = cl)
 
     win = EPCalcWin()

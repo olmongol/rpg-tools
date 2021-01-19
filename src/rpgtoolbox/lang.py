@@ -22,7 +22,7 @@ Currently supported languages are:
 @license GNU V3.0
 '''
 __version__ = "1.1"
-__updated__ = "28.12.2020"
+__updated__ = "19.01.2021"
 ##
 # @var supportedrpg
 # Supported RPG systems
@@ -724,6 +724,18 @@ labels = {'cfg_path': {'de': 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei',
           "target": {"de": "Ziel",
                       "en": "Target"
                       },
+          'skill':{'de': 'Fertigkeit',
+                    'en': 'Skill'
+                    },
+          'attack table':{'de': "Angriffstabelle",
+                           "en": "Attack Table"
+                           },
+          'crit table': {"de": "Kritische Treffer Tabelle",
+                          "en": "Critical Table"
+                          },
+          "weapon":{"en": "Weapon",
+                     "de": "Waffe"
+                     },
 
           }
 
@@ -1187,36 +1199,54 @@ attackc = { "1he": {"en": "Weapon - 1-H Edged",
 # @val critc
 # this maps abbrevations of crits to names of crit tables
 critc = {"P": {"en":"puncture",
+               "de": "Durchdringen"
               },
         "S": {"en":"slash",
+              "de": "Schneiden"
               },
         "K":{"en":"krush",
+             "de": "Zertruemmern"
               },
         "U": {"en": "unbalance",
+              "de": "Ungleichgewicht"
                },
         "G": {"en": "grapple",
+              "de": "Umschlingen"
                },
         "T":{"en": "tiny",
+             "de": "winzig"
               },
 
         "st":{"en":"martial_arts_-_striking",
+              "de": "Kampfkunst_- _Schlagen"
               },
         "sw":{"en":"martial_arts_-_sweeps",
+              "de": "Kampfkunst - Feger"
               },
 
         "br":{"en":"brawling",
+              "de":"Pruegeln"
                },
         "sd": {"en": "subdual",
+               "de": "Niederdruecken"
                 },
         "C": {"en": "cold",
+              "de": "Kaelte"
                },
         "H": {"en": "heat",
+              "de": "Hitze"
                },
         "I": {"en": "impact",
+              "de": "Einschlag"
                },
         "E": {"en": "electricity",
+              "de": "Elektizitaet"
                }
         }
+
+weapontypes = { "en": ["normal", "magic", "mithril", "holy", "slaying"],
+               "de":["normal", "magisch", "Mithril", "heilig", "tötend"],
+              }
 #----------------------------------------------------------------------------
 # End of block
 #----------------------------------------------------------------------------

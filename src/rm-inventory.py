@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 '''!
 @file rm-inventory.py
-@package rm_char_tools.py
+@package rm-inventory.py
 @brief This is a little tool for creating and keeping track of character's inventory
 
 This tool handles
@@ -35,7 +35,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "09.01.2021"
+__updated__ = "17.01.2021"
 
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"

@@ -13,11 +13,12 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "30.12.2020"
+__updated__ = "19.01.2021"
 __author__ = "Marcus Schwamberger"
 
 import re
 import json
+from pprint import pprint
 
 from rpgtoolbox.globaltools import splitExceptBetween as splitE
 from rpgtoolbox.globaltools import getCSVNames
@@ -239,7 +240,7 @@ class crittable():
 
                         if type(self.crittable[crit][roll]["mod"]) != type({}):
                             self.crittable[crit][roll]["mod"] = {"mod":int(self.crittable[crit][roll]["mod"]),
-                                                             "    rnd":90 * 24 * 60 * 6}
+                                                                 "rnd":90 * 24 * 60 * 6}
 
                     if "x" in self.crittable[crit][roll]["mod_attacker"]:
                         mr = self.crittable[crit][roll]["mod_attacker"].split('x')
@@ -254,29 +255,41 @@ class crittable():
                     if self.crittable[crit][roll]["alternate"] != "" and type(self.crittable[crit][roll]["alternate"]) == type(""):
                         self.crittable[crit][roll]["alternate"] = switch(self.crittable[crit][roll]["alternate"])
 
-                    else:
+                    elif self.crittable[crit][roll]["alternate"] == "":
                         self.crittable[crit][roll]["alternate"] = {}
 
                     for elem in ["hits", "hits/rnd", "stunned", "die", "ooo", "parry", "no_parry"]:
                         self.crittable[crit][roll][elem] = int(self.crittable[crit][roll][elem])
 
 
-    def getCrit(self, roll = 50, crit = "A"):
+    def getCrit(self, roll = 50, crit = "A", weapontype = "normal"):
         """
         This determines the critical hit
+        ----
+        @todo this has to be adapted for Large and Superlarge Crit tables
         """
         self.crithit = {}
-        klist = list(self.crittable[crit].keys())
+        if crit in self.crittable.keys():
+            klist = list(self.crittable[crit].keys())
 
-        for i in range(0, len(klist)):
-            klist[i] = int(klist[i])
+            for i in range(0, len(klist)):
+                klist[i] = int(klist[i])
 
-        klist.sort()
-        idx = 0
+            klist.sort()
 
-        while roll > klist[idx]:
-            self.crithit = self.crittable[crit][str(klist[idx])].copy()
-            idx += 1
+            for idx in range(0, len(klist)):
+                if roll <= klist[idx]:
+                    self.crithit = self.crittable[crit][str(klist[idx])].copy()
+                    break
+
+        self.showResult()
+
+
+    def showResult(self):
+        """!
+        This just prints out the result to stdout
+        """
+        pprint(self.crithit)
 
 
 
@@ -325,6 +338,16 @@ class attacktable():
                     self.attack[dummy[0].strip(" ")][header[j].strip(" ")] = dummy[j]
 
 
+    def showResult(self):
+        """!
+        This prints out the result simply to stdout
+        """
+        if self.crit == "":
+            print("Hits: {}".format(self.hits))
+        else:
+            print("Hits: {}\nCrit: {}\nType:{}".format(self.hits, self.crit, self.crittype))
+
+
     def getHits(self, roll = 50, AT = "1", AS = "H"):
         """!
         Caculates the hitpoints
@@ -362,6 +385,8 @@ class attacktable():
                 self.crittype = self.attack[AT]["pattern"][p]
             else:
                 self.crittype = self.attack[AT]["pattern"]
+
+        self.showResult()
 
 
 

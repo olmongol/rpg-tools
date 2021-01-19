@@ -28,7 +28,7 @@ from rpgtoolbox.confbox import *
 from rpgtoolbox import logbox as log
 
 __author__ = "Marcus Schwamberger"
-__updated__ = "28.12.2020"
+__updated__ = "17.01.2021"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + __author__
 __email__ = "marcus@lederzeug.de"
 __version__ = "1.1.0"

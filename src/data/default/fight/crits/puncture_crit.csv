@@ -53,7 +53,7 @@ C,75,"Destructive strike to lower leg. If foe has leg armor, it is torn free.",5
 C,80,"Strike through muscle in shield arm. If foe has a shield, he drops it.",0,3,-25,0,6,-1,0,0,0,,,muscle
 C,85,Strike bites into foe's ribs. The impact sounds truly terrible.,6,5,-25,0,3,-1,0,3,0,,,muscle/bone
 C,90,"Strike impacts on foe's head. If he has no helm, he dies. Helm is destroyed",6,0,0,0,2,-1,0,2,0,,,
-C,95,"Strike to chest. If foe has plate chest armor, he drops and dies in 9 rounds. If not, he dies instantly.",0,0,0,0,0,9,0,0,0,chest,die:0,muscle/organ
+C,95,"Strike to chest. If foe has plate chest armor, he drops and dies in 9 rounds. If not, he dies instantly.",0,0,0,0,0,9,9,0,0,chest,die:0,muscle/organ
 C,99,Strike through foe's neck breaks backbone and severs spine. Foe is paralyzed from the neck down.,0,0,0,0,0,-1,100000,0,0,,,nerve
 C,100,Shot through both ears proves effective. Foe dies instantly. Pretty shot.,0,0,0,20x6,0,-1,0,0,0,,,
 D,5,Strike bounces off.,2,0,0,0,0,-1,0,0,0,,,
@@ -91,6 +91,6 @@ E,75,"Strike plunges into leg with deadly effect. Foe drops, gripping his leg in
 E,80,"Strike foe in weapon arm, the bone is broken. Arm is useless.",0,0,0,0,0,-1,0,0,0,,,bone
 E,85,Strike to foe's back severs a vein. Foe goes to his knees and dies in 12 rounds.,0,0,0,0,0,12,12,0,0,,,cartilage
 E,90,Strike plunges in just below foe's collarbone Foe drops and dies in 12 rounds.,0,0,0,0,0,12,12,0,0,,,organ
-E,95,Your weapon passes through the arm and sticks out the other side. Foe dies in 12 rounds,0,0,0,0,0,12,0,0,0,,,muscle/cartilage
+E,95,Your weapon passes through the arm and sticks out the other side. Foe dies in 12 rounds,0,0,0,0,0,12,12,0,0,,,muscle/cartilage
 E,99,Shot through heart sends foe reeling back 10 feet to a place suitable for death. Your weapon is stuck in reeling foe.,0,0,0,0,0,0,0,0,0,,,organ
 E,100,Strike to foe's eye. Foe dies instantly. Carry on soldier.,0,0,0,25,0,0,0,0,0,,,organ

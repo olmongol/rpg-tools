@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 '''!
 \file find_herbs.py
+\package  find_herbs.py
 \brief This is a little tool for finding herbs in different areas of Middle-Earth
 
 
@@ -140,7 +141,7 @@ class searchHerbsWin(blankWindow):
 
 
     def __addMenu(self):
-        '''
+        '''!
         This methods adds the menu bar to the window
         '''
         self.filemenu = Menu(master = self.menu)
@@ -156,7 +157,7 @@ class searchHerbsWin(blankWindow):
 
 
     def __addHelpMenu(self):
-        """
+        """!
         This methods defines a help menu.
         """
         self.helpmenu = Menu(master = self.menu)
@@ -169,7 +170,7 @@ class searchHerbsWin(blankWindow):
 
 
     def __buildWin(self):
-        """
+        """!
         This method builds the window content.
         """
         # row 0
@@ -307,21 +308,21 @@ class searchHerbsWin(blankWindow):
 
 
     def __updClimate(self, selection):
-        """
+        """!
         This gets the selected climate
         """
         self.searchclimate = [selection]
 
 
     def __updLocale(self, selection):
-        """
+        """!
         This gets the selected locale
         """
         self.searchlocale = [selection]
 
 
     def __updRegion(self, selection):
-        """
+        """!
         This updates the window by the selected region
         """
         self.__region.set(selection)
@@ -329,7 +330,7 @@ class searchHerbsWin(blankWindow):
 
 
     def __updSelec(self, selection):
-        """
+        """!
         Updating window by selected Character
         """
         print(selection)
@@ -350,7 +351,7 @@ class searchHerbsWin(blankWindow):
 
 
     def __open(self):
-        '''
+        '''!
         This opens a file dialog window for opening a group file.
         '''
         opendir = filedialog.askopenfilename(defaultextension = ".json", filetypes = [("Char Group Files", ".json")])
@@ -382,14 +383,14 @@ class searchHerbsWin(blankWindow):
 
 
     def __quit(self):
-        '''
+        '''!
         This method closes the window
         '''
         self.window.destroy()
 
 
     def __checkResult(self):
-        """
+        """!
         This initiates the search for herbs by the given parameters
         """
         searchskill = self.__charskill.get()
