@@ -17,7 +17,7 @@ A,85,Foe steps right into your swing. You make a large wound.,6,6,0,20,5,-1,0,0,
 A,90,Foe turns out and away from your swing. You still catch his side.,8,2,-10,0,2,-1,0,2,0,,,muscles
 A,95,"Blow to foe's head. If no helmet, cut off foe's ear (all hearing ability is halved).",3,0,0,0,2,-1,0,2,0,head,hits:3;hits/rnd:3;stunned:3;no_parry:1,cartilage
 A,99,The tip of your weapon slashes foe's nose. Minor wound and a permanent scar.,2,2,-30,0,6,-1,0,0,0,,,cartilage
-A,100,"Strike severs carotid artery and jugular vein, breaking foe's neck. Foe dies in 6 rounds of agony.",0,0,0,0,0,6,0,0,0,,,bones/veins
+A,100,"Strike severs carotid artery and jugular vein, breaking foe's neck. Foe dies in 6 rounds of agony.",0,0,0,0,0,6,6,0,0,,,bones/veins
 B,5,Feeble strike falls clear of target.,0,0,0,0,0,-1,0,0,0,,,
 B,10,Hard strike with no edge. Foe steps clear before you sort it out.,2,0,0,0,0,-1,0,0,0,,,
 B,15,Foe steps quickly out of your reach. You receive initiative next round,3,0,0,0,0,-1,0,0,0,,,
@@ -35,7 +35,7 @@ B,80,Foe moves his shield arm too slowly. You gladly slash his arm.,6,3,-30,0,2,
 B,85,Your edge bites half its width into foe. Open up a terrible wound. Blood goes everywhere.,7,6,0,0,2,-1,0,2,0,,,muscles
 B,90,Stike to to back. Strike back. Foe Foe goes goes prone trying to to avoid your strike. He gets up facing the wrong direction.,10,3,0,0,3,-1,0,3,0,,,muscles
 B,95,"Strike to foe's hip. The blow has little edge, but much impact. Your blow staggers foe. His recovery is slow.",7,0,-20,10,3,-1,0,1,0,,,bones/muscles
-B,99,Strike to foe's head breaks skull and causes massive brain damage. Foe drops and dies in 6 rounds.,20,0,0,0,0,6,0,0,0,,,bones/nerves
+B,99,Strike to foe's head breaks skull and causes massive brain damage. Foe drops and dies in 6 rounds.,20,0,0,0,0,6,6,0,0,,,bones/nerves
 B,100,"Disembowel foe, killing him instantly. 25% chance your weapon is stuck in opponent for 1 round.",0,0,0,0,0,0,0,0,0,,,
 C,5,Firm shot. Good recovery. Try again.,1,0,0,0,0,-1,0,0,0,,,
 C,10,Strike foe with more force than edge,3,0,0,0,0,-1,0,0,0,,,
@@ -53,8 +53,8 @@ C,75,Slash muscle and tendons in foe's lower leg. Foe stumbles forward into you 
 C,80,You come in high and fast. Slash muscle and tendons in foe's shield arm. Foe's arm is useless.,9,4,0,0,6,-1,0,0,0,,,muscles/tendons
 C,85,You follow your training well. You extend on your slashing arc. Strike lands against foe's side.,8,4,-20,0,2,-1,0,2,0,,,muscles
 C,90,Blast to back breaks bone. Foe stumbles forward before falling down. He is having trouble standing.,9,0,-10,0,4,-1,0,4,0,,,bones
-C,95,Chop the top of foe's thigh. Sever foe's eg. Foe drops immediately and dies in 6 rounds due to shock and blood loss.,20,0,0,0,0,6,0,0,0,,,bones/muscles/tendons/organs
-C,99,You cleave shield and arm in half Foe attempts to catch his falling arm. Foe is in shock for 12 rounds then dies.,18,0,0,0,12,12,0,12,0,,,bones/muscles
+C,95,Chop the top of foe's thigh. Sever foe's eg. Foe drops immediately and dies in 6 rounds due to shock and blood loss.,20,0,0,0,0,6,6,0,0,,,bones/muscles/tendons/organs
+C,99,You cleave shield and arm in half Foe attempts to catch his falling arm. Foe is in shock for 12 rounds then dies.,18,0,0,0,12,12,12,12,0,,,bones/muscles
 C,100,"Strike up, in, and across foe's forehead. Destroy foe's eyes. Foe flips onto his back in pain.",5,0,0,0,30,-1,0,30,0,,,organs
 D,5,Strike lands poorly.,2,0,0,0,0,-1,0,0,0,,,
 D,10,An opening appears and all you can to is smack foe lightly.,4,0,0,0,0,-1,0,0,0,,,

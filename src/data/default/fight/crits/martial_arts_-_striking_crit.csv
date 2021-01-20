@@ -1,0 +1,96 @@
+crit,roll,description,hits,hits/rnd,mod,mod_attacker,stunned,die,ooo,no_parry,parry,cover,alternate,damage_type
+A,5,Strike loses its power.,0,0,0,0,0,-1,0,0,0,,,
+A,10,Strike slows a tap.,1,0,0,0,0,-1,0,0,0,,,
+A,15,You maneuver for a a better  position. You have initiative.,3,0,0,0,0,-1,0,0,0,,,
+A,20,You take a shot to foes side. You have the initative.,4,0,0,0,0,-1,0,0,0,,,
+A,35,"Light, but well placed strike. You are already starting your next attack",5,0,0,0,0,-1,0,0,1,,,
+A,45,Mild strike to fos chest. He can see your next strike coming and he attempts to block it.,6,0,-10x1,0,0,-1,0,0,1,,,
+A,50,Foe is confused by your attack. He steps back to parry your next strike.,6,0,-25x1,0,0,-1,0,0,1,,,
+A,55,Strike bends Foes hip in an odd direction. He is unbalanced.,3,0,0,0,1,-1,0,0,0,,,
+A,60,Fist to chest. A solid punch. Foe is rattled a little.,5,0,0,0,1,-1,0,0,0,,,
+A,65,"Blow on top of Foes foot is slightly misplaced, but quick. Bruise toe and mash toe nails.",5,0,-20x5,0,0,-1,0,0,0,,,
+A,66,"Strike Achilles tendon. Foe almost falls. He recovers his balance, but the pain is strong.",7,0,-50,0,2,-1,0,0,0,,,tendons
+A,70,Weak spearhand to Foes side. It yields an excellent effect.,2,0,0,0,2,-1,0,0,0,,,
+A,75,"Knife hand, spear hand combination. Foe must roll a weapon fumble.",0,0,0,0,1,-1,0,0,0,,,
+A,80,"Blow to Foes shield arm. If foe has a shield, it is broken. If foe has no shield, his arm is broken.",6,0,0,0,1,-1,0,0,0,,,
+A,85,Kick to Foes weapon arm. Foe is disarmed. Your strike does little else.,3,0,0,0,0,-1,0,0,0,,,
+A,90,Fluid move followed by a leaping kick to Foes back knocks foe down. He is shaken and tries to stand.,0,0,0,0,3,-1,0,0,0,,,
+A,95,"Strike to nerve in Foes leg. Foes leg buckles. He does not fall, he crouches down in pain.",8,0,-40x6,0,2,-1,0,2,0,,,
+A,99,You block Foes attack. You then follow-up with a side strike that knocks foe down. Foe hits hard and loses his direction.,0,0,0,0,3,-1,0,3,0,,,
+A,100,Gooseneck strike. Foes inner ear ruptured. Foe stands there while your follow-up strike knocks him down and out!,0,0,-75,0,0,-1,500,0,0,,,organ
+B,5,"Fine artistry, but no extra damage.",0,0,0,0,0,-1,0,0,0,,,
+B,10,Your master would be so embarrassed.,2,0,0,0,0,-1,0,0,0,,,
+B,15,Blow to shoulder. Foe steps back and yields the initiative to you.,0,0,0,0,0,-1,0,0,0,,,
+B,20,Good shot! You have initiative for 2 rounds.,5,0,0,0,0,-1,0,0,0,,,
+B,35,"Strong, but poorly aimed strike forces foe to defend himself energetically. ",6,0,0,0,0,-1,0,0,1,,,
+B,45,Chest strike. Foe makes a strange noise on impact. He blocks and recovers.,7,0,-20x1,0,0,-1,0,1,0,,,
+B,50,Glancing kick to Foes back. The effects are reasonable for your modest effort.,5,0,0,0,1,-1,0,0,0,,,
+B,55,Side strike sends foe stumbling to the left 5 feet. He recovers to face you.,6,0,0,0,1,-1,0,0,0,,,
+B,60,Boom! Good shot to Foes stomach. He almost loses his lunch.,3,0,0,0,2,-1,0,0,0,,,
+B,65,"Kick in back of Foes leg. He stumbles, but does not fall. You move to gain advantage.",7,0,0,0,2,-1,0,0,0,,,
+B,66,Strike foe in his forehead. The shock sprains neck and fractures Foes jaw. He cannot seem to close his jaw.,4,0,-50,0,9,-1,0,0,0,,,bone
+B,70,Spear hand strike to chest. Elbow shot to Foes side causes some confusion.,3,0,0,0,3,-1,0,0,0,,,
+B,75,Hammer Foes weapon arm as it passes near you. The bruise is deep. Foe holds tight to his weapon.,6,0,-20,0,2,-1,0,0,0,,,muscles/tendons
+B,80,You find an opening and strike the back of Foes knee. The impact damages tendons and unbalances foe.,0,0,-25,0,2,-1,0,0,0,,,tendons
+B,85,Kick Foes weapon arm and send weapon flying 5 feet away. You break 2 of Foes weapons.,3,0,-20,0,2,-1,0,0,0,,,bone
+B,90,Wheel kick knocks foe flat. Smash tendons and tear muscle. You spin clear with too much energy.,0,0,-30,0,9,-1,0,0,0,,,muscles/tendons
+B,95,Strike to Foes knee shatters joint. Foe drops down hard. He grips his nee and spits out an oath.,0,0,-85,0,4,-1,4,0,0,,,bone
+B,99,Roundhouse kick knocks foe out and fractures collarbone. Neck is sprained and shoulder muscles are bruised.,0,0,-100x20,0,20,-1,0,20,0,,,bone
+B,100,"Knife hand strike to Foes weapon arm breaks bone. Kick to lower back breaks Foes backbone, leaving foe paralyzed from the waist down.",5,0,0,0,0,-1,0,0,0,,,bone/nerves
+C,5,Glancing blow makes a strange sound.,1,0,0,0,0,-1,0,0,0,,,
+C,10,Not so solid a strike.,3,0,0,0,0,-1,0,0,0,,,
+C,15,Forceful. Foe steps back. You have initiative.,5,0,0,0,0,-1,0,0,0,,,
+C,20,Hard strike. Foe lashes out to avoid your next attack.,6,0,0,0,0,-1,0,0,1,,,
+C,35,Grab foe and bring your knee into his ribs. The force of the strike throws him from your grasp.,6,0,0,0,1,-1,0,0,0,,,
+C,45,Clever feint finds an opening in Foes guard. Your strike is light and fast. Bruise Foes chest.,8,0,0,0,1,-1,0,0,0,,,
+C,50,Step to the side and catch foe in his back. He stumbles forward. His guard is DOWN.,0,0,0,0,1,-1,0,1,0,,,
+C,55,With a circular block and a focused central strike you break Foes defenses.,0,0,0,20x1,1,-1,0,1,0,,,
+C,60,Strong wheel kick sends foe 10 feet in any desired direction.,8,0,0,0,2,-1,0,0,0,,,
+C,65,Brutal strike to upper leg. The bruise is deep. The pain makes it hard for foe to stand on the leg.,5,0,-25,0,0,-1,0,0,0,,,muscles/tendons
+C,66,"Knife hand strike breaks Foes weapon arm, leaving it useless. Follow-up punchto solar plexus knocks foe out.",0,0,0,0,0,-1,1000,0,0,,,
+C,70,Strong knife hand to upper portion of Foes shield arm. Arm is broken.,0,0,0,0,0,-1,0,0,0,,,bone
+C,75,Strike to back of lower leg. Foe struggles to keep balance. He is unable to defend himself.,0,0,0,0,2,-1,0,2,0,,,
+C,80,You turn a block into a strike to Foes weapon arm. Foe is disarmed. Strike damages cartilage.,0,0,-10,0,1,-1,0,0,0,,,cartilage
+C,85,Heel kick breaks bone in Foes foot. Foe has trouble standing. His foot looks bad.,0,0,-50,0,2,-1,0,2,0,,,bone
+C,90,Clean strike to lower leg rips Achilles tendon and drops foe.,10,0,-80,0,9,-1,0,0,0,,,tendons
+C,95,"Flying kick to Foes back. You knock foe down, disarm him, and leave him in trouble.",0,0,0,0,12,-1,0,12,0,,,
+C,99,Kick to Foes solar plexus. He stumbles back 10 feet. He falls very hard.,30,0,0,0,30,-1,0,30,0,,,
+C,100,Sweep lays foe out and heel strike to Foes sternum collapses the ribcage. Foe is helpless and dies in 4 rounds.,0,0,0,0,0,4,4,0,0,,,nerves
+D,5,You impress foe with your form.,2,0,0,0,0,-1,0,0,0,,,
+D,10,Foe steps out of most of the strike.,4,0,0,0,0,-1,0,0,0,,,
+D,15,Kick Foes side. He stumbles out of the way. You have the initiative.,0,0,0,0,0,-1,0,0,0,,,
+D,20,Foe blocks your attack. He falls back to recover from your onslaught.,8,0,-10x1,0,0,-1,0,0,1,,,
+D,35,Blow to chest. Use your forehead in a brutal way to subdue foe. You have initiative for 3 rounds.,3,0,0,0,1,-1,0,0,0,,,
+D,45,Chest strike. Foe falls forward onto one knee in front of you. His guard is down for a moment.,5,0,0,0,1,-1,0,1,0,,,
+D,50,Solid chest strike. The impact confuses foe greatly. His ribs are fractured. He hates you.,3,0,-10,0,2,-1,0,0,0,,,bone
+D,55,Textbook shot to Foes upper leg. The bruise is deep. Foe does not fall down.,6,0,-25,0,0,-1,0,0,0,,,muscles/tendons
+D,60,Back strike. Foe attempts to flee and then changes his mind.,4,0,0,0,3,-1,0,0,0,,,
+D,65,"Blow strikes a nerve in Foes upper leg. He is not in pain, but his leg is numb.",0,0,-25x6,0,2,-1,0,0,0,,,
+D,66,Grip Foes weapon arm. Dislocate the arm and then break it. Use your advantage to pull foe over and kick him in the face. Foe is knocked out.,0,0,0,20x1,0,-1,1000,0,0,,,
+D,70,Press your attack under the bottom of Foes ribcage. Knock the wind out of foe.,0,0,0,0,2,-1,0,2,0,,,
+D,75,Firm flat palm strike to Foes collarbone. Bone is broken. Foe guard is down. It hurts him to raise his arm.,0,0,-25,0,2,-1,0,2,0,,,bone
+D,80,Strike and grip area behind Foes knee. Tendon and cartilage damage insures your success.,0,0,-75,0,0,-1,0,0,0,,,cartilage/tendons
+D,85,Kick to Foes leg is clean and mean. Leg is broken above the knee. Foe falls over slowly.,5,0,-75,0,5,-1,0,5,0,,,bone
+D,90,Open-handed blow to Foes adam's apple crushes Foes windpipe. Foe dies in 18 rounds of shock and asphyxiation.,0,0,0,0,0,18,18,0,0,,,muscles/tendons
+D,95,Jab to Foes eyes blinds him. Crescent kick sends foe 10 feet in the direction you select.,0,0,-100,0,10,-1,0,0,0,,,organ
+D,99,Round house kick catches foe in back of head. You slam Foes head into the ground. Severe concussion. Foe dies of hemorrhage in 9 rounds.,0,0,0,0,0,9,9,0,0,,,nerves
+D,100,"Gooosh! Awesome spear hand strike finds seam, penetrates solar plexus and ruptures the heart. Foe dies instantly.",0,0,0,0,0,0,0,0,0,,,organ
+E,5,How did you botch this beautiful strike?,3,0,0,0,0,-1,0,0,0,,,
+E,10,Glancing strike makes foe respect you.,5,0,0,0,0,-1,0,0,0,,,
+E,15,You strike foe to unbalance him before you attempt a killing blow.,7,0,0,0,1,-1,0,0,0,,,
+E,20,Snappy double shot to ribs. Crack! Ribs are fractured.,5,0,-10,0,1,-1,0,0,0,,,bone
+E,35,Side strike jars Foes kidneys. Heavy bruise to muscles. Foe steps right into that one. He is in pain.,0,0,-20,0,0,-1,0,0,0,,,organ/muscles
+E,45,"Strike is solid. It turns foe around. You have a clean shot at Foes back next round, if you hurry.",0,0,0,0,1,-1,0,0,0,,,
+E,50,Draw down Foes defenses with a feint and then hammer him in chest. Your tactics are acceptable.,5,0,0,0,2,-1,0,1,0,,,
+E,55,Hip strike spins foe. He is suspicious of gravity and struggles to stay standing.,5,0,0,0,3,-1,0,0,0,,,
+E,60,Shoulder strike. Foe is badly unbalances and unable to defend himself.,0,0,-10,0,2,-1,0,1,0,,,muscles/tendons
+E,65,Draw out Foes weapon arm. You strike cleanly to disarm him. Textbook.,3,0,0,0,0,-1,0,0,0,,,
+E,66,Simultaneous palm strike to both of Foes ears. Destroy Foes hearing and balance.,0,0,-95,0,24,-1,0,0,0,,,organ
+E,70,Elbow to solar plexus and back of fist to Foes face. Foe drops.,5,0,0,0,3,-1,0,2,0,,,
+E,75,Kick Foes knee in backwards. Tendons and muscles are torn. Foe yells out frightfully in response.,5,0,-50,0,3,-1,0,0,0,,,muscles/tendons
+E,80,Front kick to midsection doubles foe over. You follow with a knee strike which breaks Foes nose and knocks foe out.,0,0,0,0,0,-1,1000,0,0,,,bone
+E,85,Powerful strike shatters knee and then disjoints it. Foe drops. Oh that hurts!,15,0,-80,0,12,-1,0,12,0,,,bone
+E,90,Round house kick to kidneys drops foe to his knees. You grip Foes neck and snap it very effectively. Foe dies in 9 rounds.,0,0,0,0,0,9,9,0,0,,,
+E,95,Strike to abdomen ruptures spleen. Foe spits out blood instantly. He drops and dies in 12 rounds.,0,0,0,10x1,0,12,12,0,0,,,organ
+E,99,Double palmstrike to Foes nose breaks cartilage and drives bone into brain. The effects are rapid. Foe dies after 6 rounds prone and immobile.,0,0,0,0,0,6,6,0,0,,,organ/nerves
+E,100,Disarm foe and use his weapon to kill him. A follow-up strike breaks his neck and you send him 5 feet in any direction. He is dead twice.,0,0,0,0,0,0,0,0,0,,,bone/nerves

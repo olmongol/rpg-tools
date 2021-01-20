@@ -13,7 +13,7 @@ lorem ipsum
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "19.01.2021"
+__updated__ = "20.01.2021"
 __author__ = "Marcus Schwamberger"
 
 import os
@@ -111,7 +111,7 @@ class atWin(blankWindow):
 
 
     def __rollCrit(self):
-        result, self.umr = Dice(rules = "RM")
+        result, self.umr = Dice(rules = "")
         self.__critroll.set(result[0])
 
 

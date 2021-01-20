@@ -35,7 +35,7 @@ B,80,Blow to foe's shield arm breaks wrist. Hand is useless. Foe drops shield.,6
 B,85,Blow thunders as it connects. Foe's ribs crackle in response. It hurts.,12,0,-25,0,2,-1,0,2,0,,,bones
 B,90,Foe makes a mistake and pays. You send him prone with a fell strike. Tendons are smashed,0,0,-30,0,4,-1,0,4,0,,,tendons
 B,95,"Strike to foe's head. If he has no helm, he falls into a coma for 3 weeks.",20,0,0,0,12,-1,0,0,0,,ooo:90720,bones
-B,99,Blast foe's chest. Send ribcage into heart. Foe drops and dies in 6 rounds.,0,0,0,20,0,6,0,0,0,,,organs
+B,99,Blast foe's chest. Send ribcage into heart. Foe drops and dies in 6 rounds.,0,0,0,20,0,6,6,0,0,,,organs
 B,100,Blow snaps neck. Foe is paralyzed from the shoulders down,25,0,0,0,15,-1,10000000000,0,0,,,bones/nerves
 C,5,Practice this one.,1,0,0,0,0,-1,0,0,0,,,
 C,10,You should have swung much harder.,3,0,0,0,0,-1,0,0,0,,,
@@ -53,7 +53,7 @@ C,75,Strike twists foe's knee.,10,0,-40,0,2,-1,0,2,0,,,bones
 C,80,Blow to foe's weapon arm. A metal armguard is bent and the arm is useless until until the armor is removed.,9,0,-50,0,1,-1,0,1,0,,,
 C,85,Foe yells out before the impact and is silenced by the blow. Ribs crack.,12,0,-40,0,3,-1,0,3,0,,,bones
 C,90,Powerful blow sweeps foe onto his back. Bones break and muscles tear.,20,0,-50,0,6,-1,0,0,0,,,bones/muscles
-C,95,Blow to thigh. Compound fracture severs an artery. Foe goes down hard and dies in 12 rounds.,9,0,0,0,0,12,0,0,0,,,bones/veins
+C,95,Blow to thigh. Compound fracture severs an artery. Foe goes down hard and dies in 12 rounds.,9,0,0,0,0,12,12,0,0,,,bones/veins
 C,99,Blow to foe's abdomen. Strike destroys a variety of organs. Poor fool expires after 6 rounds of inactivity.,0,0,0,0,0,6,6,0,0,,,organs
 C,100,Strike to forehead. Destroy foe's eyes. Send his helm flying. Foe is spun about.,30,0,0,0,24,-1,0,24,0,,,
 D,5,Strike blunted by clothing.,2,0,0,0,0,-1,0,0,0,,,
@@ -72,8 +72,8 @@ D,75,Blow lands with a crack. Leg bone is broken. Major cartilage damage.,12,0,-
 D,80,Blow breaks foe's weapon arm. Sling foe's weapon to the right 5 feet. Foe's arm is useless. Tendon damage.,8,0,0,0,1,-1,1,0,0,,,bones/tendons
 D,85,Blow lands on foe's side. He goes down hard. Victory is close.,15,0,0,15,3,-1,0,3,0,,,
 D,90,"Blow to foe's neck. If foe has a throat protector, he is paralyzed from the neck down. If not, he dies in two rounds.",25,0,0,0,0,-1,10000000000,0,0,throat,die:2,
-D,95,Strike comes down on the shield shoulder of foe. Arm shatters. Foe dies from shock and blood loss in 9 rounds.,0,0,0,0,0,9,0,0,0,,,tendons/muscles/bones
-D,99,"Crush foe's chest cavity. He grips your arm, looks into your eyes, then drops and dies in 3 rounds.",0,0,0,25,0,3,0,0,0,,,bones/organs
+D,95,Strike comes down on the shield shoulder of foe. Arm shatters. Foe dies from shock and blood loss in 9 rounds.,0,0,0,0,0,9,9,0,0,,,tendons/muscles/bones
+D,99,"Crush foe's chest cavity. He grips your arm, looks into your eyes, then drops and dies in 3 rounds.",0,0,0,25,0,3,3,0,0,,,bones/organs
 D,100,Blast to foe's heart. It stops. He dies. You consider yourself to be deadly. Fine work. You are ready to slay.,25,0,0,0,0,-1,0,0,0,,,organs
 E,5,Destroy one of foe's silly decorations.,3,0,0,0,0,-1,0,0,0,,,
 E,10,"Blow is forceful, not hard. Foe is unbalanced. You have initiative.",6,0,0,0,0,-1,0,0,0,,,
@@ -91,6 +91,6 @@ E,75,Blow to foe's hip bonebreaks it. Help! Foe has fallen and cannot get up,15,
 E,80,Slap foe's arm and elbow around like string. Joint is shattered. Arm is useless. Foe should have stayed in bed.,9,0,0,0,2,-1,0,2,0,,,bones
 E,85,Blow to foe's armpit. Crush ribs and destroy organs. Foe dies in 3 rounds.,30,0,0,0,0,3,0,0,0,,,bones/organs
 E,90,Neck strike shatters bone and severs an artery. Foe cannot breath. Foe is inactive and suffocates in 12 rounds.,0,0,0,0,0,12,12,0,0,,,bones/veins
-E,95,Blast to foe's back. A bone is driven into vital organs. Foe is down and dies in six rounds.,25,0,0,0,0,6,0,0,0,,,bones/organs
-E,99,"Blow to foe's face. If visored, the visor is driven into his face and foe dies in 10 rounds. Without a visor, he dies instantly. You have half the round left.",30,0,0,20,0,10,0,0,0,face,die:0,
-E,100,Blow turns hip to dust. Foe falls down. Attempts to stand. Falls again and dies in 6 rounds.,35,0,-30x6,0,2,6,0,0,0,,,bones
+E,95,Blast to foe's back. A bone is driven into vital organs. Foe is down and dies in six rounds.,25,0,0,0,0,6,6,0,0,,,bones/organs
+E,99,"Blow to foe's face. If visored, the visor is driven into his face and foe dies in 10 rounds. Without a visor, he dies instantly. You have half the round left.",30,0,0,20,0,10,10,0,0,face,die:0,
+E,100,Blow turns hip to dust. Foe falls down. Attempts to stand. Falls again and dies in 6 rounds.,35,0,-30x6,0,2,6,6,0,0,,,bones

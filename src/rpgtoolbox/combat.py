@@ -13,7 +13,7 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "19.01.2021"
+__updated__ = "20.01.2021"
 __author__ = "Marcus Schwamberger"
 
 import re
@@ -259,6 +259,8 @@ class crittable():
                         self.crittable[crit][roll]["alternate"] = {}
 
                     for elem in ["hits", "hits/rnd", "stunned", "die", "ooo", "parry", "no_parry"]:
+                        #debug
+                        #print("{} : {} - {} ==> {}".format(crit, roll, elem, self.crittable[crit][roll][elem]))
                         self.crittable[crit][roll][elem] = int(self.crittable[crit][roll][elem])
 
 

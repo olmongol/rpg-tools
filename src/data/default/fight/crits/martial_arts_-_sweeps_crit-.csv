@@ -1,0 +1,96 @@
+crit,roll,description,hits,hits/rnd,mod,mod_attacker,stunned,die,ooo,no_parry,parry,cover,alternate,damage_type
+A,5,"Acrobatic, but no extra damage.",0,0,0,0,0,-1,0,0,0,,,
+A,10,Rip your pants and miss an opportunity.,1,0,0,0,0,-1,0,0,0,,,
+A,15,You get to a better position and you have the initiative next round.,1,0,0,0,0,-1,0,0,0,,,
+A,20,Your attack causes foe to seek saftey behind his weapon.,2,0,0,0,0,-1,0,0,1,,,
+A,35,Foe leaps back from your attempts. He needs some time to recover.,2,0,-10x1,0,0,-1,0,0,1,,,
+A,45,Sweep is little more than a threatening kick. Foe steps back.,3,0,-20x1,0,0,-1,0,0,1,,,
+A,50,Foe jumps over your assault. He strikes out at you in defense.,4,0,-25x1,0,0,-1,0,0,1,,,
+A,55,Foe must step back 3 feet to avoid your sweep.,5,0,-30x1,0,0,-1,0,0,1,,,
+A,60,"You try to throw foe, but he breaks free. Foe is unbalanced.",6,0,0,0,1,-1,0,0,0,,,
+A,65,"You throw foe down, but he gets up quickly. Your killing blow misses him.",7,0,0,0,1,-1,0,0,0,,,
+A,66,"Throw dislocates foe's shield shoulder. Foe does not fall, but his shoulder is in pain.",0,0,.50,0,3,-1,0,3,0,,,cartilage/tendons
+A,70,"Hard, but less than smooth throw attempt. Foe is unbalanced.",7,0,0,0,2,-1,0,0,0,,,
+A,75,Fall bruises foe's thigh. He gets back to his feet instantly.,2,0,-5,0,2,-1,0,2,0,,,muscles
+A,80,"Foe falls on his shield side. If he has a shield, it is broken. If no shield, arm is sprained.",0,0,-10,0,2,-1,0,0,0,,,muscles/tendons
+A,85,Sweep unbalances foe and puts you in a good position for your next strike,3,0,0,25x1,3,-1,0,0,0,,,
+A,90,Foe lands on his back. He rolls over and stands up. Bruised muscles .The damage is done.,0,0,-20,0,2,-1,0,2,0,,,muscles
+A,95,Foe breaks his nose on a piece of equipment when you throw him. He is down and confused.,7,0,-25,0,2,-1,0,2,0,,,bones
+A,99,"Excellent throw sends foe down on his head. If foe has no helm, he is knocked out.",0,0,0,0,9,-1,0,0,0,head,ooo:1000,
+A,100,Snazzy throw. Foe is knocked down with a controlled grip. You may finish him or hold him immobile and helpless.,0,0,0,0,0,-1,0,0,0,,,
+B,5,"You look like you are trying to sweep yourself. Fortunately, you fail.",0,0,0,0,0,-1,0,0,0,,,
+B,10,Your attack is little more than a clumsy grip.,1,0,0,0,0,-1,0,0,0,,,
+B,15,"Your attack is deflected, but you gain the initiative next round.",3,0,0,0,0,-1,0,0,0,,,
+B,20,Foe is dazzled by your form. He seeks to avoid your onslaught.,0,0,-10x1,0,0,-1,0,0,1,,,
+B,35,You almost connect your grapple with the force of a kick. Foe escapes and wards you away.,3,0,-20x1,0,0,-1,0,0,1,,,
+B,45,Sweep bruises foe's leg. Foe limps clear of your attack.,4,0,-25x3,0,0,-1,0,0,0,,,muscles
+B,50,Your sweep pushes foe to the side. He recovers at bay.,5,0,0,0,1,-1,0,0,0,,,
+B,55,Throw knocks the wind out of foe. It fails to knock him down.,6,0,0,0,1,-1,0,0,0,,,
+B,60,Grip foe's weapon hand and sprain his finger. Foe keeps hold of his weapon.,0,0,-10,0,1,-1,0,0,0,,,muscles/tendons
+B,65,"You grip foe's weapon arm, pulling and twisting it brutally. Foe breaks free, he is bruised badly.",3,0,-20,0,1,-1,0,0,0,,,muscles/tendons
+B,66,"Nifty throw. You have foe pinned, on his face, and in an armlock. Foe is disarmed and immobilized.",9,0,0,0,0,-1,0,0,0,,,
+B,70,Strong throw. Foe is left a second behind you and confused. You have initiative for 6 rounds.,8,0,0,0,0,-1,0,0,0,,,
+B,75,Fall from throw tears ligaments in foe's leg. Foe rises with some difficulty.,5,0,-10,0,1,-1,0,1,0,,,muscles/tendons
+B,80,Foe breaks his fall with his weapon hand. He sprains two fingers when landing.,0,0,-25,0,2,-1,0,0,0,,,muscles/tendons
+B,85,"Sweep knocks foe 10 feet to side. If foe has a cloak or cape, he falls down. If not foe is facing the wrong way.",9,0,0,0,2,-1,0,2,0,,,
+B,90,Foe lands on his back. He realizes that he is in peril. The impact tears tendons and breaks bones.,0,0,-25,0,2,-1,0,2,0,,,bones/tendons
+B,95,"Fall breaks ribs, and disarms foe. Foe hits the ground rolling. His attempts to stand facing in the wrong direction.",0,0,-30,0,12,-1,0,12,0,,,bones
+B,99,"With but one strike, you disarm foe , knock him out and kick him onto his back. You're not a dragon yet.",20,0,0,0,0,-1,1000,0,0,,,
+B,100,Fabulous throw sends foe flying. Foe's neck is broken on impact and he dies after rolling 15 feet. You are a mightywarrior to all who see your work.,0,0,0,0,0,0,0,0,0,,,bones/nerves
+C,5,Clever strike exposes foe's garment tags and washing instructions.,1,0,0,0,0,-1,0,0,0,,,
+C,10,"You slip in a punch, after failing your sweep.",2,0,0,0,0,-1,0,0,0,,,
+C,15,"Your form confuses foe greatly. He responds slowly, you have initiative.",0,0,0,20x1,0,-1,0,0,0,,,
+C,20,Foe fights back and pushes you clear. He unbalances himself in the process.,3,0,-20x1,0,0,-1,0,0,1,,,
+C,35,Solid strike is not a sweep. Your foe stands listless for a moment and then recovers.,4,0,0,0,1,-1,0,0,0,,,
+C,45,"Sweep to foe's legs. Foe jumps over some of your assault, but not all of it. Leg is bruised. You have initiative.",0,0,-10,0,0,-1,0,0,0,,,muscles/tendons
+C,50,"Sweep foe over. He does not fall. You look for a good opening, while foe recovers.",4,0,0,0,2,-1,0,0,0,,,
+C,55,"Steady grip sends foe stumbling. Your follow up misses, but who is perfect?",6,0,0,0,2,-1,0,0,0,,,
+C,60,Your attack breaks foe's guard down. You see an open spot.,0,0,0,0,1,-1,0,1,0,,,
+C,65,"Your sweep results in an attempt at throwing foe's arm. He is disarmed. His arm, however, stays attached.",3,0,0,0,1,-1,0,0,0,,,
+C,66,Strike to foe's shins sweeps his legs up and behind him. Foe comes down on his knees. Both are broken. Foe falls over helpless.,15,0,-80,0,6,-1,0,6,0,,,bones
+C,70,Glancing kick to foe's face. Your recovery strikes foe in side. Foe steps back 5 feet to recover.,0,0,-10,0,2,-1,0,0,0,,,nerves
+C,75,You sweep foe down and grip his leg to keep it from breaking his fall. He strains a muscle trying to break free.,0,0,-25,0,2,-1,0,2,0,,,muscles
+C,80,"You knock foe over and ride him down. He throws you off, but lands on his shield arm. He dislocates his shoulder.",6,0,-40,0,0,-1,0,0,6,,,bones/tendons
+C,85,Sweep staggers foe. You step in close or better position. Foe is oblivious to your advantage.,0,0,0,30x1,2,-1,0,2,0,,,
+C,90,Strike to legs. Throw foe to the ground. He will always remember this one. Foe as cracked a vertebrae.,0,0,-50,0,3,-1,0,3,0,,,bones
+C,95,Sweep downs foe and you put him in a leg-breaking hold. You pin foe and may break his leg at your leasure.,9,0,0,0,0,-1,0,15,0,,,
+C,99,"Throw foe against a hard surface of your choice. Crack skull. If foe has helm, he is in a coma. If no helm, he dies in 1 round.",0,0,0,0,0,-1,10000,0,0,,die:1,bones/organ/nerves
+C,100,Bring foe down with your knee under his back. You break his back and paralyze him from the shoulders down. You take a deadly looking stance.,0,0,0,0,0,-1,0,0,0,,,
+D,5,You forget you are a master martial artist and attack at rank 1,2,0,0,0,0,-1,0,0,0,,,
+D,10,It looks like you're sparring. Your foe is serious.,3,0,0,0,0,-1,0,0,0,,,
+D,15,Foe steps out of your assault and puts up a determined defense.,4,0,0,0,0,-1,0,0,1,,,
+D,20,Your attack causes foe to strike himself lightly. You are happy with the result.,4,0,0,0,1,-1,0,0,0,,,
+D,35,"Sweep almost takes foe off his feet. He drops down on one knee, but struggles back to his feet.",4,0,0,0,1,-1,0,1,0,,,
+D,45,"Sweep strikes foe's calf. Foe does not fall, but the bruise is heavy. Foe is in pain.",5,0,-20,0,0,-1,0,0,0,,,muscles
+D,50,"Foe's feet come out from under him. He makes a remarkable recovery, but it's not that remarkable.",5,0,0,0,1,-1,0,1,0,,,
+D,55,You step in and grab foe. The impact breaks ribs. You fail to throw him down as planned.,6,0,-20,0,1,-1,0,0,0,,,bones
+D,60,Sweep nearly knocks foe down. Foe drops his guard to avoid falling.,7,0,0,0,1,-1,0,1,0,,,
+D,65,"You attempt a throw. Foe avoids your main attack, but you steal his weapon when he blocks with it.",0,0,0,0,2,-1,0,0,0,,,
+D,66,"You use your body to lift foe up and throw him into the ground. He hits head first. If he has a helm, he is knocked out. If no helm, foe is paralyzed from the waist down.",10,0,-90,0,4,-1,0,4,0,,hits:10;mod:-90;ooo:100000,bones/nerves
+D,70,You make it look simple. You throw foe down on his shield shoulder. Break collar bone and arm. Arm is useless.,5,0,-20,0,2,-1,0,0,0,,,bones
+D,75,You assist foe in falling very hard. Foe's leg is fractured. He rolls away from you to get off his wounded leg.,5,0,-30,0,2,-1,0,2,0,,,bones
+D,80,You throw foe down hard and deadly. He lands on his back and cracks his shoulder blade.,9,0,-20,0,2,-1,0,2,0,,,bones
+D,85,Your throwing grip lands on foe's weapon hand. You tear tendons and muscles in his wrist. He drops his weapon. Arm is useless.,10,0,0,0,0,-1,0,0,0,,,muscles/tendons
+D,90,Throw foe down. You immobilize him in an arm lock. It will take a special move to get out of your grip.,0,0,0,0,6,-1,0,6,0,,,
+D,95,Throw bashes foe against nearby hard surface. Foe is knocked out. You may kill him when you like. He is at your mercy.,10,0,0,0,0,-1,10000,0,0,,,
+D,99,Your attack breaks foe's ribs. You throw him down and impale him on his broken ribs. He dies in 6 rounds.,0,0,0,0,0,6,6,0,0,,,
+D,100,"Foe lunges toward you in a threatening move. A brutal grapple from below breaks foe's back, as you throw him. He is paralyzed from the neck down.",0,0,0,0,0,-1,0,0,0,,,
+E,5,"Your attack looked deadly, but failed to connect.",3,0,0,0,0,-1,0,0,0,,,
+E,10,Knee to thigh. Unbalance foe. You have the initiative.,4,0,0,0,0,-1,0,0,0,,,
+E,15,Base your grip on a garment that tears off. You miss a good throw.,0,0,0,10x1,1,-1,0,0,0,,,
+E,20,A soft strike and a hard punch leaves an openning for you to exploit.,2,0,0,0,1,-1,0,1,0,,,
+E,35,Sweep foe over. He spends some time trying to recover his balance. You recover and prepare for an opportunity.,0,0,0,0,2,-1,0,0,0,,,
+E,45,Sweep takes foe down on one knee. He breaks free and stands in pain. Try a shot to that bruise and you have him.,4,0,-20,0,1,-1,0,0,0,,,bones
+E,50,You almost disarm foe. He bends down to recover his weapon. You have the advantage. Finish him.,7,0,0,0,2,-1,0,2,0,,,
+E,55,"Stumble foe in the direction of your choice 5 feet. Foe does not fall, but he looks like he will.",0,0,0,0,3,-1,0,0,0,,,
+E,60,Your sweep is effective. Foe is sent reeling. Why he does not fall is a mystery.,9,0,0,0,3,-1,0,0,0,,,
+E,65,Excellent throw sends foe falling on his weapon arm. He is disarmed. He must roll over to stand. You should have fun.,0,0,0,0,3,-1,0,0,0,,,
+E,66,"Perfect throw sends foe flying over your shoulder. He lands how you want him to, within 10 feet. If you like, he dies on impact. If not, he is knocked out.",0,0,0,0,0,-1,0,0,0,,,
+E,70,"Foe lands on shield arm. If foe has shield, it is broken. If foe has no shield, arm is shattered and useless.",20,0,0,0,0,-1,0,0,0,shield,Hits:10;mod:-20;stunned:2;no_parry:2,bones
+E,75,You sweep foe over. Foe falls and breaks his hip. You strike at foe's mild hip fracture for advantage.,0,0,-40,0,2,-1,0,2,0,,,bones
+E,80,You send foe over backwards. He stumbles 10 feet. He falls on his elbow . Joint is shattered. Arm is useless.,0,0,0,0,4,-1,0,1,0,,,
+E,85,Throw foe with a running assault. You carry him a good 10 feet to land on his face. As he yells dirt shovels into his mouth. You try not to laugh.,5,0,0,0,6,-1,0,6,0,,,
+E,90,Throw sends foe flying into an available enemy within 10 feet. Both are knocked down and confused.,9,0,0,0,3,-1,0,3,0,,,
+E,95,Sly rolling throw sends foe into air. You guide foe to the ground. He is knocked unconscious and disarmed.,0,0,0,0,0,-1,10000,0,0,,,
+E,99,"You grapple your foe firmly, sweep his feet out from under him and then throw him to the ground. The impact breaks his neck. He dies instantly.",0,0,0,25x1,0,0,0,0,0,,,bones/nerves
+E,100,"Using but half the round, you use a rolling throw to send foe against an available hard surface of your choice. Foe dies from many wounds instantly.",0,0,0,0,0,0,0,0,0,,,

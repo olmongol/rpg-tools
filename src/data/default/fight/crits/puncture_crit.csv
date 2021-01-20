@@ -88,7 +88,7 @@ E,65,Catch foe's forearm. The wound opens up nicely. Foe is in pain.,5,3,-15,0,2
 E,66,Strike through both of foe's lungs. Foe drops and passes out. He dies 6 rounds later.,0,0,0,10,0,6,6,0,0,,,organ
 E,70,"Shot raises foe's arm up, severing many muscles and tendons. Arm is useless.",0,3,0,0,6,-1,0,0,0,,,muscle
 E,75,"Strike plunges into leg with deadly effect. Foe drops, gripping his leg in pain.",0,0,-75,0,3,-1,0,3,0,,,muscle
-E,80,"Strike foe in weapon arm, the bone is broken. Arm is useless.",0,0,0,0,0,-1,0,0,0,,,bone
+E,80,"Strike foe in weapon arm, the bone is broken. Arm is useless.",10,0,0,0,3,-1,0,3,0,,,bone
 E,85,Strike to foe's back severs a vein. Foe goes to his knees and dies in 12 rounds.,0,0,0,0,0,12,12,0,0,,,cartilage
 E,90,Strike plunges in just below foe's collarbone Foe drops and dies in 12 rounds.,0,0,0,0,0,12,12,0,0,,,organ
 E,95,Your weapon passes through the arm and sticks out the other side. Foe dies in 12 rounds,0,0,0,0,0,12,12,0,0,,,muscle/cartilage

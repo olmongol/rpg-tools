@@ -1,0 +1,96 @@
+crit,roll,description,hits,hits/rnd,mod,mod_attacker,stunned,die,ooo,no_parry,parry,cover,alternate,damage_type
+A,5,Feeble. You're getting old.,0,0,0,0,0,-1,0,0,0,,,
+A,10,You hit Foes forehead.,1,0,0,0,0,-1,0,0,0,,,
+A,15,Push foe with the punch. You receive initiative next round.,1,0,0,0,0,-1,0,0,0,,,
+A,20,Foe steps aside unbalanced.You gain the initiative next round.,2,0,0,0,0,-1,0,0,0,,,
+A,35,Good placement. You gain the initiative for the next two rounds.,3,0,0,0,0,-1,0,0,0,,,
+A,45,Slight abrasion. You gain the initiative for the next two rounds.,4,0,0,0,0,-1,0,0,0,,,
+A,50,Glancing blow to Foes back. You gain the initiative for the next three rounds.,5,0,0,0,0,-1,0,0,0,,,
+A,55,Strike lands solid to the chest. Foe leaps back on the defensive.,5,0,0,0,0,-1,0,0,1,,,
+A,60,Foe kicks out at you and you strike his leg in response.,5,0,0,0,1,-1,0,0,0,,,
+A,65,Arm strike gives foe a bruised bicep. You are cruel.,6,0,-25x1,0,0,-1,0,0,1,,,
+A,66,Grapple Foes weapon arm and jerk his weapon free. Foe goes twisting and spinning out of your grasp.,8,0,-15,0,6,-1,0,0,0,,,tendons
+A,70,Blow to abdomen. Foe bends over and throws up.,4,0,0,0,2,-1,0,2,0,,,
+A,75,Leg strike damages muscle and sends foe stumbling back.,6,0,0,0,3,-1,0,0,0,,,
+A,80,"Blow to Foes shield arm. If foe has anything that resembles a shield, it is broken.",8,0,0,0,2,-1,0,2,0,,,
+A,85,Precision strike to Foes arm disarms him. Weapon hand is fractured. Foe is in pain.,8,0,-25,0,2,-1,0,2,0,,,bones
+A,90,Two brutal punches to Foes face. This barrage leaves foe confused and swinging in the wrong direction.,8,0,0,25x1,3,-1,0,3,0,,,
+A,95,Head strike breaks Foes nose. Appearance drops by 5 due to black eyes.,10,0,-25,0,3,-1,0,3,0,,,bones
+A,99,Blow to solar plexus causes foe to vomit. He falls to his knees. Foe is unable to do anything but retch. Do you have pity?,10,0,0,0,0,-1,0,0,0,,,
+A,100,Elbow Foes face and then punch him hard. He is paralyzed from the neck down for 2 days. He falls instantly to the ground.,13,0,0,0,0,-1,17280,0,0,,,nerves
+B,5,Maybe next time.…,0,0,0,0,0,-1,0,0,0,,,
+B,10,A glancing blow.,1,0,0,0,0,-1,0,0,0,,,
+B,15,"Deflected blow, but you gain the initiative next round.",2,0,0,0,0,-1,0,0,0,,,
+B,20,Your backhand is powerful. Strike foe across his face.You unbalance him.,2,0,0,0,0,-1,0,0,1,,,
+B,35,Push foe back and kick his leg. You gain the initiative next round.,3,0,0,0,0,-1,0,0,1,,,
+B,45,Leg strike unsteadies foe. You stomp Foes feet for an extra advantage.,4,0,0,0,0,-1,0,0,1,,,
+B,50,Foe lunges past you and you come down on his back. He realizes his pain.,5,0,0,0,1,-1,0,0,0,,,
+B,55,You strike foe in his chest. Foe reels.,5,0,0,0,1,-1,0,0,0,,,
+B,60,You duck down and strike across at foe. Blow to thigh leaves a bad bruise.,6,0,0,0,2,-1,0,0,0,,,muscles
+B,65,You block Foes guard and punch him in the face. He just stands there.,6,0,0,0,1,-1,0,1,0,,,
+B,66,"Hammer foe in his kidneys. You know he is in pain. He grips his side and falls down. Finish him, the pain will not last.",18,0,-60x6,0,3,-1,0,0,0,,,
+B,70,Blow to Foes chest. You have mastered the common punch.,0,8,0,0,1,-1,0,1,0,,,
+B,75,"Calf strike delivers a deep bruise. Foe looks down at the damage, forgetting about you.",10,0,0,0,2,-1,0,1,0,,,muscles
+B,80,You snap Foes arm around like a noodle. His wrist is strained with the impact.,10,0,0,5x1,2,-1,0,2,0,,,
+B,85,Hand strike jams Foes fingers into their sockets. Ouch! Foe drops everything in his hands.,10,0,-15,0,3,-1,0,0,0,,,tendons
+B,90,Grab Foes weapon arm and beat on it without concern for the rest of foe. Foe is disarmed as ligaments are torn and muscles are pulled.,10,0,-25,0,4,-1,0,0,0,,,muscles
+B,95,Land a solid shot to Foes head. Foe is definitely impressed. He steps toward you to keep from falling.,12,0,-40,0,8,-1,0,8,0,,,nerves
+B,99,Groin strike is solid. You kick him again. Your strike leaves foe helpless. Really unkind.,18,0,0,0,12,-1,0,0,12,,,
+B,100,"Strike to Foes head. If he has no helm, he is in a coma for 10-100 days. If foe has a helm it leaves a bruise on his head. Foe drops and is unconscious.",20,0,0,0,0,-1,86400,0,0,,,
+C,5,Barely made it.,1,0,0,0,0,-1,0,0,0,,,
+C,10,You pull at Foes hair.,2,0,0,0,0,-1,0,0,0,,,
+C,15,You move quickly after blocking punch.You gain the initiative next round.,2,0,0,0,0,-1,0,0,0,,,
+C,20,Step into foe to knock him down. Bash to side unbalances foe.,3,0,0,0,0,-1,0,0,1,,,
+C,35,You try to sweep your foe off his feet.,4,0,0,10x1,0,-1,0,0,1,,,
+C,45,Boot to calf hits hard. You have the initiative next round.,5,0,-20,0,1,-1,0,0,0,,,muscles
+C,50,You grab foe and bring your knee into Foes side. Strike lifts foe up and sends foe reeling.,6,0,0,5x1,1,-1,0,0,0,,,
+C,55,Classic grip to Foes collar garment. You punch him hard. He stumbles back 5 feet.,8,0,0,0,2,-1,0,0,0,,,
+C,60,Strike to Foes thigh. Your fist hits hard.,8,0,0,0,2,-1,0,2,0,,,
+C,65,Catch weapon arm and strike it across your own knee. Foe drops his weapon.,8,0,0,5x1,2,-1,0,2,0,,,
+C,66,"Nasty strike to Foes mouth knocks out 2 teeth and reduces Foes appearance, by 5 when he smiles.",9,0,-45,0,6,-1,0,6,0,,,nerves/bones
+C,70,Strong blow to Foes forearm causes fracture.,10,0,0,0,2,-1,0,2,0,,,bones
+C,75,A light punch unbalances foe. A kick to Foes leg knocks him down. He falls forward under you.,10,0,0,5x1,2,-1,0,2,0,,,
+C,80,Grip Foes weapon arm and drive his fist against a hard surface. Hand is fractured. Foe is disarmed.,19,0,-30,0,3,-1,0,0,0,,,bones
+C,85,Strong blow to Foes arm fractures shoulder. You hit his shoulder one more time to make your point.,10,0,-20,0,3,-1,0,3,0,,,bones
+C,90,Accurate chest strike knocks wind out of foe. He falls over on you and you knock him off with an upper cut. He stand back up and stumbles 5 feet.,12,0,-30,0,9,-1,0,9,0,,,nerves
+C,95,Precision strike to Foes head sends him to the ground. You can actually see the stars spinning around his head.,15,0,-35,0,9,-1,0,9,0,,,nerves
+C,99,"Strike foe in his head. If he has a helm, you pull it off and hit him with it. He is knocked out for 4 hours. If foe has no helm, you knock him out for 5 rounds.",20,0,0,0,0,-1,1440,0,0,head,hits:20;ooo:5,nerves
+C,100,"Mighty strike crashes into Foes head. If he has a helmet, he is unconscious for 1-10 days. If he has no helmet, skull collapses and brain is dead.",25,1,0,0,0,-1,8640,0,0,head,die:0,nerves
+D,5,Great move.,5,0,0,0,0,-1,0,0,0,,,
+D,10,You gain the initiative next round.,2,0,0,0,0,-1,0,0,0,,,
+D,15,Use your body like a broom. Foe is unbalanced.,2,0,0,0,0,-1,0,0,1,,,
+D,20,Elbow to Foes side sends him reeling. Your follow-up swing misses.,4,0,0,0,0,-1,0,0,2,,,
+D,35,You trip foe. He shuffles a full 15 feet before he gets his balance.,5,0,0,0,1,-1,0,0,1,,,
+D,45,You go in low and strike foe in his calf. He stumbles back with a nasty bruise.,6,0,0,0,2,-1,0,0,0,,,
+D,50,Pull foe off balance and hammer him in the back with a solid fist.,10,0,0,0,1,-1,0,1,0,,,
+D,55,Chest strike causes deep bruise. Foe looks very surprised.,10,0,-10,0,1,-1,0,1,0,,,muscles
+D,60,"Bring your forearm down on Foes thigh, with most of your weight behind it. You have the initiative next round.",10,0,0,0,2,-1,0,2,0,,,
+D,65,Strike to nerve in Foes upper arm causes him to drop whatever he is carrying.,10,0,0,5x1,2,-1,0,2,0,,,
+D,66,"Drive your finger into Foes eye, causing blindness. There is a 10% chance that this affliction is permanent.",15,0,-60,0,0,-1,0,0,0,,,organ
+D,70,Smash Foes hip. You have the initiative next round.,12,0,-10,0,2,-1,0,2,0,,,bones
+D,75,Leg strike causes foe to fall. You push him to hinder his landing and he sprains his ankle.,12,0,-20,0,3,-1,0,0,0,,,bones/tendons
+D,80,Strong blow to Foes weapon arm fractures his wrist. The pain makes his hand useless.,15,0,-30,0,3,-1,0,0,0,,,bones
+D,85,Grab Foes weapon arm and pull him over. Your kick to the ribs finally drops him to the ground.,15,0,0,0,3,-1,0,3,0,,,
+D,90,"Blow to front of Foes neck. His head snaps back, but it does not break his neck. Foe cannot speak for 2-20 hours. He yells in silence.",18,0,0,0,6,-1,0,0,0,,,nerves
+D,95,Strong blow to face cracks jawbone. Ow! Jaw is stuck open and foe appears permanently surprised about something.,20,0,-30,+10x1,9,-1,0,0,0,,,bones/tendons
+D,99,Strong blow to the abdomen causes internal bleeding and organ damage. Foe makes it a habit of spitting blood.,25,1,0,0,0,-1,0,0,0,,,
+D,100,Grip Foes arm and pound on Foes head. One shot hits hard. Crushing strike to Foes temple. Foe dies instantly.,0,0,0,0,0,0,0,0,0,,,bones/nerves
+E,5,"Light blow, but Foes thinks it's your best.",2,0,0,0,0,-1,0,0,0,,,
+E,10,Things just failed to connect right.,3,0,0,0,0,-1,0,0,1,,,
+E,15,You block Foes forearm. You gain the initiative next round.,4,0,0,0,0,-1,0,0,1,,,
+E,20,Duck in close and hammer Foes side. You gain the initiative next round.,5,0,0,0,1,-1,0,0,0,,,
+E,35,Cheap shot to Foes side bruises ribs. Foe crashes into the nearest obstacle.,8,0,-20x4,0,1,-1,0,0,0,,,
+E,45,Strike to the back of Foes leg gives you a back attack next round.,10,0,0,0,1,-1,0,0,0,,,
+E,50,You bash foe brutally. Your strike is solid.,10,0,0,0,1,-1,0,1,0,,,
+E,55,Chest wound knocks foe down. Your attack puts you in the place he was just standing.,10,0,0,0,2,-1,0,2,0,,,
+E,60,"You do not know what a sweep or a throw is, but this surely seems like one. You slam foe to the ground.",10,0,0,0,3,-1,0,3,0,,,
+E,65,Strong shoulder strike and a follow-up strike to the face.,10,0,0,0,4,-1,0,4,0,,,
+E,66,Face strike is so hard Foes cheekbone is shattered. The shards mortally wound foe. He dies after 10 rounds of agony.,0,0,0,10x1,0,10,0,0,0,,,bones/nerves
+E,70,Throw foe into a solid object. He falls down.,12,0,0,0,0,-1,0,0,0,,,
+E,75,Snap palm into place against Foes knee. Tendon and cartilage damage. Foe has difficulty standing.,15,0,-50,0,5,-1,0,0,0,,,cartilage/tendons
+E,80,Fierce blow to Foes weapon arm breaks bone. Arm is useless. Use arm as leverage to flip foe onto his stomach.,18,1,0,0,2,-1,0,2,0,,,bones
+E,85,Shoulder strike breaks Foes collar bone. Miscellaneous internal organ damage.,18,1,-30,0,6,-1,0,6,0,,,bones/organ
+E,90,Nasty blow ruptures stomach. Foe is knocked down. Internal bleeding is mortal. Foe will die in 20 rounds. He is still active.,20,10,-50,0,1,-1,0,0,0,,,organ
+E,95,"Blow to Foes side. Bruise ribs, a kidney and a lung. Foe manages to remain standing. Oh that hurts ya know!",25,0,-75,0,6,-1,0,6,0,,,bones/organ
+E,99,"Grip Foes neck. You shake him violently, while attempting to choke him. He passes out. You can finish him if you want.",30,1,0,20x1,0,-1,200,0,0,,,nerves
+E,100,Your strike is frightening. Foes head snaps to one side. Foe cannot breathe. He looks upon the world one last time and then dies. You are horrified at his doom.,0,0,0,0,0,0,0,0,0,,,bones/nerves
