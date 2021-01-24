@@ -1,0 +1,96 @@
+crit,roll,description,hits,hits/rnd,mod,mod_attacker,stunned,die,ooo,no_parry,parry,cover,alternate,damage_type
+A,5,Dubious strike.,0,0,0,0,0,-1,0,0,0,,,
+A,10,Zip. Less than effective.,0,0,0,0,0,-1,0,0,0,,,
+A,15,Feeble.,0,0,0,0,0,-1,0,0,0,,,
+A,20,Victory to the oppressed!,1,0,0,0,0,-1,0,0,0,,,
+A,35,Jolly deadly attack.,1,0,0,0,0,-1,0,0,0,,,
+A,45,Cruel blow for nature.,2,0,0,0,0,-1,0,0,0,,,
+A,50,Poor follow through. You lose a claw. Your attack is dubious.,4,0,-5x2,0,0,-1,0,0,0,,,
+A,55,Leaping chest strike yields some measurable damage.,2,0,0,0,0,-1,0,0,0,,,
+A,60,Light wound to thigh. Garments are torn. Promises are made.,1,1,0,0,0,-1,0,0,0,,,
+A,65,"Mild forearm wound. You are doing very well, keep it up.",2,2,0,0,0,-1,0,0,0,,,muscle
+A,66,You find a nice vulnerable spot to rip open. Foe leaps back from your cluches. He unbalances himself to escape your assault.,4,2,0,0,2,-1,0,2,0,,,
+A,70,"Slash to foe's shoulder. It's not deadly, but it is a start.",3,1,0,0,1,-1,0,0,0,,,
+A,75,You attempt to assault foe's lower leg. You have the initiative.,4,0,0,0,0,-1,0,0,0,leg,hits:1;hits/rnd:2,muscle
+A,80,"Weak, but precise strike to foe's arm. Foe shakes you off, but you do some damage anyway",3,1,0,0,1,-1,0,0,0,,,
+A,85,Strike at foe's face. He panics and stumbles back 5 feet. You fall clear and prepare for another strike.,4,2,0,0,1,-1,0,0,0,,,
+A,90,Sudden well placed blow makes you feel you are mighty in battle. Your foe is convinced.,6,0,0,0,2,-1,0,0,0,,,
+A,95,"Leaping head stike. If foe has no helm, face and left ear is slashed.",3,0,-30,0,2,-1,0,0,0,,,organ/muscle
+A,99,"Insulting strike to foe's nose. If foe has no nose guard, his nose is shredded. Foe reels from your onslaught.",0,3,0,0,9,-1,0,0,0,,,organ
+A,100,"Strike at foe's eyes. Without a visored helm, foe loses one of his eyes.",15,0,-75,0,3,-1,0,3,0,,,organ
+B,5,You throw up some dust.,0,0,0,0,0,-1,0,0,0,,,
+B,10,You leap. Foe moves. You land. It had good form.,0,0,0,0,0,-1,0,0,0,,,
+B,15,You almost got a real grip.,0,0,0,0,0,-1,0,0,0,,,
+B,20,Your lunge for foe's throat was blocked by his arm.,1,0,0,0,0,-1,0,0,0,,,
+B,35,"You get in close, but foe kicks you clear before your strike turns deadly.",2,0,0,0,0,-1,0,0,0,,,
+B,45,Attempt to disembowel falls short. Foe guards his stomach well.,3,0,0,0,0,-1,0,0,0,,,
+B,50,Slash to foe's side does no cut deep. He turns to avoid the worst.,3,0,0,0,0,-1,0,0,0,,,
+B,55,"Good little gash, produces an effective wound.",3,1,0,0,0,-1,0,0,0,,,muscle
+B,60,"Scratch foe's skin, but you do not break the skin.",6,0,0,0,0,-1,0,0,0,,,
+B,65,Raking forearm strike leaves a nasty scar. It bites deep enough to bleed.,3,2,0,0,0,-1,0,0,0,,,muscle
+B,66,"Your strike grips foe's calf. He pulls away from you violently. His actions further damage the wound. You do your best, before he breaks free.",5,0,-20,0,2,-1,0,0,0,,,muscle
+B,70,Claw scratches acrossed a piece of metal. That screeching sound!,4,1,0,0,1,-1,0,0,0,,,
+B,75,"Assault foe's shin. If foe has no armor, you tear his shin up. Foe struggles to throw you off.",6,0,0,0,0,-1,0,0,0,leg,hits:3;hits/rnd:2;parry:2,
+B,80,"Strong, but imprecise arm strike. The wound is of moderate size. You are proud to have created it.",5,2,-15,0,0,-1,0,0,0,,,muscle
+B,85,Flying face strike.,3,0,0,0,0,-1,0,0,1,face,hits/rnd:3;stunned:3,muscle
+B,90,Slash foe's neck. He thinks you just killed him. The wound is not mortal. Foe stumbles away fearful of death.,5,2,0,0,3,-1,0,0,0,,,muscle
+B,95,Foe blocks your attack with his arm so you slash it in place of your original target. Foe realizes his mistake.,5,2,0,0,3,-1,0,3,0,,,muscle
+B,99,"Strike to foe's forehead. Foe is blinded, until the bleeding is stopped. Foe is off guard trying to stop the bleeding. Now is your chance.",0,3,-40,0,3,-1,0,3,0,,,muscle
+B,100,"Foe leaps back to avoid a slash to the throat, too late. He falls down. You expose some muscle and make a mess.",0,3,-50,0,6,-1,0,6,0,,,muscle
+C,5,"You're not very good, are you?",0,0,0,0,0,-1,0,0,0,,,
+C,10,Look over there! Baby eagles!,0,0,0,0,0,-1,0,0,0,,,
+C,15,You really tear up foe's garments. Try his skin next time.,1,0,0,0,0,-1,0,0,0,,,
+C,20,Glance off foe and grip the air. He steps out of your strike.,1,0,0,0,0,-1,0,0,0,,,
+C,35,Strike catches foe in waist. His equipment blocks some damage.,2,0,0,0,0,-1,0,0,0,,,
+C,45,"Light grip. Foe breaks free, damaging himself. You are pleased.",2,1,0,0,0,-1,0,0,0,,,
+C,50,Solid strike to side does not break the skin. Foe turns to face you better.,4,0,0,0,0,-1,0,0,0,,,muscle
+C,55,Mild strike to chest catches in a soft spot. You are surprised at its effect.,4,2,0,0,0,-1,0,0,0,,,muscle
+C,60,"Your original strike misses, but foe's thigh is available as a consolation.",4,2,0,0,1,-1,0,0,0,,,muscle
+C,65,"Foe blocks you with his arm and you tear it up as payment. The damage is substantial, before foe breaks free.",3,2,0,0,0,-1,0,0,2,,,muscle
+C,66,"Violent move assaults foe's arm, wrist and shoulder. Foe is shaken by the vicious strike. He drops his weapon and leaps back 10 feet. You stay with your quarry looking for an advantage.",4,0,0,10x1,1,-1,0,0,0,,,
+C,70,Pull foe off balance with a grasp to his shoulder. He steps away and stumbles.,5,2,-20x1,0,1,-1,0,0,0,,,muscle
+C,75,You slash into a muscle on foe's calf. You have the initiative next round.,0,2,-20,0,2,-1,0,0,0,,,muscle
+C,80,You take a shot at foe's forearm. It lands well. A muscle and tendon are slashed. He holds on to his weapon.,5,2,-25,0,2,-1,0,0,0,,,muscle
+C,85,"Head strike. Foe's helm is knocked off. If foe has no helm, he has a vicious cut to his scalp.",3,0,0,0,1,-1,0,0,0,helm,hits:2;hits/rnd:3:stunned:1;mod:-40,muscle
+C,90,Shoulder strike unbalances foe and spins him around. He is frantic to turn around and face you. You move the other direction to prolong the effect.,6,0,0,0,2,-1,0,2,0,,,
+C,95,Strike lands near neck and cheek. Foe is disoriented and recoils from your onslaugh,3,2,-20,0,2,-1,0,2,0,,,muscle
+C,99,Epic slash to foe's Achilles tendon. Foe falls down. He is almost helpless. His attempts to crawl away fail. You have him now.,5,0,-75,0,6,-1,0,6,0,,,tendons
+C,100,"Severe head strike. If foe has a helm he is unconscious for 1-10 days. Without a helm, foe is dead.",25,1,0,0,0,-1,8640,0,0,helm,die:0,nerves/organ
+D,5,Get it right next time!,0,0,0,0,0,-1,0,0,0,,,
+D,10,Your slash tears off a piece of fur or cloth.,1,0,0,0,0,-1,0,0,0,,,
+D,15,"Slash to neck, pulls off any necklaces foe is wearing.",1,0,0,0,0,-1,0,0,0,,,
+D,20,Solid chest strike yields a bruise.,2,0,0,0,0,-1,0,0,0,,,
+D,35,The recoil from a missed strike lands against foe's back. It is a mild scratch.,3,0,0,0,0,-1,0,0,0,,,
+D,45,"Strike to foe's lower leg. If foe has no leg armor, you cause him pain.",0,0,0,0,0,-1,0,0,0,leg,hits:5;hits/rnd:1,muscle
+D,50,Unexpected puncture in foe's side. You are pleased. Foe grips his side.,3,1,0,0,0,-1,0,0,0,,,muscle
+D,55,"Slash foe's stomach. If foe's has no metal armor, you tear him open badly.",0,0,0,0,0,-1,0,0,0,abdomen,hits:5;hits/rnd:3,muscle
+D,60,Your strike catches the back of foe's thigh. Foe is unbalanced for a moment.,6,2,0,0,1,-1,0,0,0,,,muscle
+D,65,Grip to foe's forearm. Foe flails his arm around trying to shake you off. You let go and move to a better position.,5,2,0,10x1,0,-1,0,0,2,,,muscle
+D,66,"Astounding head strike. If foe has no helm, you make a bloody mess of foe's scalp. To further your advantage you push foe's head sideways.",4,0,0,0,0,-1,0,0,0,helm,hits:7;no_parry:6,muscle
+D,70,Graceful slash to foe's shoulder sweeps blood onto foe's face. Foe is unsteady.,6,2,0,0,1,-1,0,1,0,,,muscle
+D,75,"Lower leg strike. If foe has no leg armor, heavy bruise. Foe stumbles back to avoid you.",3,0,0,0,1,-1,0,0,0,leg,stunned:2;no_parry:1,muscle
+D,80,Grab foe's arm. Foe struggles violently to make you let go. You rend his arm without mercy. He gets free and stumbles back. You win this round.,5,2,-25,0,3,-1,0,0,0,,,muscle/tendons
+D,85,"Acrobatic face strike. If foe has no facial armor he will get some, when his nose heals.",5,0,0,0,0,-1,0,0,0,face,hits/rnd:3;stunned:3;mod:-40,organ
+D,90,"Strong grip to foe's weapon arm. He tries to throw you clear, but cannot. He finally drops his weapon . You lose your grip on him at the same time.",5,0,0,0,1,-1,0,0,0,,,
+D,95,"Clean strike, you cleave the thumb on foe's weapon arm. His arm is less than useful. Foe drops his weapon.",0,0,-50,0,2,-1,0,2,0,,,tendons
+D,99,"Strike foe in face. If foe has a visored helm, he is blinded and helpless for a week while the swelling lasts. If foe does not have a visored helm, he loses 1 eye and is blind in the other.",0,0,-100,0,0,-1,0,0,0,,,organ
+D,100,Strike to foe's eyes. Foe is blinded permanently. Foe is at your mercy.,10,2,-95,0,6,-1,0,6,0,,,organ
+E,5,You did very poorly.,1,0,0,0,0,-1,0,0,0,,,
+E,10,Strike is not solid or well placed.,2,0,0,0,0,-1,0,0,0,,,
+E,15,Entangle your claws in foe's clothes. You struggle to pull free.,2,0,0,0,0,-1,0,0,0,,,
+E,20,"Light cutting strike. It has a little effect, but you taste blood.",2,1,0,0,0,-1,0,0,0,,,muscle
+E,35,Scratch foe in calf. It turns into a bleeder and you are very pleased.,2,1,0,0,0,-1,0,0,0,,,muscle
+E,45,Solid shot to leg. Foe watches you break the skin on his thigh.,3,1,0,0,0,-1,0,0,0,,,muscle
+E,50,You bring a powerful blow around against foe's back. He leaps back away.,5,1,0,0,0,-1,0,0,1,,,muscle
+E,55,Grip to foe's shield arm garments. Foe is unable to use his shield arm for 1 round.,6,1,0,0,0,-1,0,0,0,,,muscle
+E,60,You rip open foe's thigh. The look on his face tells you victory is near.,7,3,0,0,1,-1,0,0,0,,,muscle
+E,65,Slash across foe's chest and upper arm. Strike causes a bruise and then opens up a gaping wound on foe's shield arm.,6,3,0,0,2,-1,0,0,0,,,muscle
+E,66,Bizarre strike to eyes destroys 1 eye and leaves the other blind for 2 days. Foe is down and helpless for an hour. He will need assistance to even stand. His appearance is modified by -20.,15,0,-95,0,24,-1,0,0,0,,,organ/nerves
+E,70,Inspired shoulder strike sends foe reeling. You tear tendons and cause pain.,7,0,-20,0,2,-1,0,2,0,,,tendons
+E,75,Vicious leg wound bleeds hard. Foe's attempt to stop the bleeding gets it all over his hands.,5,4,0,0,3,-1,0,0,0,,,muscle
+E,80,"Sly arm strike gives foe a troublesome wound. What looks like a tiny wound is producing much blood. Foe does not fall down, but he stumbles much.",0,3,0,0,2,-1,0,2,0,,,muscle
+E,85,"Slash between foe's fingers. If foe has a metal gauntlet on, he is fine.",0,0,0,0,0,-1,0,0,0,metal gauntlet,hits/rnd:3;hits:8;stunned:9,muscle/tendons
+E,90,"Rend open foe's lower back with a quick double slash. Both wounds are deep and nasty. Blood pours out all over you and foe, making the combat seem brutal.",4,3,-40,0,3,-1,0,1,0,,,muscle
+E,95,Dazzling leap knocks foe down. Foe hits on his back. Foe is disarmed and unconscious.,9,0,0,0,0,-1,1000,0,0,,,
+E,99,Head strike is deadly. Slash open foe's head and send him down. He hits hard. The shock of your strike and the concussion of the fall is too much for him to handle. He dies in 9 rounds.,0,0,0,0,0,9,9,0,0,,,nerves/organ
+E,100,Unbelievable strike to foe's neck. Vein and artery severed. Foe dies after 6 rounds of inactivity.,0,0,0,0,0,6,6,0,0,,,vein
