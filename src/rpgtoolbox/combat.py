@@ -13,7 +13,7 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "20.01.2021"
+__updated__ = "24.01.2021"
 __author__ = "Marcus Schwamberger"
 
 import re
@@ -330,7 +330,7 @@ class attacktable():
 
             for j in range(1, len(header)):
 
-                if header[j] not in ["pattern", "type"]:
+                if header[j] not in ["pattern", "type"] and dummy[j] != "":
                     self.attack[dummy[0].strip(" ")][header[j].strip(" ")] = int(dummy[j])
 
                 elif self.override:
@@ -387,6 +387,18 @@ class attacktable():
                 self.crittype = self.attack[AT]["pattern"][p]
             else:
                 self.crittype = self.attack[AT]["pattern"]
+
+        # tables with tiny crits
+        for c in ["TA", "TB", "TC", "TD", "TE"]:
+            if c in self.attack[AT].keys():
+                if  self.attack[AT]["A"] > roll >= self.attack[AT][c]:
+                    self.crit = c.strip("T")
+                    self.crittype = "T"
+
+        for c in ["F", "G", "H", "I"]:
+            if c in self.attack[AT].keys():
+                if roll >= self.attack[AT][c]:
+                    self.crit = c
 
         self.showResult()
 
