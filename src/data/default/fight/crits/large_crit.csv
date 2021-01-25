@@ -37,25 +37,25 @@ magic,175,Strike shatters foe's jaw and sends it up into his brain. Foe is dead 
 magic,200,Shot along side foe's head penetrates his ear and he dies in 3 rounds. You are mighty in battle.,10,0,0,20x1,0,3,3,0,0,,,
 magic,250,"Strike to foe's back. Hit severs spine. Foe is paralyzed from the neck down. Sadly, your weapon is broken.",15,0,0,0,0,-1,10000,0,0,,,bones/nerves
 magic,2000,Strike through foe's eye proves fatal. He dies immediately. You avoid his fall.,20,0,0,25x1,0,0,0,0,0,,,
-mithil,5,"Your weapon bites hard, but you move poorly. Lose initiative.",18,0,0,0,0,-1,0,0,0,,,
-mithil,10,Your weapon glances off foe's side and leaves a measurable wound.,5,0,0,0,0,-1,0,0,0,,,
-mithil,20,"Blow shoulder. It's well placed, but you'll need a lucky shot at this pace.",9,0,0,0,0,-1,0,0,0,,,
-mithil,30,"You strike is solid, but your grip fails on impact.",12,0,0,0,0,-1,0,0,0,,,
-mithil,40,"Your strike lands in a critical spot on foe's abdomen. You are unable to mortally wound him, for the moment.",20,0,0,0,0,-1,0,0,0,,,
-mithil,50,"Hack at foe's neck, landing on his shoulder. He moves before the strike bites deeper.",25,0,0,0,0,-1,0,0,0,,,
-mithil,65,"Grip foe's hide for leverage, before you strike. Blow lands solid, but he throws you clear.",30,0,0,0,0,-1,0,0,0,,,
-mithil,66,Strike to foe's heart. He dies instantly. You hit him one more time to make sure he is dead. Very clean kill.,0,0,0,0,0,0,0,0,0,,,
-mithil,70,"Strike to foe's thigh. Despite his size, it sends him back. Your Mithril bites deep and leaves a painful wound.",15,0,-20,10x1,2,-1,0,0,0,,,muscles
-mithil,80,"Tear him up! Your strike lands along foe's arm. The wound is bleeding everywhere. It's all over you, as well.",20,3,0,0,2,-1,0,2,0,,,muscles/tendons
-mithil,90,Reverse your strike to catch foe in his lower leg. He stumbles back out of reach.,15,2,-20,0,2,-1,0,0,0,,,muscles/tendons
-mithil,95,Weapon impacts upon foe's head with unmatched force. Foe comes over and is knocked out.,30,0,0,10x1,0,-1,100,0,0,,,nerves
-mithil,98,"Strike foe in his head and destroy his brain. If that's not power, what is? You have half the round left to act.",0,0,0,0,0,0,0,0,0,,,nerves/organ
-mithil,100,"You find a weak point and hammer foe's neck. Your weapon sticks in foe for 2 rounds, while he struggles to breathe. He dies in 6 rounds.",20,0,0,0,6,6,0,6,0,,,nerves/muscles
-mithil,150,Catch foe in chin with all your weight behind the weapon. Head snaps back and chin shatters. Foe is knocked out for 30 days.,60,0,0,0,0,-1,10800,0,0,,,
-mithil,175,Strike foe in the abdomen. The wound is mortal. A variety of important organs are destroyed on impact. Foe drops and dies after 6 rounds.,0,0,0,0,0,6,6,0,0,,,organ
-mithil,200,"Death comes swiftly! Your strike severs an artery in foe's leg. Foe fights for 2 rounds, then drops and dies in 6 rounds.",5,0,-20x2,0,0,6,0,0,0,,,atery
-mithil,250,Heart strike. Your foe dies in true epic form. He tumbles backwards and lands with a thunderous sound. Your strike knocks you to your knees. Foe is dead.,20,0,0,15x2,0,0,0,0,0,,,
-mithil,2000,You blind foe with a vicious crossing strike to the eyes. He grips his face and falls to his kness.,10,0,-100,0,6,-1,0,0,0,,,organ
+mithril,5,"Your weapon bites hard, but you move poorly. Lose initiative.",18,0,0,0,0,-1,0,0,0,,,
+mithril,10,Your weapon glances off foe's side and leaves a measurable wound.,5,0,0,0,0,-1,0,0,0,,,
+mithril,20,"Blow shoulder. It's well placed, but you'll need a lucky shot at this pace.",9,0,0,0,0,-1,0,0,0,,,
+mithril,30,"You strike is solid, but your grip fails on impact.",12,0,0,0,0,-1,0,0,0,,,
+mithril,40,"Your strike lands in a critical spot on foe's abdomen. You are unable to mortally wound him, for the moment.",20,0,0,0,0,-1,0,0,0,,,
+mithril,50,"Hack at foe's neck, landing on his shoulder. He moves before the strike bites deeper.",25,0,0,0,0,-1,0,0,0,,,
+mithril,65,"Grip foe's hide for leverage, before you strike. Blow lands solid, but he throws you clear.",30,0,0,0,0,-1,0,0,0,,,
+mithril,66,Strike to foe's heart. He dies instantly. You hit him one more time to make sure he is dead. Very clean kill.,0,0,0,0,0,0,0,0,0,,,
+mithril,70,"Strike to foe's thigh. Despite his size, it sends him back. Your Mithril bites deep and leaves a painful wound.",15,0,-20,10x1,2,-1,0,0,0,,,muscles
+mithril,80,"Tear him up! Your strike lands along foe's arm. The wound is bleeding everywhere. It's all over you, as well.",20,3,0,0,2,-1,0,2,0,,,muscles/tendons
+mithril,90,Reverse your strike to catch foe in his lower leg. He stumbles back out of reach.,15,2,-20,0,2,-1,0,0,0,,,muscles/tendons
+mithril,95,Weapon impacts upon foe's head with unmatched force. Foe comes over and is knocked out.,30,0,0,10x1,0,-1,100,0,0,,,nerves
+mithril,98,"Strike foe in his head and destroy his brain. If that's not power, what is? You have half the round left to act.",0,0,0,0,0,0,0,0,0,,,nerves/organ
+mithril,100,"You find a weak point and hammer foe's neck. Your weapon sticks in foe for 2 rounds, while he struggles to breathe. He dies in 6 rounds.",20,0,0,0,6,6,0,6,0,,,nerves/muscles
+mithril,150,Catch foe in chin with all your weight behind the weapon. Head snaps back and chin shatters. Foe is knocked out for 30 days.,60,0,0,0,0,-1,10800,0,0,,,
+mithril,175,Strike foe in the abdomen. The wound is mortal. A variety of important organs are destroyed on impact. Foe drops and dies after 6 rounds.,0,0,0,0,0,6,6,0,0,,,organ
+mithril,200,"Death comes swiftly! Your strike severs an artery in foe's leg. Foe fights for 2 rounds, then drops and dies in 6 rounds.",5,0,-20x2,0,0,6,0,0,0,,,atery
+mithril,250,Heart strike. Your foe dies in true epic form. He tumbles backwards and lands with a thunderous sound. Your strike knocks you to your knees. Foe is dead.,20,0,0,15x2,0,0,0,0,0,,,
+mithril,2000,You blind foe with a vicious crossing strike to the eyes. He grips his face and falls to his kness.,10,0,-100,0,6,-1,0,0,0,,,organ
 holy,5,Glancing blow shakes you up. You suffer a -10 penalty next round.,20,0,0,-10x1,0,-1,0,0,0,,,
 holy,10,Your swing lands lightly. You had hoped for better.,9,0,0,0,0,-1,0,0,0,,,
 holy,20,Your strike lands solid and righteous. You wish it had landed a little more.,12,0,0,0,0,-1,0,0,0,,,

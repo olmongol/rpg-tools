@@ -13,7 +13,7 @@ lorem ipsum
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "20.01.2021"
+__updated__ = "25.01.2021"
 __author__ = "Marcus Schwamberger"
 
 import os
@@ -111,7 +111,14 @@ class atWin(blankWindow):
 
 
     def __rollCrit(self):
-        result, self.umr = Dice(rules = "")
+        """!
+        This method roles the dice for critical hits.
+        """
+        if self.__selectCrit.get() in ["large", "superlarge"]:
+            result, self.umr = Dice(rules = "RM")
+
+        else:
+            result, self.umr = Dice(rules = "")
         self.__critroll.set(result[0])
 
 
@@ -294,8 +301,6 @@ class atWin(blankWindow):
     def checkCrit(self):
         """!
         This checks the result of a roll against a critical table
-        ----
-        @todo this has to be fully implemented
         """
         words = {"hits": "additional hits: {}\n",
                "mod": "Modifier {} for {} rounds\n",
@@ -313,55 +318,65 @@ class atWin(blankWindow):
                                                        crit = self.__critType.get(),
                                                        weapontype = self.__weaponType.get())
 
-        result = "Damage Type: "
-        if self.crittbls[self.__selectCrit.get()].crithit["damage_type"] == "":
-            result += "Flesh Wound\n"
+        if (self.__selectCrit.get() not in ["large", "superlarge"]) or \
+        (self.__selectCrit.get() == "large" and self.__critType.get() in ["B", "C", "D", "E", "F", "G", "H", "I"]) or \
+        (self.__selectCrit.get() == "superlarge" and self.__critType.get() in ["D", "E", "F", "G", "H", "I"]):
+            result = "Damage Type: "
+
+            if self.crittbls[self.__selectCrit.get()].crithit["damage_type"] == "":
+                result += "Flesh Wound\n"
+
+            else:
+                result += self.crittbls[self.__selectCrit.get()].crithit["damage_type"] + "\n"
+
+            result += "{}\n\n".format(self.crittbls[self.__selectCrit.get()].crithit["description"])
+
+            if self.crittbls[self.__selectCrit.get()].crithit["cover"] != "":
+                result += "==> without armor at {}\n ".format(self.crittbls[self.__selectCrit.get()].crithit["cover"])
+
+                for key in wordlist:
+
+                    if key in self.crittbls[self.__selectCrit.get()].crithit["alternate"].keys():
+
+                        if key in ["mod", "mod_attacker"]:
+                            result += words[key].format(self.crittbls[self.__selectCrit.get()].crithit["alternate"][key][key],
+                                                        self.crittbls[self.__selectCrit.get()].crithit["alternate"][key]["rnd"])
+                        else:
+                            result += words[key].format(self.crittbls[self.__selectCrit.get()].crithit["alternate"][key])
+
+                result += "\n\n==>with armor at {}\n".format(self.crittbls[self.__selectCrit.get()].crithit["cover"])
+
+            if self.crittbls[self.__selectCrit.get()].crithit["die"] >= 0:
+                result += words["die"].format(self.crittbls[self.__selectCrit.get()].crithit["die"])
+
+            if self.crittbls[self.__selectCrit.get()].crithit["hits"] > 0:
+                result += words["hits"].format(self.crittbls[self.__selectCrit.get()].crithit["hits"])
+
+            if self.crittbls[self.__selectCrit.get()].crithit["hits/rnd"] > 0:
+                result += words["hits/rnd"].format(self.crittbls[self.__selectCrit.get()].crithit["hits/rnd"])
+
+            if self.crittbls[self.__selectCrit.get()].crithit["mod"]["mod"] != 0:
+                result += words["mod"].format(self.crittbls[self.__selectCrit.get()].crithit["mod"]["mod"],
+                                             self.crittbls[self.__selectCrit.get()].crithit["mod"]["rnd"])
+
+            if self.crittbls[self.__selectCrit.get()].crithit["mod_attacker"]["mod_attacker"] != 0:
+                result += words["mod_attacker"].format(self.crittbls[self.__selectCrit.get()].crithit["mod_attacker"]["mod_attacker"],
+                                             self.crittbls[self.__selectCrit.get()].crithit["mod_attacker"]["rnd"])
+
+            if self.crittbls[self.__selectCrit.get()].crithit["no_parry"] > 0:
+                result += words["no_parry"].format(self.crittbls[self.__selectCrit.get()].crithit["no_parry"])
+
+            if self.crittbls[self.__selectCrit.get()].crithit["ooo"] > 0:
+                result += words["ooo"].format(self.crittbls[self.__selectCrit.get()].crithit["ooo"])
+
+            if self.crittbls[self.__selectCrit.get()].crithit["parry"] > 0:
+                result += words["parry"].format(self.crittbls[self.__selectCrit.get()].crithit["parry"])
+
+            if self.crittbls[self.__selectCrit.get()].crithit["stunned"] > 0:
+                result += words["stunned"].format(self.crittbls[self.__selectCrit.get()].crithit["stunned"])
+
         else:
-            result += self.crittbls[self.__selectCrit.get()].crithit["damage_type"] + "\n"
-
-        result += "{}\n\n".format(self.crittbls[self.__selectCrit.get()].crithit["description"])
-
-        if self.crittbls[self.__selectCrit.get()].crithit["cover"] != "":
-            result += "==> without armor at {}\n ".format(self.crittbls[self.__selectCrit.get()].crithit["cover"])
-
-            for key in wordlist:
-                if key in self.crittbls[self.__selectCrit.get()].crithit["alternate"].keys():
-                    if key in ["mod", "mod_attacker"]:
-                        result += words[key].format(self.crittbls[self.__selectCrit.get()].crithit["alternate"][key][key],
-                                                    self.crittbls[self.__selectCrit.get()].crithit["alternate"][key]["rnd"])
-                    else:
-                        result += words[key].format(self.crittbls[self.__selectCrit.get()].crithit["alternate"][key])
-
-            result += "\n\n==>with armor at {}\n".format(self.crittbls[self.__selectCrit.get()].crithit["cover"])
-
-        if self.crittbls[self.__selectCrit.get()].crithit["die"] >= 0:
-            result += words["die"].format(self.crittbls[self.__selectCrit.get()].crithit["die"])
-
-        if self.crittbls[self.__selectCrit.get()].crithit["hits"] > 0:
-            result += words["hits"].format(self.crittbls[self.__selectCrit.get()].crithit["hits"])
-
-        if self.crittbls[self.__selectCrit.get()].crithit["hits/rnd"] > 0:
-            result += words["hits/rnd"].format(self.crittbls[self.__selectCrit.get()].crithit["hits/rnd"])
-
-        if self.crittbls[self.__selectCrit.get()].crithit["mod"]["mod"] != 0:
-            result += words["mod"].format(self.crittbls[self.__selectCrit.get()].crithit["mod"]["mod"],
-                                         self.crittbls[self.__selectCrit.get()].crithit["mod"]["rnd"])
-
-        if self.crittbls[self.__selectCrit.get()].crithit["mod_attacker"]["mod_attacker"] != 0:
-            result += words["mod_attacker"].format(self.crittbls[self.__selectCrit.get()].crithit["mod_attacker"]["mod_attacker"],
-                                         self.crittbls[self.__selectCrit.get()].crithit["mod_attacker"]["rnd"])
-
-        if self.crittbls[self.__selectCrit.get()].crithit["no_parry"] > 0:
-            result += words["no_parry"].format(self.crittbls[self.__selectCrit.get()].crithit["no_parry"])
-
-        if self.crittbls[self.__selectCrit.get()].crithit["ooo"] > 0:
-            result += words["ooo"].format(self.crittbls[self.__selectCrit.get()].crithit["ooo"])
-
-        if self.crittbls[self.__selectCrit.get()].crithit["parry"] > 0:
-            result += words["parry"].format(self.crittbls[self.__selectCrit.get()].crithit["parry"])
-
-        if self.crittbls[self.__selectCrit.get()].crithit["stunned"] > 0:
-            result += words["stunned"].format(self.crittbls[self.__selectCrit.get()].crithit["stunned"])
+            result = "No Critical result"
 
         self.__displayCrit.delete("1.0", "end")
         self.__displayCrit.insert(END, result)

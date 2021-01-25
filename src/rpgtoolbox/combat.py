@@ -13,7 +13,7 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "24.01.2021"
+__updated__ = "25.01.2021"
 __author__ = "Marcus Schwamberger"
 
 import re
@@ -267,8 +267,7 @@ class crittable():
     def getCrit(self, roll = 50, crit = "A", weapontype = "normal"):
         """
         This determines the critical hit
-        ----
-        @todo this has to be adapted for Large and Superlarge Crit tables
+
         """
         self.crithit = {}
         if crit in self.crittable.keys():
@@ -282,6 +281,19 @@ class crittable():
             for idx in range(0, len(klist)):
                 if roll <= klist[idx]:
                     self.crithit = self.crittable[crit][str(klist[idx])].copy()
+                    break
+
+        elif weapontype in self.crittable.keys():
+            klist = list(self.crittable[weapontype].keys())
+
+            for i in range(0, len(klist)):
+                klist[i] = int(klist[i])
+
+            klist.sort()
+
+            for idx in range(0, len(klist)):
+                if roll <= klist[idx]:
+                    self.crithit = self.crittable[weapontype][str(klist[idx])].copy()
                     break
 
         self.showResult()
