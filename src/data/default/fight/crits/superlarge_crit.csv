@@ -1,0 +1,96 @@
+crit,roll,description,hits,hits/rnd,mod,mod_attacker,stunned,die,ooo,no_parry,parry,cover,alternate,damage_type
+normal,5,You strike the terrible beast hard. Your weapon breaks in half.,10,0,0,0,0,-1,0,0,0,,,
+normal,10,A decoration pops off your weapon with impact to foe's side,2,0,0,0,0,-1,0,0,0,,,
+normal,20,You are daunted by the beast's gaze and swing weakly.,3,0,0,0,0,-1,0,0,0,,,
+normal,30,This terrible creature's hide deflects the strongest blows.,4,0,0,0,0,-1,0,0,0,,,
+normal,40,Solid strike to foe's side with your common weapon fails to penetrate.,5,0,0,0,0,-1,0,0,0,,,
+normal,50,Your strike was more of a last minute parry to avoid the beast's.,6,0,0,0,0,-1,0,0,0,,,
+normal,65,"Two light and quick shots to foe's forearm, provides a modest result.",7,0,0,0,0,-1,0,0,0,,,
+normal,66,Strike foe's neck with the flat of your weapon during a moment of opportunity.,20,0,0,0,0,-1,0,0,0,,,
+normal,70,Solid strike on foe's leg. You move quickly away to avoid the retaliation.,8,0,0,0,0,-1,0,0,0,,,
+normal,80,Solid strike to foe's head just bounces off.,9,0,0,0,0,-1,0,0,0,,,
+normal,90,Violent strike to foe's forearm. Foe is bruised. Your weapon must make a breakage check.,10,0,0,0,0,-1,0,0,0,,,
+normal,95,Well placed and hard. Try a vital spot next time.,15,0,0,0,0,-1,0,0,0,,,
+normal,98,Blow severs vein and artery in foe's upper leg. He drops and dies after 12 inactive rounds. Awesome!,0,0,0,0,0,12,12,0,0,,,
+normal,100,You step into the right spot and rip open foe's side. Your blow shatters some ribs. ,30,10,-25,0,0,-1,0,0,0,,,bone/muscle
+normal,150,Glancing strike to foe's abdomen loses much of the impact on foe's hide.,12,1,0,10x1,0,-1,0,0,0,,,organ
+normal,175,Your weapon wounds deep and cuts muscles and tendons. Foe's wound bleeds heavily.,20,5,-20,0,0,-1,0,0,0,,,muscle/tendons
+normal,200,Foe presents a weak spot and you strike. Blow lands at the base of the neck. Tendons are damaged.,15,0,-25,20x1,0,-1,0,0,0,,,tendons
+normal,250,"When your strike lands on foe's back, bones crackle and pop. Internal damage is certain.",35,10,-30,0,2,-1,0,0,0,,,bones/organ
+normal,2000,Foe lowers his eyes within your reach and you strike with great skill and fury. He is blinded.,20,0,-100,0,6,-1,0,6,0,,,organ
+magic,5,Your weapon is knocked from your hand. It will take 2 rounds to recover.,10,0,0,0,0,-1,0,0,0,,,
+magic,10,Your weapon hits at a bad angle. Check weapon strength check. Bum luck.,3,0,0,0,0,-1,0,0,0,,,
+magic,20,"Your blow was deflected, but you gain the initiative next round.",4,0,0,0,0,-1,0,0,0,,,
+magic,30,Glancing side blow. A spark of light reminds you your weapon is magical.,5,0,0,0,0,-1,0,0,0,,,
+magic,40,Foe is unbalanced. You gain the initiative next round.,6,0,0,0,0,-1,0,0,0,,,
+magic,50,You deal out a sharp and hard leg strike. Foe steps back to look at his leg.,7,0,0,0,0,-1,0,0,0,,,
+magic,65,Blow to foe's back. Foe's hide is tough there. You need more strength.,8,0,0,0,0,-1,0,0,0,,,
+magic,66,You step under foe's lunge and use the force against him. Strike to under belly. He feels the pain instantly.,12,3,-10,0,0,-1,0,0,0,,,organ
+magic,70,Blow to thigh leaves a bad bruise. Your weapon cracks and bends. It will break after one more strike.,9,0,0,0,0,-1,0,0,0,,,
+magic,80,Minor forearm wound.The beast used its forearm for defense. Foe soaks up the damage.,10,0,0,0,0,-1,0,0,0,,,
+magic,90,Blow to foe's arm joint lands poorly. Foe will have a bruise. You think that you know what went wrong.,15,0,0,0,0,-1,0,0,0,,,
+magic,95,Blow is placed solidly against foe's side. The thick hide there protects him well.,20,0,0,0,0,-1,0,0,0,,,
+magic,98,You are a mighty warrior. Your strike hits foe's neck and breaks it. Bones are crushed and the spine in broken. Foe drops in 1 round and dies.,0,0,0,25x1,0,1,1,0,0,,,bone/nerves
+magic,100,A little bird shows you the flaw in foe's armor. Your strike plunges into this vulnerable spot killing foe instantly.,0,0,0,0,0,0,0,0,0,,,
+magic,150,Wound foe along his side with an excellent strike. Foe leaps back away from your weapon.,13,2,0,20x1,0,-1,0,0,0,,,muscle
+magic,175,You pop foe on his head with some useful results. Foe is confused just long enough for a blow.,25,0,-20,0,1,-1,0,1,0,,,nerves
+magic,200,"Solid shot to foe's chest. Foe is down. You take an 'A' Unbalancing Critical result, because you are so close.",20,0,0,25x1,0,-1,0,2,0,,,
+magic,250,Rip open foe's abdomen. Blood covers you. This cruel wound will not be healed easily.,35,10,-40,0,3,-1,0,3,0,,,bone/organ
+magic,2000,You leap up and slam foe in the eye. He does not realize he is dead yet. Next round he will. Your weapon is stuck for a round.,0,0,0,20x1,0,-1,0,0,0,,,
+mithril,5,Your strike is powerful. You fumble the rest of the round.,10,0,0,0,0,-1,0,0,0,,,
+mithril,10,Your weapon lands uneven across foe's shoulder. Make a breakage check.,4,0,0,0,0,-1,0,0,0,,,
+mithril,20,Acceptable strike to foe's leg.You gain the initiative next round.,5,0,0,0,0,-1,0,0,0,,,
+mithril,30,Glancing blow smears mithril like chalk across beast's hide.,6,0,0,0,0,-1,0,0,0,,,
+mithril,40,"Solid, but nowhere near a vital spot. Bruise foe's calf muscle.",7,0,0,0,0,-1,0,0,0,,,
+mithril,50,Strike lands on foe's horn. The vibration has some effect.,8,0,0,0,0,-1,0,0,0,,,
+mithril,65,"Your strike thumps foe on his nose. He is insulted, but not wounded badly.",9,0,0,0,0,-1,0,0,0,,,
+mithril,66,Shin strike. Skin is torn open and bone is bruised. This one hurts. You have initiative.,15,5,-10,0,0,-1,0,0,0,,,bone/muscle
+mithril,70,Hammering foe's thigh gets you some respect. You have the initiative.,10,0,0,0,0,-1,0,0,0,,,
+mithril,80,"Blow to foe's upper arm. This strike had few vices, but it was weak. Get it together.",15,0,0,0,0,-1,0,0,0,,,
+mithril,90,"Your strike hit no vitals, but you can hear the ribs in foe's side crackle. Foe fights on in some pain.",20,0,0,0,0,-1,0,0,0,,,
+mithril,95,Slash at foe's neck fails to land very hard. You have the initiative for 2 rounds.,12,4,0,20x1,0,-1,0,0,0,,,musle/tendons
+mithril,98,"Blow to lower skull area. Foe dies instantly. He stumbles on for 1 round, until he realizes this.",0,0,0,20x1,0,-1,0,0,0,,,
+mithril,100,Crush the bones in foe's neck with a mighty blow. Foe drops and dies in 1 round.,5,0,0,0,0,1,1,0,0,,,bone/nerves
+mithril,150,Graceful assault knocks down foe's defenses. He just cannot get his guard up.,30,0,0,10x1,3,-1,0,3,0,,,
+mithril,175,Incredible strike across foe's calf trips him to the ground. The bigger they are.…,25,0,0,10x1,2,-1,0,2,0,,,
+mithril,200,Brutal strike to foe's side. You rip him open and he is hating life. His blood gets all over you.,28,10,-40,0,3,-1,0,3,0,,,muscle
+mithril,250,"Vicious blow to foe's leg. You can hear the mithril in your weapon talking, as you rip foe open.",30,12,-50,0,6,-1,0,6,0,,,muscle
+mithril,2000,Awe inspiring strike drives bone through both lungs. Foe realizes his doom before falling into a coma. He dies in 18 rounds.,0,0,0,0,0,18,18,0,0,,,organ
+holy,5,"Your strike is powerful, but your grip was terrible. Roll a fumble for yourself.",10,0,0,0,0,-1,0,0,0,,,
+holy,10,Blow foe's arm. Ready for a better strike. You gain the initiative next round.,6,0,0,0,0,-1,0,0,0,,,
+holy,20,Back strike. Weapon seems to damage by touch only.,8,0,0,0,0,-1,0,0,0,,,
+holy,30,"Your strike is solid and flat, but foe is not slowed at all.",10,0,0,0,0,-1,0,0,0,,,
+holy,40,You strike the fell titan in the chest. He yells back at you.,12,0,0,0,0,-1,0,0,0,,,
+holy,50,You step under his assault and strike him hard in the abdomen.,15,0,0,0,0,-1,0,0,0,,,
+holy,65,The vile beast leans foward. You strike at his snout in frantic response.,18,0,0,0,0,-1,0,0,0,,,
+holy,66,Your blow lands against foe's shoulder. You are pleased with the effect. Blood pours from the wound.,0,10,-15,0,1,-1,0,1,0,,,muscle/tendons
+holy,70,"Hard blow to foe's thigh. He stumbles, but does not fall. You have the initiative next round.",20,0,0,0,0,-1,0,0,0,,,
+holy,80,Catch foe in his exposed leg. You come down hard on it. He will have a bruise. It slows him. You have the initiative.,13,5,-1ß,10x1,0,-1,0,0,0,,,muscle
+holy,90,"To make this strike land well, you almost climb onto foe. You deal out a brutal srike to his neck and leap back.",12,4,0,20x1,0,-1,0,0,1,,,muscle/tendons
+holy,95,"You have a uncomfortable opportunity to strike foe in his mouth. If foe has a breath weapon, he may not use it.",25,3,0,0,2,-1,0,2,0,,,organ
+holy,98,Weapon bites into foe's skull. He just comes apart. He dies in 6 rounds. Your weapon is stuck. Foe rolls over and takes your weapon out of reach. All allies get (+10),0,0,0,10x1,0,6,6,0,0,,,bone/nerves
+holy,100,Strike through foe's heart kills him instantly. You are too close. He pins you under him as he dies.,20,0,0,0,0,0,0,0,0,,,organ
+holy,150,Brutal strike to foe's forearm. He reels from your presence. You are his bane.,30,0,0,0,2,-1,0,2,0,,,
+holy,175,"Vicious blow to forehead sends foe to the ground. If he falls on stone, he is in a coma.",40,0,0,0,6,-1,0,6,0,,,
+holy,200,Strike to foe's abdomen. Foe has the biggest bruise you have ever seen.,25,0,-25,0,9,-1,0,9,0,,,muscle
+holy,250,You duck around foe's side and catch him in the ear. Blow collapses skull. Foe dies of massive brain damage in 3 rounds.,15,0,0,20x1,0,3,3,0,0,,,organ
+holy,2000,Your mighty blow is the stuff epics are made of. Foe's spine is broken. He dies in 2 rounds.,50,0,0,0,0,2,2,0,0,,,bone/nerves
+slaying,5,The numbing recoil of your strike to foe's chest sends you stumbling back.,10,0,0,0,0,-1,0,0,0,,,
+slaying,10,Strike lands at a bad angle. You check for weapon breakage.,8,0,0,0,0,-1,0,0,0,,,
+slaying,20,Blow to back. You gain the initiative next round.,10,0,0,0,0,-1,0,0,0,,,
+slaying,30,Sparks fly from your weapon as it embraces your foe.,12,0,0,0,0,-1,0,0,0,,,
+slaying,40,Boom! Solid without question. Try a vital spot next time.,15,0,0,0,0,-1,0,0,0,,,
+slaying,50,"Rip sinew, hair, horn and scale with a glancing blow to side.",18,0,0,0,0,-1,0,0,0,,,
+slaying,65,Unexpected weak spot found with your strike to foe's side.,20,0,0,0,0,-1,0,0,0,,,
+slaying,66,Your weapon seems to dig into foe's chest and devour his heart. Foe dies instantly. You are covered with blood.,50,0,0,20x1,0,-1,0,0,0,,,
+slaying,70,Flat strike to foe's upper body. Heavy blow breaks some bones. Foe's guard is down.,30,0,0,0,2,-1,0,2,0,,,
+slaying,80,Hard glancing strike crosses foe's shoulder and chest. Shoulder is slashed and chest is bruised.,24,5,-20,0,3,-1,0,3,0,,,muscle/tendons
+slaying,90,Just when your swing looked to be failing your weapon took control and crashed into foe's thigh.,25,20,-25,0,3,-1,0,3,0,,,muscle
+slaying,95,Your master strike lands against foe's neck. Doom is in his face. He drops and dies in 3 rounds.,35,0,0,0,0,3,3,0,0,,,bone/nerves
+slaying,98,Your weapon plunges into foe's chest making the nature of its forging certain. He dies a terrible and swift death. Take 12 rounds to reclaim your weapon.,40,0,0,0,0,0,0,0,0,,,organ
+slaying,100,Foe's eye is in reach and you ram your weapon home. Foe dies after 3 rounds of inactivity. You have half the round left.,0,0,0,25x1,0,3,3,0,0,,,organ
+slaying,150,Strike to foe's leg severs a vein and tears muscles. Foe flails around for 6 rounds before he dies.,20,0,0,0,6,6,6,6,0,,,muscle/vein
+slaying,175,Awesome blow to foe's neck. His neck and back are broken. Foe drops and suffocates in 12 rounds.,25,0,0,20x1,0,12,12,0,0,,,bone/nerves
+slaying,200,Clean strike to foe's eye kills him in one round. He fights on for 1 round before he realizes he is dead.,24,0,-20,0,0,1,0,0,0,,,organ
+slaying,250,Foe steps right into your swing. You tear open foe's abdomenal and drop him in a heap. You are entangled in his fall. Foe dies in 4 rounds from shock.,35,0,0,0,0,4,4,0,0,,,organ
+slaying,2000,Strike to side kills foe after a chain reaction of bones shatter. You are covered with blood.,100,0,0,0,0,0,0,0,0,,,bone/organ
