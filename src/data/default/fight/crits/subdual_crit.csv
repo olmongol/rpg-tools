@@ -1,0 +1,96 @@
+crit,roll,description,hits,hits/rnd,mod,mod_attacker,stunned,die,ooo,no_parry,parry,cover,alternate,damage_type
+A,5,Your concern for damaging foe hinders you.,0,0,0,0,0,-1,0,0,0,,,
+A,10,You pull your punch.,0,0,0,0,0,-1,0,0,0,,,
+A,15,Mishandle strike. Try again.,1,0,0,0,0,-1,0,0,0,,,
+A,20,Foe's guard comes up and blocks your assault.,1,0,0,0,0,-1,0,0,1,,,
+A,35,Awkward positioning spoils your strike.,1,0,0,0,0,-1,0,0,1,,,
+A,45,Move in close. You gain the initiative next round.,2,0,0,0,0,-1,0,0,0,,,
+A,50,Strike to foe's chest. He is having some trouble.,2,0,-10x3,0,0,-1,0,0,0,,,
+A,55,Stike falls on foe's leg. He shakes it off.,2,0,0,0,1,-1,0,0,0,,,
+A,60,Blow lightly strikes foe's head. He puts you at bay with a masterful turn.,3,0,-10x6,0,0,-1,0,0,0,,,
+A,65,"Backhand to foe's side. He steps 5 feet to the right, avoiding your reach.",3,0,0,0,1,-1,0,0,0,,,
+A,66,Classic shot between foe's shoulder blades. He hurts.,9,0,-10x4,0,2,-1,0,2,0,,,
+A,70,Chest strike is solid. Knock the wind out of your foe. He struggles to evade.,3,0,-20x3,0,0,-1,0,0,0,,,
+A,75,Side strike damages a muscle. Foe is disabled for the moment.,4,0,0,0,2,-1,0,0,0,,,
+A,80,"Blow to foe's shield arm. If foe has a shield, it should check for breakage.",8,0,-20x2,0,0,-1,0,0,0,shield,hits:4;stunned:2;no_parry:2,
+A,85,Strong grip and a shot to the side make for an effective combination. Foe is disabled for an instant.,5,0,0,10x1,1,-1,0,1,0,,,
+A,90,Your attack is part grapple and sweep. You push foe off balance.,6,0,0,0,3,-1,0,3,0,,,
+A,95,Strike lands solid upon foe's neck. His neck is sprained. He falls down and has difficulty getting up.,7,0,-20,0,2,-1,0,2,0,,,muscles/tendons
+A,99,Solid strike turns foe's head and it pinches a nerve in his neck. Foe falls over and goes unconscious.,8,0,-30,0,0,-1,1000,0,0,,,nerves
+A,100,"You pop foe on his head in what looks like a playful strike. He pauses 1 round, then passes out.",5,0,0,0,0,-1,1000,0,0,,,nerves
+B,5,Your attempt is poorly planned.,0,0,0,0,0,-1,0,0,0,,,
+B,10,You're being too delicate. Bust him!,1,0,0,0,0,-1,0,0,0,,,
+B,15,Your strike lands on foe's shoulder. Attack is of little profit.,1,0,0,0,0,-1,0,0,0,,,
+B,20,"You attempt to kick foe in groin. You miss, but the threat is enough.",2,0,0,0,0,-1,0,0,1,,,
+B,35,You miss foe's head and strike his shoulder. He is unbalanced.,2,0,-20x2,0,0,-1,0,0,0,,,
+B,45,Blow lands on foe's shield hand.You gain the initiative.,3,0,-5,0,0,-1,0,0,0,,,muscles/tendons
+B,50,Back strike. Your position is better. Foe seeks to keep you at bay.,3,0,0,0,1,-1,0,0,2,,,
+B,55,Your strike was less than you hoped. It still disorients your foe.,3,0,0,0,1,-1,0,0,0,,,
+B,60,Shoulder strike lands lightly. You put more shove into it than strike. Foe is frantic to regain his balance.,3,0,-10x4,0,0,-1,0,0,1,,,
+B,65,Hard blow to foe's side. He is weakened by the pain. He doubles over in response to the assault.,6,0,-30x4,0,1,-1,0,0,0,,,
+B,66,Grab foe's weapon arm and force it the wrong way. Foe is disarmed. Elbow is strained.,12,0,-20,0,2,-1,0,2,0,,,muscles/tendons
+B,70,Strong forearm assault drives foe back off his footing. He slips down to one knee.,5,0,-40x4,0,4,-1,0,4,0,,,
+B,75,You try to kick foe off his feet. The strike lands on foe's calf. Deep bruise.,5,0,-30,0,1,-1,0,0,0,,,muscles
+B,80,Heavy handed attack. It looks like you're going for a kill. Foe avoids the worst. Blow to foe's shield arm.,6,0,-10,0,2,-1,0,2,0,,,
+B,85,Side strike knocks foe down. He pulls you over with him. You fail to pummel him into submission. You have a great position.,6,0,0,10x1,3,-1,0,0,0,,,
+B,90,Hard strike to the back of foe's neck terminates foe's conscious thoughts. He drops. Foe's shoulder blade is bruised.,8,0,-30,0,0,-1,0,0,0,,,bones/muscles/tendons
+B,95,Your knuckles go into foe's temples and cause a painful overload to foe's brain. He falls gripping his head for 2 rounds and passes out.,10,0,-30,0,6,-1,1000,0,0,,,nerves
+B,99,Fracture foe's skull with a lucky strike. Foe falls unconscious. The swelling will kill him in 2 hours.,12,0,-50,0,2,720,720,2,0,,,bones/organ/nerves
+B,100,Strong blow to foe's back knocks him down and paralyzes him. Serious nerve damage. Foe is unconscious.,15,0,-60,0,0,-1,10000,0,0,,,nerves
+C,5,Your concern for foe is heart warming.,0,0,0,0,0,-1,0,0,0,,,
+C,10,You will need to make a fist.,1,0,0,0,0,-1,0,0,0,,,
+C,15,"Blow to foe's chest. If foe is 2 feet tall or shorter, he is unconscious.",2,0,0,0,0,-1,0,0,0,,,
+C,20,Side strike unbalances foe. He will recover quickly.,4,0,0,0,0,-1,0,0,1,,,
+C,35,"Chest strike. He almost falls, but foe grabs you for balance. Ooops!",3,0,0,0,1,-1,0,0,0,,,
+C,45,"You entangle foe's legs, but he breaks free. You push him clear.",5,0,-10x3,0,3,-1,0,0,0,,,
+C,50,Lower back strike sends foe reeling. He needs another shot to the kidneys.,5,0,0,0,1,-1,0,1,0,,,
+C,55,Hammer foe's thigh. Pain is in his eyes. Bruise muscles.,4,0,-10,0,1,-1,0,1,0,,,muscles
+C,60,Good strike. Foe has trouble getting his act together. He stumbles around for some time trying to defend himself.,4,0,-10,0,4,-1,0,0,4,,,nerves
+C,65,You grip foe's arm and shake it until he drops his weapon. Foe kicks himself free. At least you disarmed him.,1,0,0,0,0,-1,0,0,0,,,
+C,66,Bring foe down to his knees and slam his head down. He is virtually unconscious. He is yours. Finish him.,12,0,-80x6,0,10,-1,0,10,0,,,nerves
+C,70,Strong blow to foe's chest breaks ribs. Your attack has little grace. Foe looks to be devastated.,5,0,-20,0,2,-1,0,0,0,,,bones
+C,75,You assault foe's foot. He is unable to stand on it.,5,0,-20,0,1,-1,0,1,0,,,bones/muscles/tendons
+C,80,Strike to foe's arm causes him to fall with a fracture. You punch at his head for added effect.,6,0,-30x6,0,3,-1,0,0,0,,,
+C,85,Strong blow to foe's side. Foe drops his weapon to react to the pain. You move to block him from its recovery. Foe gives ground with little concern.,8,0,0,0,8,-1,0,0,0,,,
+C,90,Strong blow to foe's back knocks him off his feet. Foe lands hard and is knocked out by the impact. You have him now.,10,0,0,20x1,6,-1,0,0,0,,,
+C,95,Overwhelming blow knocks foe down. He fumbles his weapon and hits hard trying to recover it. Foe goes unconscious on impact.,0,0,0,0,0,-1,1000,0,0,,,
+C,99,Blow lands on foe's forehead. His head snaps back and he loses consciousnes. He then drops hard on the ground and hits his head.,10,5,-40,0,0,-1,0,0,0,,,bones/nerves/muscles
+C,100,"Severe chest strike. Foe falls, breaking his arm and hitting his head. He goes into a coma for 2 weeks.",20,0,0,0,0,-1,120960,0,0,,,bones
+D,5,Nothing graceful about this attack. Foe does not even flinch.,1,0,0,0,0,-1,0,0,0,,,
+D,10,Pow! Right in the kisser.,2,0,0,0,0,-1,0,0,0,,,
+D,15,"Blow to foe's chest. If foe is 3 feet tall or shorter, he is unconscious.",3,0,0,0,0,-1,0,0,0,,,
+D,20,Blow to foe's side sends him reeling. He recovers and gets his guard up.,3,0,-10x4,0,0,-1,0,0,1,,,
+D,35,"You trip foe and slam his shin. Simple, yet effective.",6,0,0,0,2,-1,0,0,0,,,
+D,45,Step on foe's foot and try to push him over. You gain the initiative next round.,3,0,-25x2,0,0,-1,0,0,0,,,
+D,50,Back strike adds insult to the injury. Foe spins around to face you.,3,0,0,0,1,-1,0,1,0,,,
+D,55,Chest strike causes deep bruise. Foe grabs at the pain in his chest.,5,0,0,0,1,-1,0,1,0,,,
+D,60,"Hard blow to foe's thigh. Foe falls down, but rebounds to his feet. You had hoped he would stay down.",5,0,0,0,2,-1,0,0,0,,,
+D,65,Catch foe in the middle of a swing. He drops his weapon and grips his arm. His forearm has a huge bruise.,5,0,0,20x1,2,-1,0,2,0,,,
+D,66,Solid strike to foe's head. The strike is enough to knock foe out. He falls down and out for 6 hours.,15,0,0,0,6,-1,2160,0,0,,,
+D,70,"Smash foe's shoulder, breaking it. Arm is useless. Foe struggles to stand. The pain is too much for him.",6,0,-35,0,2,-1,0,2,0,,,bones
+D,75,Leg strike causes foe to fall and fracture his leg.,10,0,-55,0,1,-1,0,1,0,,,bones
+D,80,Strong blow to foe's weapon arm disarms him and causes him to fall. He lands hard and breaks a rib.,7,0,-25,0,3,-1,0,0,0,,,bones
+D,85,"Strike to foe's side sends him to the ground. While falling, he fractures his ankle. Foe goes unconscious from the pain.",7,0,-50,0,2,-1,1000,2,0,,,bones
+D,90,Blow to foe's back knocks him to the ground. His weapon slides across the floor. He hit very hard. Foe goes unconscious for 5 rounds.,12,0,-10,0,0,-1,5,0,0,,,muscles
+D,95,"Grip foe's arm and hold it, while striking him in the face until he goes unconscious. Foe is unconscious for 15 rounds.",15,0,.20,0,0,-1,15,0,0,,,muscles/nerves
+D,99,Strong blow to the abdomen causes foe to fall to the ground. He hits his head. Foe goes into a coma for 1 month.,17,0,0,0,0,-1,259200,0,0,,,nerves
+D,100,Pummel foe's head. He falls unconscious in a nice spot on the ground.,25,0,0,0,0,-1,10000,0,0,,,
+E,5,Strike to neck pinches a nerve. What did you do to him? Foe is unconscious.,3,0,0,0,0,-1,0,0,0,,,
+E,10,You simply hit foe in the face.,3,0,0,0,0,-1,0,0,0,,,
+E,15,Boom! Crash! Pow! Crack! It looked impressive.,3,0,0,0,0,-1,0,0,0,,,
+E,20,"Strike to foe's side. Cheap shot, executed with grace.",3,0,-25x4,0,0,-1,0,0,0,,,
+E,35,Foe leaves himself open. Your strike hits his side and breaks some ribs.,3,0,-10,0,1,-1,0,0,0,,,bones
+E,45,You experiment with a knee strike to foe. It fails to be very effective.,6,0,0,0,2,-1,0,0,0,,,
+E,50,Hard shot to foe's side causes a pain generated panic. His guard is down.,7,0,0,0,1,-1,0,1,0,,,
+E,55,Chest wound knocks foe down. He lands on his back.. He looks to be recovering.,8,0,-10x3,0,1,-1,0,1,0,,,
+E,60,"Solid and strong, you bash foe in his stomach. He recoils 10 feet from you. He keeps his footing.",8,0,0,0,3,-1,0,1,0,,,
+E,65,"Solid and effective, your blow lands on foe's neck. A nerve is pinched. Foe falls unconscious for 3 hours.",10,0,-20,0,2,-1,1080,2,0,,,nerves
+E,66,"Brutal, but effective shot to foe's face. His head snaps back and then flops forward. He falls unconscious.",24,0,-20,0,0,-1,1000,0,0,,,nerves
+E,70,You attack lands unexpectedly on foe's shoulder. It is fractured. Foe drops his guard in response to the pain.,9,0,-30,0,2,-1,0,2,0,,,bones
+E,75,Strike to foe's thigh causes him to fall. Blow creates a terrible bruise.,9,0,-40,0,3,-1,0,3,0,,,muscles
+E,80,Fierce blow to foe's weapon arm disarms him and sends him sprawling. You have his weapon.,10,0,0,0,4,-1,0,4,0,,,
+E,85,"Side strike knocks foe down. You hit him in the face as he falls. In the fall, he breaks his leg.",10,0,-50,0,6,-1,0,6,0,,,bones
+E,90,Nasty blow to face. Foe is knocked down. Foe's lips curl up in a ball and froth comes out of his mouth. You are frightened. Foe goes unconscious.,15,1,-30,0,0,-1,1000,0,0,,,bones/nerves
+E,95,Strike to shoulder breaks the collar bone. Foe knocks himself out with a graceless fall. You strike his head to make sure.,17,0,0,0,0,-1,1000,0,0,,,
+E,99,Your haste to get the advantage makes your attack deadly. You snap foe's neck. Foe falls and dies in 15 rounds.,25,0,0,0,0,15,15,0,0,,,bones/nerves
+E,100,Textbook subdual. You strike foe on his head. He settles to the ground in a silent move. He is unconscious for 10 hours.,0,0,0,20x1,0,-1,3600,0,0,,,

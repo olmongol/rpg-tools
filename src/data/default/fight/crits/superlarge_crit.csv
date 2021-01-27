@@ -65,7 +65,7 @@ holy,50,You step under his assault and strike him hard in the abdomen.,15,0,0,0,
 holy,65,The vile beast leans foward. You strike at his snout in frantic response.,18,0,0,0,0,-1,0,0,0,,,
 holy,66,Your blow lands against foe's shoulder. You are pleased with the effect. Blood pours from the wound.,0,10,-15,0,1,-1,0,1,0,,,muscle/tendons
 holy,70,"Hard blow to foe's thigh. He stumbles, but does not fall. You have the initiative next round.",20,0,0,0,0,-1,0,0,0,,,
-holy,80,Catch foe in his exposed leg. You come down hard on it. He will have a bruise. It slows him. You have the initiative.,13,5,-1ß,10x1,0,-1,0,0,0,,,muscle
+holy,80,Catch foe in his exposed leg. You come down hard on it. He will have a bruise. It slows him. You have the initiative.,13,5,-10,10x1,0,-1,0,0,0,,,muscle
 holy,90,"To make this strike land well, you almost climb onto foe. You deal out a brutal srike to his neck and leap back.",12,4,0,20x1,0,-1,0,0,1,,,muscle/tendons
 holy,95,"You have a uncomfortable opportunity to strike foe in his mouth. If foe has a breath weapon, he may not use it.",25,3,0,0,2,-1,0,2,0,,,organ
 holy,98,Weapon bites into foe's skull. He just comes apart. He dies in 6 rounds. Your weapon is stuck. Foe rolls over and takes your weapon out of reach. All allies get (+10),0,0,0,10x1,0,6,6,0,0,,,bone/nerves

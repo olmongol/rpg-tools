@@ -93,4 +93,4 @@ E,85,Awesome side shot sends foe tripping sideways. He goes down rolling and bre
 E,90,"Cruel blow to foe's head.... Foe sees stars. Foe is knocked back 10 feet, but remains standing.",20,0,0,0,12,-1,0,12,0,,,
 E,95,"Blow to foe's shield shoulder. If foe has no shield, he is knocked down,has a useless arm, and passes out.",0,0,0,0,6,-1,0,0,0,shield,ooo:1000,
 E,99,"Solid strike snaps foe's neck. He falls back 5 feet, spins, and tumbles to the ground. He dies of shock and suffocation in 3 rounds.",0,0,0,0,0,3,3,0,0,,,
-E,100,"Frightening strike to foe's head. Temple crushed, neck broken. Foe lands 20 feet away. He dies instantly.",0,0,0,20X3,0,0,0,0,0,,,bones/organ
+E,100,"Frightening strike to foe's head. Temple crushed, neck broken. Foe lands 20 feet away. He dies instantly.",0,0,0,20x3,0,0,0,0,0,,,bones/organ

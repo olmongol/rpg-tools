@@ -9,7 +9,7 @@ A,50,Foe jumps over your assault. He strikes out at you in defense.,4,0,-25x1,0,
 A,55,Foe must step back 3 feet to avoid your sweep.,5,0,-30x1,0,0,-1,0,0,1,,,
 A,60,"You try to throw foe, but he breaks free. Foe is unbalanced.",6,0,0,0,1,-1,0,0,0,,,
 A,65,"You throw foe down, but he gets up quickly. Your killing blow misses him.",7,0,0,0,1,-1,0,0,0,,,
-A,66,"Throw dislocates foe's shield shoulder. Foe does not fall, but his shoulder is in pain.",0,0,.50,0,3,-1,0,3,0,,,cartilage/tendons
+A,66,"Throw dislocates foe's shield shoulder. Foe does not fall, but his shoulder is in pain.",0,0,-50,0,3,-1,0,3,0,,,cartilage/tendons
 A,70,"Hard, but less than smooth throw attempt. Foe is unbalanced.",7,0,0,0,2,-1,0,0,0,,,
 A,75,Fall bruises foe's thigh. He gets back to his feet instantly.,2,0,-5,0,2,-1,0,2,0,,,muscles
 A,80,"Foe falls on his shield side. If he has a shield, it is broken. If no shield, arm is sprained.",0,0,-10,0,2,-1,0,0,0,,,muscles/tendons
