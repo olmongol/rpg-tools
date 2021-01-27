@@ -13,7 +13,7 @@ lorem ipsum
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "25.01.2021"
+__updated__ = "27.01.2021"
 __author__ = "Marcus Schwamberger"
 
 import os
@@ -207,8 +207,22 @@ class atWin(blankWindow):
         self.__resultAT.set("--")
         Label(self.window,
               justify = "center",
-              textvariable = self.__resultAT
-              ).grid(column = 0, columnspan = 11, row = 1, sticky = "EW", pady = 2)
+              textvariable = self.__resultAT,
+              borderwidth = 2,
+              relief = "sunken"
+              ).grid(column = 0, columnspan = 6, row = 1, sticky = "EW", pady = 2)
+
+        Label(self.window,
+              text = "DB:"
+              ).grid(column = 7, row = 1, sticky = "E")
+
+        self.__DB = IntVar()
+        self.__DB.set(0)
+        Entry(self.window,
+              textvariable = self.__DB,
+              width = 5,
+              justify = "center"
+              ).grid(column = 8, row = 1, sticky = "EW")
 
         # row 2
         Label(self.window,
@@ -287,7 +301,7 @@ class atWin(blankWindow):
         This checks the result of a roll against an attack table
 
         """
-        self.attacktbls[self.__selectAT.get()].getHits(self.__skill.get() + self.__atroll.get(),
+        self.attacktbls[self.__selectAT.get()].getHits(self.__skill.get() + self.__atroll.get() - self.__DB.get(),
                                                        self.__AT.get(),
                                                        self.__maxlvl.get()
                                                )

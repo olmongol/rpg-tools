@@ -72,7 +72,7 @@ D,75,Leg strike causes foe to fall and fracture his leg.,10,0,-55,0,1,-1,0,1,0,,
 D,80,Strong blow to foe's weapon arm disarms him and causes him to fall. He lands hard and breaks a rib.,7,0,-25,0,3,-1,0,0,0,,,bones
 D,85,"Strike to foe's side sends him to the ground. While falling, he fractures his ankle. Foe goes unconscious from the pain.",7,0,-50,0,2,-1,1000,2,0,,,bones
 D,90,Blow to foe's back knocks him to the ground. His weapon slides across the floor. He hit very hard. Foe goes unconscious for 5 rounds.,12,0,-10,0,0,-1,5,0,0,,,muscles
-D,95,"Grip foe's arm and hold it, while striking him in the face until he goes unconscious. Foe is unconscious for 15 rounds.",15,0,.20,0,0,-1,15,0,0,,,muscles/nerves
+D,95,"Grip foe's arm and hold it, while striking him in the face until he goes unconscious. Foe is unconscious for 15 rounds.",15,0,-20,0,0,-1,15,0,0,,,muscles/nerves
 D,99,Strong blow to the abdomen causes foe to fall to the ground. He hits his head. Foe goes into a coma for 1 month.,17,0,0,0,0,-1,259200,0,0,,,nerves
 D,100,Pummel foe's head. He falls unconscious in a nice spot on the ground.,25,0,0,0,0,-1,10000,0,0,,,
 E,5,Strike to neck pinches a nerve. What did you do to him? Foe is unconscious.,3,0,0,0,0,-1,0,0,0,,,
