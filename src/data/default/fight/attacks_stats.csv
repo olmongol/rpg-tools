@@ -1,0 +1,23 @@
+attack,shortc,atype,fumble,near,short,medium,long,extreme,table,crits
+Martial Arts - Striking,st,melee,2,---,---,---,---,---,Martial_Arts_-_Striking,martail_arts_-_striking
+Martial Arts - Sweeps,sw,melee,2,---,---,---,---,---,Martial_Arts_-_Sweeps,martial_arts_-_sweeps
+Horn,ho,melee,2,---,---,---,---,---,Horn_Tusk,unbalance/krush/puncture
+Tusk,tu,melee,2,---,---,---,---,---,Horn_Tusk,unbalance/krush/puncture
+Claw,cl,melee,2,---,---,---,---,---,Claw_Talon,tiny/krush/puncture/slash
+Talon,ta,melee,2,---,---,---,---,---,Claw_Talon,tiny/krush/puncture/slash
+Beak,be,melee,2,---,---,---,---,---,Beak_Pincher,tiny/krush/slash
+Pincher,pi,melee,2,---,---,---,---,---,Beak_Pincher,tiny/krush/slash
+Bite,bi,melee,2,---,---,---,---,---,Bite,tiny/puncture/slash
+Fall,fa,melee,2,---,---,---,---,---,Fall_Crush,krush
+Crush,cr,melee,2,---,---,---,---,---,Fall_Crush,krush
+Grapple,G,melee,2,---,---,---,---,---,Grapple_Grasp_Envelop_Swallow,grapple
+Grasp,gr,melee,2,---,---,---,---,---,Grapple_Grasp_Envelop_Swallow,grapple
+Envelop,en,melee,2,---,---,---,---,---,Grapple_Grasp_Envelop_Swallow,grapple
+Swallow,sl,melee,2,---,---,---,---,---,Grapple_Grasp_Envelop_Swallow,grapple
+Ram,ra,melee,2,---,---,---,---,---,Ram_Butt_Bash_Knockdown,unbalance/krush
+Butt,bu,melee,2,---,---,---,---,---,Ram_Butt_Bash_Knockdown,unbalance/krush
+Bash,ba,melee,2,---,---,---,---,---,Ram_Butt_Bash_Knockdown,unbalance/krush
+Knockdown,kd,melee,2,---,---,---,---,---,Ram_Butt_Bash_Knockdown,unbalance/krush
+Stinger,st,melee,2,---,---,---,---,---,Stinger,tiny/puncture
+Tiny,ti,melee,2,---,---,---,---,---,Tiny,tiny/krush/puncture/slash
+Trample/Stomp,ts,melee,2,---,---,---,---,---,Trample_Stomp,tiny/krush

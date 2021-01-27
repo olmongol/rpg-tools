@@ -1,4 +1,22 @@
 #!/usr/bin/python3
+'''!
+@file test_epcalcwin.py
+@package test_epcalcwin.py
+@brief This is a little tool for tracking the EPs  of Role Master Characters
+
+@date (C) 2015-2021
+@author Marcus Schwamberger
+@email marcus@lederzeug.de
+@license GNU V3.0
+@version 1.2.0
+----
+@todo
+- adding a RR window
+- adding a cat/skill checker window for the whole group (select skill once and check for all)
+- adding spellcasting windpw (stat man)
+
+
+'''
 import os
 import json
 from gui.window import *
@@ -8,23 +26,24 @@ from pprint import pprint
 from rpgToolDefinitions.helptools import RMDice as dice
 from tkinter import filedialog
 import re
+import pickle
 
 
 
 class EPCalcWin(blankWindow):
-    """
+    """!
     This is a GUI for EP calculation for your character party.
     """
 
 
     def __init__(self, lang = "en", charlist = [], storepath = "./data"):
-        """
+        """!
         Class constructor
-        \param lang The chosen language for window's and button's
+        @param lang The chosen language for window's and button's
                     texts. At the moment, only English (en, default
                     value) and German (de) are supported.
-        \param charlist list of dictionaries holding: player, charname, EPs
-        \param storepath path for storing the data into the character files.
+        @param charlist list of dictionaries holding: player, charname, EPs
+        @param storepath path for storing the data into the character files.
         """
 
         self.lang = lang
@@ -41,11 +60,12 @@ class EPCalcWin(blankWindow):
         self.__addMenu()
         self.__addHelpMenu()
         self.__buildWin()
+        self.__loadAutosave()
         self.window.mainloop()
 
 
     def __addMenu(self):
-        '''
+        '''!
         This methods adds the menu bar to the window
         '''
         self.filemenu = Menu(master = self.menu)
@@ -61,7 +81,7 @@ class EPCalcWin(blankWindow):
 
 
     def __addHelpMenu(self):
-        """
+        """!
         This methods defines a help menu.
         """
         self.helpmenu = Menu(master = self.menu)
@@ -74,7 +94,7 @@ class EPCalcWin(blankWindow):
 
 
     def __buildWin(self):
-        """
+        """!
         This method builds the window content.
         """
         ## \var self.players
@@ -334,9 +354,9 @@ class EPCalcWin(blankWindow):
 
 
     def __updDispay(self, curPlayer = ""):
-        '''
+        '''!
         Updates display of current player
-        \param curPlayer name of selected player
+        @param curPlayer name of selected player
         '''
         self.group[curPlayer].updateInfo()
         self.__gained.set("+{}".format(self.group[curPlayer].gainedep))
@@ -345,7 +365,7 @@ class EPCalcWin(blankWindow):
 
 
     def __updSelec(self, event):
-        """
+        """!
         Update selected Player data
         """
         selected = self.__selecPlayer.get()
@@ -358,8 +378,27 @@ class EPCalcWin(blankWindow):
         self.__newlvl.set(self.group[self.charlist[ind]["player"]].newlvl)
 
 
+    def __autoSave(self):
+        """!
+        This function is for aut saving the group object in case of a program / computer crash
+        """
+        with open("autosave.pkl", "wb") as fp:
+            pickle.dump(self.group, fp)
+
+
+    def __loadAutosave(self):
+        """!
+        This loads an autosave file if there is any
+        """
+        if os.path.exists("autosave.pkl"):
+            with open("autosave.pkl", "rb") as fp:
+                self.group = pickle.load(fp)
+
+            os.remove("autosave.pkl")
+
+
     def __grpBonus(self):
-        '''
+        '''!
         This methods calculates the group bonus while finalize process.
         '''
         grpbonus = 0
@@ -373,9 +412,11 @@ class EPCalcWin(blankWindow):
             self.group[name].gainedep += grpbonus
             self.group[name].updateInfo()
 
+        self.__autoSave()
+
 
     def __calcMan(self):
-        '''
+        '''!
         This computes EPs for each successful maneuver and add them to character's
         gained EPs
         '''
@@ -384,23 +425,25 @@ class EPCalcWin(blankWindow):
         number = self.__cMan.get()
 
         self.group[curPlayer].maneuver(curManLvl, number)
+        self.__autoSave()
         self.__updDispay(curPlayer)
 
 
     def __calcSpell(self):
-        '''
+        '''!
         This computes EPs for a given number aof spells aof the same level
         '''
         curPlayer = self.__selecPlayer.get()
         spellLvl = self.__lvlSpell.get()
         spellNo = self.__cSpell.get()
         self.group[curPlayer].spell(spellLvl, spellNo)
+        self.__autoSave()
         self.__updDispay(curPlayer)
 
 
     def __calcGCrit(self):
-        '''
-        This calculates EP for gained Criticals and hits
+        '''!
+        This calculates EP for gained criticals and hits
         '''
         curPlayer = self.__selecPlayer.get()
         gCrit = self.__gcrit.get()
@@ -413,11 +456,12 @@ class EPCalcWin(blankWindow):
             self.group[curPlayer].gainedHits(hits)
             self.group[curPlayer].gainedCrit(gCrit, 1)
 
+        self.__autoSave()
         self.__updDispay(curPlayer)
 
 
     def __calcCrit(self):
-        '''
+        '''!
         This calculates EP for caused criticals against an enemy of a certain level
         '''
         curPlayer = self.__selecPlayer.get()
@@ -429,11 +473,12 @@ class EPCalcWin(blankWindow):
         elif crit == "KILL":
             self.group[curPlayer].killedNPC(lvlEnem, 1)
 
+        self.__autoSave()
         self.__updDispay(curPlayer)
 
 
     def __calcTravel(self):
-        '''
+        '''!
         Travelled EPs
         ----
         @todo The comments have to be added to the  character's diary
@@ -443,11 +488,12 @@ class EPCalcWin(blankWindow):
         comm = self.__comtravel.get()
         self.group[curPlayer].travelled(travel)
 
+        self.__autoSave()
         self.__updDispay(curPlayer)
 
 
     def __calcIdeas(self):
-        '''
+        '''!
         EPs for ideas and role-playing
         ----
         @todo The comments have to be added to the character's diary
@@ -457,11 +503,12 @@ class EPCalcWin(blankWindow):
         comm = self.__comideas.get()
         self.group[curPlayer].ideas(ideas)
 
+        self.__autoSave()
         self.__updDispay(curPlayer)
 
 
     def __finalize(self):
-        '''
+        '''!
         Do all finalizing steps:
         -# adding new EPs to characters
         -# open display window for whole group EPs
@@ -475,11 +522,12 @@ class EPCalcWin(blankWindow):
             self.charlist[i]["exp"] = self.group[name].newep
             self.charlist[i]['old_exp'] = self.group[name].ep
 
+        self.__autoSave()
         gw = showGrpEP(self.charlist, self.storepath, self.lang)
 
 
     def __callManWin(self):
-        '''
+        '''!
         Opens Maneuver Window for maneuver rolls
         '''
         who = self.__selecPlayer.get()
@@ -489,7 +537,7 @@ class EPCalcWin(blankWindow):
 
 
     def __save(self):
-        '''
+        '''!
         This opens a file dialog window for saving
         '''
         savedir = filedialog.asksaveasfilename(defaultextension = ".json", filetypes = [("Char Group Files", ".json")])
@@ -498,7 +546,7 @@ class EPCalcWin(blankWindow):
 
 
     def __open(self):
-        '''
+        '''!
         This opens a file dialog window for opening a group file.
         '''
         opendir = filedialog.askopenfilename(defaultextension = ".json", filetypes = [("Char Group Files", ".json")])
@@ -521,7 +569,7 @@ class EPCalcWin(blankWindow):
 
 
     def __quit(self):
-        '''
+        '''!
         This method closes the window
         '''
         self.window.destroy()
@@ -529,15 +577,15 @@ class EPCalcWin(blankWindow):
 
 
 class showGrpEP(object):
-    '''
+    '''!
     Display and save window for group EPs
     '''
 
 
     def __init__(self, charlist = [], storepath = "./data", lang = 'en'):
-        """
+        """!
         Constructor
-        \param lang contains the chosen display language.
+        @param lang contains the chosen display language.
         """
         self.lang = lang
         self.storepath = storepath
@@ -571,7 +619,7 @@ class showGrpEP(object):
 
 
     def saveChars(self):
-        '''
+        '''!
         This saves all single characters separated from group
         '''
         if self.storepath[-1] != "/":
@@ -588,14 +636,20 @@ class showGrpEP(object):
                 else:
                     print("{} not found -> {}".format(charpath, os.getcwd()))
 
+#        if os.path.exists("autosave.pkl"):
+#            os.remove("autosave.pkl")
+
 
     def saveGroup(self):
-        '''
+        '''!
         Saves all data in a groupfile
         '''
         savedir = filedialog.asksaveasfilename(defaultextension = ".json", filetypes = [("Char Group Files", ".json")])
         with open(savedir, "w") as fp:
             json.dump(self.charlist, fp, indent = 4)
+
+        if os.path.exists("autosave.pkl"):
+            os.remove("autosave.pkl")
 
 
 
@@ -606,7 +660,7 @@ class manWin(object):
 
 
     def __init__(self, character = {}, lang = "en"):
-        '''
+        '''!
         Constructor
         @param character whole character daa
         @param lang interface language; default: English
@@ -842,7 +896,7 @@ class manWin(object):
 
 
     def _rollDice(self):
-        '''
+        '''!
         This trows a d100. Result ist ([dice result], [unmodified])
         ----
         @todo set dice(rules="RM")
@@ -895,8 +949,8 @@ class manWin(object):
 #    def maneuver_ep(self, manlvl = "routine", number = 0):
 #        '''
 #        Adds EPs by maneuvers.
-#        \param manlvl difficulty of maneuver
-#        \param number number of maneuvers of this level
+#        @param manlvl difficulty of maneuver
+#        @param number number of maneuvers of this level
 #        '''
 #        from rpgToolDefinitions.epcalcdefs import maneuvers
 #
@@ -904,11 +958,11 @@ class manWin(object):
 
 
 
-with open("/home/mongol/git/rpg-tools/src/data/groups/charparty.json", "r") as fp:
-    cl = json.load(fp)
+if __name__ == '__main__':
+    with open("/home/mongol/git/rpg-tools/src/data/groups/charparty.json", "r") as fp:
+        cl = json.load(fp)
 
-mantan = rpg.statManeuver
-rrtab = rpg.RRroll
-#win = EPCalcWin(charlist = cl)
+    mantan = rpg.statManeuver
+    rrtab = rpg.RRroll
 
-win = EPCalcWin()
+    win = EPCalcWin()

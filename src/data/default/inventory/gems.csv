@@ -1,8 +1,17 @@
 item,comment,weight,cost
-amulet, silver amulet,0.05 lbs.,15sp
-collar,golden collar,0.4 lbs.,20gp
-crown,gold with gems,0.8 lbs.,80gp
-goldring,simple golden ring,0.05 lbs.,12sp
-necklace, silver necklace based on floral design, 0.07 lbs.,15sp
-septer,gold with gems,2 lbs.,10gp
-tiara,platinum with diamonds,0.7 lbs.,100gp
+silver amulet, silver amulet,0.05 lbs.,15sp
+gold collar,golden collar,0.4 lbs.,20gp
+gold crown,gold with gems,0.8 lbs.,80gp
+gold ring,simple golden ring,0.05 lbs.,12sp
+silver necklace, silver necklace , 0.07 lbs.,15sp
+golden septer,gold with gems,2 lbs.,10gp
+platinum tiara,platinum with diamonds,0.7 lbs.,100gp
+bronze amulet,bronze amulet,0.05 lbs.,15bp
+gold amulet,gold amulet,0.07 lbs.,15gp
+platinum amulet,platinum amulet,0.07 lbs.,150gp
+bronze ring,ring of bronze,0.05 lbs.,15cp
+silver ring,silver ring,0.05 lbs.,15bp
+platinum ring,simple platinum ring,0.05 lbs.,15gp
+bronze necklace,simple necklace made of bronze,0.07 lbs.,15bp
+gold necklace,simple golden necklace,0.09 lbs.,15gp
+platimum necklace,simple platinum necklace,0.1 lbs.,160gp

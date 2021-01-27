@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-'''
+'''!
 \file spelleditor.py
 \package gui
 \brief Editor for creating/editing spell lists
 
 
-\date (C) 2017
+\date (C) 2017-2021
 \author mongol
 \email marcus@lederzeug.de
 
@@ -23,7 +23,7 @@ from pprint import pprint
 
 
 def readCSV(filename):
-    '''
+    '''!
     This function reads CSV files and builds a dictionary/JSON of its content.
     \param filename name (and path) of the CSV
     \return dictionary with the computed CSV table (keys = header)
@@ -127,7 +127,7 @@ class editSpellList(blankWindow):
 
 
     def __saveFile(self):
-        '''
+        '''!
         This method opens a file dialogue window (Tk) for saving Spell lists as
         csv
         \todo has to be implemented
@@ -329,7 +329,7 @@ class editSpellList(blankWindow):
 
 
     def __updSLData(self):
-        '''
+        '''!
         This updates new/modified Spell List Data
         \todo has to be implemented
         '''

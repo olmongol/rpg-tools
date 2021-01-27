@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-'''
+'''!
 \file window.py
 \package gui.window
 \brief Some classes for GUI
 
 
-\date (C) 2015 - 2018
+\date (C) 2015 - 2021
 \author Marcus Schwambeger
 \email marcus@lederzeug.de
 \version 1.0
@@ -16,7 +16,7 @@ from rpgtoolbox.lang import *
 from rpgtoolbox import logbox as log
 
 __author__ = "Marcus Schwamberger"
-__updated__ = "31.01.2020"
+__updated__ = "28.12.2020"
 __copyright__ = "(C) 2015-{} {}".format(__updated__[-4:], __author__)
 __email__ = "marcus@lederzeug.de"
 __version__ = "1.0"
@@ -36,8 +36,8 @@ class messageWindow(object):
 
 
     def __init__(self, lang = 'en'):
-        """
-        Constructor
+        """!
+        Constructor messageWindow
         \param lang contains the chosen display language.
         """
         self.lang = lang
@@ -45,7 +45,7 @@ class messageWindow(object):
 
 
     def showinfo(self, message = '', title = 'Info'):
-        """
+        """!
         This method adds and displays content to the message window.
 
         \param message contains a message to be displayed in the
@@ -90,15 +90,15 @@ class messageWindow(object):
 
 
 class blankWindow(object):
-    '''
+    '''!
     A simple window class with  a not filled menu bar.
     \param lang  chosen language for the menu.
     '''
 
 
     def __init__(self, lang = 'en'):
-        '''
-        Class constructor
+        '''!
+        Class constructor blankWindow
         \param lang  chosen language for the menu.
         '''
         self.lang = lang

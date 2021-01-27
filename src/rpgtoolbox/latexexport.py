@@ -1,18 +1,18 @@
-'''
-\file latexexport.py
-\package rpgtoolbox.latexexport
-\brief Export class for LaTeX
+'''!
+@file latexexport.py
+@package rpgtoolbox.latexexport
+@brief Export class for LaTeX
 
 This holds a class to export a character JSON to a LaTeX file from which a PDF
 will be generated for printouts
 .
-\date (C) 2016-2020
-\author Marcus Schwamberger
-\email marcus@lederzeug.de
-\version 1.1
+@date (C) 2016-2020
+@author Marcus Schwamberger
+@email marcus@lederzeug.de
+@version 1.1
 '''
 
-__updated__ = "27.06.2020"
+__updated__ = "28.12.2020"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -33,7 +33,7 @@ logger = log.createLogger('latexreport', 'debug', '1 MB', 1, './')
 
 
 def readFile(filename = ""):
-    '''
+    '''!
     This reads a text file/LaTeX template file
     @param filename path + name of the file to read
     @retval content content of the file
@@ -56,7 +56,7 @@ def readFile(filename = ""):
 
 
 def saveFile(filename = "", content = ""):
-    '''
+    '''!
     This saves a file
     @param filename path + name of the file to store
     @param content content to store in the file
@@ -76,7 +76,7 @@ class charsheet(object):
 
 
     def __init__(self, char = {}, storepath = "./", short = True):
-        '''
+        '''!
         Constructor:
         @param char character data in a dictionary
         @param storepath configured store path.
@@ -218,6 +218,9 @@ class charsheet(object):
 
         template = readFile(self.storepath + "/default/latex/template_rr_at_db.tex")
         template = template.replace("==>ThreeQ", str(int(self.char["Qu"]["total"]) * 3))
+        template = template.replace("==>BD", str(self.char["cat"]["Body Development"]["Skill"]["Body Development"]["total bonus"]))
+        template = template.replace("==>PP", str(self.char["cat"]["Power Point Development"]["Skill"]["Power Point Development"]["total bonus"]))
+
         if self.char["cat"]["Special Defenses"]["Skill"]["Adrenal Defense"]["rank"] > 0:
             template = template.replace("==>AdrenalDef", str(self.char["cat"]["Special Defenses"]["Skill"]["Adrenal Defense"]["total bonus"]))
         else:
@@ -430,7 +433,7 @@ class charsheet(object):
 
 
     def createSpells(self):
-        '''
+        '''!
         This makes a sheet with all learned spells
         @todo this has to be fully implemented
         '''
@@ -470,7 +473,7 @@ class spellbook(object):
 
 
     def __init__(self, character = {}, storepath = "./data/"):
-        '''
+        '''!
         Class constructor
         @param character dictionary which hold full character data.
         @param storepath path to the main storage directory.
@@ -584,13 +587,31 @@ class inventory(object):
 
 
     def __init__(self, character = {}, storepath = "./data/"):
-        '''
+        '''!
         Class constructor
         @param character dictionary holding character's data
         @param storepath path to the main storage directory
         '''
         self.character = character
         self.storepath = storepath
+
+        # set correct locations
+        for cat in self.character["inventory"].keys():
+
+            if cat != "transport":
+
+                for i in range(0, len(self.character["inventory"][cat])):
+                    if "idxcontainer" in self.character.keys():
+                        for elem in self.character["idxcontainer"]:
+
+                            if elem ["type"] == self.character["inventory"][cat][i]["location"]:
+                                self.character["inventory"][cat][i]["location"] = elem["name"]
+
+                    if "idxtransport" in self.character.keys():
+                        for trans in self.character["idxtransport"]:
+
+                            if trans["type"] == self.character["inventory"][cat][i]["location"]:
+                                self.character["inventory"][cat][i]["location"] = trans["name"]
 
         if self.storepath[-1] != "/" and self.storepath[-1] != "\\":
             self.storepath += "/"
@@ -648,8 +669,6 @@ class inventory(object):
     def tblArmor(self):
         """
         this creates a table with all armor pieces.
-        ----
-        @todo has to be fully implemented
         """
         # armor: combat values ----------------------------------
         self.latex += "\n\\section*{\\textcolor{Maroon}{Armor}}"
@@ -766,10 +785,10 @@ class inventory(object):
 
 
     def tblWeapon(self):
-        """
+        """!
         this creates a table with all weapons.
         ----
-        @todo has to be fully implemented
+        @todo the skill bonus has to be added
         """
         self.latex += "\n\\section*{\\textcolor{Maroon}{Weapons}}\n"
         # melee combat ---------------------
@@ -1113,7 +1132,7 @@ class inventory(object):
         self.latex += """
         {\\fontsize{7pt}{7pt}
             \\selectfont
-        \\begin{longtable}{|p{3.5cm}|p{1cm}|p{1cm}|p{2cm}|p{11.1cm}|}
+        \\begin{longtable}{|p{3.5cm}|p{1cm}|p{1cm}|p{2cm}|p{10cm}|}
             \\caption*{\\textcolor{Maroon}{\\textbf{Gems \& Jewelry}}}\\\\
             \\hline
             \\textbf{Name} &\\textbf{weight} &\\textbf{location} &\\textbf{worth} & \\textbf{description}\\\\

@@ -1,12 +1,12 @@
 #!/usr/bin/env python
-'''
-\file mangroup.py
-\package gui
-\brief Window class to handle character groups.
+'''!
+@file mangroup.py
+@package gui
+@brief Window class to handle character groups.
 
-\date (C) 2020
-\author Marcus Schwamberger
-\email marcus@lederzeug.de
+@date (C) 2020
+@author Marcus Schwamberger
+@email marcus@lederzeug.de
 
 '''
 from gui.window import *
@@ -19,7 +19,7 @@ import re
 
 
 class groupWin(blankWindow):
-    '''
+    '''!
     This window is made for managing groups of characters:
     - add/remove character from existing group
     - create new groups
@@ -27,8 +27,8 @@ class groupWin(blankWindow):
 
 
     def __init__(self, lang = "en"):
-        '''
-        Class constructor
+        '''!
+        Class constructor groupWin
         '''
         self.lang = lang
         self.charlist = []
