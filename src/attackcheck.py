@@ -98,12 +98,6 @@ class atWin(blankWindow):
         '''
         self.window.destroy()
 
-#    def __getATIdx(self):
-#        """!
-#        Gets chosen index of attack tables
-#        """
-#        self.__selectAt
-
 
     def __rollAttack(self):
         result, self.umr = Dice(rules = "RM")

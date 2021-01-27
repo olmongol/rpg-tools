@@ -13,7 +13,7 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "25.01.2021"
+__updated__ = "27.01.2021"
 __author__ = "Marcus Schwamberger"
 
 import re
@@ -178,8 +178,26 @@ def createCombatList(filename):
 
 
 
-class crittable():
+class fumbletable():
+    """!
+    This class reads out fumble tables and delivers dice roll results on them
     """
+
+
+    def __init__(self, fumblefilename = "./data/default/fight/combat_fumble.csv", lang = "en"):
+        """!
+        Constructor
+        @param lang configured language: en, de
+        @param fumblefilename name and path of the fumble table csv to read
+        ---
+        @todo ths has to be implemented
+        """
+        pass
+
+
+
+class crittable():
+    """!
     This Class delivers results from crit tables to a combatant.
     """
 
