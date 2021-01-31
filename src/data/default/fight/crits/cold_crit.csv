@@ -64,7 +64,7 @@ D,35,"With a burst of white, you shower foe with ice crystals. Foe closes his ey
 D,45,Foe ices down; freezing any exposed skin. The pain is great.,9,2,-20,0,1,-1,0,0,0,,,muscle/organ
 D,50,Assault lands on foe's weapon arm. He makes a supreme effort to pull his arm away. Foe is unable to protect himself.,9,2,-10,0,1,-1,0,0,0,,,muscle
 D,55,Heavy blow to shield shoulder. Foe is knocked back 5 feet. Muscle damage.,10,3,0,0,2,-1,0,0,0,,,muscle
-D,60,Miss foe's arm and strike his thigh. He loses his footing. Skin and nerve damage causes foe pain.,0,3,-15,0,1,-1,0,!,0,,,organ/nerves
+D,60,Miss foe's arm and strike his thigh. He loses his footing. Skin and nerve damage causes foe pain.,0,3,-15,0,1,-1,0,1,0,,,organ/nerves
 D,65,"Blast freezes foe's arm and shield. If no shield,arm useless from nerve damage.",20,0,0,0,0,-1,0,0,0,shield,stunned:5,nerves
 D,66,Frigid onslaught fills foes eyes and mouth with ice. Foe is blinded for a moment until he can clear his eyes.,0,4,-30,0,4,-1,0,0,0,,,muscle
 D,70,Polar wind pierces deep into chest and leaves foe trembling. You are close to victory. Foe faces the wrong way.,15,0,-5,0,1,-1,0,1,0,chest,hits:13;stunned:3;no_parry:1;mod:-20,muscle/organ
