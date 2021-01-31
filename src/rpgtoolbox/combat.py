@@ -13,7 +13,7 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "27.01.2021"
+__updated__ = "28.01.2021"
 __author__ = "Marcus Schwamberger"
 
 import re
@@ -136,7 +136,7 @@ def rollInitative(Qu = 0, mod = 0):
     @param mod modifier
     @retval roll initiative result
     """
-    roll = dice(19)[0] + 1 + Qu + mod
+    roll = dice(10)[0] + 1 + Qu + mod
     return roll
 
 
@@ -174,6 +174,8 @@ def createCombatList(filename):
     Monster etc.) or JSON (Character/Group file)
     @todo has to be implemented
     """
+    clist = ["lvl", "hits", "AT", "OB", "DB", "Qu", "name", "type", "ooo", "status", "die", "parry", "no_parry", "mod", "hits/rnd", "weapon", "PP", "spell lvl"]
+    status = {"ooo":0, "hits/rnd":0, "mod":{"mod":0, "rnd":0}, "parry":0, "no_parry":0, "stunned":0, "die":-1}
     pass
 
 
