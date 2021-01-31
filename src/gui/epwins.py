@@ -46,7 +46,7 @@ from gui.gmtools import *
 from gui.mangroup import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "28.12.2020"
+__updated__ = "31.01.2021"
 
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
@@ -175,8 +175,18 @@ class MainWindow(blankWindow):
         if self.__filein != "" and type(self.__filein) == type(""):
             with open(self.__filein, 'r') as filecontent:
 
+                # checking whether link of char pic fits - important for LaTeX export.
                 if self.__filein[-4:].lower() == "json":
                     self.char = json.load(filecontent)
+
+                    if os.getcwd() not in self.char["piclink"]:
+                        pl = self.char["piclink"].split("src/")[1]
+
+                        if os.path.exists(pl):
+                            self.char["piclink"] = "{}/{}".format(os.getcwd(), pl)
+
+                        else:
+                            self.char["piclink"] = "{}/{}/default.jpg".format(os.getcwd(), pl[:pl.rfind("/")])
 
                 elif self.__filein[-3:].lower == "grp":
                     self.grp = json.load(filecontent)
