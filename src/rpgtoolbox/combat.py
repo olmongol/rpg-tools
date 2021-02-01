@@ -13,7 +13,7 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "28.01.2021"
+__updated__ = "31.01.2021"
 __author__ = "Marcus Schwamberger"
 
 import re
@@ -44,10 +44,10 @@ from rpgToolDefinitions.helptools import RMDice
 
 
 
-def makeCombatant(jcont):
+def makeCombatant(achar):
     """!
     This function creates a combatant dictionary out of a character dictionary.
-    \param jcont character dictionary
+    \param achar character dictionary
     \retval combatant unified combatant dictionary
     """
     atklvl = {"1":"S",
@@ -56,19 +56,19 @@ def makeCombatant(jcont):
               "4":"H"
               }
 
-    combatant = {"name": jcont["name"],
-                 "Qu": jcont["Qu"]["total"],
-                 "hits": jcont["cat"]["Body Development"]["Skill"]["Body Development"]["total bonus"],
-                 "PP": jcont["cat"]["Power Point Development"]["Skill"]["Power Point Development"]["total bonus"],
-                 "DB": 3 * jcont["Qu"]["total"] + jcont["armquickpen"],
-                 "AT": jcont["AT"],
+    combatant = {"name": achar["name"],
+                 "Qu": achar["Qu"]["total"],
+                 "hits": achar["cat"]["Body Development"]["Skill"]["Body Development"]["total bonus"],
+                 "PP": achar["cat"]["Power Point Development"]["Skill"]["Power Point Development"]["total bonus"],
+                 "DB": 3 * achar["Qu"]["total"] + achar["armquickpen"],
+                 "AT": achar["AT"],
                  "OB melee":[],
                  "weapon melee":[],
                  "OB missile":[],
                  "weapon missile":[],
                  "ammo":[],
                  "shield":[],
-                 "status":{"cur hits":jcont["cat"]["Body Development"]["Skill"]["Body Development"]["total bonus"],
+                 "status":{"cur hits":achar["cat"]["Body Development"]["Skill"]["Body Development"]["total bonus"],
                             "mod":0,
                             "temp mod":[],
                             "hits/rnd": 0,
@@ -99,28 +99,47 @@ def makeCombatant(jcont):
                  "size":"M"
 
                  }
-    # determine weaponless combat skills:
-    if ["Brawling", "S", jcont["cat"]["Special Attacks"]["Skill"]["Brawling"]["rank"]] > 0:
-        combatant["OB melee"].append(["Brawling", "S", jcont["cat"]["Special Attacks"]["Skill"]["Brawling"]["total bonus"]])
-        combatant["OB weapon"].append(["bare hands", "data/default/fight/attacks/Brawling.csv", "data/default/fight/brawling_crit.csv"])
 
-    for c in ["Martial Arts - Striking", "Martial Arts - Sweeps"]:
-        dummy = []
+    # defermine fighting skills
 
-        for s in jcont["cat"][c]["Skill"].keys():
+    for cat in achar["cat"].keys():
 
-            if s not in ["Progression"]:
+        if "Weapon" in cat or "Martial" in cat or "Directed" in cat or "Special Attacks" == cat:
 
-                if jcont["cat"][c]["Skill"][s]["rank"] > 0:
-                    dummy.append(s)
+            for skill in achar["cat"][cat]["Skill"].keys():
 
-                    if s[-1] in atklvl.keys():
-                        dummy.append(atklvl[s[-1]])
+                if achar["cat"][cat]["Skill"][skill] not in ["Standard", "Combined"]:
+                    print("debug: {}".format(achar["cat"][cat]["Skill"][skill]))
+                    if achar["cat"][cat]["Skill"][skill]["rank"] > 0:
+                        dummy = ["{}: {}".format(cat, skill), achar["cat"][cat]["Skill"][skill]["total bonus"]]
 
-                    else:
-                        dummy.append(atklvl["1"])
+                        if cat in ["Directed Spells", "Weapon - Missile", "Weapon - Missile Arillery", "Weapon - Thrown"]:
+                            combatant["OB missile"].append(dummy)
+                        else:
+                            combatant["OB melee"].append(dummy)
 
-                    dummy.append(jcont["cat"][c]["Skill"][s]["total bonus"])
+#    # determine weaponless combat skills:
+#    if ["Brawling", "S", achar["cat"]["Special Attacks"]["Skill"]["Brawling"]["rank"]] > 0:
+#        combatant["OB melee"].append(["Brawling", "S", achar["cat"]["Special Attacks"]["Skill"]["Brawling"]["total bonus"]])
+#        combatant["OB weapon"].append(["bare hands", "data/default/fight/attacks/Brawling.csv", "data/default/fight/brawling_crit.csv"])
+#
+#    for c in ["Martial Arts - Striking", "Martial Arts - Sweeps"]:
+#        dummy = []
+#
+#        for s in achar["cat"][c]["Skill"].keys():
+#
+#            if s not in ["Progression"]:
+#
+#                if achar["cat"][c]["Skill"][s]["rank"] > 0:
+#                    dummy.append(s)
+#
+#                    if s[-1] in atklvl.keys():
+#                        dummy.append(atklvl[s[-1]])
+#
+#                    else:
+#                        dummy.append(atklvl["1"])
+#
+#                    dummy.append(achar["cat"][c]["Skill"][s]["total bonus"])
 
     if combatant["DB"] < 0:
         combatant["DB"] = 0
