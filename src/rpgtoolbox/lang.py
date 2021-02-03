@@ -22,7 +22,7 @@ Currently supported languages are:
 @license GNU V3.0
 '''
 __version__ = "1.1"
-__updated__ = "19.01.2021"
+__updated__ = "03.02.2021"
 ##
 # @var supportedrpg
 # Supported RPG systems
@@ -1177,23 +1177,29 @@ spellLists = {'1-2': {'Open Essence': {'de': 'Fluch',
 ##
 # @val attackc
 # this maps abbrevations of weapons to skill categories
-attackc = { "1he": {"en": "Weapon - 1-H Edged",
+attackc = {'1hc': {"en":'Weapon - 1-H Concussion',
                    },
-            "1hc": {"en": "Weapon - 1-H Concussion",
-                    },
-            "2h": {"en": "Weapon - 2-Handed",
+           '1he': {"en": 'Weapon - 1-H Edged',
                    },
-            "mis":{"en": "Weapon - Missile",
-                    },
-            "ma": {"en": "Weapon - Missile Artillery",
+           '2h': {"en":'Weapon - 2-Handed',
+                  },
+           'dsp': {"en":'Directed Spells',
                    },
-            "pa": {"en": "Weapon - Pole Arms",
+           'ma': {"en":'Martial Arts - Striking',
+                  },
+           'mia': {"en":'Weapon - Missile Artillery',
                    },
-            "th": {"en": "Weapon - Thrown",
+           'mis': {"en":'Weapon - Missile',
                    },
-            "ds": {"en":"Directed Spells",
+           'pa': {"en": 'Weapon - Pole Arms',
+                  },
+           'spa': {"en": 'Special Attacks',
                    },
-          }
+           'sw': {"en": 'Martial Arts - Sweeps',
+                  },
+           'th': {"en": 'Weapon - Thrown',
+                  },
+           }
 
 ##
 # @val critc

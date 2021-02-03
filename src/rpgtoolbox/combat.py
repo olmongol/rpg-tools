@@ -13,7 +13,7 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "31.01.2021"
+__updated__ = "03.02.2021"
 __author__ = "Marcus Schwamberger"
 
 import re
@@ -103,13 +103,13 @@ def makeCombatant(achar):
     # defermine fighting skills
 
     for cat in achar["cat"].keys():
-
+        combatant["lvl"] = achar["lvl"]
         if "Weapon" in cat or "Martial" in cat or "Directed" in cat or "Special Attacks" == cat:
 
             for skill in achar["cat"][cat]["Skill"].keys():
 
                 if achar["cat"][cat]["Skill"][skill] not in ["Standard", "Combined"]:
-                    print("debug: {}".format(achar["cat"][cat]["Skill"][skill]))
+
                     if achar["cat"][cat]["Skill"][skill]["rank"] > 0:
                         dummy = ["{}: {}".format(cat, skill), achar["cat"][cat]["Skill"][skill]["total bonus"]]
 
@@ -193,8 +193,21 @@ def createCombatList(filename):
     Monster etc.) or JSON (Character/Group file)
     @todo has to be implemented
     """
+    r = r'([1-9][0-9]{1,2})([HLMST]*)([A-Za-z][a-z])'
+    checkob.re.compile(r)
     clist = ["lvl", "hits", "AT", "OB", "DB", "Qu", "name", "type", "ooo", "status", "die", "parry", "no_parry", "mod", "hits/rnd", "weapon", "PP", "spell lvl"]
     status = {"ooo":0, "hits/rnd":0, "mod":{"mod":0, "rnd":0}, "parry":0, "no_parry":0, "stunned":0, "die":-1}
+    tlw = {'1hc': 'Weapon - 1-H Concussion',
+           '1he': 'Weapon - 1-H Edged',
+           '2h': 'Weapon - 2-Handed',
+           'dsp': 'Directed Spells',
+           'ma': 'Martial Arts - Striking',
+           'mia': 'Weapon - Missile Artillery',
+           'mis': 'Weapon - Missile',
+           'pa': 'Weapon - Pole Arms',
+           'spa': 'Special Attacks',
+           'sw': 'Martial Arts - Sweeps',
+           'th': 'Weapon - Thrown'}
     pass
 
 
