@@ -197,17 +197,7 @@ def createCombatList(filename):
     checkob.re.compile(r)
     clist = ["lvl", "hits", "AT", "OB", "DB", "Qu", "name", "type", "ooo", "status", "die", "parry", "no_parry", "mod", "hits/rnd", "weapon", "PP", "spell lvl"]
     status = {"ooo":0, "hits/rnd":0, "mod":{"mod":0, "rnd":0}, "parry":0, "no_parry":0, "stunned":0, "die":-1}
-    tlw = {'1hc': 'Weapon - 1-H Concussion',
-           '1he': 'Weapon - 1-H Edged',
-           '2h': 'Weapon - 2-Handed',
-           'dsp': 'Directed Spells',
-           'ma': 'Martial Arts - Striking',
-           'mia': 'Weapon - Missile Artillery',
-           'mis': 'Weapon - Missile',
-           'pa': 'Weapon - Pole Arms',
-           'spa': 'Special Attacks',
-           'sw': 'Martial Arts - Sweeps',
-           'th': 'Weapon - Thrown'}
+
     pass
 
 
