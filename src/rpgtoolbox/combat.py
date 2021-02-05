@@ -13,7 +13,7 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "03.02.2021"
+__updated__ = "04.02.2021"
 __author__ = "Marcus Schwamberger"
 
 import re
@@ -187,14 +187,14 @@ def switch(mystr):
 
 
 
-def createCombatList(filename):
+def createCombatList(filename = "data/default/nscs/default.csv"):
     """!
     This creates a list of combatants for @class combat from a CSV file (NSCs,
     Monster etc.) or JSON (Character/Group file)
     @todo has to be implemented
     """
     r = r'([1-9][0-9]{1,2})([HLMST]*)([A-Za-z][a-z])'
-    checkob.re.compile(r)
+    checkob = re.compile(r)
     clist = ["lvl", "hits", "AT", "OB", "DB", "Qu", "name", "type", "ooo", "status", "die", "parry", "no_parry", "mod", "hits/rnd", "weapon", "PP", "spell lvl"]
     status = {"ooo":0, "hits/rnd":0, "mod":{"mod":0, "rnd":0}, "parry":0, "no_parry":0, "stunned":0, "die":-1}
 
