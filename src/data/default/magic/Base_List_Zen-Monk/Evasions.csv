@@ -1,1 +1,24 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Swing I *,caster,---,self,U,"Allows caster to leap up to 10' vertically or laterally, grasp and swing from a fixed object, and land perfectly (up to 20' away from the object). The object could be a tree, branch, rafter, rope, chandelier, etc."
+2,Speed I *,caster,1 round,self,U,"Caster may act at twice his normal rate (i.e., 200% activity per round), but immediately afterwards, he must spend a number of rounds equal to the rounds speeded at half rate (i.e., only 50% activity per round)."
+3,Dodging I *,1 attack,1 round,self,U,"Allows caster to “dodge” one nonspell attack (missile or melee) that occurs during the same round that this spell is cast. The caster must be able to see the attack (i.e., they cannot be from the rear or invisible) and he must have room to dodge the attack; this results in the attack receiving a -50 modification."
+4,Swing III *,caster,---,self,U,"As Swing I, except three Swing I’s may be executed in rapid succession."
+5,,caster,---,self,U,
+6,,caster,1 round,self,U,
+7,,caster,3 rounds,self,U,
+8,,3 attacks,1 round,self,U,
+9,,caster,---,self,U,
+10,,caster,5 rounds,self,U,
+11,,caster,varies,self,U,
+12,,caster,3 rounds,self,U,
+13,,4 attacks,1 round,self,U,
+14,Swing 10 *,caster,1 round,self,U,"As Swing I, except ten Swing I’s may be executed in rapid succession."
+15,,caster,7 rounds,self,U,
+16,,caster,4 rounds,self,U,
+17,,caster,---,self,U,
+18,,4 attacks,1 round,self,U,
+19,,caster,10 rounds,self,U,
+20,,caster,5 rounds,self,U,
+25,,all attacks,1 round,self,U,
+30,,caster,10 rounds,self,U,
+50,,caster,1 round,self,U,

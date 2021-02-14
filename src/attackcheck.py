@@ -13,7 +13,7 @@ lorem ipsum
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "27.01.2021"
+__updated__ = "14.02.2021"
 __author__ = "Marcus Schwamberger"
 
 import os
@@ -22,6 +22,7 @@ from rpgtoolbox.combat import *
 from rpgToolDefinitions.helptools import RMDice as Dice
 from gui.window import *
 from tkinter import filedialog
+from tkinter.ttk import Combobox
 
 
 
@@ -129,10 +130,14 @@ class atWin(blankWindow):
         self.atlist.sort()
         self.__selectAT = StringVar()
         self.__selectAT.set(self.atlist[0])
-        self.__ATOpt = OptionMenu(self.window,
-                                  self.__selectAT,
-                                  *self.atlist,
-                                  )
+        self.__ATOpt = Combobox(self.window,
+                                 values = self.atlist,
+                                 textvariable = self.__selectAT,
+                                 width = 20)
+#        self.__ATOpt = OptionMenu(self.window,
+#                                  self.__selectAT,
+#                                  *self.atlist,
+#                                  )
         self.__ATOpt.grid(column = 1,
                           row = 0,
                           sticky = "W")
@@ -184,10 +189,15 @@ class atWin(blankWindow):
 
         self.__maxlvl = StringVar()
         self.__maxlvl.set("H")
-        self.__maxOpt = OptionMenu(self.window,
-                                   self.__maxlvl,
-                                   *["S", "M", "L", "H"]
-                                   )
+        self.__maxOpt = Combobox(self.window,
+                                 values = ["S", "M", "L", "H"],
+                                 textvariable = self.__maxlvl,
+                                 width = 3)
+#        self.__maxOpt.bind('<<ComboboxSelected>>', output)
+#        self.__maxOpt = OptionMenu(self.window,
+#                                   self.__maxlvl,
+#                                   *["S", "M", "L", "H"]
+#                                   )
         self.__maxOpt.grid(column = 10, row = 0, sticky = "W")
 
         Button(self.window,
@@ -227,10 +237,14 @@ class atWin(blankWindow):
         self.critlist.sort()
         self.__selectCrit = StringVar()
         self.__selectCrit.set(self.critlist[0])
-        self.__CritOpt = OptionMenu(self.window,
-                                  self.__selectCrit,
-                                  *self.critlist,
-                                  )
+        self.__CritOpt = Combobox(self.window,
+                                 values = self.critlist,
+                                 textvariable = self.__selectCrit,
+                                 width = 20)
+#        self.__CritOpt = OptionMenu(self.window,
+#                                  self.__selectCrit,
+#                                  *self.critlist,
+#                                  )
         self.__CritOpt.grid(column = 1, row = 2, sticky = "W")
 
         Label(self.window,

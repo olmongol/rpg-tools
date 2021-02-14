@@ -1,12 +1,12 @@
-name,lvl,Qu,AT,hits,PP,size,OB melee,OB missile,DB,DBm,comment,number,immune,weakness
-Warg,8,16,4,180,0,L,90LBi/60MBa/75MBi,0xx,55,0,,4-20,,
-Warg (schwach),5,12,4,160,0,L,85LBi/50MCl,0xx,55,0,Often ridden by Orcs,4-20,,
-Ork (niederer),1,0,3,35,0,M,35sc,35sb,25,25,,2-40,,
-Ork (schwacher),3,0,10,60,0,M,60sc,60sb,30,30,,2-40,,
-Ork (stark),5,0,16,85,0,M,75sc,75sb,40,40,,1-5,,
-Uruk,5,0,20,86,0,M,90bs,90cb,50,50,They can move in sunlight.,2-20,,
-Forest Troll,6,0,11,100,0,L,70LCl/60LBi,0xx,10,0,Degenerate even by Trollish standards,1-4,,
-Hill Troll,10,0,11,150,0,L,95LBa/85LCl/40cl,0xx,20,0,Some use weapons,1-3,,sunlight;mod:-50
-Stone Troll,7,0,11,120,0,L,80LBa/65LCl/49cl,0xx,15,0,Turn to stone in direct sunlight,1-5,,sunlight;die:6;ooo:6
-young Troll,4,8,11,80,0,M,45LCl/35LBi/20cl,0xx,15,0,"Faster, but mor rash than their elders.",1-4,,
-Wight,7,0,2,100,0,L,100bs/55MBa,0xx,75,25,,1-5,stunned,
+name,lvl,Qu,AT,hits,PP,size,OB melee,OB missile,DB,DBm,comment,type,immune,weakness,number
+Warg,8,16,4,180,0,L,90LBi/60MBa/75MBi,0xx,55,0,,warg,,,4-20
+Warg (schwach),5,12,4,160,0,L,85LBi/50MCl,0xx,55,0,Often ridden by Orcs,warg,,,4-20
+Ork (niederer),1,0,3,35,0,M,35sc,35sb,25,25,,orc,,,2-40
+Ork (schwacher),3,0,10,60,0,M,60sc,60sb,30,30,,orc,,,2-40
+Ork (stark),5,0,16,85,0,M,75sc,75sb,40,40,,orc,,,1-5
+Uruk,5,0,20,86,0,M,90bs,90cb,50,50,They can move in sunlight.,orc,,,2-20
+Forest Troll,6,0,11,100,0,L,70LCl/60LBi,0xx,10,0,Degenerate even by Trollish standards,troll,,,1-4
+Hill Troll,10,0,11,150,0,L,95LBa/85LCl/40cl,0xx,20,0,Some use weapons,troll,,sunlight;mod:-50,1-3
+Stone Troll,7,0,11,120,0,L,80LBa/65LCl/49cl,0xx,15,0,Turn to stone in direct sunlight,troll,,sunlight;die:6;ooo:6,1-5
+young Troll,4,8,11,80,0,M,45LCl/35LBi/20cl,0xx,15,0,"Faster, but mor rash than their elders.",troll,,,1-4
+Wight,7,0,2,100,0,L,100bs/55MBa,0xx,75,25,,ghost,stunned;hits/rnd;mod,,1-5
