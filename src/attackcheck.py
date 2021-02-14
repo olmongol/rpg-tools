@@ -325,7 +325,7 @@ class atWin(blankWindow):
         This checks the result of a roll against a critical table
         """
         words = {"hits": "additional hits: {}\n",
-               "mod": "Modifier {} for {} rounds\n",
+               "mod": "Modifier {} for {} rounds ({} d : {} h : {} m : {} s)\n",
                "mod_attacker": "Attacker's Modifier {} for {} rounds\n",
                "die":"the foe dies in {} rounds\n",
                "ooo": "foe is out of order for {} rounds\n",
@@ -360,9 +360,17 @@ class atWin(blankWindow):
 
                     if key in self.crittbls[self.__selectCrit.get()].crithit["alternate"].keys():
 
-                        if key in ["mod", "mod_attacker"]:
+                        if key in ["mod_attacker"]:
                             result += words[key].format(self.crittbls[self.__selectCrit.get()].crithit["alternate"][key][key],
                                                         self.crittbls[self.__selectCrit.get()].crithit["alternate"][key]["rnd"])
+                        elif key == "mod":
+                            result += words[key].format(self.crittbls[self.__selectCrit.get()].crithit["alternate"][key][key],
+                                                        self.crittbls[self.__selectCrit.get()].crithit["alternate"][key]["rnd"],
+                                                        self.crittbls[self.__selectCrit.get()].crithit["alternate"][key]["rnd"] // (24 * 360),
+                                                        self.crittbls[self.__selectCrit.get()].crithit["alternate"][key]["rnd"] % (24 * 360) // 360,
+                                                        self.crittbls[self.__selectCrit.get()].crithit["alternate"][key]["rnd"] % (24 * 360) % 360 // 6,
+                                                        self.crittbls[self.__selectCrit.get()].crithit["alternate"][key]["rnd"] % (24 * 360) % 360 % 6 * 10
+                                                        )
                         else:
                             result += words[key].format(self.crittbls[self.__selectCrit.get()].crithit["alternate"][key])
 
@@ -379,7 +387,12 @@ class atWin(blankWindow):
 
             if self.crittbls[self.__selectCrit.get()].crithit["mod"]["mod"] != 0:
                 result += words["mod"].format(self.crittbls[self.__selectCrit.get()].crithit["mod"]["mod"],
-                                             self.crittbls[self.__selectCrit.get()].crithit["mod"]["rnd"])
+                                             self.crittbls[self.__selectCrit.get()].crithit["mod"]["rnd"],
+                                             self.crittbls[self.__selectCrit.get()].crithit["mod"]["rnd"] // (24 * 360),
+                                             self.crittbls[self.__selectCrit.get()].crithit["mod"]["rnd"] % (24 * 360) // 360,
+                                             self.crittbls[self.__selectCrit.get()].crithit["mod"]["rnd"] % (24 * 360) % 360 // 6,
+                                             self.crittbls[self.__selectCrit.get()].crithit["mod"]["rnd"] % (24 * 360) % 360 % 6 * 10
+                                             )
 
             if self.crittbls[self.__selectCrit.get()].crithit["mod_attacker"]["mod_attacker"] != 0:
                 result += words["mod_attacker"].format(self.crittbls[self.__selectCrit.get()].crithit["mod_attacker"]["mod_attacker"],
