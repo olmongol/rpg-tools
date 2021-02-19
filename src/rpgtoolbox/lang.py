@@ -22,7 +22,7 @@ Currently supported languages are:
 @license GNU V3.0
 '''
 __version__ = "1.1"
-__updated__ = "03.02.2021"
+__updated__ = "19.02.2021"
 ##
 # @var supportedrpg
 # Supported RPG systems
@@ -225,6 +225,8 @@ txtbutton = {'but_ok': {'de': 'OK',
                               "en":"details"},
              'but_magic': {"de": "verzaubern",
                             "en": "enchant"},
+             'but_rr': {'de': 'Widerstandswurf',
+                       'en': 'Resistance Roll'},
              }
 
 ## @var txtmenu
@@ -524,8 +526,8 @@ wintitle = {'opt_lang': {'de': 'Spracheinstellungen',
             'rm_maneuver': {"de": "Manöverproben",
                             'en': 'Maneuver Window'
                             },
-            'rm_RR': {'de': 'Widerstandswurftester',
-                       'en': 'Resistance Roll Checker'},
+            'rm_RR': {'de': 'Widerstandswurf',
+                       'en': 'Resistance Roll'},
             }
 
 ## @var labels
@@ -736,6 +738,15 @@ labels = {'cfg_path': {'de': 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei',
           "weapon":{"en": "Weapon",
                      "de": "Waffe"
                      },
+          "attack lvl": {"de":"Angriffsstufe",
+                         "en": "Attack Level",
+                         },
+          "success": {"de": "Erfolg",
+                       "en":"Success",
+                       },
+          "fail": {"de": "Fehlschlag",
+                    "en": "Failure",
+                    },
 
           }
 
@@ -1253,6 +1264,14 @@ critc = {"P": {"en":"puncture",
 weapontypes = { "en": ["normal", "magic", "mithril", "holy", "slaying"],
                "de":["normal", "magisch", "Mithril", "heilig", "tötend"],
               }
+
+# ['RRArc', 'RRC/E', 'RRC/M', 'RRChan', 'RRDisease', 'RRE/M', 'RREss', 'RRFear', 'RRMent', 'RRPoison']
+rrtypes = {"param": ['RRArc', 'RRC/E', 'RRC/M', 'RRChan', 'RRDisease', 'RRE/M', 'RREss', 'RRFear', 'RRMent', 'RRPoison'],
+           "en": ['RR Arcane', 'RR Channeling/Essence', 'RR Channeling/Mentalism', 'RR Channeling', 'RR Disease', 'RR Essence/Mentalism',
+                    'RR Essence', 'RR Fear', 'RR Menalism', 'RR Poison'],
+           "de": ['WW Arkan', 'WW Leitmagie/Essenz', 'WW Leitmagie/Mentalismus', 'WW Leitmagie', 'WW Krankheit', 'WW Essenz/Mentalismus',
+                   'WW Essenz', 'WW Furcht', 'WW Mentalismus ', 'WW Gift'],
+           }
 #----------------------------------------------------------------------------
 # End of block
 #----------------------------------------------------------------------------

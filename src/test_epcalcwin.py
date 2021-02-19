@@ -21,6 +21,7 @@ import os
 import json
 from gui.window import *
 from rpgtoolbox import epcalc, rpgtools as rpg
+from rpgtoolbox.rrwindow import *
 from rpgToolDefinitions.epcalcdefs import maneuvers
 from pprint import pprint
 from rpgToolDefinitions.helptools import RMDice as dice
@@ -260,7 +261,7 @@ class EPCalcWin(blankWindow):
         Button(self.window,
                text = labels["win_fight"][self.lang],
                command = self.notdoneyet
-               ).grid(row = 3, column = 6, rowspan = 2, sticky = "NEWS")
+               ).grid(row = 3, column = 6, sticky = "NEWS")
 
         #row 4
         Label(self.window,
@@ -288,6 +289,10 @@ class EPCalcWin(blankWindow):
                text = txtbutton["but_add"][self.lang],
                command = self.__calcCrit
                ).grid(row = 4, column = 4, sticky = "EW")
+        Button(self.window,
+               text = txtbutton["but_rr"][self.lang],
+               command = self.__rrroll
+               ).grid(row = 4, column = 6, sticky = "EW")
 
         #row 5
         Label(self.window,
@@ -534,6 +539,19 @@ class EPCalcWin(blankWindow):
         for elem in self.charlist:
             if elem['player'] == who:
                 manWin(elem, self.lang)
+
+
+    def __rrroll(self):
+        '''!
+        This opens a resistance roll window
+        ----
+        @todo has to be implemented fully
+        '''
+        who = self.__selecPlayer.get()
+#        for elem in self.charlist:
+#            if elem['player'] == who:
+#                RRWin(self.lang, elem, self.charlist, self.storepath)
+        RRWin(self.lang, who, self.charlist, self.storepath)
 
 
     def __save(self):
