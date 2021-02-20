@@ -932,7 +932,7 @@ class manWin(object):
         '''
         dummy = self.diceroll.get()
         um = re.compile(r"(um|Um|UM) ([0-9]{1,3})")
-        sr = re.compile(r"[0-9]+")
+        sr = re.compile(r"[-]*[0-9]+")
 
         if um.match(dummy):
             self.total = int(um.match(dummy).group(2))
