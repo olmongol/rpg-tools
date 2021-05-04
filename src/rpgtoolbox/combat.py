@@ -13,7 +13,7 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "25.01.2021"
+__updated__ = "12.02.2021"
 __author__ = "Marcus Schwamberger"
 
 import re
@@ -28,26 +28,112 @@ from rpgtoolbox.lang import attackc, critc
 
 from rpgToolDefinitions.helptools import RMDice
 
-#def splitExceptBetween(inputstr, delimiter, quotes):
-#    inside = -1
-#    result = []
-#    oldt = 0
-#    for index, letter in enumerate(inputstr):
-#        if letter==quotes:
-#            inside = -inside
-#        elif letter==delimiter and inside == -1:
-#            result.append(inputstr[oldt:index])
-#            oldt = index+1
-#    if oldt<len(inputstr):
-#        result.append(inputstr[oldt:])
-#    return result
+
+
+def sortIniti(cl = []):
+    """!
+    Sorts list of tuples decending by the first tuple entry.
+    @paran cl list of tuple
+    \return sorted tuple list
+    """
+    return sorted(cl, key = lambda x: x[0], reverse = True)
 
 
 
-def makeCombatant(jcont):
+def getWeaponTab(filename = "data/default/fight/weapons_sc.json"):
+    """!
+    Reads weapon/attack data table from json file
+    """
+    with open(filename, "r") as fp:
+        content = json.load(fp)
+
+    return content
+
+
+
+def convertNSC(filename = "data/default/nscs/default.csv"):
+    """!
+    Converts CSV NSCs/monsters into combatants
+    """
+
+    weapons = getWeaponTab()
+    r = r"([1-9][0-9]{1,2})([HLMST]*)([A-Za-z][a-z])"
+    check = re.compile(r)
+
+    with open(filename, "r") as fp:
+        cont = fp.read()
+
+    cont = cont.strip("\n").split("\n")
+    header = splitE(cont[0])
+    nsclist = []
+    for l in range(1, len(cont)):
+        dummy = splitE(cont[l])
+        monster = {'log': {'crits': {'A': [],
+                                      'B': [],
+                                      'C': [],
+                                      'D': [],
+                                      'E': []
+                                      },
+                            'gained crits': {'A': 0,
+                                             'B': 0,
+                                             'C': 0,
+                                             'D': 0,
+                                             'E': 0},
+                            'gained hits': 0,
+                            'kill': [],
+                            'spells': {}
+                            },
+                    'status': {'cur hits': 61,
+                               'die':-1,
+                               'hits/rnd': 0,
+                               'injuries': [],
+                               'mod': 0,
+                               'no_parry': 0,
+                               'ob_mod': 0,
+                               'ooo': 0,
+                               'parry': 0,
+                               'stunned': 0,
+                               'temp mod': []
+                               },
+                    'ammo':[],
+                    'shield':[],
+                    'weapon melee':[],
+                    'weapon missile':[],
+                    }
+        for i in range(0, len(header)):
+
+            #check for different OBs
+            if header[i] in ["OB melee", "OB missile"]:
+
+                if dummy[i] != "0xx":
+                    dummy[i] = dummy[i].strip("\t ").split("/")
+
+                    #divide data into OB (value), size, and attack/weapon type
+                    for j in range(0, len(dummy[i])):
+                        passed = check.match(dummy[i][j])
+
+                        if passed:
+                            dummy[i][j] = ["{}: {}".format(weapons[passed.groups()[2]]["name"],
+                                                        weapons[passed.groups()[2]]["table"]),
+                                                        passed.groups()[0], passed.groups()[1]]
+                            if passed.groups()[1] == "":
+                                dummy[i][j][2] = "H"
+
+                else:
+                    dummy[i] = []
+
+            monster[header[i]] = dummy[i]
+
+        nsclist.append(monster)
+
+    return nsclist
+
+
+
+def makeCombatant(achar = {}):
     """!
     This function creates a combatant dictionary out of a character dictionary.
-    \param jcont character dictionary
+    \param achar character dictionary
     \retval combatant unified combatant dictionary
     """
     atklvl = {"1":"S",
@@ -56,19 +142,19 @@ def makeCombatant(jcont):
               "4":"H"
               }
 
-    combatant = {"name": jcont["name"],
-                 "Qu": jcont["Qu"]["total"],
-                 "hits": jcont["cat"]["Body Development"]["Skill"]["Body Development"]["total bonus"],
-                 "PP": jcont["cat"]["Power Point Development"]["Skill"]["Power Point Development"]["total bonus"],
-                 "DB": 3 * jcont["Qu"]["total"] + jcont["armquickpen"],
-                 "AT": jcont["AT"],
+    combatant = {"name": achar["name"],
+                 "Qu": achar["Qu"]["total"],
+                 "hits": achar["cat"]["Body Development"]["Skill"]["Body Development"]["total bonus"],
+                 "PP": achar["cat"]["Power Point Development"]["Skill"]["Power Point Development"]["total bonus"],
+                 "DB": 3 * achar["Qu"]["total"] + achar["armquickpen"],
+                 "AT": achar["AT"],
                  "OB melee":[],
                  "weapon melee":[],
                  "OB missile":[],
                  "weapon missile":[],
                  "ammo":[],
                  "shield":[],
-                 "status":{"cur hits":jcont["cat"]["Body Development"]["Skill"]["Body Development"]["total bonus"],
+                 "status":{"cur hits":achar["cat"]["Body Development"]["Skill"]["Body Development"]["total bonus"],
                             "mod":0,
                             "temp mod":[],
                             "hits/rnd": 0,
@@ -99,28 +185,36 @@ def makeCombatant(jcont):
                  "size":"M"
 
                  }
-    # determine weaponless combat skills:
-    if ["Brawling", "S", jcont["cat"]["Special Attacks"]["Skill"]["Brawling"]["rank"]] > 0:
-        combatant["OB melee"].append(["Brawling", "S", jcont["cat"]["Special Attacks"]["Skill"]["Brawling"]["total bonus"]])
-        combatant["OB weapon"].append(["bare hands", "data/default/fight/attacks/Brawling.csv", "data/default/fight/brawling_crit.csv"])
 
-    for c in ["Martial Arts - Striking", "Martial Arts - Sweeps"]:
-        dummy = []
+    # defermine fighting skills
 
-        for s in jcont["cat"][c]["Skill"].keys():
+    for cat in achar["cat"].keys():
+        combatant["lvl"] = achar["lvl"]
+        if "Weapon" in cat or "Martial" in cat or "Directed" in cat or "Special Attacks" == cat:
 
-            if s not in ["Progression"]:
+            for skill in achar["cat"][cat]["Skill"].keys():
 
-                if jcont["cat"][c]["Skill"][s]["rank"] > 0:
-                    dummy.append(s)
+                if achar["cat"][cat]["Skill"][skill] not in ["Standard", "Combined"]:
 
-                    if s[-1] in atklvl.keys():
-                        dummy.append(atklvl[s[-1]])
-
+                    if skill not in ["Striking Degree 1", "Striking Degree 3", "Striking Degree 3",
+                                     "Sweeps Degree 1", "Sweeps Degree 3", "Sweeps Degree 3",
+                                     "Boxing", "Wrestling"]:
+                        size = "H"
                     else:
-                        dummy.append(atklvl["1"])
+                        if "3" in skill:
+                            size = "L"
+                        elif "2" in skill:
+                            size = "M"
+                        else:
+                            size = "S"
 
-                    dummy.append(jcont["cat"][c]["Skill"][s]["total bonus"])
+                    if achar["cat"][cat]["Skill"][skill]["rank"] > 0:
+                        dummy = ["{}: {}".format(cat, skill), achar["cat"][cat]["Skill"][skill]["total bonus"], size]
+
+                        if cat in ["Directed Spells", "Weapon - Missile", "Weapon - Missile Arillery", "Weapon - Thrown"]:
+                            combatant["OB missile"].append(dummy)
+                        else:
+                            combatant["OB melee"].append(dummy)
 
     if combatant["DB"] < 0:
         combatant["DB"] = 0
@@ -136,7 +230,7 @@ def rollInitative(Qu = 0, mod = 0):
     @param mod modifier
     @retval roll initiative result
     """
-    roll = dice(19)[0] + 1 + Qu + mod
+    roll = dice(10)[0] + 1 + Qu + mod
     return roll
 
 
@@ -168,18 +262,41 @@ def switch(mystr):
 
 
 
-def createCombatList(filename):
+def createCombatList(filename = "data/default/nscs/default.csv"):
     """!
     This creates a list of combatants for @class combat from a CSV file (NSCs,
     Monster etc.) or JSON (Character/Group file)
     @todo has to be implemented
     """
+    r = r'([1-9][0-9]{1,2})([HLMST]*)([A-Za-z][a-z])'
+    checkob = re.compile(r)
+    clist = ["lvl", "hits", "AT", "OB", "DB", "Qu", "name", "type", "ooo", "status", "die", "parry", "no_parry", "mod", "hits/rnd", "weapon", "PP", "spell lvl"]
+    status = {"ooo":0, "hits/rnd":0, "mod":{"mod":0, "rnd":0}, "parry":0, "no_parry":0, "stunned":0, "die":-1}
+
     pass
 
 
 
-class crittable():
+class fumbletable():
+    """!
+    This class reads out fumble tables and delivers dice roll results on them
     """
+
+
+    def __init__(self, fumblefilename = "./data/default/fight/combat_fumble.csv", lang = "en"):
+        """!
+        Constructor
+        @param lang configured language: en, de
+        @param fumblefilename name and path of the fumble table csv to read
+        ---
+        @todo ths has to be implemented
+        """
+        pass
+
+
+
+class crittable():
+    """!
     This Class delivers results from crit tables to a combatant.
     """
 

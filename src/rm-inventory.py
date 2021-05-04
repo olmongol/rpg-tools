@@ -35,7 +35,7 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 
-__updated__ = "17.01.2021"
+__updated__ = "01.02.2021"
 
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
@@ -3346,6 +3346,10 @@ class editinventory(blankWindow):
         @param item dictionary holding item values
         @param shoptype item category
         @param storepath path for storing the data into the character files.
+        ----
+        @bug previous selected item must be double clicked again to ensure not to
+        overwrite the following item with buggy data.
+
         """
 
         self.lang = lang

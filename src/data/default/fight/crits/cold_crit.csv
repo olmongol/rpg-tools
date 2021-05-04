@@ -1,0 +1,96 @@
+crit,roll,description,hits,hits/rnd,mod,mod_attacker,stunned,die,ooo,no_parry,parry,cover,alternate,damage_type
+A,5,Cold breeze yields little damage.,0,0,0,0,0,-1,0,0,0,,,
+A,10,Feeble and poorly directed. Foe is not really concerned.,1,0,0,0,0,-1,0,0,0,,,
+A,15,Foe dodges your attack with too much effort. You have initiative.,2,0,0,0,0,-1,0,0,0,,,
+A,20,Foe is fearful of your assault. Your attack gives you the initiative.,3,0,0,0,0,-1,0,0,0,,,
+A,35,Burst of cold to the face sends foe stumbling back. You have initiative for 2 rounds.,4,0,0,0,0,-1,0,0,0,,,
+A,45,Your attack freezes one of foe's metal items. Foe takes a defensive stance.,5,0,0,0,0,-1,0,0,1,,,
+A,50,Scatter your attack all over foe's chest. Foe is covered with frost. He looks ghoulish.,6,0,0,0,0,-1,0,0,2,,,
+A,55,Blow to foe's chest. Your attack has force and foe stumbles.,7,0,0,0,1,-1,0,0,0,,,
+A,60,Strike falls on an exposed area. Foe gives ground. He is shaken but his guard is still up.,8,0,0,0,2,-1,0,0,0,,,
+A,65,Well placed. Strike slams into foe's weapon arm. Foe's evasion is comical.,2,0,0,0,0,-1,0,0,1,arm,hits:9;stunned:1;no_parry:1,
+A,66,Steal the heat from foe's neck and chest area. Foe drops anything he is holding and blocks his throat.,10,0,0,0,3,-1,0,3,0,,,
+A,70,Score a hit to foe's side. It produces mild frostbite. Any herbs on foe's belt are ruined.,10,0,-5,0,1,-1,0,1,0,,,muscle
+A,75,Strong unbalancing blast. Foe's body temperature drops.,11,0,-10,0,2,-1,0,0,0,,,muscle
+A,80,Strike to foe's shield arm. If foe sees it he may block with a shield. Foe recoils 5 feet from the blast.,2,0,0,0,0,-1,0,0,2,shield,hits:12;stunned:2;no_parry:1,
+A,85,Back blast. Any glass on back is broken. Painful bruise.,13,0,0,0,2,-1,0,0,2,,,muscle
+A,90,"Assault to foe's lower leg freezes part of it. Foe falls down. Without leg armor, foot must be amputated.",0,0,-10x6,2,0,-1,0,0,0,,mod:-70,muscle
+A,95,"Blow lands on foe's face. It freezes his nose, ears and cheeks. Foe collapses. Without helm, foe loses both ears.",0,0,0,0,3,-1,0,0,0,helm,stunned:6;mod:-50,organ
+A,99,Chest strike sends foe over hard. He is knocked out. His lips freeze and split open. He cannot speak for 2 weeks.,0,0,0,0,9,-1,0,0,0,,,
+A,100,Foe is sent into a month long coma by the attack. He loses his nose to frostbite.,21,0,0,0,0,-1,259200,0,0,,,organ
+B,5,Attack yields a brief climate change.,0,0,0,0,0,-1,0,0,0,,,
+B,10,Burst of cold causes target mild discomfort.,2,0,0,0,0,-1,0,0,0,,,
+B,15,Foe evades frantically. He is still chilled. You have initiative next round.,3,0,0,0,0,-1,0,0,0,,,
+B,20,Assault blinds foe for a moment. You have 2 rounds of initiative.,4,0,0,0,0,-1,0,0,0,,,
+B,35,Frost laden blast forces foe back. Any containers of water freeze and burst open. You have 2 rounds of initiative.,5,0,0,0,0,-1,0,0,0,,,
+B,45,Foe makes a futile attempt to parry the attack;. He loses 3 rounds of initiative.,6,0,0,0,0,-1,0,0,1,,,
+B,50,Cold penetrates foe's chest and gives him frostbite. The pain must be severe. He stumbles back.,7,2,0,0,0,-1,0,2,0,,,muscle/organ
+B,55,Strong off-center blast takes foe in his shield arm wrist and side.,8,3,0,0,1,-1,0,0,0,,,muscle
+B,60,Foe turns to avoid your attack and exposes his back. All wood on his back becomes frozen and brittle.,9,2,0,0,2,-1,0,0,0,,,muscle
+B,65,Solid strike to foe's forearm. Foe's hand frozen shut for 1 round.,10,3,-5,0,1,-1,0,1,0,,,muscle
+B,66,Foe is covered by the blast. All extremities are damaged. The pain grows until foe is warmed up.,0,3,0,0,4,-1,0,4,0,,,muscle
+B,70,Spray foe's face with a powerful chill. He tries without success to push your attack away . The damage endures.,11,0,-10,0,2,-1,0,1,0,,,muscle
+B,75,Strike lands on foe's legs. The pain and shock cause him to falter.,12,3,0,0,2,-1,0,2,0,,,muscle
+B,80,Chest strike freezes what it touches. Equipment is damaged. The pain persists. Chest armor is destroyed.,13,3,0,15x1,4,-1,0,0,0,,hits:20;mod:-15;parry:4,muscle
+B,85,"Clean hard strike pushes foe over, cracking ribs. His recovery lacks grace.",12,4,-15,0,2,-1,0,2,0,,,bones/muscle
+B,90,"Strike lower leg and freeze it. With leg armor, he needs aid in 20 rnds to keep the foot. Without leg armor, it's gone.",0,0,0,0,3,-1,0,0,0,leg,mod:-75,muscle
+B,95,Connect with foe's hip. Hip is fractured. Skin and muscles are frostbitten. Foe falls down. He is almost helpless.,17,0,-75,0,3,-1,0,3,0,,,muscle
+B,99,"Blast foe's neck and collarbone. Neck armor will block the attack, but foe is knocked out. If the neck is exposed it freezes solid and foe dies in 9 rounds.",0,0,0,0,0,-1,1000,0,0,neck,die:9,
+B,100,Assault drops foe's body temperature; his heart stops. He dies in 1 round; well preserved. You are respected by all.,0,0,0,5x1,0,1,0,0,0,,,organ
+C,5,You give foe's cheeks a rosy hue.,1,0,0,0,0,-1,0,0,0,,,
+C,10,Your attack conjures a bitter arctic wind. Foe is not impressed.,3,0,0,0,0,-1,0,0,0,,,
+C,15,Encrust foe with ice. He is unbalanced as he shakes it off. You gain initiative.,4,0,0,0,0,-1,0,0,0,,,
+C,20,Numbing whirlwind encircles foe. You have 2 rounds of initiative.,5,0,0,0,0,-1,0,0,0,,,
+C,35,Disorient foe with a tricky shot. His garments have failed to keep out the chill. Press him while you can.,6,0,0,0,0,-1,0,0,1,,,
+C,45,Catch foe in lower leg. You gain initiative while foe regains footing.,7,1,0,0,0,-1,0,0,2,,,
+C,50,Blast hits foe's chest and scatters. The cold stings all exposed skin. Foe has a shocked look on his face.,8,0,0,0,1,-1,0,0,0,,,
+C,55,"Hard strike to chest, armor does not help. Blow leaves its frigid mark",4,0,-10,0,2,-1,0,0,0,,,muscle
+C,60,Strong blast hits foe low. His legs almost give with the pain. Foe recoils 5 feet away from your assault.,5,0,0,0,0,-1,0,0,2,leg,hits:9;stunned:1;no_parry:1,
+C,65,Blast freeze dries organic material on foe's back.,11,0,0,0,4,-1,0,0,0,,,
+C,66,Foe's response to your burst of cold sends him to the ground hard. Foe jams his wrist into the ground.,0,4,-15,0,6,-1,0,0,0,,,muscle/tendons
+C,70,Freeze foe's weapon arm. It is useless until it is warmed up. Foe is in great pain and stuggles to stand.,12,0,-15,0,2,-1,0,1,0,,,
+C,75,Side strike hits foe just right. Any leather or cloth freezes and shatters.,0,3,-20,0,2,-1,0,2,0,,,muscle
+C,80,"Blow to foe's arms. Any metal armguards freeze, immobilizing arms until the armor is removed or unfrozen.",0,4,0,0,3,-1,0,0,0,chest,hits/rnd:4;mod:-25,muscle
+C,85,Arctic blast to foe's torso. Foe is badly frostbitten and falls to knees in pain.,0,5,-40,0,6,-1,0,0,0,,,muscle/organ
+C,90,"Blow to foe's knees. They freeze up and foe falls. On impact, foe shatters a knee. His fall makes it twice as bad.",0,6,-80,0,9,-1,0,0,0,,,bones/muscle
+C,95,Freeze the blood in foe's thigh. As it warms the clots move to his heart killing him in 9 rounds.,15,0,-30,0,3,9,0,3,0,,,muscle/organ
+C,99,Your onslaught freezes foe's torso and head. Foe remains standing for a moment. He goes into shock and dies 6 rounds later.,18,0,0,0,0,6,6,0,0,,,muscle/organ
+C,100,"Blast freezes foe's eyes, mouth, and neck. Foe falls down in a coma for 2 weeks and paralyzed from neck down.",0,0,0,0,0,-1,120960,0,0,,,organ
+D,5,"Your blast looks good, works poorly.",2,0,0,0,0,-1,0,0,0,,,
+D,10,Foe shields himself. Your attack misses most of its mark.,4,0,0,0,0,-1,0,0,0,,,
+D,15,Light frosting leaves foe unsteady. You must hit him again.,5,0,0,0,0,-1,0,0,1,,,
+D,20,Foe's attempts to evade and strikes himself. You try not to laugh.,6,0,0,0,0,-1,0,0,1,,,
+D,35,"With a burst of white, you shower foe with ice crystals. Foe closes his eyes to avoid the onslaught.",7,1,-20,0,0,-1,0,0,1,,,muscle
+D,45,Foe ices down; freezing any exposed skin. The pain is great.,9,2,-20,0,1,-1,0,0,0,,,muscle/organ
+D,50,Assault lands on foe's weapon arm. He makes a supreme effort to pull his arm away. Foe is unable to protect himself.,9,2,-10,0,1,-1,0,0,0,,,muscle
+D,55,Heavy blow to shield shoulder. Foe is knocked back 5 feet. Muscle damage.,10,3,0,0,2,-1,0,0,0,,,muscle
+D,60,Miss foe's arm and strike his thigh. He loses his footing. Skin and nerve damage causes foe pain.,0,3,-15,0,1,-1,0,1,0,,,organ/nerves
+D,65,"Blast freezes foe's arm and shield. If no shield,arm useless from nerve damage.",20,0,0,0,0,-1,0,0,0,shield,stunned:5,nerves
+D,66,Frigid onslaught fills foes eyes and mouth with ice. Foe is blinded for a moment until he can clear his eyes.,0,4,-30,0,4,-1,0,0,0,,,muscle
+D,70,Polar wind pierces deep into chest and leaves foe trembling. You are close to victory. Foe faces the wrong way.,15,0,-5,0,1,-1,0,1,0,chest,hits:13;stunned:3;no_parry:1;mod:-20,muscle/organ
+D,75,Blast drains the heat from foe's weapon arm. Hand and arm are useless. The hand is frozen closed.,13,0,-50,0,2,-1,0,2,0,,,muscle
+D,80,Strike to foe's side downs him. Severe frostbite hampers movements. Any liquid among foe's equipment freezes.,15,0,-25,0,3,-1,0,3,0,,,muscle
+D,85,Freezes foe's hands. Arms are useless. Foe drops what he was carrying.,0,6,0,0,9,-1,0,0,0,,,muscle
+D,90,Chest hit causes much pain. If foe is warmly clothed he is knocked out. If not he dies of shock in 12 rounds.,25,0,-40,0,0,-1,0,0,0,warm clothes,hits:25;mod:-40;die:12,muscle/organ
+D,95,"All warmth is driven from foe's lower body. Vital organs are destroyed. Foe is immobile, and dies in 9 rounds.",18,0,0,0,0,9,9,0,0,,,muscle/organ
+D,99,Foe's heart and lungs are suddenly frozen by your arctic blast. Foe is finished. He dies of shock and suffocation in 6 rounds.,19,0,0,0,0,9,9,0,0,,,muscle/organ
+D,100,"Massive assault freezes foe's body completely. He remains standing, but if knocked over he will shatter.",20,0,0,0,0,0,0,0,0,,,muscle/organ
+E,5,Sharp and cold air assaults foe's skin.,3,0,0,0,0,-1,0,0,0,,,
+E,10,Ice up the ground and foe's feet. He springs clear. You have initiative.,4,0,0,0,0,-1,0,0,0,,,
+E,15,Frigid strike to foe's torso and face. You have the initiative.,6,0,0,0,0,-1,0,0,1,,,
+E,20,Foe's failed efforts to avoid your attack puts him at a grave disadvantage.,7,0,0,0,0,-1,0,0,1,,,
+E,35,"Freeze foe's hair and scalp. If foe has long hair, it breaks off! Foe struggles in vain to repair the damage.",8,0,-15,0,0,-1,0,0,2,,,organ
+E,45,"Assault to foe's legs. Hypothermic, he struggles to remain standing.",0,0,-10,0,1,-1,0,0,0,,,muscle/organ
+E,50,Glancing strike to lower back. Foe is spun about and slings his weapon away. You have him now.,10,0,0,0,1,-1,0,0,0,,,
+E,55,Blow to side. Foe seeks to regain his wind and survive your next onslaught.,11,4,0,0,1,-1,0,1,0,,,muscle
+E,60,Your blast engulfs foe's weapon arm and climbs toward his torso. He steps away frantic to evade the pain.,10,4,-20,0,1,-1,0,1,0,,,muscle/organ
+E,65,Strike to foe's waist. All equipment on belt freezes and breaks if foe moves.,13,0,-30,0,3,-1,0,0,0,,,muscle/organ
+E,66,Your strike steals the heat out of foe's neck and upper chest. Nerves and muscles are damaged.,15,4,0,0,8,-1,0,8,0,,,nerves/muscle
+E,70,"Blow to foe's shield arm. He is knocked down. If foe has a shield, it is broken. If not, the arm is broken.",0,0,0,0,2,-1,0,0,0,shield,stunned:6,bones/muscle
+E,75,"Blast freezes weapon hand, shoulder and face. Foe is numb and needs time to warm up. Foe is still standing.",15,0,0,0,3,-1,0,0,0,,,muscle/tendons
+E,80,"Solid chest strike. Foe flips onto his back , dropping all he holds. Foe is at your mercy.",0,0,-30,0,12,-1,0,0,0,,,muscle
+E,85,Assault to throat and face is terminal. Foe is still active but dies in 12 rounds.,17,0,0,0,0,12,0,0,0,,,organ
+E,90,Your ruthless tempest entangles foe and steals the warmth from his body. He drops and dies in 9 inactive rounds.,0,0,0,0,0,9,9,0,0,,,organ
+E,95,Push foe backwards and off balance. The blood in foe's extremeties is frozen. He dies in 6 rounds of agony.,19,0,0,0,0,6,6,0,0,,,
+E,99,Foe is a lifeless frozen statue. He is quite dead and well preserved. Store in a cool dry place.,20,0,0,10x1,0,0,0,0,0,,,
+E,100,Foe freezes solid and shatters into a thousand pieces. Most land within 20 feet from where he was standing.,0,0,0,20x1,0,0,0,0,0,,,

@@ -65,7 +65,7 @@ class searchHerbsWin(blankWindow):
     """!
     This is the GUI for searching herbs in Middle-Earth.
     A list of characters can be loaded and a single character can be chosen for
-    the foragin check.
+    the foraging check.
     Found herbs, drugs and poisons may be added by click to the inventory of the
     selected character.
     """

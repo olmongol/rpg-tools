@@ -1,0 +1,10 @@
+roll,classification,description,success,time,mod
+ < -26,Spectacular Failure,Your spell fails; roll on the SL Spell Failure Table 6.6 and add 3x the total of all applicable modifications from the Spell Casting Modifications Table T4.6.,0.0,1.0,-30
+-25 < 04,Absolute Failure,Your spell fails; roll on the SL Spell Failure Table 6.6 and add 2x the total of all applicable modifications from the Spell Casting Modifications Table T4.6.,0.0,1.0,-10
+05 < 75,Failure,your spell fails; roll on the SL Spell Failure Table 6.6 and add 1x the total of all applicable modifications from the Spell Casting Modifications Table T4.6.,0.0,1.0,0
+UM < 66,Unusual Event,Your maneuver is beset by an unusual event. It may or may not be a beneficial occurrence (GM should choose or determine randomly),0.0,0.0,0
+76 < 90,Partial Success,"You complete part of the spell casting. You may cast the spell normally next round as 50% activity action (i.e., no static maneuver is required).",0.25,1.0,5
+91 < 110,Near Success,You cast your spell normally at the end of the deliberate action phase of the  current round.,1.0,1.0,10
+UM < 100,Unusual Success,Your spell is cast and you get a +30 bonus (non-cumulative) to your next spell casting static maneuver (if it occurs in the next 10 minutes),1.0,1.0,25
+111 < 175,Success,Your spell is cast normally.,1.0,1.0,20
+176 < ,Absolute Success,Your spell ist cast and you get a +10 bonus (non-cumulative) to your next spell casting static maneuver (if it occurs in the next 10 minutes).,1.0,1.0,30
