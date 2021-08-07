@@ -137,6 +137,8 @@ class atWin(blankWindow):
 
         if self.__enemypath[-4:].lower() == ".csv":
             self.enemygrp = readCSV(self.__enemypath)
+        else:
+            self.message("wrong file format: must be CSV")
         pass
 
 
