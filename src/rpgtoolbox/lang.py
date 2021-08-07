@@ -22,7 +22,7 @@ Currently supported languages are:
 @license GNU V3.0
 '''
 __version__ = "1.1"
-__updated__ = "19.02.2021"
+__updated__ = "24.07.2021"
 ##
 # @var supportedrpg
 # Supported RPG systems
@@ -290,7 +290,8 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                           'new_char': 'Neuer Charakter',
                           'new_grp': 'Neue Charaktergruppe',
                           'open_char': 'Charakterdatei öffnen',
-                          'open_party': 'Charaktergruppe öffnen',
+                          'open_party': u'Charaktergruppe öffnen',
+                          'open_enemy': u'Gegnergruppe öffnen',
                           'print': 'Drucken',
                           'pdf': "PDF erstellen",
                           },
@@ -305,7 +306,8 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                           'new_char': "New character",
                           'new_grp': "New character party",
                           'open_file': 'Open Character file',
-                          'open_party': 'Open Chargroup file',
+                          'open_party': 'Open Character Group file',
+                          'open_enemy': 'Open Enemy Group file',
                           'print': 'Print',
                           'pdf': "PDF generation"
                           },

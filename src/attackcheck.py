@@ -13,16 +13,22 @@ lorem ipsum
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "14.02.2021"
+__updated__ = "07.08.2021"
 __author__ = "Marcus Schwamberger"
 
 import os
+import json
+from tkinter import filedialog
+from tkinter.ttk import Combobox
+
 from rpgtoolbox.combat import *
 #from rpgtoolbox.rpgtools import dice
 from rpgToolDefinitions.helptools import RMDice as Dice
 from gui.window import *
-from tkinter import filedialog
-from tkinter.ttk import Combobox
+from rpgtoolbox import logbox as log
+from rpgtoolbox.globaltools import *
+
+logger = log.createLogger('AT-Window', 'debug', '1 MB', 1, './', logfile = "attackcheck.log")
 
 
 
@@ -44,6 +50,14 @@ class atWin(blankWindow):
         self.datadir = datadir
         self.attacktbls = {}
         self.crittbls = {}
+        self.__partypath = None
+        self.partygrp = None
+        self.__enemypath = None
+        self.enemygrp = None
+        self.mask = [txtwin['json_files'][self.lang],
+                     txtwin['grp_files'][self.lang],
+                     txtwin['csv_files'][self.lang],
+                     txtwin['all_files'][self.lang]]
 
         # read all attack tables
         for table in os.listdir("{}/fight/attacks".format(self.datadir)):
@@ -75,6 +89,7 @@ class atWin(blankWindow):
         self.helpmenu.add_separator()
         self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
                                   command = self._helpAbout)
+        logger.debug("__addHelpMenu: help menu build")
 
 
     def __addMenu(self):
@@ -84,13 +99,45 @@ class atWin(blankWindow):
         self.filemenu = Menu(master = self.menu)
         self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
                               menu = self.filemenu)
-#        self.filemenu.add_command(label = submenu['file'][self.lang]['open'],
-#                                  command = self.__open)
-#        self.filemenu.add_command(label = submenu['file'][self.lang]['save'],
-#                                  command = self.__save)
+        self.filemenu.add_command(label = submenu['file'][self.lang]['open_party'],
+                                  command = self.openParty)
+        self.filemenu.add_command(label = submenu['file'][self.lang]['open_enemy'],
+                                  command = self.openEnemies)
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
                                   command = self.__quit)
+        logger.debug("__addHelpMenu: file menu build")
+
+
+    def openParty(self):
+        '''!
+        This method reads a character party group file to self.partygrp
+        '''
+        self.__partypath = askopenfilename(filetypes = self.mask, initialdir = os.getcwd())
+        logger.debug(f"openParty: chosen group file {self.__partypath}")
+        try:
+            with open(self.__partypath, "r") as fp:
+                ##@var self.__fullparty
+                # This is holding the full party data
+                self__fullparty = json.load(fp)
+                logger.info(f"openParty: {self.__partypath} was read")
+                #xxxxxxx
+
+        except Exception as error:
+            logger.error(f"openParty: {error}")
+            self.message(f"openParty: {error}")
+
+
+    def openEnemies(self):
+        '''!
+        This opens an enemy party to fight against
+        '''
+        self.__enemypath = askopenfilename(filetypes = self.mask, initialdir = os.getcwd())
+        logger.debug(f"openEnemies: chosen enemies group file {self.__enemiespath}")
+
+        if self.__enemypath[-4:].lower() == ".csv":
+            self.enemygrp = readCSV(self.__enemypath)
+        pass
 
 
     def __quit(self):
@@ -120,8 +167,15 @@ class atWin(blankWindow):
     def __buildWin(self):
         """!
         This method builds the window content.
+
+        ----
+        @todo the row 0 has to be build:\n
+        Initative | Attacker | DEfender (pd) | next button
+
         """
         # row 0
+
+        # row 1
         Label(self.window,
               text = labels["attack table"][self.lang] + ":",
               ).grid(column = 0, row = 0, sticky = "W")
@@ -139,12 +193,12 @@ class atWin(blankWindow):
 #                                  *self.atlist,
 #                                  )
         self.__ATOpt.grid(column = 1,
-                          row = 0,
+                          row = 1,
                           sticky = "W")
 
         Label(self.window,
               text = labels['skill'][self.lang] + ":"
-              ).grid(column = 2, row = 0, sticky = "W")
+              ).grid(column = 2, row = 1, sticky = "W")
 
         self.__skill = IntVar()
         self.__skill.set(0)
@@ -152,11 +206,11 @@ class atWin(blankWindow):
               justify = "center",
               textvariable = self.__skill,
               width = 5
-              ).grid(column = 3, row = 0, sticky = "EW")
+              ).grid(column = 3, row = 1, sticky = "EW")
 
         Label(self.window,
               text = labels['roll'][self.lang] + ":"
-              ).grid(column = 4, row = 0, sticky = "W")
+              ).grid(column = 4, row = 1, sticky = "W")
 
         self.__atroll = IntVar()
         self.__atroll.set(0)
@@ -164,16 +218,16 @@ class atWin(blankWindow):
               justify = "center",
               textvariable = self.__atroll,
               width = 5
-              ).grid(column = 5, row = 0, sticky = "EW")
+              ).grid(column = 5, row = 1, sticky = "EW")
 
         Button(self.window,
                text = txtbutton["but_roll"][self.lang],
                command = self.__rollAttack
-               ).grid(column = 6, row = 0, sticky = "EW")
+               ).grid(column = 6, row = 1, sticky = "EW")
 
         Label(self.window,
               text = "AT:"
-              ).grid(column = 7, row = 0, sticky = "W")
+              ).grid(column = 7, row = 1, sticky = "W")
 
         self.__AT = StringVar()
         self.__AT.set("1")
@@ -181,11 +235,11 @@ class atWin(blankWindow):
               textvariable = self.__AT,
               width = 5,
               justify = "center"
-              ).grid(column = 8, row = 0, sticky = "EW")
+              ).grid(column = 8, row = 1, sticky = "EW")
 
         Label(self.window,
               text = "max:"
-              ).grid(column = 9, row = 0, sticky = "W")
+              ).grid(column = 9, row = 1, sticky = "W")
 
         self.__maxlvl = StringVar()
         self.__maxlvl.set("H")
@@ -198,14 +252,14 @@ class atWin(blankWindow):
 #                                   self.__maxlvl,
 #                                   *["S", "M", "L", "H"]
 #                                   )
-        self.__maxOpt.grid(column = 10, row = 0, sticky = "W")
+        self.__maxOpt.grid(column = 10, row = 1, sticky = "W")
 
         Button(self.window,
                text = txtbutton["but_result"][self.lang],
                command = self.checkAttack
-               ).grid(column = 11, row = 0, sticky = "EW")
+               ).grid(column = 11, row = 1, sticky = "EW")
 
-        # row 1
+        # row 2
 
         self.__resultAT = StringVar()
         self.__resultAT.set("--")
@@ -214,11 +268,11 @@ class atWin(blankWindow):
               textvariable = self.__resultAT,
               borderwidth = 2,
               relief = "sunken"
-              ).grid(column = 0, columnspan = 6, row = 1, sticky = "EW", pady = 2)
+              ).grid(column = 0, columnspan = 6, row = 2, sticky = "EW", pady = 2)
 
         Label(self.window,
               text = "DB:"
-              ).grid(column = 7, row = 1, sticky = "E")
+              ).grid(column = 7, row = 2, sticky = "E")
 
         self.__DB = IntVar()
         self.__DB.set(0)
@@ -226,12 +280,12 @@ class atWin(blankWindow):
               textvariable = self.__DB,
               width = 5,
               justify = "center"
-              ).grid(column = 8, row = 1, sticky = "EW")
+              ).grid(column = 8, row = 2, sticky = "EW")
 
-        # row 2
+        # row 3
         Label(self.window,
               text = labels["crit table"][self.lang] + ":"
-              ).grid(column = 0, row = 2, sticky = "W")
+              ).grid(column = 0, row = 3, sticky = "W")
 
         self.critlist = list(self.crittbls.keys())
         self.critlist.sort()
@@ -245,11 +299,11 @@ class atWin(blankWindow):
 #                                  self.__selectCrit,
 #                                  *self.critlist,
 #                                  )
-        self.__CritOpt.grid(column = 1, row = 2, sticky = "W")
+        self.__CritOpt.grid(column = 1, row = 3, sticky = "W")
 
         Label(self.window,
               text = "Crit:"
-              ).grid(column = 2, row = 2, sticky = "W")
+              ).grid(column = 2, row = 3, sticky = "W")
 
         self.__critType = StringVar()
         self.__critType.set("")
@@ -257,11 +311,11 @@ class atWin(blankWindow):
               justify = "center",
               width = 5,
               textvariable = self.__critType
-              ).grid(column = 3, row = 2, sticky = "EW")
+              ).grid(column = 3, row = 3, sticky = "EW")
 
         Label(self.window,
               text = labels['roll'][self.lang] + ":"
-              ).grid(column = 4, row = 2, sticky = "W")
+              ).grid(column = 4, row = 3, sticky = "W")
 
         self.__critroll = IntVar()
         self.__critroll.set(0)
@@ -269,16 +323,16 @@ class atWin(blankWindow):
               justify = "center",
               textvariable = self.__critroll,
               width = 5
-              ).grid(column = 5, row = 2, sticky = "EW")
+              ).grid(column = 5, row = 3, sticky = "EW")
 
         Button(self.window,
                text = txtbutton["but_roll"][self.lang],
                command = self.__rollCrit
-               ).grid(column = 6, row = 2, sticky = "EW")
+               ).grid(column = 6, row = 3, sticky = "EW")
 
         Label(self.window,
               text = labels["weapon"][self.lang] + ":"
-              ).grid(column = 7, columnspan = 2, row = 2, sticky = "W")
+              ).grid(column = 7, columnspan = 2, row = 3, sticky = "W")
 
         self.__weaponType = StringVar()
         self.__weaponType.set(weapontypes["en"][0])
@@ -287,21 +341,21 @@ class atWin(blankWindow):
                                       self.__weaponType,
                                       *weapontypes["en"]
                                       )
-        self.__weaponOpt.grid(column = 9, columnspan = 2, row = 2, sticky = "EW")
+        self.__weaponOpt.grid(column = 9, columnspan = 2, row = 3, sticky = "EW")
 
         Button(self.window,
                text = txtbutton["but_result"][self.lang],
                command = self.checkCrit
-               ).grid(column = 11, row = 2, sticky = "EW")
+               ).grid(column = 11, row = 3, sticky = "EW")
 
-        # row 3
+        # row 4
         vscroll = Scrollbar(self.window, orient = VERTICAL)
         self.__displayCrit = Text(self.window,
                                   yscrollcommand = vscroll.set,
                                   height = 20
                                   )
         vscroll.config(command = self.__displayCrit.yview)
-        self.__displayCrit.grid(column = 0, columnspan = 12, row = 3, sticky = "NEWS")
+        self.__displayCrit.grid(column = 0, columnspan = 12, row = 4, sticky = "NEWS")
 
 
     def checkAttack(self):
@@ -416,7 +470,79 @@ class atWin(blankWindow):
         self.__displayCrit.delete("1.0", "end")
         self.__displayCrit.insert(END, result)
 
+#class combatWin(atWin):
+#    '''! This class is for opponents fighing against each other
+#    '''
+#
+#
+#    def __init__(self, lang = "en", datadir = "data/default"):
+#        """!
+#        Constructor
+#        \param lang selected output language
+#        \param datadir configured default datadir
+#        """
+#        self.lang = lang
+#        self.datadir = datadir
+#        self.attacktbls = {}
+#        self.crittbls = {}
+#
+#        atWin.__addMenu(self)
+#        # read all attack tables
+#        for table in os.listdir("{}/fight/attacks".format(self.datadir)):
+#            if table[-4:] == ".csv" and table[-5:] != "-.csv":
+#                self.attacktbls[table[:-4]] = attacktable("{}/fight/attacks/{}".format(self.datadir, table))
+#
+#        # read all crit tables
+#        for table in os.listdir("{}/fight/crits".format(self.datadir)):
+#            if table[-4:] == ".csv" and table[-5:] != "-.csv":
+#                self.crittbls[table[:-9]] = crittable("{}/fight/crits/{}".format(self.datadir, table))
+#
+#        #window components
+#        #atWin.__init__(self, self.lang)
+#        #self.__quit()
+#        blankWindow.__init__(self, self.lang)
+#        self.window.title("Attack Round Helper")
+#        self.__addMenu()
+#        self.__addHelpMenu()
+#        self.__buildWin()
+#        self.window.mainloop()
+#
+#
+#    def __openParty(self):
+#        '''! Opens a Character Group file for combat'''
+#
+#        pass
+#
+#
+#    def __openEnemy(self):
+#        '''! Opens a Enemy Group file for combat'''
+#
+#        pass
+#
+#    #def __addMenu(self):
+#    #    '''!
+#    #    This methods adds the menu bar to the window
+#    #    '''
+#    #    self.filemenu = Menu(master = self.menu)
+#    #    self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
+#    #                          menu = self.filemenu)
+#    #    self.filemenu.add_command(label = submenu['file'][self.lang]['open_party'],
+#    #                              command = self.__openParty)
+#    #    self.filemenu.add_command(label = submenu['file'][self.lang]['open_enemy'],
+#    #                              command = self.__openEnemy)
+#    #    self.filemenu.add_separator()
+#    #    self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
+#    #                              command = self.__quit)
+#
+#
+#    def __quit(self):
+#        '''!
+#        This method closes the window
+#        '''
+#        self.window.destroy()
+
 
 
 if __name__ == '__main__':
     win = atWin()
+    #win2 = combatWin()
