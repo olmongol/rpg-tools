@@ -13,17 +13,18 @@ lorem ipsum
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "07.08.2021"
+__updated__ = "14.08.2021"
 __author__ = "Marcus Schwamberger"
 
 import os
 import json
 from tkinter import filedialog
 from tkinter.ttk import Combobox
-
+from random import randint
 from rpgtoolbox.combat import *
 #from rpgtoolbox.rpgtools import dice
 from rpgToolDefinitions.helptools import RMDice as Dice
+
 from gui.window import *
 from rpgtoolbox import logbox as log
 from rpgtoolbox.globaltools import *
@@ -119,9 +120,9 @@ class atWin(blankWindow):
             with open(self.__partypath, "r") as fp:
                 ##@var self.__fullparty
                 # This is holding the full party data
-                self__fullparty = json.load(fp)
+                self.__fullparty = json.load(fp)
                 logger.info(f"openParty: {self.__partypath} was read")
-                #xxxxxxx
+                self.__prepareChars()
 
         except Exception as error:
             logger.error(f"openParty: {error}")
@@ -138,8 +139,121 @@ class atWin(blankWindow):
         if self.__enemypath[-4:].lower() == ".csv":
             self.enemygrp = readCSV(self.__enemypath)
         else:
-            self.message("wrong file format: must be CSV")
-        pass
+            self.message("penEnemies: wrong file format: must be CSV")
+            self.message("openEnemies: wrong file format: must be CSV")
+
+
+    def __pepareNSCs(self, mode = "auto"):
+        '''!
+        this prepares the read enemy list (of dicts) to 'battle format' - that
+        means it splits the OBs into lists.
+        @param mode this option handles the modus operandi:
+               - auto: the number of opponents is randomly chosen by the 'enc' column
+               - first: takes the first number of 'enc' range
+               - last: takes the last number of 'enc' range
+
+        ----
+        @todo - generate OB list for missile and melee combat
+        '''
+        size = "H"
+
+        for i in range(0, len(self.enemygrp)):
+            enc = self.enemygrp[i]["enc"].split("-")
+
+            for j in range(0, len(enc)):
+                enc[j] = int(enc[j])
+
+            if mode.lower() == "first":
+                enc[1] = enc[0]
+
+            elif mode.lower() == "last":
+                enc[0] = enc[1]
+
+            self.enemygrp[i]["enc"] = randint(enc[0], enc[1])
+
+            #generate OB lists
+
+            melee = self.enemygrp[i]["OB melee"].split("/")
+
+            for j in range(0, len(melee)):
+                melee[i] = melee[i].split(" ")
+
+                if len(melee[i]) == 2:
+                    melee[i].insert(1, size)
+
+            self.enemygrp[i]["OB melee"] = melee
+
+            missile = self.enemygrp[i]["OB missile"].split("/")
+            for j in range(0, len(missile)):
+                missile[i] = missile[i].split(" ")
+
+                if len(missile[i]) == 2:
+                    missile[i].insert(1, size)
+
+            self.enemygrp[i]["OB missile"] = missile
+            ##@var wt
+            # list of two lists: [0] contains melee weapon types and [1] missile weapon types
+            # they all will be stored in self.enemygrp
+            wt = self.enemygrp[i]["weapon type"].split("//")
+            for j in range(0, len(wt)):
+                if "/" in wt[j]:
+                    wt[j] = wt[j].split("/")
+
+
+    def __prepareChars(self):
+        '''!
+        This method reduces character data to combatant data
+
+        ----
+        @todo has to be fully implemented
+        '''
+        self.partygrp = []
+        cindex = ["player", "name", "DB", "DB mod", "OB melee", "OB missile", "hits", "PP",
+                "AT", "lvl", "spell", "init"]
+
+        melee = ["Martial Arts - Striking", "Martial Arts - Sweeps", "Weapon - 1-H Concussion",
+                "Weapon - 1-H Edged", "Weapon - 2-Handed", "Weapon - Pole Arms",
+                "Weapon - 1-H Concussion", "Weapon - 1-H Edged", "Weapon - 2-Handed", "Special Attacks"]
+        missile = ["Weapon - Missile", "Weapon - Missile Artillery", "Weapon - Thrown", "Directed Spells"]
+
+        for char in self.__fullparty:
+            dummy = dict.fromkeys(cindex, 0)
+
+            for stat in cindex:
+
+                if stat in char.keys():
+                    dummy[stat] = char[stat]
+
+            dummy["DB"] = 3 * char["Qu"]["total"] + char["armquickpen"]
+
+            if char["cat"]["Special Defenses"]["Skill"]["Adrenal Defense"]["total bonus"] > 0:
+                dummy["DB"] += char["cat"]["Special Defenses"]["Skill"]["Adrenal Defense"]["total bonus"]
+
+            if dummy["DB"] < 0:
+                dummy["DB"] = 0
+
+            dummy["init"] = char["Qu"]["total"]
+            dummy["hits"] = char["cat"]["Body Development"]["Body Development"]["total bonus"]
+            dummy["pp"] = char["cat"]["Power Point Development"]["Power Point Development"]["total bonus"]
+            dummy["OB melee"] = []
+            dummy["OB missile"] = []
+            dummy["spell"] = []
+
+            for m in melee:
+
+                for skill in char["cat"][m]["Skill"].keys():
+
+                    if skill not in ["Progression", "Stats"]:
+                        dummy["OB melee"].append([skill, char["cat"][m]["Skill"][skill]["total bonus"]])
+
+            for m in missile:
+
+                for skill in char["cat"][m]["Skill"].keys():
+
+                    if skill not in ["Progression", "Stats"]:
+                        dummy["OB missile"].append([skill, char["cat"][m]["Skill"][skill]["total bonus"]])
+
+            self.partygrp.append(dummy)
 
 
     def __quit(self):
