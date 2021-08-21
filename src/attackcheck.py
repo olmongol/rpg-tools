@@ -13,7 +13,7 @@ lorem ipsum
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "14.08.2021"
+__updated__ = "21.08.2021"
 __author__ = "Marcus Schwamberger"
 
 import os
@@ -24,10 +24,11 @@ from random import randint
 from rpgtoolbox.combat import *
 #from rpgtoolbox.rpgtools import dice
 from rpgToolDefinitions.helptools import RMDice as Dice
-
+from rpgtoolbox.magic import magicpath
 from gui.window import *
 from rpgtoolbox import logbox as log
 from rpgtoolbox.globaltools import *
+from rpgtoolbox.handlemagic import getSpellNames
 
 logger = log.createLogger('AT-Window', 'debug', '1 MB', 1, './', logfile = "attackcheck.log")
 
@@ -153,7 +154,7 @@ class atWin(blankWindow):
                - last: takes the last number of 'enc' range
 
         ----
-        @todo - generate OB list for missile and melee combat
+        @todo - spell lists handling
         '''
         size = "H"
 
@@ -195,9 +196,28 @@ class atWin(blankWindow):
             # list of two lists: [0] contains melee weapon types and [1] missile weapon types
             # they all will be stored in self.enemygrp
             wt = self.enemygrp[i]["weapon type"].split("//")
+
             for j in range(0, len(wt)):
                 if "/" in wt[j]:
                     wt[j] = wt[j].split("/")
+
+            # xxxx spell lists path/sl:lvl;path/sl:lvl[;...]
+            spelldummy = self.enemygrp["spells"].split(";")
+            spellists = {}
+
+            for s in range(0, len(spelldummy)):
+                spelldummy[i] = spelldummy[i].split(":")
+                spelldummy[i][0] = spelldummy[i][0].replace("\\", "/")
+                spelldummy[i][1] = int(spelldummy[i][1])
+
+                if magicpath in spelldummy[i][0]:
+                    pathadd = ""
+                else:
+                    pathadd = magicpath
+
+                spellists[spelldummy[i].split("/")[-1]] = getSpellNames(slfile = pathadd + spelldummy[i][0].replace(" ", "_") + ".csv", lvl = spelldummy[i][1])
+
+            self.enemygrp[i]["spells"] = spellLists.copy()
 
 
     def __prepareChars(self):
@@ -238,7 +258,7 @@ class atWin(blankWindow):
             dummy["OB melee"] = []
             dummy["OB missile"] = []
             dummy["spell"] = []
-
+            dummy["weapon type"] = [[], []]
             for m in melee:
 
                 for skill in char["cat"][m]["Skill"].keys():
@@ -252,7 +272,8 @@ class atWin(blankWindow):
 
                     if skill not in ["Progression", "Stats"]:
                         dummy["OB missile"].append([skill, char["cat"][m]["Skill"][skill]["total bonus"]])
-
+            dummy["weapon type"][0] = ["normal"] * len(dummy["OB melee"])
+            dummy["weapon type"][0] = ["normal"] * len(dummy["OB missile"])
             self.partygrp.append(dummy)
 
 
@@ -264,6 +285,9 @@ class atWin(blankWindow):
 
 
     def __rollAttack(self):
+        '''!
+        This does an attack role using RM rules
+        '''
         result, self.umr = Dice(rules = "RM")
         self.__atroll.set(result[0])
 

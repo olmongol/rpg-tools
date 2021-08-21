@@ -12,7 +12,7 @@
 @version 0.8
 '''
 __version__ = "0.8"
-__updated__ = "28.12.2020"
+__updated__ = "15.08.2021"
 
 import os
 from . import logbox as log
@@ -248,3 +248,21 @@ def updateSL(character = {}, datadir = "./data"):
                         character["cat"][spcat]["Skill"][splist]["Spells"] = spellbook.spelllists[magic][splist]["Spells"]
                         character["cat"][spcat]["Skill"][splist]["Special Notes"] = spellbook.spelllists[magic][splist]["Special Notes"]
 
+
+
+def getSpellNames(slfile = "./data/default/magic/Channeling_Open/Barrier_Law.csv", lvl = 1):
+    '''!
+    This function reads a spell list file and delivers a list of names and levels up to the requested level
+    @param slfile path + file name of the spell list file
+    @param lvl the maximum spell level which should be listed
+    @retval result list of dictionaries holding all spell information
+    '''
+    wholelist = readCSV(fname = slfile)
+    result = []
+
+    for spell in wholelist:
+
+        if int(spell["Lvl"]) <= lvl:
+            result.append(spell)
+
+    return result

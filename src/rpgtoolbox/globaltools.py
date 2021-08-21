@@ -326,7 +326,7 @@ def readCSV(fname = "test.csv"):
     @retval result a list containing dictionaries with keys from CSV header line
 
     ----
-    @todo handle problems with wierd unicode characters
+    @bug handle problems with weird unicode characters
     '''
     result = []
     with open(fname, "r") as csvfile:
