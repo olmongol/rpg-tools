@@ -1,4 +1,4 @@
-name,lvl,Qu,AT,hits,PP,size,OB melee,OB missile,DB,DBm,comment,type,immune,weakness,number
+name,lvl,Qu,AT,hits,PP,size,OB melee,OB missile,DB,DBm,comment,type,immune,weakness,enc
 Warg,8,16,4,180,0,L,90LBi/60MBa/75MBi,0xx,55,0,,warg,,,4-20
 Warg (schwach),5,12,4,160,0,L,85LBi/50MCl,0xx,55,0,Often ridden by Orcs,warg,,,4-20
 Ork (niederer),1,0,3,35,0,M,35sc,35sb,25,25,,orc,,,2-40

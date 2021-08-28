@@ -4,16 +4,17 @@
 \package attackcheck
 \brief Thia program can be used to  get the results of  attack and critical tables
 
-lorem ipsum
+This mangages a fight between a player character group and a group of monsters or
+other opponents.
 
 \date (c) 2021
 \copyright GNU V3.0
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
-\version 0.1
+\version 0.5
 '''
-__version__ = "0.1"
-__updated__ = "21.08.2021"
+__version__ = "0.5"
+__updated__ = "28.08.2021"
 __author__ = "Marcus Schwamberger"
 
 import os
@@ -24,7 +25,7 @@ from random import randint
 from rpgtoolbox.combat import *
 #from rpgtoolbox.rpgtools import dice
 from rpgToolDefinitions.helptools import RMDice as Dice
-from rpgtoolbox.magic import magicpath
+from rpgToolDefinitions.magic import magicpath
 from gui.window import *
 from rpgtoolbox import logbox as log
 from rpgtoolbox.globaltools import *
@@ -56,11 +57,12 @@ class atWin(blankWindow):
         self.partygrp = None
         self.__enemypath = None
         self.enemygrp = None
-        self.mask = [txtwin['json_files'][self.lang],
-                     txtwin['grp_files'][self.lang],
+        self.fmask = [txtwin['json_files'][self.lang],
                      txtwin['csv_files'][self.lang],
+                     txtwin['grp_files'][self.lang],
+                     txtwin['enemygrp_files'][self.lang],
                      txtwin['all_files'][self.lang]]
-
+        #print(f"debug: {self.fmask}")
         # read all attack tables
         for table in os.listdir("{}/fight/attacks".format(self.datadir)):
             if table[-4:] == ".csv" and table[-5:] != "-.csv":
@@ -74,7 +76,8 @@ class atWin(blankWindow):
         #window components
         blankWindow.__init__(self, self.lang)
         self.window.title("Attack  & Crit Table Checker")
-        self.__addMenu()
+        self.__addFileMenu()
+        self.__addEditMenu()
         self.__addHelpMenu()
         self.__buildWin()
         self.window.mainloop()
@@ -94,7 +97,7 @@ class atWin(blankWindow):
         logger.debug("__addHelpMenu: help menu build")
 
 
-    def __addMenu(self):
+    def __addFileMenu(self):
         '''!
         This methods adds the menu bar to the window
         '''
@@ -111,31 +114,51 @@ class atWin(blankWindow):
         logger.debug("__addHelpMenu: file menu build")
 
 
+    def __addEditMenu(self):
+        '''!
+        This adds an Edit menu to the winwos menu bar:
+        - add enemies to the opponent's list
+        - remove enemies from the opponent's list
+
+        ----
+        @todo the add/remove functions has to be fully implemented
+        '''
+        self.editmenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu["menu_edit"][self.lang],
+                              menu = self.editmenu)
+        self.editmenu.add_command(label = submenu['edit'][self.lang]["ed_add_enemy"],
+                                  command = self.notdoneyet)
+        self.editmenu.add_command(label = submenu['edit'][self.lang]["ed_rem_enemy"],
+                                  command = self.notdoneyet)
+
+
     def openParty(self):
         '''!
         This method reads a character party group file to self.partygrp
         '''
-        self.__partypath = askopenfilename(filetypes = self.mask, initialdir = os.getcwd())
+       # print(f"Debug:{self.fmask}")
+        self.__partypath = askopenfilename(filetypes = self.fmask, initialdir = os.getcwd())
         logger.debug(f"openParty: chosen group file {self.__partypath}")
         try:
             with open(self.__partypath, "r") as fp:
                 ##@var self.__fullparty
                 # This is holding the full party data
                 self.__fullparty = json.load(fp)
-                logger.info(f"openParty: {self.__partypath} was read")
-                self.__prepareChars()
+            logger.info(f"openParty: {self.__partypath} was read")
+            self.__prepareChars()
 
         except Exception as error:
             logger.error(f"openParty: {error}")
             self.message(f"openParty: {error}")
+            #print(f"openParty: {error}")
 
 
     def openEnemies(self):
         '''!
         This opens an enemy party to fight against
         '''
-        self.__enemypath = askopenfilename(filetypes = self.mask, initialdir = os.getcwd())
-        logger.debug(f"openEnemies: chosen enemies group file {self.__enemiespath}")
+        self.__enemypath = askopenfilename(filetypes = self.fmask, initialdir = os.getcwd())
+        logger.debug(f"openEnemies: chosen enemies group file {self.__enemypath}")
 
         if self.__enemypath[-4:].lower() == ".csv":
             self.enemygrp = readCSV(self.__enemypath)
@@ -154,7 +177,7 @@ class atWin(blankWindow):
                - last: takes the last number of 'enc' range
 
         ----
-        @todo - spell lists handling
+
         '''
         size = "H"
 
@@ -218,6 +241,7 @@ class atWin(blankWindow):
                 spellists[spelldummy[i].split("/")[-1]] = getSpellNames(slfile = pathadd + spelldummy[i][0].replace(" ", "_") + ".csv", lvl = spelldummy[i][1])
 
             self.enemygrp[i]["spells"] = spellLists.copy()
+            self.enemygrp[i]["init"] = 0
 
 
     def __prepareChars(self):
@@ -225,7 +249,7 @@ class atWin(blankWindow):
         This method reduces character data to combatant data
 
         ----
-        @todo has to be fully implemented
+        @todo learned spell casting lists have to be selected and added
         '''
         self.partygrp = []
         cindex = ["player", "name", "DB", "DB mod", "OB melee", "OB missile", "hits", "PP",
@@ -252,9 +276,10 @@ class atWin(blankWindow):
             if dummy["DB"] < 0:
                 dummy["DB"] = 0
 
-            dummy["init"] = char["Qu"]["total"]
-            dummy["hits"] = char["cat"]["Body Development"]["Body Development"]["total bonus"]
-            dummy["pp"] = char["cat"]["Power Point Development"]["Power Point Development"]["total bonus"]
+            dummy["Qu"] = char["Qu"]["total"]
+            dummy["init"] = 0
+            dummy["hits"] = char["cat"]["Body Development"]["Skill"]["Body Development"]["total bonus"]
+            dummy["pp"] = char["cat"]["Power Point Development"]["Skill"]["Power Point Development"]["total bonus"]
             dummy["OB melee"] = []
             dummy["OB missile"] = []
             dummy["spell"] = []
@@ -309,9 +334,32 @@ class atWin(blankWindow):
         This method builds the window content.
 
         ----
-        @todo the row 0 has to be build:\n
-        Initative | Attacker | DEfender (pd) | next button
+        @todo
+        - the row 0 has to be build:
+            -Initiative
+            - Attacker (name & Pic)
+            - select opponent combo (display name of defender) & image Display
+            - next button
+        - row 1:
+            - frame 1 attacker/defender:
+                - remaining hits #/#
+                - remaining pp #/#
+                - modificator (wounds)
+                - stunned # Rds
+                - only parry # rds
+                - k.o. # rds
+                - bleeding #/Rd
+                - dies in # rds
+            - frame 2 attacker/defender:
+                - lvl #
+                - AT #
 
+            - frame 3 attacker:
+                - healing mod
+                - reduce wound mods
+                - imrpove OB
+                - imporve DB
+            - frame 4: Attack results
         """
         # row 0
 
