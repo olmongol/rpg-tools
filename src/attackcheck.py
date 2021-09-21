@@ -14,13 +14,14 @@ other opponents.
 \version 0.5
 '''
 __version__ = "0.5"
-__updated__ = "28.08.2021"
+__updated__ = "21.09.2021"
 __author__ = "Marcus Schwamberger"
 
 import os
 import json
 from tkinter import filedialog
 from tkinter.ttk import Combobox
+from pprint import pformat
 
 from random import randint
 from rpgtoolbox.combat import *
@@ -32,7 +33,6 @@ from rpgtoolbox import logbox as log
 from rpgtoolbox.globaltools import *
 from rpgtoolbox.handlemagic import getSpellNames
 from PIL import Image, ImageTk
-
 logger = log.createLogger('AT-Window', 'debug', '1 MB', 1, './', logfile = "attackcheck.log")
 
 
@@ -45,7 +45,7 @@ class atWin(blankWindow):
     """
 
 
-    def __init__(self, lang = "en", datadir = "data/default"):
+    def __init__(self, lang = "en", datadir = "./data/default"):
         """!
         Constructor
         \param lang selected output language
@@ -59,7 +59,7 @@ class atWin(blankWindow):
         self.partygrp = None
         self.__enemypath = None
         self.enemygrp = None
-        self.defaultnscimg = datadir + "/pics/d10.png"
+        self.defaultnscimg = datadir + "/pics/default.jpg"
         self.fmask = [txtwin['json_files'][self.lang],
                      txtwin['csv_files'][self.lang],
                      txtwin['grp_files'][self.lang],
@@ -154,14 +154,17 @@ class atWin(blankWindow):
 
         except Exception as error:
             logger.error(f"openParty: {error}")
-            self.message(f"openParty: {error}")
+            self.message = messageWindow()
+            self.message.showinfo(f"openParty: {error}", "ERROR")
+
+        self.__prepareChars()
 
 
     def openEnemies(self):
         '''!
         This opens an enemy party to fight against
         '''
-        self.__enemypath = askopenfilename(filetypes = self.fmask, initialdir = os.getcwd())
+        self.__enemypath = askopenfilename(filetypes = self.fmask, initialdir = os.getcwd(), defaultextension = ".csv")
         logger.debug(f"openEnemies: chosen enemies group file {self.__enemypath}")
 
         if self.__enemypath[-4:].lower() == ".csv":
@@ -170,8 +173,10 @@ class atWin(blankWindow):
             logger.error("penEnemies: wrong file format! must be CSV")
             self.message("openEnemies: wrong file format: must be CSV")
 
+        self.__prepareNSCs()
 
-    def __pepareNSCs(self, mode = "auto"):
+
+    def __prepareNSCs(self, mode = "auto"):
         '''!
         this prepares the read enemy list (of dicts) to 'battle format' - that
         means it splits the OBs into lists.
@@ -181,7 +186,10 @@ class atWin(blankWindow):
                - last: takes the last number of 'enc' range
 
         ----
-
+        @todo - the weapon short terms have to be replaced by the full names to get
+              the right weapon table.
+              - immunity list
+              - weakness list
         '''
         size = "H"
 
@@ -204,48 +212,82 @@ class atWin(blankWindow):
             melee = self.enemygrp[i]["OB melee"].split("/")
 
             for j in range(0, len(melee)):
-                melee[i] = melee[i].split(" ")
 
-                if len(melee[i]) == 2:
-                    melee[i].insert(1, size)
+                if type(melee[j]) == type(""):
+                    melee[j] = melee[j].split(" ")
+
+                    if len(melee[j]) > 1:
+                        melee[j][-1], melee[j][0] = melee[j][0], melee[j][-1]
+
+                if len(melee[j]) == 2:
+                    melee[j].insert(1, size)
 
             self.enemygrp[i]["OB melee"] = melee
 
             missile = self.enemygrp[i]["OB missile"].split("/")
-            for j in range(0, len(missile)):
-                missile[i] = missile[i].split(" ")
 
-                if len(missile[i]) == 2:
-                    missile[i].insert(1, size)
+            for j in range(0, len(missile)):
+                missile[j] = missile[j].split(" ")
+
+                if len(missile[j]) > 1:
+                    missile[j][-1], missile[j][0] = missile[j][0], missile[j][-1]
+
+                if len(missile[j]) == 2:
+                    missile[j].insert(1, size)
 
             self.enemygrp[i]["OB missile"] = missile
-            ##@var wt
-            # list of two lists: [0] contains melee weapon types and [1] missile weapon types
-            # they all will be stored in self.enemygrp
-            wt = self.enemygrp[i]["weapon type"].split("//")
+
+            if "weapon type" in self.enemygrp[i].keys():
+                ##@var wt
+                # list of two lists: [0] contains melee weapon types and [1] missile weapon types
+                # they all will be stored in self.enemygrp
+                wt = self.enemygrp[i]["weapon type"].split("//")
+
+            else:
+                wt = "normal"
 
             for j in range(0, len(wt)):
                 if "/" in wt[j]:
                     wt[j] = wt[j].split("/")
 
             # xxxx spell lists path/sl:lvl;path/sl:lvl[;...]
-            spelldummy = self.enemygrp["spells"].split(";")
-            spellists = {}
 
-            for s in range(0, len(spelldummy)):
-                spelldummy[i] = spelldummy[i].split(":")
-                spelldummy[i][0] = spelldummy[i][0].replace("\\", "/")
-                spelldummy[i][1] = int(spelldummy[i][1])
+            # spells need to have the format: "Channeling Open/Barrier Law:5;<next list>"
+            if "spells" in self.enemygrp[i].keys():
+                spelldummy = self.enemygrp[i]["spells"].split(";")
+                spellists = {}
 
-                if magicpath in spelldummy[i][0]:
-                    pathadd = ""
+                if spelldummy != [""]:
+                    for s in range(0, len(spelldummy)):
+                        spelldummy[s] = spelldummy[s].split(":")
+                        spelldummy[s][0] = spelldummy[s][0].replace("\\", "/")
+                        spelldummy[s][1] = int(spelldummy[s][1])
+
+                        if magicpath in spelldummy[s][0]:
+                            pathadd = ""
+
+                        else:
+                            pathadd = magicpath
+
+                        spellists[spelldummy[s][0].split("/")[-1]] = {"spells": getSpellNames(slfile = pathadd + spelldummy[s][0].replace(" ", "_") + ".csv", lvl = spelldummy[s][1]),
+                                                                      "skill": spelldummy[s][1]
+                                                                      }
+                        logger.info(f"__prepareNSCs: {pathadd + spelldummy[s][0].replace(' ', '_') + '.csv'} read")
+                        #logger.debug(f"__prepareNSCs: spellists[{spelldummy[s][0].split('/')[-1]}] = \n{pformat(spellists[spelldummy[s][0].split('/')[-1]])}")
+
+                    self.enemygrp[i]["spells"] = spellists.copy()
+
                 else:
-                    pathadd = magicpath
+                    self.enemygrp[i]["spells"] = []
+                pprint(self.enemygrp[i]["spells"])
+            else:
+                self.enemygrp[i]["spells"] = []
 
-                spellists[spelldummy[i].split("/")[-1]] = getSpellNames(slfile = pathadd + spelldummy[i][0].replace(" ", "_") + ".csv", lvl = spelldummy[i][1])
-
-            self.enemygrp[i]["spells"] = spellLists.copy()
             self.enemygrp[i]["init"] = 0
+
+        self.__chgImg(attackerpic = "", defenderpic = self.enemygrp[0]["piclink"])
+        logger.info("__prepareNSCs: enemygrp set")
+        logger.debug(f"__prepareNSCs: \n{pformat(self.enemygrp)}")
 
 
     def __prepareChars(self):
@@ -292,18 +334,22 @@ class atWin(blankWindow):
 
                 for skill in char["cat"][m]["Skill"].keys():
 
-                    if skill not in ["Progression", "Stats"]:
+                    if skill not in ["Progression", "Stats"] and "+" not in skill:
                         dummy["OB melee"].append([skill, char["cat"][m]["Skill"][skill]["total bonus"]])
 
             for m in missile:
 
                 for skill in char["cat"][m]["Skill"].keys():
 
-                    if skill not in ["Progression", "Stats"]:
+                    if skill not in ["Progression", "Stats"] and "+" not in skill:
                         dummy["OB missile"].append([skill, char["cat"][m]["Skill"][skill]["total bonus"]])
             dummy["weapon type"][0] = ["normal"] * len(dummy["OB melee"])
-            dummy["weapon type"][0] = ["normal"] * len(dummy["OB missile"])
+            dummy["weapon type"][1] = ["normal"] * len(dummy["OB missile"])
             self.partygrp.append(dummy)
+            self.__chgImg(attackerpic = self.partygrp[0]["piclink"], defenderpic = "")
+
+        logger.info("__prepareChars: partygrp set")
+        logger.debug(f"__prepareChars: \n{pformat(self.partygrp)}")
 
 
     def __quit(self):
@@ -333,15 +379,21 @@ class atWin(blankWindow):
         self.__critroll.set(result[0])
 
 
-    def __chgImg(self):
+    def __chgImg(self, attackerpic = "./data/default/pics/default.jpg", defenderpic = "./data/default/pics/default.jpg"):
         '''!
-        This method changes attacker's and defender's images when newly selected
+        This method changes attacker's and defender's images when newly selected.
 
-        ----
-        @todo This ist just a dummy now and has to be fully implemented.
+        @param attackerpic path & name of the picture of the attacker (will be downsized to 90x90 px)
+        @param defenderpic path & name of the picture of the defender (will be downsized to 90x90 px)
         '''
-        self.window.update_idletasks()
-        pass
+        if attackerpic:
+            self.picattacker = Image.open(attackerpic).resize((90, 90), Image.ANTIALIAS)
+            self.picattacker = ImageTk.PhotoImage(self.picattacker)
+            self.atcanvas.create_image((90, 90), image = self.picattacker, anchor = "se")
+        if defenderpic:
+            self.picdefender = Image.open(defenderpic).resize((90, 90), Image.ANTIALIAS)
+            self.picdefender = ImageTk.PhotoImage(self.picdefender)
+            self.defcanvas.create_image((90, 90), image = self.picdefender, anchor = "se")
 
 
     def __buildWin(self):
@@ -379,16 +431,56 @@ class atWin(blankWindow):
 
         # row 0
 
-        pclabel = Label(master = self.window,
-                      image = ImageTk.PhotoImage(Image.open(self.defaultnscimg).resize((60, 60), Image.ANTIALIAS))
-                      )
-        pclabel.grid(column = 0, row = 1)
+        #atlabel = Label(master = self.window,
+        #              image = ImageTk.PhotoImage(Image.open(self.defaultnscimg).resize((80, 80), Image.ANTIALIAS)),
+        #              text = "PC"
+        #
+        #              )
+        #atlabel.grid(column = 0, row = 0, rowspan = 2, sticky = "NEWS")
+        #
+        #deflabel = Label(master = self.window,
+        #              image = ImageTk.PhotoImage(Image.open(self.defaultnscimg).resize((60, 60), Image.ANTIALIAS)),
+        #              text = "NPC"
+        #              )
+        #deflabel.grid(column = 7, row = 0, sticky = "NEWS")
+        #self.window.update_idletasks()
 
-        nsclabel = Label(master = self.window,
-                      image = ImageTk.PhotoImage(Image.open(self.defaultnscimg).resize((60, 60), Image.ANTIALIAS))
-                      )
-        nsclabel.grid(column = 7, row = 1)
-       # self.window.update_idletasks()
+        self.atcanvas = Canvas(master = self.window,
+                          width = 90,
+                          height = 90,
+                          bg = "green")
+        self.atcanvas.grid(row = 0, rowspan = 3, column = 0, sticky = "NEWS")
+
+        self.defcanvas = Canvas(master = self.window,
+                          width = 90,
+                          height = 90,
+                          bg = "green")
+        self.defcanvas.grid(row = 0, rowspan = 3, column = 7, sticky = "NEWS")
+        self.__chgImg()
+        # row 1
+        Label(master = self.window,
+              text = "PC Name"
+              ).grid(row = 4, column = 0, sticky = "EW")
+
+        Label(master = self.window,
+              text = "NPC Name"
+              ).grid(row = 4, column = 7, sticky = "EW")
+        # row 2
+
+        # row 3
+
+        # row 4
+
+        # row 5
+
+        # row 6
+
+        # row 7
+
+        # row 8
+
+        # row 9
+
         # row 10
         Label(self.window,
               text = labels["attack table"][self.lang] + ":",
