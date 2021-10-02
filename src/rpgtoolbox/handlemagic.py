@@ -12,7 +12,7 @@
 @version 0.8
 '''
 __version__ = "0.8"
-__updated__ = "15.08.2021"
+__updated__ = "21.09.2021"
 
 import os
 from . import logbox as log
@@ -258,6 +258,7 @@ def getSpellNames(slfile = "./data/default/magic/Channeling_Open/Barrier_Law.csv
     @retval result list of dictionaries holding all spell information
     '''
     wholelist = readCSV(fname = slfile)
+    logger.info(f"getSpellNames: {slfile} read successfully.")
     result = []
 
     for spell in wholelist:

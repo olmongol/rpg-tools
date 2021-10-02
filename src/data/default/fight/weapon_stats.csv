@@ -1,7 +1,7 @@
 item,shortc,wtype,breakage,strength,fumble,near,short,medium,long,extreme,table,crits
 Axe,ax,1he,7,56-64-w,4,10': -30,---,---,---,---,Handaxe,krush/slash
 Bastard Sword,bd,1he,4,68-82,4,---,---,---,---,---,Broadsword,krush/slash/puncture
-Bastard Sword,bd,2h,5,68-82,5,---,---,---,---,---,Two-Handed_Sword,krush/slash/puncture
+Bastard Sword 2h,bd2,2h,5,68-82,5,---,---,---,---,---,Two-Handed_Sword,krush/slash/puncture
 Battle Axe,ba,2h,8,65-75-w,5,---,---,---,---,---,Battle_Axe,krush/slash
 Blackjack,bj,1hc,8,47-53-s,1,---,---,---,---,---,Club,subdual
 Blowpipe,bp,mis,0,150,5,10': 0,25': 0,50': -20,100': -40,---,Sling,puncture
@@ -61,17 +61,22 @@ Two-Handed Sword,ts,2h,8,69-81,5,---,---,---,---,---,Two-Handed_Sword,krush/slas
 War Hammer,wh,1hc,8,74-86-w,4,10': -20,25': -40,50': -60,---,---,War_Hammer,krush/puncture
 War Mattock,wm,2h,8,65-75-w,6,---,---,---,---,---,War_Mattock,krush
 Whip,wp,1hc,4,65-75-s,6,---,---,---,---,---,Whip,slash/unbalance/krush/grapple
-Bite,Bi,,,,2,,,,,,Bite,tiny/slash/puncture
-Claw,Cl,,,,2,,,,,,Claw_Talon,tiny/slash/puncture
-Talon,Ta,,,,2,,,,,,Claw_Talon,tiny/slash/puncture
-Fall,Fa,,,,2,,,,,,Fall_Crush,krush
-Crush,Cr,,,,2,,,,,,Fall_Crush,krush
-Grapple,Gr,,,,2,,,,,,Grapple_Grasp_Envelop_Swallow,grapple
-Envelop,En,,,,2,,,,,,Grapple_Grasp_Envelop_Swallow,grapple
-Swallow,Sw,,,,2,,,,,,Grapple_Grasp_Envelop_Swallow,grapple
-Horn,Ho,,,,2,,,,,,Horn_Tusk,tiny/puncture/krush/unbalance
-Tusk,Tu,,,,2,,,,,,Horn_Tusk,tiny/puncture/krush/unbalance
-Ram,Ra,,,,2,,,,,,Ram_Butt_Bash_Knockdown,krush/unbalance
-Butt,Bu,,,,2,,,,,,Ram_Butt_Bash_Knockdown,krush/unbalance
-Bash,Ba,,,,2,,,,,,Ram_Butt_Bash_Knockdown,krush/unbalance
-Knockdown,Kd,,,,2,,,,,,Ram_Butt_Bash_Knockdown,krush/unbalance
+Bite,Bi,melee,0,150,2,---,---,---,---,---,Bite,tiny/slash/puncture
+Claw,Cl,melee,0,150,2,---,---,---,---,---,Claw_Talon,tiny/slash/puncture
+Talon,Ta,melee,0,150,2,---,---,---,---,---,Claw_Talon,tiny/slash/puncture
+Fall,Fa,melee,0,150,2,---,---,---,---,---,Fall_Crush,krush
+Crush,Cr,melee,0,150,2,---,---,---,---,---,Fall_Crush,krush
+Grapple,Gr,melee,0,150,2,---,---,---,---,---,Grapple_Grasp_Envelop_Swallow,grapple
+Envelop,En,melee,0,150,2,---,---,---,---,---,Grapple_Grasp_Envelop_Swallow,grapple
+Swallow,Sw,melee,0,150,2,---,---,---,---,---,Grapple_Grasp_Envelop_Swallow,grapple
+Horn,Ho,melee,0,150,2,---,---,---,---,---,Horn_Tusk,tiny/puncture/krush/unbalance
+Tusk,Tu,melee,0,150,2,---,---,---,---,---,Horn_Tusk,tiny/puncture/krush/unbalance
+Ram,Ra,melee,0,150,2,---,---,---,---,---,Ram_Butt_Bash_Knockdown,krush/unbalance
+Butt,Bu,melee,0,150,2,---,---,---,---,---,Ram_Butt_Bash_Knockdown,krush/unbalance
+Bash,Ba,melee,0,150,2,---,---,---,---,---,Ram_Butt_Bash_Knockdown,krush/unbalance
+Knockdown,Kd,melee,0,150,2,---,---,---,---,---,Ram_Butt_Bash_Knockdown,krush/unbalance
+Stinger,st,melee,0,150,2,,---,---,---,---,Stinger,tiny/puncture
+Tiny,ti,melee,0,150,2,---,---,---,---,---,Tiny,tiny/krush/puncture/slash
+Trample/Stomp,ts,melee,0,150,2,---,---,---,---,---,Trample_Stomp,tiny/krush
+Martial Arts - Striking,st,1h/2h,0,150,2,---,---,---,---,---,Martial_Arts_-_Striking,martail_arts_-_striking
+Martial Arts - Sweeps,sw,1h/2h,0,150,2,---,---,---,---,---,Martial_Arts_-_Sweeps,martial_arts_-_sweeps

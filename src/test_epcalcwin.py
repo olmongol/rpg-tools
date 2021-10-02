@@ -28,6 +28,7 @@ from rpgToolDefinitions.helptools import RMDice as dice
 from tkinter import filedialog
 import re
 import pickle
+from PIL import Image, ImageTk
 
 
 

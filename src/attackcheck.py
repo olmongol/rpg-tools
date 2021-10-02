@@ -14,7 +14,7 @@ other opponents.
 \version 0.5
 '''
 __version__ = "0.5"
-__updated__ = "21.09.2021"
+__updated__ = "24.09.2021"
 __author__ = "Marcus Schwamberger"
 
 import os
@@ -216,8 +216,12 @@ class atWin(blankWindow):
                 if type(melee[j]) == type(""):
                     melee[j] = melee[j].split(" ")
 
-                    if len(melee[j]) > 1:
+                    if len(melee[j]) == 2:
                         melee[j][-1], melee[j][0] = melee[j][0], melee[j][-1]
+                        melee[j].append("H")
+
+                    elif len(melee[j]) == 3:
+                        melee[j][2], melee[j][0], melee[j][1] = melee[j][1], melee[j][0], melee[j][2]
 
                 if len(melee[j]) == 2:
                     melee[j].insert(1, size)
@@ -279,7 +283,7 @@ class atWin(blankWindow):
 
                 else:
                     self.enemygrp[i]["spells"] = []
-                pprint(self.enemygrp[i]["spells"])
+
             else:
                 self.enemygrp[i]["spells"] = []
 
@@ -335,7 +339,7 @@ class atWin(blankWindow):
                 for skill in char["cat"][m]["Skill"].keys():
 
                     if skill not in ["Progression", "Stats"] and "+" not in skill:
-                        dummy["OB melee"].append([skill, char["cat"][m]["Skill"][skill]["total bonus"]])
+                        dummy["OB melee"].append([skill, char["cat"][m]["Skill"][skill]["total bonus"], "H"])
 
             for m in missile:
 

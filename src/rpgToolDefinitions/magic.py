@@ -15,7 +15,7 @@
 - add tablepath to configuration
 '''
 __version__ = "0.5s"
-__updated__ = "15.08.2021"
+__updated__ = "21.09.2021"
 
 ##@var magic_range_mod
 # range motdication for spell casting
@@ -33,7 +33,7 @@ situation_mods = {"Full Cover":-20,
                  "Static Target":+10}
 ##@var magicpath
 # the path from src directory where all the spell lists are saved as csv
-magicpath = "data/default/magic"
+magicpath = "data/default/magic/"
 
 
 
