@@ -14,7 +14,7 @@ other opponents.
 \version 0.5
 '''
 __version__ = "0.5"
-__updated__ = "24.09.2021"
+__updated__ = "08.10.2021"
 __author__ = "Marcus Schwamberger"
 
 import os
@@ -55,17 +55,20 @@ class atWin(blankWindow):
         self.datadir = datadir
         self.attacktbls = {}
         self.crittbls = {}
+        self.attackers = ["Egon"]
+        self.defenders = ["Anton"]
+        self.combatants = []
+        self.combatround = 0
+        self.initlist = []
         self.__partypath = None
         self.partygrp = None
         self.__enemypath = None
         self.enemygrp = None
         self.defaultnscimg = datadir + "/pics/default.jpg"
-        self.fmask = [txtwin['json_files'][self.lang],
-                     txtwin['csv_files'][self.lang],
-                     txtwin['grp_files'][self.lang],
+        self.fmask = [txtwin['grp_files'][self.lang],
                      txtwin['enemygrp_files'][self.lang],
                      txtwin['all_files'][self.lang]]
-        #print(f"debug: {self.fmask}")
+
         # read all attack tables
         for table in os.listdir("{}/fight/attacks".format(self.datadir)):
             if table[-4:] == ".csv" and table[-5:] != "-.csv":
@@ -78,7 +81,7 @@ class atWin(blankWindow):
 
         #window components
         blankWindow.__init__(self, self.lang)
-        self.window.title("Attack  Module")
+        self.window.title("Combat  Module")
         self.__addFileMenu()
         self.__addEditMenu()
         self.__addHelpMenu()
@@ -124,7 +127,7 @@ class atWin(blankWindow):
         - remove enemies from the opponent's list
 
         ----
-        @todo the add/remove functions has to be fully implemented
+        @todo the add/remove functions of single NSCS/SCS/Monsters has to be fully implemented
         '''
         self.editmenu = Menu(master = self.menu)
         self.menu.add_cascade(label = txtmenu["menu_edit"][self.lang],
@@ -289,6 +292,7 @@ class atWin(blankWindow):
 
             self.enemygrp[i]["init"] = 0
 
+        self.initlist += self.enemygrp
         self.__chgImg(attackerpic = "", defenderpic = self.enemygrp[0]["piclink"])
         logger.info("__prepareNSCs: enemygrp set")
         logger.debug(f"__prepareNSCs: \n{pformat(self.enemygrp)}")
@@ -352,6 +356,7 @@ class atWin(blankWindow):
             self.partygrp.append(dummy)
             self.__chgImg(attackerpic = self.partygrp[0]["piclink"], defenderpic = "")
 
+        self.initlist += self.partygrp
         logger.info("__prepareChars: partygrp set")
         logger.debug(f"__prepareChars: \n{pformat(self.partygrp)}")
 
@@ -361,6 +366,19 @@ class atWin(blankWindow):
         This method closes the window
         '''
         self.window.destroy()
+
+
+    def __rollInit(self):
+        '''!
+        This rolls the initiative
+
+        ----
+        @todo: has to be fully implemented:
+        - roll 6 store initative
+        - sort list by intiative and build a name list in that order (for combobox)
+        - update attacker combobox
+        '''
+        pass
 
 
     def __rollAttack(self):
@@ -398,6 +416,28 @@ class atWin(blankWindow):
             self.picdefender = Image.open(defenderpic).resize((90, 90), Image.ANTIALIAS)
             self.picdefender = ImageTk.PhotoImage(self.picdefender)
             self.defcanvas.create_image((90, 90), image = self.picdefender, anchor = "se")
+
+
+    def __updtAttckCombo(self):
+        '''!
+        This method updates the list of the self.__attackCombo combobox
+
+        ----
+        @todo has to be fully implemented
+
+        '''
+        pass
+
+
+    def __updDefCombo(self):
+        '''!
+        This method updates the list of the self.__defendCombo combobox
+
+        ----
+        @todo has to be fully implemented
+
+        '''
+        pass
 
 
     def __buildWin(self):
@@ -462,19 +502,34 @@ class atWin(blankWindow):
         self.defcanvas.grid(row = 0, rowspan = 3, column = 7, sticky = "NEWS")
         self.__chgImg()
         # row 1
-        Label(master = self.window,
-              text = "PC Name"
-              ).grid(row = 4, column = 0, sticky = "EW")
 
-        Label(master = self.window,
-              text = "NPC Name"
-              ).grid(row = 4, column = 7, sticky = "EW")
         # row 2
 
         # row 3
 
         # row 4
 
+        self.__selectAttacker = StringVar()
+        self.__selectAttacker.set("Egon")
+        self.__attackCombo = Combobox(self.window,
+                                      textvariable = self.__selectAttacker,
+                                      self.attackers)
+        self.__attackCombo.bind("<<ComboboxSelected>>", self.__updtAttckCombo)
+        self.__attackCombo.grid(column = 4, row = 0, sticky = "W")
+        #Label(master = self.window,
+        #      text = "PC Name"
+        #      ).grid(row = 4, column = 0, sticky = "EW")
+
+        self.__selectDefender = StringVar()
+        self.__selectDefender.set("Anton")
+        self.__defendCombo = Combobox(self.window,
+                                      textvariable = self.__selectDefender,
+                                      self.defenders)
+        self.__defendCombo.bind("<<ComboboxSelected>>", self.__updtDefCombo)
+        self.__defendCombo.grid(column = 4, row = 7, sticky = "EW")
+        #Label(master = self.window,
+        #      text = "NPC Name"
+        #      ).grid(row = 4, column = 7, sticky = "EW")
         # row 5
 
         # row 6
@@ -486,6 +541,7 @@ class atWin(blankWindow):
         # row 9
 
         # row 10
+
         Label(self.window,
               text = labels["attack table"][self.lang] + ":",
               ).grid(column = 0, row = 10, sticky = "W")
