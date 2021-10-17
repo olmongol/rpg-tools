@@ -9,10 +9,16 @@
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
 \version 0.1
-'''
-__version__ = "0.1"
-__updated__ = "28.12.2020"
 
+----
+@todo - add magicpath to configuration
+- add tablepath to configuration
+'''
+__version__ = "0.5s"
+__updated__ = "21.09.2021"
+
+##@var magic_range_mod
+# range motdication for spell casting
 magic_range_mod = {0: 30,
                  10: 10,
                  50: 0,
@@ -20,10 +26,14 @@ magic_range_mod = {0: 30,
                  300:-20,
                  10000000:-30
                  }
-
+##@var situational_mods
+# attack spell modification based on the situation
 situation_mods = {"Full Cover":-20,
                  "Partial Cover":-10,
                  "Static Target":+10}
+##@var magicpath
+# the path from src directory where all the spell lists are saved as csv
+magicpath = "data/default/magic/"
 
 
 

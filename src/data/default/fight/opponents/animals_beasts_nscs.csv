@@ -1,8 +1,8 @@
-name,lvl,enc,size,speed,Qu,hits,PP,AT,DB,OB melee,OB missle,comment,type
-Auroch,2,1-10,L,MD,5,140,0,4,20,50 M Ho/50 L Ts,---,"Domesticated,popular among the Northmen",animal
-Dagar,4,1,M,MF,10,68,0,7,20,67 ss,47 sb,Urban Man Scout/Thief. Leader of waenhosh. +10 short sword and 6 assorted herbs.,nsc
-Nasen,6,1-10,M,FA,15,79,12,4,30,92 da,42 dat,"Rural Man Scout/Thief. 1 list to lvl 5, carries 2 hidden daggers treated with soporific poison.",nsc
-Dunnish Tribesmen,2,2-25,M,MD,5,33,0,8,25,45 sp,25 sb,Dunnish Warriors/Fighters and Scouts/Thieves,human
-Black Bear,5,1-4,L,FA,15,150,0,8,20,65 L Gr/70 L Cl/40 M Bi,---,"Possesive of their territory, will attack",animal
-Warg,5,4-20,L,FA,15,160,0,4,55,85 L Bi/50 M Cl,---,Often ridden by Orcs,animal
-Wolf,3,5-25,M,FA,15,110,0,3,30,65 L Bi,---,Those found near the Yfelwood are Larger and fiercer,animal
+name,lvl,enc,size,speed,Qu,hits,PP,AT,DB,OB melee,OB missile,weapon type,spells,comment,type
+Auroch,2,1-10,L,MD,5,140,0,4,20,50 M Ho/50 L Ts,---,normal/normal,,"Domesticated,popular among the Northmen",animal
+Dagar,4,1-1,M,MF,10,68,0,7,20,67 ss,47 sb,normal//normal,,Urban Man Scout/Thief. Leader of waenhosh. +10 short sword and 6 assorted herbs.,nsc
+Nasen,6,1-10,M,FA,15,79,12,4,30,92 da,42 dat,normal//normal,Essence Open/Physical Enhancement:5,"Rural Man Scout/Thief. 1 list to lvl 5, carries 2 hidden daggers treated with soporific poison.",nsc
+Dunnish Tribesmen,2,2-25,M,MD,5,33,0,8,25,45 sp,25 sb,normal//normal,,Dunnish Warriors/Fighters and Scouts/Thieves,human
+Black Bear,5,1-4,L,FA,15,150,0,8,20,65 L Gr/70 L Cl/40 M Bi,---,normal/normal/normal,,"Possesive of their territory, will attack",animal
+Warg,5,4-20,L,FA,15,160,0,4,55,85 L Bi/50 M Cl,---,normal/normal,,Often ridden by Orcs,animal
+Wolf,3,5-25,M,FA,15,110,0,3,30,65 L Bi,---,normal,,Those found near the Yfelwood are Larger and fiercer,animal

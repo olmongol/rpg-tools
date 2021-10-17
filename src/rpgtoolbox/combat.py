@@ -13,7 +13,7 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "12.02.2021"
+__updated__ = "17.10.2021"
 __author__ = "Marcus Schwamberger"
 
 import re
@@ -25,8 +25,24 @@ from rpgtoolbox.globaltools import getCSVNames
 from rpgtoolbox.globaltools import sortTupleList
 from rpgtoolbox.rpgtools import dice
 from rpgtoolbox.lang import attackc, critc
-
+from rpgtoolbox.globaltools import *
 from rpgToolDefinitions.helptools import RMDice
+
+
+
+def getAttackSpec(shortterm = "", longterm = "", stattable = "data/default/fight/weapon_stats.csv"):
+    '''!
+    This function checks out specific weapon/attack data and returns all needed additional
+    information
+    @param shortterm of the weapon/attack: e.g., 'bs' for 'Broadsword'
+    @param longterm of the weapon/attack
+    @param stattable CSV file where to look up the additional data
+
+    ----
+    @todo has to be implemented fully.
+
+    '''
+    pass
 
 
 
@@ -223,6 +239,53 @@ def makeCombatant(achar = {}):
 
 
 
+def addStatusParam(cmbtlist = []):
+    """!
+    This function adds vitial stats to combattant list
+    @param cmbtlist list of combatants (dictionatries)
+    @retval result new list with modified elements/comatants
+    """
+
+    result = []
+    for elem in cmbtlist:
+        if "status" not in elem.keys():
+            elem["status"] = {"cur hits":elem["hits"],
+                            "mod":0,
+                            "temp mod":[],
+                            "hits/rnd": 0,
+                            "stunned":0,
+                            "die":-1,
+                            "ooo": 0,
+                            "injuries":[],
+                            "parry":0,
+                            "no_parry":0,
+                            "ob_mod":0,
+                           }
+
+        if "log" not in elem.keys():
+            elem["log"] = {"gained hits":0,
+                           "gained crits": {"A":0,
+                                            "B":0,
+                                            "C":0,
+                                            "D":0,
+                                            "E":0
+                                            },
+                           "crits":{"A":[],
+                                    "B":[],
+                                    "C":[],
+                                    "D":[],
+                                    "E":[]
+                                    },
+                           "kill":[],
+                           "spells":{},
+                          }
+
+        result.append(elem)
+
+    return result
+
+
+
 def rollInitative(Qu = 0, mod = 0):
     """!
     This rolls a initiative based on Quickness and additional modifiers
@@ -262,18 +325,49 @@ def switch(mystr):
 
 
 
-def createCombatList(filename = "data/default/nscs/default.csv"):
+def createCombatList(comlist = []):
     """!
-    This creates a list of combatants for @class combat from a CSV file (NSCs,
-    Monster etc.) or JSON (Character/Group file)
-    @todo has to be implemented
-    """
-    r = r'([1-9][0-9]{1,2})([HLMST]*)([A-Za-z][a-z])'
-    checkob = re.compile(r)
-    clist = ["lvl", "hits", "AT", "OB", "DB", "Qu", "name", "type", "ooo", "status", "die", "parry", "no_parry", "mod", "hits/rnd", "weapon", "PP", "spell lvl"]
-    status = {"ooo":0, "hits/rnd":0, "mod":{"mod":0, "rnd":0}, "parry":0, "no_parry":0, "stunned":0, "die":-1}
+    This adds a status and combat log section to combatants in a  list.
+    @param comlist a list of combatants (dictionaries)
+    @return modified list
 
-    pass
+    ----
+    @todo has to be implemented fully
+    """
+    #r = r'([1-9][0-9]{1,2})([HLMST]*)([A-Za-z][a-z])'
+    #checkob = re.compile(r)
+    #clist = ["lvl", "hits", "AT", "OB", "DB", "Qu", "name", "type", "ooo", "status", "die", "parry", "no_parry", "mod", "hits/rnd", "weapon", "PP", "spell lvl"]
+    status = {"ooo":0,
+              "hits/rnd":0,
+              "mod":[{"mod":0, "rnd":0}],
+              "mod_total":0,
+              "parry":0,
+              "no_parry":0,
+              "stunned":0,
+              "die":-1,
+              "log":[]
+              }
+    comlog = {"gained": {"hits":0,
+                        "crits": {"A":0,
+                                 "B":0,
+                                 "C":0,
+                                 "D":0,
+                                 "E":0,
+                                 "T":0
+                                 },
+                        },
+             "caused":{"crits": [],
+                       "lvls": [],
+                       "kills": []
+                      },
+             "spells": []
+             }
+
+    for i in range(0, len(comlist)):
+        comlist[i]["status"] = status.copy()
+        comlist[i]["comlog"] = comlog.copy()
+
+    return comlist
 
 
 
@@ -539,6 +633,7 @@ class combat():
     - combines comatant groups
     - manages battle rounds, initiatives damage etc.
     - vreates a log file of the battle
+    @deprecated
     """
 
 

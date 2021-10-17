@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 '''!
 \file rmfight.py
-\package rpgtoolbox.py
+
 \brief fighting module (home rules - based on RM)
 
-
+\deprecated will be solved in another module: combat.py
 \date (C) 2020-2021
 \author Marcus Schwamberger
 \email marcus@lederzeug.de

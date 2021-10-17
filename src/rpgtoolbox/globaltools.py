@@ -27,6 +27,7 @@ import os.path
 from . import logbox as log
 import csv
 import json
+import random as rd
 
 logger = log.createLogger('global', 'warning', '1 MB', 1, './' , 'globaltools.log')
 
@@ -324,8 +325,9 @@ def readCSV(fname = "test.csv"):
     This function reads a CSV file and returns a dictionary
     @param fname name (and path) of the CSV file
     @retval result a list containing dictionaries with keys from CSV header line
+
     ----
-    @todo handle problems with wierd unicode characters
+    @bug handle problems with weird unicode characters
     '''
     result = []
     with open(fname, "r") as csvfile:
@@ -441,3 +443,49 @@ def readMagic(root = "./data/default/magic", slgroup = None):
 
     else:
         return magiclists
+
+
+
+def getIdx(chklist = [], key = "", value = ""):
+    '''!
+    This function searches a list of dictionaries by an key/value and delivers
+    the list index of an element (dictionary) or None if not found.
+    @param chklist the list of dictionaries which shall be searched
+    @param key the dictionary's key which shall be searched
+    @param value the value to search for in the key index
+    @return the index of the first finding in the list or None
+    '''
+
+    for i in range(0, len(chklist)):
+        if key in chklist[i].keys():
+            if chklist[i][key] == value:
+                return i
+    return None
+
+
+
+def rollInit(clist = []):
+    '''!
+    This function rolls the initiative for a list of combatants as defined in
+    attackcheck.py
+    @param clist list of dictionaries (combatants)
+    @retval clist with rolled initiative updated list
+    '''
+    for i in range(0, len(clist)):
+        roll = rd.randint(1, 10)
+        clist[i]["init"] = clist[i]["Qu"] + roll
+
+    return clist
+
+
+
+def sortList(clist = [], key = "init"):
+    '''!
+    This function reversely sorts a list of combatant dictionaries by the values
+    of a given key (default: init)
+    @param clist list of dictionaries to be sorted
+    @param key the key to reversely sort by
+    @retval result reversely sorted list of dictionaries
+    '''
+    result = sorted(clist, key = lambda k: k[key], reverse = True)
+    return result

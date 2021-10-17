@@ -5,3 +5,7 @@ doc
 example
 *.log
 /tmp/
+*.tex
+*.toc
+*.pdf
+*.aux

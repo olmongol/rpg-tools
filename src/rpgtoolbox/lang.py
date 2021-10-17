@@ -17,12 +17,12 @@ Currently supported languages are:
 
 @author Marcus Schwamberger
 @email marcus@lederzeug.de
-@date (c) 2015-2020
+@date (c) 2015-2021
 @version 1.1
 @license GNU V3.0
 '''
 __version__ = "1.1"
-__updated__ = "19.02.2021"
+__updated__ = "28.08.2021"
 ##
 # @var supportedrpg
 # Supported RPG systems
@@ -290,7 +290,8 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                           'new_char': 'Neuer Charakter',
                           'new_grp': 'Neue Charaktergruppe',
                           'open_char': 'Charakterdatei öffnen',
-                          'open_party': 'Charaktergruppe öffnen',
+                          'open_party': u'Charaktergruppe öffnen',
+                          'open_enemy': u'Gegnergruppe öffnen',
                           'print': 'Drucken',
                           'pdf': "PDF erstellen",
                           },
@@ -305,7 +306,8 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                           'new_char': "New character",
                           'new_grp': "New character party",
                           'open_file': 'Open Character file',
-                          'open_party': 'Open Chargroup file',
+                          'open_party': 'Open Character Group file',
+                          'open_enemy': 'Open Enemy Group file',
                           'print': 'Print',
                           'pdf': "PDF generation"
                           },
@@ -340,7 +342,9 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                               'statgain': u'Attributsveränderungswurf',
                               'show_char': 'Charakteransicht',
                               'ed_EP': "EPs editieren",
-                              'ed_BGO': "Hintergrundoptionen"
+                              'ed_BGO': "Hintergrundoptionen",
+                              "ed_add_enemy": u"Feinde hinzufügen",
+                              "ed_rem_enemy": "Feinde entfernen",
                               },
                       'en':{'ed_char': 'Edit/improve Character',
                               'ed_grp': 'Edit Group',
@@ -355,7 +359,9 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                               'add_story': "add/edit background story",
                               'statgain': 'Stat Gain Roll',
                               'ed_EP': "edit EPs",
-                              'ed_BGO': 'background options'
+                              'ed_BGO': 'background options',
+                              "ed_add_enemy": "add enemies",
+                              "ed_rem_enemy": "remove enemies",
                                },
 
                       },
@@ -442,17 +448,20 @@ txtwin = {'all_files': {'de': ("alle Dateien", '.*'),
                          'en': ('Text files', '.txt')
                          },
           'csv_files': {'de': ('CSV Dateien', '.csv'),
-                         'en': ('CSV files', 'csv')
+                         'en': ('CSV files', '.csv')
                          },
           'json_files': {'de': ('Charakter Dateien', '.json'),
                          'en': ('Character files', '.json')
                          },
-          'grp_files': {'de': ('Gruppen Dateien', '.grp'),
-                         'en': ('Group files', '.grp')
+          'grp_files': {'de': ('Gruppen Dateien', '.json'),
+                         'en': ('Group files', '.json')
                          },
           'spell_files':{'de': ('Spruchlisten', '.csv'),
                          'en': ('Spell Lists', '.csv')
                          },
+          'enemygrp_files':{'de': ("Gegner/Monster", '.csv'),
+                            'en': ("enemy/monster", '.csv')
+              },
           'jpg_files': {'de': ('JPG Bilder', 'jpg'),
                          'en': ('JPG Pics', '.jpg')
                          },
