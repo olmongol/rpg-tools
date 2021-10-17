@@ -13,7 +13,7 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "24.09.2021"
+__updated__ = "17.10.2021"
 __author__ = "Marcus Schwamberger"
 
 import re
@@ -325,20 +325,49 @@ def switch(mystr):
 
 
 
-def createCombatList(filename = "data/default/nscs/default.csv"):
+def createCombatList(comlist = []):
     """!
-    This creates a list of combatants for @class combat from a CSV file (NSCs,
-    Monster etc.) or JSON (Character/Group file)
+    This adds a status and combat log section to combatants in a  list.
+    @param comlist a list of combatants (dictionaries)
+    @return modified list
 
     ----
     @todo has to be implemented fully
     """
-    r = r'([1-9][0-9]{1,2})([HLMST]*)([A-Za-z][a-z])'
-    checkob = re.compile(r)
-    clist = ["lvl", "hits", "AT", "OB", "DB", "Qu", "name", "type", "ooo", "status", "die", "parry", "no_parry", "mod", "hits/rnd", "weapon", "PP", "spell lvl"]
-    status = {"ooo":0, "hits/rnd":0, "mod":{"mod":0, "rnd":0}, "parry":0, "no_parry":0, "stunned":0, "die":-1}
+    #r = r'([1-9][0-9]{1,2})([HLMST]*)([A-Za-z][a-z])'
+    #checkob = re.compile(r)
+    #clist = ["lvl", "hits", "AT", "OB", "DB", "Qu", "name", "type", "ooo", "status", "die", "parry", "no_parry", "mod", "hits/rnd", "weapon", "PP", "spell lvl"]
+    status = {"ooo":0,
+              "hits/rnd":0,
+              "mod":[{"mod":0, "rnd":0}],
+              "mod_total":0,
+              "parry":0,
+              "no_parry":0,
+              "stunned":0,
+              "die":-1,
+              "log":[]
+              }
+    comlog = {"gained": {"hits":0,
+                        "crits": {"A":0,
+                                 "B":0,
+                                 "C":0,
+                                 "D":0,
+                                 "E":0,
+                                 "T":0
+                                 },
+                        },
+             "caused":{"crits": [],
+                       "lvls": [],
+                       "kills": []
+                      },
+             "spells": []
+             }
 
-    pass
+    for i in range(0, len(comlist)):
+        comlist[i]["status"] = status.copy()
+        comlist[i]["comlog"] = comlog.copy()
+
+    return comlist
 
 
 
@@ -604,6 +633,7 @@ class combat():
     - combines comatant groups
     - manages battle rounds, initiatives damage etc.
     - vreates a log file of the battle
+    @deprecated
     """
 
 

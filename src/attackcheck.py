@@ -14,7 +14,7 @@ other opponents.
 \version 0.5
 '''
 __version__ = "0.5"
-__updated__ = "08.10.2021"
+__updated__ = "17.10.2021"
 __author__ = "Marcus Schwamberger"
 
 import os
@@ -64,6 +64,9 @@ class atWin(blankWindow):
         self.partygrp = None
         self.__enemypath = None
         self.enemygrp = None
+        self.weapontab = getWeaponTab()
+        self.curr_attacker = 0
+        self.curr_defender = 0
         self.defaultnscimg = datadir + "/pics/default.jpg"
         self.fmask = [txtwin['grp_files'][self.lang],
                      txtwin['enemygrp_files'][self.lang],
@@ -195,10 +198,12 @@ class atWin(blankWindow):
               - weakness list
         '''
         size = "H"
-
+        pprint(self.enemygrp)
+        self.enemygrp = createCombatList(self.enemygrp)
         for i in range(0, len(self.enemygrp)):
-            enc = self.enemygrp[i]["enc"].split("-")
 
+            enc = self.enemygrp[i]["enc"].split("-")
+            print(f"Debug: {self.enemygrp[i]} --> Enc {enc}")
             for j in range(0, len(enc)):
                 enc[j] = int(enc[j])
 
@@ -229,6 +234,8 @@ class atWin(blankWindow):
                 if len(melee[j]) == 2:
                     melee[j].insert(1, size)
 
+                melee[j][0] = self.weapontab[melee[j][0]]['name']
+
             self.enemygrp[i]["OB melee"] = melee
 
             missile = self.enemygrp[i]["OB missile"].split("/")
@@ -241,6 +248,8 @@ class atWin(blankWindow):
 
                 if len(missile[j]) == 2:
                     missile[j].insert(1, size)
+
+                missile[j][0] = self.weapontab[missile[j][0]]["name"]
 
             self.enemygrp[i]["OB missile"] = missile
 
@@ -265,6 +274,7 @@ class atWin(blankWindow):
                 spellists = {}
 
                 if spelldummy != [""]:
+
                     for s in range(0, len(spelldummy)):
                         spelldummy[s] = spelldummy[s].split(":")
                         spelldummy[s][0] = spelldummy[s][0].replace("\\", "/")
@@ -293,6 +303,16 @@ class atWin(blankWindow):
             self.enemygrp[i]["init"] = 0
 
         self.initlist += self.enemygrp
+        self.attackers = []
+
+        for elem in self.initlist:
+            self.attackers.append(elem["name"])
+
+        self.defenders = self.attackers.copy()
+        self.__selectAttacker.set(self.attackers[0])
+        self.__selectDefender.set(self.defenders[-1])
+        self.__updDefCombo()
+        self.__updtAttckCombo()
         self.__chgImg(attackerpic = "", defenderpic = self.enemygrp[0]["piclink"])
         logger.info("__prepareNSCs: enemygrp set")
         logger.debug(f"__prepareNSCs: \n{pformat(self.enemygrp)}")
@@ -338,6 +358,7 @@ class atWin(blankWindow):
             dummy["OB missile"] = []
             dummy["spell"] = []
             dummy["weapon type"] = [[], []]
+
             for m in melee:
 
                 for skill in char["cat"][m]["Skill"].keys():
@@ -356,9 +377,20 @@ class atWin(blankWindow):
             self.partygrp.append(dummy)
             self.__chgImg(attackerpic = self.partygrp[0]["piclink"], defenderpic = "")
 
+        self.partygrp = createCombatList(self.partygrp)
         self.initlist += self.partygrp
         logger.info("__prepareChars: partygrp set")
         logger.debug(f"__prepareChars: \n{pformat(self.partygrp)}")
+        self.attackers = []
+
+        for elem in self.initlist:
+            self.attackers.append(elem["name"])
+
+        self.__selectAttacker.set(self.initlist[0]["name"])
+        self.__selectDefender.set(self.initlist[-1]["name"])
+        self.defenders = self.attackers.copy()
+        self.__updtAttckCombo()
+        self.__updDefCombo()
 
 
     def __quit(self):
@@ -418,26 +450,73 @@ class atWin(blankWindow):
             self.defcanvas.create_image((90, 90), image = self.picdefender, anchor = "se")
 
 
-    def __updtAttckCombo(self):
+    def __findCombatant(self, name = "Egon", chklist = ["Egon"]):
+        """!
+        this method returns the combatant data for the given name
+        @param name of the combatant to search for
+        @return the conbatant's data dictionary
+        """
+        for elem in chklist:
+            #pprint(elem)
+            if name == elem["name"]:
+                return elem
+
+        return {"name":"Egon"}
+
+
+    def __updtAttckCombo(self, event = None):
         '''!
         This method updates the list of the self.__attackCombo combobox
 
         ----
-        @todo has to be fully implemented
+        @todo following has to be implemented
+        - set the current character
 
         '''
-        pass
+
+        self.__attackCombo.configure(values = self.attackers)
+        #self.__attackCombo.current(self.curr_attacker)
+        self.curr_attacker = self.__selectAttacker.get()
+        self.curr_defender = self.__selectDefender.get()
+        #print(f"Debug: {self.curr_attacker} --> {self.__findCombatant(name = self.curr_attacker, chklist = self.initlist)}\n {self.attackers}")
+        at = self.__findCombatant(name = self.curr_attacker, chklist = self.initlist)
+        print("---------\nAttacker\n\n")
+        pprint(at)
+
+        if "piclink" in at.keys():
+            imglink = at["piclink"]
+        else:
+            imglink = "./data/default/pics/default.jpg"
+
+        self.__chgImg(attackerpic = imglink, defenderpic = None)
 
 
-    def __updDefCombo(self):
+    def __updDefCombo(self, event = None):
         '''!
         This method updates the list of the self.__defendCombo combobox
 
         ----
-        @todo has to be fully implemented
-
+        @todo following has to be implemented
+        -set the currently selected defender
         '''
-        pass
+
+        #self.__defendCombo.current(self.curr_defender)
+        self.curr_defender = self.__selectDefender.get()
+        self.curr_attacker = self.__selectAttacker.get()
+        self.__defendCombo.configure(values = self.defenders)
+        defend = self.__findCombatant(name = self.curr_defender, chklist = self.initlist)
+        #print(f"{self.defenders}")
+        print("********\nDefender\n\n")
+        pprint(defend)
+
+        self.__AT.set(defend["AT"])
+        self.__DB.set(defend["DB"])
+        if "piclink" in defend.keys():
+            imglink = defend["piclink"]
+        else:
+            imglink = "./data/default/pics/default.jpg"
+
+        self.__chgImg(attackerpic = None, defenderpic = imglink)
 
 
     def __buildWin(self):
@@ -513,9 +592,9 @@ class atWin(blankWindow):
         self.__selectAttacker.set("Egon")
         self.__attackCombo = Combobox(self.window,
                                       textvariable = self.__selectAttacker,
-                                      self.attackers)
+                                      values = self.attackers)
         self.__attackCombo.bind("<<ComboboxSelected>>", self.__updtAttckCombo)
-        self.__attackCombo.grid(column = 4, row = 0, sticky = "W")
+        self.__attackCombo.grid(column = 0, row = 4, sticky = "W")
         #Label(master = self.window,
         #      text = "PC Name"
         #      ).grid(row = 4, column = 0, sticky = "EW")
@@ -524,9 +603,9 @@ class atWin(blankWindow):
         self.__selectDefender.set("Anton")
         self.__defendCombo = Combobox(self.window,
                                       textvariable = self.__selectDefender,
-                                      self.defenders)
-        self.__defendCombo.bind("<<ComboboxSelected>>", self.__updtDefCombo)
-        self.__defendCombo.grid(column = 4, row = 7, sticky = "EW")
+                                      values = self.defenders)
+        self.__defendCombo.bind("<<ComboboxSelected>>", self.__updDefCombo)
+        self.__defendCombo.grid(column = 7, row = 4, sticky = "EW")
         #Label(master = self.window,
         #      text = "NPC Name"
         #      ).grid(row = 4, column = 7, sticky = "EW")
