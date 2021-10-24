@@ -14,7 +14,7 @@ other opponents.
 \version 0.5
 '''
 __version__ = "0.5"
-__updated__ = "17.10.2021"
+__updated__ = "23.10.2021"
 __author__ = "Marcus Schwamberger"
 
 import os
@@ -364,16 +364,26 @@ class atWin(blankWindow):
                 for skill in char["cat"][m]["Skill"].keys():
 
                     if skill not in ["Progression", "Stats"] and "+" not in skill:
-                        dummy["OB melee"].append([skill, char["cat"][m]["Skill"][skill]["total bonus"], "H"])
+                        addon = [skill, char["cat"][m]["Skill"][skill]["total bonus"], "H"]
+
+                        if addon not in dummy["OB melee"]:
+                            dummy["OB melee"].append([skill, char["cat"][m]["Skill"][skill]["total bonus"], "H"])
+
+            #sort melee weapons highest ob first
+            dummy["OB melee"] = sorted(dummy["OB melee"], key = lambda k: k[1], reverse = True)
 
             for m in missile:
 
                 for skill in char["cat"][m]["Skill"].keys():
 
-                    if skill not in ["Progression", "Stats"] and "+" not in skill:
+                    if skill not in ["Progression", "Stats"] and "+" not in skill and [skill, char["cat"][m]["Skill"][skill]["total bonus"]] not in dummy["OB missile"]:
                         dummy["OB missile"].append([skill, char["cat"][m]["Skill"][skill]["total bonus"]])
+
+            # sort missle weapons highest ob first
+            dummy["OB missile"] = sorted(dummy["OB missile"], key = lambda k: k[1], reverse = True)
             dummy["weapon type"][0] = ["normal"] * len(dummy["OB melee"])
             dummy["weapon type"][1] = ["normal"] * len(dummy["OB missile"])
+
             self.partygrp.append(dummy)
             self.__chgImg(attackerpic = self.partygrp[0]["piclink"], defenderpic = "")
 
@@ -391,6 +401,16 @@ class atWin(blankWindow):
         self.defenders = self.attackers.copy()
         self.__updtAttckCombo()
         self.__updDefCombo()
+
+
+    def sortList(self, mylist = [], key = 1):
+        '''!
+        Sorts reversely a list of lists/dictionaries by an index key of the elements.
+        @param mylist list to be sorted
+        @param key key/index for sorting
+        '''
+        result = sorted(mylist, key = lambda k: k[key], reverse = True)
+        return result
 
 
     def __quit(self):
@@ -490,6 +510,14 @@ class atWin(blankWindow):
 
         self.__chgImg(attackerpic = imglink, defenderpic = None)
 
+        ob = self.sortList(mylist = at['OB melee'], key = 1)[0]
+        ob[0] = ob[0].replace(" ", "_")
+
+        if ob[0] in self.atlist:
+            self.__selectAT.set(ob[0])
+            self.__skill.set(ob[1])
+        print(f"Debug: ob {ob}")
+
 
     def __updDefCombo(self, event = None):
         '''!
@@ -553,20 +581,6 @@ class atWin(blankWindow):
         """
 
         # row 0
-
-        #atlabel = Label(master = self.window,
-        #              image = ImageTk.PhotoImage(Image.open(self.defaultnscimg).resize((80, 80), Image.ANTIALIAS)),
-        #              text = "PC"
-        #
-        #              )
-        #atlabel.grid(column = 0, row = 0, rowspan = 2, sticky = "NEWS")
-        #
-        #deflabel = Label(master = self.window,
-        #              image = ImageTk.PhotoImage(Image.open(self.defaultnscimg).resize((60, 60), Image.ANTIALIAS)),
-        #              text = "NPC"
-        #              )
-        #deflabel.grid(column = 7, row = 0, sticky = "NEWS")
-        #self.window.update_idletasks()
 
         self.atcanvas = Canvas(master = self.window,
                           width = 90,

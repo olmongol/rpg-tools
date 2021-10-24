@@ -366,6 +366,7 @@ def createCombatList(comlist = []):
     for i in range(0, len(comlist)):
         comlist[i]["status"] = status.copy()
         comlist[i]["comlog"] = comlog.copy()
+        comlist[i]["switch"] = 0
 
     return comlist
 

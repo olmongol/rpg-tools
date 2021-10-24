@@ -33,6 +33,21 @@ logger = log.createLogger('global', 'warning', '1 MB', 1, './' , 'globaltools.lo
 
 
 
+def sortDictlist(dictlist = [], key = "", reverse = True):
+    """!
+    This function sorts a list of ditionaries by the value of a key, which is  int float.
+
+    @param dictlist list of dictionaries to be sorted
+    @param key if dicts by which it shall be sorted
+    @param reverse direction of sorting, bottom -> up, top -> down
+    @retval result sorted list of dicts
+    """
+    result = sorted(dictlist, key = lambda k: k[key], reverse = reverse)
+
+    return result
+
+
+
 def readFile(path = './', file_name = None, mode = 'r'):
     '''!
     This function reads a file and returns its content.
