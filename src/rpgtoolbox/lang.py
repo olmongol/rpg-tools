@@ -22,7 +22,7 @@ Currently supported languages are:
 @license GNU V3.0
 '''
 __version__ = "1.1"
-__updated__ = "28.08.2021"
+__updated__ = "28.10.2021"
 ##
 # @var supportedrpg
 # Supported RPG systems
@@ -227,6 +227,9 @@ txtbutton = {'but_ok': {'de': 'OK',
                             "en": "enchant"},
              'but_rr': {'de': 'Widerstandswurf',
                        'en': 'Resistance Roll'},
+             'but_dmg':{'de': "Schaden berechnen",
+                        'en': "apply damage"
+                        },
              }
 
 ## @var txtmenu
@@ -294,6 +297,7 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                           'open_enemy': u'Gegnergruppe öffnen',
                           'print': 'Drucken',
                           'pdf': "PDF erstellen",
+
                           },
                     'en':{'open': 'Open file',
                           'close': 'Close file',
@@ -309,7 +313,8 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                           'open_party': 'Open Character Group file',
                           'open_enemy': 'Open Enemy Group file',
                           'print': 'Print',
-                          'pdf': "PDF generation"
+                          'pdf': "PDF generation",
+
                           },
                     },
            'opts':{'de': {'lang': 'Einstellungen',
@@ -345,6 +350,7 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                               'ed_BGO': "Hintergrundoptionen",
                               "ed_add_enemy": u"Feinde hinzufügen",
                               "ed_rem_enemy": "Feinde entfernen",
+                              'init': "Initativewurf",
                               },
                       'en':{'ed_char': 'Edit/improve Character',
                               'ed_grp': 'Edit Group',
@@ -362,6 +368,7 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                               'ed_BGO': 'background options',
                               "ed_add_enemy": "add enemies",
                               "ed_rem_enemy": "remove enemies",
+                              'init': "Initiative roll",
                                },
 
                       },
@@ -756,7 +763,11 @@ labels = {'cfg_path': {'de': 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei',
           "fail": {"de": "Fehlschlag",
                     "en": "Failure",
                     },
-
+          "with":{'de': "mit Gegenstand",
+                   'en': "with item"
+                   },
+          "without": {'de': "ohne Gegenstand",
+                       "en": "without item"},
           }
 
 invedtacts = {"de": [u"wählen", u"ausgerüstet", "unausgerüstet"],

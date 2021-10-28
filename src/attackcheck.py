@@ -14,7 +14,7 @@ other opponents.
 \version 0.5
 '''
 __version__ = "0.5"
-__updated__ = "23.10.2021"
+__updated__ = "28.10.2021"
 __author__ = "Marcus Schwamberger"
 
 import os
@@ -59,6 +59,9 @@ class atWin(blankWindow):
         self.defenders = ["Anton"]
         self.combatants = []
         self.combatround = 0
+        self.curphase = 0
+        self.damachoice = [labels["with"][self.lang], labels["without"][self.lang]]
+        self.initroll = False
         self.initlist = []
         self.__partypath = None
         self.partygrp = None
@@ -71,7 +74,10 @@ class atWin(blankWindow):
         self.fmask = [txtwin['grp_files'][self.lang],
                      txtwin['enemygrp_files'][self.lang],
                      txtwin['all_files'][self.lang]]
-
+        self.fmaskc = [txtwin['grp_files'][self.lang],
+                     txtwin['all_files'][self.lang]]
+        self.fmaske = [txtwin['enemygrp_files'][self.lang],
+                     txtwin['all_files'][self.lang]]
         # read all attack tables
         for table in os.listdir("{}/fight/attacks".format(self.datadir)):
             if table[-4:] == ".csv" and table[-5:] != "-.csv":
@@ -139,13 +145,15 @@ class atWin(blankWindow):
                                   command = self.notdoneyet)
         self.editmenu.add_command(label = submenu['edit'][self.lang]["ed_rem_enemy"],
                                   command = self.notdoneyet)
+        self.editmenu.add_command(label = submenu['edit'][self.lang]["init"],
+                                  command = self.__rollInit)
 
 
     def openParty(self):
         '''!
         This method reads a character party group file to self.partygrp
         '''
-        self.__partypath = askopenfilename(filetypes = self.fmask, initialdir = os.getcwd())
+        self.__partypath = askopenfilename(filetypes = self.fmaskc, initialdir = os.getcwd(), defaultextension = ".json")
         logger.debug(f"openParty: chosen group file {self.__partypath}")
         try:
             with open(self.__partypath, "r") as fp:
@@ -170,7 +178,7 @@ class atWin(blankWindow):
         '''!
         This opens an enemy party to fight against
         '''
-        self.__enemypath = askopenfilename(filetypes = self.fmask, initialdir = os.getcwd(), defaultextension = ".csv")
+        self.__enemypath = askopenfilename(filetypes = self.fmaske, defaultextension = "*.csv", initialdir = os.getcwd())
         logger.debug(f"openEnemies: chosen enemies group file {self.__enemypath}")
 
         if self.__enemypath[-4:].lower() == ".csv":
@@ -192,8 +200,7 @@ class atWin(blankWindow):
                - last: takes the last number of 'enc' range
 
         ----
-        @todo - the weapon short terms have to be replaced by the full names to get
-              the right weapon table.
+        @todo - append NSCs/Monsters if the enc >1
               - immunity list
               - weakness list
         '''
@@ -203,7 +210,7 @@ class atWin(blankWindow):
         for i in range(0, len(self.enemygrp)):
 
             enc = self.enemygrp[i]["enc"].split("-")
-            print(f"Debug: {self.enemygrp[i]} --> Enc {enc}")
+            #print(f"Debug: {self.enemygrp[i]} --> Enc {enc}")
             for j in range(0, len(enc)):
                 enc[j] = int(enc[j])
 
@@ -353,7 +360,7 @@ class atWin(blankWindow):
             dummy["Qu"] = char["Qu"]["total"]
             dummy["init"] = 0
             dummy["hits"] = char["cat"]["Body Development"]["Skill"]["Body Development"]["total bonus"]
-            dummy["pp"] = char["cat"]["Power Point Development"]["Skill"]["Power Point Development"]["total bonus"]
+            dummy["PP"] = char["cat"]["Power Point Development"]["Skill"]["Power Point Development"]["total bonus"]
             dummy["OB melee"] = []
             dummy["OB missile"] = []
             dummy["spell"] = []
@@ -424,13 +431,26 @@ class atWin(blankWindow):
         '''!
         This rolls the initiative
 
-        ----
-        @todo: has to be fully implemented:
-        - roll 6 store initative
-        - sort list by intiative and build a name list in that order (for combobox)
-        - update attacker combobox
         '''
-        pass
+
+        # roll initiative for self.initlist
+        for i in range(0, len(self.initlist)):
+            self.initlist[i]["init"] = int(self.initlist[i]['Qu']) + randint(1, 10)
+
+        # sort self.initlist reversely
+        self.initlist = sorted(self.initlist, key = lambda k: k["init"], reverse = True)
+        self.attackers = []
+
+        for elem in self.initlist:
+
+            if elem['name'] not in self.attackers:
+                self.attackers.append(elem["name"])
+
+        self.defenders = self.attackers.copy()
+        self.combatround += 1
+        self.initroll = True
+        self.__updtAttckCombo(None)
+        self.__updDefCombo(None)
 
 
     def __rollAttack(self):
@@ -495,8 +515,16 @@ class atWin(blankWindow):
         '''
 
         self.__attackCombo.configure(values = self.attackers)
-        #self.__attackCombo.current(self.curr_attacker)
-        self.curr_attacker = self.__selectAttacker.get()
+        print(self.initroll)
+        if not self.initroll:
+            self.curr_attacker = self.__selectAttacker.get()
+
+        else:
+            self.curr_attacker = self.attackers[0]
+            self.__selectAttacker.set(self.curr_attacker)
+
+        self.initroll = False
+
         self.curr_defender = self.__selectDefender.get()
         #print(f"Debug: {self.curr_attacker} --> {self.__findCombatant(name = self.curr_attacker, chklist = self.initlist)}\n {self.attackers}")
         at = self.__findCombatant(name = self.curr_attacker, chklist = self.initlist)
@@ -516,7 +544,12 @@ class atWin(blankWindow):
         if ob[0] in self.atlist:
             self.__selectAT.set(ob[0])
             self.__skill.set(ob[1])
-        print(f"Debug: ob {ob}")
+
+        self.__lvlAttacker.set(f"Lvl: {at['lvl']}")
+        self.__curHPAttacker.set(f"HP: {at['status']['hits']}/{at['hits']}")
+        self.__initAttacker.set(f"Init: {at['init']}")
+        self.__ppAttacker.set(f"PP: {at['status']['PP']}/{at['PP']}")
+        #print(f"Debug: ob {ob}")
 
 
     def __updDefCombo(self, event = None):
@@ -528,23 +561,27 @@ class atWin(blankWindow):
         -set the currently selected defender
         '''
 
-        #self.__defendCombo.current(self.curr_defender)
         self.curr_defender = self.__selectDefender.get()
         self.curr_attacker = self.__selectAttacker.get()
         self.__defendCombo.configure(values = self.defenders)
         defend = self.__findCombatant(name = self.curr_defender, chklist = self.initlist)
         #print(f"{self.defenders}")
-        print("********\nDefender\n\n")
+        #print("********\nDefender\n\n")
         pprint(defend)
 
         self.__AT.set(defend["AT"])
         self.__DB.set(defend["DB"])
+
         if "piclink" in defend.keys():
             imglink = defend["piclink"]
         else:
             imglink = "./data/default/pics/default.jpg"
 
         self.__chgImg(attackerpic = None, defenderpic = imglink)
+        self.__lvlDefender.set(f"Lvl: {defend['lvl']}")
+        self.__curHPDefender.set(f"HP: {defend['status']['hits']}/{defend['hits']}")
+        self.__initDefender.set(f"Init: {defend['init']}")
+        self.__ppDefender.set(f"PP: {defend['status']['PP']}/{defend['PP']}")
 
 
     def __buildWin(self):
@@ -581,20 +618,81 @@ class atWin(blankWindow):
         """
 
         # row 0
-
         self.atcanvas = Canvas(master = self.window,
-                          width = 90,
-                          height = 90,
+                          width = 95,
+                          height = 95,
                           bg = "green")
-        self.atcanvas.grid(row = 0, rowspan = 3, column = 0, sticky = "NEWS")
+        self.atcanvas.grid(row = 0, rowspan = 3, column = 0, sticky = "NS")
 
         self.defcanvas = Canvas(master = self.window,
-                          width = 90,
-                          height = 90,
+                          width = 95,
+                          height = 95,
                           bg = "green")
-        self.defcanvas.grid(row = 0, rowspan = 3, column = 7, sticky = "NEWS")
+        self.defcanvas.grid(row = 0, rowspan = 3, column = 6, sticky = "NS")
         self.__chgImg()
+
+        self.__lvlAttacker = StringVar()
+        self.__lvlAttacker.set("Lvl: 1")
+        Label(self.window,
+              textvariable = self.__lvlAttacker
+              ).grid(column = 1, row = 0, sticky = W)
+
+        self.__curHPAttacker = StringVar()
+        self.__curHPAttacker.set("HP: 30/30")
+        Label(self.window,
+              textvariable = self.__curHPAttacker
+              ).grid(column = 2, row = 0, sticky = W)
+
+        self.__ppAttacker = StringVar()
+        self.__ppAttacker.set("PP: 0/0")
+        Label(self.window,
+              textvariable = self.__ppAttacker
+              ).grid(row = 0, column = 3, sticky = W)
+
+        self.__wmodAttacker = StringVar()
+        self.__wmodAttacker.set("Mods: 0")
+        Label(self.window,
+              textvariable = self.__wmodAttacker
+              ).grid(row = 0, column = 4, sticky = E)
+
+        #------------------- Defender ------------------------------------------
+        self.__lvlDefender = StringVar()
+        self.__lvlDefender.set("Lvl: 1")
+        Label(self.window,
+              textvariable = self.__lvlDefender
+              ).grid(column = 7, row = 0, sticky = W)
+
+        self.__curHPDefender = StringVar()
+        self.__curHPDefender.set("HP: 30/30")
+        Label(self.window,
+              textvariable = self.__curHPDefender
+              ).grid(column = 8, row = 0, sticky = W)
+
+        self.__ppDefender = StringVar()
+        self.__ppDefender.set("PP: 0/0")
+        Label(self.window,
+              textvariable = self.__ppDefender
+              ).grid(row = 0, column = 9, sticky = W)
+
+        self.__wmodDefender = StringVar()
+        self.__wmodDefender.set("Mods: 0")
+        Label(self.window,
+              textvariable = self.__wmodDefender
+              ).grid(row = 0, column = 10, sticky = W)
+
         # row 1
+        self.__initAttacker = StringVar()
+        self.__initAttacker.set("Init: 0")
+        Label(self.window,
+              textvariable = self.__initAttacker
+              ).grid(row = 1, column = 1, sticky = W)
+
+        #------------------- Defender ------------------------------------------
+        self.__initDefender = StringVar()
+        self.__initDefender.set("Init: 0")
+        Label(self.window,
+              textvariable = self.__initDefender
+              ).grid(row = 1, column = 7, sticky = W)
 
         # row 2
 
@@ -609,9 +707,8 @@ class atWin(blankWindow):
                                       values = self.attackers)
         self.__attackCombo.bind("<<ComboboxSelected>>", self.__updtAttckCombo)
         self.__attackCombo.grid(column = 0, row = 4, sticky = "W")
-        #Label(master = self.window,
-        #      text = "PC Name"
-        #      ).grid(row = 4, column = 0, sticky = "EW")
+
+        #------------------- Defender ------------------------------------------
 
         self.__selectDefender = StringVar()
         self.__selectDefender.set("Anton")
@@ -619,7 +716,7 @@ class atWin(blankWindow):
                                       textvariable = self.__selectDefender,
                                       values = self.defenders)
         self.__defendCombo.bind("<<ComboboxSelected>>", self.__updDefCombo)
-        self.__defendCombo.grid(column = 7, row = 4, sticky = "EW")
+        self.__defendCombo.grid(column = 6, row = 4, sticky = "EW")
         #Label(master = self.window,
         #      text = "NPC Name"
         #      ).grid(row = 4, column = 7, sticky = "EW")
@@ -740,6 +837,19 @@ class atWin(blankWindow):
               width = 5,
               justify = "center"
               ).grid(column = 8, row = 11, sticky = "EW")
+
+        self.__woItem = StringVar()
+        self.__woItem.set(labels["with"][self.lang])
+        self.__dmgOpt = OptionMenu(self.window,
+                                   self.__woItem,
+                                   *self.damachoice,
+                                   )
+        self.__dmgOpt.grid(row = 11, column = 9, columnspan = 2, sticky = "NEWS")
+
+        Button(self.window,
+               text = txtbutton["but_dmg"][self.lang],
+               command = self.notdoneyet
+               ).grid(row = 11, column = 11)
 
         # row 12
         Label(self.window,

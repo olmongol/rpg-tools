@@ -13,7 +13,7 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "17.10.2021"
+__updated__ = "28.10.2021"
 __author__ = "Marcus Schwamberger"
 
 import re
@@ -365,6 +365,11 @@ def createCombatList(comlist = []):
 
     for i in range(0, len(comlist)):
         comlist[i]["status"] = status.copy()
+        comlist[i]["status"]["hits"] = int(comlist[i]["hits"])
+        if "PP" in comlist[i].keys():
+            comlist[i]["status"]["PP"] = int(comlist[i]["PP"])
+        else:
+            comlist[i]["status"]["pp"] = 0
         comlist[i]["comlog"] = comlog.copy()
         comlist[i]["switch"] = 0
 
