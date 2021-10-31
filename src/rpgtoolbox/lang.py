@@ -22,7 +22,7 @@ Currently supported languages are:
 @license GNU V3.0
 '''
 __version__ = "1.1"
-__updated__ = "28.10.2021"
+__updated__ = "31.10.2021"
 ##
 # @var supportedrpg
 # Supported RPG systems
@@ -214,22 +214,32 @@ txtbutton = {'but_ok': {'de': 'OK',
                             'en': 'check result'
                             },
              'but_buy':{"de": "kaufen",
-                         'en': 'buy'},
+                         'en': 'buy'
+                         },
              'but_sell':{"de": "verkaufen",
-                          "en": "sell"},
+                          "en": "sell"
+                          },
              'but_away':{'de': "wegwerfen",
-                          'en': 'throw away'},
+                          'en': 'throw away'
+                          },
              'but_edit': {"de": "bearbeiten",
-                           "en": "edit"},
+                           "en": "edit"
+                           },
              "but_details": {"de":"Details",
-                              "en":"details"},
+                              "en":"details"
+                              },
              'but_magic': {"de": "verzaubern",
-                            "en": "enchant"},
+                            "en": "enchant"
+                            },
              'but_rr': {'de': 'Widerstandswurf',
-                       'en': 'Resistance Roll'},
+                       'en': 'Resistance Roll'
+                       },
              'but_dmg':{'de': "Schaden berechnen",
                         'en': "apply damage"
                         },
+             'but_nxtrd': {'de': 'nächste\n Runde',
+                           'en': 'next\n round',
+                           },
              }
 
 ## @var txtmenu
@@ -351,6 +361,7 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                               "ed_add_enemy": u"Feinde hinzufügen",
                               "ed_rem_enemy": "Feinde entfernen",
                               'init': "Initativewurf",
+                              "history": "Verlauf anzeigen",
                               },
                       'en':{'ed_char': 'Edit/improve Character',
                               'ed_grp': 'Edit Group',
@@ -369,6 +380,7 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                               "ed_add_enemy": "add enemies",
                               "ed_rem_enemy": "remove enemies",
                               'init': "Initiative roll",
+                              "history": "display history",
                                },
 
                       },
@@ -768,6 +780,18 @@ labels = {'cfg_path': {'de': 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei',
                    },
           "without": {'de': "ohne Gegenstand",
                        "en": "without item"},
+          "stunned": {"de": "benommen",
+                      "en": "stunned",
+                      },
+          'parry': {'de': "nur parrieren",
+                    'en': 'only parry'
+                    },
+          'no_parry':{'de':"nicht parrieren",
+                      'en':"no parry"
+                      },
+          'ooo':{'de': "außer Gefecht",
+                 'en': 'knocked out'
+                 },
           }
 
 invedtacts = {"de": [u"wählen", u"ausgerüstet", "unausgerüstet"],

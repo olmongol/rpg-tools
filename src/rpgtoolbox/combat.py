@@ -520,6 +520,7 @@ class crittable():
         """!
         This just prints out the result to stdout
         """
+        print("Result")
         pprint(self.crithit)
 
 
