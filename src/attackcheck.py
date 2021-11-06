@@ -14,7 +14,7 @@ other opponents.
 \version 0.5
 '''
 __version__ = "0.5"
-__updated__ = "31.10.2021"
+__updated__ = "06.11.2021"
 __author__ = "Marcus Schwamberger"
 
 import os
@@ -71,6 +71,7 @@ class atWin(blankWindow):
         self.weapontab = getWeaponTab()
         self.curr_attacker = 0
         self.curr_defender = 0
+        self.__oblist = []
         self.defaultnscimg = datadir + "/pics/default.jpg"
         self.fmask = [txtwin['grp_files'][self.lang],
                      txtwin['enemygrp_files'][self.lang],
@@ -235,12 +236,12 @@ class atWin(blankWindow):
                 if type(melee[j]) == type(""):
                     melee[j] = melee[j].split(" ")
 
-                    if len(melee[j]) == 2:
-                        melee[j][-1], melee[j][0] = melee[j][0], melee[j][-1]
-                        melee[j].append("H")
+                if len(melee[j]) == 2:
+                    melee[j][-1], melee[j][0] = melee[j][0], melee[j][-1]
+                    melee[j].append("H")
 
-                    elif len(melee[j]) == 3:
-                        melee[j][2], melee[j][0], melee[j][1] = melee[j][1], melee[j][0], melee[j][2]
+                elif len(melee[j]) == 3:
+                    melee[j][2], melee[j][1], melee[j][0] = melee[j][1], melee[j][0], melee[j][2]
 
                 if len(melee[j]) == 2:
                     melee[j].insert(1, size)
@@ -258,9 +259,12 @@ class atWin(blankWindow):
                     missile[j][-1], missile[j][0] = missile[j][0], missile[j][-1]
 
                 if len(missile[j]) == 2:
-                    missile[j].insert(1, size)
+                    missile[j].insert(2, size)
 
-                missile[j][0] = self.weapontab[missile[j][0]]["name"]
+                if missile[j][0] in self.weapontab.keys():
+                    missile[j][0] = self.weapontab[missile[j][0]]["name"]
+                else:
+                    missile[j][0] = "n/a"
 
             self.enemygrp[i]["OB missile"] = missile
 
@@ -502,13 +506,13 @@ class atWin(blankWindow):
         @param defenderpic path & name of the picture of the defender (will be downsized to 90x90 px)
         '''
         if attackerpic:
-            self.picattacker = Image.open(attackerpic).resize((90, 90), Image.ANTIALIAS)
+            self.picattacker = Image.open(attackerpic).resize((110, 110), Image.ANTIALIAS)
             self.picattacker = ImageTk.PhotoImage(self.picattacker)
-            self.atcanvas.create_image((90, 90), image = self.picattacker, anchor = "se")
+            self.atcanvas.create_image((110, 110), image = self.picattacker, anchor = "se")
         if defenderpic:
-            self.picdefender = Image.open(defenderpic).resize((90, 90), Image.ANTIALIAS)
+            self.picdefender = Image.open(defenderpic).resize((110, 110), Image.ANTIALIAS)
             self.picdefender = ImageTk.PhotoImage(self.picdefender)
-            self.defcanvas.create_image((90, 90), image = self.picdefender, anchor = "se")
+            self.defcanvas.create_image((110, 110), image = self.picdefender, anchor = "se")
 
 
     def __findCombatant(self, name = "Egon", chklist = ["Egon"], result = "value"):
@@ -550,8 +554,16 @@ class atWin(blankWindow):
             result = self.crittbls[self.__selectCrit.get()].crithit
             print("Apply Damage:")
             pprint(self.crittbls[self.__selectCrit.get()].crithit)
+            wo = self.__woItem.get()
 
-            if  result["alternate"] != {} and self.__woItem.get() == labels["without"][self.lang]:
+            if  result["alternate"] != {} and wo == labels["without"][self.lang]:
+
+                for elem in ["hits", "hits/rnd", "stunned", "parry", "no_parry", "ooo"]:
+                    result[elem] = 0
+
+                result["mod"]["mod"] = 0
+                result["mod_attacker"]["mod_attacker"] = 0
+                result["die"] = -1
 
                 for key in result["alternate"].keys():
                     result[key] = result["alternate"][key]
@@ -559,9 +571,9 @@ class atWin(blankWindow):
             self.initlist[pos]["status"]["die"] = result["die"]
             self.initlist[pos]["status"]["hits"] -= result["hits"]
 
-            for key in ["hits/rnd", "no_parry", "ooo", "parry", "stunned"]:
+            for key in [ "no_parry", "ooo", "parry", "stunned"]:
                 self.initlist[pos]["status"][key] += result[key]
-
+            self.initlist[pos]["status"]["hits/rnd"] -= result[key]
             self.initlist[pos]["status"]["mod"].append(result["mod"])
             self.initlist[pos]["status"]["mod_total"] += result["mod"]["mod"]
             #self.initlist[pos]["status"]["mod"][0]["mod"] += self.initlist[pos]["status"]["mod"][-1]["mod"]
@@ -572,6 +584,7 @@ class atWin(blankWindow):
                 self.initlist[posa]["status"]["mod"].append(result["mod_attacker"])
                 self.initlist[posa]["status"]["mod_total"] += result["mod_attacker"]["mod_attacker"]
 
+            pprint(result)
         self.__updDefCombo(event = None)
         self.__updtAttckCombo(event = None)
 
@@ -638,6 +651,11 @@ class atWin(blankWindow):
         self.__parryAttacker.set(f'{labels["parry"][self.lang]}: {at["status"]["parry"]}')
         self.__noparryAttacker.set(f'{labels["no_parry"][self.lang]}: {at["status"]["no_parry"]}')
         self.__koAttacker.set(f'k.o.: {at["status"]["ooo"]}')
+        self.__bleedAttacker.set(f"HP/rd: {at['status']['hits/rnd']}")
+        self.__deathAttacker.set(f"Death:{at['status']['die']}")
+        self.__getAttackType(event = None)
+        self.__updOB(event = None)
+        self.__updDefCombo(event = None)
 
 
     def __updDefCombo(self, event = None):
@@ -675,6 +693,9 @@ class atWin(blankWindow):
         self.__parryDefender.set(f'{labels["parry"][self.lang]}: {defend["status"]["parry"]}')
         self.__noparryDefender.set(f'{labels["no_parry"][self.lang]}: {defend["status"]["no_parry"]}')
         self.__koDefender.set(f'k.o.: {defend["status"]["ooo"]}')
+        self.__deathDefender.set(f"Death: {defend['status']['die']}")
+        self.attackers = deepcopy(self.defenders)
+        self.__updOB(event = None)
 
 
     def __nextRnd(self):
@@ -683,15 +704,15 @@ class atWin(blankWindow):
         - subtracting hits per round
         - keeping track of states like 'stunned', "no parry", "parry only"
         - updating self.initlist (deleting dead monsters etc)
-        ---
-        @todo has to be fully implemented
+
         '''
         #raise combatround
         self.combatround += 1
         rm = []
+        self.__healingpoints.set(0)
 
         for i in range(0, len(self.initlist)):
-            self.initlist[i]["status"]["hits"] -= self.initlist[i]["status"]["hits/rnd"]
+            self.initlist[i]["status"]["hits"] += self.initlist[i]["status"]["hits/rnd"]
 
             # status check
             if self.initlist[i]["status"]["stunned"] == 1:
@@ -714,10 +735,9 @@ class atWin(blankWindow):
                     if self.initlist[i]["status"]["mod"][j]["mod_attacker"] <= 0 or self.initlist[i]["status"]["mod"][j]["rnd"] <= 0:
                         rm_mod.append(j)
 
-                #xxxxxxxxxxxx
-
             # select killed combatants
-            if "player" not in self.initlist[i].keys() and (self.initlist[i]["status"]["hits"] < 1 or self.initlist[i]["status"]["die"] == 0):
+            #if "player" not in self.initlist[i].keys() and (self.initlist[i]["status"]["hits"] < 1 or self.initlist[i]["status"]["die"] == 0):
+            if (self.initlist[i]["status"]["hits"] < 1 or self.initlist[i]["status"]["die"] == 0):
                 rm.append(self.initlist[i]["name"])
 
         # remove killed NSCs/Monster
@@ -736,6 +756,118 @@ class atWin(blankWindow):
             if name == elem["name"]:
                 self.initlist.remove(elem)
                 break
+
+
+    def __getAttackType(self, event = None):
+        '''!
+        This detemines the selected attack type an shows/hide the (not) needed
+        Comboboxes for the skills
+        '''
+        self.curr_attacker = self.__selectAttacker.get()
+        at = self.__findCombatant(name = self.curr_attacker, chklist = self.initlist)
+        selected = self.__selectType.get()
+        self.__oblist = []
+
+        if selected == attacktypes[self.lang][0]:
+
+            for mob in at["OB melee"]:
+                self.__oblist.append(mob[0])
+
+        elif selected == attacktypes[self.lang][1]:
+            for mob in at["OB missile"]:
+                self.__oblist.append(mob[0])
+        else:
+            self.notdoneyet(f"{attacktypes[self.lang][2]}")
+
+        self.__selectOB.set(self.__oblist[0])
+        self.__obCombo.config(values = self.__oblist)
+        self.__updOB(event = None)
+
+
+    def __updOB(self, event = None):
+        '''!
+        This updates the attack credentials by the selected attack skills
+        '''
+        self.curr_attacker = self.__selectAttacker.get()
+        at = self.__findCombatant(name = self.curr_attacker, chklist = self.initlist)
+        self.curr_defender = self.__selectDefender.get()
+        defend = self.__findCombatant(name = self.curr_defender, chklist = self.initlist)
+        obtype = self.__selectType.get()
+        selectedOB = self.__selectOB.get()
+        index = self.__oblist.index(selectedOB)
+
+        if obtype == attacktypes[self.lang][0]:
+            self.__skill.set(at["OB melee"][index][1])
+
+        elif obtype == attacktypes[self.lang][1]:
+            self.__skill.set(at["OB missile"][index][1])
+
+            if "DBm" in defend.keys():
+                self.__DB.set(int(defend["DBm"]))
+            else:
+                self.__DB.set(0)
+
+        if selectedOB.replace(" ", "_") in self.atlist:
+            self.__selectAT.set(selectedOB.replace(" ", "_"))
+
+        else:
+            self.__selectAT.set(self.__determineAT(selectedOB))
+
+        if defend["status"]["no_parry"] > 0 or defend["status"]["ooo"] > 0:
+            self.__DB.set(0)
+
+        if defend["status"]["stunned"] > 0:
+            db = self.__DB.get()
+            if db < 25:
+                self.__DB.set(0)
+            else:
+                self.__DB.set(db - 25)
+
+        self.__calcMod(event = None)
+
+
+    def __determineAT(self, obname = ""):
+        """!
+
+        """
+        result = "Broadsword"
+
+        return result
+
+
+    def __calcMod(self, event = None):
+        """!
+        This method applies during fight generated modifier to OB/DB
+
+        ----
+        @todo this has to be fully implemented
+
+        """
+        self.curr_attacker = self.__selectAttacker.get()
+        at = self.__findCombatant(name = self.curr_attacker, chklist = self.initlist)
+        self.curr_defender = self.__selectDefender.get()
+        defend = self.__findCombatant(name = self.curr_defender, chklist = self.initlist)
+
+        modob = self.__skill.get() + at["status"]["mod_total"]
+        moddb = self.__DB.get() + defend["status"]["mod_total"]
+
+        if moddb < 0:
+            moddb = 0
+
+        self.__skill.set(modob)
+        self.__DB.set(moddb)
+
+
+    def __applyHealing(self, event = None):
+        """!
+        This method applies healing to the combatant
+        """
+        self.curr_attacker = self.__selectAttacker.get()
+        at = self.__findCombatant(name = self.curr_attacker, chklist = self.initlist, result = "index")
+        key = self.__selectHeal.get()
+        value = self.__healingpoints.get()
+        self.initlist[at]["status"][key] += value
+        self.__updtAttckCombo(event = None)
 
 
     def __buildWin(self):
@@ -771,16 +903,16 @@ class atWin(blankWindow):
             - frame 4: Attack results
         """
 
-        # row 0
+        #------------ row 0
         self.atcanvas = Canvas(master = self.window,
-                          width = 95,
-                          height = 95,
+                          width = 120,
+                          height = 120,
                           bg = "green")
         self.atcanvas.grid(row = 0, rowspan = 5, column = 0, sticky = "NS")
 
         self.defcanvas = Canvas(master = self.window,
-                          width = 95,
-                          height = 95,
+                          width = 120,
+                          height = 120,
                           bg = "green")
         self.defcanvas.grid(row = 0, rowspan = 5, column = 6, sticky = "NS")
         self.__chgImg()
@@ -877,7 +1009,7 @@ class atWin(blankWindow):
               textvariable = self.__koAttacker
               ).grid(row = 1, column = 5, sticky = W)
 
-        #------------------- Defender row1 1-----------------------------------------
+        #------------------- Defender -----------------------------------------
         self.__initDefender = StringVar()
         self.__initDefender.set("Init: 0")
         Label(self.window,
@@ -906,16 +1038,70 @@ class atWin(blankWindow):
         self.__koDefender.set("k.o.: 0")
         Label(self.window,
               textvariable = self.__koDefender
-              ).grid(row = 1, column = 5, sticky = W)
-        # row 2
+              ).grid(row = 1, column = 11, sticky = W)
 
-        # row 3
+        #------------ row 2
+        self.__selectType = StringVar()
+        self.__selectType.set(attacktypes[self.lang][0])
+        self.__typeCombo = Combobox(self.window,
+                                    textvariable = self.__selectType,
+                                    values = attacktypes[self.lang])
+        self.__typeCombo.bind("<<ComboboxSelected>>", self.__getAttackType)
+        self.__typeCombo.grid(row = 2, column = 1, sticky = W)
 
-        # row 4
+        #---------- row 3
+        #self.__selectSkill = StringVar()
+        #self.__skillCombo = Combobox(self.window,
+        #                            textvariable = self.__selectSkill,
+        #                            values = ["--"])
+        #self.__skillCombo.bind("<<ComboboxSelected>>", self.__getAttackType)
 
-        # row 5
+        self.__selectOB = StringVar()
+        self.__selectOB.set("Battle_Axe")
+        self.__obCombo = Combobox(self.window,
+                        textvariable = self.__selectOB,
+                        values = ["Battle_Axe"])
+        self.__obCombo.bind("<<ComboboxSelected>>", self.__updOB)
+        self.__obCombo.grid(row = 3, column = 1, sticky = W)
 
-        # row 6
+        self.__deathAttacker = StringVar()
+        self.__deathAttacker.set("Death: -1")
+        Label(self.window,
+              textvariable = self.__deathAttacker
+              ).grid(row = 3, column = 2, sticky = "W")
+
+        #------------------- Defender -----------------------------------------
+        self.__deathDefender = StringVar()
+        self.__deathDefender.set("Death: -1")
+        Label(self.window,
+              textvariable = self.__deathDefender
+              ).grid(row = 3, column = 7, sticky = "W")
+
+        #------------ row 4
+
+        #------------ row 5
+        self.healings = ["hits", "hits/rnd", "stunned", "ooo", "mod_total", "die"]
+        self.__selectHeal = StringVar()
+        self.__selectHeal.set(self.healings[1])
+        self.__healCombo = Combobox(self.window,
+                                   textvariable = self.__selectHeal,
+                                   values = self.healings)
+        #self.__healCombo.bind("<<ComboboxSelected>>",self.__applyHealing)
+        self.__healCombo.grid(row = 5, column = 1, sticky = W)
+
+        self.__healingpoints = IntVar()
+        self.__healingpoints.set(0)
+        Entry(self.window,
+              justify = "center",
+              textvariable = self.__healingpoints
+              ).grid(row = 5, column = 2, sticky = "EW")
+
+        Button(self.window,
+               text = txtbutton["but_add"][self.lang],
+               command = self.__applyHealing
+               ).grid(column = 3, row = 5, sticky = "EW")
+
+        #------------ row 6
         self.__selectAttacker = StringVar()
         self.__selectAttacker.set("Egon")
         self.__attackCombo = Combobox(self.window,
@@ -934,21 +1120,23 @@ class atWin(blankWindow):
         self.__defendCombo.bind("<<ComboboxSelected>>", self.__updDefCombo)
         self.__defendCombo.grid(column = 6, row = 6, sticky = "EW")
 
-        # row 7
+        #---------- row 7
         Button(self.window,
                text = txtbutton["but_nxtrd"][self.lang],
                command = self.__nextRnd
                ).grid(column = 0, row = 7, rowspan = 3, sticky = "EW")
-        # row 8
+        #------------ row 8
 
-        # row 9
+        #------------ row 9
 
-        # row 10
+        #------------ row 10
 
         Label(self.window,
               text = labels["attack table"][self.lang] + ":",
               ).grid(column = 0, row = 10, sticky = "W")
 
+        ## @var self.atlist
+        # List of names of Attack Tables
         self.atlist = list(self.attacktbls.keys())
         self.atlist.sort()
         self.__selectAT = StringVar()
@@ -957,10 +1145,6 @@ class atWin(blankWindow):
                                  values = self.atlist,
                                  textvariable = self.__selectAT,
                                  width = 20)
-#        self.__ATOpt = OptionMenu(self.window,
-#                                  self.__selectAT,
-#                                  *self.atlist,
-#                                  )
         self.__ATOpt.grid(column = 1,
                           row = 10,
                           sticky = "W")
@@ -1028,7 +1212,7 @@ class atWin(blankWindow):
                command = self.checkAttack
                ).grid(column = 11, row = 10, sticky = "EW")
 
-        # row 11
+        #------------ row 11
 
         self.__resultAT = StringVar()
         self.__resultAT.set("--")
@@ -1064,7 +1248,7 @@ class atWin(blankWindow):
                command = self.__applyDamage
                ).grid(row = 11, column = 11)
 
-        # row 12
+        #------------ row 12
         Label(self.window,
               text = labels["crit table"][self.lang] + ":"
               ).grid(column = 0, row = 12, sticky = "W")
@@ -1130,7 +1314,7 @@ class atWin(blankWindow):
                command = self.checkCrit
                ).grid(column = 11, row = 12, sticky = "EW")
 
-        # row 13
+        #------------ row 13
         vscroll = Scrollbar(self.window, orient = VERTICAL)
         self.__displayCrit = Text(self.window,
                                   yscrollcommand = vscroll.set,
@@ -1154,6 +1338,7 @@ class atWin(blankWindow):
                                                                 self.attacktbls[self.__selectAT.get()].crit,
                                                                 critc[self.attacktbls[self.__selectAT.get()].crittype][self.lang]))
         self.__selectCrit.set(critc[self.attacktbls[self.__selectAT.get()].crittype]["en"])
+        # if self.defend["
         self.__critType.set(self.attacktbls[self.__selectAT.get()].crit)
 
 

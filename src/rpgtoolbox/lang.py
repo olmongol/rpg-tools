@@ -22,7 +22,7 @@ Currently supported languages are:
 @license GNU V3.0
 '''
 __version__ = "1.1"
-__updated__ = "31.10.2021"
+__updated__ = "03.11.2021"
 ##
 # @var supportedrpg
 # Supported RPG systems
@@ -1307,6 +1307,10 @@ critc = {"P": {"en":"puncture",
 
 weapontypes = { "en": ["normal", "magic", "mithril", "holy", "slaying"],
                "de":["normal", "magisch", "Mithril", "heilig", "tötend"],
+              }
+
+attacktypes = {"en": ["melee", "missile", "magic"],
+              "de": ["Nahkampf", "Fernkampf", "Magie"],
               }
 
 # ['RRArc', 'RRC/E', 'RRC/M', 'RRChan', 'RRDisease', 'RRE/M', 'RREss', 'RRFear', 'RRMent', 'RRPoison']
