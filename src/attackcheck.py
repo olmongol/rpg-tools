@@ -14,7 +14,7 @@ other opponents.
 \version 0.5
 '''
 __version__ = "0.5"
-__updated__ = "09.11.2021"
+__updated__ = "19.11.2021"
 __author__ = "Marcus Schwamberger"
 
 import os
@@ -80,6 +80,13 @@ class atWin(blankWindow):
                      txtwin['all_files'][self.lang]]
         self.fmaske = [txtwin['enemygrp_files'][self.lang],
                      txtwin['all_files'][self.lang]]
+
+        ## \var self.weaponlist
+        # a list of dictionaries holding all infomation about all weapons. If a
+        # weapon has no specific attack table the standard attack table for it
+        # will be documented here.
+        self.weaponlist = readCSV(f"{self.datadir}/fight/weapon_stats.csv")
+        self.__prepareWL()
         # read all attack tables
         for table in os.listdir("{}/fight/attacks".format(self.datadir)):
             if table[-4:] == ".csv" and table[-5:] != "-.csv":
@@ -460,6 +467,46 @@ class atWin(blankWindow):
         This method closes the window
         '''
         self.window.destroy()
+
+
+    def __prepareWL(self):
+        '''!
+        This method prepares the  self.weaponlist read from CSV file.
+        '''
+        for i in range(0, len(self.weaponlist)):
+
+            # move '---' to None
+            for key in self.weaponlist[i].keys():
+
+                if "/" in self.weaponlist[i][key]:
+                    self.weaponlist[i][key] = self.weaponlist[i][key].split("/")
+
+                elif "':" in self.weaponlist[i][key]:
+                    # distance for missile attacks: dist in feet, mod
+                    self.weaponlist[i][key] = self.weaponlist[i][key].split("':")
+
+                    for j in range(0, len(self.weaponlist[i][key])):
+                        self.weaponlist[i][key][j] = self.weaponlist[i][key][j]
+
+                if self.weaponlist[i][key] in ["---", ""]:
+                    self.weaponlist[i][key] = None
+
+            # build breakage numbers
+            bn = int(self.weaponlist[i]["breakage"])
+            self.weaponlist[i]["breakage"] = []
+
+            for n in range(1, bn + 1):
+                self.weaponlist[i]["breakage"].append(n + 10 * n)
+
+            # build strength
+            s = self.weaponlist[i]["strength"].split("-")
+            self.weaponlist[i]["strength"] = [randint(int(s[0]), int(s[1]))]
+
+            if len(s) == 3:
+                self.weaponlist[i]["strength"].append(s[2])
+
+            else:
+                self.weaponlist[i]["strength"].append("m")
 
 
     def __rollInit(self):
@@ -889,6 +936,10 @@ class atWin(blankWindow):
         - read the data tabel to check the attack tables
         """
         result = "Broadsword"
+        for elem in self.weaponlist:
+            if obname == elem["item"]:
+                result = elem["table"]
+                break
 
         return result
 
