@@ -14,7 +14,7 @@ other opponents.
 \version 0.5
 '''
 __version__ = "0.5"
-__updated__ = "19.11.2021"
+__updated__ = "12.12.2021"
 __author__ = "Marcus Schwamberger"
 
 import os
@@ -68,6 +68,9 @@ class atWin(blankWindow):
         self.partygrp = None
         self.__enemypath = None
         self.enemygrp = None
+        ## \var self.weapontab
+        # holds the given weapon table as dictionary with short term as master key
+        # and all information about the weapon (such as fumble or breaking numbers)
         self.weapontab = getWeaponTab()
         self.curr_attacker = 0
         self.curr_defender = 0
@@ -87,6 +90,13 @@ class atWin(blankWindow):
         # will be documented here.
         self.weaponlist = readCSV(f"{self.datadir}/fight/weapon_stats.csv")
         self.__prepareWL()
+        ## \var self.reverseweaponindex
+        # This dictionary holds weapon name as key and short form as value
+        self.reversweaponindex = {}
+
+        for key in self.weapontab.keys():
+            self.reverseweaponindex[self.weapontab[key]["name"]] = key
+
         # read all attack tables
         for table in os.listdir("{}/fight/attacks".format(self.datadir)):
             if table[-4:] == ".csv" and table[-5:] != "-.csv":
@@ -204,6 +214,8 @@ class atWin(blankWindow):
 
         self.__prepareNSCs()
 
+   # def __getWeaponStrength(self,weapon="bs"):
+
 
     def __prepareNSCs(self, mode = "auto"):
         '''!
@@ -257,6 +269,11 @@ class atWin(blankWindow):
                 if len(melee[j]) == 2:
                     melee[j].insert(1, size)
 
+                ## add fumble number
+                #melee[j].append(int(self.weapontab[melee[j][0]]['fumble']))
+                ## add breakage number
+                #melee[j].append(int(self.weapontab[melee[j][0]]['breakage']))
+                melee[j].append(melee[j][0])
                 melee[j][0] = self.weapontab[melee[j][0]]['name']
 
             self.enemygrp[i]["OB melee"] = melee
@@ -564,6 +581,40 @@ class atWin(blankWindow):
         else:
             result, self.umr = Dice(rules = "")
         self.__critroll.set(result[0])
+
+
+    def checkBreakage(self, roll = 55, weapons = ["Broadsword", "Spear"]):
+        '''!
+        This methods checks for weapon breakage.
+        @param roll dice roll unmodified
+        @param weapons list of the attacker and defender weapon
+        @retval broken a boolean wether the attackes weapon is broken or not
+        '''
+        broken = False
+        mod = {"w":5,
+               "s":15
+               }
+
+        if weapons[0] in self.reversweaponindex.keys():
+            attackerw = self.weapontab[self.reversweaponindex[weapons[1]]]
+
+            if weapons[0] in self.reversweaponindex.keys():
+                defenderw = self.weapontab[self.reversweaponindex[weapons[1]]]
+            else:
+                defenderw = deepcopy(attackerw)
+
+            breakage = []
+            for i in range(1, int(attackerw["breakage"]) + 1):
+                breakage.append(i * 10 + i)
+
+            if roll in breakage:
+                dummy = attackerw["strength"].split("-")
+                strength = randint(int(dummy[0], int(dummy[1])))
+
+                if attackerw["strength"][-1] in mod.keys() and defenderw["strength"] not in mod.keys():
+                    strength -= mod[attackerw["strength"]]
+                    #----------- hier weiter machen
+        return broken
 
 
     def __chgImg(self, attackerpic = "./data/default/pics/default.jpg", defenderpic = "./data/default/pics/default.jpg"):

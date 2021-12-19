@@ -13,7 +13,7 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "28.10.2021"
+__updated__ = "08.12.2021"
 __author__ = "Marcus Schwamberger"
 
 import re
@@ -377,24 +377,6 @@ def createCombatList(comlist = []):
 
 
 
-class fumbletable():
-    """!
-    This class reads out fumble tables and delivers dice roll results on them
-    """
-
-
-    def __init__(self, fumblefilename = "./data/default/fight/combat_fumble.csv", lang = "en"):
-        """!
-        Constructor
-        @param lang configured language: en, de
-        @param fumblefilename name and path of the fumble table csv to read
-        ---
-        @todo ths has to be implemented
-        """
-        pass
-
-
-
 class crittable():
     """!
     This Class delivers results from crit tables to a combatant.
@@ -526,7 +508,7 @@ class crittable():
 
 
 class attacktable():
-    """
+    """!
     this class delivers the result from an attack table
     """
 
@@ -631,6 +613,46 @@ class attacktable():
                     self.crit = c
 
         self.showResult()
+
+
+
+class fumbletable():
+    """!
+    This class creates a combat fumble table for all types of weapon and non-weapon
+    fumbles.
+    """
+
+
+    def __init__(self, tablefilename = "data/default/fight/fumble/combat_fumble.csv"):
+        """!
+        Constructor
+        @param tablefilename path+filename of the fumble table to read
+        """
+        self.tablename = tablefilename
+
+
+    def __getTable(self):
+        """!
+        This reads the fumble table from file an transfers it to the internal data structure
+
+        ----
+        @todo this has to be implemented fully
+        """
+        pass
+
+
+    def getResult(self, fumbletype = "1he", roll = 50):
+        """!
+        This method delivers the result from the fumble table by fumble type and
+        fumble roll.
+
+        @param fumbletype type of the fumble
+        @param roll fumble roll result
+
+        ----
+        @todo has to be fully implemented
+        """
+        pass
 
 
 
