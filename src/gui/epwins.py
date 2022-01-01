@@ -46,7 +46,7 @@ from gui.gmtools import *
 from gui.mangroup import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "31.01.2021"
+__updated__ = "18.11.2021"
 
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
@@ -208,7 +208,7 @@ class MainWindow(blankWindow):
 
 
     def __exportLaTeX(self):
-        '''
+        '''!
         This method exports character data into a LaTeX file from which a PDF
         will be generated
         '''
@@ -225,7 +225,7 @@ class MainWindow(blankWindow):
 
 
     def __exportShortLaTeX(self):
-        '''
+        '''!
         This method exports character data into a LaTeX file from which a PDF
         will be generated
         '''
@@ -242,7 +242,7 @@ class MainWindow(blankWindow):
 
 
     def __exportSpellbook(self):
-        '''
+        '''!
         This generates a Spellbook PDF out aof character's data
         '''
         from rpgtoolbox.latexexport import spellbook
@@ -257,7 +257,7 @@ class MainWindow(blankWindow):
 
 
     def __addEditMenu(self):
-        '''
+        '''!
         This method adds an edit menu to the menu bar
         '''
         self.edtmenu = Menu(master = self.menu)
@@ -286,7 +286,7 @@ class MainWindow(blankWindow):
 
 
     def __edcharWin(self):
-        '''
+        '''!
         Generating a window for editing Characters/Character lists/Parties
         '''
         if self.char != None:
@@ -299,7 +299,7 @@ class MainWindow(blankWindow):
 
 
     def __edtgrpWin(self):
-        """
+        """!
         Opens a window for editing character parties
         """
         grpwin = groupWin(self.lang)
@@ -314,7 +314,7 @@ class MainWindow(blankWindow):
 
 
     def __edtEPWin(self):
-        '''
+        '''!
         Opens a window to enter and store new EPs in character data
         '''
         if self.char != None:
@@ -343,7 +343,7 @@ class MainWindow(blankWindow):
 
 
     def __statGainRoll(self):
-        '''
+        '''!
         This opens a window for Stats Gain Roll for the character.
         '''
         self.window.destroy()
@@ -392,7 +392,7 @@ class MainWindow(blankWindow):
 
 
     def __optWin(self):
-        '''
+        '''!
         Opens an options window and closes the main window.
         '''
         self.window.destroy()
@@ -400,7 +400,7 @@ class MainWindow(blankWindow):
 
 
     def __addMenu(self):
-        '''
+        '''!
         This private method just adds the menu bar into the window's
         layout
         '''
@@ -409,7 +409,7 @@ class MainWindow(blankWindow):
 
 
     def __addHelpMenu(self):
-        """
+        """!
         This methods defines a help menu.
         """
         self.helpmenu = Menu(master = self.menu)
@@ -423,7 +423,7 @@ class MainWindow(blankWindow):
 
 
     def __bckgrndWin(self):
-        '''
+        '''!
         This opens the background window of a loaded character
         '''
         if self.char != None:
@@ -443,7 +443,7 @@ class MainWindow(blankWindow):
 
 
     def helpAbout(self):
-        '''
+        '''!
         This method just opens a message window with the basic
         information about the PROGRAM (like version and
         copyright)
@@ -740,7 +740,7 @@ class inputWin(blankWindow):
 
 
     def __createchar(self):
-        '''
+        '''!
         Method to open a new window for character creation.
         '''
         self.window.destroy()
@@ -815,7 +815,7 @@ class inputWin(blankWindow):
 
 
     def __closewin(self):
-        """
+        """!
         Method for closing the window and opening the main window.
         """
         self.window.destroy()
@@ -839,7 +839,7 @@ class inputWin(blankWindow):
 
 
 class genAttrWin(blankWindow):
-    '''
+    '''!
     A window class for generating name, race, profession and attributes of a new
     character.
     '''
@@ -1167,14 +1167,14 @@ class genAttrWin(blankWindow):
 
 
     def __winHelp(self):
-        '''
+        '''!
         This displays a window speciffic helper message box
         '''
         messageWindow(self.lang).showinfo(winhelpmsg["genAttrWin"][self.lang], "getnAttrWin")
 
 
     def __nextStep(self):
-        '''
+        '''!
         Checks whether all developing points (and not more) are used and player
         and character names are set. If so it proceeds with collecting all data.
         '''
@@ -1192,7 +1192,7 @@ class genAttrWin(blankWindow):
 
 
     def __calcBonus(self):
-        '''
+        '''!
         Totals and update all bonusses. If that sum is higher than the developing
         points for the stats it raises an error message window.
         '''
@@ -1217,7 +1217,7 @@ class genAttrWin(blankWindow):
 
 
     def __testStats(self):
-        '''
+        '''!
         This checks the temp value of the  stats and warns if they are correct.
         That means the primary have to be at least 90+ and the others not below
         20.
@@ -1282,7 +1282,7 @@ class genAttrWin(blankWindow):
 
 
     def __setCulture(self, event):
-        '''
+        '''!
         Sets the right culture selection dependent on the chosen race.
         If the race is set this method will adapt the list of choice concerning
         to the chosen race.
@@ -1318,7 +1318,7 @@ class genAttrWin(blankWindow):
 
 
     def __statBonus(self):
-        '''
+        '''!
         Sets/calculates standard stat bonus
         '''
         from rpgtoolbox.rolemaster import statbonus
@@ -1552,7 +1552,7 @@ class genAttrWin(blankWindow):
 
 
     def rollDice(self):
-        """
+        """!
         Creates the pool for stat generation by rolling the dices.
         """
         self.__count += 1
@@ -1565,7 +1565,7 @@ class genAttrWin(blankWindow):
 
 
     def __collectData(self):
-        '''
+        '''!
         This method collects all data, adds them to the character's data structure
         and saves that on disk.
         After that it destroys the current window and opens the window for the #
@@ -1780,7 +1780,7 @@ class genAttrWin(blankWindow):
 
 
     def __closewin(self):
-        '''
+        '''!
         A method to destroy the current window and go back to MainWindow.
         '''
         self.window.destroy()
@@ -1847,7 +1847,7 @@ class priorizeWeaponsWin(blankWindow):
 
 
     def __buildWin(self):
-        '''
+        '''!
         Sets up all the needed Widgets in the window
         '''
         self.__prio = {}
@@ -1918,7 +1918,7 @@ class priorizeWeaponsWin(blankWindow):
 
 
     def __buildJSON(self):
-        '''
+        '''!
         Makes a JSON out of CatDPC.csv
         Skill cat --> Profession : costs
         '''
@@ -1938,7 +1938,7 @@ class priorizeWeaponsWin(blankWindow):
 
 
     def __addToChar(self):
-        '''
+        '''!
         This method adds the concerned developing costs and category/skill ranks
         during adolescence to the character data structure (JSON).
         It also calculates the rank bonus for the first time.
@@ -2056,7 +2056,7 @@ class priorizeWeaponsWin(blankWindow):
 
 
     def __setPPD(self):
-        '''
+        '''!
         This sets the Progression and Stats for Power Point Development
 
         '''
@@ -2094,7 +2094,7 @@ class priorizeWeaponsWin(blankWindow):
 
 
     def saveChar(self):
-        '''
+        '''!
         This method saves the character as JSON file
         '''
         import json
@@ -2111,7 +2111,7 @@ class priorizeWeaponsWin(blankWindow):
 
 
     def __getWeaponCats(self):
-        '''
+        '''!
         Extracts the weapon categories from character
         '''
         self.weaponcats = []
@@ -2124,7 +2124,7 @@ class priorizeWeaponsWin(blankWindow):
 
 
     def __nextStep(self):
-        '''
+        '''!
         Opens the next window to modify categories and skills
         '''
         self.__getPrio("")
@@ -2135,7 +2135,7 @@ class priorizeWeaponsWin(blankWindow):
 
 
     def __closewin(self):
-        '''
+        '''!
         A method to destroy the current window and go back to MainWindow.
         '''
         self.window.destroy()
@@ -2143,7 +2143,7 @@ class priorizeWeaponsWin(blankWindow):
 
 
     def __addHelpMenu(self):
-        """
+        """!
         This methods defines a help menu.
         """
         self.helpmenu = Menu(master = self.menu)
@@ -2157,7 +2157,7 @@ class priorizeWeaponsWin(blankWindow):
 
 
     def _helpPriorize(self):
-        '''
+        '''!
         Opens a message window with help text
         '''
         helptext = {'de': 'Die Priorisierung der Waffenfertigkeiten ist wichtig für '
@@ -2188,7 +2188,7 @@ class skillcatWin(blankWindow):
 
 
     def __init__(self, lang = 'en', storepath = os.getcwd() + "/data", char = None):
-        """
+        """!
         Class constructor
         @param lang The chosen language for window's and button's
                     texts. At the moment, only English (en, default
@@ -2244,7 +2244,7 @@ class skillcatWin(blankWindow):
 
 
     def __addFileMenu(self):
-        '''
+        '''!
         Adds a file menu  to menu bar.
         '''
         self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
@@ -2257,7 +2257,7 @@ class skillcatWin(blankWindow):
 
 
     def __closewin(self):
-        '''
+        '''!
         A method to destroy the current window and go back to MainWindow.
         '''
         if self.__usedDP > 0:
@@ -2273,7 +2273,7 @@ class skillcatWin(blankWindow):
 
 
     def __addHelpMenu(self):
-        '''
+        '''!
         Adds a help menu entry to menu bar.
         '''
         self.helpmenu = Menu(master = self.menu)
@@ -2776,7 +2776,7 @@ class skillcatWin(blankWindow):
 
 
     def __calcLvlup(self):
-        '''
+        '''!
         This determines current level by current EPs and calculates number of
         level-ups by the level difference of old EP's level and current EP's
         level
@@ -2792,7 +2792,7 @@ class skillcatWin(blankWindow):
 
 
     def __calcDP(self):
-        '''
+        '''!
         This calculates the number of Development Points (DP) of a character per level up.
         In case of remaining DPs of the last level up this will be added too.
         '''
@@ -2844,7 +2844,7 @@ class skillcatWin(blankWindow):
 
 
     def __calcTotals(self):
-        '''
+        '''!
         This method calculate all rank bonus of categories and skills of the
         character loaded.
         At least it is a wrapper for rpgtoobox.rpgtools.calcTotals()
@@ -3069,7 +3069,7 @@ class skillcatWin(blankWindow):
 
 
     def __takeValsCat(self):
-        '''
+        '''!
         This method takes added/modified skills/cats to a dict and treeview
         '''
         ## @var currcat
@@ -3173,7 +3173,7 @@ class skillcatWin(blankWindow):
 
 
     def __finalize(self):
-        '''
+        '''!
         This method finalizes and saves all changes into character data
 
         The changes done before are saved in the file <charname>_changes.json
@@ -3293,7 +3293,7 @@ class skillcatWin(blankWindow):
 
 
     def __save(self, ending = '.snap'):
-        '''
+        '''!
         This method quickly saves a snapshot of current character's data into
         a file.
 
@@ -3324,7 +3324,7 @@ class skillcatWin(blankWindow):
 
 
 class charInfo(blankWindow):
-    """
+    """!
     This is the class for the window with all the background information such as hair color, height etc.
     """
 
@@ -3382,7 +3382,7 @@ class charInfo(blankWindow):
 
 
     def __addFileMenu(self):
-        '''
+        '''!
         Adds a file menu to menu bar.
         '''
         self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
@@ -3400,7 +3400,7 @@ class charInfo(blankWindow):
 
 
     def __addEditMenu(self):
-        '''
+        '''!
         This adds an edit menu to the menu bar.
         '''
         self.edtmenu = Menu(master = self.menu)
@@ -3415,7 +3415,7 @@ class charInfo(blankWindow):
 
 
     def __addHelpMenu(self):
-        '''
+        '''!
         Adds a help menu entry to menu bar.
         '''
         self.helpmenu = Menu(master = self.menu)
@@ -3429,7 +3429,7 @@ class charInfo(blankWindow):
 
 
     def __closewin(self):
-        '''
+        '''!
         A method to destroy the current window and go back to MainWindow.
         '''
         self.window.destroy()
@@ -3438,7 +3438,7 @@ class charInfo(blankWindow):
 
 
     def __openFile(self):
-        """
+        """!
         This method opens a dialogue window (Tk) for opening files.
         The content of the opened file will be saved in \e file
         \e content as an array.
@@ -3464,7 +3464,7 @@ class charInfo(blankWindow):
 
 
     def __buildWin(self):
-        '''
+        '''!
         Builds the window's elements.
 
         '''
@@ -3696,7 +3696,7 @@ class charInfo(blankWindow):
 
 
     def __addPic(self, event):
-        '''
+        '''!
         This method adds the link to a character's picture (jpg/png)
         '''
         self.charpic = askopenfilename(filetypes = self.pmask,
@@ -3709,7 +3709,7 @@ class charInfo(blankWindow):
 
 
     def __addPicMenue(self):
-        '''
+        '''!
         This method adds the link to a character's picture (jpg/png)
         '''
         self.charpic = askopenfilename(filetypes = self.pmask,
@@ -3722,7 +3722,7 @@ class charInfo(blankWindow):
 
 
     def __statGainRoll(self):
-        '''
+        '''!
         This opens a window for Stats Gain Roll for the character.
         '''
         self.window.destroy()
@@ -3859,7 +3859,7 @@ class statGainWin(blankWindow):
 
 
     def __addHelpMenu(self):
-        '''
+        '''!
         Adds a help menu entry to menu bar.
         '''
         self.helpmenu = Menu(master = self.menu)
@@ -3873,7 +3873,7 @@ class statGainWin(blankWindow):
 
 
     def __closewin(self):
-        '''
+        '''!
         A method to destroy the current window and go back to MainWindow.
         '''
         self.window.destroy()
@@ -3908,7 +3908,7 @@ class statGainWin(blankWindow):
 
 
     def __buildWin(self):
-        '''
+        '''!
         Builds the window's elements.
 
         '''
@@ -4032,7 +4032,7 @@ class statGainWin(blankWindow):
 
 
     def __selectAll(self):
-        '''
+        '''!
         This method selects all Checkbuttons
         '''
         for s in self.__stats:
@@ -4040,7 +4040,7 @@ class statGainWin(blankWindow):
 
 
     def __selectNone(self):
-        '''
+        '''!
         This method unselects all Checkbuttons
         '''
         for s in self.__stats:
@@ -4048,7 +4048,7 @@ class statGainWin(blankWindow):
 
 
     def statGainRoll(self):
-        '''
+        '''!
         This method does Stat Gain Rolls for all selected stats
         '''
         from rpgtoolbox.rolemaster import statbonus
@@ -4088,7 +4088,7 @@ class statGainWin(blankWindow):
 
 
     def saveData(self):
-        '''
+        '''!
         This recalculates character's category and skill bonusses, saves character and goes back to main window.
         '''
         self._character = dict(calcTotals(self._character))
@@ -4106,7 +4106,7 @@ class statGainWin(blankWindow):
 
 
 class editEPWin(blankWindow):
-    '''
+    '''!
     This window class generates a window to enter new EPs manually to character data
     '''
 
@@ -4155,7 +4155,7 @@ class editEPWin(blankWindow):
 
 
     def __addFileMenu(self):
-        '''
+        '''!
         Adds a file menu to menu bar.
         '''
         self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
@@ -4186,7 +4186,7 @@ class editEPWin(blankWindow):
 
 
     def __addHelpMenu(self):
-        '''
+        '''!
         Adds a help menu entry to menu bar.
         '''
         self.helpmenu = Menu(master = self.menu)
@@ -4200,7 +4200,7 @@ class editEPWin(blankWindow):
 
 
     def __closewin(self):
-        '''
+        '''!
         A method to destroy the current window and go back to MainWindow.
         '''
         self.window.destroy()
@@ -4208,7 +4208,7 @@ class editEPWin(blankWindow):
 
 
     def __openFile(self):
-        """
+        """!
         This method opens a dialogue window (Tk) for opening files.
         The content of the opened file will be saved in \e file
         \e content as an array.
@@ -4236,7 +4236,7 @@ class editEPWin(blankWindow):
 
 
     def saveData(self):
-        '''
+        '''!
         This recalculates character's category and skill bonusses, saves character and goes back to main window.
         '''
         self._character = dict(calcTotals(self._character))
@@ -4253,7 +4253,7 @@ class editEPWin(blankWindow):
 
 
     def __buildWin(self):
-        '''
+        '''!
         Builds the window's elements.
 
         '''
@@ -4341,7 +4341,7 @@ class editEPWin(blankWindow):
 
 
     def __add(self):
-        '''
+        '''!
         This method adds new EPs to character's old EP count.
         '''
         newep = int(self.inputval.get())
@@ -4412,7 +4412,7 @@ class BGOselectWin(blankWindow):
 
 
     def __addFileMenu(self):
-        '''
+        '''!
         Adds a file menu to menu bar.
         '''
         self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
@@ -4460,7 +4460,7 @@ class BGOselectWin(blankWindow):
 
 
     def __addHelpMenu(self):
-        '''
+        '''!
         Adds a help menu entry to menu bar.
         '''
         self.helpmenu = Menu(master = self.menu)
@@ -4474,7 +4474,7 @@ class BGOselectWin(blankWindow):
 
 
     def __closewin(self):
-        '''
+        '''!
         A method to destroy the current window and go back to MainWindow.
         '''
         self.window.destroy()
@@ -4482,7 +4482,7 @@ class BGOselectWin(blankWindow):
 
 
     def __openFile(self):
-        """
+        """!
         This method opens a dialogue window (Tk) for opening files.
         The content of the opened file will be saved in \e file
         \e content as an array.

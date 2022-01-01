@@ -22,7 +22,7 @@ Currently supported languages are:
 @license GNU V3.0
 '''
 __version__ = "1.1"
-__updated__ = "28.08.2021"
+__updated__ = "03.11.2021"
 ##
 # @var supportedrpg
 # Supported RPG systems
@@ -214,19 +214,32 @@ txtbutton = {'but_ok': {'de': 'OK',
                             'en': 'check result'
                             },
              'but_buy':{"de": "kaufen",
-                         'en': 'buy'},
+                         'en': 'buy'
+                         },
              'but_sell':{"de": "verkaufen",
-                          "en": "sell"},
+                          "en": "sell"
+                          },
              'but_away':{'de': "wegwerfen",
-                          'en': 'throw away'},
+                          'en': 'throw away'
+                          },
              'but_edit': {"de": "bearbeiten",
-                           "en": "edit"},
+                           "en": "edit"
+                           },
              "but_details": {"de":"Details",
-                              "en":"details"},
+                              "en":"details"
+                              },
              'but_magic': {"de": "verzaubern",
-                            "en": "enchant"},
+                            "en": "enchant"
+                            },
              'but_rr': {'de': 'Widerstandswurf',
-                       'en': 'Resistance Roll'},
+                       'en': 'Resistance Roll'
+                       },
+             'but_dmg':{'de': "Schaden berechnen",
+                        'en': "apply damage"
+                        },
+             'but_nxtrd': {'de': 'nächste\n Runde',
+                           'en': 'next\n round',
+                           },
              }
 
 ## @var txtmenu
@@ -294,6 +307,7 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                           'open_enemy': u'Gegnergruppe öffnen',
                           'print': 'Drucken',
                           'pdf': "PDF erstellen",
+
                           },
                     'en':{'open': 'Open file',
                           'close': 'Close file',
@@ -309,7 +323,8 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                           'open_party': 'Open Character Group file',
                           'open_enemy': 'Open Enemy Group file',
                           'print': 'Print',
-                          'pdf': "PDF generation"
+                          'pdf': "PDF generation",
+
                           },
                     },
            'opts':{'de': {'lang': 'Einstellungen',
@@ -345,6 +360,8 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                               'ed_BGO': "Hintergrundoptionen",
                               "ed_add_enemy": u"Feinde hinzufügen",
                               "ed_rem_enemy": "Feinde entfernen",
+                              'init': "Initativewurf",
+                              "history": "Verlauf anzeigen",
                               },
                       'en':{'ed_char': 'Edit/improve Character',
                               'ed_grp': 'Edit Group',
@@ -362,6 +379,8 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                               'ed_BGO': 'background options',
                               "ed_add_enemy": "add enemies",
                               "ed_rem_enemy": "remove enemies",
+                              'init': "Initiative roll",
+                              "history": "display history",
                                },
 
                       },
@@ -756,7 +775,23 @@ labels = {'cfg_path': {'de': 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei',
           "fail": {"de": "Fehlschlag",
                     "en": "Failure",
                     },
-
+          "with":{'de': "mit Gegenstand",
+                   'en': "with item"
+                   },
+          "without": {'de': "ohne Gegenstand",
+                       "en": "without item"},
+          "stunned": {"de": "benommen",
+                      "en": "stunned",
+                      },
+          'parry': {'de': "nur parrieren",
+                    'en': 'only parry'
+                    },
+          'no_parry':{'de':"nicht parrieren",
+                      'en':"no parry"
+                      },
+          'ooo':{'de': "außer Gefecht",
+                 'en': 'knocked out'
+                 },
           }
 
 invedtacts = {"de": [u"wählen", u"ausgerüstet", "unausgerüstet"],
@@ -1272,6 +1307,10 @@ critc = {"P": {"en":"puncture",
 
 weapontypes = { "en": ["normal", "magic", "mithril", "holy", "slaying"],
                "de":["normal", "magisch", "Mithril", "heilig", "tötend"],
+              }
+
+attacktypes = {"en": ["melee", "missile", "magic"],
+              "de": ["Nahkampf", "Fernkampf", "Magie"],
               }
 
 # ['RRArc', 'RRC/E', 'RRC/M', 'RRChan', 'RRDisease', 'RRE/M', 'RREss', 'RRFear', 'RRMent', 'RRPoison']
