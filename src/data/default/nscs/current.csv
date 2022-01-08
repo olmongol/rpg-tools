@@ -1,0 +1,9 @@
+name,lvl,Qu,AT,hits,PP,size,OB melee,OB missile,DB,DBm,comment,enc,immune,weakness,piclink,spells
+Dunish Leader,4,5,8,59,0,M,72 sp,52 cl,25,25,"Solid Dunish Warriors, +5 Weapons",0-0,,,/home/mongol/git/rpg-tools/src/data/default/pics/human_fighter_rogue3.jpg,
+Dunish Warrior,2,0,8,42,0,M,52 sp,42 cl,25,25,Solid Dunish Warriors,0-0,,,/home/mongol/git/rpg-tools/src/data/default/pics/human_fighter_rogue3.jpg,
+Guard,2,0,8,45,0,M,30 sp,22 sb,50,25,Shield +25,0-0,,,/media/mongol/ferryman/Chronik/castleguard1.jpg,
+Guard Leader,4,0,10,74,0,M,70 sp,40 sb,55,25,Shield +25,0-0,,,/media/mongol/ferryman/Chronik/castleguard1.jpg,
+Valadan,10,25,12,132,0,M,125 ba,70 cb,50,5,"Lesser Dunadan Warrior, Captain of Fuintiri, Amulett +5 DB, +15 Chain, +10 ba, +30 Reading runes",1-1,,,/media/mongol/ferryman/Chronik/valadan.jpg,
+Wilda,14,15,13,93,56,M,85 bs,55 sb,80,15,"Ring of Shape Changing, +10 DB, 15 bs, +45 Lightning Bold 2x/day Bracelet 2x PP,Haste up to 10 rnds7day amulett, +10 to all RRs, Spell Lists:",0-0,,,/media/mongol/ferryman/Chronik/wilda.jpg,Base List Bard/Controlling Songs:14;Base List Bard/Entertaining Ways:14;Base List Bard/Item Lore:14;Base List Bard/Lores:14;Base List Bard/Sound Control:14;Base List Bard/Sound Protection:14;Mentalism Evil/Mind Death:14;Mentalism Evil/Mind Desease:14;Mentalism Evil/Mind Domination:14;Mentalism Evil/Mind Erosion:14;Mentalism Evil/Mind Illusions:14;Mentalism Evil/Mind Subversion:14;Mentalism Closed/Shifting:14;Mentalism Closed/Sense Mastery:14;Mentalism Open/Self Healing:14
+Fuintiri Leader,5,5,13,87,0,M,85 ss,55 sb,40,30,"Lesser Dunadan, Shield +30  ",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics/ranger_assassin.jpg,
+Fuintiri Guard,3,0,13,64,0,M,65 ss,45 sb,35,25,"Lesser Dunadan, Shield +25",4-6,,,/home/mongol/git/rpg-tools/src/data/default/pics/ranger_assassin.jpg,
