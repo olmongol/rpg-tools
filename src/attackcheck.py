@@ -14,7 +14,7 @@ other opponents.
 \version 0.5
 '''
 __version__ = "0.5"
-__updated__ = "12.12.2021"
+__updated__ = "22.01.2022"
 __author__ = "Marcus Schwamberger"
 
 import os
@@ -92,7 +92,7 @@ class atWin(blankWindow):
         self.__prepareWL()
         ## \var self.reverseweaponindex
         # This dictionary holds weapon name as key and short form as value
-        self.reversweaponindex = {}
+        self.reverseweaponindex = {}
 
         for key in self.weapontab.keys():
             self.reverseweaponindex[self.weapontab[key]["name"]] = key
