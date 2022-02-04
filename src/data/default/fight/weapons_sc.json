@@ -867,6 +867,20 @@
         "table": "Bite",
         "crits": "tiny/slash/puncture"
     },
+    "Pi": {
+        "name": "Pincher",
+        "wtype": "",
+        "breakage": "",
+        "strength": "",
+        "fumble": "2",
+        "near": "",
+        "short": "",
+        "medium": "",
+        "long": "",
+        "extreme": "",
+        "table": "Beak_Pincher",
+        "crits": "tiny/krush/slash"
+    },
     "Cl": {
         "name": "Claw",
         "wtype": "",

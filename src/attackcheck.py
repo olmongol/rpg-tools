@@ -14,7 +14,7 @@ other opponents.
 \version 0.5
 '''
 __version__ = "0.5"
-__updated__ = "22.01.2022"
+__updated__ = "04.02.2022"
 __author__ = "Marcus Schwamberger"
 
 import os
@@ -208,8 +208,9 @@ class atWin(blankWindow):
 
         if self.__enemypath[-4:].lower() == ".csv":
             self.enemygrp = readCSV(self.__enemypath)
+            logger.info(f'openEnemies: {self.__enemypath} read')
         else:
-            logger.error("penEnemies: wrong file format! must be CSV")
+            logger.error("openEnemies: wrong file format! must be CSV")
             self.message("openEnemies: wrong file format: must be CSV")
 
         self.__prepareNSCs()
@@ -227,9 +228,10 @@ class atWin(blankWindow):
                - last: takes the last number of 'enc' range
 
         ----
-        @todo - append NSCs/Monsters if the enc >1
+        @todo - <strike>append NSCs/Monsters if the enc >1</strike>
               - immunity list
               - weakness list
+
         '''
         size = "H"
         self.enemygrp = createCombatList(self.enemygrp)
@@ -240,7 +242,10 @@ class atWin(blankWindow):
             enc = self.enemygrp[i]["enc"].split("-")
 
             for j in range(0, len(enc)):
-                enc[j] = int(enc[j])
+                if  enc[j]:
+                    enc[j] = int(enc[j])
+                else:
+                    enc[j] = 0
 
             if mode.lower() == "first":
                 enc[1] = enc[0]
@@ -248,7 +253,15 @@ class atWin(blankWindow):
             elif mode.lower() == "last":
                 enc[0] = enc[1]
 
-            self.enemygrp[i]["enc"] = randint(enc[0], enc[1])
+            logger.debug(f'prepareNSCs: enc = {enc}')
+            if type(enc) == type([]) and len(enc) == 2:
+                self.enemygrp[i]["enc"] = randint(enc[0], enc[1])
+
+            # not elegant but works to remove nscs/monster with enc ==0
+
+            if self.enemygrp[i]["enc"] == 0:
+                self.enemygrp[i]["status"]["hits"] = 0
+                logger.debug(f'prepareNSCs: killed {self.enemygrp[i]["name"]}')
 
             #generate OB lists
 
@@ -257,7 +270,9 @@ class atWin(blankWindow):
             for j in range(0, len(melee)):
 
                 if type(melee[j]) == type(""):
+                    melee[j] = melee[j].strip(" ")
                     melee[j] = melee[j].split(" ")
+                    logger.debug(f'perpareNSCs: melee[{j}] = {melee[j]}')
 
                 if len(melee[j]) == 2:
                     melee[j][-1], melee[j][0] = melee[j][0], melee[j][-1]
@@ -273,7 +288,9 @@ class atWin(blankWindow):
                 #melee[j].append(int(self.weapontab[melee[j][0]]['fumble']))
                 ## add breakage number
                 #melee[j].append(int(self.weapontab[melee[j][0]]['breakage']))
+
                 melee[j].append(melee[j][0])
+
                 melee[j][0] = self.weapontab[melee[j][0]]['name']
 
             self.enemygrp[i]["OB melee"] = melee
@@ -316,7 +333,7 @@ class atWin(blankWindow):
                 spelldummy = self.enemygrp[i]["spells"].split(";")
                 spellists = {}
 
-                if spelldummy != [""]:
+                if spelldummy != [""] and ":" in spelldummy and spelldummy.find("/") + spelldummy.find("\\") > 0:
 
                     for s in range(0, len(spelldummy)):
                         spelldummy[s] = spelldummy[s].split(":")
@@ -357,7 +374,8 @@ class atWin(blankWindow):
         self.attackers = []
 
         for elem in self.initlist:
-            self.attackers.append(elem["name"])
+            if elem["enc"] > 0:
+                self.attackers.append(elem["name"])
 
         self.defenders = deepcopy(self.attackers)
         self.__selectAttacker.set(self.attackers[0])

@@ -1,1 +1,21 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Heal I,caster,P,self,Us,Caster is healed of d10 concussion hits.
+2,Frost/Burn Relief I,caster,P,self,Us,Will heal one area of mild frostbite or a 1st degree burn.
+3,Stun Relief I *,caster,P,self,Us,Caster is relieved of 1 round’s worth of accumulated stun effects (see Section 7.1.1).
+4,Regenerate I *,caster,C,self,Us,"Reduces damage by 1 hit every round as long as caster concentrates. If caster is unconscious, this spell will operate without concentration (see Section 7.1.1)."
+5,Frost/Burn Relief II,caster,P,self,Us,"As Frost/Burn Relief I, except 2 areas of mild damage or 1 area of moderate damage (e.g., 2nd degree burn) are healed."
+6,Awake,caster,P,self,Us,"Caster is instantly awake from any unnatural sleep (e.g., Sleep spell, sleeping drug, etc.). Caster takes one round to awaken."
+7,Heal V,caster,P,self,Us,"As Heal I, except caster can heal 5d10 concussion hits."
+8,Frost/Burn Relief III,caster,P,self,Us,"As Stun Relief I, except caster is relieved of 3 rounds accumulated stun effects."
+9,Stun Relief III *,caster,P,self,Us,"As Stun Relief I, except caster is relieved of 3 rounds accumulated stun effects."
+10,Regenerate II *,caster,C,self,Us,"As Regenerate I, except 2 hits are healed every round."
+11,Frost/Burn Relief V,caster,P,self,Us,"As Frost/Burn Relief I, except the area(s) of damage that can be healed are: 5 mild and 1 severe or 1 mild and 2 moderate or 1 moderate and 1 severe or etc."
+12,Heal X,caster,P,self,Us,"As Heal I, except caster can heal 10d10 concussion hits."
+13,Stun Relief V *,caster,P,self,Us,"As Stun Relief I, except caster is relieved of 5 rounds accumulated stun effects."
+15,Regenerate III *,caster,C,self,Us,"As Regenerate I, except 3 hits are healed every round."
+17,Heal XV,caster,P,self,Us,"As Heal I, except caster can heal 15d10 concus- sion hits."
+19,Stun Relief X *,caster,P,self,Us,"As Stun Relief I, except caster is relieved of 10 rounds accumulated stun effects."
+20,Heal XX,caster,P,self,Us,"As Heal I, except caster can heal 20d10 concus- sion hits."
+25,Heal True,caster,P,self,Us,"As Heal I, except caster is healed of all concussion hits."
+30,Frost/Burn Relief True,caster,P,self,Us,Caster is relieved of all burns and/ or frostbite
+50,Stun Relief True *,caster,P,self,Us,Caster is relieved of all accumulated stun effects.
