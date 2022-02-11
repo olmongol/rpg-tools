@@ -14,7 +14,7 @@ other opponents.
 \version 0.5
 '''
 __version__ = "0.5"
-__updated__ = "04.02.2022"
+__updated__ = "11.02.2022"
 __author__ = "Marcus Schwamberger"
 
 import os
@@ -25,7 +25,6 @@ from pprint import pformat
 from copy import deepcopy
 from random import randint
 from rpgtoolbox.combat import *
-#from rpgtoolbox.rpgtools import dice
 from rpgToolDefinitions.helptools import RMDice as Dice
 from rpgToolDefinitions.magic import magicpath
 from gui.window import *
@@ -42,6 +41,14 @@ class atWin(blankWindow):
     This class generates a window where you can look up your attack results.
     Results of dice rolls may be entered or a roll may be done by clicking a
     button.
+
+    ----
+    @todo
+    - adding/deleting single NSCs/monsters to/from loaded groups (from pool file)
+    - adding/deleting single character to/from loaded group
+    ----
+    @bug
+    - reload after kill or loading enemy groups does not work properly
     """
 
 
@@ -261,7 +268,7 @@ class atWin(blankWindow):
 
             if self.enemygrp[i]["enc"] == 0:
                 self.enemygrp[i]["status"]["hits"] = 0
-                logger.debug(f'prepareNSCs: killed {self.enemygrp[i]["name"]}')
+                logger.debug(f'prepareNSCs: "killed" {self.enemygrp[i]["name"]} by setting HP == 0')
 
             #generate OB lists
 
@@ -277,6 +284,7 @@ class atWin(blankWindow):
                 if len(melee[j]) == 2:
                     melee[j][-1], melee[j][0] = melee[j][0], melee[j][-1]
                     melee[j].append("H")
+                    logger.debug(f'prepareNSCs: size appended {melee[j]}')
 
                 elif len(melee[j]) == 3:
                     melee[j][2], melee[j][1], melee[j][0] = melee[j][1], melee[j][0], melee[j][2]
@@ -1002,7 +1010,7 @@ class atWin(blankWindow):
 
         ----
         @todo this has to be fully implemented:
-        - read the data tabel to check the attack tables
+        - read the data table to check the attack tables
         """
         result = "Broadsword"
         for elem in self.weaponlist:
@@ -1016,10 +1024,8 @@ class atWin(blankWindow):
     def __calcMod(self, event = None):
         """!
         This method applies during fight generated modifier to OB/DB
-
+        @param evenet UI event given but not used
         ----
-        @todo this has to be fully implemented
-
         """
         self.curr_attacker = self.__selectAttacker.get()
         at = self.__findCombatant(name = self.curr_attacker, chklist = self.initlist)
@@ -1039,6 +1045,8 @@ class atWin(blankWindow):
     def __applyHealing(self, event = None):
         """!
         This method applies healing to the combatant
+
+        @param event UI event given but not used
         """
         self.curr_attacker = self.__selectAttacker.get()
         at = self.__findCombatant(name = self.curr_attacker, chklist = self.initlist, result = "index")
@@ -1053,32 +1061,7 @@ class atWin(blankWindow):
         This method builds the window content.
 
         ----
-        @todo
-        - the row 0 has to be build:
-            -Initiative
-            - Attacker (name & Pic)
-            - select opponent combo (display name of defender) & image Display
-            - next button
-        - row 1:
-            - frame 1 attacker/defender:
-                - remaining hits #/#
-                - remaining pp #/#
-                - modificator (wounds)
-                - stunned # Rds
-                - only parry # rds
-                - k.o. # rds
-                - bleeding #/Rd
-                - dies in # rds
-            - frame 2 attacker/defender:
-                - lvl #
-                - AT #
 
-            - frame 3 attacker:
-                - healing mod
-                - reduce wound mods
-                - imrpove OB
-                - imporve DB
-            - frame 4: Attack results
         """
 
         #------------ row 0
@@ -1525,7 +1508,7 @@ class atWin(blankWindow):
         This checks the result of a roll against a critical table
 
         ----
-        @todo error catching: if no crit was rolled (but hits)
+        @todo <strike>error catching: if no crit was rolled (but hits)</strike>
         """
         words = {"hits": "additional hits: {}\n",
                "mod": "Modifier {} for {} rounds ({} d : {} h : {} m : {} s)\n",
@@ -1550,6 +1533,7 @@ class atWin(blankWindow):
 
             if "damage_type" not in self.crittbls[self.__selectCrit.get()].crithit.keys():
                 result += "hits"
+
             elif self.crittbls[self.__selectCrit.get()].crithit["damage_type"] == "":
                 result += "Flesh Wound\n"
 
@@ -1622,79 +1606,21 @@ class atWin(blankWindow):
         self.__displayCrit.delete("1.0", "end")
         self.__displayCrit.insert(END, result)
 
-#class combatWin(atWin):
-#    '''! This class is for opponents fighing against each other
-#    '''
-#
-#
-#    def __init__(self, lang = "en", datadir = "data/default"):
-#        """!
-#        Constructor
-#        \param lang selected output language
-#        \param datadir configured default datadir
-#        """
-#        self.lang = lang
-#        self.datadir = datadir
-#        self.attacktbls = {}
-#        self.crittbls = {}
-#
-#        atWin.__addMenu(self)
-#        # read all attack tables
-#        for table in os.listdir("{}/fight/attacks".format(self.datadir)):
-#            if table[-4:] == ".csv" and table[-5:] != "-.csv":
-#                self.attacktbls[table[:-4]] = attacktable("{}/fight/attacks/{}".format(self.datadir, table))
-#
-#        # read all crit tables
-#        for table in os.listdir("{}/fight/crits".format(self.datadir)):
-#            if table[-4:] == ".csv" and table[-5:] != "-.csv":
-#                self.crittbls[table[:-9]] = crittable("{}/fight/crits/{}".format(self.datadir, table))
-#
-#        #window components
-#        #atWin.__init__(self, self.lang)
-#        #self.__quit()
-#        blankWindow.__init__(self, self.lang)
-#        self.window.title("Attack Round Helper")
-#        self.__addMenu()
-#        self.__addHelpMenu()
-#        self.__buildWin()
-#        self.window.mainloop()
-#
-#
-#    def __openParty(self):
-#        '''! Opens a Character Group file for combat'''
-#
-#        pass
-#
-#
-#    def __openEnemy(self):
-#        '''! Opens a Enemy Group file for combat'''
-#
-#        pass
-#
-#    #def __addMenu(self):
-#    #    '''!
-#    #    This methods adds the menu bar to the window
-#    #    '''
-#    #    self.filemenu = Menu(master = self.menu)
-#    #    self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
-#    #                          menu = self.filemenu)
-#    #    self.filemenu.add_command(label = submenu['file'][self.lang]['open_party'],
-#    #                              command = self.__openParty)
-#    #    self.filemenu.add_command(label = submenu['file'][self.lang]['open_enemy'],
-#    #                              command = self.__openEnemy)
-#    #    self.filemenu.add_separator()
-#    #    self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
-#    #                              command = self.__quit)
-#
-#
-#    def __quit(self):
-#        '''!
-#        This method closes the window
-#        '''
-#        self.window.destroy()
+
+
+class monsterNSCdb(blankWindow):
+    '''
+    A gui to create creatures and NSCs and store them into the main data pool.
+    '''
+
+
+    def __init__(self, lang = "en", datapool):
+        '''
+        @todo has ti be fully implemented
+        '''
+        pass
 
 
 
 if __name__ == '__main__':
     win = atWin()
-    #win2 = combatWin()
