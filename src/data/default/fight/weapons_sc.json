@@ -1062,5 +1062,19 @@
         "extreme": "",
         "table": "Ram_Butt_Bash_Knockdown",
         "crits": "krush/unbalance"
+    },
+    "Ts": {
+        "name": "Trample/Stomp",
+        "wtype": "",
+        "breakage": "",
+        "strength": "",
+        "fumble": "2",
+        "near": "",
+        "short": "",
+        "medium": "",
+        "long": "",
+        "extreme": "",
+        "table": "Trample_Stomp",
+        "crits": "tiny/krush"
     }
 }

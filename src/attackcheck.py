@@ -14,7 +14,7 @@ other opponents.
 \version 0.5
 '''
 __version__ = "0.5"
-__updated__ = "11.02.2022"
+__updated__ = "19.02.2022"
 __author__ = "Marcus Schwamberger"
 
 import os
@@ -1608,17 +1608,182 @@ class atWin(blankWindow):
 
 
 
-class monsterNSCdb(blankWindow):
+class enemySelector(blankWindow):
     '''
-    A gui to create creatures and NSCs and store them into the main data pool.
+    This class opens a window to select differnt monsters or npcs from a data
+    file (CSV). This selection
     '''
 
 
     def __init__(self, lang = "en", datapool):
         '''
-        @todo has ti be fully implemented
+        @param lang chosen display language (default: en; supported; en, de)
+        @param datapool (path +) file where the default bestiarium is stored in.
+        ----
         '''
+        ##\var self.lang
+        # display language
+        self.lang = lang
+        ##\var self.datapool
+        # path + file name of the default monster data file.
+        self.datapool = datapool
+        ##\var self.selection
+        # a list of selected monsters/nscs (list of dictionaries)
+        self.selection = []
+        ## \var self.fmaske
+        # file extension mask for "file open" window.
+        self.fmaske = [txtwin['enemygrp_files'][self.lang],
+                     txtwin['all_files'][self.lang]]
+
+        blankWindow.__init__(self, self.lang)
+        self.window.title("Selector: Monster")
+        self.__addFileMenu()
+        self.__addEditMenu()
+        self.__addHelpMenu()
+        self.__buildWin()
+        self.window.mainloop()
+
+
+    def __addFileMenu(self):
+        '''!
+        This methods adds the file menu bar to the window
+        '''
+        self.filemenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
+                              menu = self.filemenu)
+        self.filemenu.add_command(label = submenu['file'][self.lang]['open_enemy'],
+                                  command = self.openNPCs)
+        self.filemenu.add_separator()
+        self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
+                                  command = self.__quit)
+        logger.debug("__addHelpMenu: file menu build")
+
+
+    def __addEditMenu(self):
+        '''!
+        This adds an Edit menu to the winwos menu bar:
+        - add enemies to the opponent's list
+        - remove enemies from the opponent's list
+
+        ----
+        @todo the add/remove functions of single NSCS/SCS/Monsters has to be fully implemented
+        '''
+        self.editmenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu["menu_edit"][self.lang],
+                              menu = self.editmenu)
+        self.editmenu.add_command(label = submenu['edit'][self.lang]["ed_sel_enemy"],
+                                  command = self.notdoneyet)
+        self.editmenu.add_command(label = submenu['edit'][self.lang]["ed_mod_enemy"],
+                                  command = self.notdoneyet)
+
+
+    def __addHelpMenu(self):
+        """
+        This methods defines a help menu.
+        """
+        self.helpmenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['help'][self.lang],
+                              menu = self.helpmenu)
+
+        self.helpmenu.add_separator()
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
+                                  command = self._helpAbout)
+        logger.debug("__addHelpMenu: help menu build")
+
+
+    def getSelection(self):
+        '''
+        getter method for selection of npcs/monsters
+        '''
+        return self.selection
+
+
+    def __quit(self):
+        '''!
+        This method closes the window
+        '''
+        self.window.destroy()
+
+
+    def openNPCs(self):
+        """
+        This method opens a file of npc/monstaer data for read out.
+        """
+        ## \var self.__npcpath
+        # path+ file name of selected data file
+        self.__npcpath = askopenfilename(filetypes = self.fmaske, defaultextension = "*.csv", initialdir = os.getcwd())
+        logger.debug(f"openNPCs: chosen npc/monster group file {self.__npcpath}")
+
+        if self.__npcpath[-4:].lower() == ".csv":
+            ##\var self.npcgrp
+            # content of npc/monster file (csv)
+            self.npcgrp = readCSV(self.__enemypath)
+            logger.info(f'openNPCs: {self.__enemypath} read successfully.')
+
+        else:
+            logger.error("openNPCs: wrong file format! must be CSV!")
+            self.message("openNPCs: wrong file format: must be CSV!")
+
         pass
+
+
+    def __buildWin(self):
+        """
+        This method build the window with all elements
+
+        ----
+        @todo has to be fully implemented
+        """
+        pass
+
+
+
+class characterSelector(blankWindow):
+    '''
+    This class adds a single character to the list.
+    '''
+
+
+    def __init__(self, lang = "en", datapool):
+        '''
+        @todo has to be fully implemented
+        '''
+        #blankWindow.__init__(self, self.lang)
+        #self.window.title("Combat  Module")
+        #self.__addFileMenu()
+        #self.__addEditMenu()
+        #self.__addHelpMenu()
+        #self.__buildWin()
+        self.window.mainloop()
+        pass
+
+
+    def __addHelpMenu(self):
+        """
+        This methods defines a help menu.
+        """
+        self.helpmenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['help'][self.lang],
+                              menu = self.helpmenu)
+
+        self.helpmenu.add_separator()
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
+                                  command = self._helpAbout)
+        logger.debug("__addHelpMenu: help menu build")
+
+
+    def getSelection(self):
+        '''
+        getter method for selection
+        '''
+        return self.selection
+
+
+    def __quit(self):
+        '''!
+        This method closes the window
+        '''
+        self.window.destroy()
 
 
 
