@@ -108,7 +108,7 @@ class atWin(blankWindow):
                 self.crittbls[table[:-9]] = crittable("{}/fight/crits/{}".format(self.datadir, table))
 
         # get all weapon data
-        with open("data/default/fight/weapons_full.json") as fp:
+        with open(os.path.join(os.getcwd(), "data/default/fight/weapons_full.json")) as fp:
             self.weapondata = json.load(fp)
 
         #window components
