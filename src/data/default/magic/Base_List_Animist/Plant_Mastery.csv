@@ -1,7 +1,7 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
 1,Plant Lore,1 plant,---,touch,I,Caster learns nature and history of any 1 plant
 2,Speed Growth I,10'R,1 day,10',U,Allows caster to increase speed of growth for any 1 species of plant within the area of effect by 10 times.
-3,Plant Tongues,caster,1 min/lvl,touch,I,Allows caster to understand and “speak” the language of any 1 plant species.
+3,Plant Tongues,caster,1 min/lvl,touch,I,Allows caster to understand and ''speak'' the language of any 1 plant species.
 4,Plant Restore,1 plant,P,touch,U,"Heals damage to one plant that is less complex than a tree (especially severe damage may get a RR to avoid the effects of this spell, GM discretion)."
 5,Speed Growth II,10'R,1 day,10',U,"As Speed Growth I, except growth rate is 100 times normal."
 6,Plant Location,1 mi R,---,self,I,Caster can locate members of any 1 species of plant or he can find out what species are in the area of effect.

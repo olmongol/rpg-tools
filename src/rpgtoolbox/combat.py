@@ -18,6 +18,7 @@ __author__ = "Marcus Schwamberger"
 
 import re
 import json
+import os
 from pprint import pprint
 
 from rpgtoolbox.globaltools import splitExceptBetween as splitE
@@ -60,7 +61,7 @@ def getWeaponTab(filename = "data/default/fight/weapons_sc.json"):
     """!
     Reads weapon/attack data table from json file
     """
-    with open(filename, "r") as fp:
+    with open(os.path.join(os.getcwd(),filename), "r") as fp:
         content = json.load(fp)
 
     return content

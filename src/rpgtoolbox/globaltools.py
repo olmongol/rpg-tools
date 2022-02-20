@@ -22,6 +22,7 @@ __msg__ = {'ERR_NO_DATA': "ERROR: no data to compute :(",
            'OK': "OK: job is done :D"
           }
 
+from encodings import utf_8
 import os
 import os.path
 from . import logbox as log
@@ -76,7 +77,7 @@ def readFile(path = './', file_name = None, mode = 'r'):
         if path[-1] != '\\' and file_name[1:] != '\\':
             path = path + '\\'
 
-    fp = open(path + file_name, mode)
+    fp = open(path + file_name, mode, encoding="utf_8")
     content = fp.readlines()
     fp.close()
     logger.debug('readFile %s' % (path + file_name))
@@ -345,7 +346,8 @@ def readCSV(fname = "test.csv"):
     @bug handle problems with weird unicode characters
     '''
     result = []
-    with open(fname, "r") as csvfile:
+    with open(fname, "r", encoding="utf8") as csvfile:
+        logger.info(f'readCSV: Opening file {fname}')
         reader = csv.DictReader(csvfile)
         for row in reader:
             result.append(row)
