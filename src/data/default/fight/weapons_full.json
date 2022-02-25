@@ -741,6 +741,20 @@
         "table": "Spear",
         "crits": "krush/slash/puncture"
     },
+    "Tiny":{
+        "item": "to",
+        "wtype": "1he/th",
+        "breakage": "7",
+        "strength": "1047-1053-w",
+        "fumble": "2",
+        "near": "10': ---",
+        "short": "25': ---",
+        "medium": "50': ---",
+        "long": "---",
+        "extreme": "---",
+        "table": "Tiny",
+        "crits": "tiny"
+    },
     "Tomahawk": {
         "item": "to",
         "wtype": "1he/th",
