@@ -755,6 +755,20 @@
         "table": "Spear",
         "crits": "krush/slash/puncture"
     },
+    "ti": {
+        "name": "Tiny",
+        "wtype": "",
+        "breakage": "",
+        "strength": "",
+        "fumble": "2",
+        "near": "",
+        "short": "",
+        "medium": "",
+        "long": "",
+        "extreme": "",
+        "table": "Tiny",
+        "crits": "tiny"
+    },
     "to": {
         "name": "Tomahawk",
         "wtype": "1he/th",
