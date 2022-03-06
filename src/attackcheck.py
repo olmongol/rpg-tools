@@ -743,7 +743,7 @@ class atWin(blankWindow):
         This method choses the selected choice at Crit damages if there are any.
 
         ----
-        @todo this has ti be fully implemented
+        @todo this has to be fully implemented
 
         '''
 
@@ -1614,9 +1614,9 @@ class monsterNSCdb(blankWindow):
     '''
 
 
-    def __init__(self, lang = "en", datapool):
+    def __init__(self, lang = "en", datapool=""):
         '''
-        @todo has ti be fully implemented
+        @todo has to be fully implemented
         '''
         pass
 
