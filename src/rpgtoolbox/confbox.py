@@ -16,7 +16,7 @@ import os, locale
 import rpgtoolbox.globaltools as rpgtools
 from rpgtoolbox.lang import *
 __version__ = "0.5"
-__updated__ = "28.12.2020"
+__updated__ = "25.02.2022"
 
 defaultconfigpath = "conf/"
 defaultconfigfile = "rpg-tools.cfg"
@@ -125,7 +125,7 @@ home = os.path.expanduser('~')
 
 
 class chkCfg(object):
-    '''
+    '''!
     These Objects reads out a given config file and store the content of the
     configuration in a dictionary.
     '''
