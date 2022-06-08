@@ -14,7 +14,7 @@ lorem ipsum
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "07.06.2022"
+__updated__ = "08.06.2022"
 __author__ = "Marcus Schwamberger"
 __me__ = "spellcasting.py"
 
@@ -102,7 +102,7 @@ def modBySpellLvlAndPrep(casterslvl = 1, spelllvl = 1, preprnds = 0, instspell =
     if  8 < chspdiff:
         instant = 15
 
-        if instspell:
+        if not instspell:
 
             if  preprnds == 0:
                 noninstant = 5
@@ -128,7 +128,7 @@ def modBySpellLvlAndPrep(casterslvl = 1, spelllvl = 1, preprnds = 0, instspell =
     elif 5 < chspdiff < 9:
         instant = 10
 
-        if instspell:
+        if not instspell:
 
             if  preprnds == 0:
                 noninstant = 0
@@ -154,7 +154,7 @@ def modBySpellLvlAndPrep(casterslvl = 1, spelllvl = 1, preprnds = 0, instspell =
     elif chspdiff == 5:
         instant = 5
 
-        if instspell:
+        if not instspell:
 
             if  preprnds == 0:
                 noninstant = -10
@@ -180,7 +180,7 @@ def modBySpellLvlAndPrep(casterslvl = 1, spelllvl = 1, preprnds = 0, instspell =
     elif chspdiff == 4:
         instant = 5
 
-        if instspell:
+        if not instspell:
 
             if  preprnds == 0:
                 noninstant = -20
@@ -206,7 +206,7 @@ def modBySpellLvlAndPrep(casterslvl = 1, spelllvl = 1, preprnds = 0, instspell =
     elif chspdiff == 3:
         instant = 5
 
-        if instspell:
+        if not instspell:
 
             if  preprnds == 0:
                 noninstant = -30
@@ -232,7 +232,7 @@ def modBySpellLvlAndPrep(casterslvl = 1, spelllvl = 1, preprnds = 0, instspell =
     elif chspdiff == 2:
         instant = 0
 
-        if instspell:
+        if not instspell:
 
             if  preprnds == 0:
                 noninstant = -35
@@ -284,7 +284,7 @@ def modBySpellLvlAndPrep(casterslvl = 1, spelllvl = 1, preprnds = 0, instspell =
     elif chspdiff == 0:
         instant = 0
 
-        if instspell:
+        if not instspell:
 
             if  preprnds == 0:
                 noninstant = -55
@@ -310,7 +310,7 @@ def modBySpellLvlAndPrep(casterslvl = 1, spelllvl = 1, preprnds = 0, instspell =
     elif chspdiff == -1:
         instant = -30
 
-        if instspell:
+        if not instspell:
 
             if  preprnds == 0:
                 noninstant = -85
@@ -362,7 +362,7 @@ def modBySpellLvlAndPrep(casterslvl = 1, spelllvl = 1, preprnds = 0, instspell =
     elif chspdiff == -3:
         instant = -40
 
-        if instspell:
+        if not instspell:
 
             if  preprnds == 0:
                 noninstant = -95
@@ -388,7 +388,7 @@ def modBySpellLvlAndPrep(casterslvl = 1, spelllvl = 1, preprnds = 0, instspell =
     elif chspdiff == -4:
         instant = -45
 
-        if instspell:
+        if not instspell:
 
             if  preprnds == 0:
                 noninstant = -100
@@ -440,7 +440,7 @@ def modBySpellLvlAndPrep(casterslvl = 1, spelllvl = 1, preprnds = 0, instspell =
     elif -8 < chspdiff < -5:
         instant = -70
 
-        if instspell:
+        if not instspell:
 
             if  preprnds == 0:
                 noninstant = -125
@@ -466,7 +466,7 @@ def modBySpellLvlAndPrep(casterslvl = 1, spelllvl = 1, preprnds = 0, instspell =
     elif -11 < chspdiff < -7:
         instant = -95
 
-        if instspell:
+        if not instspell:
 
             if  preprnds == 0:
                 noninstant = -150
@@ -492,7 +492,7 @@ def modBySpellLvlAndPrep(casterslvl = 1, spelllvl = 1, preprnds = 0, instspell =
     elif -16 < chspdiff < -10:
         instant = -120
 
-        if instspell:
+        if not instspell:
 
             if  preprnds == 0:
                 noninstant = -175
@@ -518,7 +518,7 @@ def modBySpellLvlAndPrep(casterslvl = 1, spelllvl = 1, preprnds = 0, instspell =
     elif -21 < chspdiff < -15:
         instant = -170
 
-        if instspell:
+        if not instspell:
 
             if  preprnds == 0:
                 noninstant = -225
@@ -544,7 +544,7 @@ def modBySpellLvlAndPrep(casterslvl = 1, spelllvl = 1, preprnds = 0, instspell =
     elif chspdiff < -20:
         instant = -220
 
-        if instspell:
+        if not instspell:
 
             if  preprnds == 0:
                 noninstant = -275
@@ -609,6 +609,7 @@ def modByOtherCond(**kwargs):
     - \b equipment type and mass of worn/carried equipment as a dict:
         - {'organic living': number of lbs, \n 'organic non-living': number of lbs, \n 'inorganic": number of libs}
     - \b at armor type (int); range 1-20
+    - lb range modificaion by range (int) in ft
 
     @retval result spell casting modification (int)
 
@@ -627,12 +628,16 @@ def modByOtherCond(**kwargs):
                 "inorganic":0}
     at = 1
     allowed = {"realm": ["channeling", "essence", "mentalism"],
-              "sltype": ['own realm own base', 'own realm other base', 'own realm open',
-                          'arcane open', 'other realm other base', 'other realm open', 'other realm closed'],
+              "sltype": ['own realm own base', 'own realm other base',
+                         'own realm open', 'own realm closed',
+                         'arcane open', 'other realm other base',
+                         'other realm open', 'other realm closed'
+                         ],
               "voice": ["none", "whisper", "normal", "shout"],
               "helmet": ["none", "leather", "leather and metal", "metal"],
 
               }
+    dist = 11
     result = 0
 
     if "realm" in kwargs.keys():
@@ -856,16 +861,17 @@ def modByOtherCond(**kwargs):
             sys.exit(1)
 
     #----- mod by AT
+
     if realm == "channeling":
 
         if 12 < at < 15:
             result -= 30
 
         elif 14 < at < 17:
-            result -= -60
+            result -= 60
 
         elif 16 < at < 19:
-            result -= -35
+            result -= 35
 
         elif at == 19:
             result -= 60
@@ -905,5 +911,801 @@ def modByOtherCond(**kwargs):
         elif at == 20:
             result -= 90
 
+    if "range" in kwargs.keys():
+        if type(kwargs["range"]) == int:
+            dist = kwargs["range"]
+            if dist < 0:
+                dist = 0
+            logger.debug(f"distset to {range} ft.")
+        else:
+            logger.error(f"wrong data type for range: {type(kwargs['range'])}")
+            print(f"wrong data type for range: {type(kwargs['range'])}")
+            sys.exit(1)
+
+    #---- mod by range/distance
+    if dist == 0:
+        result += 30
+
+    elif dist in range(1, 11):
+        result += 10
+
+    elif dist in range(51, 101):
+        result -= 10
+
+    elif dist in range(101, 301):
+        result -= 20
+
+    elif 300 < dist:
+        result -= 30
+
     return result
 
+
+
+def castBaseSpell(**kwargs):
+    """!
+    This function calculates and returns the result fo a roll on the basic spell table.
+
+    @param kwargs a free key/value dictionary with the following keys for computation:
+    - \b realm the realm of power of the caster (str):
+        - essence
+        - channeling
+        - mentalism
+    - \b targetarmor the armor worn by the taget (dict): \n{"metal armor":False,\n
+    "leather armor": True\n
+    "metal shield":True,\n
+    "metal helmet":False,\n
+    "leather helmet":True,\n
+    "other":False}
+    - \b roll unmodified dice roll (int)
+    - \b skill skill rank bonus (int)
+    - \b additional modifier (int)
+
+    @retval rrmod the modification for the resistance roll (int) or Fumble (str)
+    """
+    rrmod = "F"
+    realm = "essence"
+    targetarmor = {"metal armor":False,
+                 "leather armor": False,
+                 "other": True,
+                 "metal helmet": False,
+                 "leather helmet": True,
+                 "metal shield": False}
+    roll = 1
+    skill = -30
+    additional = 0
+
+    if "realm" in kwargs.keys():
+
+        if kwargs["realm"] in ["essence", "channeling", "mentalism"]:
+            realm = kwargs["realm"]
+    if "targetarmor" in kwargs.keys():
+
+        if type(kwargs["targetarmor"]) == dict:
+
+            for key in kwargs["targetarmor"].keys():
+
+                if key in targetarmor.keys():
+                    targetarmor[key] = kwargs["targetarmor"][key]
+    if "roll" in kwargs.keys():
+
+        if type(kwargs["roll"]) == int:
+            roll = kwargs["roll"]
+
+            if roll < 1:
+                roll = 1
+
+            if roll > 100:
+                roll = 100
+
+    if "skill" in kwargs.keys():
+
+        if type(kwargs["skill"]) == int:
+            skill = kwargs["skill"]
+
+    if "additional" in kwargs.keys():
+
+        if type(kwargs["additional"]) == int:
+            additional = kwargs["additional"]
+
+    total = (roll + additional + skill)
+
+    if roll < 3 or total < 5:
+        return rrmod
+
+    #----- get essence mod
+    if realm == "essence":
+
+        if targetarmor["metal armor"]:
+
+            if total < 17:
+                return rrmod
+
+            elif total in range(17, 21):
+                rrmod = 45
+
+            elif total in range(21, 25):
+                rrmod = 40
+
+            elif total in range(25, 29):
+                rrmod = 35
+
+            elif total in range(29.33):
+                rrmod = 30
+
+            elif total in range(33, 37):
+                rrmod = 25
+
+            elif total in range(37 - 41):
+                rrmod = 20
+
+            elif total in range(41, 45):
+                rrmod = 15
+
+            elif total in range(45, 49):
+                rrmod = 10
+
+            elif total in range(49, 53):
+                rrmod = 5
+
+            elif total in range(53, 57):
+                rrmod = 0
+
+            elif total in range(57, 61):
+                rrmod = 0
+
+            elif total in range(61, 65):
+                rrmod = -5
+
+            elif total in range(65, 69):
+                rrmod = -5
+
+            elif total in range(69, 73):
+                rrmod = -10
+
+            elif total in range(73, 77):
+                rrmod = -25
+
+            elif total in range(77, 81):
+                rrmod = -30
+
+            elif total in range(81, 85):
+                rrmod = -35
+
+            elif total in range(85, 89):
+                rrmod = -40
+
+            elif total in range(89, 93):
+                rrmod = -45
+
+            elif total in range(93, 96):
+                rrmod = -50
+
+            elif roll in range(96, 98) or total in range(96, 98):
+                rrmod = -60
+
+            elif roll in range(98, 100) or total in range(98, 100):
+                rrmod = -85
+
+            elif roll == 100 or total > 99:
+                rrmod = -110
+
+        elif targetarmor["leather armor"]:
+
+            if total < 13:
+                return rrmod
+
+            elif total in range(13, 17):
+                rrmod = 45
+
+            elif total in range(17, 21):
+                rrmod = 40
+
+            elif total in range(21, 25):
+                rrmod = 35
+
+            elif total in range(25, 29):
+                rrmod = 30
+
+            elif total in range(29.33):
+                rrmod = 25
+
+            elif total in range(33, 37):
+                rrmod = 20
+
+            elif total in range(37 - 41):
+                rrmod = 15
+
+            elif total in range(41, 45):
+                rrmod = 10
+
+            elif total in range(45, 49):
+                rrmod = 5
+
+            elif total in range(49, 53):
+                rrmod = 0
+
+            elif total in range(53, 57):
+                rrmod = 0
+
+            elif total in range(57, 61):
+                rrmod = -5
+
+            elif total in range(61, 65):
+                rrmod = -5
+
+            elif total in range(65, 69):
+                rrmod = -10
+
+            elif total in range(69, 73):
+                rrmod = -15
+
+            elif total in range(73, 77):
+                rrmod = -20
+
+            elif total in range(77, 81):
+                rrmod = -25
+
+            elif total in range(81, 85):
+                rrmod = -30
+
+            elif total in range(85, 89):
+                rrmod = -35
+
+            elif total in range(89, 93):
+                rrmod = -40
+
+            elif total in range(93, 96):
+                rrmod = -45
+
+            elif roll in range(96, 98) or total in range(96, 98):
+                rrmod = -65
+
+            elif roll in range(98, 100) or total in range(98, 100):
+                rrmod = -90
+
+            elif roll == 100 or total > 99:
+                rrmod = -115
+
+        elif targetarmor["other"]:
+
+            if total < 5:
+                return rrmod
+
+            elif total in range(5, 9):
+                rrmod = 70
+
+            elif total in range(9, 13):
+                rrmod = -65
+
+            elif total in range(13, 17):
+                rrmod = 60
+
+            elif total in range(17, 21):
+                rrmod = 50
+
+            elif total in range(21, 25):
+                rrmod = 45
+
+            elif total in range(25, 29):
+                rrmod = 35
+
+            elif total in range(29.33):
+                rrmod = 30
+
+            elif total in range(33, 37):
+                rrmod = 20
+
+            elif total in range(37 - 41):
+                rrmod = 15
+
+            elif total in range(41, 45):
+                rrmod = 5
+
+            elif total in range(45, 49):
+                rrmod = 0
+
+            elif total in range(49, 53):
+                rrmod = 0
+
+            elif total in range(53, 57):
+                rrmod = -5
+
+            elif total in range(57, 61):
+                rrmod = -10
+
+            elif total in range(61, 65):
+                rrmod = -15
+
+            elif total in range(65, 69):
+                rrmod = -20
+
+            elif total in range(69, 73):
+                rrmod = -25
+
+            elif total in range(73, 77):
+                rrmod = -30
+
+            elif total in range(77, 81):
+                rrmod = -35
+
+            elif total in range(81, 85):
+                rrmod = -40
+
+            elif total in range(85, 89):
+                rrmod = -45
+
+            elif total in range(89, 93):
+                rrmod = -50
+
+            elif total in range(93, 96):
+                rrmod = -55
+
+            elif roll in range(96, 98) or total in range(96, 98):
+                rrmod = -75
+
+            elif roll in range(98, 100) or total in range(98, 100):
+                rrmod = -100
+
+            elif roll == 100 or total > 99:
+                rrmod = -125
+
+    #----- get channeling mod
+    elif realm == "channeling":
+
+        if targetarmor["metal armor"]:
+
+            if total < 25:
+                return rrmod
+
+            elif total in range(25, 29):
+                rrmod = 45
+
+            elif total in range(29.33):
+                rrmod = 40
+
+            elif total in range(33, 37):
+                rrmod = 35
+
+            elif total in range(37 - 41):
+                rrmod = 30
+
+            elif total in range(41, 45):
+                rrmod = 25
+
+            elif total in range(45, 49):
+                rrmod = 20
+
+            elif total in range(49, 53):
+                rrmod = 15
+
+            elif total in range(53, 57):
+                rrmod = 10
+
+            elif total in range(57, 61):
+                rrmod = 5
+
+            elif total in range(61, 65):
+                rrmod = 0
+
+            elif total in range(65, 69):
+                rrmod = 0
+
+            elif total in range(69, 73):
+                rrmod = -5
+
+            elif total in range(73, 77):
+                rrmod = -10
+
+            elif total in range(77, 81):
+                rrmod = -15
+
+            elif total in range(81, 85):
+                rrmod = -20
+
+            elif total in range(85, 89):
+                rrmod = -25
+
+            elif total in range(89, 93):
+                rrmod = -30
+
+            elif total in range(93, 96):
+                rrmod = -35
+
+            elif roll in range(96, 98) or total in range(96, 98):
+                rrmod = -55
+
+            elif roll in range(98, 100) or total in range(98, 100):
+                rrmod = -80
+
+            elif roll == 100 or total > 99:
+                rrmod = -105
+
+        elif targetarmor["metal shield"]:
+
+            if total < 17:
+                return rrmod
+
+            elif total in range(17, 21):
+                rrmod = 45
+
+            elif total in range(21, 25):
+                rrmod = 40
+
+            elif total in range(25, 29):
+                rrmod = 35
+
+            elif total in range(29.33):
+                rrmod = 30
+
+            elif total in range(33, 37):
+                rrmod = 25
+
+            elif total in range(37 - 41):
+                rrmod = 20
+
+            elif total in range(41, 45):
+                rrmod = 15
+
+            elif total in range(45, 49):
+                rrmod = 10
+
+            elif total in range(49, 53):
+                rrmod = 5
+
+            elif total in range(53, 57):
+                rrmod = 0
+
+            elif total in range(57, 61):
+                rrmod = 0
+
+            elif total in range(61, 65):
+                rrmod = -5
+
+            elif total in range(65, 69):
+                rrmod = -5
+
+            elif total in range(69, 73):
+                rrmod = -10
+
+            elif total in range(73, 77):
+                rrmod = -15
+
+            elif total in range(77, 81):
+                rrmod = -20
+
+            elif total in range(81, 85):
+                rrmod = -25
+
+            elif total in range(85, 89):
+                rrmod = -30
+
+            elif total in range(89, 93):
+                rrmod = -35
+
+            elif total in range(93, 96):
+                rrmod = -40
+
+            elif roll in range(96, 98) or total in range(96, 98):
+                rrmod = -60
+
+            elif roll in range(98, 100) or total in range(98, 100):
+                rrmod = -85
+
+            elif roll == 100 or total > 99:
+                rrmod = -110
+
+        elif targetarmor["other"]:
+
+            if total < 5:
+                return rrmod
+
+            elif total in range(5, 9):
+                rrmod = 70
+
+            elif total in range(9, 13):
+                rrmod = -65
+
+            elif total in range(13, 17):
+                rrmod = 60
+
+            elif total in range(17, 21):
+                rrmod = 50
+
+            elif total in range(21, 25):
+                rrmod = 45
+
+            elif total in range(25, 29):
+                rrmod = 35
+
+            elif total in range(29.33):
+                rrmod = 30
+
+            elif total in range(33, 37):
+                rrmod = 20
+
+            elif total in range(37 - 41):
+                rrmod = 15
+
+            elif total in range(41, 45):
+                rrmod = 5
+
+            elif total in range(45, 49):
+                rrmod = 0
+
+            elif total in range(49, 53):
+                rrmod = 0
+
+            elif total in range(53, 57):
+                rrmod = -5
+
+            elif total in range(57, 61):
+                rrmod = -10
+
+            elif total in range(61, 65):
+                rrmod = -15
+
+            elif total in range(65, 69):
+                rrmod = -20
+
+            elif total in range(69, 73):
+                rrmod = -25
+
+            elif total in range(73, 77):
+                rrmod = -30
+
+            elif total in range(77, 81):
+                rrmod = -35
+
+            elif total in range(81, 85):
+                rrmod = -40
+
+            elif total in range(85, 89):
+                rrmod = -45
+
+            elif total in range(89, 93):
+                rrmod = -50
+
+            elif total in range(93, 96):
+                rrmod = -55
+
+            elif roll in range(96, 98) or total in range(96, 98):
+                rrmod = -75
+
+            elif roll in range(98, 100) or total in range(98, 100):
+                rrmod = -100
+
+            elif roll == 100 or total > 99:
+                rrmod = -125
+
+    elif realm == "mentalism":
+
+        if targetarmor == "metal helmet":
+
+            if total < 25:
+                return rrmod
+
+            elif total in range(25, 29):
+                rrmod = 45
+
+            elif total in range(29.33):
+                rrmod = 35
+
+            elif total in range(33, 37):
+                rrmod = 30
+
+            elif total in range(37 - 41):
+                rrmod = 25
+
+            elif total in range(41, 45):
+                rrmod = 20
+
+            elif total in range(45, 49):
+                rrmod = 15
+
+            elif total in range(49, 53):
+                rrmod = 10
+
+            elif total in range(53, 57):
+                rrmod = 5
+
+            elif total in range(57, 61):
+                rrmod = 0
+
+            elif total in range(61, 65):
+                rrmod = 0
+
+            elif total in range(65, 69):
+                rrmod = -5
+
+            elif total in range(69, 73):
+                rrmod = -5
+
+            elif total in range(73, 77):
+                rrmod = -10
+
+            elif total in range(77, 81):
+                rrmod = -15
+
+            elif total in range(81, 85):
+                rrmod = -20
+
+            elif total in range(85, 89):
+                rrmod = -25
+
+            elif total in range(89, 93):
+                rrmod = -30
+
+            elif total in range(93, 96):
+                rrmod = -35
+
+            elif roll in range(96, 98) or total in range(96, 98):
+                rrmod = -55
+
+            elif roll in range(98, 100) or total in range(98, 100):
+                rrmod = -80
+
+            elif roll == 100 or total > 99:
+                rrmod = -105
+
+        elif targetarmor["leather helmet"]:
+
+            if total < 13:
+                return rrmod
+
+            elif total in range(13, 17):
+                rrmod = 45
+
+            elif total in range(17, 21):
+                rrmod = 40
+
+            elif total in range(21, 25):
+                rrmod = 35
+
+            elif total in range(25, 29):
+                rrmod = 30
+
+            elif total in range(29.33):
+                rrmod = 25
+
+            elif total in range(33, 37):
+                rrmod = 20
+
+            elif total in range(37 - 41):
+                rrmod = 15
+
+            elif total in range(41, 45):
+                rrmod = 10
+
+            elif total in range(45, 49):
+                rrmod = 5
+
+            elif total in range(49, 53):
+                rrmod = 0
+
+            elif total in range(53, 57):
+                rrmod = 0
+
+            elif total in range(57, 61):
+                rrmod = -5
+
+            elif total in range(61, 65):
+                rrmod = -5
+
+            elif total in range(65, 69):
+                rrmod = -10
+
+            elif total in range(69, 73):
+                rrmod = -15
+
+            elif total in range(73, 77):
+                rrmod = -20
+
+            elif total in range(77, 81):
+                rrmod = -25
+
+            elif total in range(81, 85):
+                rrmod = -30
+
+            elif total in range(85, 89):
+                rrmod = -35
+
+            elif total in range(89, 93):
+                rrmod = -40
+
+            elif total in range(93, 96):
+                rrmod = -45
+
+            elif roll in range(96, 98) or total in range(96, 98):
+                rrmod = -65
+
+            elif roll in range(98, 100) or total in range(98, 100):
+                rrmod = -90
+
+            elif roll == 100 or total > 99:
+                rrmod = -115
+
+        elif targetarmor["other"]:
+
+            if total < 5:
+                return rrmod
+
+            elif total in range(5, 9):
+                rrmod = 70
+
+            elif total in range(9, 13):
+                rrmod = -65
+
+            elif total in range(13, 17):
+                rrmod = 60
+
+            elif total in range(17, 21):
+                rrmod = 50
+
+            elif total in range(21, 25):
+                rrmod = 45
+
+            elif total in range(25, 29):
+                rrmod = 35
+
+            elif total in range(29.33):
+                rrmod = 30
+
+            elif total in range(33, 37):
+                rrmod = 20
+
+            elif total in range(37 - 41):
+                rrmod = 15
+
+            elif total in range(41, 45):
+                rrmod = 5
+
+            elif total in range(45, 49):
+                rrmod = 0
+
+            elif total in range(49, 53):
+                rrmod = 0
+
+            elif total in range(53, 57):
+                rrmod = -5
+
+            elif total in range(57, 61):
+                rrmod = -10
+
+            elif total in range(61, 65):
+                rrmod = -15
+
+            elif total in range(65, 69):
+                rrmod = -20
+
+            elif total in range(69, 73):
+                rrmod = -25
+
+            elif total in range(73, 77):
+                rrmod = -30
+
+            elif total in range(77, 81):
+                rrmod = -35
+
+            elif total in range(81, 85):
+                rrmod = -40
+
+            elif total in range(85, 89):
+                rrmod = -45
+
+            elif total in range(89, 93):
+                rrmod = -50
+
+            elif total in range(93, 96):
+                rrmod = -55
+
+            elif roll in range(96, 98) or total in range(96, 98):
+                rrmod = -75
+
+            elif roll in range(98, 100) or total in range(98, 100):
+                rrmod = -100
+
+            elif roll == 100 or total > 99:
+                rrmod = -125
+
+    return rrmod

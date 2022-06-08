@@ -1,1 +1,1 @@
-import spellcasting
+from . import spellcasting
