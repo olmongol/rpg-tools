@@ -14,7 +14,7 @@ This package holds RM specific tools like Character Skill Progression.
 \date 2019
 \copyright 2015-2019 Marcus Schwamberger
 '''
-__updated__ = "28.12.2020"
+__updated__ = "15.04.2022"
 
 catnames = {'de': {'spells': "Spells",
                     'weapon': 'Weapon',
@@ -1481,3 +1481,4 @@ def calcHitMods(char = {}):
             result["mod{}".format(i)]["hits"] += 1
 
     return result
+
