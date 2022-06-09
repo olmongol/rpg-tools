@@ -24,4 +24,4 @@ For better readability,  please note the following:
 - 2 empty lines between classes/functions/class methods
 - 1 empty line before each header of a block containing comand like `if`, `for`, `try` etc.
 - 1 empty line after each (even logical) block.
- 
+- **avoid compact code** like one-liner `for`-blocks for better readability!
