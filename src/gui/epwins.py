@@ -1907,6 +1907,10 @@ class priorizeWeaponsWin(blankWindow):
                 break
 
         if not self.__block:
+<<<<<<< HEAD
+=======
+            '''@todo use readCSV function?'''
+>>>>>>> add-todo-for-file-csv-opening
             fp = open('./data/default/CatDPC_%s.csv' % self.lang, 'r', encoding="utf8")
             content = fp.readlines()
             fp.close()

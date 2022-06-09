@@ -743,7 +743,7 @@ class atWin(blankWindow):
         This method choses the selected choice at Crit damages if there are any.
 
         ----
-        @todo this has ti be fully implemented
+        @todo this has to be fully implemented
 
         '''
 
@@ -1615,7 +1615,7 @@ class enemySelector(blankWindow):
     '''
 
 
-    def __init__(self, lang = "en", datapool):
+    def __init__(self, lang = "en", datapool=""):
         '''
         @param lang chosen display language (default: en; supported; en, de)
         @param datapool (path +) file where the default bestiarium is stored in.
