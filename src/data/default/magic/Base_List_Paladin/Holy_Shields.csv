@@ -1,7 +1,7 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
 1,Protection Prayer I,10'R,1 min/lvl,self,U,Everyone in the area of effect who is aligned with the caster (GM’s discretion) subtracts 5 from all elemental attacks against them. They may also add 5 to all RRs versus spells. These bonuses are not conferred to the caster.
 2,Aura,caster,10 min/lvl,self,U,"Creates a bright aura about the caster, making him appear more powerful and subtracting 10 from all attacks against him."
-3,Shield *,caster,1 min/lvl,self,U,"Creates an invisible force shield in front of the caster. This functions as a normal shield (subtracting 25 from appropri- ate attacks, etc.), except it does not occupy a hand. This spell cannot be combined with a “real” shield."
+3,Shield *,caster,1 min/lvl,self,U,"Creates an invisible force shield in front of the caster. This functions as a normal shield (subtracting 25 from appropri- ate attacks, etc.), except it does not occupy a hand. This spell cannot be combined with a ''real'' shield."
 4,Blur *,caster,1 min/lvl,self,U,Causes target to appear blurred to attackers. This aubtracts 10 from all attacks.
 5,Unpain I *,caster,1 min/lvl,self,Us,Caster is able to sustain an additional 25\% of his total concussion hits before passing out. Hits are still taken and remain when the spell lapses.
 6,Protection Prayer II,10'R,1 min/lvl,self,U,"As Protection Prayer I, except bonuses are 10."

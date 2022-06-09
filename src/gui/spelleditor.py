@@ -21,7 +21,7 @@ import csv
 from pprint import pprint
 
 
-
+'''@todo duplicate readCSV in globaltools '''
 def readCSV(filename):
     '''!
     This function reads CSV files and builds a dictionary/JSON of its content.
@@ -30,7 +30,7 @@ def readCSV(filename):
     '''
     cont = []
 
-    with open(filename, 'r') as csvfile:
+    with open(filename, 'r', encoding="utf8") as csvfile:
         csvreader = csv.reader(csvfile)
 
         for line in csvreader:

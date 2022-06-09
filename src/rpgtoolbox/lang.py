@@ -22,7 +22,7 @@ Currently supported languages are:
 @license GNU V3.0
 '''
 __version__ = "1.1"
-__updated__ = "03.11.2021"
+__updated__ = "13.02.2022"
 ##
 # @var supportedrpg
 # Supported RPG systems
@@ -360,6 +360,8 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                               'ed_BGO': "Hintergrundoptionen",
                               "ed_add_enemy": u"Feinde hinzufügen",
                               "ed_rem_enemy": "Feinde entfernen",
+                              "ed_sel_enemy": "NSC/Monster auswählen",
+                              "ed_mod_enemy": "NSC/Monster modifizieren",
                               'init': "Initativewurf",
                               "history": "Verlauf anzeigen",
                               },
@@ -379,6 +381,8 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                               'ed_BGO': 'background options',
                               "ed_add_enemy": "add enemies",
                               "ed_rem_enemy": "remove enemies",
+                              "ed_sel_enemy": "select npc/monster",
+                              "ed_mod_enemy": "modify npc/monster",
                               'init': "Initiative roll",
                               "history": "display history",
                                },

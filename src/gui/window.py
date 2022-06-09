@@ -16,7 +16,7 @@ from rpgtoolbox.lang import *
 from rpgtoolbox import logbox as log
 
 __author__ = "Marcus Schwamberger"
-__updated__ = "28.12.2020"
+__updated__ = "13.02.2022"
 __copyright__ = "(C) 2015-{} {}".format(__updated__[-4:], __author__)
 __email__ = "marcus@lederzeug.de"
 __version__ = "1.0"
@@ -127,6 +127,8 @@ class blankWindow(object):
         information about the rpg-tools XML Generator (like version and
         copyright)
         '''
+        ## \var self.about
+        # info parameters of the program like version, license etc.
         self.about = "%s\nVersion %s\n\n%s\n%s\n%s" % (__me__,
                                                       __version__,
                                                       __license__,
