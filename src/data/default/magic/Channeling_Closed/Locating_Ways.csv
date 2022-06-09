@@ -1,6 +1,6 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
 2,Guess,caster,---,self,I,"When faced with a choice about which he has little or no information (e.g., which corridor leads outside the quick- est) the caster may cast this spell and the Gamemaster will determine which way he goes, biasing the choice favorable by 25% (e.g, roll 1-100: correct on 26-100, incorrect on 01-25)"
-3,Pathfinding I,caster,---,100',I,"Caster learns the location(s) of any “path(s)” within 100'; gives the nearest point on path, but not the path's course."
+3,Pathfinding I,caster,---,100',I,"Caster learns the location(s) of any ''path(s)'' within 100'; gives the nearest point on path, but not the path's course."
 4,Guidance,caster,10 min/lvl(C),100'/lvl,E,"The caster is subtly directed (hints and clues) towards a specific destination (within 100'/lvl) by guidance from his deity. The exact form of the guidance may vary from deity to deity (e.g., a deity of water might leave hints in the rocks of a stream, etc.). For the duration of the spell, the caster must concentrate on following the guidance."
 5,Location I,1 target,---,100',P,Gives the direction and distance to any specific object or place that the caster is familiar with or has had described in detail.
 6,Pathfinding III,caster,---,300',I,"As Pathfinding I, except range is 300'."

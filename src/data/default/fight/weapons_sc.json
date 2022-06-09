@@ -1077,6 +1077,34 @@
         "table": "Ram_Butt_Bash_Knockdown",
         "crits": "krush/unbalance"
     },
+    "ti": {
+        "name": "Tiny",
+        "wtype": "melee",
+        "breakage": "0",
+        "strength": "150-1000",
+        "fumble": "2",
+        "near": "0",
+        "short": "",
+        "medium": "",
+        "long": "",
+        "extreme": "",
+        "table": "Tiny",
+        "crits": "tiny/krush/puncture/slash"
+    },
+    "st": {
+        "name": "Stinger",
+        "wtype": "melee",
+        "breakage": "0",
+        "strength": "150-1000",
+        "fumble": "2",
+        "near": "",
+        "short": "",
+        "medium": "",
+        "long": "",
+        "extreme": "",
+        "table": "Stinger",
+        "crits": "tiny/puncture"
+    },
     "Ts": {
         "name": "Trample/Stomp",
         "wtype": "",

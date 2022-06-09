@@ -178,6 +178,8 @@ class MainWindow(blankWindow):
                 # checking whether link of char pic fits - important for LaTeX export.
                 if self.__filein[-4:].lower() == "json":
                     self.char = json.load(filecontent)
+                    if(not ("piclink" in self.char)):
+                        self.char["piclink"] = "src/data/default/pics/default.jpg"
 
                     if os.getcwd() not in self.char["piclink"]:
                         pl = self.char["piclink"].split("src/")[1]
