@@ -2,23 +2,23 @@ RPG Tools
 ---------
 A usefull toolbox of scripts for pen & paper role playing.
 
-#Needed Packages:
+# Needed Packages:
 
-##Python 3:
+## Python 3:
 - tkinter
 - pillow/PIL
 
-##LaTeX:
+## LaTeX:
 - pdflatex with German & English language support (e.g., MIkTeX for Windows or texlive for Linux)
 
-##Supported RPGs:
+## Supported RPGs:
 - RM/MERP
 
-##Supported languages
+## Supported languages
 - English
 - Deutsch (partially, have to be improved)
 
-##Supported OSs:
+## Supported OSs:
 - Linux/Unix
 - Windows 10 (still buggy but becomes better)
 
