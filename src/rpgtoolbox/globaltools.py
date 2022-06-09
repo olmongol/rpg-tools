@@ -296,7 +296,7 @@ def writeJSON(filename = "", content = {}):
     @param content dictionary which shall be saved as JSON content.
     '''
     try:
-        with open(filename, "w") as fp:
+        with open(filename, "w",encoding="utf8") as fp:
             json.dump(content, fp, indent = 4)
         logger.info("%s saved" % filename)
 
@@ -335,7 +335,7 @@ def getLast(string = "/", sep = '/'):
     return str(dummy[-1].split())
 
 
-
+'''@fixme duplicate readCSV in spelleditor '''
 def readCSV(fname = "test.csv"):
     '''!
     This function reads a CSV file and returns a dictionary
@@ -426,7 +426,7 @@ def writeCSV(fname = "test.csv", cont = [{'Spam': 'Ham'}, {'Spam':'eggs'}]):
     @param cont list of dictionaries
     '''
     header = list(cont[0].keys())
-    with open(fname, 'w') as csvfile:
+    with open(fname, 'w', encoding="utf8") as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames = header)
 
         writer.writeheader()

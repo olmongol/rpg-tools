@@ -1,5 +1,5 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
-1,Enchanted Rope,10‘/lvl,C,touch,U,If caster holds one end of a rope he can cause the rope to move up to its length (within the area of effect) in any direction and to tie itself in knots (it cannot attack or tie up a living being)
+1,Enchanted Rope,10'/lvl,C,touch,U,If caster holds one end of a rope he can cause the rope to move up to its length (within the area of effect) in any direction and to tie itself in knots (it cannot attack or tie up a living being)
 2,Loosen Earth,100 cu',P,100',F,Loosens 100 cu' of earth to the con- sistency of plowed ground.
 4,Earthwall,10'x10'x3',1 min/lvl,100',E,"Creates of wall of earth up to 10' x 10' x (3' at the base, 1' at the top). This wall can be dug through."
 5,Cracks Call,10'x10'x10',---,100',F,Any previous cracks or flaws in material up to 10'x10'x10' section will extend to their limit.
