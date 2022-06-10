@@ -14,7 +14,7 @@ other opponents.
 \version 0.5
 '''
 __version__ = "0.5"
-__updated__ = "04.02.2022"
+__updated__ = "10.06.2022"
 __author__ = "Marcus Schwamberger"
 
 import os
@@ -102,16 +102,16 @@ class atWin(blankWindow):
             if table[-4:] == ".csv" and table[-5:] != "-.csv":
                 self.attacktbls[table[:-4]] = attacktable("{}/fight/attacks/{}".format(self.datadir, table))
 
-        # read all crit tables
+        #----- read all crit tables
         for table in os.listdir("{}/fight/crits".format(self.datadir)):
             if table[-4:] == ".csv" and table[-5:] != "-.csv":
                 self.crittbls[table[:-9]] = crittable("{}/fight/crits/{}".format(self.datadir, table))
 
-        # get all weapon data
+        #----- get all weapon data
         with open("data/default/fight/weapons_full.json") as fp:
             self.weapondata = json.load(fp)
 
-        #window components
+        #---- window components
         blankWindow.__init__(self, self.lang)
         self.window.title("Combat  Module")
         self.__addFileMenu()
@@ -179,22 +179,22 @@ class atWin(blankWindow):
         This method reads a character party group file to self.partygrp
         '''
         self.__partypath = askopenfilename(filetypes = self.fmaskc, initialdir = os.getcwd(), defaultextension = ".json")
-        logger.debug(f"openParty: chosen group file {self.__partypath}")
+        logger.debug(f"chosen group file {self.__partypath}")
         try:
             with open(self.__partypath, "r") as fp:
                 ##@var self.__fullparty
                 # This is holding the full party data
                 self.__fullparty = json.load(fp)
-            logger.info(f"openParty: {self.__partypath} was read")
+            logger.info(f"{self.__partypath} was read")
 
             if type(self.__fullparty) == type({}):
                 self.__fullparty = [self.__fullparty]
             self.__prepareChars()
 
         except Exception as error:
-            logger.error(f"openParty: {error}")
+            logger.error(f"{error}")
             self.message = messageWindow()
-            self.message.showinfo(f"openParty: {error}", "ERROR")
+            self.message.showinfo(f"{error}", "ERROR")
 
         #self.__prepareChars()
 
@@ -204,14 +204,14 @@ class atWin(blankWindow):
         This opens an enemy party to fight against
         '''
         self.__enemypath = askopenfilename(filetypes = self.fmaske, defaultextension = "*.csv", initialdir = os.getcwd())
-        logger.debug(f"openEnemies: chosen enemies group file {self.__enemypath}")
+        logger.debug(f"chosen enemies group file {self.__enemypath}")
 
         if self.__enemypath[-4:].lower() == ".csv":
             self.enemygrp = readCSV(self.__enemypath)
-            logger.info(f'openEnemies: {self.__enemypath} read')
+            logger.info(f'{self.__enemypath} read')
         else:
-            logger.error("openEnemies: wrong file format! must be CSV")
-            self.message("openEnemies: wrong file format: must be CSV")
+            logger.error("wrong file format! must be CSV")
+            self.message.showinfo("openEnemies: wrong file format: must be CSV")
 
         self.__prepareNSCs()
 
@@ -231,7 +231,7 @@ class atWin(blankWindow):
         @todo - <strike>append NSCs/Monsters if the enc >1</strike>
               - immunity list
               - weakness list
-
+              - spell realm
         '''
         size = "H"
         self.enemygrp = createCombatList(self.enemygrp)

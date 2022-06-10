@@ -22,7 +22,7 @@ Currently supported languages are:
 @license GNU V3.0
 '''
 __version__ = "1.1"
-__updated__ = "03.11.2021"
+__updated__ = "10.06.2022"
 ##
 # @var supportedrpg
 # Supported RPG systems
@@ -292,8 +292,8 @@ txtmenu = {'menu_help': {'de': 'Hilfe',
 
 ## @var submenu
 #This holds the texts of the submenu cascades.
-submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
-                          'close': 'Datei schlie\xc3\x9fen',
+submenu = {'file':{'de':{'open': 'Datei öffnen',
+                          'close': 'Datei schliessen',
                           'new': 'Neue Datei',
                           'save': 'Datei speichern',
                           'sv_as': 'Datei speichern unter...',
@@ -362,6 +362,10 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                               "ed_rem_enemy": "Feinde entfernen",
                               'init': "Initativewurf",
                               "history": "Verlauf anzeigen",
+                              "ed_data": "Daten bearbeiten",
+                              "ed_add_spell": "Zauber hinzufügen",
+                              "ed_copy_from_master":"aus Haupt-DB übernehmen",
+                              "ed_copy_to_master": "in Haupt-DB übertragen",
                               },
                       'en':{'ed_char': 'Edit/improve Character',
                               'ed_grp': 'Edit Group',
@@ -381,6 +385,10 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                               "ed_rem_enemy": "remove enemies",
                               'init': "Initiative roll",
                               "history": "display history",
+                              "ed_data": "edit data",
+                              "ed_add_spell":"add spells",
+                              "ed_copy_from_master": "copy from master DB",
+                              "ed_copy_to_master": "copy to master DB",
                                },
 
                       },
@@ -478,8 +486,8 @@ txtwin = {'all_files': {'de': ("alle Dateien", '.*'),
           'spell_files':{'de': ('Spruchlisten', '.csv'),
                          'en': ('Spell Lists', '.csv')
                          },
-          'enemygrp_files':{'de': ("Gegner/Monster", '.csv'),
-                            'en': ("enemy/monster", '.csv')
+          'enemygrp_files':{'de': ("NSC/Gegner/Monster", '.csv'),
+                            'en': ("NPC/enemy/monster", '.csv')
               },
           'jpg_files': {'de': ('JPG Bilder', 'jpg'),
                          'en': ('JPG Pics', '.jpg')
@@ -488,7 +496,15 @@ txtwin = {'all_files': {'de': ("alle Dateien", '.*'),
                          'en': ('JPEG Pics', '.jpeg')
                          },
           'png_files': {'de': ('PNG Bilder', '.png'),
-                         'en': ('PNG Pics', '.png')}
+                         'en': ('PNG Pics', '.png')
+                         },
+          'details': {"de": "Detailierte Werte",
+                      "en": "Detailed values",
+                      },
+          'selection': {"de": "Auswahl",
+                        "en": "Selection",
+                        },
+
           }
 
 ## @var processing
