@@ -9,3 +9,5 @@ example
 *.toc
 *.pdf
 *.aux
+src/data/encounter/*
+src/data/npcs/*
