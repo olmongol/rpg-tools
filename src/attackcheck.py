@@ -1744,7 +1744,7 @@ class characterSelector(blankWindow):
     '''
 
 
-    def __init__(self, lang = "en", datapool):
+    def __init__(self, datapool, lang = "en"):
         '''
         @todo has to be fully implemented
         '''
