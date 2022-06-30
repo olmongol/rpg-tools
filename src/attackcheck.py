@@ -14,7 +14,7 @@ other opponents.
 \version 0.5
 '''
 __version__ = "0.5"
-__updated__ = "10.06.2022"
+__updated__ = "11.06.2022"
 __author__ = "Marcus Schwamberger"
 
 import os
@@ -75,6 +75,7 @@ class atWin(blankWindow):
         self.curr_attacker = 0
         self.curr_defender = 0
         self.__oblist = []
+        self.__firstUpdAttack = False
         self.defaultnscimg = datadir + "/pics/default.jpg"
         self.fmask = [txtwin['grp_files'][self.lang],
                      txtwin['enemygrp_files'][self.lang],
@@ -292,7 +293,7 @@ class atWin(blankWindow):
                 melee[j].append(melee[j][0])
 
                 melee[j][0] = self.weapontab[melee[j][0]]['name']
-
+                logger.debug(f"melee[{j}] is set to {melee[j]} ")
             self.enemygrp[i]["OB melee"] = melee
 
             missile = self.enemygrp[i]["OB missile"].split("/")
@@ -378,10 +379,16 @@ class atWin(blankWindow):
                 self.attackers.append(elem["name"])
 
         self.defenders = deepcopy(self.attackers)
+        logger.debug("set self.defenders")
         self.__selectAttacker.set(self.attackers[0])
-        self.__selectDefender.set(self.defenders[-1])
-        self.__updDefCombo()
+        logger.debug(f"set selectAttacker to {self.__selectAttacker.get()}")
         self.__updtAttckCombo()
+        logger.debug("updtAttckCombo done")
+        self.__selectDefender.set(self.defenders[-1])
+        logger.debug(f"set selectDefender to {self.__selectDefender.get()}")
+        self.__updDefCombo()
+        logger.debug("updtDefCombo done")
+
         self.__chgImg(attackerpic = "", defenderpic = self.enemygrp[0]["piclink"])
         logger.info("__prepareNSCs: enemygrp set")
         logger.debug(f"__prepareNSCs: \n{pformat(self.enemygrp)}")
@@ -811,7 +818,7 @@ class atWin(blankWindow):
         '''
 
         self.curr_defender = self.__selectDefender.get()
-
+        logger.debug(f"curr_defender: {self.curr_defender}")
         if self.curr_defender not in self.defenders:
             self.curr_defender = self.defenders[-1]
 
@@ -845,6 +852,7 @@ class atWin(blankWindow):
         self.__koDefender.set(f'k.o.: {defend["status"]["ooo"]}')
         self.__deathDefender.set(f"Death: {defend['status']['die']}")
         self.attackers = deepcopy(self.defenders)
+
         self.__updOB(event = None)
 
 
@@ -949,9 +957,14 @@ class atWin(blankWindow):
     def __updOB(self, event = None):
         '''!
         This updates the attack credentials by the selected attack skills
+
+        ----
+        @bug values for loaded NSC lists are not updated correctly at the very first time (workarroud hit the "next round" button for reset)
         '''
         self.curr_attacker = self.__selectAttacker.get()
+        logger.debug(f"curr_attacker. {self.curr_attacker}")
         at = self.__findCombatant(name = self.curr_attacker, chklist = self.initlist)
+        #pprint(at)
         self.curr_defender = self.__selectDefender.get()
         defend = self.__findCombatant(name = self.curr_defender, chklist = self.initlist)
         obtype = self.__selectType.get()

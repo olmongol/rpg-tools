@@ -4,19 +4,22 @@
 @package test_epcalcwin.py
 @brief This is a little tool for tracking the EPs  of Role Master Characters
 
-@date (C) 2015-2021
+@date (C) 2015-2022
 @author Marcus Schwamberger
 @email marcus@lederzeug.de
 @license GNU V3.0
 @version 1.2.0
 ----
 @todo
-- adding a RR window
 - adding a cat/skill checker window for the whole group (select skill once and check for all)
-- adding spellcasting windpw (stat man)
+- connect spellcasting window (stat man)
 
 
 '''
+__version__ = "1.2.0"
+__updated__ = "17.06.2022"
+__author__ = "Marcus Schwamberger"
+__me__ = "test_epcalcwin.py"
 import os
 import json
 from gui.window import *

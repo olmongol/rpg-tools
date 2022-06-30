@@ -14,7 +14,7 @@ lorem ipsum
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "08.06.2022"
+__updated__ = "17.06.2022"
 __author__ = "Marcus Schwamberger"
 __me__ = "spellcasting.py"
 
@@ -23,7 +23,7 @@ import csv
 import sys
 from rpgtoolbox.logbox import *
 
-logger = createLogger(logger = "spellcasting logger", logpath = "../log/", logfile = "spellcasting.log")
+logger = createLogger(logger = "spellcasting logger", loglevel = "info", logpath = "../log/", logfile = "spellcasting.log")
 
 
 
