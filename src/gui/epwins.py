@@ -1885,7 +1885,10 @@ class priorizeWeaponsWin(blankWindow):
         '''!
         This generates the priority list by the chosen priorities.
         @param event has to be catched but is not used
-        @todo check for double priorities. If any don't proceed
+        -----
+        @todo -check for double priorities. If any don't proceed- on selection of priority update all other Options so you cannot choose a priority twice
+        @todo use readCSV function to open cvs
+        -----
         @bug when you chose double entries:  File "/home/mongol/git/rpg-tools/src/gui/epwins.py", line 1808, in __getPrio
         for i in range(len(content) - 7, len(content)):
         IndexError: list index out of range
@@ -1907,7 +1910,6 @@ class priorizeWeaponsWin(blankWindow):
                 break
 
         if not self.__block:
-            '''@todo use readCSV function?'''
             fp = open('./data/default/CatDPC_%s.csv' % self.lang, 'r', encoding="utf8")
             content = fp.readlines()
             fp.close()
@@ -2062,7 +2064,10 @@ class priorizeWeaponsWin(blankWindow):
     def __setPPD(self):
         '''!
         This sets the Progression and Stats for Power Point Development
-
+        ----
+        @bug on windows while creating a new dwarf character
+        param['ppd'] = progressionType[param['ppd'] + param['race']] 
+        KeyError: 'Dwarves'
         '''
         from rpgtoolbox.rolemaster import races, realms, ppds, magicstats, progressionType, speccat
         param = {}
@@ -3742,6 +3747,9 @@ class charInfo(blankWindow):
         '''
         This method gets all data from entries, puts them into character data struct
         and saves the updated character.
+        -----
+        @todo when savin the character make the target choosable; currentliy it assumes file at preset dirctory:
+          resulting in a FileNotFoundError: [Errno 2] No such file or directory: './data//Niels/Isdan.json'
         '''
         if self.spath[-1] not in ["\\", "/"]:
             self.spath += "/"

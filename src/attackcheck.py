@@ -184,6 +184,8 @@ class atWin(blankWindow):
     def openParty(self):
         '''!
         This method reads a character party group file to self.partygrp
+        ----
+        @Bug: "openPary: armquickpen" on newly crated party with armquickpen_error_group.json
         '''
         self.__partypath = askopenfilename(filetypes = self.fmaskc, initialdir = os.getcwd(), defaultextension = ".json")
         logger.debug(f"openParty: chosen group file {self.__partypath}")
@@ -649,6 +651,9 @@ class atWin(blankWindow):
 
         @param attackerpic path & name of the picture of the attacker (will be downsized to 90x90 px)
         @param defenderpic path & name of the picture of the defender (will be downsized to 90x90 px)
+        ----
+        @todo add fallback to default if character picture can not be found
+        Windows throws FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Nillorian\\coding\\projects\\rpg-tools\\src\\data\\default\\pics\\bull.png'
         '''
         if attackerpic:
             self.picattacker = Image.open(attackerpic).resize((110, 110), Image.ANTIALIAS)
@@ -957,6 +962,8 @@ class atWin(blankWindow):
     def __updOB(self, event = None):
         '''!
         This updates the attack credentials by the selected attack skills
+        ---
+        @bug ValueError: 'Battle_Axe' is not in list every time the first list is loaded
         '''
         self.curr_attacker = self.__selectAttacker.get()
         at = self.__findCombatant(name = self.curr_attacker, chklist = self.initlist)
