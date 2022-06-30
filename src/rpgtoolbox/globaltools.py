@@ -22,6 +22,7 @@ __msg__ = {'ERR_NO_DATA': "ERROR: no data to compute :(",
            'OK': "OK: job is done :D"
           }
 
+from encodings import utf_8
 import os
 import os.path
 from . import logbox as log
@@ -76,7 +77,7 @@ def readFile(path = './', file_name = None, mode = 'r'):
         if path[-1] != '\\' and file_name[1:] != '\\':
             path = path + '\\'
 
-    fp = open(path + file_name, mode)
+    fp = open(path + file_name, mode, encoding="utf_8")
     content = fp.readlines()
     fp.close()
     logger.debug('readFile %s' % (path + file_name))
@@ -295,7 +296,7 @@ def writeJSON(filename = "", content = {}):
     @param content dictionary which shall be saved as JSON content.
     '''
     try:
-        with open(filename, "w") as fp:
+        with open(filename, "w",encoding="utf8") as fp:
             json.dump(content, fp, indent = 4)
         logger.info("%s saved" % filename)
 
@@ -334,7 +335,7 @@ def getLast(string = "/", sep = '/'):
     return str(dummy[-1].split())
 
 
-
+'''@fixme duplicate readCSV in spelleditor '''
 def readCSV(fname = "test.csv"):
     '''!
     This function reads a CSV file and returns a dictionary
@@ -345,7 +346,8 @@ def readCSV(fname = "test.csv"):
     @bug handle problems with weird unicode characters
     '''
     result = []
-    with open(fname, "r") as csvfile:
+    with open(fname, "r", encoding="utf8") as csvfile:
+        logger.info(f'readCSV: Opening file {fname}')
         reader = csv.DictReader(csvfile)
         for row in reader:
             result.append(row)
@@ -424,7 +426,7 @@ def writeCSV(fname = "test.csv", cont = [{'Spam': 'Ham'}, {'Spam':'eggs'}]):
     @param cont list of dictionaries
     '''
     header = list(cont[0].keys())
-    with open(fname, 'w') as csvfile:
+    with open(fname, 'w', encoding="utf8") as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames = header)
 
         writer.writeheader()

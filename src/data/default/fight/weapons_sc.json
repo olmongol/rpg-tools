@@ -140,7 +140,7 @@
         "crits": "krush/slash/puncture"
     },
     "ca": {
-        "name": "Cat-o\u2019-nine tails",
+        "name": "Cat-o'-nine tails",
         "wtype": "1hc/1he",
         "breakage": "4",
         "strength": "56-64-s",
@@ -1076,5 +1076,47 @@
         "extreme": "",
         "table": "Ram_Butt_Bash_Knockdown",
         "crits": "krush/unbalance"
+    },
+    "ti": {
+        "name": "Tiny",
+        "wtype": "melee",
+        "breakage": "0",
+        "strength": "150-1000",
+        "fumble": "2",
+        "near": "0",
+        "short": "",
+        "medium": "",
+        "long": "",
+        "extreme": "",
+        "table": "Tiny",
+        "crits": "tiny/krush/puncture/slash"
+    },
+    "st": {
+        "name": "Stinger",
+        "wtype": "melee",
+        "breakage": "0",
+        "strength": "150-1000",
+        "fumble": "2",
+        "near": "",
+        "short": "",
+        "medium": "",
+        "long": "",
+        "extreme": "",
+        "table": "Stinger",
+        "crits": "tiny/puncture"
+    },
+    "Ts": {
+        "name": "Trample/Stomp",
+        "wtype": "",
+        "breakage": "",
+        "strength": "",
+        "fumble": "2",
+        "near": "",
+        "short": "",
+        "medium": "",
+        "long": "",
+        "extreme": "",
+        "table": "Trample_Stomp",
+        "crits": "tiny/krush"
     }
 }

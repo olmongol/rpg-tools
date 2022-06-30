@@ -178,6 +178,8 @@ class MainWindow(blankWindow):
                 # checking whether link of char pic fits - important for LaTeX export.
                 if self.__filein[-4:].lower() == "json":
                     self.char = json.load(filecontent)
+                    if(not ("piclink" in self.char)):
+                        self.char["piclink"] = "src/data/default/pics/default.jpg"
 
                     if os.getcwd() not in self.char["piclink"]:
                         pl = self.char["piclink"].split("src/")[1]
@@ -1650,7 +1652,8 @@ class genAttrWin(blankWindow):
         category.
         '''
         from rpgtoolbox import rolemaster as rm
-        fp = open("%sdefault/Skills_%s.csv" % (self.spath, self.lang))
+        '''@fixme use read csv function?'''
+        fp = open("%sdefault/Skills_%s.csv" % (self.spath, self.lang), encoding="utf8")
         content = fp.readlines()
         fp.close()
 
@@ -1697,7 +1700,7 @@ class genAttrWin(blankWindow):
                 if pbonus in skillcat.keys():
                     skillcat[key]['prof bonus'] = int(self.profs[self.character['prof']]['Profession Bonusses'][pbonus])
 
-        fp = open('%s/default/SkillCat_%s.csv' % (self.spath, self.lang), 'r')
+        fp = open('%s/default/SkillCat_%s.csv' % (self.spath, self.lang), 'r', encoding="utf8")
         content = fp.readlines()
         fp.close()
 
@@ -1904,7 +1907,8 @@ class priorizeWeaponsWin(blankWindow):
                 break
 
         if not self.__block:
-            fp = open('./data/default/CatDPC_%s.csv' % self.lang, 'r')
+            '''@todo use readCSV function?'''
+            fp = open('./data/default/CatDPC_%s.csv' % self.lang, 'r', encoding="utf8")
             content = fp.readlines()
             fp.close()
 
@@ -1993,7 +1997,7 @@ class priorizeWeaponsWin(blankWindow):
 
         # adding adolescence skill ranks
 
-        fp = open('./data/default/AdoRanks_%s.csv' % self.lang, "r")
+        fp = open('./data/default/AdoRanks_%s.csv' % self.lang, "r", encoding="utf8")
         content = fp.readlines()
         fp.close()
         self.__adoranks = {}
@@ -4519,4 +4523,3 @@ class BGOselectWin(blankWindow):
         @todo This has to be fully implemented.
         '''
         self._f_money = Frame(master = self.window)
-
