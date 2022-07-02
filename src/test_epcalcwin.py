@@ -23,8 +23,10 @@ from gui.window import *
 from rpgtoolbox import epcalc, rpgtools as rpg
 from rpgtoolbox.rrwindow import *
 from rpgToolDefinitions.epcalcdefs import maneuvers
-from pprint import pprint
+from rpgtoolbox.rpgtools import  getLvl
 from rpgToolDefinitions.helptools import RMDice as dice
+from copy import deepcopy
+from pprint import pprint
 from tkinter import filedialog
 import re
 import pickle
@@ -523,9 +525,16 @@ class EPCalcWin(blankWindow):
          - in group file
         '''
         self.__grpBonus()
+
         for i in range(0, len(self.charlist)):
             name = self.charlist[i]['player']
             self.charlist[i]["exp"] = self.group[name].newep
+            newlvl = getLvl(self.group[name].newep)
+
+            if self.charlist[i]["lvl"] < newlvl:
+                self.charlist[i]["lvl"] = deepcopy(newlvl)
+                self.charlist[i]["lvlup"] += 1
+
             self.charlist[i]['old_exp'] = self.group[name].ep
 
         self.__autoSave()
