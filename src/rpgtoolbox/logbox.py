@@ -15,6 +15,9 @@ This module consists of functions to handle a logging.
 import logging.handlers
 
 __version__ = "0.4"
+__updated__ = "04.07.2022"
+__me__ = "logbox.py"
+
 """Debugging level"""
 LEVEL = {'debug': logging.DEBUG,
          'info': logging.INFO,
@@ -39,7 +42,7 @@ def createLogger(logger = 'rpg-Logger', loglvl = 'debug', logsize = '2 MB',
     linked to the object. Further, it sets the logging formatter:
     \em time: \em level: \em message
 
-    @param logger  Name of logger object; default 'ADaManT-Logger'
+    @param logger  Name of logger object; default 'ADaManT-Logger'https://www.deepl.com/translator
     @param loglvl  Logging level, may be (debug, info, warning, error, critical);
                    default: debug
     @param logsize default: 2 MB, may be KB, MB or GB. The max. size is 10 GB. If
@@ -79,3 +82,28 @@ def createLogger(logger = 'rpg-Logger', loglvl = 'debug', logsize = '2 MB',
     logger.addHandler(handler)
     return logger
 
+
+
+class charlog(object):
+    """!This is a logging class for characters and groups of them.
+    """
+
+
+    def __init__(self, **kwargs):
+        """! Constructor
+        The computed parameters are
+        @param logpath the path where to write the logfile into
+        @param logfile name of the logfile. Default is <char name>.log
+        @param logger name of the logger object; usually the character name
+        @param loglevel the level of logging
+        @param logsize maximum size of a log file in MB
+        @param count maximum number of log files
+
+        """
+
+        pass
+
+
+    def __del__(self):
+        """!Destructor"""
+        print(f"Session ended")

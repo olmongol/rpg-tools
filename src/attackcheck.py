@@ -14,7 +14,7 @@ other opponents.
 \version 0.5
 '''
 __version__ = "0.5"
-__updated__ = "19.02.2022"
+__updated__ = "02.07.2022"
 __author__ = "Marcus Schwamberger"
 
 import os
@@ -1615,7 +1615,7 @@ class enemySelector(blankWindow):
     '''
 
 
-    def __init__(self, lang = "en", datapool=""):
+    def __init__(self, lang = "en", datapool = ""):
         '''
         @param lang chosen display language (default: en; supported; en, de)
         @param datapool (path +) file where the default bestiarium is stored in.
@@ -1736,54 +1736,55 @@ class enemySelector(blankWindow):
         """
         pass
 
-
-
-class characterSelector(blankWindow):
-    '''
-    This class adds a single character to the list.
-    '''
-
-
-    def __init__(self, lang = "en", datapool):
-        '''
-        @todo has to be fully implemented
-        '''
-        #blankWindow.__init__(self, self.lang)
-        #self.window.title("Combat  Module")
-        #self.__addFileMenu()
-        #self.__addEditMenu()
-        #self.__addHelpMenu()
-        #self.__buildWin()
-        self.window.mainloop()
-        pass
-
-
-    def __addHelpMenu(self):
-        """
-        This methods defines a help menu.
-        """
-        self.helpmenu = Menu(master = self.menu)
-        self.menu.add_cascade(label = txtmenu['help'][self.lang],
-                              menu = self.helpmenu)
-
-        self.helpmenu.add_separator()
-        self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
-                                  command = self._helpAbout)
-        logger.debug("__addHelpMenu: help menu build")
-
-
-    def getSelection(self):
-        '''
-        getter method for selection
-        '''
-        return self.selection
-
-
-    def __quit(self):
-        '''!
-        This method closes the window
-        '''
-        self.window.destroy()
+#class characterSelector(blankWindow):
+#    '''!
+#    This class adds a single character to the list.
+#    '''
+#
+#
+#    #def __init__(self, lang = "en", datapool):
+#    def __init__(self, lang = "en", datapool):
+#        '''!
+#        @todo has to be fully implemented
+#        '''
+#        self.lang = lang
+#        self.dp = datapool
+#        #blankWindow.__init__(self, self.lang)
+#        #self.window.title("Combat  Module")
+#        #self.__addFileMenu()
+#        #self.__addEditMenu()
+#        #self.__addHelpMenu()
+#        #self.__buildWin()
+#        self.window.mainloop()
+#        pass
+#
+#
+#    def __addHelpMenu(self):
+#        """!
+#        This methods defines a help menu.
+#        """
+#        self.helpmenu = Menu(master = self.menu)
+#        self.menu.add_cascade(label = txtmenu['help'][self.lang],
+#                              menu = self.helpmenu)
+#
+#        self.helpmenu.add_separator()
+#        self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
+#                                  command = self._helpAbout)
+#        logger.debug("__addHelpMenu: help menu build")
+#
+#
+#    def getSelection(self):
+#        '''!
+#        getter method for selection
+#        '''
+#        return self.selection
+#
+#
+#    def __quit(self):
+#        '''!
+#        This method closes the window
+#        '''
+#        self.window.destroy()
 
 
 

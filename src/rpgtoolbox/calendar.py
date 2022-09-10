@@ -5,17 +5,23 @@
 \brief date/time module for RPG in-time calenders
 
 
-\date (C) 2017
+\date (C) 2017-2022
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
 
 '''
+__updated__ = "04.07.2022"
+__version__ = "1.0"
+
+__me__ = "calendar.py"
+__author__ = "Marcus Schwamberger"
 
 
 
 class date(object):
     '''!
     This class contains the attributes
+
     - day
     - month
     - year
