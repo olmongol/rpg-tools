@@ -67,7 +67,7 @@ def getLvl(ep = 10000):
     else:
         lvl = round((ep - 500000) / 50000) + 20
 
-    logger.debug(f"EP {ep} ==> lvl {round(lvl)]")
+    logger.debug(f"EP {ep} ==> lvl {round(lvl)}")
     return round(lvl)
 
 
