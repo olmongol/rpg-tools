@@ -12,7 +12,7 @@ This tool handles
 @li Export characters/party information as JSON, LaTex, PDF
 @li Buying/keeping track of character's equipment & treasures
 
-@date (C) 2015-2020
+@date (C) 2015-2022
 @author Marcus Schwamberger
 @email marcus@lederzeug.de
 @license GNU V3.0
@@ -28,17 +28,18 @@ from rpgtoolbox.confbox import *
 from rpgtoolbox import logbox as log
 
 __author__ = "Marcus Schwamberger"
-__updated__ = "17.01.2021"
+__updated__ = "02.10.2022"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + __author__
 __email__ = "marcus@lederzeug.de"
 __version__ = "1.1.0"
 __license__ = "GNU V3.0"
-__me__ = "A MERS/RM RPG Toolbox for Python 3.6"
+__me__ = "A MERS/RM RPG Toolbox for Python 3.x"
 
 if __name__ == '__main__':
 
     mycnf = chkCfg()
     logger = log.createLogger('rpg', 'warning', '4 MB', 1, mycnf.cnfparam["logpath"])
+    print(mycnf.cnfparam["logpath"])
     logger.debug("Open main window: lang - {}; storepath - {}".format(mycnf.cnfparam['lang'], mycnf.cnfparam['datapath']))
     mywindow = MainWindow(lang = mycnf.cnfparam['lang'], title = "EP Calculator", storepath = mycnf.cnfparam['datapath'])
     logger.info("Program finished")

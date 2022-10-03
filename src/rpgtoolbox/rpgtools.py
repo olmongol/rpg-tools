@@ -14,12 +14,19 @@ This module contains some helpful functions for role-playing games like:
 @email marcus@lederzeug.de
 @version 1.0
 '''
-__updated__ = "28.12.2020"
+__updated__ = "03.10.2022"
+__version__ = "1.0"
+__author__ = "Marcus Schwamberger"
+__me__ = "rpgtools.py"
 
 import random
+import json
 from rpgtoolbox.globaltools import readCSV
 from rpgtoolbox.rolemaster import rankbonus
+from rpgtoolbox import logbox as log
 import re
+
+logger = log.createLogger('rpgtools', 'debug', '1 MB', 1, '../log', logfile = "rpgtools.log")
 
 
 
@@ -37,6 +44,8 @@ def dice(sides = 6, number = 1):
         roll = random.randint(1, sides)
         result.append(roll)
         i += 1
+
+    logger.debug(f"rolled {number}D{sides}: {result}")
     return result
 
 
@@ -57,6 +66,8 @@ def getLvl(ep = 10000):
         lvl = round((ep - 300000) / 40000) + 15
     else:
         lvl = round((ep - 500000) / 50000) + 20
+
+    logger.debug(f"EP {ep} ==> lvl {round(lvl)]")
     return round(lvl)
 
 
@@ -142,6 +153,7 @@ def RRroll(attacklvl, targetlvl, roll):
     '''
     resisted = False
     value = 0
+
     if attacklvl < 6:
         value = 50 + (attacklvl - 1) * 5
 
@@ -216,6 +228,7 @@ def statGain(dicelow = 1, dicehigh = 1, temp = 50, pot = 75):
 
     if result > pot:
         result = pot
+
     return result
 
 
@@ -223,8 +236,12 @@ def statGain(dicelow = 1, dicehigh = 1, temp = 50, pot = 75):
 class equipmentPenalities(object):
     """
     This class calculates MMP and armor penalties.
+
     ----
     @bug sometimes armor penalties are not correctly calculated
+
+    ----
+    @todo implement logging for this class
     """
 
 
@@ -390,6 +407,7 @@ class statManeuver(object):
         @param tablefile CSV containing the table which shall be used for static maneuver rolls.
         '''
         self.table = readCSV(tablefile)
+        logger.debug("read table {tablefile}")
 
 
     def checkRoll(self, roll):
@@ -421,5 +439,6 @@ class statManeuver(object):
         if "roll" in list(result.keys()):
             del(result['roll'])
 
+        logger.debug(f"result:\ {json.dumps(result,indent=3)}")
         return result
 

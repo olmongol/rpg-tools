@@ -12,6 +12,8 @@
 \license GNU V3.0
 \version 1.1.0
 
+----
+@todo implement logging for debugging
 '''
 import os
 import json
@@ -26,7 +28,9 @@ from rpgToolDefinitions.middleearth import *
 from gui.window import *
 from rpgToolDefinitions.helptools import RMDice as Dice
 from tkinter import filedialog
-logger = log.createLogger('AT-Window', 'info', '1 MB', 1, './', logfile = "findherbs.log")
+
+logger = log.createLogger('AT-Window', 'info', '1 MB', 1, './log', logfile = "findherbs.log")
+
 
 
 def string2worth(worth = ""):
@@ -59,7 +63,9 @@ def sumDices(sides = 4, number = 1):
 
     return result
 
-def findHerbs(herbs=[], roll = 0, skill = -15, area = ["---"], climate = [], locale = []):
+
+
+def findHerbs(herbs = [], roll = 0, skill = -15, area = ["---"], climate = [], locale = []):
         """!
         This function searches for herbs by area, climate and locale dependend on difficulty of
         finding and the success of the skill (foraging) roll.
@@ -72,7 +78,7 @@ def findHerbs(herbs=[], roll = 0, skill = -15, area = ["---"], climate = [], loc
         """
 
         print("findHerbs: skill: {} + roll: {} ".format(skill, roll))
-       
+
         if "everywhere" not in area:
             area.append("everywhere")
 
@@ -88,10 +94,10 @@ def findHerbs(herbs=[], roll = 0, skill = -15, area = ["---"], climate = [], loc
         for plant in herbs:
 
             if climate != [] and locale != []:
-                print("climate != [] and locale != []") 
+                print("climate != [] and locale != []")
 
                 if plant["area"] in area and plant["climate"] == climate and plant["locale"] == locale:
-                    print("1st if") 
+                    print("1st if")
                     mod = manmod[plant["difficulty"]]["mod"]
 
                     if roll != 100 and roll != 66:
@@ -113,7 +119,7 @@ def findHerbs(herbs=[], roll = 0, skill = -15, area = ["---"], climate = [], loc
                         foundherbs.append(plant)
 
             elif climate == []:
-                print("1st elif") 
+                print("1st elif")
 
                 if plant["area"] in area and plant["locale"] in locale:
                     mod = manmod[plant["difficulty"]]["mod"]
@@ -136,7 +142,7 @@ def findHerbs(herbs=[], roll = 0, skill = -15, area = ["---"], climate = [], loc
                         foundherbs.append(plant)
 
             elif locale == []:
-                print("2st elif") 
+                print("2st elif")
 
                 if plant["area"] in area and plant["climate"] in climate:
                     mod = manmod[plant["difficulty"]]["mod"]
@@ -161,6 +167,8 @@ def findHerbs(herbs=[], roll = 0, skill = -15, area = ["---"], climate = [], loc
         print("finished findHerbs ", len(foundherbs))
         print("finished findHerbs ", foundherbs)
         return foundherbs
+
+
 
 class searchHerbsWin(blankWindow):
     """!

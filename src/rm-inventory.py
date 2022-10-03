@@ -11,12 +11,15 @@ This tool handles
 @li equipp items/pack items into containers and calculate carried weights
 @li Export inventory as JSON, LaTex, PDF
 
-@date (C) 2020
+@date (C) 2020-2022
 @author Marcus Schwamberger
 @email marcus@lederzeug.de
 @license GNU V3.0
 @version 1.1.0
 
+
+----
+@todo implement loggin for this module
 '''
 import os
 import json
@@ -34,12 +37,15 @@ from tkinter.ttk import *
 import re
 from PIL import Image, ImageTk
 from pprint import pprint
+from rpgtoolbox import logbox as log
 
-__updated__ = "01.02.2021"
+__updated__ = "03.10.2022"
 
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
-__version__ = "0.5"
+__version__ = "1.1.0"
+
+logger = log.createLogger('inventory', 'debug', '1 MB', 1, './log', logfile = "inventory.log")
 
 
 

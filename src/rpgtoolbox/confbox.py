@@ -7,20 +7,33 @@
 
 
 \author Marcus Schwamberger
-\date (c) 2012-2021
+\date (c) 2012-2022
 \version 0.5
 \email marcus@lederzeug.de
 \license GNU V3.0
+
+-----
+@todo the following options have to be added to the config file:
+- path to image files (for character images etc.)
+- path to NSCs/Monsters for campaigns
+- and more
 '''
-import os, locale
+import os
+import locale
 import rpgtoolbox.globaltools as rpgtools
 from rpgtoolbox.lang import *
+
+__me__ = "rpgtoolbox.confbox"
+__author__ = "Marcus Schwamberger"
+__email__ = "marcus@lederzeug.de"
+__license__ = "GPL V3"
 __version__ = "0.5"
-__updated__ = "25.02.2022"
+__updated__ = "03.10.2022"
 
 defaultconfigpath = "conf/"
 defaultconfigfile = "rpg-tools.cfg"
 defaultlang = locale.getdefaultlocale()[0][:2]
+defaultlogpath = "log/"
 ## cfgopts
 # holds allowed configuration options and their descriptions
 cfgopts = {'lang':'''
@@ -121,6 +134,24 @@ defval = {'lang': 'en',
 ## home
 # holds users home directory
 home = os.path.expanduser('~')
+
+
+
+def getDefaultConfPath():
+    '''!This function gets the default path of the configuraton file and returns
+    it.
+
+    @retval result config path+file of installation'''
+    result = "../conf/rpg-tools.cfg"
+    currentpath = os.getcwd()
+
+    if "rpg-tools/src" in currentpath:
+        result2 = currentpath.split("src")[0] + "src" + result[2:]
+
+        if os.path.exists(result2):
+            return result2
+
+    return result
 
 
 

@@ -5,14 +5,14 @@
 
 @brief This  module holds helpers handling all spell list/magical issues.
 
-@date (C) 2015-2020
+@date (C) 2015-2022
 @license GNU V3.0
 @author Marcus Schwamberger
 @email marcus@lederzeug.de
 @version 0.8
 '''
 __version__ = "0.8"
-__updated__ = "21.09.2021"
+__updated__ = "03.10.2022"
 
 import os
 from . import logbox as log
@@ -21,7 +21,7 @@ from .globaltools import readCSV
 from .rolemaster import DPCostSpells
 from pprint import pprint
 
-logger = log.createLogger('magic', 'info', '1 MB', 1, './' , 'handlemagic.log')
+logger = log.createLogger('magic', 'debbug', '1 MB', 1, './log' , 'handlemagic.log')
 
 
 

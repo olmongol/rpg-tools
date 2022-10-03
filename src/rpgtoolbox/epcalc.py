@@ -4,17 +4,23 @@
 \file epcalc.py
 \brief This  module holds helpers for calculating the EPs and handling NPCs.
 
-\date (C) 2015-2021
+\date (C) 2015-2022
 \license GNU V3.0
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
 \version 1.0
 '''
+__version__ = "1.0"
+__updated__ = "03.10.2022"
+__me__ = "rpgtoolbox.epcalc"
+__author__ = "Marcus Schwamberger"
+__email__ = "marcus@lederzeug.de"
+__license__ = "GPL V3"
 
 from .rpgtools import getLvl as calcLvl
+from rpgtoolbox import logbox as log
 
-__version__ = "1.0"
-__updated__ = "28.12.2020"
+logger = log.createLogger('epcalc', 'debug', '1 MB', 1, '../log', logfile = "epcalc.log")
 
 
 
@@ -40,6 +46,7 @@ class experience(object):
 
         '''
         self.name = charname
+        logger.debug(f"character: {self.name}")
         self.ep = ep
         self.getLvl = calcLvl
         self.lvl = self.getLvl(self.ep)
@@ -55,7 +62,9 @@ class experience(object):
         - newlvl
         """
         self.newep = self.ep + self.gainedep
+        logger.debug(f"EPs: {self.ep} + {self.gainedep} = {self.newep}")
         self.newlvl = self.getLvl(self.newep)
+        logger.debug(f" lvl ==> {self.newlvl}")
 
 
     def spell(self, spelllevel = 1, number = 1):
@@ -65,6 +74,7 @@ class experience(object):
         \param number number of spells casted
         '''
         self.gainedep += (100 - (self.lvl - spelllevel) * 10) * number
+        logger.debug(f"added spell EP: {self.gainedep}")
 
 
     def gainedCrit(self, crittype = "A", number = 0):
@@ -82,6 +92,7 @@ class experience(object):
                    }
 
         self.gainedep += crits[crittype.upper()] * number
+        logger.debug(f"added gained Crit EP: {self.gainedep}")
 
 
     def hitCrit(self, crittype = "A", monsterlvl = 1, number = 1):
@@ -102,6 +113,7 @@ class experience(object):
             monsterlvl = 0.5
 
         self.gainedep += int(round(monsterlvl * crits[crittype.upper()], 0)) * number
+        logger.debug(f"added Crit EP: {self.gainedep}")
 
 
     def travelled(self, km = 0):
@@ -110,6 +122,7 @@ class experience(object):
         \param km kilometers traveled
         '''
         self.gainedep += km
+        logger.debug(f"added travelled EP: {self.gainedep}")
 
 
     def gainedHits(self, hits = 0):
@@ -118,6 +131,7 @@ class experience(object):
         @param hits number of gained hits
         '''
         self.gainedep += hits
+        logger.debug(f"added hits EP: {self.gainedep}")
 
 
     def ideas(self, eps = 0):
@@ -126,6 +140,7 @@ class experience(object):
         @param eps additional EPs givem by GM
         '''
         self.gainedep += eps
+        logger.debug(f"added ideas EP: {self.gainedep}")
 
 
     def maneuver(self, manlvl = "routine", number = 0):
@@ -137,6 +152,7 @@ class experience(object):
         from rpgToolDefinitions.epcalcdefs import maneuvers
 
         self.gainedep += maneuvers[manlvl]['ep'] * number
+        logger.debug(f"added maneuvers EP: {self.gainedep}")
 
 
     def killedNPC(self, monsterlvl = 1, number = 1):
@@ -151,11 +167,4 @@ class experience(object):
         else:
             self.gainedep += (200 + (monsterlvl - self.lvl) * 50) * number
 
-#class NPC(object):
-#    '''!
-#    \todo has to be implemented for fight simulations
-#    '''
-#
-#
-#    def __init__(self, npcfile, beast, lvl):
-#        pass
+        logger.debug(f"added Kill EP: {self.gainedep}")

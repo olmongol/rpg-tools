@@ -10,15 +10,20 @@ will be generated for printouts
 @author Marcus Schwamberger
 @email marcus@lederzeug.de
 @version 1.1
+
+----
+@todo this has to be refactored:
+- add more logging
+- revise the code
 '''
 
-__updated__ = "28.12.2020"
+__updated__ = "03.10.2022"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
 __version__ = "1.1"
 __license__ = "GNU V3.0"
-__me__ = "A RPG tool package for Python 3.6"
+__me__ = "A RPG tool package for Python 3.x"
 
 from gui.window import messageWindow
 from rpgtoolbox import logbox as log
@@ -28,7 +33,8 @@ import os
 import sys
 import string
 from rpgToolDefinitions.inventory import *
-logger = log.createLogger('latexreport', 'debug', '1 MB', 1, './')
+
+logger = log.createLogger('latexreport', 'debug', '1 MB', 1, '../log', logfile = "latextexport.py")
 
 
 
@@ -127,10 +133,11 @@ class charsheet(object):
                 "act_age", "looking", "soul dep", "recovery", "pprecovery", "lvl", "piclink",
                 "pers", "motiv", "exp", "home"]
         self.chardir += "/latex/"
-
+        logger.debug(f"latex dir set to {self.chardir}")
         template = readFile(self.storepath + "/default/latex/template_gen_info.tex")
         logger.info("createGenInfo: read {}".format(self.storepath + "/default/latex/template_gen_info.tex"))
         template = template.replace("==>realm", str(self.char['realm']).replace(", ", "/").strip("[]"))
+
         for index in data:
 
             if index in self.char.keys():
@@ -193,6 +200,7 @@ class charsheet(object):
                 template = template.replace("==>" + index, u"\_\_\_\_\_")
 
         saveFile(self.chardir + "{}_gen_info.tex".format(self.char['name'].replace(" ", "-")), template)
+        logger.info(f'file saved: {self.chardir}{self.char["name"].replace(" ", " - ")}_gen_info.tex')
 
 
     def createStats(self):
@@ -207,6 +215,7 @@ class charsheet(object):
                 template = template.replace("==>{}_{}".format(s, v), str(self.char[s][v]))
 
         saveFile(self.chardir + "{}_stats.tex".format(self.char['name'].replace(" ", "-")), template)
+        logger.info(f'file saved: {self.chardir}{self.char["name"].replace(" ", " - ")}_stats.tex')
 
 
     def createRRATDB(self):
@@ -223,16 +232,20 @@ class charsheet(object):
 
         if self.char["cat"]["Special Defenses"]["Skill"]["Adrenal Defense"]["rank"] > 0:
             template = template.replace("==>AdrenalDef", str(self.char["cat"]["Special Defenses"]["Skill"]["Adrenal Defense"]["total bonus"]))
+
         else:
             template = template.replace("==>AdrenalDef", "\_\_")
 
         for v in vals:
+
             if v in self.char.keys():
                 template = template.replace("==>{}".format(v), str(int(self.char[v])))
+
             else:
                 template = template.replace("==>{}".format(v), "\_\_")
 
         saveFile(self.chardir + "{}_rr_at_db.tex".format(self.char['name'].replace(" ", "-")), template)
+        logger.info(f'file saved: {self.chardir}{self.char["name"].replace(" ", " - ")}_rr_at_db.tex')
 
 
     def createCatSkill(self):
@@ -251,6 +264,7 @@ class charsheet(object):
 
         for cat in self.catlist:
             datatable += u"\\hline\n"
+
             if "Weapon" in cat:
                 datatable += weapon + catstd.format(cat,
                                                   str(self.char['cat'][cat]['Progression']).replace(", ", "/"),
@@ -267,6 +281,7 @@ class charsheet(object):
                 skilllist.sort()
 
                 for skill in skilllist:
+
                     if skill not in ['Progression', 'Costs'] and "+" not in skill:
 
                         if self.short:
@@ -399,6 +414,7 @@ class charsheet(object):
                 skilllist.sort()
 
                 for skill in skilllist:
+
                     if skill not in ['Progression', ['Costs']] and "+" not in skill:
 
                         if self.short:
@@ -430,6 +446,7 @@ class charsheet(object):
         template = readFile(self.storepath + "/default/latex/template_catskill.tex")
         template = template.replace("==>fulltable", datatable)
         saveFile(self.chardir + "{}_catskill.tex".format(self.char['name'].replace(" ", "-")), template)
+        logger.info(f'file saved: {self.chardir}{self.char["name"].replace(" ", " - ")}_catskill.tex')
 
 
     def createSpells(self):
@@ -445,15 +462,20 @@ class charsheet(object):
         This executes LaTeX to generate a PDF character sheet and tries to open it with default viewer.
         '''
         currpath = os.getcwd()
+        logger.debug(f"current path: {currpath}")
         os.chdir(self.chardir)
+
         try:
             # to get the right table formating LaTeX has to be run twice
             os.system("pdflatex {}.tex".format(self.char['name'].replace(" ", "-")))
+            logger.debug(f"1. LaTeX run for {self.char['name'].replace(' ', '-')}.tex")
             os.system("pdflatex {}.tex".format(self.char['name'].replace(" ", "-")))
+            logger.debug(f"2. LaTeX run for {self.char['name'].replace(' ', '-')}.tex")
             windoman = ["/usr/bin/xdg-open", "/usr/bin/gnome-open", "/usr/bin/kde-open", "/usr/bin/open"]
 
             for wm in windoman:
                 if os.path.isfile(wm):
+                    logger.debug(f"found Window Manager: {wm}")
                     os.system("{} {}.pdf".format(wm, self.char['name'].replace(" ", "-")))
 
         except Exception as error:
@@ -485,7 +507,9 @@ class spellbook(object):
             self.storepath += "/"
 
         self.charpath = "{}{}/latex/".format(self.storepath, self.character["player"])
+        logger.debug(f"char path set to: {self.charpath}")
         self.fn = "{}_spellbook.tex".format(self.character["name"])
+        logger.debug(f"file name set to: {self.fn}")
 
         fp = open("{}default/latex/template_spellbook.tex".format(self.storepath), "r")
         self.latex = fp.read()
@@ -507,6 +531,7 @@ class spellbook(object):
                 for SL in self.character["cat"][cat]["Skill"].keys():
 
                     if SL not in  ["Stats", "Progression", "Spell List+"]:
+
                         if self.character["cat"][cat]["Skill"][SL]["rank"] > 0:
                             self.latex += "\n\\chapter*{\\yinitpar{%s}%s \\newline %s}\n" % (SL[0], SL[1:], cat[9:])
                             self.latex += r"\rowcolors{1}{}{lightgray}" + "\n" + r"\begin{longtable}{clccccp{5.5cm}}" + "\n"
@@ -547,12 +572,14 @@ class spellbook(object):
                                                                       self.character["cat"][cat]["Skill"][SL]["Special Notes"][0][1:]
                                                                           )
         self.latex += "\n\\end{document}"
+
         if not os.path.exists(self.charpath):
             os.mkdir(self.charpath)
 
         fp = open(self.charpath + self.fn.replace(" ", "_"), "w")
         fp.write(self.latex)
         fp.close()
+        self.debug(f'self.charpath + self.fn.replace(" ", "_")')
 
 
     def compilePDF(self):
@@ -561,14 +588,19 @@ class spellbook(object):
         '''
         currpath = os.getcwd()
         os.chdir(self.charpath)
+        logger.debug(f"changed into {os.getcwd()}")
+
         try:
             # to get the right table formating LaTeX has to be run twice
             os.system("pdflatex {}".format(self.fn.replace(" ", "_")))
+            logger.debug(f'1. LaTeX run for: {self.fn.replace(" ", "_")}')
             os.system("pdflatex {}".format(self.fn.replace(" ", "_")))
+            logger.debug(f'2. LaTeX run for: {self.fn.replace(" ", "_")}')
             windoman = ["/usr/bin/xdg-open", "/usr/bin/gnome-open", "/usr/bin/kde-open", "/usr/bin/open"]
 
             for wm in windoman:
                 if os.path.isfile(wm):
+                    logger.debug(f'detected Window Manager: {wm}')
                     os.system("{} {}.pdf".format(wm, self.fn.replace(" ", "_")[:-4]))
 
         except Exception as error:
@@ -1253,11 +1285,14 @@ class inventory(object):
         try:
             # to get the right table formating LaTeX has to be run twice
             os.system("pdflatex {}".format(self.fn.replace(" ", "_")))
+            logger.debug(f'1. LaTeX run for: {self.fn.replace(" ", "_")}')
             os.system("pdflatex {}".format(self.fn.replace(" ", "_")))
+            logger.debug(f'2. LaTeX run for: {self.fn.replace(" ", "_")}')
             windoman = ["/usr/bin/xdg-open", "/usr/bin/gnome-open", "/usr/bin/kde-open", "/usr/bin/open"]
 
             for wm in windoman:
                 if os.path.isfile(wm):
+                    logger.debug(f'found window manager: {wm}')
                     os.system("{} {}.pdf".format(wm, self.fn.replace(" ", "_")[:-4]))
 
         except Exception as error:

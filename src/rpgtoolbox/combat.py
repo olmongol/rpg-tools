@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 '''!
 @file /home/mongol/git/rpg-tools/src/rpgtoolbox/combat.py
-@package rpgtoolbox
+@package rpgtoolbox.combat
 @brief Rolemaster combat module
 
 This module holds everything needed to handle melee/ranged/magical combat
@@ -13,8 +13,11 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "30.01.2022"
+__updated__ = "02.10.2022"
+__me__ = "rpgtoolbox.combat"
 __author__ = "Marcus Schwamberger"
+__email__ = "marcus@lederzeug.de"
+__license__ = "GPL V3"
 
 import re
 import json
@@ -28,6 +31,9 @@ from rpgtoolbox.rpgtools import dice
 from rpgtoolbox.lang import attackc, critc
 from rpgtoolbox.globaltools import *
 from rpgToolDefinitions.helptools import RMDice
+from rpgtoolbox import logbox as log
+
+logger = log.createLogger('combat', 'debug', '1 MB', 1, '../log')
 
 
 
@@ -50,8 +56,8 @@ def getAttackSpec(shortterm = "", longterm = "", stattable = "data/default/fight
 def sortIniti(cl = []):
     """!
     Sorts list of tuples decending by the first tuple entry.
-    @paran cl list of tuple
-    \return sorted tuple list
+    @param cl list of tuple
+    @return sorted tuple list
     """
     return sorted(cl, key = lambda x: x[0], reverse = True)
 
@@ -61,9 +67,9 @@ def getWeaponTab(filename = "data/default/fight/weapons_sc.json"):
     """!
     Reads weapon/attack data table from json file
     """
-    with open(os.path.join(os.getcwd(),filename), "r") as fp:
+    with open(os.path.join(os.getcwd(), filename), "r") as fp:
         content = json.load(fp)
-
+    logger.debug(f'{filename} loaded.')
     return content
 
 
@@ -80,9 +86,11 @@ def convertNSC(filename = "data/default/nscs/default.csv"):
     with open(filename, "r") as fp:
         cont = fp.read()
 
+    logger.debug(r"{filename} loaded.")
     cont = cont.strip("\n").split("\n")
     header = splitE(cont[0])
     nsclist = []
+
     for l in range(1, len(cont)):
         dummy = splitE(cont[l])
         monster = {'log': {'crits': {'A': [],
@@ -143,6 +151,7 @@ def convertNSC(filename = "data/default/nscs/default.csv"):
 
         nsclist.append(monster)
 
+    logger.info(f'NSCs successfully transformed.')
     return nsclist
 
 
@@ -150,8 +159,8 @@ def convertNSC(filename = "data/default/nscs/default.csv"):
 def makeCombatant(achar = {}):
     """!
     This function creates a combatant dictionary out of a character dictionary.
-    \param achar character dictionary
-    \retval combatant unified combatant dictionary
+    @param achar character dictionary
+    @retval combatant unified combatant dictionary
     """
     atklvl = {"1":"S",
               "2":"M",
@@ -236,6 +245,7 @@ def makeCombatant(achar = {}):
     if combatant["DB"] < 0:
         combatant["DB"] = 0
 
+    logger.debug(f"{achar['name']} tranformed.")
     return combatant
 
 
@@ -248,7 +258,9 @@ def addStatusParam(cmbtlist = []):
     """
 
     result = []
+
     for elem in cmbtlist:
+        logger.debug("add {elem['name']} to list of combatants. ")
         if "status" not in elem.keys():
             elem["status"] = {"cur hits":elem["hits"],
                             "mod":0,
@@ -283,6 +295,7 @@ def addStatusParam(cmbtlist = []):
 
         result.append(elem)
 
+    logger.debug("successfully added.")
     return result
 
 
@@ -302,6 +315,7 @@ def rollInitative(Qu = 0, mod = 0):
 def switch(mystr):
     '''!
     This makes a dictionary with int values from the "modifications" column
+
     @param mystr the cell entry (string)
     @retval result dictionary with "mod" and "rnd" (both int)
     '''
@@ -322,6 +336,7 @@ def switch(mystr):
             else:
                 result[dummy2[0]] = int(dummy2[1])
 
+    logger.debug(f"result:\n{json.dumps(result)}")
     return result
 
 
@@ -329,6 +344,7 @@ def switch(mystr):
 def createCombatList(comlist = []):
     """!
     This adds a status and combat log section to combatants in a  list.
+
     @param comlist a list of combatants (dictionaries)
     @return modified list
 
@@ -381,6 +397,7 @@ def createCombatList(comlist = []):
         comlist[i]["comlog"] = comlog.copy()
         comlist[i]["switch"] = 0
 
+    logger.debug("combat list type convert successfully done.")
     return comlist
 
 
@@ -400,6 +417,7 @@ class crittable():
         self.lang = lang
         self.filename = critfilename
         self.__readTable()
+        logger.debug(f"read file: {self.filename}")
 
 
     def __readTable(self):
@@ -411,6 +429,7 @@ class crittable():
         with open(self.filename, "r") as fp:
             self.fcont = fp.read()
 
+        logger.info(f"read file: {self.filename}")
         print("read {}".format(self.filename))
 
         #transform csv to json
@@ -470,13 +489,20 @@ class crittable():
                         #print("{} : {} - {} ==> {}".format(crit, roll, elem, self.crittable[crit][roll][elem]))
                         self.crittable[crit][roll][elem] = int(self.crittable[crit][roll][elem])
 
+        logger.info("successfully converted from csv to dictionary")
+
 
     def getCrit(self, roll = 50, crit = "A", weapontype = "normal"):
         """
         This determines the critical hit
 
+        @param roll result of the dice roll
+        @param crit level of critical damage: A, B, C, D, E, T
+        @param weapontype type of weapon: normal, magic, Mithril, holy
         """
         self.crithit = {}
+        logger.debug("self.crithit initalized.")
+
         if crit in self.crittable.keys():
             klist = list(self.crittable[crit].keys())
 
@@ -486,6 +512,7 @@ class crittable():
             klist.sort()
 
             for idx in range(0, len(klist)):
+
                 if roll <= klist[idx]:
                     self.crithit = self.crittable[crit][str(klist[idx])].copy()
                     break
@@ -503,6 +530,7 @@ class crittable():
                     self.crithit = self.crittable[weapontype][str(klist[idx])].copy()
                     break
 
+        logger.debug(f"result critical hit:\n{json.dumps(self.crithit)}")
         self.showResult()
 
 
@@ -524,8 +552,9 @@ class attacktable():
     def __init__(self, tabfilename = "data/default/fight/attacks/Broadsword.csv", lang = "en", override = ""):
         """!
         Constructor
-        @param tavfilename name and path of the attack table csv to read
+        @param tabfilename name and path of the attack table csv to read
         @param lang configured language: en, de
+        @param override
         """
         self.filename = tabfilename
         self.lang = lang

@@ -9,7 +9,7 @@
 This module holds some nice small helper functions like I/O things.
 
 \author Marcus Schwamberger
-\date (c) 2012-2018
+\date (c) 2012-2022
 \version 0.5.4
 \email marcus@lederzeug.de
 \todo checkout whether all functions are really needed for this project.
@@ -30,7 +30,7 @@ import csv
 import json
 import random as rd
 
-logger = log.createLogger('global', 'warning', '1 MB', 1, './' , 'globaltools.log')
+logger = log.createLogger('global', 'debug', '1 MB', 1, './log' , 'globaltools.log')
 
 
 
@@ -77,7 +77,7 @@ def readFile(path = './', file_name = None, mode = 'r'):
         if path[-1] != '\\' and file_name[1:] != '\\':
             path = path + '\\'
 
-    fp = open(path + file_name, mode, encoding="utf_8")
+    fp = open(path + file_name, mode, encoding = "utf_8")
     content = fp.readlines()
     fp.close()
     logger.debug('readFile %s' % (path + file_name))
@@ -296,7 +296,7 @@ def writeJSON(filename = "", content = {}):
     @param content dictionary which shall be saved as JSON content.
     '''
     try:
-        with open(filename, "w",encoding="utf8") as fp:
+        with open(filename, "w", encoding = "utf8") as fp:
             json.dump(content, fp, indent = 4)
         logger.info("%s saved" % filename)
 
@@ -335,7 +335,11 @@ def getLast(string = "/", sep = '/'):
     return str(dummy[-1].split())
 
 
+
 '''@fixme duplicate readCSV in spelleditor '''
+
+
+
 def readCSV(fname = "test.csv"):
     '''!
     This function reads a CSV file and returns a dictionary
@@ -346,7 +350,7 @@ def readCSV(fname = "test.csv"):
     @bug handle problems with weird unicode characters
     '''
     result = []
-    with open(fname, "r", encoding="utf8") as csvfile:
+    with open(fname, "r", encoding = "utf8") as csvfile:
         logger.info(f'readCSV: Opening file {fname}')
         reader = csv.DictReader(csvfile)
         for row in reader:
@@ -426,7 +430,7 @@ def writeCSV(fname = "test.csv", cont = [{'Spam': 'Ham'}, {'Spam':'eggs'}]):
     @param cont list of dictionaries
     '''
     header = list(cont[0].keys())
-    with open(fname, 'w', encoding="utf8") as csvfile:
+    with open(fname, 'w', encoding = "utf8") as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames = header)
 
         writer.writeheader()

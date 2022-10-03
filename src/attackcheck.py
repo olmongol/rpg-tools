@@ -14,7 +14,7 @@ other opponents.
 \version 0.5
 '''
 __version__ = "0.5"
-__updated__ = "02.07.2022"
+__updated__ = "03.10.2022"
 __author__ = "Marcus Schwamberger"
 
 import os
@@ -32,7 +32,8 @@ from rpgtoolbox import logbox as log
 from rpgtoolbox.globaltools import *
 from rpgtoolbox.handlemagic import getSpellNames
 from PIL import Image, ImageTk
-logger = log.createLogger('AT-Window', 'debug', '1 MB', 1, './', logfile = "attackcheck.log")
+
+logger = log.createLogger('AT-Window', 'debug', '1 MB', 1, './log', logfile = "attackcheck.log")
 
 
 

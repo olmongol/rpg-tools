@@ -15,7 +15,7 @@ This module consists of functions to handle a logging.
 import logging.handlers
 
 __version__ = "0.4"
-__updated__ = "04.07.2022"
+__updated__ = "03.10.2022"
 __me__ = "logbox.py"
 
 """Debugging level"""
@@ -60,7 +60,7 @@ def createLogger(logger = 'rpg-Logger', loglvl = 'debug', logsize = '2 MB',
     logger.setLevel(LEVEL[loglvl.lower()])
 
     """defining the logging format"""
-    formatter = logging.Formatter("%(asctime)s: %(name)s: %(levelname)s: %(message)s")
+    formatter = logging.Formatter("%(asctime)s: (%(lineno)s):  %(name)s: %(levelname)s: %(message)s")
     logsize = logsize.split()
 
     if 'MB' in logsize[1].upper():

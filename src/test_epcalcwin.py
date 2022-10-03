@@ -31,6 +31,9 @@ from tkinter import filedialog
 import re
 import pickle
 from PIL import Image, ImageTk
+from rpgtoolbox import logbox as log
+
+logger = log.createLogger('global', 'debug', '1 MB', 1, './log' , 'epcalcwin.log')
 
 
 

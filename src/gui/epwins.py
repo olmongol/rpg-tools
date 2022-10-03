@@ -7,7 +7,7 @@
 @brief Windows classes for epcalc gui
 
 This holds window classes for generating and updating (level ups) characters.
-@date (C) 2016-2020
+@date (C) 2016-2022
 @author Marcus Schwamberger
 @email marcus@lederzeug.de
 @version 1.5
@@ -46,16 +46,16 @@ from gui.gmtools import *
 from gui.mangroup import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "18.11.2021"
+__updated__ = "03.10.2022"
 
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
 __version__ = "1.5"
 __license__ = "GNU V3.0"
-__me__ = "A RPG tool package for Python 3.6"
+__me__ = "A RPG tool package for Python 3.x"
 
-logger = log.createLogger('window', 'debug', '1 MB', 1, './')
+logger = log.createLogger('window', 'debug', '1 MB', 1, '../log', logfile = "epwins.log")
 
 
 
@@ -82,6 +82,7 @@ class MainWindow(blankWindow):
         @param storepath path where things like options have to be stored
         @param char Character as JSON
         """
+
         if storepath == None:
             #needs to be changed
 #            self.mypath = os.path.expanduser('~')
@@ -93,9 +94,11 @@ class MainWindow(blankWindow):
             logger.debug('mainwindow: storepath set to %s' % (storepath))
 
         self.picpath = "./gui/pic/"
+        logger.debug(f"pic path set to {self.picpath}")
         self.lang = lang
         self.myfile = "MyRPG.exp"
         self.char = char
+        logger.debug(f"Character: {char}")
 
         blankWindow.__init__(self, self.lang)
         self.window.title(title)
@@ -173,13 +176,17 @@ class MainWindow(blankWindow):
         self.__filein = askopenfilename(filetypes = self.mask,
                                         initialdir = self.mypath)
         if self.__filein != "" and type(self.__filein) == type(""):
+
             with open(self.__filein, 'r') as filecontent:
 
                 # checking whether link of char pic fits - important for LaTeX export.
                 if self.__filein[-4:].lower() == "json":
                     self.char = json.load(filecontent)
+                    logger.debug(f"{self.__filein} successfully read")
+
                     if(not ("piclink" in self.char)):
                         self.char["piclink"] = "src/data/default/pics/default.jpg"
+                        logger.debug("set piclink in char data to default")
 
                     if os.getcwd() not in self.char["piclink"]:
                         pl = self.char["piclink"].split("src/")[1]
@@ -189,15 +196,16 @@ class MainWindow(blankWindow):
 
                         else:
                             self.char["piclink"] = "{}/{}/default.jpg".format(os.getcwd(), pl[:pl.rfind("/")])
+                    logger.debug(f"char piclink: {self.char['piclink']}")
 
                 elif self.__filein[-3:].lower == "grp":
                     self.grp = json.load(filecontent)
+                    logger.debug(f"{self.__filein} successfully read")
 
                 else:
                     msg = messageWindow()
                     msg.showinfo(errmsg['wrong_type'][self.lang])
-                    logger.warn(errmsg['wrong_type'][self.lang])
-                    pass
+                    logger.error(errmsg['wrong_type'][self.lang])
 
 
     def __saveFile(self):
@@ -217,11 +225,13 @@ class MainWindow(blankWindow):
         from rpgtoolbox import latexexport
 
         if self.char == None:
+            logger.error("No data for LaTex generation!")
             msg = messageWindow()
             msg.showinfo(errmsg['no_data'][self.lang])
 
         else:
             export = latexexport.charsheet(self.char, "./data/", short = False)
+            logger.debug(f"LaTeX generated for {self.char['name']}")
             msg = messageWindow()
             msg.showinfo("LaTeX generated")
 
@@ -245,15 +255,18 @@ class MainWindow(blankWindow):
 
     def __exportSpellbook(self):
         '''!
-        This generates a Spellbook PDF out aof character's data
+        This generates a Spell Book PDF out of character's data
         '''
         from rpgtoolbox.latexexport import spellbook
+
         if self.char == None:
             msg = messageWindow()
             msg.showinfo(errmsg['no_data'][self.lang])
+            logger.error(errmsg['no_data']['en'])
 
         else:
             spellbook(self.char, self.mypath)
+            logger.debug(f"{self.char['name']}\'s Spellbook generated")
             msg = messageWindow()
             msg.showinfo("Spellbook generated")
 
@@ -868,6 +881,7 @@ class genAttrWin(blankWindow):
         # @var self.spath
         # storage path for character data file
         self.spath = storepath
+        logger.debug(f"store path set to {storepath}")
 
         if self.spath[-1] != "/":
             self.spath += "/"
@@ -1180,6 +1194,8 @@ class genAttrWin(blankWindow):
         Checks whether all developing points (and not more) are used and player
         and character names are set. If so it proceeds with collecting all data.
         '''
+        logger.debug("next step called")
+
         if self.points != self.__used:
             messageWindow(self.lang).showinfo(errmsg['stats_dp'][self.lang])
 
@@ -1190,6 +1206,7 @@ class genAttrWin(blankWindow):
             messageWindow(self.lang).showinfo(errmsg['name'][self.lang])
 
         else:
+            logger.debug("next step: collect data")
             self.__collectData()
 
 
@@ -1578,9 +1595,9 @@ class genAttrWin(blankWindow):
 
         for key in ['player', 'name', 'prof', 'race', 'realm', 'culture']:
             self.character[key] = self.stats[key].get()
+        logger.debug(f"computing {self.character['name']}")
 
-        race = rm.races['en'][rm.races[self.lang].index(
-            self.character['race'])]
+        race = rm.races['en'][rm.races[self.lang].index(self.character['race'])]
 
         for stat in self.__rmstats:
             self.character[stat] = {}
@@ -1626,22 +1643,29 @@ class genAttrWin(blankWindow):
         self.character["Stat Loss"] = rm.raceHealingFactors[self.character["race"]]["Stat Loss"]
         self.character["Recovery"] = rm.raceHealingFactors[self.character["race"]]["Recovery"]
 
+        logger.debug("Stats, RR etc. added")
         self.__addCatnSkills()
+        logger.debug("successfully added categories and skills.")
 
         if not os.path.exists(self.spath + self.character['player']):
             os.mkdir(self.spath + self.character['player'])
+            logger.info(f"created {self.spath + self.character['player']}")
 
         else:
             try:
                 with open(self.spath + self.character['player'] + '/' + self.character['name'] + ".json", "w") as outfile:
-                    json.dump(self.character, outfile, sort_keys = True,
-                              indent = 4, ensure_ascii = False)
+                    json.dump(self.character, outfile, sort_keys = True, indent = 4, ensure_ascii = False)
+
+                logger.info(f"{self.spath + self.character['player'] + '/' + self.character['name']}.json saved ")
+
             except:
                 with open(self.spath + self.character['player'] + '/' + self.character['name'] + ".json", "w") as outfile:
                     json.dump(self.character, outfile, indent = 4)
+
+                logger.info(f"{self.spath + self.character['player'] + '/' + self.character['name']}.json saved ")
+
             self.window.destroy()
-            self.window3 = priorizeWeaponsWin(
-                self.lang, self.spath, self.character)
+            self.window3 = priorizeWeaponsWin(self.lang, self.spath, self.character)
 
 
     def __addCatnSkills(self):
@@ -1653,9 +1677,10 @@ class genAttrWin(blankWindow):
         '''
         from rpgtoolbox import rolemaster as rm
         '''@fixme use read csv function?'''
-        fp = open("%sdefault/Skills_%s.csv" % (self.spath, self.lang), encoding="utf8")
+        fp = open("%sdefault/Skills_%s.csv" % (self.spath, self.lang), encoding = "utf8")
         content = fp.readlines()
         fp.close()
+        logger.debug("skill file read.")
 
         if '\n' in content:
             content.remove('\n')
@@ -1700,7 +1725,7 @@ class genAttrWin(blankWindow):
                 if pbonus in skillcat.keys():
                     skillcat[key]['prof bonus'] = int(self.profs[self.character['prof']]['Profession Bonusses'][pbonus])
 
-        fp = open('%s/default/SkillCat_%s.csv' % (self.spath, self.lang), 'r', encoding="utf8")
+        fp = open('%s/default/SkillCat_%s.csv' % (self.spath, self.lang), 'r', encoding = "utf8")
         content = fp.readlines()
         fp.close()
 
@@ -1908,7 +1933,7 @@ class priorizeWeaponsWin(blankWindow):
 
         if not self.__block:
             '''@todo use readCSV function?'''
-            fp = open('./data/default/CatDPC_%s.csv' % self.lang, 'r', encoding="utf8")
+            fp = open('./data/default/CatDPC_%s.csv' % self.lang, 'r', encoding = "utf8")
             content = fp.readlines()
             fp.close()
 
@@ -1997,7 +2022,7 @@ class priorizeWeaponsWin(blankWindow):
 
         # adding adolescence skill ranks
 
-        fp = open('./data/default/AdoRanks_%s.csv' % self.lang, "r", encoding="utf8")
+        fp = open('./data/default/AdoRanks_%s.csv' % self.lang, "r", encoding = "utf8")
         content = fp.readlines()
         fp.close()
         self.__adoranks = {}
@@ -2067,6 +2092,7 @@ class priorizeWeaponsWin(blankWindow):
         from rpgtoolbox.rolemaster import races, realms, ppds, magicstats, progressionType, speccat
         param = {}
         param['realm'] = self.character['realm']
+        logger.debug(f"check chars realm {self.character['realm']} is in {realms['en']}")
 
         for l in list(races.keys()):
 
@@ -2076,9 +2102,11 @@ class priorizeWeaponsWin(blankWindow):
 
             if self.character['realm'] in realms[l]:
                 param['ppd'] = ppds[realms[l].index(self.character['realm'])]
+
                 param['Stats'] = magicstats[realms[l].index(self.character['realm'])]
 
         if type(param['ppd']) == type(''):
+            logger.debug(f"try to set progressionType[{param['ppd'] + param['race']}] from {list(progressionType.keys())}")
             param['ppd'] = progressionType[param['ppd'] + param['race']]
 
         elif type(param['ppd']) == type([]):
