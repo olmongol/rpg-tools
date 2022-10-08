@@ -6,14 +6,12 @@
 
 
 
-\date (C) 2020
+\date (C) 2020 - 2022
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
 \license GNU V3.0
 \version 1.1.1
 
-----
-@todo implement logging for debugging
 '''
 import os
 import json
@@ -453,7 +451,7 @@ class searchHerbsWin(blankWindow):
 
         Label(self.window,
               text = labels['locale'][self.lang] + ":"
-              ).grid(row = 1, column = 4, sticky = "NEWS")
+              ).grid(row = 1, column = 3, sticky = "NEWS")
 
         self.__selecLocale = StringVar()
         self.__selecLocale.set(self.locale[0])
@@ -461,7 +459,7 @@ class searchHerbsWin(blankWindow):
                                       self.__selecLocale,
                                       *self.locale,
                                       command = self.__updLocale)
-        self.__localeOpt.grid(row = 1, column = 5, sticky = "W")
+        self.__localeOpt.grid(row = 1, column = 4, columnspan = 2, sticky = "W")
 
         Label(self.window,
               text = labels['climate'][self.lang] + ":"
@@ -502,6 +500,7 @@ class searchHerbsWin(blankWindow):
     def __updClimate(self, selection):
         """!
         This gets the selected climate
+        @param selction holds the selection of climate
         """
         self.searchclimate = [selection]
         logger.debug(f"selected climate. {selection}")
@@ -509,31 +508,33 @@ class searchHerbsWin(blankWindow):
 
     def __updLocale(self, selection):
         """!
-        This gets the selected locale
+        This gets the selected locale.
+        @param selection holds the selection of locale
         """
         self.searchlocale = [selection]
-        print(selection)
+        logger.debug(f"selected locale: {selection}")
 
 
     def __updRegion(self, selection):
         """!
         This updates the window by the selected region
+        @param selection holds the selection of  search region
         """
         self.__region.set(selection)
         self.searchregion = [selection]
-        print(selection)
+        logger.debug(f"search region: {selection}")
 
 
     def __updSelec(self, selection):
         """!
         Updating window by selected Character
+        @param selection holds selection o character
         """
-        print(selection)
+        logger.debug(f"selected character: {selection}")
         idx = self.playerlist.index(selection)
         self.__charname.set(self.charlist[idx]["name"])
         self.__charprof.set(self.charlist[idx]["prof"])
         self.__charskill.set(self.charlist[idx]["cat"]["Outdoor - Environmental"]["Skill"]["Foraging"]["total bonus"])
-        pass
 
 
     def __save(self):
@@ -541,8 +542,10 @@ class searchHerbsWin(blankWindow):
         This opens a file dialog window for saving
         '''
         savedir = filedialog.asksaveasfilename(defaultextension = ".json", filetypes = [("Char Group Files", ".json")])
+
         with open(savedir, "w") as fp:
             json.dump(self.charlist, fp, indent = 4)
+        logger.info(f"{savedir} saved successfully")
 
 
     def __open(self):
@@ -550,14 +553,17 @@ class searchHerbsWin(blankWindow):
         This opens a file dialog window for opening a group file.
         '''
         opendir = filedialog.askopenfilename(defaultextension = ".json", filetypes = [("Char Group Files", ".json")])
+
         with open(opendir, "r") as fp:
             self.charlist = json.load(fp)
 
+        logger.info(f"{opendir} read successfully")
         self.playerlist = []
 
         for c in self.charlist:
             self.playerlist.append(c["player"])
 
+        logger.debug(f"self.playerlist set")
         self.__selecPlayer.set(self.playerlist[0])
         self.__charname.set(self.charlist[0]["name"])
         self.__charprof.set(self.charlist[0]["prof"])
@@ -581,6 +587,7 @@ class searchHerbsWin(blankWindow):
         '''!
         This method closes the window
         '''
+        logger.info("quit program")
         self.window.destroy()
 
 
@@ -594,24 +601,21 @@ class searchHerbsWin(blankWindow):
         self.searchregion = [self.__region.get()]
         self.foundherbs = findHerbs(self.herbs, roll = searchroll, skill = searchskill + searchmod, area = self.searchregion, \
                        climate = self.searchclimate, locale = self.searchlocale)
+        logger.info(f"found {len(self.foundherbs)} herbs with {searchskill}+{searchmod}+{searchroll} in {self.searchregion}.")
         self.printFindings(self.foundherbs)
 
 
     def printFindings(self, herbs):
-        print(herbs)
-        print(self.foundherbs)
         """
         This function just displays the found herbs on the screen.
-
-        ----
-        @todo chance to new count parameter
+        @param herbs list of dictionary holding the found herbs to display
         """
-        count = 1
         self.displayTxt.delete("1.0", "end")
         found = ""
-        logger.debug(f"{len(self.foundherbs)} found herbs")
+        logger.debug(f"{len(self.foundherbs)} found herbs to display")
+
         for i in range(0, len(self.foundherbs)):
-            found += "\n{}\n{}x {}  - {} (lvl: {}): {} - {}\n\t{}\n\n\t{}\n".format(80 * "=",
+            found += "\n{}\n{}x {}  - {} (lvl: {}): {} - {}\n\n\t{}\n\t{}\n".format(106 * "=",
                                                                   self.foundherbs[i]["count"],
                                                                   self.foundherbs[i]["name"],
                                                                   self.foundherbs[i]["type"],

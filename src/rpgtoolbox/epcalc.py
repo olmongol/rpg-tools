@@ -11,7 +11,7 @@
 \version 1.0
 '''
 __version__ = "1.0"
-__updated__ = "03.10.2022"
+__updated__ = "08.10.2022"
 __me__ = "rpgtoolbox.epcalc"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
