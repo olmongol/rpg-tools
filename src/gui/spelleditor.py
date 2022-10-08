@@ -19,9 +19,15 @@ import json
 import os
 import csv
 from pprint import pprint
+from rpgtoolbox.confbox import *
+mycnf = chkCfg()
 
+logger = log.createLogger('spelleditor', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "spelleditor.log")
 
 '''@todo duplicate readCSV in globaltools '''
+
+
+
 def readCSV(filename):
     '''!
     This function reads CSV files and builds a dictionary/JSON of its content.
@@ -30,7 +36,7 @@ def readCSV(filename):
     '''
     cont = []
 
-    with open(filename, 'r', encoding="utf8") as csvfile:
+    with open(filename, 'r', encoding = "utf8") as csvfile:
         csvreader = csv.reader(csvfile)
 
         for line in csvreader:

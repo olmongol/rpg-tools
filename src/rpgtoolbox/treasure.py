@@ -5,17 +5,32 @@
 \package rpgtoolbox
 
 
-\date (C) 2017-2010
+\date (C) 2017-2022
 \author Marcus Schwamberger, Aiko Ruprecht
 \email marcus@lederzeug.de
 \version 1.0
 \license GNU v3
+
+----
+@todo implement loggin for debunging purposes
 '''
 
 import locale
 from rpgtoolbox.rpgtools import dice
 from rpgtoolbox.lang import *
-__updated__ = "28.12.2020"
+from . import logbox as log
+from rpgtoolbox.confbox import *
+
+__author__ = "Marcus Schwamberger"
+__updated__ = "03.10.2022"
+__copyright__ = "(C) 2012-{} {}".format(__updated__[-4:], __author__)
+__email__ = "marcus@lederzeug.de"
+__version__ = "1.0"
+__license__ = "GNU V3.0"
+__me__ = "A RPG tool package for Python 3"
+
+mycnf = chkCfg()
+logger = log.createLogger('treasure', 'warning', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "treasure.log")
 
 
 

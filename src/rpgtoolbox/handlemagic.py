@@ -16,12 +16,14 @@ __updated__ = "03.10.2022"
 
 import os
 from . import logbox as log
+from rpgtoolbox.confbox import *
 from .globaltools import readFile as readNotes
 from .globaltools import readCSV
 from .rolemaster import DPCostSpells
 from pprint import pprint
 
-logger = log.createLogger('magic', 'debbug', '1 MB', 1, './log' , 'handlemagic.log')
+mycnf = chkCfg()
+logger = log.createLogger('magic', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = 'handlemagic.log')
 
 
 

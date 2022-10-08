@@ -24,9 +24,11 @@ import json
 from rpgtoolbox.globaltools import readCSV
 from rpgtoolbox.rolemaster import rankbonus
 from rpgtoolbox import logbox as log
+from rpgtoolbox.confbox import *
 import re
 
-logger = log.createLogger('rpgtools', 'debug', '1 MB', 1, '../log', logfile = "rpgtools.log")
+mycnf = chkCfg()
+logger = log.createLogger('rpgtools', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "rpgtools.log")
 
 
 

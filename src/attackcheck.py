@@ -32,8 +32,10 @@ from rpgtoolbox import logbox as log
 from rpgtoolbox.globaltools import *
 from rpgtoolbox.handlemagic import getSpellNames
 from PIL import Image, ImageTk
+from rpgtoolbox.confbox import *
 
-logger = log.createLogger('AT-Window', 'debug', '1 MB', 1, './log', logfile = "attackcheck.log")
+mycnf = chkCfg()
+logger = log.createLogger('AT-Window', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "attackcheck.log")
 
 
 

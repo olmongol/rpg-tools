@@ -5,7 +5,7 @@
 \brief collection of helper tools for building Tk() windows/apps
 
 
-\date (C) 2012 - 2021
+\date (C) 2012 - 2022
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
 \version 1.0
@@ -17,13 +17,21 @@ import sys
 from rpgtoolbox.globaltools import *
 from rpgtoolbox.lang import *
 
-__updated__ = "28.12.2020"
+__updated__ = "03.10.2022"
 
 if sys.version_info >= (2, 6) and sys.version_info < (3, 0):
     from tkinter import *
 
 elif sys.version_info >= (3, 2):
     from tkinter import *
+
+__author__ = "Marcus Schwamberger"
+__updated__ = "03.10.2022"
+__copyright__ = "(C) 2012-{} {}".format(__updated__[-4:], __author__)
+__email__ = "marcus@lederzeug.de"
+__version__ = "1.0"
+__license__ = "GNU V3.0"
+__me__ = "A RPG tool package for Python 3"
 
 
 

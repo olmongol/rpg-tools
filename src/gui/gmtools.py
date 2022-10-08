@@ -22,6 +22,10 @@ from rpgtoolbox.treasure import *
 from rpgtoolbox import epcalc, rpgtools as rpg
 from rpgToolDefinitions.epcalcdefs import maneuvers
 import json
+from rpgtoolbox.confbox import *
+
+mycnf = chkCfg()
+logger = log.createLogger('gmtools', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "gmtools.log")
 
 
 

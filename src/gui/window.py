@@ -5,25 +5,27 @@
 \brief Some classes for GUI
 
 
-\date (C) 2015 - 2021
+\date (C) 2015 - 2022
 \author Marcus Schwambeger
 \email marcus@lederzeug.de
-\version 1.0
+\version 1.1.1
 '''
 from tkinter import *
 from tkinter.filedialog import *
 from rpgtoolbox.lang import *
 from rpgtoolbox import logbox as log
+from rpgtoolbox.confbox import *
 
 __author__ = "Marcus Schwamberger"
-__updated__ = "13.02.2022"
+__updated__ = "08.10.2022"
 __copyright__ = "(C) 2015-{} {}".format(__updated__[-4:], __author__)
 __email__ = "marcus@lederzeug.de"
-__version__ = "1.0"
+__version__ = "1.1.1"
 __license__ = "GNU V3.0"
 __me__ = "A RPG tool package for Python 3"
 
-logger = log.createLogger('window', 'warning', '1 MB', 1, './')
+mycnf = chkCfg()
+logger = log.createLogger('window', 'warning', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "window.log")
 
 
 

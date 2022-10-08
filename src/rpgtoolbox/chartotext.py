@@ -11,11 +11,14 @@ Detailed description
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
 \date 22.09.2018
-\copyright 2018-2021
+\copyright 2018-2022
 \version 0.1
 \license GNU V3.0
+
+----
+@todo implement logging for debugging purposes
 '''
-__updated__ = "28.12.2020"
+__updated__ = "03.10.2022"
 __me__ = "/home/mongol/git/rpg-tools/src/rpgtoolbox/chartotext.py"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
@@ -28,6 +31,11 @@ import json
 from rpgtoolbox.globaltools import readJSON as readChar
 from rpgtoolbox.globaltools import readFile, writeFile
 from string import Template
+from . import logbox as log
+from rpgtoolbox.confbox import *
+
+mycnf = chkCfg()
+logger = log.createLogger('latex', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = 'chartotext.log')
 
 
 

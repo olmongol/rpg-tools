@@ -38,14 +38,15 @@ import re
 from PIL import Image, ImageTk
 from pprint import pprint
 from rpgtoolbox import logbox as log
+from rpgtoolbox.confbox import *
 
 __updated__ = "03.10.2022"
-
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "1.1.0"
 
-logger = log.createLogger('inventory', 'debug', '1 MB', 1, './log', logfile = "inventory.log")
+mycnf = chkCfg()
+logger = log.createLogger('inventory', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "inventory.log")
 
 
 

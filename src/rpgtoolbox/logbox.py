@@ -13,6 +13,7 @@ This module consists of functions to handle a logging.
 \version 0.4
 '''
 import logging.handlers
+#from rpgtoolbox.confbox import *
 
 __version__ = "0.4"
 __updated__ = "03.10.2022"
@@ -32,10 +33,13 @@ MB = KB ** 2
 """size of GB"""
 GB = MB ** 2
 
+#mycnf = chkCfg()
+# mycnf.cnfparam["logpath"]
+
 
 
 def createLogger(logger = 'rpg-Logger', loglvl = 'debug', logsize = '2 MB',
-                 count = 5, logpath = '/var/log/', logfile = 'rpg-tools.log'):
+                 count = 5, logpath = "./log/" , logfile = 'rpg-tools.log'):
     """!
     \brief this function builds a full usable logging object with handler.
     This builds a logging object and a logging handler which will be

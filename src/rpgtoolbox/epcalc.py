@@ -19,8 +19,10 @@ __license__ = "GPL V3"
 
 from .rpgtools import getLvl as calcLvl
 from rpgtoolbox import logbox as log
+from rpgtoolbox.confbox import *
 
-logger = log.createLogger('epcalc', 'debug', '1 MB', 1, '../log', logfile = "epcalc.log")
+mycnf = chkCfg()
+logger = log.createLogger('epcalc', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "epcalc.log")
 
 
 

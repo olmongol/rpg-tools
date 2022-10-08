@@ -44,10 +44,10 @@ from gui.winhelper import InfoCanvas
 from gui.window import *
 from gui.gmtools import *
 from gui.mangroup import *
+from rpgtoolbox.confbox import *
 from pprint import pprint  # for debugging purposes only
 
 __updated__ = "03.10.2022"
-
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -55,7 +55,8 @@ __version__ = "1.5"
 __license__ = "GNU V3.0"
 __me__ = "A RPG tool package for Python 3.x"
 
-logger = log.createLogger('window', 'debug', '1 MB', 1, '../log', logfile = "epwins.log")
+mycnf = chkCfg()
+logger = log.createLogger('window', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "epwins.log")
 
 
 

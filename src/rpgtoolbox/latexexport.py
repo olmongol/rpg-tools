@@ -27,6 +27,7 @@ __me__ = "A RPG tool package for Python 3.x"
 
 from gui.window import messageWindow
 from rpgtoolbox import logbox as log
+from rpgtoolbox.confbox import *
 #from rpgtoolbox.rolemaster import stats
 import json
 import os
@@ -34,7 +35,9 @@ import sys
 import string
 from rpgToolDefinitions.inventory import *
 
-logger = log.createLogger('latexreport', 'debug', '1 MB', 1, '../log', logfile = "latextexport.py")
+mycnf = chkCfg()
+
+logger = log.createLogger('latexreport', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "latextexport.log")
 
 
 
@@ -579,7 +582,7 @@ class spellbook(object):
         fp = open(self.charpath + self.fn.replace(" ", "_"), "w")
         fp.write(self.latex)
         fp.close()
-        self.debug(f'self.charpath + self.fn.replace(" ", "_")')
+        logger.debug(f'generate latex in {self.charpath + self.fn.replace(" ", "_")}')
 
 
     def compilePDF(self):

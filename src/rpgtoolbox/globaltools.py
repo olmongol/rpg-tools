@@ -29,8 +29,12 @@ from . import logbox as log
 import csv
 import json
 import random as rd
+#from rpgtoolbox.confbox import *
+#import rpgtoolbox.confbox as cf
 
-logger = log.createLogger('global', 'debug', '1 MB', 1, './log' , 'globaltools.log')
+#mycnf = cf.chkCfg()
+#logger = log.createLogger('global', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"] , logfile = 'globaltools.log')
+logger = log.createLogger('global', 'debug', '1 MB', 1, logpath = "./log/" , logfile = 'globaltools.log')
 
 
 

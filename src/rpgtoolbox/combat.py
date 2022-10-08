@@ -13,7 +13,7 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "02.10.2022"
+__updated__ = "03.10.2022"
 __me__ = "rpgtoolbox.combat"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
@@ -32,8 +32,10 @@ from rpgtoolbox.lang import attackc, critc
 from rpgtoolbox.globaltools import *
 from rpgToolDefinitions.helptools import RMDice
 from rpgtoolbox import logbox as log
+from rpgtoolbox.confbox import *
 
-logger = log.createLogger('combat', 'debug', '1 MB', 1, '../log')
+mycnf = chkCfg()
+logger = log.createLogger('combat', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "combat.log")
 
 
 
