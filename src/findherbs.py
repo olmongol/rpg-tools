@@ -10,7 +10,7 @@
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
 \license GNU V3.0
-\version 1.1.0
+\version 1.1.1
 
 ----
 @todo implement logging for debugging
@@ -29,7 +29,15 @@ from gui.window import *
 from rpgToolDefinitions.helptools import RMDice as Dice
 from tkinter import filedialog
 
-logger = log.createLogger('AT-Window', 'info', '1 MB', 1, './log', logfile = "findherbs.log")
+__author__ = "Marcus Schwamberger"
+__updated__ = "08.10.2022"
+__copyright__ = "(C) 2015-{} {}".format(__updated__[-4:], __author__)
+__email__ = "marcus@lederzeug.de"
+__version__ = "1.1.1"
+__license__ = "GNU V3.0"
+__me__ = "Herb finding Tool"
+
+logger = log.createLogger('foraging', 'info', '1 MB', 1, './log/', logfile = "findherbs.log")
 
 
 
@@ -61,6 +69,7 @@ def sumDices(sides = 4, number = 1):
     for r in dice(sides, number):
         result += r
 
+    logger.debug(f"{number}D{sides} result: {result}")
     return result
 
 
@@ -76,96 +85,161 @@ def findHerbs(herbs = [], roll = 0, skill = -15, area = ["---"], climate = [], l
         @param locale local environment conditions like 'desert'
         @retval result list of dictionaries holding the found herbs
         """
-
-        print("findHerbs: skill: {} + roll: {} ".format(skill, roll))
+        logger.debug(f"herbs:\n {json.dumps(herbs, indent=4)}")
+        logger.info("skill: {} + roll: {} ".format(skill, roll))
 
         if "everywhere" not in area:
             area.append("everywhere")
 
+        logger.info(f"area: {area}")
+
         if climate == ["---"]:
             climate = []
+
+        logger.info(f"climate: {climate}")
 
         if locale == ["---"]:
             locale = []
 
+        logger.info(f"locale: {locale}")
         foundherbs = []
         statman = statMan()
 
         for plant in herbs:
+            logger.debug(f"plant: {plant['area']} - {plant['climate']} - {plant['locale']}. ")
 
             if climate != [] and locale != []:
-                print("climate != [] and locale != []")
+                #print("climate != [] and locale != []")
 
-                if plant["area"] in area and plant["climate"] == climate and plant["locale"] == locale:
-                    print("1st if")
+                if plant["area"] in area and plant["climate"] in climate and plant["locale"] in locale:
+                    #print("1st if")
                     mod = manmod[plant["difficulty"]]["mod"]
+                    logger.info(f"difficulty modificator: {mod}")
 
                     if roll != 100 and roll != 66:
                         check = statman.checkRoll(roll + skill + mod)
+                        logger.info(f"checkresult: {check}")
+
                     else:
                         check = statman.checkRoll(roll)
-                        print("check: {}".format(check))
+                        logger.info("check: {}".format(check))
 
                     if check["success"] == "1.0":
                         no = 1
+                        logger.info("success: 100%")
+
                     elif check["success"] == "1.25":
-                        no = sumDices(5, 1)
+                        no = sumDices(8, 1)
+                        logger.info("success: 125%")
+
                     elif check["success"] == "1.2":
-                        no = 2
+                        no = sumDices(5, 1)
+                        logger.info("success: 120%")
+
                     else:
                         no = 0
-                    print("success all")
-                    for i in range(0, no):
+                        logger.info("no success")
+
+                    plant["count"] = no
+
+                    if no > 0:
                         foundherbs.append(plant)
+                        logger.info(f"found {plant['count']}x {plant['name']}s")
 
             elif climate == []:
-                print("1st elif")
 
                 if plant["area"] in area and plant["locale"] in locale:
                     mod = manmod[plant["difficulty"]]["mod"]
+                    logger.info(f"difficulty modificator: {mod}")
 
                     if roll != 100 and roll != 66:
                         check = statman.checkRoll(roll + skill + mod)
+
                     else:
                         check = statman.checkRoll(roll)
 
                     if check["success"] == "1.0":
                         no = 1
+                        logger.info("success: 100%")
+
                     elif check["success"] == "1.25":
-                        no = sumDices(5, 1)
+                        no = sumDices(8, 1)
+                        logger.info("success: 125%")
+
                     elif check["success"] == "1.2":
-                        no = 2
+                        no = sumDices(5, 1)
+                        logger.info("success: 120%")
+
                     else:
                         no = 0
+                        logger.info("no success")
 
-                    for i in range(0, no):
+                    plant["count"] = no
+
+                    if no > 0:
                         foundherbs.append(plant)
+                        logger.info(f"found {plant['count']}x {plant['name']}s")
 
             elif locale == []:
-                print("2st elif")
 
                 if plant["area"] in area and plant["climate"] in climate:
                     mod = manmod[plant["difficulty"]]["mod"]
+                    logger.info(f"difficulty modificator: {mod}")
 
                     if roll != 100 and roll != 66:
                         check = statman.checkRoll(roll + skill + mod)
+
                     else:
                         check = statman.checkRoll(roll)
 
                     if check["success"] == "1.0":
                         no = 1
+
                     elif check["success"] == "1.25":
-                        no = sumDices(5, 1)
+                        no = sumDices(8, 1)
+
                     elif check["success"] == "1.2":
-                        no = 2
+                        no = sumDices(5, 1)
+
                     else:
                         no = 0
 
-                    for i in range(0, no):
-                        foundherbs.append(plant)
+                    plant["count"] = no
 
-        print("finished findHerbs ", len(foundherbs))
-        print("finished findHerbs ", foundherbs)
+                    if no > 0:
+                        foundherbs.append(plant)
+                        logger.info(f"found {plant['count']}x {plant['name']}s")
+
+            else:
+                if plant["area"] in area:
+                    mod = manmod[plant["difficulty"]]["mod"]
+                    logger.info(f"difficulty modificator: {mod}")
+
+                    if roll != 100 and roll != 66:
+                        check = statman.checkRoll(roll + skill + mod)
+
+                    else:
+                        check = statman.checkRoll(roll)
+
+                    if check["success"] == "1.0":
+                        no = 1
+
+                    elif check["success"] == "1.25":
+                        no = sumDices(5, 1)
+
+                    elif check["success"] == "1.2":
+                        no = 2
+
+                    else:
+                        no = 0
+
+                    plant["count"] = no
+
+                    if no > 0:
+                        foundherbs.append(plant)
+                        logger.info(f"found {plant['count']}x {plant['name']}s")
+
+        logger.info(f"finished findHerbs {len(foundherbs)}")
         return foundherbs
 
 
@@ -193,12 +267,16 @@ class searchHerbsWin(blankWindow):
         self.storepath = storepath
         self.defaultpath = storepath + "/default/inventory/"
         self.herbsfile = herbsfile
+        self.foundherbs = []
 
         if "//" in self.defaultpath:
             self.defaultpath = self.defaultpath.replace("//", "/")
 
         self.herbs = readCSV(self.defaultpath + self.herbsfile)
+        logger.info(f"herb table {self.defaultpath + self.herbsfile} read successfully")
+
         for plant in self.herbs:
+
             if "item" in plant.keys():
                 plant["name"] = plant.pop("item")
 
@@ -214,6 +292,7 @@ class searchHerbsWin(blankWindow):
             plant["worth"] = string2worth(plant["worth"])
             plant["weight"] = 0.1
             plant["location"] = "equipped"
+            logger.debug(json.dumps(plant, indent = 4))
 
         logger.info(f'Loaded {len(self.herbs)} herbs from {herbsfile}')
 
@@ -417,7 +496,7 @@ class searchHerbsWin(blankWindow):
     def __rollDice(self):
         result, self.umr = Dice(rules = "RM")
         self.__roll.set(result[0])
-        print("Result: {}\nUMR:{}".format(result, self.umr))
+        logger.debug("Result roll: {}\nUMR:{}".format(result, self.umr))
 
 
     def __updClimate(self, selection):
@@ -425,7 +504,7 @@ class searchHerbsWin(blankWindow):
         This gets the selected climate
         """
         self.searchclimate = [selection]
-        print(selection)
+        logger.debug(f"selected climate. {selection}")
 
 
     def __updLocale(self, selection):
@@ -523,27 +602,25 @@ class searchHerbsWin(blankWindow):
         print(self.foundherbs)
         """
         This function just displays the found herbs on the screen.
+
+        ----
+        @todo chance to new count parameter
         """
         count = 1
         self.displayTxt.delete("1.0", "end")
         found = ""
-        for i in range(0, len(self.foundHerbs)):
-
-            if i < len(self.foundHerbs) - 1:
-
-                if self.foundHerbs[i] == self.foundHerbs[i + 1]:
-                    count += 1
-
-                else:
-                    found += "\n{}\n{}x {}  - {}: {} - {}\n\t{}\n".format(80 * "=",
-                                                                          count,
-                                                                          self.foundHerbs[i]["name"],
-                                                                          self.foundHerbs[i]["type"],
-                                                                          self.foundHerbs[i]["form"],
-                                                                          self.foundHerbs[i]["prep"],
-                                                                          self.foundHerbs[i]["medical use"] + " " + self.foundHerbs[i]["description"]
-                                                                          )
-                    count = 1
+        logger.debug(f"{len(self.foundherbs)} found herbs")
+        for i in range(0, len(self.foundherbs)):
+            found += "\n{}\n{}x {}  - {} (lvl: {}): {} - {}\n\t{}\n\n\t{}\n".format(80 * "=",
+                                                                  self.foundherbs[i]["count"],
+                                                                  self.foundherbs[i]["name"],
+                                                                  self.foundherbs[i]["type"],
+                                                                  self.foundherbs[i]["lvl"],
+                                                                  self.foundherbs[i]["form"],
+                                                                  self.foundherbs[i]["prep"],
+                                                                  self.foundherbs[i]["medical use"],
+                                                                  self.foundherbs[i]["description"],
+                                                                  )
 
         self.displayTxt.insert(END, found)
 
