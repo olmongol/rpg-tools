@@ -1,9 +1,9 @@
-#Rules for contributing code
+# Rules for contributing code
 
-##Documentation style
+## Documentation style
 This project is using [doxygen](https://doxygen.nl/) for in-line documentation of the Python code. The configuration file for a doxygen run is shared in the repository. So please keep this in mind if you share code!
 
-###What to document?
+### What to document?
 
 For an easier access to your code please document the following:
  1. every function/class method with all used parameters right after the header line:
@@ -17,11 +17,11 @@ For an easier access to your code please document the following:
  5. put in-line documentations in a separate line and **not** at the end of a line of code.
  6. if you are using a "one line comment" for optical separation of the code please use `#----- ` as prefix.
 
-##Arranging the code
+## Arranging the code
 
 For better readability,  please note the following:
 
 - 2 empty lines between classes/functions/class methods
 - 1 empty line before each header of a block containing comand like `if`, `for`, `try` etc.
 - 1 empty line after each (even logical) block.
- 
+- **avoid compact code** like one-liner `for`-blocks for better readability!

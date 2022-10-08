@@ -20,6 +20,7 @@ This holds window classes for generating and updating (level ups) characters.
  -# No of level-ups
  -# remaining DPs
  -# remaining stat gain rolls
+ -# general more logging for debugging
 
 '''
 import random
@@ -47,7 +48,7 @@ from gui.mangroup import *
 from rpgtoolbox.confbox import *
 from pprint import pprint  # for debugging purposes only
 
-__updated__ = "03.10.2022"
+__updated__ = "08.10.2022"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -68,7 +69,9 @@ class MainWindow(blankWindow):
                 (de) are supported.
     @param title title of the window
     @param storepath path where things like options have to be stored
-    @todo storepath has to be changed to default installation path empty
+
+    @todo - storepath has to be changed to default installation path empty
+    - add more logging for debugging
     """
 
 
@@ -1911,7 +1914,12 @@ class priorizeWeaponsWin(blankWindow):
         '''!
         This generates the priority list by the chosen priorities.
         @param event has to be catched but is not used
-        @todo check for double priorities. If any don't proceed
+
+        -----
+        @todo -check for double priorities. If any don't proceed- on selection of priority update all other Options so you cannot choose a priority twice
+        - use readCSV function to open cvs
+
+        -----
         @bug when you chose double entries:  File "/home/mongol/git/rpg-tools/src/gui/epwins.py", line 1808, in __getPrio
         for i in range(len(content) - 7, len(content)):
         IndexError: list index out of range
@@ -1933,8 +1941,8 @@ class priorizeWeaponsWin(blankWindow):
                 break
 
         if not self.__block:
-            '''@todo use readCSV function?'''
             fp = open('./data/default/CatDPC_%s.csv' % self.lang, 'r', encoding = "utf8")
+
             content = fp.readlines()
             fp.close()
 
@@ -2089,6 +2097,10 @@ class priorizeWeaponsWin(blankWindow):
         '''!
         This sets the Progression and Stats for Power Point Development
 
+        ----
+        @bug on windows while creating a new dwarf character
+        param['ppd'] = progressionType[param['ppd'] + param['race']]
+        KeyError: 'Dwarves'
         '''
         from rpgtoolbox.rolemaster import races, realms, ppds, magicstats, progressionType, speccat
         param = {}
@@ -2636,9 +2648,13 @@ class skillcatWin(blankWindow):
     def __buildChangedTree(self):
         '''!
         Adding all Changed cat/skill entries to the self.__chgtree
+
+        ----
         @todo the following has to be done:
             -# selected items have to be taken to the entry fields
             -# if changes have been taken back add the DP again
+
+        ----
         @bug  - slider does not work
         '''
         from rpgtoolbox.rolemaster import exceptions
@@ -3771,6 +3787,9 @@ class charInfo(blankWindow):
         '''
         This method gets all data from entries, puts them into character data struct
         and saves the updated character.
+        -----
+        @todo when savin the character make the target choosable; currentliy it assumes file at preset dirctory:
+          resulting in a FileNotFoundError: [Errno 2] No such file or directory: './data//Niels/Isdan.json'
         '''
         if self.spath[-1] not in ["\\", "/"]:
             self.spath += "/"
