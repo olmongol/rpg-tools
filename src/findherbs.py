@@ -249,6 +249,9 @@ class searchHerbsWin(blankWindow):
     the foraging check.
     Found herbs, drugs and poisons may be added by click to the inventory of the
     selected character.
+
+    ----
+    @todo add a OptionMenu for purpose of herb for the search.
     """
 
 
@@ -363,7 +366,7 @@ class searchHerbsWin(blankWindow):
         """!
         This method builds the window content.
         """
-        # row 0
+        #----- row 0
         self.__selecPlayer = StringVar()
         self.__selecPlayer.set(self.playerlist[0])
         self.__playerOpt = OptionMenu(self.window,
@@ -425,33 +428,36 @@ class searchHerbsWin(blankWindow):
                text = txtbutton["but_roll"][self.lang],
                command = self.__rollDice
                ).grid(row = 0, column = 9, sticky = "EW")
-        # row 1
+
+        #----- row 1
         Label(self.window,
               text = labels['region'][self.lang] + ":"
               ).grid(row = 1, column = 0, sticky = "NEWS")
 
         self.__region = StringVar()
         self.__region.set(self.regions[0])
-        Entry(self.window,
-              justify = "center",
-              textvariable = self.__region,
-              width = 20
-              ).grid(row = 1, column = 1, sticky = "EW")
+        #Entry(self.window,
+        #      justify = "center",
+        #      textvariable = self.__region,
+        #      width = 20
+        #      ).grid(row = 1, column = 1, sticky = "EW")
 
         self.__selecRegion = StringVar()
         self.__selecRegion.set(self.regions[0])
         self.__regionOpt = OptionMenu(self.window,
                                       self.__selecRegion,
                                       *self.regions,
-                                      command = self.__updRegion)
+                                      command = self.__updRegion
+                                      )
+        #self.__regionOpt.config(width = 80)
         self.__regionOpt.grid(row = 1,
-                              column = 2,
+                              column = 1,
                               columnspan = 3,
                               sticky = "W")
 
         Label(self.window,
               text = labels['locale'][self.lang] + ":"
-              ).grid(row = 1, column = 3, sticky = "NEWS")
+              ).grid(row = 1, column = 2, sticky = "NEWS")
 
         self.__selecLocale = StringVar()
         self.__selecLocale.set(self.locale[0])
@@ -459,11 +465,11 @@ class searchHerbsWin(blankWindow):
                                       self.__selecLocale,
                                       *self.locale,
                                       command = self.__updLocale)
-        self.__localeOpt.grid(row = 1, column = 4, columnspan = 2, sticky = "W")
+        self.__localeOpt.grid(row = 1, column = 3, columnspan = 2, sticky = "W")
 
         Label(self.window,
               text = labels['climate'][self.lang] + ":"
-              ).grid(row = 1, column = 6, sticky = "NEWS")
+              ).grid(row = 1, column = 5, sticky = "NEWS")
 
         self.__selecClimate = StringVar()
         self.__selecClimate.set(self.climate[0])
@@ -471,13 +477,14 @@ class searchHerbsWin(blankWindow):
                                       self.__selecClimate,
                                       *self.climate,
                                       command = self.__updClimate)
-        self.__climateOpt.grid(row = 1, column = 7, sticky = "W")
+        self.__climateOpt.grid(row = 1, column = 6, sticky = "W")
 
         Button(self.window,
                text = txtbutton["but_result"][self.lang],
                command = self.__checkResult
                ).grid(row = 1, column = 9, sticky = "EW")
 
+        #----- row 2
         vscroll = Scrollbar(self.window, orient = VERTICAL)
         self.displayTxt = Text(self.window,
                                yscrollcommand = vscroll.set,
