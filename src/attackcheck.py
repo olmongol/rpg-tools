@@ -14,7 +14,7 @@ other opponents.
 \version 0.7
 '''
 __version__ = "0.7"
-__updated__ = "09.10.2022"
+__updated__ = "15.10.2022"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "RM RPG Tools: attack checker module"
@@ -49,9 +49,11 @@ class atWin(blankWindow):
 
     ----
     @todo
+    - change bg color by level of damage
     - adding/deleting single NSCs/monsters to/from loaded groups (from pool file)
     - adding/deleting single character to/from loaded group
     - selection of chars/ncs for fight
+
     ----
     @bug
     - reload after kill or loading enemy groups does not work properly
@@ -420,7 +422,7 @@ class atWin(blankWindow):
         for elem in self.initlist:
 
             if "enc" not in elem.keys():
-                logger.warning(json.dumps(elem, indent = 4))
+                logger.warning(f"no encounter number for\n {json.dumps(elem, indent = 4)}")
                 elem["enc"] = 1
 
             if elem["enc"] > 0:
@@ -463,7 +465,7 @@ class atWin(blankWindow):
         spnogo = ["Progression", "Stats"]
 
         for char in self.__fullparty:
-            logger.debug(f"preparing {char}...")
+            logger.debug(f"preparing {json.dumps(char,indent=4)}...")
 
             dummy = dict.fromkeys(cindex, 0)
             dummy["Qu"] = char["Qu"]["total"]
@@ -552,6 +554,7 @@ class atWin(blankWindow):
 
             self.partygrp.append(dummy)
             logger.info(f"{dummy['name']} added to party.")
+            logger.debug(f"{json.dumps(dummy,indent=4)}")
             self.__chgImg(attackerpic = self.partygrp[0]["piclink"], defenderpic = "")
 
         self.partygrp = createCombatList(self.partygrp)
@@ -561,13 +564,13 @@ class atWin(blankWindow):
         self.initlist += self.partygrp
         logger.info("added partygrp to initlist")
         logger.debug(f"length initlist {len(self.initlist)} ")
-       # logger.debug(f"partygrp: \n{pformat(self.partygrp)}")
+        #logger.debug(f"partygrp: \n{pformat(self.partygrp)}")
         self.attackers = []
 
         for elem in self.initlist:
             self.attackers.append(elem["name"])
 
-        logger.debug("attackers set")
+        logger.debug("attackers set successfully")
         self.__selectAttacker.set(self.initlist[0]["name"])
         self.__selectDefender.set(self.initlist[-1]["name"])
         self.defenders = deepcopy(self.attackers)
@@ -640,6 +643,7 @@ class atWin(blankWindow):
 
         # roll initiative for self.initlist
         cleaner = []
+
         for i in range(0, len(self.initlist)):
 
             if "Qu" not in self.initlist[i].keys():
@@ -700,7 +704,10 @@ class atWin(blankWindow):
         This methods checks for weapon breakage.
         @param roll dice roll unmodified
         @param weapons list of the attacker and defender weapon
-        @retval broken a boolean wether the attackes weapon is broken or not
+        @retval broken a boolean whether the attackers weapon is broken or not
+
+        ----
+        @todo the rest has to be implemented still
         '''
         broken = False
         mod = {"w":5,
@@ -726,6 +733,7 @@ class atWin(blankWindow):
                 if attackerw["strength"][-1] in mod.keys() and defenderw["strength"] not in mod.keys():
                     strength -= mod[attackerw["strength"]]
                     #----------- hier weiter machen
+
         return broken
 
 
@@ -758,11 +766,15 @@ class atWin(blankWindow):
         @return the conbatant's data dictionary
         """
         pos = -1
+
         for elem in chklist:
             pos += 1
+
             if name == elem["name"]:
+
                 if result != "index":
                     return elem
+
                 else:
                     return pos
 
@@ -819,20 +831,6 @@ class atWin(blankWindow):
         self.__updDefCombo(event = None)
         self.__updtAttckCombo(event = None)
 
-    #def __selectCritDamage(self):
-    #    '''!
-    #    This method choses the selected choice at Crit damages if there are any.
-    #
-    #    ----
-    #    @todo this has to be fully implemented
-    #
-    #    '''
-    #
-    #    #------ DEBUG
-    #    print("#### selectCritDamage ###")
-    #    pprint(self.crittbls)
-    #    self.notdoneyet("__selectCritDamage")
-
 
     def __updtAttckCombo(self, event = None):
         '''!
@@ -851,9 +849,12 @@ class atWin(blankWindow):
             self.__selectAttacker.set(self.curr_attacker)
 
         self.initroll = False
-
         self.curr_defender = self.__selectDefender.get()
+        self.checkPhysicalCond(combatant = self.__findCombatant(name = self.curr_defender,
+                                                                chklist = self.initlist),
+                                                                side = "defender")
         at = self.__findCombatant(name = self.curr_attacker, chklist = self.initlist)
+        self.checkPhysicalCond(combatant = at, side = "attacker")
 
         if "piclink" in at.keys():
             imglink = at["piclink"]
@@ -906,6 +907,7 @@ class atWin(blankWindow):
         defend = self.__findCombatant(name = self.curr_defender, chklist = self.initlist)
         self.__AT.set(defend["AT"])
         self.__DB.set(defend["DB"])
+        self.checkPhysicalCond(combatant = defend, side = "defender")
 
         if "piclink" in defend.keys():
             imglink = defend["piclink"]
@@ -938,6 +940,7 @@ class atWin(blankWindow):
 
         ----
         @todo - check for stunned status: if stunned>0 add -25 to mod_total, but only once; if stunned becomes 0 remove malus
+        - update attacker / defender list when combatant was killed
 
         '''
         self.combatround += 1
@@ -1080,9 +1083,6 @@ class atWin(blankWindow):
         """!
         This method delivers the fitting Attack Table to weapons which have not their own.
 
-        ----
-        @todo this has to be fully implemented:
-        - read the data table to check the attack tables
         """
         result = "Broadsword"
         for elem in self.weaponlist:
@@ -1097,7 +1097,6 @@ class atWin(blankWindow):
         """!
         This method applies during fight generated modifier to OB/DB
         @param evenet UI event given but not used
-        ----
         """
         self.curr_attacker = self.__selectAttacker.get()
         at = self.__findCombatant(name = self.curr_attacker, chklist = self.initlist)
@@ -1133,7 +1132,7 @@ class atWin(blankWindow):
         This method builds the window content.
 
         ----
-
+        @todo - Prepare specific entry boxes for changing bg colors
         """
 
         #------------ row 0
@@ -1568,19 +1567,15 @@ class atWin(blankWindow):
                                                )
         self.hits = self.attacktbls[self.__selectAT.get()].hits
         self.__resultAT.set("Hits: {}\t Crit: {}\t Type: {}".format(self.attacktbls[self.__selectAT.get()].hits,
-                                                                self.attacktbls[self.__selectAT.get()].crit,
-                                                                critc[self.attacktbls[self.__selectAT.get()].crittype][self.lang]))
+                                                                    self.attacktbls[self.__selectAT.get()].crit,
+                                                                    critc[self.attacktbls[self.__selectAT.get()].crittype][self.lang]))
         self.__selectCrit.set(critc[self.attacktbls[self.__selectAT.get()].crittype]["en"])
-        # if self.defend["
         self.__critType.set(self.attacktbls[self.__selectAT.get()].crit)
 
 
     def checkCrit(self):
         """!
         This checks the result of a roll against a critical table
-
-        ----
-        @todo <strike>error catching: if no crit was rolled (but hits)</strike>
         """
         words = {"hits": "additional hits: {}\n",
                "mod": "Modifier {} for {} rounds ({} d : {} h : {} m : {} s)\n",
@@ -1677,6 +1672,109 @@ class atWin(blankWindow):
 
         self.__displayCrit.delete("1.0", "end")
         self.__displayCrit.insert(END, result)
+
+
+    def checkPhysicalCond(self, combatant, side = "defender"):
+        """!
+        This method checks the physical condition of an attacked combatant and defines
+        a background color code for that condition.
+
+        @param combatant SC / NSC to check the physical condition for
+        @param side of the combatant: attacker, defender
+        ----
+        @todo - set background colors for entry boxes
+        """
+        ## @var condition_color
+        # this holds the physical condition as index and the resulting color as value.
+        condition_color = {"die": "black",
+                           "ooo": "grey",
+                           "no parry": "red",
+                           "parry": "deepskyblue",
+                           "critical": "darkred",
+                           "bad": "darkorange",
+                           "not so good":"yellow",
+                           "good": "lime",
+                           "stunned": "sandybrown",
+                           "light bleeding": "khaki",
+                           "medium bleeding":"orange",
+                           "strong bleeding":"firebrick",
+                           "no mod": "whitesmoke",
+                           "low mod":"lightgreen",
+                           "medium mod":"gold",
+                           "high mod": "coral",
+                           "critical mod":"orangered"
+                          }
+
+        ## @var condition_color
+        # this variable holds the color name which shall be finally set when the physical
+        # condition is determined.
+        condbgcolor = condition_color["good"]
+
+        logger.debug(f"check data: \n{json.dumps(combatant,indent=4)}")
+        print(f"check data: \n{json.dumps(combatant,indent=4)}")
+        ## @var hits
+        # this holds the remaining hit points in pecent
+        hits = combatant['status']["hits"] / int(combatant["hits"]) * 100
+
+        if combatant["status"]["mod_total"] > 50:
+            condbgcolor = condition_color["critical mod"]
+
+        elif combatant["status"]["mod_total"] > 20:
+            condbgcolor = condition_color["high mod"]
+
+        elif combatant["status"]["mod_total"] > 9:
+            condbgcolor = condition_color["medium mod"]
+
+        elif combatant["status"]["mod_total"] > 0:
+            condbgcolor = condition_color["low mod"]
+
+        else:
+            condbgcolor = condition_color["no mod"]
+
+        if hits == 0.0:
+            condbgcolor = condition_color["dead"]
+
+        elif hits < 10.0:
+            condbgcolor = condition_color["critical"]
+
+        elif hits < 25.0:
+            condbgcolor = condition_color["bad"]
+
+        elif hits < 76.0:
+            condbgcolor = condition_color["not so good"]
+
+        elif hits > 75.0:
+            condbgcolor = condition_color["good"]
+
+        if 0 < combatant["status"]["hits/rnd"] < 3:
+            condbgcolor = condition_color["light bleeding"]
+
+        elif 2 < combatant["status"]["hits/rnd"] < 7:
+            condbgcolor = condition_color["medium bleeding"]
+
+        elif combatant["status"]["hits/rnd"] > 6:
+            condbgcolor = condition_color["strong bleeding"]
+
+        if combatant["status"]["stunned"] > 0:
+            condbgcolor = condition_color["stunned"]
+
+        elif combatant["status"]["no_parry"] > 0:
+            condbgcolor = condition_color["no parry"]
+
+        elif combatant["status"]["ooo"] > 0:
+            condbgcolor = condition_color["ooo"]
+
+        elif combatant["status"]["parry"] > 0:
+            condbgcolor = condition_color["parry"]
+
+        elif combatant["status"]["die"] > 0:
+            condbgcolor = condition_color["die"]
+
+        if side == "defender":
+            self.defcanvas.config(bg = condbgcolor)
+
+        elif side == "attacker":
+            self.atcanvas.config(bg = condbgcolor)
 
 
 
