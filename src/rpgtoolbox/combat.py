@@ -13,7 +13,7 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "03.10.2022"
+__updated__ = "09.10.2022"
 __me__ = "rpgtoolbox.combat"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
@@ -22,6 +22,7 @@ __license__ = "GPL V3"
 import re
 import json
 import os
+from copy import deepcopy
 from pprint import pprint
 
 from rpgtoolbox.globaltools import splitExceptBetween as splitE
@@ -82,6 +83,7 @@ def convertNSC(filename = "data/default/nscs/default.csv"):
     """
 
     weapons = getWeaponTab()
+    logger.info("weapon table read")
     r = r"([1-9][0-9]{1,2})([HLMST]*)([A-Za-z][a-z])"
     check = re.compile(r)
 
@@ -95,6 +97,7 @@ def convertNSC(filename = "data/default/nscs/default.csv"):
 
     for l in range(1, len(cont)):
         dummy = splitE(cont[l])
+        logger.debug(f"working on {dummy}")
         monster = {'log': {'crits': {'A': [],
                                       'B': [],
                                       'C': [],
@@ -127,10 +130,12 @@ def convertNSC(filename = "data/default/nscs/default.csv"):
                     'weapon melee':[],
                     'weapon missile':[],
                     }
+
         for i in range(0, len(header)):
 
             #check for different OBs
             if header[i] in ["OB melee", "OB missile"]:
+                logger.debug(f"working on header {header[i]}")
 
                 if dummy[i] != "0xx":
                     dummy[i] = dummy[i].strip("\t ").split("/")
@@ -151,9 +156,11 @@ def convertNSC(filename = "data/default/nscs/default.csv"):
 
             monster[header[i]] = dummy[i]
 
+        logger.debug(f"build NSC/monster:\n {json.dumps(monster, indent=4)}")
         nsclist.append(monster)
 
     logger.info(f'NSCs successfully transformed.')
+    logger.debug(json.dumps(nsclist, indent = 4))
     return nsclist
 
 
@@ -349,9 +356,6 @@ def createCombatList(comlist = []):
 
     @param comlist a list of combatants (dictionaries)
     @return modified list
-
-    ----
-    @todo has to be implemented fully
     """
     #r = r'([1-9][0-9]{1,2})([HLMST]*)([A-Za-z][a-z])'
     #checkob = re.compile(r)
@@ -383,7 +387,7 @@ def createCombatList(comlist = []):
              }
 
     for i in range(0, len(comlist)):
-        comlist[i]["status"] = status.copy()
+        comlist[i]["status"] = deepcopy(status)
 
         if comlist[i]["hits"]:
             comlist[i]["status"]["hits"] = int(comlist[i]["hits"])
@@ -432,7 +436,7 @@ class crittable():
             self.fcont = fp.read()
 
         logger.info(f"read file: {self.filename}")
-        print("read {}".format(self.filename))
+        #print("read {}".format(self.filename))
 
         #transform csv to json
         self.fcont = self.fcont.strip("\n").split("\n")
@@ -533,15 +537,15 @@ class crittable():
                     break
 
         logger.debug(f"result critical hit:\n{json.dumps(self.crithit)}")
-        self.showResult()
-
-
-    def showResult(self):
-        """!
-        This just prints out the result to stdout
-        """
-        print("Result")
-        pprint(self.crithit)
+    #    self.showResult()
+    #
+    #
+    #def showResult(self):
+    #    """!
+    #    This just prints out the result to stdout
+    #    """
+    #    print("Result")
+    #    pprint(self.crithit)
 
 
 

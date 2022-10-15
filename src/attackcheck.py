@@ -2,20 +2,22 @@
 '''!
 \file attackcheck.py
 \package attackcheck
-\brief Thia program can be used to  get the results of  attack and critical tables
+\brief This program can be used to  get the results of  attack and critical tables
 
 This mangages a fight between a player character group and a group of monsters or
 other opponents.
 
-\date (c) 2021
+\date (c) 2021 - 2022
 \copyright GNU V3.0
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
-\version 0.5
+\version 0.7
 '''
-__version__ = "0.5"
-__updated__ = "08.10.2022"
+__version__ = "0.7"
+__updated__ = "09.10.2022"
 __author__ = "Marcus Schwamberger"
+__email__ = "marcus@lederzeug.de"
+__me__ = "RM RPG Tools: attack checker module"
 
 import os
 import json
@@ -49,6 +51,7 @@ class atWin(blankWindow):
     @todo
     - adding/deleting single NSCs/monsters to/from loaded groups (from pool file)
     - adding/deleting single character to/from loaded group
+    - selection of chars/ncs for fight
     ----
     @bug
     - reload after kill or loading enemy groups does not work properly
@@ -61,8 +64,12 @@ class atWin(blankWindow):
         \param lang selected output language
         \param datadir configured default datadir
         """
+        logger.debug(f"language: {lang}\n datadir: {datadir}")
         self.lang = lang
         self.datadir = datadir
+        logger.debug(f"language: {lang}")
+        logger.debug(f"data dir: {datadir}")
+
         self.attacktbls = {}
         self.crittbls = {}
         self.attackers = ["Egon"]
@@ -82,10 +89,12 @@ class atWin(blankWindow):
         # holds the given weapon table as dictionary with short term as master key
         # and all information about the weapon (such as fumble or breaking numbers)
         self.weapontab = getWeaponTab()
+        logger.info("Weapon tables successfully read.")
         self.curr_attacker = 0
         self.curr_defender = 0
         self.__oblist = []
         self.defaultnscimg = datadir + "/pics/default.jpg"
+        logger.debug(f"default image set to {self.defaultnscimg}")
         self.fmask = [txtwin['grp_files'][self.lang],
                      txtwin['enemygrp_files'][self.lang],
                      txtwin['all_files'][self.lang]]
@@ -99,7 +108,9 @@ class atWin(blankWindow):
         # weapon has no specific attack table the standard attack table for it
         # will be documented here.
         self.weaponlist = readCSV(f"{self.datadir}/fight/weapon_stats.csv")
+        logger.info("list of weapons read successfully.")
         self.__prepareWL()
+        logger.debug("list of weapons successfully prepared for usage.")
         ## \var self.reverseweaponindex
         # This dictionary holds weapon name as key and short form as value
         self.reverseweaponindex = {}
@@ -107,19 +118,31 @@ class atWin(blankWindow):
         for key in self.weapontab.keys():
             self.reverseweaponindex[self.weapontab[key]["name"]] = key
 
+        logger.info("weapon index prepared.")
+
         # read all attack tables
         for table in os.listdir("{}/fight/attacks".format(self.datadir)):
+
             if table[-4:] == ".csv" and table[-5:] != "-.csv":
                 self.attacktbls[table[:-4]] = attacktable("{}/fight/attacks/{}".format(self.datadir, table))
+                logger.debug(f"read {table[:-4]} successfully.")
+
+        logger.info("All attack tables loaded.")
 
         # read all crit tables
         for table in os.listdir("{}/fight/crits".format(self.datadir)):
+
             if table[-4:] == ".csv" and table[-5:] != "-.csv":
                 self.crittbls[table[:-9]] = crittable("{}/fight/crits/{}".format(self.datadir, table))
+                logger.debug(f"read {table[:-4]} successfully.")
+
+        logger.info("All critical tables loaded.")
 
         # get all weapon data
         with open(os.path.join(os.getcwd(), "data/default/fight/weapons_full.json")) as fp:
             self.weapondata = json.load(fp)
+
+        logger.info("All weapon data loaded.")
 
         #window components
         blankWindow.__init__(self, self.lang)
@@ -142,7 +165,7 @@ class atWin(blankWindow):
         self.helpmenu.add_separator()
         self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
                                   command = self._helpAbout)
-        logger.debug("__addHelpMenu: help menu build")
+        logger.debug("help menu build")
 
 
     def __addFileMenu(self):
@@ -159,7 +182,7 @@ class atWin(blankWindow):
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
                                   command = self.__quit)
-        logger.debug("__addHelpMenu: file menu build")
+        logger.debug("file menu build")
 
 
     def __addEditMenu(self):
@@ -182,6 +205,7 @@ class atWin(blankWindow):
                                   command = self.__rollInit)
         self.editmenu.add_command(label = submenu["edit"][self.lang]["history"],
                                   command = self.notdoneyet)
+        logger.debug("edit menu build")
 
 
     def openParty(self):
@@ -190,23 +214,27 @@ class atWin(blankWindow):
         ----
         @Bug: "openPary: armquickpen" on newly crated party with armquickpen_error_group.json
         '''
+
         self.__partypath = askopenfilename(filetypes = self.fmaskc, initialdir = os.getcwd(), defaultextension = ".json")
-        logger.debug(f"openParty: chosen group file {self.__partypath}")
+        logger.debug(f"chosen group file {self.__partypath}")
+
         try:
             with open(self.__partypath, "r") as fp:
                 ##@var self.__fullparty
                 # This is holding the full party data
                 self.__fullparty = json.load(fp)
-            logger.info(f"openParty: {self.__partypath} was read")
+            logger.info(f"{self.__partypath} was read")
 
             if type(self.__fullparty) == type({}):
                 self.__fullparty = [self.__fullparty]
+            logger.debug("fullparty initialized.")
+
             self.__prepareChars()
 
         except Exception as error:
-            logger.error(f"openParty: {error}")
+            logger.error(f"{error}")
             self.message = messageWindow()
-            self.message.showinfo(f"openParty: {error}", "ERROR")
+            self.message.showinfo(f"{error}", "ERROR")
 
         #self.__prepareChars()
 
@@ -250,6 +278,9 @@ class atWin(blankWindow):
         apendix = []
 
         for i in range(0, len(self.enemygrp)):
+
+            if "enc" not in self.enemygrp[i].keys():
+                logger.warning(f"'enc not in {json.dumps(self.enemygrp[i])}")
 
             enc = self.enemygrp[i]["enc"].split("-")
 
@@ -387,6 +418,11 @@ class atWin(blankWindow):
         self.attackers = []
 
         for elem in self.initlist:
+
+            if "enc" not in elem.keys():
+                logger.warning(json.dumps(elem, indent = 4))
+                elem["enc"] = 1
+
             if elem["enc"] > 0:
                 self.attackers.append(elem["name"])
 
@@ -427,22 +463,54 @@ class atWin(blankWindow):
         spnogo = ["Progression", "Stats"]
 
         for char in self.__fullparty:
+            logger.debug(f"preparing {char}...")
+
             dummy = dict.fromkeys(cindex, 0)
+            dummy["Qu"] = char["Qu"]["total"]
+            piclink = char["piclink"]
+            logger.debug(piclink)
+
+            if "AT" in char.keys():
+
+                if char["AT"] == 0:
+                    char["AT"] = 1
+            else:
+                char["AT"] = 1
+
+            if os.path.isfile(piclink):
+                pass
+
+            else:
+                picname = piclink.split("/")[-1]
+
+                if os.path.isfile(self.datadir + "pic/" + picname):
+                    char["piclink"] = self.datadir + "pic/" + picname
+                    logger.info(f"changed image link to {self.datadir+'pic/'+picname}")
+
+                else:
+                    char["piclink"] = self.defaultnscimg
+                    logger.warning("could not find character image at {self.datadir+'pic/'+picname} and set it to default")
 
             for stat in cindex:
 
                 if stat in char.keys():
                     dummy[stat] = char[stat]
 
-            dummy["DB"] = 3 * char["Qu"]["total"] + char["armquickpen"]
+            if "armquickpen" in char.keys():
+                dummy["DB"] = 3 * char["Qu"]["total"] + char["armquickpen"]
+
+            else:
+                char["armquickpen"] = 0
+                logger.warning(f"no armorquickpen found in {char['name']}'s data! Set it to 0.")
+                dummy["Qu"] = char["Qu"]["total"]
 
             if char["cat"]["Special Defenses"]["Skill"]["Adrenal Defense"]["total bonus"] > 0:
                 dummy["DB"] += char["cat"]["Special Defenses"]["Skill"]["Adrenal Defense"]["total bonus"]
 
             if dummy["DB"] < 0:
                 dummy["DB"] = 0
+            logger.debug(f"{dummy['name']}'s DB is: {dummy['DB']}.")
 
-            dummy["Qu"] = char["Qu"]["total"]
             dummy["init"] = 0
             dummy["hits"] = char["cat"]["Body Development"]["Skill"]["Body Development"]["total bonus"]
             dummy["PP"] = char["cat"]["Power Point Development"]["Skill"]["Power Point Development"]["total bonus"]
@@ -450,6 +518,7 @@ class atWin(blankWindow):
             dummy["OB missile"] = []
             dummy["spell"] = []
             dummy["weapon type"] = [[], []]
+            logger.debug(f"combat concerned parameters initialized for {dummy['name']}")
 
             for m in melee:
 
@@ -461,8 +530,11 @@ class atWin(blankWindow):
                         if addon not in dummy["OB melee"]:
                             dummy["OB melee"].append([skill, char["cat"][m]["Skill"][skill]["total bonus"], "H"])
 
+            logger.info(f"{dummy['name']}'s melee OBs collected")
+
             #sort melee weapons highest ob first
             dummy["OB melee"] = sorted(dummy["OB melee"], key = lambda k: k[1], reverse = True)
+            logger.info(f"{dummy['name']}'s melee OBs sorted")
 
             for m in missile:
 
@@ -471,28 +543,31 @@ class atWin(blankWindow):
                     if skill not in ["Progression", "Stats"] and "+" not in skill and [skill, char["cat"][m]["Skill"][skill]["total bonus"]] not in dummy["OB missile"]:
                         dummy["OB missile"].append([skill, char["cat"][m]["Skill"][skill]["total bonus"]])
 
+            logger.info(f"{dummy['name']}'s missile OBs collected.")
             # sort missle weapons highest ob first
             dummy["OB missile"] = sorted(dummy["OB missile"], key = lambda k: k[1], reverse = True)
             dummy["weapon type"][0] = ["normal"] * len(dummy["OB melee"])
             dummy["weapon type"][1] = ["normal"] * len(dummy["OB missile"])
+            logger.info(f"{dummy['name']}'s missile OBs sorted.")
 
             self.partygrp.append(dummy)
+            logger.info(f"{dummy['name']} added to party.")
             self.__chgImg(attackerpic = self.partygrp[0]["piclink"], defenderpic = "")
 
         self.partygrp = createCombatList(self.partygrp)
-        #------Debug
-        print(f"debug: partygrp {len(self.partygrp)} ")
+        logger.info(f"combatant list created from party group.")
+        logger.debug(f"partygrp length {len(self.partygrp)} ")
 
         self.initlist += self.partygrp
-        #------Debug
-        print(f"debug: initlist {len(self.initlist)} ")
-        logger.info("__prepareChars: partygrp set")
-        logger.debug(f"__prepareChars: \n{pformat(self.partygrp)}")
+        logger.info("added partygrp to initlist")
+        logger.debug(f"length initlist {len(self.initlist)} ")
+       # logger.debug(f"partygrp: \n{pformat(self.partygrp)}")
         self.attackers = []
 
         for elem in self.initlist:
             self.attackers.append(elem["name"])
 
+        logger.debug("attackers set")
         self.__selectAttacker.set(self.initlist[0]["name"])
         self.__selectDefender.set(self.initlist[-1]["name"])
         self.defenders = deepcopy(self.attackers)
@@ -566,10 +641,15 @@ class atWin(blankWindow):
         # roll initiative for self.initlist
         cleaner = []
         for i in range(0, len(self.initlist)):
+
+            if "Qu" not in self.initlist[i].keys():
+                logger.warning(f"no Qu in \n {json.dumps(self.initlist[i])}")
+
             self.initlist[i]["init"] = int(self.initlist[i]['Qu']) + randint(1, 10)
+
             if self.initlist[i] not in cleaner:
                 cleaner.append(self.initlist[i])
-                print(f"debug: initlist {self.initlist[i]['name']}")
+
         self.initlist = deepcopy(cleaner)
         # sort self.initlist reversely
         self.initlist = sorted(self.initlist, key = lambda k: k["init"], reverse = True)
@@ -582,6 +662,7 @@ class atWin(blankWindow):
             #if elem['name'] not in self.attackers:
             #    self.attackers.append(elem["name"])
             if elem["status"]["hits"] > 0 and elem["status"]["ooo"] == 0:
+
                 if elem["name"] not in self.attackers:
                     self.attackers.append(elem["name"])
 
@@ -705,11 +786,6 @@ class atWin(blankWindow):
 
         if crit in ["A", "B", "C", "D", "E", "T"]:
             result = self.crittbls[self.__selectCrit.get()].crithit
-
-            #------ DEBUG
-            print("Apply Damage:")
-            pprint(self.crittbls[self.__selectCrit.get()].crithit)
-
             wo = self.__woItem.get()
 
             if  result["alternate"] != {} and wo == labels["without"][self.lang]:
@@ -740,25 +816,22 @@ class atWin(blankWindow):
                 self.initlist[posa]["status"]["mod"].append(result["mod_attacker"])
                 self.initlist[posa]["status"]["mod_total"] += result["mod_attacker"]["mod_attacker"]
 
-            #------ DEBUG
-            pprint(result)
         self.__updDefCombo(event = None)
         self.__updtAttckCombo(event = None)
 
-
-    def __selectCritDamage(self):
-        '''!
-        This method choses the selected choice at Crit damages if there are any.
-
-        ----
-        @todo this has to be fully implemented
-
-        '''
-
-        #------ DEBUG
-        print("#### selectCritDamage ###")
-        pprint(self.crittbls)
-        self.notdoneyet("__selectCritDamage")
+    #def __selectCritDamage(self):
+    #    '''!
+    #    This method choses the selected choice at Crit damages if there are any.
+    #
+    #    ----
+    #    @todo this has to be fully implemented
+    #
+    #    '''
+    #
+    #    #------ DEBUG
+    #    print("#### selectCritDamage ###")
+    #    pprint(self.crittbls)
+    #    self.notdoneyet("__selectCritDamage")
 
 
     def __updtAttckCombo(self, event = None):
@@ -782,12 +855,9 @@ class atWin(blankWindow):
         self.curr_defender = self.__selectDefender.get()
         at = self.__findCombatant(name = self.curr_attacker, chklist = self.initlist)
 
-        #------ DEBUG
-        print("---------\nAttacker\n\n")
-        pprint(at)
-
         if "piclink" in at.keys():
             imglink = at["piclink"]
+
         else:
             imglink = "./data/default/pics/default.jpg"
 
@@ -834,11 +904,6 @@ class atWin(blankWindow):
         self.curr_attacker = self.__selectAttacker.get()
         self.__defendCombo.configure(values = self.defenders)
         defend = self.__findCombatant(name = self.curr_defender, chklist = self.initlist)
-
-        #------ DEBUG
-        print("********\nDefender\n\n")
-        pprint(defend)
-
         self.__AT.set(defend["AT"])
         self.__DB.set(defend["DB"])
 
@@ -897,9 +962,6 @@ class atWin(blankWindow):
 
             for j in range(0, len(self.initlist[i]["status"]["mod"])):
                 self.initlist[i]["status"]["mod"][j]["rnd"] -= 1
-
-                #------ DEBUG
-                #print(f'Debug nxtrnd: {i},{j} {self.initlist[i]["status"]["mod"][j]}')
 
                 if "mod" in self.initlist[i]["status"]["mod"][j].keys():
 
