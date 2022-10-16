@@ -14,7 +14,7 @@ other opponents.
 \version 0.7
 '''
 __version__ = "0.7"
-__updated__ = "15.10.2022"
+__updated__ = "16.10.2022"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "RM RPG Tools: attack checker module"
@@ -1149,6 +1149,7 @@ class atWin(blankWindow):
         self.defcanvas.grid(row = 0, rowspan = 5, column = 6, sticky = "NS")
         self.__chgImg()
 
+        #----- attacker
         self.__lvlAttacker = StringVar()
         self.__lvlAttacker.set("Lvl: 1")
         Label(self.window,
@@ -1157,27 +1158,31 @@ class atWin(blankWindow):
 
         self.__curHPAttacker = StringVar()
         self.__curHPAttacker.set("HP: 30/30")
-        Label(self.window,
-              textvariable = self.__curHPAttacker
-              ).grid(column = 2, row = 0, sticky = W)
+        self.hits_at = Label(self.window,
+                              textvariable = self.__curHPAttacker
+                              )
+        self.hits_at.grid(column = 2, row = 0, sticky = W)
 
         self.__ppAttacker = StringVar()
         self.__ppAttacker.set("PP: 0/0")
-        Label(self.window,
-              textvariable = self.__ppAttacker
-              ).grid(row = 0, column = 3, sticky = W)
+        self.pp_at = Label(self.window,
+                          textvariable = self.__ppAttacker
+                          )
+        self.pp_at.grid(row = 0, column = 3, sticky = W)
 
         self.__wmodAttacker = StringVar()
         self.__wmodAttacker.set("Mods: 0")
-        Label(self.window,
-              textvariable = self.__wmodAttacker
-              ).grid(row = 0, column = 4, sticky = E)
+        self.mod_at = Label(self.window,
+                          textvariable = self.__wmodAttacker
+                          )
+        self.mod_at.grid(row = 0, column = 4, sticky = E)
 
         self.__bleedAttacker = StringVar()
         self.__bleedAttacker.set("HP/rd: 0")
-        Label(self.window,
-              textvariable = self.__bleedAttacker
-              ).grid(row = 0, column = 5, sticky = W)
+        self.bleed_at = Label(self.window,
+                          textvariable = self.__bleedAttacker
+                          )
+        self.bleed_at.grid(row = 0, column = 5, sticky = W)
 
         #------------------- Defender ------------------------------------------
         self.__lvlDefender = StringVar()
@@ -1188,29 +1193,34 @@ class atWin(blankWindow):
 
         self.__curHPDefender = StringVar()
         self.__curHPDefender.set("HP: 30/30")
-        Label(self.window,
-              textvariable = self.__curHPDefender
-              ).grid(column = 8, row = 0, sticky = W)
+        self.hits_def = Label(self.window,
+                              textvariable = self.__curHPDefender
+                              )
+        self.hits_def.grid(column = 8, row = 0, sticky = W)
 
         self.__ppDefender = StringVar()
         self.__ppDefender.set("PP: 0/0")
-        Label(self.window,
-              textvariable = self.__ppDefender
-              ).grid(row = 0, column = 9, sticky = W)
+        self.pp_def = Label(self.window,
+                            textvariable = self.__ppDefender
+                            )
+        self.pp_def.grid(row = 0, column = 9, sticky = W)
 
         self.__wmodDefender = StringVar()
         self.__wmodDefender.set("Mods: 0")
-        Label(self.window,
-              textvariable = self.__wmodDefender
-              ).grid(row = 0, column = 10, sticky = W)
+        self.mod_def = Label(self.window,
+                           textvariable = self.__wmodDefender
+                          )
+        self.mod_def.grid(row = 0, column = 10, sticky = W)
 
         self.__bleedDefender = StringVar()
         self.__bleedDefender.set("HP/rd: 0")
-        Label(self.window,
-              textvariable = self.__bleedDefender
-              ).grid(row = 0, column = 11, sticky = W)
+        self.bleed_def = Label(self.window,
+                               textvariable = self.__bleedDefender
+                              )
+        self.bleed_def.grid(row = 0, column = 11, sticky = W)
 
         #----------- row 1 ---------------------------------------------------------
+        #----- attacker
         self.__initAttacker = StringVar()
         self.__initAttacker.set("Init: 0")
         Label(self.window,
@@ -1219,27 +1229,31 @@ class atWin(blankWindow):
 
         self.__stunAttacker = StringVar()
         self.__stunAttacker.set(f'{labels["stunned"][self.lang]}: 0')
-        Label(self.window,
-              textvariable = self.__stunAttacker
-              ).grid(row = 1, column = 2, sticky = W)
+        self.stunned_at = Label(self.window,
+                              textvariable = self.__stunAttacker
+                              )
+        self.stunned_at.grid(row = 1, column = 2, sticky = W)
 
         self.__parryAttacker = StringVar()
         self.__parryAttacker.set(f'{labels["parry"][self.lang]}: 0')
-        Label(self.window,
-              textvariable = self.__parryAttacker
-              ).grid(row = 1, column = 3, sticky = W)
+        self.parry_at = Label(self.window,
+                              textvariable = self.__parryAttacker
+                              )
+        self.parry_at.grid(row = 1, column = 3, sticky = W)
 
         self.__noparryAttacker = StringVar()
         self.__noparryAttacker.set(f'{labels["no_parry"][self.lang]}: 0')
-        Label(self.window,
-              textvariable = self.__noparryAttacker
-              ).grid(row = 1, column = 4, sticky = W)
+        self.noparry_at = Label(self.window,
+                              textvariable = self.__noparryAttacker
+                              )
+        self.noparry_at.grid(row = 1, column = 4, sticky = W)
 
         self.__koAttacker = StringVar()
         self.__koAttacker.set("k.o.: 0")
-        Label(self.window,
-              textvariable = self.__koAttacker
-              ).grid(row = 1, column = 5, sticky = W)
+        self.ooo_at = Label(self.window,
+                          textvariable = self.__koAttacker
+                          )
+        self.ooo_at.grid(row = 1, column = 5, sticky = W)
 
         #------------------- Defender -----------------------------------------
         self.__initDefender = StringVar()
@@ -1250,27 +1264,31 @@ class atWin(blankWindow):
 
         self.__stunDefender = StringVar()
         self.__stunDefender.set(f'{labels["stunned"][self.lang]}: 0')
-        Label(self.window,
-              textvariable = self.__stunDefender
-              ).grid(row = 1, column = 8, sticky = W)
+        self.stunned_def = Label(self.window,
+                                textvariable = self.__stunDefender
+                                )
+        self.stunned_def.grid(row = 1, column = 8, sticky = W)
 
         self.__parryDefender = StringVar()
         self.__parryDefender.set(f'{labels["parry"][self.lang]}: 0')
-        Label(self.window,
-              textvariable = self.__parryDefender
-              ).grid(row = 1, column = 9, sticky = W)
+        self.parry_def = Label(self.window,
+                              textvariable = self.__parryDefender
+                              )
+        self.parry_def.grid(row = 1, column = 9, sticky = W)
 
         self.__noparryDefender = StringVar()
         self.__noparryDefender.set(f'{labels["no_parry"][self.lang]}: 0')
-        Label(self.window,
-              textvariable = self.__noparryDefender
-              ).grid(row = 1, column = 10, sticky = W)
+        self.noparry_def = Label(self.window,
+                                textvariable = self.__noparryDefender
+                                )
+        self.noparry_def.grid(row = 1, column = 10, sticky = W)
 
         self.__koDefender = StringVar()
         self.__koDefender.set("k.o.: 0")
-        Label(self.window,
-              textvariable = self.__koDefender
-              ).grid(row = 1, column = 11, sticky = W)
+        self.ooo_def = Label(self.window,
+                              textvariable = self.__koDefender
+                              )
+        self.ooo_def.grid(row = 1, column = 11, sticky = W)
 
         #------------ row 2
         self.__selectType = StringVar()
@@ -1674,6 +1692,16 @@ class atWin(blankWindow):
         self.__displayCrit.insert(END, result)
 
 
+    def __setBGColor(self, attrib, bgcolor = "green"):
+        """!
+
+        @param attrib tkinter label object
+        @param bgcolor background color to set
+
+        """
+        attrib.config(bg = bgcolor)
+
+
     def checkPhysicalCond(self, combatant, side = "defender"):
         """!
         This method checks the physical condition of an attacked combatant and defines
@@ -1699,6 +1727,12 @@ class atWin(blankWindow):
                            "medium bleeding":"orange",
                            "strong bleeding":"firebrick",
                            "no mod": "whitesmoke",
+                           "no stun": "whitesmoke",
+                           "no bleed": "whitesmoke",
+                           "no bleeding":"whitesmoke",
+                           "nono parry":"whitesmoke",
+                           "attack again": "whitesmoke",
+                           "awake":"whitesmoke",
                            "low mod":"lightgreen",
                            "medium mod":"gold",
                            "high mod": "coral",
@@ -1711,7 +1745,6 @@ class atWin(blankWindow):
         condbgcolor = condition_color["good"]
 
         logger.debug(f"check data: \n{json.dumps(combatant,indent=4)}")
-        print(f"check data: \n{json.dumps(combatant,indent=4)}")
         ## @var hits
         # this holds the remaining hit points in pecent
         hits = combatant['status']["hits"] / int(combatant["hits"]) * 100
@@ -1719,17 +1752,153 @@ class atWin(blankWindow):
         if combatant["status"]["mod_total"] > 50:
             condbgcolor = condition_color["critical mod"]
 
+            if side == "defender":
+                self.__setBGColor(attrib = self.mod_def, bgcolor = condbgcolor)
+
+            elif side == "attacker":
+                self.__setBGColor(attrib = self.mod_at, bgcolor = condbgcolor)
+
         elif combatant["status"]["mod_total"] > 20:
             condbgcolor = condition_color["high mod"]
+
+            if side == "defender":
+                self.__setBGColor(attrib = self.mod_def, bgcolor = condbgcolor)
+
+            elif side == "attacker":
+                self.__setBGColor(attrib = self.mod_at, bgcolor = condbgcolor)
 
         elif combatant["status"]["mod_total"] > 9:
             condbgcolor = condition_color["medium mod"]
 
+            if side == "defender":
+                self.__setBGColor(attrib = self.mod_def, bgcolor = condbgcolor)
+
+            elif side == "attacker":
+                self.__setBGColor(attrib = self.mod_at, bgcolor = condbgcolor)
+
         elif combatant["status"]["mod_total"] > 0:
             condbgcolor = condition_color["low mod"]
 
+            if side == "defender":
+                self.__setBGColor(attrib = self.mod_def, bgcolor = condbgcolor)
+
+            elif side == "attacker":
+                self.__setBGColor(attrib = self.mod_at, bgcolor = condbgcolor)
+
         else:
             condbgcolor = condition_color["no mod"]
+
+            if side == "defender":
+                self.__setBGColor(attrib = self.mod_def, bgcolor = condbgcolor)
+
+            elif side == "attacker":
+                self.__setBGColor(attrib = self.mod_at, bgcolor = condbgcolor)
+
+        if combatant["status"]["hits/rnd"] < 0:
+            condbgcolor = condition_color["light bleeding"]
+
+            if side == "defender":
+                self.__setBGColor(attrib = self.bleed_def, bgcolor = condbgcolor)
+
+            elif side == "attacker":
+                self.__setBGColor(attrib = self.bleed_at, bgcolor = condbgcolor)
+
+        elif combatant["status"]["hits/rnd"] < -2:
+            condbgcolor = condition_color["medium bleeding"]
+
+            if side == "defender":
+                self.__setBGColor(attrib = self.bleed_def, bgcolor = condbgcolor)
+
+            elif side == "attacker":
+                self.__setBGColor(attrib = self.bleed_at, bgcolor = condbgcolor)
+
+        elif combatant["status"]["hits/rnd"] < -6:
+            condbgcolor = condition_color["strong bleeding"]
+
+            if side == "defender":
+                self.__setBGColor(attrib = self.bleed_def, bgcolor = condbgcolor)
+
+            elif side == "attacker":
+                self.__setBGColor(attrib = self.bleed_at, bgcolor = condbgcolor)
+        else:
+            condbgcolor = condition_color["no bleeding"]
+
+            if side == "defender":
+                self.__setBGColor(attrib = self.bleed_def, bgcolor = condbgcolor)
+
+            elif side == "attacker":
+                self.__setBGColor(attrib = self.bleed_at, bgcolor = condbgcolor)
+
+        if combatant["status"]["stunned"] > 0:
+            condbgcolor = condition_color["stunned"]
+
+            if side == "defender":
+                self.__setBGColor(attrib = self.stunned_def, bgcolor = condbgcolor)
+
+            elif side == "attacker":
+                self.__setBGColor(attrib = self.stunned_at, bgcolor = condbgcolor)
+        else:
+            condbgcolor = condition_color["no stun"]
+
+            if side == "defender":
+                self.__setBGColor(attrib = self.stunned_def, bgcolor = condbgcolor)
+
+            elif side == "attacker":
+                self.__setBGColor(attrib = self.stunned_at, bgcolor = condbgcolor)
+
+        if combatant["status"]["no_parry"] > 0:
+            condbgcolor = condition_color["no parry"]
+
+            if side == "defender":
+                self.__setBGColor(attrib = self.noparry_def, bgcolor = condbgcolor)
+
+            elif side == "attacker":
+                self.__setBGColor(attrib = self.noparry_at, bgcolor = condbgcolor)
+
+        else:
+            condbgcolor = condition_color["nono parry"]
+
+            if side == "defender":
+                self.__setBGColor(attrib = self.noparry_def, bgcolor = condbgcolor)
+
+            elif side == "attacker":
+                self.__setBGColor(attrib = self.noparry_at, bgcolor = condbgcolor)
+
+        if combatant["status"]["ooo"] > 0:
+            condbgcolor = condition_color["ooo"]
+
+            if side == "defender":
+                self.__setBGColor(attrib = self.ooo_def, bgcolor = condbgcolor)
+
+            elif side == "attacker":
+                self.__setBGColor(attrib = self.ooo_at, bgcolor = condbgcolor)
+
+        else:
+            condbgcolor = condition_color["awake"]
+
+            if side == "defender":
+                self.__setBGColor(attrib = self.ooo_def, bgcolor = condbgcolor)
+
+            elif side == "attacker":
+                self.__setBGColor(attrib = self.ooo_at, bgcolor = condbgcolor)
+
+        if combatant["status"]["parry"] > 0:
+            condbgcolor = condition_color["parry"]
+
+            if side == "defender":
+                self.__setBGColor(attrib = self.parry_def, bgcolor = condbgcolor)
+
+            elif side == "attacker":
+                self.__setBGColor(attrib = self.parry_at, bgcolor = condbgcolor)
+
+        else:
+            condbgcolor = condition_color["attack again"]
+
+            if side == "defender":
+                self.__setBGColor(attrib = self.parry_def, bgcolor = condbgcolor)
+
+            elif side == "attacker":
+                self.__setBGColor(attrib = self.parry_at, bgcolor = condbgcolor)
 
         if hits == 0.0:
             condbgcolor = condition_color["dead"]
@@ -1737,37 +1906,40 @@ class atWin(blankWindow):
         elif hits < 10.0:
             condbgcolor = condition_color["critical"]
 
+            if side == "defender":
+                self.__setBGColor(attrib = self.hits_def, bgcolor = condbgcolor)
+
+            elif side == "attacker":
+                self.__setBGColor(attrib = self.hits_at, bgcolor = condbgcolor)
+
         elif hits < 25.0:
             condbgcolor = condition_color["bad"]
+
+            if side == "defender":
+                self.__setBGColor(attrib = self.hits_def, bgcolor = condbgcolor)
+
+            elif side == "attacker":
+                self.__setBGColor(attrib = self.hits_at, bgcolor = condbgcolor)
 
         elif hits < 76.0:
             condbgcolor = condition_color["not so good"]
 
+            if side == "defender":
+                self.__setBGColor(attrib = self.hits_def, bgcolor = condbgcolor)
+
+            elif side == "attacker":
+                self.__setBGColor(attrib = self.hits_at, bgcolor = condbgcolor)
+
         elif hits > 75.0:
             condbgcolor = condition_color["good"]
 
-        if 0 < combatant["status"]["hits/rnd"] < 3:
-            condbgcolor = condition_color["light bleeding"]
+            if side == "defender":
+                self.__setBGColor(attrib = self.hits_def, bgcolor = condbgcolor)
 
-        elif 2 < combatant["status"]["hits/rnd"] < 7:
-            condbgcolor = condition_color["medium bleeding"]
+            elif side == "attacker":
+                self.__setBGColor(attrib = self.hits_at, bgcolor = condbgcolor)
 
-        elif combatant["status"]["hits/rnd"] > 6:
-            condbgcolor = condition_color["strong bleeding"]
-
-        if combatant["status"]["stunned"] > 0:
-            condbgcolor = condition_color["stunned"]
-
-        elif combatant["status"]["no_parry"] > 0:
-            condbgcolor = condition_color["no parry"]
-
-        elif combatant["status"]["ooo"] > 0:
-            condbgcolor = condition_color["ooo"]
-
-        elif combatant["status"]["parry"] > 0:
-            condbgcolor = condition_color["parry"]
-
-        elif combatant["status"]["die"] > 0:
+        if combatant["status"]["die"] >= 0:
             condbgcolor = condition_color["die"]
 
         if side == "defender":
