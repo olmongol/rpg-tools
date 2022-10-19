@@ -37,7 +37,7 @@ from PIL import Image, ImageTk
 from rpgtoolbox.confbox import *
 
 mycnf = chkCfg()
-logger = log.createLogger('AT-Window', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "attackcheck.log")
+logger = log.createLogger('AT-Window', 'info', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "attackcheck.log")
 
 
 
@@ -598,7 +598,12 @@ class atWin(blankWindow):
     def __prepareWL(self):
         '''!
         This method prepares the  self.weaponlist read from CSV file.
+
+        ----
+        @todo add logger entries
         '''
+        logger.info("start preparing internal weapon list.")
+
         for i in range(0, len(self.weaponlist)):
 
             # move '---' to None
@@ -624,15 +629,20 @@ class atWin(blankWindow):
             for n in range(1, bn + 1):
                 self.weaponlist[i]["breakage"].append(n + 10 * n)
 
+           # print(json.dumps(self.weaponlist[i], indent = 4))
+            logger.debug(f"{self.weaponlist[i]['item']} # {self.weaponlist[i]['breakage']}")
             # build strength
             s = self.weaponlist[i]["strength"].split("-")
             self.weaponlist[i]["strength"] = [randint(int(s[0]), int(s[1]))]
+            logger.debug(f"{self.weaponlist[i]['item']} # {self.weaponlist[i]['strength']}")
 
             if len(s) == 3:
                 self.weaponlist[i]["strength"].append(s[2])
 
             else:
                 self.weaponlist[i]["strength"].append("m")
+
+            logger.debug(json.dumps(self.weaponlist[i], indent = 4))
 
 
     def __rollInit(self):
@@ -707,7 +717,9 @@ class atWin(blankWindow):
         @retval broken a boolean whether the attackers weapon is broken or not
 
         ----
-        @todo the rest has to be implemented still
+        @todo the rest has to be implemented still:
+        - load list of weapon specs
+
         '''
         broken = False
         mod = {"w":5,
@@ -1710,7 +1722,7 @@ class atWin(blankWindow):
         @param combatant SC / NSC to check the physical condition for
         @param side of the combatant: attacker, defender
         ----
-        @todo - set background colors for entry boxes
+        @todo - set text colors for entry boxes
         """
         ## @var condition_color
         # this holds the physical condition as index and the resulting color as value.
@@ -1749,7 +1761,7 @@ class atWin(blankWindow):
         # this holds the remaining hit points in pecent
         hits = combatant['status']["hits"] / int(combatant["hits"]) * 100
 
-        if combatant["status"]["mod_total"] > 50:
+        if combatant["status"]["mod_total"] < -50:
             condbgcolor = condition_color["critical mod"]
 
             if side == "defender":
@@ -1758,7 +1770,7 @@ class atWin(blankWindow):
             elif side == "attacker":
                 self.__setBGColor(attrib = self.mod_at, bgcolor = condbgcolor)
 
-        elif combatant["status"]["mod_total"] > 20:
+        elif combatant["status"]["mod_total"] < -20:
             condbgcolor = condition_color["high mod"]
 
             if side == "defender":
@@ -1767,7 +1779,7 @@ class atWin(blankWindow):
             elif side == "attacker":
                 self.__setBGColor(attrib = self.mod_at, bgcolor = condbgcolor)
 
-        elif combatant["status"]["mod_total"] > 9:
+        elif combatant["status"]["mod_total"] < -9:
             condbgcolor = condition_color["medium mod"]
 
             if side == "defender":
@@ -1776,7 +1788,7 @@ class atWin(blankWindow):
             elif side == "attacker":
                 self.__setBGColor(attrib = self.mod_at, bgcolor = condbgcolor)
 
-        elif combatant["status"]["mod_total"] > 0:
+        elif combatant["status"]["mod_total"] < 0:
             condbgcolor = condition_color["low mod"]
 
             if side == "defender":
