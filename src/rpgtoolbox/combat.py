@@ -13,27 +13,27 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "09.10.2022"
+__updated__ = "21.10.2022"
 __me__ = "rpgtoolbox.combat"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __license__ = "GPL V3"
 
-import re
-import json
-import os
 from copy import deepcopy
 from pprint import pprint
+import json
+import os
+import re
 
-from rpgtoolbox.globaltools import splitExceptBetween as splitE
-from rpgtoolbox.globaltools import getCSVNames
-from rpgtoolbox.globaltools import sortTupleList
-from rpgtoolbox.rpgtools import dice
-from rpgtoolbox.lang import attackc, critc
-from rpgtoolbox.globaltools import *
 from rpgToolDefinitions.helptools import RMDice
 from rpgtoolbox import logbox as log
 from rpgtoolbox.confbox import *
+from rpgtoolbox.globaltools import *
+from rpgtoolbox.globaltools import getCSVNames, readCSV
+from rpgtoolbox.globaltools import sortTupleList
+from rpgtoolbox.globaltools import splitExceptBetween as splitE
+from rpgtoolbox.lang import attackc, critc
+from rpgtoolbox.rpgtools import dice
 
 mycnf = chkCfg()
 logger = log.createLogger('combat', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "combat.log")
@@ -594,15 +594,15 @@ class attacktable():
                 else:
                     self.attack[dummy[0].strip(" ")][header[j].strip(" ")] = dummy[j]
 
-
-    def showResult(self):
-        """!
-        This prints out the result simply to stdout
-        """
-        if self.crit == "":
-            print("Hits: {}".format(self.hits))
-        else:
-            print("Hits: {}\nCrit: {}\nType:{}".format(self.hits, self.crit, self.crittype))
+    #def showResult(self):
+    #    """!
+    #    This prints out the result simply to stdout . just a debug method.
+    #    """
+    #    if self.crit == "":
+    #        print("Hits: {}".format(self.hits))
+    #
+    #    else:
+    #        print("Hits: {}\nCrit: {}\nType:{}".format(self.hits, self.crit, self.crittype))
 
 
     def getHits(self, roll = 50, AT = "1", AS = "H"):
@@ -631,6 +631,7 @@ class attacktable():
             self.hits = int(self.attack[AT]["low"] + (roll - self.attack[AT]["start"]) / q)
 
         for c in "ABCDE":
+
             if roll >= self.attack[AT][c]:
                 self.crit = c
         if roll >= self.attack[AT]["first"]:
@@ -638,20 +639,26 @@ class attacktable():
 
         else:
             p = (roll - self.attack[AT]["start"]) % len(self.attack[AT]["pattern"])
+
             if self.attack[AT]["pattern"] != self.attack[AT]["pattern"].lower():
                 self.crittype = self.attack[AT]["pattern"][p]
+
             else:
                 self.crittype = self.attack[AT]["pattern"]
 
         # tables with tiny crits
         for c in ["TA", "TB", "TC", "TD", "TE"]:
+
             if c in self.attack[AT].keys():
+
                 if  self.attack[AT]["A"] > roll >= self.attack[AT][c]:
                     self.crit = c.strip("T")
                     self.crittype = "T"
 
         for c in ["F", "G", "H", "I"]:
+
             if c in self.attack[AT].keys():
+
                 if roll >= self.attack[AT][c]:
                     self.crit = c
 
@@ -666,36 +673,44 @@ class fumbletable():
     """
 
 
-    def __init__(self, tablefilename = "data/default/fight/fumble/combat_fumble.csv"):
+    def __init__(self, tablefilename = "data/default/fight/fumble/combat_fumble.csv", lang = "en"):
         """!
         Constructor
         @param tablefilename path+filename of the fumble table to read
         """
-        self.tablename = tablefilename
+        self.tablename = f"{tablefilename[:-4]}_{lang}{tablefilename[-4:]}"
+        #logger.info(f"get fumble table from {self.tablename}")
+        #self.fumbetypes = ['one-handed arms', 'two-handed arms', 'polearms and spears',
+        #                   'mounted arms', 'thrown arms', 'missile weapons',
+        #                   'MA strikes', 'MA sweeps', 'brawling', 'animal']
+
+        self.fumble = readCSV(self.tablename)
+        self.fumbletypes = list(self.fumble[0].keys())[1:]
 
 
-    def __getTable(self):
-        """!
-        This reads the fumble table from file an transfers it to the internal data structure
-
-        ----
-        @todo this has to be implemented fully
-        """
-        pass
-
-
-    def getResult(self, fumbletype = "1he", roll = 50):
+    def getResult(self, fumbletype = "one-handed arms", roll = 50):
         """!
         This method delivers the result from the fumble table by fumble type and
-        fumble roll.
+        fumble roll.It may be used for weapon and spell fumbles.
 
-        @param fumbletype type of the fumble
+        @param fumbletype type of the fumble concerning of the table header
         @param roll fumble roll result
+        @retval result string holding the result of the fumble
 
-        ----
-        @todo has to be fully implemented
         """
-        pass
+        result = ""
+
+        if fumbletype not in self.fumbletypes:
+            fubletype = 'brawling'
+            logger.warning(f"fumbletype not found! Set it to {fumbletype}")
+
+        for row in self.fumble:
+
+            if roll <= int(row["roll"]):
+                result = row[fumbletype]
+                break
+
+        return result
 
 
 

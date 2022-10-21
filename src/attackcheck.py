@@ -14,27 +14,29 @@ other opponents.
 \version 0.7
 '''
 __version__ = "0.7"
-__updated__ = "16.10.2022"
+__updated__ = "21.10.2022"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "RM RPG Tools: attack checker module"
 
-import os
-import json
+from copy import deepcopy
+from pprint import pformat
+from random import randint
 from tkinter import filedialog
 from tkinter.ttk import Combobox
-from pprint import pformat
-from copy import deepcopy
-from random import randint
-from rpgtoolbox.combat import *
+import json
+import os
+
+from PIL import Image, ImageTk
+
+from gui.window import *
 from rpgToolDefinitions.helptools import RMDice as Dice
 from rpgToolDefinitions.magic import magicpath
-from gui.window import *
 from rpgtoolbox import logbox as log
+from rpgtoolbox.combat import *
+from rpgtoolbox.confbox import *
 from rpgtoolbox.globaltools import *
 from rpgtoolbox.handlemagic import getSpellNames
-from PIL import Image, ImageTk
-from rpgtoolbox.confbox import *
 
 mycnf = chkCfg()
 logger = log.createLogger('AT-Window', 'info', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "attackcheck.log")
@@ -146,6 +148,8 @@ class atWin(blankWindow):
 
         logger.info("All weapon data loaded.")
 
+        self.fumble = fumbletable(lang = self.lang)
+
         #window components
         blankWindow.__init__(self, self.lang)
         self.window.title("Combat  Module")
@@ -213,8 +217,6 @@ class atWin(blankWindow):
     def openParty(self):
         '''!
         This method reads a character party group file to self.partygrp
-        ----
-        @Bug: "openPary: armquickpen" on newly crated party with armquickpen_error_group.json
         '''
 
         self.__partypath = askopenfilename(filetypes = self.fmaskc, initialdir = os.getcwd(), defaultextension = ".json")
