@@ -15,6 +15,26 @@ This module holds some nice small helper functions like I/O things.
 \todo checkout whether all functions are really needed for this project.
 '''
 
+from encodings import utf_8
+import csv
+import json
+import os
+import os.path
+
+import random as rd
+
+from . import logbox as log
+
+#from rpgtoolbox.confbox import *
+#import rpgtoolbox.confbox as cf
+#mycnf = cf.chkCfg()
+#logger = log.createLogger('global', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"] , logfile = 'globaltools.log')
+__version__ = "0.5.4"
+__updated__ = "29.10.2022"
+__author__ = "Marcus Schwamberger"
+__email__ = "marcus@lederzeug.de"
+__me__ = "global tools  module"
+
 __msg__ = {'ERR_NO_DATA': "ERROR: no data to compute :(",
            'ERR_NO_FILENAME': "ERROR: no file name :(",
            'ERR_WRONG_TYPE': "ERROR: wrong data/variable type",
@@ -22,18 +42,6 @@ __msg__ = {'ERR_NO_DATA': "ERROR: no data to compute :(",
            'OK': "OK: job is done :D"
           }
 
-from encodings import utf_8
-import os
-import os.path
-from . import logbox as log
-import csv
-import json
-import random as rd
-#from rpgtoolbox.confbox import *
-#import rpgtoolbox.confbox as cf
-
-#mycnf = cf.chkCfg()
-#logger = log.createLogger('global', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"] , logfile = 'globaltools.log')
 logger = log.createLogger('global', 'debug', '1 MB', 1, logpath = "./log/" , logfile = 'globaltools.log')
 
 
@@ -50,6 +58,30 @@ def sortDictlist(dictlist = [], key = "", reverse = True):
     result = sorted(dictlist, key = lambda k: k[key], reverse = reverse)
 
     return result
+
+
+
+def remDoubletsFromList(mylist = [1, 2, 2]):
+    """! This removes doublet entries from a list
+
+    @param mylist list to remove the doublets from
+    @retval result cleaned list
+    """
+    try:
+        result = list(set(mylist))
+        logger.debug("fast cleaning successful.")
+
+    except:
+        result = []
+
+        for elem in mylist:
+
+            if elem not in result:
+                result.append(elem)
+        logger.debug("slow cleaning successful.")
+
+    finally:
+        return result
 
 
 

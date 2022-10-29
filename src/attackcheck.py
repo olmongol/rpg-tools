@@ -14,7 +14,7 @@ other opponents.
 \version 0.7
 '''
 __version__ = "0.7"
-__updated__ = "21.10.2022"
+__updated__ = "23.10.2022"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "RM RPG Tools: attack checker module"
@@ -600,9 +600,6 @@ class atWin(blankWindow):
     def __prepareWL(self):
         '''!
         This method prepares the  self.weaponlist read from CSV file.
-
-        ----
-        @todo add logger entries
         '''
         logger.info("start preparing internal weapon list.")
 
@@ -762,10 +759,12 @@ class atWin(blankWindow):
         Windows throws FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Nillorian\\coding\\projects\\rpg-tools\\src\\data\\default\\pics\\bull.png'
         '''
         if attackerpic:
+            from PIL import Image, ImageTk
             self.picattacker = Image.open(attackerpic).resize((110, 110), Image.ANTIALIAS)
             self.picattacker = ImageTk.PhotoImage(self.picattacker)
             self.atcanvas.create_image((110, 110), image = self.picattacker, anchor = "se")
         if defenderpic:
+            from PIL import Image, ImageTk
             self.picdefender = Image.open(defenderpic).resize((110, 110), Image.ANTIALIAS)
             self.picdefender = ImageTk.PhotoImage(self.picdefender)
             self.defcanvas.create_image((110, 110), image = self.picdefender, anchor = "se")
@@ -1144,9 +1143,6 @@ class atWin(blankWindow):
     def __buildWin(self):
         """!
         This method builds the window content.
-
-        ----
-        @todo - Prepare specific entry boxes for changing bg colors
         """
 
         #------------ row 0

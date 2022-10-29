@@ -22,7 +22,7 @@ Currently supported languages are:
 @license GNU V3.0
 '''
 __version__ = "1.1"
-__updated__ = "13.02.2022"
+__updated__ = "29.10.2022"
 ##
 # @var supportedrpg
 # Supported RPG systems
@@ -240,6 +240,15 @@ txtbutton = {'but_ok': {'de': 'OK',
              'but_nxtrd': {'de': 'nächste\n Runde',
                            'en': 'next\n round',
                            },
+             "but_new_item": {"de":"neues Element",
+                               "en":"new item",
+                               },
+             "but_new_one":{"de": "Neuen hinzufügen",
+                            "en":"add new one",
+                            },
+             "but_add": {"de": "hinzufügen",
+                         "en": "add",
+                         },
              }
 
 ## @var txtmenu
@@ -305,6 +314,10 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                           'open_char': 'Charakterdatei öffnen',
                           'open_party': u'Charaktergruppe öffnen',
                           'open_enemy': u'Gegnergruppe öffnen',
+                          "save GM": "SL Tabelle (CSV) speichern",
+                          'open CP': "Kampagnentabelle öffnen",
+                          'new CP': "neue Kampagnentabelle",
+                          'save CP': "Kampagnentabelle speichern",
                           'print': 'Drucken',
                           'pdf': "PDF erstellen",
 
@@ -322,6 +335,10 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                           'open_file': 'Open Character file',
                           'open_party': 'Open Character Group file',
                           'open_enemy': 'Open Enemy Group file',
+                          'save GM':'save GM table',
+                          'open CP': "open campaign table",
+                          'new CP': "new campaign table",
+                          'save CP': "save campaign table",
                           'print': 'Print',
                           'pdf': "PDF generation",
 
@@ -362,6 +379,8 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                               "ed_rem_enemy": "Feinde entfernen",
                               "ed_sel_enemy": "NSC/Monster auswählen",
                               "ed_mod_enemy": "NSC/Monster modifizieren",
+                              "ed GM table": "NSC/Monster zur SL Tabelle hinzufügen",
+                              'ed choose CP': "NSCs für Kampagne auswählen",
                               'init': "Initativewurf",
                               "history": "Verlauf anzeigen",
                               },
@@ -383,6 +402,8 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                               "ed_rem_enemy": "remove enemies",
                               "ed_sel_enemy": "select npc/monster",
                               "ed_mod_enemy": "modify npc/monster",
+                              "ed GM table": "add npc/monster to GM table",
+                              'ed choose CP': "choose NPCs for campaign",
                               'init': "Initiative roll",
                               "history": "display history",
                                },
