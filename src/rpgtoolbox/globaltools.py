@@ -30,7 +30,7 @@ from . import logbox as log
 #mycnf = cf.chkCfg()
 #logger = log.createLogger('global', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"] , logfile = 'globaltools.log')
 __version__ = "0.5.4"
-__updated__ = "29.10.2022"
+__updated__ = "30.10.2022"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "global tools  module"
@@ -48,7 +48,7 @@ logger = log.createLogger('global', 'debug', '1 MB', 1, logpath = "./log/" , log
 
 def sortDictlist(dictlist = [], key = "", reverse = True):
     """!
-    This function sorts a list of ditionaries by the value of a key, which is  int float.
+    This function sorts a list of dictionaries by the value of a key.
 
     @param dictlist list of dictionaries to be sorted
     @param key if dicts by which it shall be sorted

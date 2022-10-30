@@ -231,7 +231,7 @@ class monstercreatorWin(blankWindow):
                                     values = self.NPCcat)
         self.__catCombo.bind("<<ComboboxSelected>>", self.__getCategory)
         self.__catCombo.bind("<FocusOut>", self.updateCurrentSet)
-        self.__catCombo.grid(row = 0, column = 2, sticky = W)
+        self.__catCombo.grid(row = 0, column = 2, sticky = "EW")
 
         Label(self.window,
               text = "Name:"
@@ -492,6 +492,7 @@ class monstercreatorWin(blankWindow):
                                   width = 4
                                   )
         self.__EntryEnc.bind("<FocusOut>", self.updateCurrentSet)
+        self.__EntryEnc.bind("<Return>", self.updateCurrentSet)
         self.__EntryEnc.grid(row = 5, column = 4, sticky = "EW")
         #------- row 6
         vscroll = Scrollbar(self.window, orient = VERTICAL)
@@ -552,10 +553,8 @@ class monstercreatorWin(blankWindow):
 
 
     def __updateWindow(self, event = None):
-        """!This updates all window widgets with data of the current dataset
-
-        ----
-        @todo this has to be implemented fully
+        """!
+        This updates all window widgets with data of the current data set
         """
         #------- update pic
         if self.__currDataSet["piclink"][:2] == "./":
@@ -612,7 +611,9 @@ class monstercreatorWin(blankWindow):
             self.__currDataSet["OB missile"] = "0xx"
 
         self.__currDataSet["enc"] = self.__enc.get()
+        print(f'DEBUG: {self.__currDataSet["name"]} {self.__currDataSet["enc"]}')
         self.__getComment()
+        self.GMcontent[self.__index] = deepcopy(self.__currDataSet)
 
 
     def __getCategory(self, event = None):
@@ -695,7 +696,8 @@ class monstercreatorWin(blankWindow):
             writer.writeheader()
 
             for entry in self.GMcontent:
-                writer.writerow(entry)
+                if entry["name"]:
+                    writer.writerow(entry)
 
         logger.info(f"{self.GMtable} written successfully")
         print(f"{self.GMtable} written successfully")
@@ -852,14 +854,16 @@ class showNPCWin(blankWindow):
         '''
         self.GMtable = GMtable
         self.GMtree = self.prepareDataForTreeview(self.GMtable)
-        self.NSCs = CPtable
-        self.CPtree = self.prepareDataForTreeview(self.NSCs)
+        self.NPCs = CPtable
+        self.CPtree = self.prepareDataForTreeview(self.NPCs)
         self.lang = lang
         self.datapath = datapath
         self.nscpath = nscpath
         self.nscpicpath = nscpicpath
         self.CPtable = f"{self.nscpath}/campaign.csv"
         self.__columns = ("category", "name", "lvl", "enc", "hits", "AT", "size")
+        self.__gmitem = {}
+        self.__cpitem = {}
 
         #---- window components
         blankWindow.__init__(self, self.lang)
@@ -943,9 +947,9 @@ class showNPCWin(blankWindow):
                                height = 20
                                )
         self.gmtree.grid(row = 0, column = 0, rowspan = 5, sticky = "NEWS")
-        oldcat = ""
-        catid = 0
-        cats = []
+        self.oldcat = ""
+        self.catid = 0
+        self.cats = {}
 
         #------- build header for self.gmtree
         self.gmtree.heading("#0", text = self.__columns[0])
@@ -955,7 +959,6 @@ class showNPCWin(blankWindow):
         #self.gmtree.column(self.__columns[1], minwidth = 0, width = 100, stretch = YES)
 
         for header in self.__columns[2:]:
-            print(f"DEBUG: {header}")
             self.gmtree.heading(header, text = header)
             self.gmtree.column(header, minwidth = 0, width = 50, stretch = NO)
 
@@ -967,26 +970,27 @@ class showNPCWin(blankWindow):
         #------- fill self.gmtree with content
         for elem in self.GMtree:
 
-            if elem[0] != oldcat:
-                oldcat = elem[0]
-                cats.append({oldcat:catid})
-                self.gmtree.insert('', END, iid = catid, text = oldcat, values = ("", "", "", "", "", ""))
-                self.gmtree.insert(catid, END, values = tuple(elem[1:]))
-                catid += 1
+            if elem[0] != self.oldcat:
+                self.oldcat = elem[0]
+                self.cats[self.oldcat] = self.catid
+                self.gmtree.insert('', END, iid = self.catid, text = self.oldcat)
+                self.gmtree.insert(self.catid, END, values = tuple(elem[1:]))
+                self.catid += 1
 
             else:
-                self.gmtree.insert(catid - 1, END, values = tuple(elem[1:]))
+                self.gmtree.insert(self.catid - 1, END, values = tuple(elem[1:]))
 
         self.gmtree.bind('<<TreeviewSelect>>', self.__GMItemSelected)
 
+        #------- column between the 2 treeviews
         Button(self.window,
                text = txtbutton["but_right"][self.lang],
-               command = self.notdoneyet
+               command = self.__pushToCP
                ).grid(row = 1, column = 2, sticky = "EW")
 
         Button(self.window,
                text = txtbutton["but_left"][self.lang],
-               command = self.notdoneyet
+               command = self.__remFromCP
                ).grid(row = 2, column = 2, sticky = "EW")
 
         #------- self.cptree for campaigns
@@ -1005,7 +1009,6 @@ class showNPCWin(blankWindow):
         #self.cptree.column(self.__columns[1], minwidth = 0, width = 100, stretch = YES)
 
         for header in self.__columns[2:]:
-            print(f"DEBUG: {header}")
             self.cptree.heading(header, text = header)
             self.cptree.column(header, minwidth = 0, width = 50, stretch = NO)
 
@@ -1015,32 +1018,41 @@ class showNPCWin(blankWindow):
         cpscrollbar.grid(row = 0, column = 4, rowspan = 5, sticky = "NS")
 
         #------- fill self.cptree with content
+        for catkey in self.cats.keys():
+            self.cptree.insert('', END, iid = self.cats[catkey], text = catkey)
+
         for elem in self.CPtree:
 
-            if elem[0] != oldcat:
-                oldcat = elem[0]
-                cats.append({oldcat:catid})
-                self.cptree.insert('', END, iid = catid, text = oldcat, values = ("", "", "", "", "", ""))
-                self.cptree.insert(catid, END, values = tuple(elem[1:]))
-                catid += 1
+            if elem[0] != self.oldcat:
+                self.oldcat = elem[0]
+
+                if self.oldcat not in self.cats.keys():
+                    self.cats[self.oldcat] = self.catid
+                    self.catid += 1
+
+                self.cptree.insert('', END, iid = self.cats[self.oldcat], text = self.oldcat)
+                self.cptree.insert(self.cats[self.oldcat], END, values = tuple(elem[1:]))
+                #self.catid += 1
 
             else:
-                self.cptree.insert(catid - 1, END, values = tuple(elem[1:]))
+                self.cptree.insert(self.catid - 1, END, values = tuple(elem[1:]))
 
         self.cptree.bind('<<TreeviewSelect>>', self.__CPItemSelected)
 
 
     def __GMItemSelected(self, event = None):
         """!This handles the detailed display of the selected treeview item
-
-        ----
-        @note currently it is a dummy method
-
-        @todo this has to be fully implemented
         """
+        self.__gmitem = []
+        self.__gm_parent_id = []
+
         for selected_item in self.gmtree.selection():
-            item = self.gmtree.item(selected_item)
-            print(json.dumps(item, indent = 3))
+
+            if self.gmtree.item(selected_item)["values"]:
+                self.__gmitem.append(self.gmtree.item(selected_item))
+                self.__gm_parent_id.append(self.gmtree.parent(selected_item))
+                print(f"DEBUG {json.dumps(self.__gmitem, indent = 3)}")
+                #print(f"DEBUG {selected_item}")
 
 
     def __CPItemSelected(self, event = None):
@@ -1051,9 +1063,40 @@ class showNPCWin(blankWindow):
 
         @todo this has to be fully implemented
         """
+        self.__cpitem = []
+
         for selected_item in self.cptree.selection():
-            item = self.cptree.item(selected_item)
-            print(json.dumps(item, indent = 3))
+            self.__cpitem.append(self.cptree.item(selected_item))
+            print(json.dumps(self.__cpitem, indent = 3))
+
+
+    def __pushToCP(self, event = None):
+        """!
+        This copies items from the GM NPC list / treeview to the campaign list / treeview
+        """
+        for i in range(0, len(self.__gmitem)):
+            values = self.__gmitem[i]["values"]
+
+            if not self.__existInTreeview(treeview = self.cptree, comparevalues = self.__gmitem[i]["values"]):
+                self.cptree.insert(self.__gm_parent_id[i], END, values = tuple(values))
+
+            #------- find in GMtable
+            for npc in self.GMtable:
+                if npc["name"] == values[0] and npc["lvl"] == str(values[1]) and npc not in self.NPCs:
+                    self.NPCs.append(npc)
+                    logger.debug(f"{npc['name']} added to campaign list")
+                    self.NPCs = sortDictlist(self.NPCs, "category", False)
+                    break
+
+
+    def __remFromCP(self, event = None):
+        """!
+        This removes items from the campaign list / treeview
+        """
+        rowid = self.cptree.focus()
+
+        if 'I' in rowid:
+            self.cptree.delete(rowid)
 
 
     def __newCPTable(self, event = None):
@@ -1066,6 +1109,31 @@ class showNPCWin(blankWindow):
         self.notdoneyet("__newCPTable")
 
 
+    def __existInTreeview(self, treeview, comparevalues = []):
+        """!This checks if a value set already exists in a treeview widget
+
+        @param treeview treeview widget to check
+        @param comparevalues values to check for existence in the treeview
+
+        @return result is a boolean with indicates if comparevalues found in the treeview
+        """
+        toplvl = treeview.get_children()
+
+        for parents in toplvl:
+            children = treeview.get_children(parents)
+
+            for child in children:
+                logger.debug("working on {child}/{children}")
+                values = treeview.item(child)["values"]
+
+                if comparevalues == values:
+                    logger.debug(f"found {comparevalues} in treeview")
+                    return True
+
+        logger.debug(f"does not find {comparevalues} in treeview")
+        return False
+
+
     def __openCPTable(self):
         """!
         This loads a campaign NSC/monster file
@@ -1073,13 +1141,16 @@ class showNPCWin(blankWindow):
 
         loadCP = filedialog.askopenfilename(defaultextension = ".csv", filetypes = [("Table Files", ".csv")])
         self.NPCs = readCSV(loadCP)
+        self.CPtree = self.prepareDataForTreeview(self.NPCs)
         logger.info(f"{loadCP} loaded successfully.")
+        self.__updateDataLists()
 
 
     def __saveCPTable(self, filename = ""):
         '''
         This saves all data in the CP (campaign) table
         '''
+        #print(f"DEBUG: save {json.dumps(self.NPCs,indent=4)}")
         if self.NPCs != []:
 
             if not filename:
@@ -1089,11 +1160,13 @@ class showNPCWin(blankWindow):
                 self.CPtable = filename
 
             with open(self.CPtable, "w") as csvfile:
-                writer = csv.DictWriter(f = csvfile, fieldnames = self.__header)
+                writer = csv.DictWriter(f = csvfile, fieldnames = list(self.NPCs[0].keys()))
                 writer.writeheader()
 
                 for entry in self.NPCs:
-                    writer.writerow(entry)
+
+                    if entry["name"]:
+                        writer.writerow(entry)
 
             logger.info(f"{self.CPtable} saved successfully.")
 
@@ -1105,7 +1178,7 @@ class showNPCWin(blankWindow):
         @param fields fields for the tuples in result
         @retval result list for treeview
         """
-        print(json.dumps(dictlist, indent = 4))
+        #print(json.dumps(dictlist, indent = 4))
         result = []
 
         if dictlist:
@@ -1145,7 +1218,25 @@ class showNPCWin(blankWindow):
         ----
         @todo this has ti be fully implemented
         """
-        pass
+        #for catkey in self.cats.keys():
+        #    self.cptree.insert('', END, iid = self.cats[catkey], text = catkey)
+
+        for elem in self.CPtree:
+
+            if elem[0] != self.oldcat:
+                self.oldcat = elem[0]
+
+                if self.oldcat not in self.cats.keys():
+                    print(f"DEBUG: updtdlist {json.dumps(self.cats,indent=3)}")
+                    self.cats[self.oldcat] = self.catid
+                    self.cptree.insert('', END, iid = self.cats[self.oldcat], text = self.oldcat)
+                    self.catid += 1
+
+                self.cptree.insert(self.cats[self.oldcat], END, values = tuple(elem[1:]))
+                #self.catid += 1
+
+            else:
+                self.cptree.insert(self.catid - 1, END, values = tuple(elem[1:]))
 
 
 
