@@ -938,7 +938,8 @@ class showNPCWin(blankWindow):
         This method builds the window content.
 
         ----
-        @todo This has to be fully implemented
+        @todo This has to be fully implemented:
+        - magic / spell lists are still missing
         """
 
         self.gmtree = Treeview(self.window,
@@ -953,10 +954,8 @@ class showNPCWin(blankWindow):
 
         #------- build header for self.gmtree
         self.gmtree.heading("#0", text = self.__columns[0])
-        #self.gmtree.column("#0", minwidth = 0, width = 100, stretch = YES)
 
         self.gmtree.heading(self.__columns[1], text = self.__columns[1])
-        #self.gmtree.column(self.__columns[1], minwidth = 0, width = 100, stretch = YES)
 
         for header in self.__columns[2:]:
             self.gmtree.heading(header, text = header)
@@ -1003,10 +1002,8 @@ class showNPCWin(blankWindow):
 
         #------- build header for self.cptree
         self.cptree.heading("#0", text = self.__columns[0])
-        #self.cptree.column("#0", minwidth = 0, width = 100, stretch = YES)
 
         self.cptree.heading(self.__columns[1], text = self.__columns[1])
-        #self.cptree.column(self.__columns[1], minwidth = 0, width = 100, stretch = YES)
 
         for header in self.__columns[2:]:
             self.cptree.heading(header, text = header)
@@ -1051,7 +1048,7 @@ class showNPCWin(blankWindow):
             if self.gmtree.item(selected_item)["values"]:
                 self.__gmitem.append(self.gmtree.item(selected_item))
                 self.__gm_parent_id.append(self.gmtree.parent(selected_item))
-                print(f"DEBUG {json.dumps(self.__gmitem, indent = 3)}")
+                #print(f"DEBUG {json.dumps(self.__gmitem, indent = 3)}")
                 #print(f"DEBUG {selected_item}")
 
 
@@ -1067,7 +1064,7 @@ class showNPCWin(blankWindow):
 
         for selected_item in self.cptree.selection():
             self.__cpitem.append(self.cptree.item(selected_item))
-            print(json.dumps(self.__cpitem, indent = 3))
+            #print(json.dumps(self.__cpitem, indent = 3))
 
 
     def __pushToCP(self, event = None):
@@ -1082,6 +1079,7 @@ class showNPCWin(blankWindow):
 
             #------- find in GMtable
             for npc in self.GMtable:
+
                 if npc["name"] == values[0] and npc["lvl"] == str(values[1]) and npc not in self.NPCs:
                     self.NPCs.append(npc)
                     logger.debug(f"{npc['name']} added to campaign list")
@@ -1094,9 +1092,17 @@ class showNPCWin(blankWindow):
         This removes items from the campaign list / treeview
         """
         rowid = self.cptree.focus()
+        values = self.cptree.item(rowid)["values"]
 
         if 'I' in rowid:
             self.cptree.delete(rowid)
+
+        for elem in self.NPCs:
+
+            if elem["name"] == values[0] and elem["lvl"] == str(values[1]):
+                self.NPCs.remove(elem)
+                logger.debug(f"removed {elem['name']} from list.")
+                break
 
 
     def __newCPTable(self, event = None):
