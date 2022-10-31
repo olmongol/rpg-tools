@@ -14,7 +14,7 @@ master DB where creatures can be chosen from for individual campaigns.
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "30.10.2022"
+__updated__ = "31.10.2022"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "RM RPG Tools: nsc/monster creator module"
@@ -45,6 +45,13 @@ logger = log.createLogger('Monster', 'debug', '1 MB', 1, logpath = mycnf.cnfpara
 class monstercreatorWin(blankWindow):
     """!
     This class generates a GUI to enter NSCs, monsters etc.
+
+    ----
+    @todo The following has to be implemented:
+    - display of magic abilities (spell lists & level
+    - adding magic abilities by choice
+    - editing magic abilities
+    - speed
     """
 
 

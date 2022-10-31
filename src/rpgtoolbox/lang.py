@@ -22,7 +22,7 @@ Currently supported languages are:
 @license GNU V3.0
 '''
 __version__ = "1.1"
-__updated__ = "29.10.2022"
+__updated__ = "31.10.2022"
 ##
 # @var supportedrpg
 # Supported RPG systems
@@ -171,6 +171,8 @@ txtbutton = {'but_ok': {'de': 'OK',
              'but_next':{'de': 'weiter',
                           'en': 'next',
                           },
+             'but_next_at': {"de": "nächster \nAngreifer",
+                             "en": "next \nattacker"},
              'but_back': {'de': 'zur\xc3\xbcck',
                            'en': 'back',
                            },

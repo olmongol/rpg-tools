@@ -11,10 +11,10 @@ other opponents.
 \copyright GNU V3.0
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
-\version 0.7
+\version 0.9
 '''
-__version__ = "0.7"
-__updated__ = "30.10.2022"
+__version__ = "0.9"
+__updated__ = "31.10.2022"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "RM RPG Tools: attack checker module"
@@ -51,14 +51,13 @@ class atWin(blankWindow):
 
     ----
     @todo
-    - change bg color by level of damage
     - adding/deleting single NSCs/monsters to/from loaded groups (from pool file)
     - adding/deleting single character to/from loaded group
     - selection of chars/ncs for fight
-
-    ----
-    @bug
-    - reload after kill or loading enemy groups does not work properly
+    - adding fight with magic
+    - use ranges for missile attacks
+    - use breakage tests
+    - add fumble checks
     """
 
 
@@ -94,11 +93,13 @@ class atWin(blankWindow):
         # and all information about the weapon (such as fumble or breaking numbers)
         self.weapontab = getWeaponTab()
         logger.info("Weapon tables successfully read.")
+
         self.curr_attacker = 0
         self.curr_defender = 0
         self.__oblist = []
         self.defaultnscimg = datadir + "/pics/default.jpg"
         logger.debug(f"default image set to {self.defaultnscimg}")
+
         self.fmask = [txtwin['grp_files'][self.lang],
                      txtwin['enemygrp_files'][self.lang],
                      txtwin['all_files'][self.lang]]
@@ -275,7 +276,7 @@ class atWin(blankWindow):
         @todo - <strike>append NSCs/Monsters if the enc >1</strike>
               - immunity list
               - weakness list
-
+              - set max level of attack
         '''
         size = "H"
         self.enemygrp = createCombatList(self.enemygrp)
@@ -375,7 +376,6 @@ class atWin(blankWindow):
                     wt[j] = wt[j].split("/")
 
             # xxxx spell lists path/sl:lvl;path/sl:lvl[;...]
-
             # spells need to have the format: "Channeling Open/Barrier Law:5;<next list>"
             if "spells" in self.enemygrp[i].keys():
                 spelldummy = self.enemygrp[i]["spells"].split(";")
@@ -674,7 +674,9 @@ class atWin(blankWindow):
 
             #if elem['name'] not in self.attackers:
             #    self.attackers.append(elem["name"])
-            if elem["status"]["hits"] > 0 and elem["status"]["ooo"] == 0:
+            if elem["status"]["hits"] > 0 and elem["status"]["ooo"] == 0 and \
+            elem["status"]["die"] != 0 and elem["status"]["parry"] == 0 and \
+            elem["status"]["no_parry"] == 0 and elem["status"]["stunned"] == 0:
 
                 if elem["name"] not in self.attackers:
                     self.attackers.append(elem["name"])
@@ -797,10 +799,6 @@ class atWin(blankWindow):
     def __applyDamage(self, event = None):
         '''!
         This method applies all modifications by a hit/critical hit to a combatant.
-
-        ----
-        @todo has to be fully implemented
-
         '''
         self.curr_defender = self.__selectDefender.get()
         self.curr_attacker = self.__selectAttacker.get()
@@ -849,8 +847,14 @@ class atWin(blankWindow):
         '''!
         This method updates the list of the self.__attackCombo combobox and the
         other widgets concerned by the attacker
-        ----
         '''
+        for attacker in self.attackers:
+            at = self.__findCombatant(name = attacker, chklist = self.initlist)
+
+            if int(at["status"]["hits"]) < 1 or int(at["status"]["die"]) == 0 or \
+            int(at["status"]["no_parry"]) or int(at["status"]["parry"]) or \
+            int(at["status"]["ooo"]) or int(at["status"]["stunned"]):
+                self.attackers.remove(attacker)
 
         self.__attackCombo.configure(values = self.attackers)
 
@@ -883,6 +887,9 @@ class atWin(blankWindow):
         if ob[0] in self.atlist:
             self.__selectAT.set(ob[0])
             self.__skill.set(ob[1])
+
+            if len(ob) > 2:
+                self.__maxlvl.set(ob[2])
 
         self.__lvlAttacker.set(f"Lvl: {at['lvl']}")
         self.__curHPAttacker.set(f"HP: {at['status']['hits']}/{at['hits']}")
@@ -994,7 +1001,7 @@ class atWin(blankWindow):
             if (self.initlist[i]["status"]["hits"] < 1 or self.initlist[i]["status"]["die"] == 0):
                 rm.append(self.initlist[i]["name"])
 
-        # remove killed NSCs/Monster
+        # remove killed NSCs/Monster/Characters
         for combatant in rm:
             self.__rmCombatant(name = combatant)
 
@@ -1305,6 +1312,11 @@ class atWin(blankWindow):
         #------------ row 2
         self.__selectType = StringVar()
         self.__selectType.set(attacktypes[self.lang][0])
+        ## @var self.__typeCombo
+        # This Combobox gives a selection of which type of attack is chosen:
+        # - melee
+        # - missile
+        # - magic
         self.__typeCombo = Combobox(self.window,
                                     textvariable = self.__selectType,
                                     values = attacktypes[self.lang])
@@ -1312,14 +1324,11 @@ class atWin(blankWindow):
         self.__typeCombo.grid(row = 2, column = 1, sticky = W)
 
         #---------- row 3
-        #self.__selectSkill = StringVar()
-        #self.__skillCombo = Combobox(self.window,
-        #                            textvariable = self.__selectSkill,
-        #                            values = ["--"])
-        #self.__skillCombo.bind("<<ComboboxSelected>>", self.__getAttackType)
 
         self.__selectOB = StringVar()
         self.__selectOB.set("Battle_Axe")
+        ## @var self.__obCombo
+        # This Combobox gives a selection of  offensive bonus/skill
         self.__obCombo = Combobox(self.window,
                         textvariable = self.__selectOB,
                         values = ["Battle_Axe"])
@@ -1345,6 +1354,8 @@ class atWin(blankWindow):
         self.healings = ["hits", "hits/rnd", "stunned", "ooo", "mod_total", "die"]
         self.__selectHeal = StringVar()
         self.__selectHeal.set(self.healings[1])
+        ## @var self.__healCombo
+        # This Combobox gives a selection of  different type of healings during the battle
         self.__healCombo = Combobox(self.window,
                                    textvariable = self.__selectHeal,
                                    values = self.healings)
@@ -1366,6 +1377,8 @@ class atWin(blankWindow):
         #------------ row 6
         self.__selectAttacker = StringVar()
         self.__selectAttacker.set("Egon")
+        ## @var self.__attackCombo
+        # This Combobox gives a selection of attackers during the battle
         self.__attackCombo = Combobox(self.window,
                                       textvariable = self.__selectAttacker,
                                       values = self.attackers)
@@ -1376,6 +1389,8 @@ class atWin(blankWindow):
 
         self.__selectDefender = StringVar()
         self.__selectDefender.set("Anton")
+        ## @var self.__defendCombo
+        # This Combobox gives a selection of defenders during the battle
         self.__defendCombo = Combobox(self.window,
                                       textvariable = self.__selectDefender,
                                       values = self.defenders)
@@ -1387,6 +1402,11 @@ class atWin(blankWindow):
                text = txtbutton["but_nxtrd"][self.lang],
                command = self.__nextRnd
                ).grid(column = 0, row = 7, rowspan = 3, sticky = "EW")
+
+        Button(self.window,
+               text = txtbutton["but_next_at"][self.lang],
+               command = self.__nextAttacker
+               ).grid(column = 1, row = 7, rowspan = 3, sticky = "EW")
         #------------ row 8
 
         #------------ row 9
@@ -1403,6 +1423,8 @@ class atWin(blankWindow):
         self.atlist.sort()
         self.__selectAT = StringVar()
         self.__selectAT.set(self.atlist[0])
+        ## @var self.__ATOptCombo
+        # This Combobox gives a selection of Attack Tables (weapons etc)
         self.__ATOpt = Combobox(self.window,
                                  values = self.atlist,
                                  textvariable = self.__selectAT,
@@ -1458,6 +1480,8 @@ class atWin(blankWindow):
 
         self.__maxlvl = StringVar()
         self.__maxlvl.set("H")
+        ## @var self.__maxOpt
+        # This Combobox gives a selection of the maximum level of an attack
         self.__maxOpt = Combobox(self.window,
                                  values = ["S", "M", "L", "H"],
                                  textvariable = self.__maxlvl,
@@ -1584,6 +1608,32 @@ class atWin(blankWindow):
                                   )
         vscroll.config(command = self.__displayCrit.yview)
         self.__displayCrit.grid(column = 0, columnspan = 12, row = 13, sticky = "NEWS")
+
+
+    def __nextAttacker(self, event = None):
+        """!Gets the next attacker if any from the init list (on button click)"""
+        self.__updtAttckCombo()
+        self.curr_attacker = self.__selectAttacker.get()
+
+        if self.curr_attacker in self.__attackCombo["values"]:
+            self.__pos = self.__attackCombo["values"].index(self.curr_attacker)
+
+        while self.__pos < len(self.__attackCombo["values"]) - 1:
+            at = self.__findCombatant(name = self.curr_attacker, chklist = self.initlist)
+            print(f"DEBUG: {json.dumps(at,indent=4)}")
+
+            if int(at["status"]["hits"]) < 1 or int(at["status"]["die"]) == 0 or \
+            int(at["status"]["no_parry"]) > 0 or int(at["status"]["parry"]) > 0 or \
+            int(at["status"]["ooo"]) > 0 or int(at["status"]["stunned"]) > 0:
+                self.__pos += 1
+                print(f"DEBUG: found {at['name']}")
+
+            else:
+                self.__pos += 1
+
+                self.__selectAttacker.set(self.__attackCombo["values"][self.__pos])
+                self.__updtAttckCombo()
+                break
 
 
     def checkAttack(self):
