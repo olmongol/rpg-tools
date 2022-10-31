@@ -208,6 +208,8 @@ class atWin(blankWindow):
                                   command = self.notdoneyet)
         self.editmenu.add_command(label = submenu['edit'][self.lang]["ed_rem_enemy"],
                                   command = self.notdoneyet)
+        self.editmenu.add_command(label = submenu['edit'][self.lang]["ed_heal_char"],
+                                  command = self.notdoneyet)
         self.editmenu.add_command(label = submenu['edit'][self.lang]["init"],
                                   command = self.__rollInit)
         self.editmenu.add_command(label = submenu["edit"][self.lang]["history"],
@@ -600,9 +602,15 @@ class atWin(blankWindow):
     def __prepareWL(self):
         '''!
         This method prepares the  self.weaponlist read from CSV file.
+
+        ----
+        @todo magical and elemental attacks have to be added.
         '''
         logger.info("start preparing internal weapon list.")
 
+        self.weaponindex = {"melee":[],
+                           "missile":[],
+                           "magic":[]}
         for i in range(0, len(self.weaponlist)):
 
             # move '---' to None
@@ -628,7 +636,7 @@ class atWin(blankWindow):
             for n in range(1, bn + 1):
                 self.weaponlist[i]["breakage"].append(n + 10 * n)
 
-           # print(json.dumps(self.weaponlist[i], indent = 4))
+            print(json.dumps(self.weaponlist[i], indent = 4))
             logger.debug(f"{self.weaponlist[i]['item']} # {self.weaponlist[i]['breakage']}")
             # build strength
             s = self.weaponlist[i]["strength"].split("-")
@@ -1149,6 +1157,22 @@ class atWin(blankWindow):
         self.__updtAttckCombo(event = None)
 
 
+    def __applyHealingOthers(self, event = None):
+        """!
+        This method applies healing to the combatant
+
+        @param event UI event given but not used
+        """
+        self.curr_defender = self.__selectDefender.get()
+        at = self.__findCombatant(name = self.curr_defender, chklist = self.initlist, result = "index")
+        key = self.__selectHeal.get()
+        value = self.__healingpoints.get()
+        self.initlist[at]["status"][key] += value
+        print(f"DEBUG: {self.initlist[at]['name']} {key}: {self.initlist[at]['status'][key]}")
+        #self.__updtAttckCombo(event = None)
+        self.__updDefCombo(event = None)
+
+
     def __buildWin(self):
         """!
         This method builds the window content.
@@ -1374,6 +1398,10 @@ class atWin(blankWindow):
                command = self.__applyHealing
                ).grid(column = 3, row = 5, sticky = "EW")
 
+        Button(self.window,
+               text = txtbutton["but_heal"][self.lang],
+               command = self.__applyHealingOthers
+               ).grid(column = 4, row = 5, sticky = "EW")
         #------------ row 6
         self.__selectAttacker = StringVar()
         self.__selectAttacker.set("Egon")
