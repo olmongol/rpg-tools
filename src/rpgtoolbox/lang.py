@@ -22,7 +22,7 @@ Currently supported languages are:
 @license GNU V3.0
 '''
 __version__ = "1.1"
-__updated__ = "31.10.2022"
+__updated__ = "06.11.2022"
 ##
 # @var supportedrpg
 # Supported RPG systems
@@ -254,6 +254,19 @@ txtbutton = {'but_ok': {'de': 'OK',
              "but_heal":{"de":"heilen",
                           "en":"heal",
                           },
+             "but_edit_imune":{"de": "Imunitäten bearbeiten",
+                              "en": "edit imunities"
+                              },
+             "but_edit_weak": {"de": "Schwächen bearbeiten",
+                              "en": "edit weaknesses"},
+             "but_edit_magic": {"de": "Magietalente bearbeiten",
+                                "en": "edit magic skill"},
+             "but_show_magic":{"de": "Magietalente anzeigen",
+                               "en": "show magic skills"
+                               },
+             "but_show_overview":{"de": "Übersicht \nanzeigen",
+                                  "en": "show \n overview",
+                                 },
              }
 
 ## @var txtmenu
@@ -380,13 +393,14 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                               'show_char': 'Charakteransicht',
                               'ed_EP': "EPs editieren",
                               'ed_BGO': "Hintergrundoptionen",
-                              "ed_add_enemy": u"Feinde hinzufügen",
-                              "ed_rem_enemy": "Feinde entfernen",
+                              "ed_add_enemy": u"NSC/Monsterhinzufügen",
+                              "ed_rem_enemy": "NSC/Monster entfernen",
                               "ed_sel_enemy": "NSC/Monster auswählen",
                               "ed_mod_enemy": "NSC/Monster modifizieren",
                               "ed GM table": "NSC/Monster zur SL Tabelle hinzufügen",
                               'ed choose CP': "NSCs für Kampagne auswählen",
                               "ed_heal_char": "Charakter heilen",
+                              "ed_show_NPCs": "NSC-Liste anzeigen",
                               'init': "Initativewurf",
                               "history": "Verlauf anzeigen",
                               },
@@ -404,13 +418,14 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                               'statgain': 'Stat Gain Roll',
                               'ed_EP': "edit EPs",
                               'ed_BGO': 'background options',
-                              "ed_add_enemy": "add enemies",
-                              "ed_rem_enemy": "remove enemies",
+                              "ed_add_enemy": "add npc/monster",
+                              "ed_rem_enemy": "remove npc/monster",
                               "ed_sel_enemy": "select npc/monster",
                               "ed_mod_enemy": "modify npc/monster",
                               "ed GM table": "add npc/monster to GM table",
                               'ed choose CP': "choose NPCs for campaign",
                               "ed_heal_char": "heal character",
+                              "ed_show_NPC": "show NPC list",
                               'init': "Initiative roll",
                               "history": "display history",
                                },
@@ -824,6 +839,10 @@ labels = {'cfg_path': {'de': 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei',
           'ooo':{'de': "außer Gefecht",
                  'en': 'knocked out'
                  },
+          'avail magic': {"de": "verfügbare Spruchlisten",
+                          "en": "available spell list"},
+          'selected magic': {"de": "gewählte Spruchlisten",
+                             "en": "selected spell lists"},
           }
 
 invedtacts = {"de": [u"wählen", u"ausgerüstet", "unausgerüstet"],
@@ -1356,3 +1375,5 @@ rrtypes = {"param": ['RRArc', 'RRC/E', 'RRC/M', 'RRChan', 'RRDisease', 'RRE/M', 
 # End of block
 #----------------------------------------------------------------------------
 
+immunities = {"en": [("stun", "stun"), ("ooo", "knock out"), ("hits/rnd", "bleeding"), ("poison", "poison"), ("normal", "normal weapons")],
+              "de": [("stun", "Benommenheit"), ("ooo", "KO"), ("hits/rnd", "Blutung"), ("poison", "Gift"), ("normal", "normale Waffen")]}

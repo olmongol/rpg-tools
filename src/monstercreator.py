@@ -14,14 +14,14 @@ master DB where creatures can be chosen from for individual campaigns.
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "31.10.2022"
+__updated__ = "06.11.2022"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "RM RPG Tools: nsc/monster creator module"
 
 from copy import deepcopy
+from glob import glob
 from tkinter import filedialog
-#from tkinter.ttk import Combobox, Treeview, Scrollbar
 from tkinter.ttk import *
 import csv
 import json
@@ -37,6 +37,7 @@ from rpgtoolbox.confbox import *
 from rpgtoolbox.globaltools import *
 from rpgtoolbox.handlemagic import getSpellNames
 
+#from tkinter.ttk import Combobox, Treeview, Scrollbar
 mycnf = chkCfg()
 logger = log.createLogger('Monster', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "monstercreator.log")
 
@@ -188,8 +189,10 @@ class monstercreatorWin(blankWindow):
         self.editmenu.add_separator()
         self.editmenu.add_command(label = submenu['edit'][self.lang]["ed GM table"],
                                   command = self.__newElement)
-        #self.editmenu.add_command(label = submenu['edit'][self.lang]["ed GM table"],
-        #                          command = self.notdoneyet)
+        self.editmenu.add_command(label = submenu['edit'][self.lang]["ed_rem_enemy"],
+                                  command = self.notdoneyet)
+        self.editmenu.add_command(label = submenu['edit'][self.lang]["ed_show_NPC"],
+                                  command = self.notdoneyet)
         #self.editmenu.add_command(label = submenu["edit"][self.lang]["history"],
         #                          command = self.notdoneyet)
         logger.debug("edit menu build")
@@ -501,6 +504,17 @@ class monstercreatorWin(blankWindow):
         self.__EntryEnc.bind("<FocusOut>", self.updateCurrentSet)
         self.__EntryEnc.bind("<Return>", self.updateCurrentSet)
         self.__EntryEnc.grid(row = 5, column = 4, sticky = "EW")
+
+        Button(self.window,
+               text = txtbutton["but_edit_magic"][self.lang],
+               command = self.__editMagic
+               ).grid(row = 5, column = 5, columnspan = 2, sticky = "NEW")
+
+        Button(self.window,
+               text = txtbutton["but_show_magic"][self.lang],
+               command = self.__editMagic
+               ).grid(row = 5, column = 7, columnspan = 2, sticky = "NEW")
+
         #------- row 6
         vscroll = Scrollbar(self.window, orient = VERTICAL)
         self.__displayComment = Text(self.window,
@@ -509,8 +523,64 @@ class monstercreatorWin(blankWindow):
                                   )
         vscroll.config(command = self.__displayComment.yview)
         self.__displayComment.bind("<FocusOut>", self.updateCurrentSet)
-        self.__displayComment.grid(row = 6, rowspan = 3, column = 2, columnspan = 3, sticky = "NEWS")
+        self.__displayComment.grid(row = 6, rowspan = 4, column = 2, columnspan = 3, sticky = "NEWS")
         self.__insertComment()
+
+        Button(self.window,
+               text = txtbutton["but_edit_imune"][self.lang],
+               command = self.__editImunities
+               ).grid(row = 6, column = 5, columnspan = 2, sticky = "NEW")
+
+        #------- row 7
+        self.__LabelImunities = Label(self.window,
+                                      text = self.__currDataSet["immune"]
+                                      )
+        self.__LabelImunities.grid(row = 7, column = 5, rowspan = 4, sticky = "NEWS")
+
+        #------- row 8
+        Button(self.window,
+               text = txtbutton["but_edit_weak"][self.lang],
+               command = self.__editWeaknesses
+               ).grid(row = 8, column = 5, columnspan = 2, sticky = "NEW")
+
+        #------- row 9
+        self.__LabelWeaknesses = Label(self.window,
+                                       text = self.__currDataSet["weakness"])
+        self.__LabelWeaknesses.grid(row = 9, column = 5, columnspan = 4, sticky = "NEWS")
+
+
+    def __editImunities(self, event = None):
+        """!This opens a window to edit Imunities of NPCs / beasts
+
+        ----
+        @todo this has to be fully implemented
+        """
+        self.notdoneyet("__editImunities")
+
+
+    def __editWeaknesses(self, event = None):
+        """!This opens a window to edit Weaknesses of NPCs / beasts
+
+        ----
+        @todo this has to be fully implemented
+        """
+        self.notdoneyet("__editWeaknesses")
+
+
+    def __editMagic(self, event = None):
+        """!This opens a window to edit magic skills of NPCs / beasts
+
+        ----
+        @todo this has to be fully implemented"""
+        self.magicWin = magicSelectorWin(lang = self.lang, datapath = self.datapath, magicstring = self.__currDataSet["spells"])
+
+
+    def __showMagic(self, event = None):
+        """!This opens a window to show magic skills of NPCs / beasts
+
+        ----
+        @todo this has to be fully implemented"""
+        self.notdoneyet("__showMagic")
 
 
     def __newElement(self, even = None):
@@ -523,7 +593,6 @@ class monstercreatorWin(blankWindow):
             self.__index = len(self.GMcontent) - 1
             self.__currDataSet = deepcopy(self.__datatemplate)
             self.__updateWindow()
-        pass
 
 
     def __insertComment(self, event = None):
@@ -541,6 +610,8 @@ class monstercreatorWin(blankWindow):
         """!
         This moves to the previous NSC / beast in the GM master table
         """
+        self.updateCurrentSet()
+
         if self.__index > 0:
             self.__index -= 1
             self.GMcontent[self.__index + 1] = deepcopy(self.__currDataSet)
@@ -552,6 +623,8 @@ class monstercreatorWin(blankWindow):
         """!
         This moves to the previous NSC / beast in the GM master table
         """
+        self.updateCurrentSet()
+
         if self.__index < len(self.GMcontent) - 1:
             self.__index += 1
             self.GMcontent[self.__index - 1] = deepcopy(self.__currDataSet)
@@ -595,6 +668,8 @@ class monstercreatorWin(blankWindow):
         self.__obstringmis.set(self.__currDataSet["OB missile"])
         self.__enc.set(self.__currDataSet["enc"])
         self.__insertComment()
+        self.__LabelImunities.config(text = self.__currDataSet['immune'])
+        self.__LabelWeaknesses.config(text = self.__currDataSet["weakness"])
 
 
     def updateCurrentSet(self, event = None):
@@ -1222,6 +1297,7 @@ class showNPCWin(blankWindow):
         ----
         @todo has to be fully implemented
         """
+
         pass
 
 
@@ -1250,6 +1326,262 @@ class showNPCWin(blankWindow):
 
             else:
                 self.cptree.insert(self.catid - 1, END, values = tuple(elem[1:]))
+
+
+
+class magicSelectorWin(blankWindow):
+    """!
+    This generates a window to select spell lists and determine their level for a NPC
+    or a beast.
+    """
+
+
+    def __init__(self, lang = "en", datapath = "./data", magicstring = ""):
+        """!
+        Constructor
+
+        @param datapath configured data path
+        @param magicstring string that holds the spell lists and levels
+        """
+        self.lang = lang
+        self.__datapath = datapath
+        self.magicstring = magicstring
+        print(f"DEBUG (init): datapath {datapath}")
+
+        if self.__datapath[:2] == "./":
+            self.__datapath = os.getcwd() + self.__datapath[1:]
+
+        if  "/magic" not in self.__datapath:
+            self.__datapath = self.__datapath.rstrip("/") + "/magic"
+        self.__loadMagic()
+        self.__prepSelectedMagic()
+
+        #---- window components
+        blankWindow.__init__(self, self.lang)
+        self.window.title("NSC/Monster Magic Selector")
+        self.__addFileMenu()
+        self.__addEditMenu()
+        self.__addHelpMenu()
+        self.__buildWin()
+        self.window.mainloop()
+
+        pass
+
+
+    def __addHelpMenu(self):
+        """
+        This methods defines a help menu.
+        """
+        self.helpmenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['help'][self.lang],
+                              menu = self.helpmenu)
+
+        self.helpmenu.add_separator()
+        self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
+                                  command = self._helpAbout)
+        logger.debug("help menu build")
+
+
+    def __addFileMenu(self):
+        '''!
+        This methods adds the menu bar to the window
+        '''
+        self.filemenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
+                              menu = self.filemenu)
+        #self.filemenu.add_command(label = submenu['file'][self.lang]['save GM'],
+        #                          command = self.saveGM)
+        #self.filemenu.add_separator()
+        #self.filemenu.add_command(label = submenu['file'][self.lang]['new CP'],
+        #                          command = self.__newCPTable)
+        #self.filemenu.add_command(label = submenu['file'][self.lang]['open CP'],
+        #                          command = self.__openCPTable)
+        #self.filemenu.add_command(label = submenu['file'][self.lang]['save CP'],
+        #                          command = self.__saveCPTable)
+        #self.filemenu.add_separator()
+        self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
+                                  command = self.__quit)
+        logger.debug("file menu build")
+
+
+    def __addEditMenu(self):
+        '''!
+        This adds an Edit menu to the windows menu bar:
+
+        ----
+        @todo has to be implemended fully.
+        '''
+        self.editmenu = Menu(master = self.menu)
+        self.menu.add_cascade(label = txtmenu["menu_edit"][self.lang],
+                              menu = self.editmenu)
+        #self.editmenu.add_command(label = submenu['edit'][self.lang]["ed_add_enemy"],
+        logger.debug("edit menu build")
+
+
+    def __quit(self):
+        '''!
+        This method saves changes and closes the window
+        '''
+        self.window.destroy()
+
+
+    def __buildWin(self):
+        """!
+        This method builds the window content.
+
+        ----
+        @todo This has to be fully implemented
+        """
+        header = ["Spell List Type", "Spell List", "Level"]
+
+        #------- row 0
+        Label(self.window,
+              text = labels["avail magic"][self.lang],
+              ).grid(row = 0, column = 1, columnspan = 3, pady = 5, sticky = "EW")
+
+        Label(self.window,
+              text = labels["selected magic"][self.lang]
+              ).grid(row = 0, column = 5, columnspan = 3, pady = 5, sticky = "NEWS")
+
+        #------- row 1
+        self.allMagicTree = Treeview(self.window,
+                                     selectmode = "extended",
+                                     columns = header[1:-1],
+                                     height = 20
+                                     )
+        self.allMagicTree.grid(row = 1, column = 0, rowspan = 5, columnspan = 3, sticky = "NEWS")
+        self.allMagicTree.heading("#0", text = header[0])
+        self.allMagicTree.heading(header[1], text = header[1])
+
+        allMscrollbar = Scrollbar(self.window, orient = VERTICAL, command = self.allMagicTree.yview)
+        self.allMagicTree.configure(yscroll = allMscrollbar.set)
+        allMscrollbar.grid(row = 1, column = 4, rowspan = 5, sticky = "NS")
+
+        #----- fill self.allMagicTree with self.__magicdict
+        oldtype = ""
+        index = 0
+        keylist = list(self.__magicdict.keys())
+        keylist.sort()
+
+        for key in keylist:
+
+            if oldtype != key:
+                index += 1
+                oldtype = key
+            print(f"DEBUG: {oldtype}")
+            print(f"DEBUG: {self.__magicdict[oldtype]}")
+            self.allMagicTree.insert('', END, iid = index, text = oldtype)
+            for sl in self.__magicdict[oldtype]:
+                print(sl)
+                self.allMagicTree.insert(index, END, values = (sl))
+            #for sl in self.__magicdict[oldtype]:
+            #    self.allMagicTree.insert(index,E)
+
+        Label(self.window,
+              text = labels["lvl"][self.lang],
+              ).grid(row = 1, column = 5, pady = 5, padx = 5, sticky = "EWs")
+
+        self.selectedMagicTree = Treeview(self.window,
+                                          selectmode = "extended",
+                                          columns = header[1:],
+                                          height = 20
+                                          )
+        self.selectedMagicTree.grid(row = 1, column = 6, rowspan = 5, columnspan = 3, sticky = "NEWS")
+        self.selectedMagicTree.heading("#0", text = header[0])
+        self.selectedMagicTree.heading(header[1], text = header[1])
+        self.selectedMagicTree.heading(header[2], text = header[2])
+
+        selMscrollbar = Scrollbar(self.window, orient = VERTICAL, command = self.selectedMagicTree.yview)
+        self.selectedMagicTree.configure(yscroll = selMscrollbar.set)
+        selMscrollbar.grid(row = 1, column = 9, rowspan = 5, sticky = "NS")
+
+        #------- row 2
+
+        self.__splvl = []
+
+        for elem in list(range(1, 21)) + [25, 30, 50]:
+            self.__splvl.append(str(elem))
+
+        self.__slLvl = StringVar()
+        self.__slLvl.set(self.__splvl[0])
+        self.__slOpt = OptionMenu(self.window,
+                                   self.__slLvl,
+                                   *self.__splvl,
+                                   )
+        self.__slOpt.grid(row = 2, column = 5, pady = 5, sticky = "NEW")
+
+        #------- row 3
+        Button(self.window,
+               text = txtbutton["but_right"][self.lang],
+               command = self.__addSpellList
+               ).grid(row = 3, column = 5, sticky = "NEWS")
+
+        #------- row 4
+        Button(self.window,
+               text = txtbutton["but_left"][self.lang],
+               command = self.__rmSpellList
+               ).grid(row = 4, column = 5, sticky = "NEWS")
+
+        #------- row 5
+
+
+    def __prepSelectedMagic(self):
+        """!
+        This initially prepares the internal data structure self.__selectedMagic
+        for treeview from self.magicstring
+        """
+        ##\var self.__selectMagic
+        # a dictionary that holds the type of spell list as primary index, the
+        # spell list as secondary and the level as value
+        self.__selectedMagic = {}
+        spellists = self.magicstring.split(";")
+
+        for elem in spellists:
+            dummy = elem.split("/")
+
+            if dummy[0] not in self.__selectedMagic.keys():
+                self.__selectedMagic[dummy[0]] = {}
+
+            if len(dummy) > 1:
+                dummy2 = dummy[1].split(":")
+                self.__selectedMagic[dummy[0]][dummy2[0]] = dummy2[1]
+
+
+    def __loadMagic(self):
+        """!
+        This Loads all the available Spell lists
+
+        ----
+        @todo This has to be fully implemented
+        """
+        allfiles = glob(self.__datapath + "/*/*.csv")
+        print(f"DEBUG: allfiles:\n {allfiles}")
+        print(f"DEBUG: {self.__datapath}")
+        ## \var self.__magicdict
+        # a dictionary for all available spell lists with spell list kind as index
+        # and spell list name as value.
+        self.__magicdict = {}
+
+        for elem in allfiles:
+            dummy = elem[:-4].rsplit("/", 2)
+
+            if dummy[1] not in self.__magicdict.keys():
+                self.__magicdict[dummy[1]] = [dummy[2]]
+
+            else:
+                self.__magicdict[dummy[1]].append(dummy[2])
+        logger.debug(f"magicdict: {json.dumps(self.__magicdict,indent=4)}")
+        print(f"DEBUF magicdict: {json.dumps(self.__magicdict,indent=4)}")
+
+
+    def __addSpellList(self, event = None):
+        """!"""
+        self.notdoneyet("__addSpellList")
+
+
+    def __rmSpellList(self, event = None):
+        """!"""
+        self.notdoneyet("__rmSpellList")
 
 
 
