@@ -14,7 +14,7 @@ master DB where creatures can be chosen from for individual campaigns.
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "06.11.2022"
+__updated__ = "12.11.2022"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "RM RPG Tools: nsc/monster creator module"
@@ -1363,7 +1363,7 @@ class magicSelectorWin(blankWindow):
         self.__addEditMenu()
         self.__addHelpMenu()
         self.__buildWin()
-        self.window.mainloop()
+        #self.window.mainloop()
 
         pass
 
@@ -1462,17 +1462,21 @@ class magicSelectorWin(blankWindow):
         index = 0
         keylist = list(self.__magicdict.keys())
         keylist.sort()
+        ## @var self.__magicParents
+        # a dictionary holding  the spell list type as value and the concerned
+        # treeview index as index (for faster identification later on)
+        self.__magicParents = {}
 
         for key in keylist:
 
             if oldtype != key:
                 index += 1
                 oldtype = key
-            print(f"DEBUG: {oldtype}")
-            print(f"DEBUG: {self.__magicdict[oldtype]}")
+                self.__magicParents[index] = oldtype
+
             self.allMagicTree.insert('', END, iid = index, text = oldtype)
+
             for sl in self.__magicdict[oldtype]:
-                print(sl)
                 self.allMagicTree.insert(index, END, values = (sl))
             #for sl in self.__magicdict[oldtype]:
             #    self.allMagicTree.insert(index,E)
@@ -1500,15 +1504,18 @@ class magicSelectorWin(blankWindow):
         self.__splvl = []
 
         for elem in list(range(1, 21)) + [25, 30, 50]:
-            self.__splvl.append(str(elem))
+            self.__splvl.append(elem)
 
-        self.__slLvl = StringVar()
-        self.__slLvl.set(self.__splvl[0])
-        self.__slOpt = OptionMenu(self.window,
-                                   self.__slLvl,
-                                   *self.__splvl,
-                                   )
-        self.__slOpt.grid(row = 2, column = 5, pady = 5, sticky = "NEW")
+        self.__levelSL = IntVar()
+        self.__levelSL.set(1)
+        self.__slCombo = Combobox(self.window,
+                                  textvariable = self.__levelSL,
+                                  values = self.__splvl,
+                                  width = 4,
+                                  justify = "center"
+                                  )
+        self.__slCombo.grid(row = 2, column = 5, sticky = "NEW")
+        self.__slCombo.bind("<<ComboboxSelected>>", self.__slComboGet)
 
         #------- row 3
         Button(self.window,
@@ -1555,8 +1562,7 @@ class magicSelectorWin(blankWindow):
         @todo This has to be fully implemented
         """
         allfiles = glob(self.__datapath + "/*/*.csv")
-        print(f"DEBUG: allfiles:\n {allfiles}")
-        print(f"DEBUG: {self.__datapath}")
+
         ## \var self.__magicdict
         # a dictionary for all available spell lists with spell list kind as index
         # and spell list name as value.
@@ -1570,18 +1576,91 @@ class magicSelectorWin(blankWindow):
 
             else:
                 self.__magicdict[dummy[1]].append(dummy[2])
+
         logger.debug(f"magicdict: {json.dumps(self.__magicdict,indent=4)}")
-        print(f"DEBUF magicdict: {json.dumps(self.__magicdict,indent=4)}")
 
 
     def __addSpellList(self, event = None):
-        """!"""
-        self.notdoneyet("__addSpellList")
+        """!This adds a selected spell list with the selected level to the list
+
+        ----
+        @todo this has  to be fully implemented
+        """
+        self.__getSelectedSL()
+        lvl = self.__levelSL.get()
+        print(f"DEBUG: {self.__SLitem}\n\t{self.__SL_parent_id}")
+
+        for i in range(0, len(self.__SLitem)):
+            values = self.__SLitem[i]["values"]
+            values.append(lvl)
+
+            try:
+                # try to insert parent
+                self.selectedMagicTree.insert('', END, iid = self.__SL_parent_id[i], text = self.__magicParents[int(self.__SL_parent_id[i])])
+                logger.debug(f"add {self.__magicParents[self.__SL_parent_id[i]]} to selection tree")
+
+            except:
+                # parent already exists...
+                pass
+
+            finally:
+
+                if not self.__existInTreeview(treeview = self.selectedMagicTree, comparevalues = self.__SLitem[i]["values"]):
+                    self.selectedMagicTree.insert(self.__SL_parent_id[i], END, values = tuple(values))
+                    print(f"DEBUG Values: {values}")
 
 
     def __rmSpellList(self, event = None):
-        """!"""
+        """!This removes a selected spell list from the list of selected spell lists-
+
+        ----
+        @todo this has  to be fully implemented"""
         self.notdoneyet("__rmSpellList")
+
+
+    def __slComboGet(self, event = None):
+        """!A dirty workaround because the class has to be refactored fo Toplevel instaead mainloop"""
+
+        self.__levelSL.set(self.__slCombo.get())
+
+
+    def __getSelectedSL(self):
+        """!This gets the selection of treeview items
+        """
+        self.__SLitem = []
+        self.__SL_parent_id = []
+
+        for selected_item in self.allMagicTree.selection():
+
+            if self.allMagicTree.item(selected_item)["values"]:
+                self.__SLitem.append(self.allMagicTree.item(selected_item))
+                self.__SL_parent_id.append(self.allMagicTree.parent(selected_item))
+
+
+    def __existInTreeview(self, treeview, comparevalues = []):
+        """!This checks if a value set already exists in a treeview widget
+
+        @param treeview treeview widget to check
+        @param comparevalues values to check for existence in the treeview
+
+        @return result is a boolean with indicates if comparevalues found in the treeview
+        """
+        toplvl = treeview.get_children()
+
+        for parents in toplvl:
+            children = treeview.get_children(parents)
+
+            for child in children:
+                logger.debug(f"working on {child}/{children}")
+                values = treeview.item(child)["values"]
+                logger.debug(f"values {values}/{comparevalues}")
+
+                if comparevalues == values:
+                    logger.info(f"found {comparevalues} in treeview")
+                    return True
+
+        logger.info(f"does not find {comparevalues} in treeview")
+        return False
 
 
 
