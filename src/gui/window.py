@@ -12,12 +12,13 @@
 '''
 from tkinter import *
 from tkinter.filedialog import *
-from rpgtoolbox.lang import *
+
 from rpgtoolbox import logbox as log
 from rpgtoolbox.confbox import *
+from rpgtoolbox.lang import *
 
 __author__ = "Marcus Schwamberger"
-__updated__ = "08.10.2022"
+__updated__ = "13.11.2022"
 __copyright__ = "(C) 2015-{} {}".format(__updated__[-4:], __author__)
 __email__ = "marcus@lederzeug.de"
 __version__ = "1.1.1"
@@ -42,6 +43,7 @@ class messageWindow(object):
         Constructor messageWindow
         \param lang contains the chosen display language.
         """
+
         self.lang = lang
         self.window = Toplevel()
 
@@ -105,9 +107,11 @@ class blankWindow(object):
         '''
         self.lang = lang
         self.window = Tk()
+        #self.window = window
         self.__addMenu()
 
-        '''This is for the file I/O window'''
+        ##\var self.mask
+        # This is the file extension filter for the file I/O window
         self.mask = [txtwin['json_files'][self.lang],
                      txtwin['spell_files'][self.lang],
                      txtwin['all_files'][self.lang]
@@ -119,6 +123,8 @@ class blankWindow(object):
         This private method just adds the menu bar into the window's
         layout
         '''
+        ##\var self.menu
+        # the root object for the menu bar
         self.menu = Menu(self.window)
         self.window.configure(menu = self.menu)
 

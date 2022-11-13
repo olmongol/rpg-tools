@@ -22,7 +22,7 @@ Currently supported languages are:
 @license GNU V3.0
 '''
 __version__ = "1.1"
-__updated__ = "06.11.2022"
+__updated__ = "13.11.2022"
 ##
 # @var supportedrpg
 # Supported RPG systems
@@ -401,6 +401,8 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                               'ed choose CP': "NSCs für Kampagne auswählen",
                               "ed_heal_char": "Charakter heilen",
                               "ed_show_NPCs": "NSC-Liste anzeigen",
+                              "ed_filter": "Filter",
+                              "ed_search": "Suche",
                               'init': "Initativewurf",
                               "history": "Verlauf anzeigen",
                               },
@@ -426,6 +428,8 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                               'ed choose CP': "choose NPCs for campaign",
                               "ed_heal_char": "heal character",
                               "ed_show_NPC": "show NPC list",
+                              "ed_filter": "filter",
+                              "ed_search": "search",
                               'init': "Initiative roll",
                               "history": "display history",
                                },

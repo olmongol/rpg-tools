@@ -14,9 +14,9 @@ This module consists of functions to handle a logging.
 '''
 import logging.handlers
 #from rpgtoolbox.confbox import *
-
+import os
 __version__ = "0.4"
-__updated__ = "03.10.2022"
+__updated__ = "12.11.2022"
 __me__ = "logbox.py"
 
 """Debugging level"""
