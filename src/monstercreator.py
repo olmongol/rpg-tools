@@ -14,7 +14,7 @@ master DB where creatures can be chosen from for individual campaigns.
 \version 0.1
 '''
 __version__ = "0.1"
-__updated__ = "13.11.2022"
+__updated__ = "16.11.2022"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "RM RPG Tools: nsc/monster creator module"
@@ -509,11 +509,19 @@ class monstercreatorWin(blankWindow):
                text = txtbutton["but_edit_magic"][self.lang],
                command = self.__editMagic
                ).grid(row = 5, column = 5, columnspan = 2, sticky = "NEW")
-
-        Button(self.window,
-               text = txtbutton["but_show_magic"][self.lang],
-               command = self.__editMagic
-               ).grid(row = 5, column = 7, columnspan = 2, sticky = "NEW")
+        self.__magicstring = StringVar()
+        self.__magicstring.set("")
+        self.__EntryMagicSting = Entry(self.window,
+                                       textvariable = self.__magicstring,
+                                       width = 8
+                                       )
+        self.__EntryMagicSting.bind("<FocusOut>", self.updateCurrentSet)
+        self.__EntryMagicSting.bind("<Return>", self.updateCurrentSet)
+        self.__EntryMagicSting.grid(row = 5, column = 7, columnspan = 2, sticky = "NEW")
+        #Button(self.window,
+        #       text = txtbutton["but_show_magic"][self.lang],
+        #       command = self.__editMagic
+        #       ).grid(row = 5, column = 7, columnspan = 2, sticky = "NEW")
 
         #------- row 6
         vscroll = Scrollbar(self.window, orient = VERTICAL)
@@ -592,7 +600,7 @@ class monstercreatorWin(blankWindow):
             logger.debug("appended empty element to NSC / Beast list")
             self.__index = len(self.GMcontent) - 1
             self.currDataSet = deepcopy(self.__datatemplate)
-            self.__updateWindow()
+            self.updateWindow()
 
 
     def __insertComment(self, event = None):
@@ -616,7 +624,7 @@ class monstercreatorWin(blankWindow):
             self.__index -= 1
             self.GMcontent[self.__index + 1] = deepcopy(self.currDataSet)
             self.currDataSet = deepcopy(self.GMcontent[self.__index])
-            self.__updateWindow()
+            self.updateWindow()
 
 
     def __nextItem(self, event = None):
@@ -629,10 +637,10 @@ class monstercreatorWin(blankWindow):
             self.__index += 1
             self.GMcontent[self.__index - 1] = deepcopy(self.currDataSet)
             self.currDataSet = deepcopy(self.GMcontent[self.__index])
-            self.__updateWindow()
+            self.updateWindow()
 
 
-    def __updateWindow(self, event = None):
+    def updateWindow(self, event = None):
         """!
         This updates all window widgets with data of the current data set
         """
@@ -667,6 +675,7 @@ class monstercreatorWin(blankWindow):
         self.__obstring.set(self.currDataSet["OB melee"])
         self.__obstringmis.set(self.currDataSet["OB missile"])
         self.__enc.set(self.currDataSet["enc"])
+        self.__magicstring.set(self.currDataSet["spells"])
         self.__insertComment()
         self.__LabelImunities.config(text = self.currDataSet['immune'])
         self.__LabelWeaknesses.config(text = self.currDataSet["weakness"])
@@ -688,7 +697,7 @@ class monstercreatorWin(blankWindow):
         self.currDataSet["DB"] = self.__db.get()
         self.currDataSet["OB melee"] = self.__obstring.get()
         self.currDataSet["OB missile"] = self.__obstringmis.get()
-
+        self.currDataSet["spells"] = self.__magicstring.get()
         if self.currDataSet["OB missile"] == "":
             self.currDataSet["OB missile"] = "0xx"
 
@@ -715,7 +724,7 @@ class monstercreatorWin(blankWindow):
         @todo this has to be implemented fully.
         """
         self.currDataSet["OB melee"] = f"{self.__obstring.get()}/{self.__obval.get()} {self.__selectOBsize.get()} {self.__attacks[self.__selectOB.get()]}"
-        self.__updateWindow()
+        self.updateWindow()
 
 
     def __getOBm (self, event = None):
@@ -727,7 +736,7 @@ class monstercreatorWin(blankWindow):
         #self.updateCurrentSet(event)
         self.currDataSet["OB missile"] = f"{self.__obstringmis.get()}/{self.__obmval.get()} {self.__attacks[self.__selectOBmis.get()]}".strip("/")
 
-        self.__updateWindow()
+        self.updateWindow()
 
 
     def __addPic(self, event):
@@ -1343,10 +1352,10 @@ class magicSelectorWin(blankWindow):
         @param datapath configured data path
         @param magicstring string that holds the spell lists and levels
         """
-        ##\var self.root
+        ##\var self.rootwin
         # the reference to the root window/object \ref monstercreatorWin to transfer finally the modified
         # #magicstring back
-        self.root = rootwin
+        self.rootwin = rootwin
         self.lang = lang
         self.__datapath = datapath
 
@@ -1441,6 +1450,7 @@ class magicSelectorWin(blankWindow):
         '''!
         This method saves changes and closes the window
         '''
+        self.__finalize()
         self.__updMagicRoot()
         self.window.destroy()
 
@@ -1546,7 +1556,7 @@ class magicSelectorWin(blankWindow):
         #------- row 4
         Button(self.window,
                text = txtbutton["but_left"][self.lang],
-               command = self.__rmSpellList
+               command = self.__deleteSpellList
                ).grid(row = 4, column = 5, sticky = "NEWS")
 
         #------- row 5
@@ -1632,21 +1642,27 @@ class magicSelectorWin(blankWindow):
                     #print(f"DEBUG Values: {values}")
 
 
-    def __rmSpellList(self, event = None):
-        """!This removes a selected spell list from the list of selected spell lists-
+    def __deleteSpellList(self, event = None):
+        """!
+        This removes a selected spell list from the list of selected spell lists.
+        """
+        selected_items = self.selectedMagicTree.selection()
+        for item in selected_items:
+            self.selectedMagicTree.delete(item)
 
-        ----
-        @todo this has  to be fully implemented"""
-        self.notdoneyet("__rmSpellList")
+        self.__finalize()
 
 
     def __slComboGet(self, event = None):
-        """!A dirty workaround because the class has to be re-factored for Toplevel instead mainloop"""
+        """!
+        A dirty workaround because the class has to be re-factored for Toplevel instead mainloop
+        """
         self.__levelSL.set(self.__slCombo.get())
 
 
     def __getSelectedSL(self):
-        """!This gets the selection of treeview items
+        """!
+        This gets the selection of treeview items
         """
         self.__SLitem = []
         self.__SL_parent_id = []
@@ -1659,7 +1675,8 @@ class magicSelectorWin(blankWindow):
 
 
     def __existInTreeview(self, treeview, comparevalues = []):
-        """!This checks if a value set already exists in a treeview widget
+        """!
+        This checks if a value set already exists in a treeview widget
 
         @param treeview treeview widget to check
         @param comparevalues values to check for existence in the treeview
@@ -1685,13 +1702,11 @@ class magicSelectorWin(blankWindow):
 
 
     def __finalize(self, event = None):
-        """!This builds a new #magicstring
-
-        ----
-        @todo has to be fully implemented
+        """!
+        This builds a new #magicstring
         """
-        print(f"DEBUG: {self.magicstring}")
         self.magicstring = ""
+
         for parent in  self.selectedMagicTree.get_children():
             spcat = self.selectedMagicTree.item(parent)["text"]
 
@@ -1700,40 +1715,33 @@ class magicSelectorWin(blankWindow):
                 self.magicstring += f"{spcat}/{values[0]}:{values[1]};"
 
         self.magicstring = self.magicstring.strip(";")
-        print(f"DEBUG: {self.magicstring}")
+        logger.debug(f"magicstring: {self.magicstring}")
+        self.__updMagicRoot()
 
 
     def __updMagicRoot(self):
-        """!This generates a new #magicstring from data of #selectedMagicTree and
+        """!
+        This generates a new #magicstring from data of #selectedMagicTree and
         hands it over to  \ref monstercreatorWin
-
-        ----
-        @todo has to be fully implemented
         """
-        self.__finalize()
-        self.root.currDataSet["spells"] = deepcopy(self.magicstring)
-
-        #help(self.root)
-        pass
+        self.rootwin.currDataSet["spells"] = deepcopy(self.magicstring).replace("_", " ")
+        self.rootwin.updateWindow()
+        #self.__quit()
 
 
     def __checkMagicString(self):
-        """!This enters the data of an existing #magicstring into the #selectedMagicTree"""
+        """!
+        This enters the data of an existing #magicstring into the #selectedMagicTree
+        """
         if self.magiclist:
-            #dummydict = {}
 
             for elem in self.magiclist:
                 cat, sl = elem.split("/")
                 sl, lvl = sl.split(":")
 
-                #if cat not in dummydict.keys():
-                #    dummydict[cat] = {}
-
-                #dummydict[cat]["values"] = [sl, int(lvl)]
-
                 for index in self.__magicParents.keys():
+
                     if cat == self.__magicParents[index]:
-                        #dummydict[cat]["index"] = index
 
                         try:
                             self.selectedMagicTree.insert('', END, iid = int(index), text = cat)
@@ -1745,8 +1753,6 @@ class magicSelectorWin(blankWindow):
                             self.selectedMagicTree.insert(int(index), END, values = (sl, int(lvl)))
 
                         break
-
-            pass
 
 
 
