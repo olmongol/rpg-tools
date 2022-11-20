@@ -14,7 +14,7 @@ other opponents.
 \version 0.9
 '''
 __version__ = "0.9"
-__updated__ = "31.10.2022"
+__updated__ = "20.11.2022"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "RM RPG Tools: attack checker module"
@@ -30,6 +30,7 @@ import os
 from PIL import Image, ImageTk
 
 from gui.window import *
+from rolemaster.specials import *
 from rpgToolDefinitions.helptools import RMDice as Dice
 from rpgToolDefinitions.magic import magicpath
 from rpgtoolbox import logbox as log
@@ -51,9 +52,6 @@ class atWin(blankWindow):
 
     ----
     @todo
-    - adding/deleting single NSCs/monsters to/from loaded groups (from pool file)
-    - adding/deleting single character to/from loaded group
-    - selection of chars/ncs for fight
     - adding fight with magic
     - use ranges for missile attacks
     - use breakage tests
@@ -70,9 +68,16 @@ class atWin(blankWindow):
         logger.debug(f"language: {lang}\n datadir: {datadir}")
         self.lang = lang
         self.datadir = datadir
+        if "/default" not in self.datadir:
+            self.datadir = self.datadir.strip("/") + "/default"
         logger.debug(f"language: {lang}")
         logger.debug(f"data dir: {datadir}")
-
+        ## @var self.attacktype
+        # attack type for fumble checks
+        self.attacktype = "one-handed arms"
+        ## @var self.maxfumble
+        # the maximum value for fumble results.
+        self.maxfumble = 4
         self.attacktbls = {}
         self.crittbls = {}
         self.attackers = ["Egon"]
@@ -81,6 +86,8 @@ class atWin(blankWindow):
         self.combatround = 0
         self.curphase = 0
         self.hits = 0
+        self.fumbleroll = 0
+        self.fumbletype = 'one-handed arms'
         self.damachoice = [labels["with"][self.lang], labels["without"][self.lang]]
         self.initroll = False
         self.initlist = []
@@ -119,6 +126,9 @@ class atWin(blankWindow):
         ## \var self.reverseweaponindex
         # This dictionary holds weapon name as key and short form as value
         self.reverseweaponindex = {}
+
+        self.weaponfumble = fumbletable(tablefilename = self.datadir + f"/fight/fumble/combat_fumble_{self.lang}.csv", lang = self.lang)
+        self.magicfumble = fumbletable(tablefilename = self.datadir + f"/tables/spell_fumble_{self.lang}.csv", lang = self.lang)
 
         for key in self.weapontab.keys():
             self.reverseweaponindex[self.weapontab[key]["name"]] = key
@@ -704,6 +714,41 @@ class atWin(blankWindow):
         '''
         result, self.umr = Dice(rules = "RM")
         self.__atroll.set(result[0])
+        self.checkFumble(rollresult = result[0], fumbletype = "weapon")
+
+
+    def resultMethod(self, data = 10):
+        print(f"DEBUG: fumbleroll {data}")
+        self.fumbleroll = int(data)
+
+        if self.fumbletype == "weapon" or "arm" in self.fumbletype:
+            self.fumbleresult = self.weaponfumble.getResult(fumbletype = self.attacktype, roll = self.fumbleroll)
+
+            if self.fumbletype == "magic" or "spell" in self.fumbletype:
+                self.fumbleresult = self.magicfumble.getResult(fumbletype = self.attacktype, roll = self.fumbleroll)
+
+            self.__displayCrit.delete("1.0", "end")
+            self.__displayCrit.insert(END, "FUMBLE: " + self.fumbleresult)
+            print(f"f result {self.fumbleresult}")
+
+
+    def checkFumble(self, rollresult = 5, fumbletype = "weapon"):
+        """!
+        This checks whether the result of an unmodified roll was a fumble
+
+        @param rollresult result of dice roll to check for fumble
+        @param fumbletype type of fumble: weapon, magic
+
+        ----
+        @todo determine attack type and weapon
+        """
+        logger.debug(f"roll: {rollresult}  fumble type: {fumbletype}")
+        print(f"DEBUG roll: {rollresult}  fumble type: {fumbletype}")
+        self.fumblestat = False
+
+        if rollresult <= self.maxfumble:
+            self.fumblestat = True
+            testRollWindow(rootwin = self, lang = self.lang, resultwidget = self.resultMethod)
 
 
     def __rollCrit(self):
@@ -1669,16 +1714,18 @@ class atWin(blankWindow):
         This checks the result of a roll against an attack table
 
         """
-        self.attacktbls[self.__selectAT.get()].getHits(self.__skill.get() + self.__atroll.get() - self.__DB.get(),
-                                                       self.__AT.get(),
-                                                       self.__maxlvl.get()
-                                               )
-        self.hits = self.attacktbls[self.__selectAT.get()].hits
-        self.__resultAT.set("Hits: {}\t Crit: {}\t Type: {}".format(self.attacktbls[self.__selectAT.get()].hits,
-                                                                    self.attacktbls[self.__selectAT.get()].crit,
-                                                                    critc[self.attacktbls[self.__selectAT.get()].crittype][self.lang]))
-        self.__selectCrit.set(critc[self.attacktbls[self.__selectAT.get()].crittype]["en"])
-        self.__critType.set(self.attacktbls[self.__selectAT.get()].crit)
+        self.checkFumble(rollresult = self.__atroll.get(), fumbletype = "weapon")
+        if not self.fumblestat:
+            self.attacktbls[self.__selectAT.get()].getHits(self.__skill.get() + self.__atroll.get() - self.__DB.get(),
+                                                           self.__AT.get(),
+                                                           self.__maxlvl.get()
+                                                   )
+            self.hits = self.attacktbls[self.__selectAT.get()].hits
+            self.__resultAT.set("Hits: {}\t Crit: {}\t Type: {}".format(self.attacktbls[self.__selectAT.get()].hits,
+                                                                        self.attacktbls[self.__selectAT.get()].crit,
+                                                                        critc[self.attacktbls[self.__selectAT.get()].crittype][self.lang]))
+            self.__selectCrit.set(critc[self.attacktbls[self.__selectAT.get()].crittype]["en"])
+            self.__critType.set(self.attacktbls[self.__selectAT.get()].crit)
 
 
     def checkCrit(self):
@@ -1797,10 +1844,8 @@ class atWin(blankWindow):
         This method checks the physical condition of an attacked combatant and defines
         a background color code for that condition.
 
-        @param combatant SC / NSC to check the physical condition for
+        @param combatant PC / NPC to check the physical condition for
         @param side of the combatant: attacker, defender
-        ----
-        @todo - set text colors for entry boxes
         """
         ## @var condition_color
         # this holds the physical condition as index and the resulting color as value.

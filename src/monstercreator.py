@@ -11,9 +11,9 @@ master DB where creatures can be chosen from for individual campaigns.
 \copyright GNU V3.0
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
-\version 0.1
+\version 0.2
 '''
-__version__ = "0.1"
+__version__ = "0.2"
 __updated__ = "16.11.2022"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
@@ -37,7 +37,6 @@ from rpgtoolbox.confbox import *
 from rpgtoolbox.globaltools import *
 from rpgtoolbox.handlemagic import getSpellNames
 
-#from tkinter.ttk import Combobox, Treeview, Scrollbar
 mycnf = chkCfg()
 logger = log.createLogger('Monster', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "monstercreator.log")
 
@@ -49,10 +48,9 @@ class monstercreatorWin(blankWindow):
 
     ----
     @todo The following has to be implemented:
-    - display of magic abilities (spell lists & level
-    - adding magic abilities by choice
-    - editing magic abilities
     - speed
+    - weaknesses edit/display
+    - immunities edit/display
     """
 
 
