@@ -7,16 +7,16 @@
 
 This module consists of functions to handle a logging.
 
-\date (C) 2012-2018
+\date (C) 2012-2022
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
-\version 0.4
+\version 0.5
 '''
 import logging.handlers
 #from rpgtoolbox.confbox import *
 import os
-__version__ = "0.4"
-__updated__ = "12.11.2022"
+__version__ = "0.5"
+__updated__ = "25.11.2022"
 __me__ = "logbox.py"
 
 """Debugging level"""
@@ -64,7 +64,7 @@ def createLogger(logger = 'rpg-Logger', loglvl = 'debug', logsize = '2 MB',
     logger.setLevel(LEVEL[loglvl.lower()])
 
     """defining the logging format"""
-    formatter = logging.Formatter("%(asctime)s: (%(lineno)s):  %(name)s: %(levelname)s: %(message)s")
+    formatter = logging.Formatter("%(asctime)s: (%(lineno)s):  %(name)s: %(funcName)s: %(levelname)s: %(message)s")
     logsize = logsize.split()
 
     if 'MB' in logsize[1].upper():
@@ -103,6 +103,8 @@ class charlog(object):
         @param logsize maximum size of a log file in MB
         @param count maximum number of log files
 
+        ----
+        @todo this has to be fully implemented
         """
 
         pass

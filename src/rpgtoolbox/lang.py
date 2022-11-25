@@ -22,7 +22,7 @@ Currently supported languages are:
 @license GNU V3.0
 '''
 __version__ = "1.1"
-__updated__ = "13.11.2022"
+__updated__ = "22.11.2022"
 ##
 # @var supportedrpg
 # Supported RPG systems
@@ -403,6 +403,7 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                               "ed_show_NPCs": "NSC-Liste anzeigen",
                               "ed_filter": "Filter",
                               "ed_search": "Suche",
+                              "ed_add_wpn": "Waffe hinzufügen",
                               'init': "Initativewurf",
                               "history": "Verlauf anzeigen",
                               },
@@ -430,6 +431,7 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                               "ed_show_NPC": "show NPC list",
                               "ed_filter": "filter",
                               "ed_search": "search",
+                              "ed_add_wpn": "add weapon",
                               'init': "Initiative roll",
                               "history": "display history",
                                },

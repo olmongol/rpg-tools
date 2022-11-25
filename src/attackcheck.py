@@ -11,10 +11,10 @@ other opponents.
 \copyright GNU V3.0
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
-\version 0.9
+\version 1.0
 '''
-__version__ = "0.9"
-__updated__ = "20.11.2022"
+__version__ = "1.0"
+__updated__ = "25.11.2022"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "RM RPG Tools: attack checker module"
@@ -72,9 +72,10 @@ class atWin(blankWindow):
             self.datadir = self.datadir.strip("/") + "/default"
         logger.debug(f"language: {lang}")
         logger.debug(f"data dir: {datadir}")
-        ## @var self.attacktype
+        ## @var self.fumbletype
         # attack type for fumble checks
-        self.attacktype = "one-handed arms"
+        self.fumbletype = 'one-handed arms'
+        self.fumbleroll = 0
         ## @var self.maxfumble
         # the maximum value for fumble results.
         self.maxfumble = 4
@@ -86,8 +87,6 @@ class atWin(blankWindow):
         self.combatround = 0
         self.curphase = 0
         self.hits = 0
-        self.fumbleroll = 0
-        self.fumbletype = 'one-handed arms'
         self.damachoice = [labels["with"][self.lang], labels["without"][self.lang]]
         self.initroll = False
         self.initlist = []
@@ -218,10 +217,14 @@ class atWin(blankWindow):
                                   command = self.notdoneyet)
         self.editmenu.add_command(label = submenu['edit'][self.lang]["ed_rem_enemy"],
                                   command = self.notdoneyet)
+        self.editmenu.add_separator()
+        self.editmenu.add_command(label = submenu['edit'][self.lang]["ed_add_wpn"],
+                                  command = self.notdoneyet)
         self.editmenu.add_command(label = submenu['edit'][self.lang]["ed_heal_char"],
                                   command = self.notdoneyet)
         self.editmenu.add_command(label = submenu['edit'][self.lang]["init"],
                                   command = self.__rollInit)
+        self.editmenu.add_separator()
         self.editmenu.add_command(label = submenu["edit"][self.lang]["history"],
                                   command = self.notdoneyet)
         logger.debug("edit menu build")
@@ -457,7 +460,8 @@ class atWin(blankWindow):
         This method reduces character data to combatant data
 
         ----
-        @todo learned spell casting lists and bonusses have to be selected and added
+        @todo - learned spell casting lists and bonusses have to be selected and added
+        - weapon list with weapon data
         '''
         self.partygrp = []
         cindex = ["player", "name", "DB", "DB mod", "OB melee", "OB missile", "hits", "PP",
@@ -466,7 +470,8 @@ class atWin(blankWindow):
         melee = ["Martial Arts - Striking", "Martial Arts - Sweeps", "Weapon - 1-H Concussion",
                 "Weapon - 1-H Edged", "Weapon - 2-Handed", "Weapon - Pole Arms",
                 "Weapon - 1-H Concussion", "Weapon - 1-H Edged", "Weapon - 2-Handed", "Special Attacks"]
-        missile = ["Weapon - Missile", "Weapon - Missile Artillery", "Weapon - Thrown", "Directed Spells"]
+        missile = ["Weapon - Missile", "Weapon - Missile Artillery", "Weapon - Thrown"]
+        magic = ["Directed Spells"]
         spellcats = ["Spells - Arcane Open Lists",
                     "Spells - Other Realm Base Lists",
                     "Spells - Other Realm Closed Lists",
@@ -532,6 +537,7 @@ class atWin(blankWindow):
             dummy["PP"] = char["cat"]["Power Point Development"]["Skill"]["Power Point Development"]["total bonus"]
             dummy["OB melee"] = []
             dummy["OB missile"] = []
+            dummy["OB magic"] = []
             dummy["spell"] = []
             dummy["weapon type"] = [[], []]
             logger.debug(f"combat concerned parameters initialized for {dummy['name']}")
@@ -540,7 +546,8 @@ class atWin(blankWindow):
 
                 for skill in char["cat"][m]["Skill"].keys():
 
-                    if skill not in ["Progression", "Stats"] and "+" not in skill:
+                    #if skill not in ["Progression", "Stats"] and "+" not in skill:
+                    if skill not in ["Progression", "Stats"]:
                         addon = [skill, char["cat"][m]["Skill"][skill]["total bonus"], "H"]
 
                         if addon not in dummy["OB melee"]:
@@ -556,15 +563,31 @@ class atWin(blankWindow):
 
                 for skill in char["cat"][m]["Skill"].keys():
 
-                    if skill not in ["Progression", "Stats"] and "+" not in skill and [skill, char["cat"][m]["Skill"][skill]["total bonus"]] not in dummy["OB missile"]:
+                    #if skill not in ["Progression", "Stats"] and "+" not in skill and [skill, char["cat"][m]["Skill"][skill]["total bonus"]] not in dummy["OB missile"]:
+                    if skill not in ["Progression", "Stats"] and [skill, char["cat"][m]["Skill"][skill]["total bonus"]] not in dummy["OB missile"]:
                         dummy["OB missile"].append([skill, char["cat"][m]["Skill"][skill]["total bonus"]])
 
             logger.info(f"{dummy['name']}'s missile OBs collected.")
-            # sort missle weapons highest ob first
+            # sort missile weapons highest ob first
             dummy["OB missile"] = sorted(dummy["OB missile"], key = lambda k: k[1], reverse = True)
             dummy["weapon type"][0] = ["normal"] * len(dummy["OB melee"])
             dummy["weapon type"][1] = ["normal"] * len(dummy["OB missile"])
             logger.info(f"{dummy['name']}'s missile OBs sorted.")
+
+            for m in magic:
+
+                for skill in char["cat"][m]["Skill"].keys():
+
+                    if skill not in ["Progression", "Stats"]:
+                        addon = [skill, char["cat"][m]["Skill"][skill]["total bonus"], "H"]
+
+                        if addon not in dummy["OB magic"]:
+                            dummy["OB magic"].append([skill, char["cat"][m]["Skill"][skill]["total bonus"], "H"])
+
+            logger.info(f"{dummy['name']}'s magic OBs collected")
+            #sort magic attacks' highest ob first
+            dummy["OB magic"] = sorted(dummy["OB magic"], key = lambda k: k[1], reverse = True)
+            logger.info(f"{dummy['name']}'s magic OBs sorted")
 
             self.partygrp.append(dummy)
             logger.info(f"{dummy['name']} added to party.")
@@ -661,11 +684,23 @@ class atWin(blankWindow):
 
             logger.debug(json.dumps(self.weaponlist[i], indent = 4))
 
+        # sort weaponlist
+        #self.weaponlist = sorted(self.weaponlist, key = lambda d: d['shortc'])
+        self.weaponlist = self.sortList(self.weaponlist, "shortc")
+        self.weaponslisted = []
+
+        for elem in self.weaponlist:
+
+            if type(elem["item"]) == type(""):
+                self.weaponslisted.append(elem["item"])
+
+            else:
+                self.weaponslisted.append(str(elem["item"]).strip("[]").replace("'", ""))
+
 
     def __rollInit(self):
         '''!
         This rolls the initiative
-
         '''
 
         # roll initiative for self.initlist
@@ -720,30 +755,26 @@ class atWin(blankWindow):
     def resultMethod(self, data = 10):
         print(f"DEBUG: fumbleroll {data}")
         self.fumbleroll = int(data)
+        obtype = self.__selectType.get()
 
-        if self.fumbletype == "weapon" or "arm" in self.fumbletype:
-            self.fumbleresult = self.weaponfumble.getResult(fumbletype = self.attacktype, roll = self.fumbleroll)
+        if obtype != "magic":
+            self.fumbleresult = self.weaponfumble.getResult(fumbletype = self.fumbletype, roll = self.fumbleroll)
 
-            if self.fumbletype == "magic" or "spell" in self.fumbletype:
-                self.fumbleresult = self.magicfumble.getResult(fumbletype = self.attacktype, roll = self.fumbleroll)
+        else:
+            self.fumbleresult = self.magicfumble.getResult(fumbletype = self.fumbletype, roll = self.fumbleroll)
 
-            self.__displayCrit.delete("1.0", "end")
-            self.__displayCrit.insert(END, "FUMBLE: " + self.fumbleresult)
-            print(f"f result {self.fumbleresult}")
+        self.__displayCrit.delete("1.0", "end")
+        self.__displayCrit.insert(END, "FUMBLE: " + self.fumbleresult)
 
 
-    def checkFumble(self, rollresult = 5, fumbletype = "weapon"):
+    def checkFumble(self, rollresult = 5, fumbletype = "one-Handed arms"):
         """!
         This checks whether the result of an unmodified roll was a fumble
 
         @param rollresult result of dice roll to check for fumble
         @param fumbletype type of fumble: weapon, magic
-
-        ----
-        @todo determine attack type and weapon
         """
         logger.debug(f"roll: {rollresult}  fumble type: {fumbletype}")
-        print(f"DEBUG roll: {rollresult}  fumble type: {fumbletype}")
         self.fumblestat = False
 
         if rollresult <= self.maxfumble:
@@ -1100,12 +1131,100 @@ class atWin(blankWindow):
         self.__updOB(event = None)
 
 
+    def determineWeapon(self):
+        """!
+        This determines the used weapon of the attacker
+
+        ----
+        @todo the following has to be implemented:
+        - ranges and mods for distance weapons
+        - breakage and strength
+
+        """
+        translation = {"1he": "one-handed arms",
+                      "1hc": "one-handed arms",
+                      "2h": "two-handed arms",
+                      "mis": "missile weapons",
+                      "pa": "polearms and spears",
+                      "th": "thrown arms",
+                      "melee": "animal"
+                      }
+        selectedOB = self.__selectOB.get()
+        print(f"DEBUG {selectedOB} - current weapon")
+        print(f"DEbug: {self.weaponslisted}")
+        if selectedOB in self.weaponslisted:
+            logger.debug(f"{selectedOB} fount in weaponlist")
+            print(f"DEBUG {selectedOB} fount in weaponlist")
+            index = self.weaponslisted.index(selectedOB)
+            weapon = self.weaponlist[index]
+            self.fumbletype = translation[weapon["wtype"]]
+            self.ftype.set(self.fumbletype)
+            self.maxfumble = int(weapon["fumble"])
+
+
+    def getFumbleType(self):
+        """!
+        The determines the fumble type by the selected Attack type and skill.
+
+        ----
+        @todo has to be fully implemented
+        mounted combat is missing
+        """
+        self.fumbletype = self.ftype.get()
+        self.fumblerange = 4
+        obtype = self.__selectType.get()
+        selectedOB = self.__selectOB.get()
+        selectedOB.replace("_", " ")
+
+        if obtype == "missile":
+
+            if "bow" in selectedOB.lower() or "missile" in selectedOB.lower():
+                self.fumbletype = "missile weapons"
+                self.fumblerange = 5
+
+            else:
+                self.fumbletype = "thrown arms"
+                self.fumblerange = 5
+
+        elif obtype == "melee":
+
+            if "striking" in selectedOB.lower() or "tackling" in selectedOB.lower() \
+             or "boxing" in selectedOB.lower():
+                self.fumbletype = "MA strikes"
+                self.fumblerange = 2
+
+            elif "sweeps" in selectedOB.lower() or "blocking" in selectedOB.lower() \
+             or "wrestling" in selectedOB.lower():
+                self.fumbletype = "MA sweeps"
+                self.fumblerange = 2
+
+            elif "1-H" in selectedOB:
+                self.fumbletype = "one-handed arms"
+                self.fumblerange = 4
+
+            elif "2-H" in selectedOB:
+                self.fumbletype = "two-handed arms"
+                self.fumblerange = 5
+
+            elif "brawling" in selectedOB.lower():
+                self.fumbletype = "brawling"
+                self.fumblerange = 2
+
+            elif "pole" in selectedOB.lower() and "+" in selectedOB:
+                self.fumbletype = "polearms and spears"
+                self.fumblerange = 5
+
+        self.determineWeapon()
+        self.ftype.set(self.fumbletype)
+
+
     def __updOB(self, event = None):
         '''!
         This updates the attack credentials by the selected attack skills
         ---
         @bug ValueError: 'Battle_Axe' is not in list every time the first list is loaded
         '''
+        self.getFumbleType()
         self.curr_attacker = self.__selectAttacker.get()
         at = self.__findCombatant(name = self.curr_attacker, chklist = self.initlist)
         self.curr_defender = self.__selectDefender.get()
@@ -1395,7 +1514,7 @@ class atWin(blankWindow):
         #---------- row 3
 
         self.__selectOB = StringVar()
-        self.__selectOB.set("Battle_Axe")
+        self.__selectOB.set("Battle Axe")
         ## @var self.__obCombo
         # This Combobox gives a selection of  offensive bonus/skill
         self.__obCombo = Combobox(self.window,
@@ -1458,6 +1577,14 @@ class atWin(blankWindow):
         self.__attackCombo.bind("<<ComboboxSelected>>", self.__updtAttckCombo)
         self.__attackCombo.grid(column = 0, row = 6, sticky = "W")
 
+        self.ftype = StringVar()
+        self.ftype.set("one handed arms")
+        Label(self.window,
+              textvariable = self.ftype,
+              justify = "center",
+              borderwidth = 2,
+              relief = "sunken"
+              ).grid(column = 1, row = 6, sticky = "EW")
         #------------------- Defender ------------------------------------------
 
         self.__selectDefender = StringVar()
