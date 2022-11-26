@@ -14,7 +14,7 @@ other opponents.
 \version 1.0
 '''
 __version__ = "1.0"
-__updated__ = "25.11.2022"
+__updated__ = "26.11.2022"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "RM RPG Tools: attack checker module"
@@ -1141,6 +1141,12 @@ class atWin(blankWindow):
         - breakage and strength
 
         """
+        self.distance = {"near": [3, 0],
+                        "short": [4, -1000],
+                        "medium": [5, -1000],
+                        "long": [6, -1000],
+                        "extreme":[7, -1000]
+                        }
         translation = {"1he": "one-handed arms",
                       "1hc": "one-handed arms",
                       "2h": "two-handed arms",
@@ -1150,16 +1156,44 @@ class atWin(blankWindow):
                       "melee": "animal"
                       }
         selectedOB = self.__selectOB.get()
-        print(f"DEBUG {selectedOB} - current weapon")
-        print(f"DEbug: {self.weaponslisted}")
+
         if selectedOB in self.weaponslisted:
             logger.debug(f"{selectedOB} fount in weaponlist")
-            print(f"DEBUG {selectedOB} fount in weaponlist")
             index = self.weaponslisted.index(selectedOB)
             weapon = self.weaponlist[index]
-            self.fumbletype = translation[weapon["wtype"]]
+            if type(weapon["wtype"]) == type(""):
+                self.fumbletype = translation[weapon["wtype"]]
+            else:
+                attype = self.__selectType.get()
+
+                if attype == "magic":
+                    pass
+
+                elif attype == "missile":
+                    self.fumbletype = translation[weapon["wtype"][1]]
+
+                else:
+                    self.fumbletype = translation[weapon["wtype"][0]]
+
             self.ftype.set(self.fumbletype)
             self.maxfumble = int(weapon["fumble"])
+            lastdist = 3
+
+            for dist in ["near", "short", "medium", "long", "extreme"]:
+
+                if weapon[dist] == None:
+
+                    if dist == "near":
+                        self.distance[dist] = [3, 0]
+                        lastdist += 1
+                    else:
+                        self.distance[dist] = [lastdist, -1000]
+                        lastdist += 1
+
+                else:
+                    lastdist = int(weapon[dist][0])
+                    mod = int(weapon[dist][1])
+                    self.distance[dist] = [lastdist, mod]
 
 
     def getFumbleType(self):
@@ -1225,6 +1259,7 @@ class atWin(blankWindow):
         @bug ValueError: 'Battle_Axe' is not in list every time the first list is loaded
         '''
         self.getFumbleType()
+        self.updateRange()
         self.curr_attacker = self.__selectAttacker.get()
         at = self.__findCombatant(name = self.curr_attacker, chklist = self.initlist)
         self.curr_defender = self.__selectDefender.get()
@@ -1554,7 +1589,8 @@ class atWin(blankWindow):
         self.__healingpoints.set(0)
         Entry(self.window,
               justify = "center",
-              textvariable = self.__healingpoints
+              textvariable = self.__healingpoints,
+              width = 5
               ).grid(row = 5, column = 2, sticky = "EW")
 
         Button(self.window,
@@ -1585,6 +1621,37 @@ class atWin(blankWindow):
               borderwidth = 2,
               relief = "sunken"
               ).grid(column = 1, row = 6, sticky = "EW")
+
+        self.__atdistance = IntVar()
+        self.__atdistance.set(0)
+        self.__EntryDistance = Entry(self.window,
+              textvariable = self.__atdistance,
+              justify = "center",
+              width = 5
+              )
+        self.__EntryDistance.grid(column = 2, row = 6, sticky = "EW")
+        self.__EntryDistance.bind("<FocusOut>", self.updateRange)
+        self.__EntryDistance.bind("<Return>", self.updateRange)
+        Label(self.window,
+              text = "m  -->",
+              justify = "left"
+              ).grid(column = 3, row = 6, sticky = "EW")
+
+        self.__range = StringVar()
+        self.__range.set("near")
+        Label(self.window,
+              textvariable = self.__range,
+              justify = "left",
+              borderwidth = 2,
+              relief = "sunken"
+              ).grid(column = 4, row = 6, sticky = "EW")
+
+        self.__rangemod = IntVar()
+        self.__rangemod.set(0)
+        Label(self.window,
+              textvariable = self.__rangemod,
+              justify = "center"
+              ).grid(column = 5, row = 6, sticky = "EW")
         #------------------- Defender ------------------------------------------
 
         self.__selectDefender = StringVar()
@@ -1810,6 +1877,21 @@ class atWin(blankWindow):
         self.__displayCrit.grid(column = 0, columnspan = 12, row = 13, sticky = "NEWS")
 
 
+    def updateRange(self, event = None):
+        """!
+        This updates Range and RangeMod after entering the combat distance"""
+        currdist = self.__atdistance.get()
+        self.getFumbleType()
+        for range in ["near", "short", "medium", "long", "extreme"]:
+            if currdist <= self.distance[range][0]:
+                self.__range.set(range)
+                self.__rangemod.set(self.distance[range][1])
+                break
+            else:
+                self.__range.set("n/a")
+                self.__rangemod.set(-1000)
+
+
     def __nextAttacker(self, event = None):
         """!Gets the next attacker if any from the init list (on button click)"""
         self.__updtAttckCombo()
@@ -1842,11 +1924,21 @@ class atWin(blankWindow):
 
         """
         self.checkFumble(rollresult = self.__atroll.get(), fumbletype = "weapon")
+
         if not self.fumblestat:
-            self.attacktbls[self.__selectAT.get()].getHits(self.__skill.get() + self.__atroll.get() - self.__DB.get(),
-                                                           self.__AT.get(),
-                                                           self.__maxlvl.get()
-                                                   )
+            if self.__selectType.get() == "melee":
+                self.attacktbls[self.__selectAT.get()].getHits(self.__skill.get() + self.__atroll.get() - self.__DB.get(),
+                                                               self.__AT.get(),
+                                                               self.__maxlvl.get()
+                                                               )
+            elif self.__selectType.get() == "missile":
+                self.attacktbls[self.__selectAT.get()].getHits(self.__skill.get() + self.__atroll.get() + self.__rangemod.get() - self.__DB.get(),
+                                                               self.__AT.get(),
+                                                               self.__maxlvl.get()
+                                                               )
+            else:
+                pass
+
             self.hits = self.attacktbls[self.__selectAT.get()].hits
             self.__resultAT.set("Hits: {}\t Crit: {}\t Type: {}".format(self.attacktbls[self.__selectAT.get()].hits,
                                                                         self.attacktbls[self.__selectAT.get()].crit,
