@@ -13,8 +13,8 @@ Cat-of-nine tails,ca,1hc/1he,4,56-64-s,7,---,---,---,---,---,Whip,slash/unbalanc
 Claymore,cm,2he,8,68-82,4,---,---,---,---,---,Two-Handed_Sword,krush/slash/puncture
 Club,cl,1hc,8,46-54-w,4,10':-40,---,---,---,---,Club,krush
 Composite Bow,cb,mis,0,150-1000,4,10': 25,100': 0,200': -35,300': -60,---,Composite_Bow,krush/puncture
-Crossbow  Hvy,xh,mis,0,150-1000,5,20': +30,100': 0,200': -25,300': -40,360': -55,Heavy_Crossbow,krush/puncture
-Crossbow  Lt.,xl,mis,0,150-1000,5,10': 15,100': 0,200': -35,300': -50,360': -75,Light_Crossbow,krush/puncture
+Heavy Crossbow,xh,mis,0,150-1000,5,20': +30,100': 0,200': -25,300': -40,360': -55,Heavy_Crossbow,krush/puncture
+Light Crossbow,xl,mis,0,150-1000,5,10': 15,100': 0,200': -35,300': -50,360': -75,Light_Crossbow,krush/puncture
 Cudgel,cd,1hc/2h,8,47-53-w,3,---,---,---,---,---,Club,krush
 Cutlass,cu,1he,6,73-87,3,---,---,---,---,---,Broadsword,krush/slash/puncture
 Dagger,da,1he/th,6,74-86,1,10': -10,25': -20,50': -30,---,---,Dagger,krush/slash/puncture

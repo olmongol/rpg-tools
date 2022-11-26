@@ -1158,11 +1158,13 @@ class atWin(blankWindow):
         selectedOB = self.__selectOB.get()
 
         if selectedOB in self.weaponslisted:
-            logger.debug(f"{selectedOB} fount in weaponlist")
+            logger.debug(f"{selectedOB} found in weaponlist")
             index = self.weaponslisted.index(selectedOB)
             weapon = self.weaponlist[index]
+
             if type(weapon["wtype"]) == type(""):
                 self.fumbletype = translation[weapon["wtype"]]
+
             else:
                 attype = self.__selectType.get()
 
