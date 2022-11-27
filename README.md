@@ -54,3 +54,13 @@ This project is running for a while but not finished yet. I am about to finish t
 - creating a party overview for GM
 - checks for the healing herb hunt in Middle Earth (./src/findherbs.py)
 - Treasure generator (V 1.0 alpha, MERS - that means German language)
+
+
+# Testing
+Usind unittest to check on the modules. unittest comes woth python 2.1 and above.
+For each module A.py there is a class in test/test_A.py.
+
+the tests only work if you execute the test_A.py from the source directory since the tested module does relative imports.
+
+On Windoof like:
+C:\path\to\your\projects\rpg-tools\src> & "C:/path/to/your/python/python.exe" c:/path/to/your/projects/rpg-tools/test/test_findherbs.py

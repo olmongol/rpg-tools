@@ -9,5 +9,6 @@ example
 *.toc
 *.pdf
 *.aux
-src/data/encounter/*
-src/data/npcs/*
+src/data/default/tables/gamemaster.csv
+.vscode/*
+*.snap
