@@ -343,6 +343,9 @@ class InventoryWin(blankWindow):
     def updWidgedCont(self):
         '''
         This method updates widget content like texts or images
+
+        ----
+        @todo add fallback if image not found
         '''
 
         for elem in self.filterlist:
