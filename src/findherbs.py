@@ -106,6 +106,8 @@ def findHerbs(herbs = [], roll = 0, skill = -15, area = ["---"], climate = [], l
         for plant in herbs:
             logger.debug(f"plant: {plant['area']} - {plant['climate']} - {plant['locale']}. ")
 
+            # print(f"current plant likes: {plant['area']} - {plant['climate']} - {plant['locale']}. ")
+
             if climate != [] and locale != []:
                 #print("climate != [] and locale != []")
 
@@ -240,6 +242,30 @@ def findHerbs(herbs = [], roll = 0, skill = -15, area = ["---"], climate = [], l
         logger.info(f"finished findHerbs {len(foundherbs)}")
         return foundherbs
 
+def loadHerbs(path = "herbs.csv"):
+    herbsCSV = readCSV(path)
+    logger.info(f"herb table {path} read successfully")
+
+    for plant in herbsCSV:
+        if "item" in plant.keys():
+            plant["name"] = plant.pop("item")
+
+        if "comment" in plant.keys():
+            plant["description"] = plant.pop("comment")
+
+        if "effect" in plant.keys():
+            plant["medical use"] = plant.pop("effect")
+
+        if "cost" in plant.keys():
+            plant["worth"] = plant.pop("cost")
+
+        plant["worth"] = string2worth(plant["worth"])
+        plant["weight"] = 0.1
+        plant["location"] = "equipped"
+        logger.debug(json.dumps(plant, indent = 4))
+
+    logger.info(f'Loaded {len(herbsCSV)} herbs from {path}')
+    return herbsCSV
 
 
 class searchHerbsWin(blankWindow):
@@ -255,47 +281,28 @@ class searchHerbsWin(blankWindow):
     """
 
 
-    def __init__(self, lang = "en", charlist = [], storepath = "./data", herbsfile = "herbs.csv"):
+    def __init__(self, lang = "en", charlist = [], storepath = "./data", herbsFileName = "herbs.csv"):
         """!
         Constructor searchHerbsWin
         @param lang chosen language for window content.
         @param charlist list of characters
         @param storepath configured storepath
-        @param herbsfile name of the CSV file containing the herbs' data
+        @param herbsFileName name of the CSV file containing the herbs' data
         """
         self.lang = lang
         self.charlist = charlist
         self.storepath = storepath
+        # why does the window have to know the directories
         self.defaultpath = storepath + "/default/inventory/"
-        self.herbsfile = herbsfile
+        self.herbsfile = herbsFileName
         self.foundherbs = []
 
         if "//" in self.defaultpath:
             self.defaultpath = self.defaultpath.replace("//", "/")
 
-        self.herbs = readCSV(self.defaultpath + self.herbsfile)
-        logger.info(f"herb table {self.defaultpath + self.herbsfile} read successfully")
+        self.herbsFilePath = self.defaultpath + self.herbsfile
 
-        for plant in self.herbs:
-
-            if "item" in plant.keys():
-                plant["name"] = plant.pop("item")
-
-            if "comment" in plant.keys():
-                plant["description"] = plant.pop("comment")
-
-            if "effect" in plant.keys():
-                plant["medical use"] = plant.pop("effect")
-
-            if "cost" in plant.keys():
-                plant["worth"] = plant.pop("cost")
-
-            plant["worth"] = string2worth(plant["worth"])
-            plant["weight"] = 0.1
-            plant["location"] = "equipped"
-            logger.debug(json.dumps(plant, indent = 4))
-
-        logger.info(f'Loaded {len(self.herbs)} herbs from {herbsfile}')
+        self.herbsCSV = loadHerbs(path=self.herbsFilePath)
 
         self.climate = []
         self.locale = []
@@ -308,7 +315,7 @@ class searchHerbsWin(blankWindow):
                           }]
 
         # get all climate/locale entries
-        for h in self.herbs:
+        for h in self.herbsCSV:
 
             if h["climate"] not in self.climate:
                 self.climate.append(h["climate"])
@@ -331,6 +338,8 @@ class searchHerbsWin(blankWindow):
         self.__addHelpMenu()
         self.__buildWin()
         self.window.mainloop()
+
+
 
 
     def __addMenu(self):
@@ -606,7 +615,7 @@ class searchHerbsWin(blankWindow):
         searchmod = self.__mod.get()
         searchroll = self.__roll.get()
         self.searchregion = [self.__region.get()]
-        self.foundherbs = findHerbs(self.herbs, roll = searchroll, skill = searchskill + searchmod, area = self.searchregion, \
+        self.foundherbs = findHerbs(self.herbsCSV, roll = searchroll, skill = searchskill + searchmod, area = self.searchregion, \
                        climate = self.searchclimate, locale = self.searchlocale)
         logger.info(f"found {len(self.foundherbs)} herbs with {searchskill}+{searchmod}+{searchroll} in {self.searchregion}.")
         self.printFindings(self.foundherbs)
