@@ -13,7 +13,7 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.5
 '''
 __version__ = "0.5"
-__updated__ = "21.10.2022"
+__updated__ = "02.12.2022"
 __me__ = "rpgtoolbox.combat"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
@@ -399,11 +399,13 @@ def createCombatList(comlist = []):
 
         if "PP" in comlist[i].keys() and comlist[i]["PP"]:
             comlist[i]["status"]["PP"] = int(comlist[i]["PP"])
+
         else:
             comlist[i]["status"]["pp"] = 0
 
         comlist[i]["comlog"] = comlog.copy()
         comlist[i]["switch"] = 0
+        comlist[i]["ammo"] = {}
 
     logger.debug("combat list type convert successfully done.")
     return comlist

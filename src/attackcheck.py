@@ -14,13 +14,14 @@ other opponents.
 \version 1.0
 '''
 __version__ = "1.0"
-__updated__ = "26.11.2022"
+__updated__ = "02.12.2022"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "RM RPG Tools: attack checker module"
 
 from copy import deepcopy
 from pprint import pformat
+from random import randint
 from random import randint
 from tkinter import filedialog
 from tkinter.ttk import Combobox
@@ -372,6 +373,7 @@ class atWin(blankWindow):
 
                 if missile[j][0] in self.weapontab.keys():
                     missile[j][0] = self.weapontab[missile[j][0]]["name"]
+
                 else:
                     missile[j][0] = "n/a"
 
@@ -739,8 +741,8 @@ class atWin(blankWindow):
         #self.defenders = deepcopy(self.initlist)
         self.combatround += 1
         self.initroll = True
-        self.__updtAttckCombo(None)
         self.__updDefCombo(None)
+        self.__updtAttckCombo(None)
 
 
     def __rollAttack(self):

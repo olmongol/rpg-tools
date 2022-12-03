@@ -23,32 +23,33 @@ This holds window classes for generating and updating (level ups) characters.
  -# general more logging for debugging
 
 '''
-import random
-import os
-import sys
-import json
+from pprint import pprint  # for debugging purposes only
 from tkinter import *
-#from PIL import Image, ImageTk
 from tkinter.filedialog import *
 from tkinter.ttk import *
-from rpgtoolbox.lang import *
-from rpgtoolbox.globaltools import *
-from rpgtoolbox import logbox as log
-from rpgtoolbox import handlemagic
-from rpgtoolbox.errbox import *
-from rpgtoolbox.confbox import *
-from rpgtoolbox.rpgtools import getLvl
-from rpgtoolbox.rolemaster import stats
-from rpgtoolbox.rpgtools import calcTotals
-from gui.winhelper import AutoScrollbar
-from gui.winhelper import InfoCanvas
-from gui.window import *
+import json
+import os
+import random
+import sys
+
 from gui.gmtools import *
 from gui.mangroup import *
+from gui.window import *
+from gui.winhelper import AutoScrollbar
+from gui.winhelper import InfoCanvas
+from rpgtoolbox import handlemagic
+from rpgtoolbox import logbox as log
 from rpgtoolbox.confbox import *
-from pprint import pprint  # for debugging purposes only
+from rpgtoolbox.confbox import *
+from rpgtoolbox.errbox import *
+from rpgtoolbox.globaltools import *
+from rpgtoolbox.lang import *
+from rpgtoolbox.rolemaster import stats
+from rpgtoolbox.rpgtools import calcTotals
+from rpgtoolbox.rpgtools import getLvl
 
-__updated__ = "08.10.2022"
+#from PIL import Image, ImageTk
+__updated__ = "03.12.2022"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -2382,8 +2383,8 @@ class skillcatWin(blankWindow):
                                   columns = self.__treecolumns,
                                   show = "headings",
                                   )
-        chgvscroll = AutoScrollbar(
-            orient = "vertical", command = self.__chgtree.xview)
+        chgvscroll = AutoScrollbar(orient = "vertical",
+                                   command = self.__chgtree.xview)
         self.__chgtree.configure(yscrollcommand = chgvscroll.set)
 
         self.__chgtree.grid(column = 0,
@@ -3231,15 +3232,21 @@ class skillcatWin(blankWindow):
         self.profs = rm.choseProfession(self.lang)
         #refreshing/recalculating stat bonusses
         self._character = rm.refreshStatBonus(self._character)
+        logger.info(f"stat bonusses calculated for {self._character['name']}")
         # remove usedDP from character's available DP
         self._character['DP'] -= self.__usedDP
+        logger.debug(f"remaining DP: {self._character['DP']}")
 #        handlemagic.updateSL(character = self._character, datadir = self.spath)
         self._character["soul dep"] = rm.raceHealingFactors[self._character["race"]]["soul dep"]
+        logger.debug(f'soul depature set to {self._character["soul dep"]}')
         self._character["Stat Loss"] = rm.raceHealingFactors[self._character["race"]]["Stat Loss"]
+        logger.debug(f'Stat Loss set to {self._character["Stat Loss"]}')
         self._character["Recovery"] = rm.raceHealingFactors[self._character["race"]]["Recovery"]
+        logger.debug(f'Recovery set to: {self._character["Recovery"]}')
 
         if self._character['DP'] == 0 and self._character['lvlup'] > 0:
             self._character['lvlup'] -= 1
+            logger.debug(f"Count of level ups: {self._character['lvlup']}")
 
             for c in self._character["cat"].keys():
                 self._character['cat'][c]['lvlups'] = 0
@@ -3249,7 +3256,22 @@ class skillcatWin(blankWindow):
                     if type(self._character["cat"][c]['Skill'][sk]) == type({}):
                         self._character["cat"][c]['Skill'][sk]['lvlups'] = 0
 
+            logger.debug("cleaned al category and skill level up flags")
+
         self._character["old_exp"] = int(self._character['exp'])
+        logger.info(f'Character\'s Exp: {self._character["old_exp"]}')
+        # setting prof bonusses again
+        for cat in self._character['cat'].keys():
+
+            for pb in self.profs[self._character['prof']]['Profession Bonusses']:
+
+                if pb in cat:
+                    self._character['cat'][cat]['prof bonus'] = int(self.profs[self._character['prof']]['Profession Bonusses'][pb])
+                    break
+
+                else:
+                    self._character['cat'][cat]['prof bonus'] = 0
+        logger.info("Profession bonusses set")
 
         for cat in list(self.__changed["cat"].keys()):
             self._character['cat'][cat]["rank"] = self.__changed["cat"][cat]["rank"]
@@ -3265,21 +3287,13 @@ class skillcatWin(blankWindow):
                     else:
                         self._character["cat"][cat]["Skill"][skill]["rank"] = self.__changed["cat"][cat]["Skill"][skill]["rank"]
                         self._character["cat"][cat]["Skill"][skill]["total bonus"] = self.__changed["cat"][cat]["Skill"][skill]["total bonus"]
-
-        # setting prof bonusses again
-        for cat in self._character['cat'].keys():
-
-            for pb in self.profs[self._character['prof']]['Profession Bonusses']:
-
-                if pb in cat:
-                    self._character['cat'][cat]['prof bonus'] = int(self.profs[self._character['prof']]['Profession Bonusses'][pb])
-                    break
-
-                else:
-                    self._character['cat'][cat]['prof bonus'] = 0
+        logger.info("Category/Skil bonusses re-calculted")
         handlemagic.updateSL(character = self._character, datadir = self.spath)
+        logger.info("Spell Lists updated")
         # save character data
         self.__save('.json')
+        logger.info("Character file saved (JSON)")
+
         if  self._character['DP'] > 0:
             # save changes
             writeJSON("{}/{}/{}_changes.json".format(self.spath, self._character['player'], self._character['name']), self.__changed)
@@ -3288,6 +3302,7 @@ class skillcatWin(blankWindow):
 
             if os.path.isfile("{}/{}/{}_changes.json".format(self.spath, self._character['player'], self._character['name'])):
                 os.remove("{}/{}/{}_changes.json".format(self.spath, self._character['player'], self._character['name']))
+
         self.window.destroy()
 
         if "background" in self._character.keys():

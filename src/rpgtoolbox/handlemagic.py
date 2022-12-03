@@ -12,15 +12,17 @@
 @version 0.8
 '''
 __version__ = "0.8"
-__updated__ = "03.10.2022"
+__updated__ = "03.12.2022"
 
-import os
-from . import logbox as log
-from rpgtoolbox.confbox import *
-from .globaltools import readFile as readNotes
-from .globaltools import readCSV
-from .rolemaster import DPCostSpells
 from pprint import pprint
+import os
+
+from rpgtoolbox.confbox import *
+
+from . import logbox as log
+from .globaltools import readCSV
+from .globaltools import readFile as readNotes
+from .rolemaster import DPCostSpells
 
 mycnf = chkCfg()
 logger = log.createLogger('magic', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = 'handlemagic.log')
@@ -233,7 +235,9 @@ def updateSL(character = {}, datadir = "./data"):
     - updating costs if implemented one day
     '''
     spellcats = []
+
     for cat in character["cat"].keys():
+
         if "Spells - " in cat:
             spellcats.append(cat)
 
@@ -241,11 +245,17 @@ def updateSL(character = {}, datadir = "./data"):
                           charprof = character['prof'],
                           charrealm = character["realm"],
                           charlvl = character["lvl"])
+    logger.info("Spellbook read")
 
     for magic in spellbook.spelllists.keys():
+        logger.debug(f"working on spell list type: {magic}")
+
         for spcat in spellcats:
+
             if spellbook.spelllists[magic]["Category"] in spcat:
+
                 for splist in spellbook.spelllists[magic].keys():
+                    logger.debug(f"Spell List: {splist}")
                     if splist != "Category":
                         character["cat"][spcat]["Skill"][splist]["Spells"] = spellbook.spelllists[magic][splist]["Spells"]
                         character["cat"][spcat]["Skill"][splist]["Special Notes"] = spellbook.spelllists[magic][splist]["Special Notes"]
