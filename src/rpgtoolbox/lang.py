@@ -22,7 +22,7 @@ Currently supported languages are:
 @license GNU V3.0
 '''
 __version__ = "1.1"
-__updated__ = "22.11.2022"
+__updated__ = "03.12.2022"
 ##
 # @var supportedrpg
 # Supported RPG systems
@@ -848,7 +848,11 @@ labels = {'cfg_path': {'de': 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei',
           'avail magic': {"de": "verfügbare Spruchlisten",
                           "en": "available spell list"},
           'selected magic': {"de": "gewählte Spruchlisten",
-                             "en": "selected spell lists"},
+                             "en": "selected spell lists"
+                            },
+          'ammo':{"de": "Muni",
+                  "en": "Ammo"
+                 },
           }
 
 invedtacts = {"de": [u"wählen", u"ausgerüstet", "unausgerüstet"],
