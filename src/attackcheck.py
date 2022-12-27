@@ -14,7 +14,7 @@ other opponents.
 \version 1.0
 '''
 __version__ = "1.0"
-__updated__ = "02.12.2022"
+__updated__ = "10.12.2022"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "RM RPG Tools: attack checker module"
@@ -1550,6 +1550,20 @@ class atWin(blankWindow):
         self.__typeCombo.bind("<<ComboboxSelected>>", self.__getAttackType)
         self.__typeCombo.grid(row = 2, column = 1, sticky = W)
 
+        Label(self.window,
+              text = f'{labels["ammo"][self.lang]}:',
+              ).grid(row = 2, column = 2, sticky = W)
+
+        self.__ammo = StringVar()
+        self.__ammo.set("n/a")
+        self.__ammoEntry = Entry(self.window,
+                                textvariable = self.__ammo,
+                                justify = "center",
+                                width = 5
+                                )
+        self.__ammoEntry.grid(row = 2, column = 3, sticky = "EW")
+        self.__ammoEntry.bind("<Return>", self.setAmmo)
+        self.__ammoEntry.bind("<<FocusOut>>", self.setAmmo)
         #---------- row 3
 
         self.__selectOB = StringVar()
@@ -1881,16 +1895,30 @@ class atWin(blankWindow):
         self.__displayCrit.grid(column = 0, columnspan = 12, row = 13, sticky = "NEWS")
 
 
+    def setAmmo(self, event = None, mod = 0):
+        """!
+        This sets the ammo of a distance weapon
+
+        ----
+        @todo this has to be fully implemented.
+        """
+        # set ammo count for current attacker for current distance weapon
+        pass
+
+
     def updateRange(self, event = None):
         """!
         This updates Range and RangeMod after entering the combat distance"""
         currdist = self.__atdistance.get()
         self.getFumbleType()
+
         for range in ["near", "short", "medium", "long", "extreme"]:
+
             if currdist <= self.distance[range][0]:
                 self.__range.set(range)
                 self.__rangemod.set(self.distance[range][1])
                 break
+
             else:
                 self.__range.set("n/a")
                 self.__rangemod.set(-1000)
