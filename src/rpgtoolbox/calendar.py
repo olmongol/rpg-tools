@@ -10,7 +10,7 @@
 \email marcus@lederzeug.de
 
 '''
-__updated__ = "27.12.2022"
+__updated__ = "13.01.2023"
 __version__ = "1.0"
 
 __me__ = "calendar.py"
@@ -240,12 +240,18 @@ class date(object):
                             "date full":[self.weekday, self.day, self.months[self.month], self.year]
                            }
 
-    def showdate(self,option="short"):
+
+    def showdate(self, option = "short"):
         """!
         deliverss a string with time and date
-        @param option the options"""
+        @param option the options
+
+        ----
+        @todo this has to be fully implemented"""
         if option == "short":
-            
+            pass
+
+
 
 class time(object):
     '''

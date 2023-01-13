@@ -14,7 +14,7 @@ other opponents.
 \version 1.0
 '''
 __version__ = "1.0"
-__updated__ = "10.12.2022"
+__updated__ = "13.01.2023"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "RM RPG Tools: attack checker module"
@@ -220,6 +220,8 @@ class atWin(blankWindow):
                                   command = self.notdoneyet)
         self.editmenu.add_separator()
         self.editmenu.add_command(label = submenu['edit'][self.lang]["ed_add_wpn"],
+                                  command = self.notdoneyet)
+        self.editmenu.add_command(label = labels["ammo"][self.lang],
                                   command = self.notdoneyet)
         self.editmenu.add_command(label = submenu['edit'][self.lang]["ed_heal_char"],
                                   command = self.notdoneyet)
@@ -1121,12 +1123,18 @@ class atWin(blankWindow):
             for mob in at["OB melee"]:
                 self.__oblist.append(mob[0])
 
+            self.__ammo.set("n/a")
+
         elif selected == attacktypes[self.lang][1]:
 
             for mob in at["OB missile"]:
                 self.__oblist.append(mob[0])
+
+            self.__ammo.set(str(0))
+
         else:
             self.notdoneyet(f"{attacktypes[self.lang][2]}")
+            self.__ammo.set("n/a")
 
         self.__selectOB.set(self.__oblist[0])
         self.__obCombo.config(values = self.__oblist)
@@ -1279,6 +1287,11 @@ class atWin(blankWindow):
 
             if len(at["OB missile"][index]) > 1:
                 self.__skill.set(at["OB missile"][index][1])
+
+                if isinstance(at["ammo"][index], int()):
+                    self.__ammo.set(str(at["ammo"][index]))
+                else:
+                    self.__ammo.set("0")
 
             else:
                 self.__skill.set(at["OB missile"][index][0])
@@ -1643,10 +1656,10 @@ class atWin(blankWindow):
         self.__atdistance = IntVar()
         self.__atdistance.set(0)
         self.__EntryDistance = Entry(self.window,
-              textvariable = self.__atdistance,
-              justify = "center",
-              width = 5
-              )
+                                     textvariable = self.__atdistance,
+                                     justify = "center",
+                                     width = 5
+                                     )
         self.__EntryDistance.grid(column = 2, row = 6, sticky = "EW")
         self.__EntryDistance.bind("<FocusOut>", self.updateRange)
         self.__EntryDistance.bind("<Return>", self.updateRange)
