@@ -14,7 +14,7 @@ other opponents.
 \version 1.0
 '''
 __version__ = "1.0"
-__updated__ = "13.01.2023"
+__updated__ = "05.05.2023"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "RM RPG Tools: attack checker module"
@@ -54,9 +54,14 @@ class atWin(blankWindow):
     ----
     @todo
     - adding fight with magic
-    - use ranges for missile attacks
+    - adding & Storing ammo for missile combat
     - use breakage tests
-    - add fumble checks
+    - storing character status (hits, mods etc.)
+
+    ----
+    @bug known bugs are the following:
+    - you cannot proceed with next attacker if missle weapons are selected
+    - you cannot proceed with next attacker if he was disabled by damage (stun, etc)
     """
 
 
@@ -295,6 +300,7 @@ class atWin(blankWindow):
               - immunity list
               - weakness list
               - set max level of attack
+              - implement Weapon breakage
         '''
         size = "H"
         self.enemygrp = createCombatList(self.enemygrp)
@@ -673,7 +679,7 @@ class atWin(blankWindow):
             for n in range(1, bn + 1):
                 self.weaponlist[i]["breakage"].append(n + 10 * n)
 
-            print(json.dumps(self.weaponlist[i], indent = 4))
+            # print(json.dumps(self.weaponlist[i], indent = 4))
             logger.debug(f"{self.weaponlist[i]['item']} # {self.weaponlist[i]['breakage']}")
             # build strength
             s = self.weaponlist[i]["strength"].split("-")
@@ -1941,6 +1947,7 @@ class atWin(blankWindow):
         """!Gets the next attacker if any from the init list (on button click)"""
         self.__updtAttckCombo()
         self.curr_attacker = self.__selectAttacker.get()
+        logger.debug(f"current Attacker: {self.curr_attacker}")
 
         if self.curr_attacker in self.__attackCombo["values"]:
             self.__pos = self.__attackCombo["values"].index(self.curr_attacker)
