@@ -14,11 +14,12 @@ other opponents.
 \version 1.0
 '''
 __version__ = "1.0"
-__updated__ = "13.01.2023"
+__updated__ = "23.01.2023"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "RM RPG Tools: attack checker module"
 
+from PIL import Image, ImageTk
 from copy import deepcopy
 from pprint import pformat
 from random import randint
@@ -27,8 +28,6 @@ from tkinter import filedialog
 from tkinter.ttk import Combobox
 import json
 import os
-
-from PIL import Image, ImageTk
 
 from gui.window import *
 from rolemaster.specials import *
@@ -295,6 +294,7 @@ class atWin(blankWindow):
               - immunity list
               - weakness list
               - set max level of attack
+              - implement Weapon breakage
         '''
         size = "H"
         self.enemygrp = createCombatList(self.enemygrp)
@@ -673,7 +673,7 @@ class atWin(blankWindow):
             for n in range(1, bn + 1):
                 self.weaponlist[i]["breakage"].append(n + 10 * n)
 
-            print(json.dumps(self.weaponlist[i], indent = 4))
+            # print(json.dumps(self.weaponlist[i], indent = 4))
             logger.debug(f"{self.weaponlist[i]['item']} # {self.weaponlist[i]['breakage']}")
             # build strength
             s = self.weaponlist[i]["strength"].split("-")

@@ -49,7 +49,7 @@ from rpgtoolbox.rpgtools import calcTotals
 from rpgtoolbox.rpgtools import getLvl
 
 #from PIL import Image, ImageTk
-__updated__ = "03.12.2022"
+__updated__ = "24.02.2023"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -873,9 +873,10 @@ class genAttrWin(blankWindow):
 
         if rpg == "RoleMaster":
             from rpgtoolbox import rolemaster as rm
-
+            logger.debug(f"create RM Character")
         else:
             self.notdoneyet("support for %s" % (rpg))
+            logger.debug("not a RM character")
 
         # @var self.character
         # the attribute where to store the character data in as 'JSON'
@@ -1199,7 +1200,8 @@ class genAttrWin(blankWindow):
         Checks whether all developing points (and not more) are used and player
         and character names are set. If so it proceeds with collecting all data.
         '''
-        logger.debug("next step called")
+        logger.info("next step called")
+        logger.debug(f"Step 1 Character Data:\n\n {json.dumpe(self.stats,indent=4)}")
 
         if self.points != self.__used:
             messageWindow(self.lang).showinfo(errmsg['stats_dp'][self.lang])
@@ -1361,13 +1363,12 @@ class genAttrWin(blankWindow):
         ----
         @bug potential cause for false DP calculations. It is not clear how to
         reproduce this bug.
-        @bug  if testr != self.profs[testp]['Realm'] and self.profs[testp]['Realm'] != "choice": KeyError: ''
-        @bug if realm chosen before profession an error occurs (sdtout)
 
         @note bug should be fixed
         '''
         testr = self.stats['realm'].get()
         testp = self.stats['prof'].get()
+
         if testp != "":
             if testr != self.profs[testp]['Realm'] and self.profs[testp]['Realm'] != "choice":
                 self.stats['realm'].set(self.profs[testp]['Realm'])
