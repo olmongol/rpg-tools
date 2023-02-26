@@ -49,7 +49,7 @@ from rpgtoolbox.rpgtools import calcTotals
 from rpgtoolbox.rpgtools import getLvl
 
 #from PIL import Image, ImageTk
-__updated__ = "24.02.2023"
+__updated__ = "26.02.2023"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -1411,6 +1411,7 @@ class genAttrWin(blankWindow):
         @param event object event given by OptionMenu but not used
         '''
         testp = self.stats['prof'].get()
+        logger.debug(f"magic realm {testp}")
         self.stats['realm'].set(self.profs[testp]['Realm'])
         self.__setPStats()
 
@@ -1664,11 +1665,13 @@ class genAttrWin(blankWindow):
 
                 logger.info(f"{self.spath + self.character['player'] + '/' + self.character['name']}.json saved ")
 
-            except:
+            except Exception as error:
                 with open(self.spath + self.character['player'] + '/' + self.character['name'] + ".json", "w") as outfile:
                     json.dump(self.character, outfile, indent = 4)
+                    logger.error(error)
+                    logger.error(f"wrote {self.spath + self.character['player'] + '/' + self.character['name'] + '.json'}")
 
-                logger.info(f"{self.spath + self.character['player'] + '/' + self.character['name']}.json saved ")
+            logger.info(f"{self.spath + self.character['player'] + '/' + self.character['name']}.json saved ")
 
             self.window.destroy()
             self.window3 = priorizeWeaponsWin(self.lang, self.spath, self.character)
@@ -1686,7 +1689,7 @@ class genAttrWin(blankWindow):
         fp = open("%sdefault/Skills_%s.csv" % (self.spath, self.lang), encoding = "utf8")
         content = fp.readlines()
         fp.close()
-        logger.debug("skill file read.")
+        logger.debug("skill file read: {self.spath}/skills_{self.lang}.csv}")
 
         if '\n' in content:
             content.remove('\n')
@@ -1722,6 +1725,7 @@ class genAttrWin(blankWindow):
                                                                  }
 
         del(content)
+        logger.debug("destroyed raw data file content.")
         self.profs = rm.choseProfession(self.lang)
 
         for key in skillcat.keys():
@@ -1734,7 +1738,7 @@ class genAttrWin(blankWindow):
         fp = open('%s/default/SkillCat_%s.csv' % (self.spath, self.lang), 'r', encoding = "utf8")
         content = fp.readlines()
         fp.close()
-
+        logger.debug(f"read file: {self.spath}/default/Skillcat_{self.lang}.csv")
         content[0] = content[0].strip("\n").split(',')
 
         for i in range(1, len(content)):
@@ -1780,6 +1784,7 @@ class genAttrWin(blankWindow):
                 skillcat[content[i][0]]["Skill"][content[0][1]] = temp
 
         self.character['cat'] = skillcat
+
         if self.character['realm'] != "choice":
             self.spellbook = handlemagic.getSpells(self.spath,
                                                    self.character['prof'],
@@ -1796,8 +1801,8 @@ class genAttrWin(blankWindow):
                 if cat[:8] == "Spells -":
 
                     for slcat in list(self.spellbook.spelllists.keys()):
-                        print("DeBUG: addCatnSkills (slcat) {}".format(slcat))
-                        print("Debug: keys: {}".format(list(self.spellbook.spelllists[slcat].keys())))
+                        #print("DeBUG: addCatnSkills (slcat) {}".format(slcat))
+                        #print("Debug: keys: {}".format(list(self.spellbook.spelllists[slcat].keys())))
 
                         if self.spellbook.spelllists[slcat]['Category'] in cat:
                             for spell in list(self.spellbook.spelllists[slcat].keys()):
@@ -3239,15 +3244,15 @@ class skillcatWin(blankWindow):
         logger.debug(f"remaining DP: {self._character['DP']}")
 #        handlemagic.updateSL(character = self._character, datadir = self.spath)
         self._character["soul dep"] = rm.raceHealingFactors[self._character["race"]]["soul dep"]
-        logger.debug(f'soul depature set to {self._character["soul dep"]}')
+        #logger.debug(f'soul depature set to {self._character["soul dep"]}')
         self._character["Stat Loss"] = rm.raceHealingFactors[self._character["race"]]["Stat Loss"]
-        logger.debug(f'Stat Loss set to {self._character["Stat Loss"]}')
+        #logger.debug(f'Stat Loss set to {self._character["Stat Loss"]}')
         self._character["Recovery"] = rm.raceHealingFactors[self._character["race"]]["Recovery"]
-        logger.debug(f'Recovery set to: {self._character["Recovery"]}')
+        #logger.debug(f'Recovery set to: {self._character["Recovery"]}')
 
         if self._character['DP'] == 0 and self._character['lvlup'] > 0:
             self._character['lvlup'] -= 1
-            logger.debug(f"Count of level ups: {self._character['lvlup']}")
+            logger.info(f"Count of level ups: {self._character['lvlup']}")
 
             for c in self._character["cat"].keys():
                 self._character['cat'][c]['lvlups'] = 0
@@ -3257,10 +3262,12 @@ class skillcatWin(blankWindow):
                     if type(self._character["cat"][c]['Skill'][sk]) == type({}):
                         self._character["cat"][c]['Skill'][sk]['lvlups'] = 0
 
-            logger.debug("cleaned al category and skill level up flags")
+            logger.info("cleaned all category and skill level up flags")
 
+        logger.info(f'Character\'s old Exp: {self._character["old_exp"]}')
         self._character["old_exp"] = int(self._character['exp'])
         logger.info(f'Character\'s Exp: {self._character["old_exp"]}')
+
         # setting prof bonusses again
         for cat in self._character['cat'].keys():
 
@@ -3272,6 +3279,7 @@ class skillcatWin(blankWindow):
 
                 else:
                     self._character['cat'][cat]['prof bonus'] = 0
+
         logger.info("Profession bonusses set")
 
         for cat in list(self.__changed["cat"].keys()):
@@ -3288,24 +3296,29 @@ class skillcatWin(blankWindow):
                     else:
                         self._character["cat"][cat]["Skill"][skill]["rank"] = self.__changed["cat"][cat]["Skill"][skill]["rank"]
                         self._character["cat"][cat]["Skill"][skill]["total bonus"] = self.__changed["cat"][cat]["Skill"][skill]["total bonus"]
+
         logger.info("Category/Skil bonusses re-calculted")
         handlemagic.updateSL(character = self._character, datadir = self.spath)
         logger.info("Spell Lists updated")
-        # save character data
+        # save character data snapshot
         self.__save('.json')
-        logger.info("Character file saved (JSON)")
 
         if  self._character['DP'] > 0:
             # save changes
+            logger.debug(f"try to write {self.spath}/{self._character['player']}/{self._character['name']}")
             writeJSON("{}/{}/{}_changes.json".format(self.spath, self._character['player'], self._character['name']), self.__changed)
 
         else:
 
             if os.path.isfile("{}/{}/{}_changes.json".format(self.spath, self._character['player'], self._character['name'])):
+                logger.info(f"remove old file: {self.spath}/{self._character['player']}/{self._character['name']}_changes.json")
                 os.remove("{}/{}/{}_changes.json".format(self.spath, self._character['player'], self._character['name']))
+
+            writeJSON(f"{self.spath}/{self._character['player']}/{self._character['name']}_changes.json")
 
         self.window.destroy()
 
+        # ------------- deprecated code ???
         if "background" in self._character.keys():
             self.window2 = MainWindow(lang = self.lang, storepath = self.spath, char = self._character)
 
@@ -3366,6 +3379,8 @@ class skillcatWin(blankWindow):
         '''
         pathfile = self.spath + "/" + \
             self._character['player'] + "/" + self._character['name'] + ending
+
+        logger.debug(f"save path snap file: {pathfile}")
         writeJSON(pathfile, self._character)
 
 

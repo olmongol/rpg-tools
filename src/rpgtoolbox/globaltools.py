@@ -30,7 +30,7 @@ from . import logbox as log
 #mycnf = cf.chkCfg()
 #logger = log.createLogger('global', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"] , logfile = 'globaltools.log')
 __version__ = "0.5.4"
-__updated__ = "30.10.2022"
+__updated__ = "26.02.2023"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "global tools  module"
@@ -336,8 +336,9 @@ def writeJSON(filename = "", content = {}):
             json.dump(content, fp, indent = 4)
         logger.info("%s saved" % filename)
 
-    except:
+    except Exception as error:
         logger.error("%s could not be saved!" % filename)
+        logger.errot(error)
 
 
 
