@@ -49,7 +49,7 @@ from rpgtoolbox.rpgtools import calcTotals
 from rpgtoolbox.rpgtools import getLvl
 
 #from PIL import Image, ImageTk
-__updated__ = "26.02.2023"
+__updated__ = "24.03.2023"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -1579,7 +1579,7 @@ class genAttrWin(blankWindow):
 
     def rollDice(self):
         """!
-        Creates the pool for stat generation by rolling the dices.
+        Creates the developing pool points for stat generation by rolling the dices.
         """
         self.__count += 1
 
@@ -1650,9 +1650,9 @@ class genAttrWin(blankWindow):
         self.character["Stat Loss"] = rm.raceHealingFactors[self.character["race"]]["Stat Loss"]
         self.character["Recovery"] = rm.raceHealingFactors[self.character["race"]]["Recovery"]
 
-        logger.debug("Stats, RR etc. added")
+        logger.info("Stats, RR etc. added")
         self.__addCatnSkills()
-        logger.debug("successfully added categories and skills.")
+        logger.info("successfully added categories and skills.")
 
         if not os.path.exists(self.spath + self.character['player']):
             os.mkdir(self.spath + self.character['player'])
@@ -1674,6 +1674,7 @@ class genAttrWin(blankWindow):
             logger.info(f"{self.spath + self.character['player'] + '/' + self.character['name']}.json saved ")
 
             self.window.destroy()
+            ### ????
             self.window3 = priorizeWeaponsWin(self.lang, self.spath, self.character)
 
 
@@ -1689,7 +1690,7 @@ class genAttrWin(blankWindow):
         fp = open("%sdefault/Skills_%s.csv" % (self.spath, self.lang), encoding = "utf8")
         content = fp.readlines()
         fp.close()
-        logger.debug("skill file read: {self.spath}/skills_{self.lang}.csv}")
+        logger.info("skill file read: {self.spath}/skills_{self.lang}.csv}")
 
         if '\n' in content:
             content.remove('\n')
@@ -1707,6 +1708,7 @@ class genAttrWin(blankWindow):
                                        'item bonus': 0,
                                        'rank': 0
                                        }
+            logger.debug(f"get {skillcat[content[i][0]]}")
 
             for pb in list(self.profs[self.character['prof']]['Profession Bonusses'].keys()):
 
@@ -1723,9 +1725,10 @@ class genAttrWin(blankWindow):
                                                                  'item bonus': 0,
                                                                  'spec bonus': 0,
                                                                  }
+                logger.debug(f"get --> {skillcat[content[i][0]][content[0][1]][skill]}")
 
         del(content)
-        logger.debug("destroyed raw data file content.")
+        logger.info("destroyed raw data file content.")
         self.profs = rm.choseProfession(self.lang)
 
         for key in skillcat.keys():
@@ -1926,10 +1929,6 @@ class priorizeWeaponsWin(blankWindow):
         @todo -check for double priorities. If any don't proceed- on selection of priority update all other Options so you cannot choose a priority twice
         - use readCSV function to open cvs
 
-        -----
-        @bug when you chose double entries:  File "/home/mongol/git/rpg-tools/src/gui/epwins.py", line 1808, in __getPrio
-        for i in range(len(content) - 7, len(content)):
-        IndexError: list index out of range
         '''
         self.__priolist = []
         self.__block = False
@@ -1946,6 +1945,7 @@ class priorizeWeaponsWin(blankWindow):
                 msg = messageWindow()
                 msg.showinfo(errmsg['double'][self.lang], "Info")
                 break
+        logger.debug(f"prio list: {self.__priolist}")
 
         if not self.__block:
             fp = open('./data/default/CatDPC_%s.csv' % self.lang, 'r', encoding = "utf8")
@@ -1960,6 +1960,7 @@ class priorizeWeaponsWin(blankWindow):
                                                 self.__priolist[j - 1])
                 j += 1
             self.__content = content
+            logger.debug(f"content is {content}")
 
 
     def __buildJSON(self):
@@ -1980,6 +1981,7 @@ class priorizeWeaponsWin(blankWindow):
             for j in range(1, len(self.__content[0])):
                 self.__catDBC[self.__content[0][j]
                               ][self.__content[i][0]] = self.__content[i][j]
+        logger.info("Profession level up costs are set")
 
 
     def __addToChar(self):
