@@ -49,7 +49,7 @@ from rpgtoolbox.rpgtools import calcTotals
 from rpgtoolbox.rpgtools import getLvl
 
 #from PIL import Image, ImageTk
-__updated__ = "24.03.2023"
+__updated__ = "10.04.2023"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -1981,6 +1981,7 @@ class priorizeWeaponsWin(blankWindow):
             for j in range(1, len(self.__content[0])):
                 self.__catDBC[self.__content[0][j]
                               ][self.__content[i][0]] = self.__content[i][j]
+
         logger.info("Profession level up costs are set")
 
 
@@ -2238,6 +2239,8 @@ class skillcatWin(blankWindow):
       - hide skill/cat line when not selected in treeview
     @bug - DP are not always shown correctly
     - you lose DPs when you try to level up a skill/cat in multiple times
+    - sometimes it does not store the character sheet successfully
+
     """
 
 
@@ -2263,12 +2266,12 @@ class skillcatWin(blankWindow):
 
         else:
             self.spath = storepath
-            logger.debug('priorizeWeaponsWin: storepath set to %s' %
-                         (storepath))
+            logger.debug(f"storepath set to {storepath}")
 
         self.lang = lang
         self._character = dict(calcTotals(char))
         self.__save()
+        logger.debug(f"snapshot: {self._character['name']}")
 
         if os.path.isfile("{}/{}/{}_changes.json".format(self.spath, self._character['player'], self._character['name'])):
             self.__changed = readJSON("{}/{}/{}_changes.json".format(self.spath, self._character['player'], self._character['name']))
@@ -2840,12 +2843,17 @@ class skillcatWin(blankWindow):
         level
         '''
         self._character['lvl'] = int(getLvl(self._character['exp']))
+        logger.debug(f"new lvl: {self._character['lvl']}")
         oldlvl = int(getLvl(self._character['old_exp']))
+        logger.debug(f"old lvl:{oldlvl} ")
+
         if "lvlup" in self._character.keys():
             self._character['lvlup'] += self._character['lvl'] - oldlvl
+
         else:
             self._character['lvlup'] = 1
             self._character['statgain'] = 0
+
         self._character['statgain'] = int(self._character['lvlup'] * 10)
 
 

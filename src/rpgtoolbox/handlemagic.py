@@ -12,7 +12,7 @@
 @version 0.8
 '''
 __version__ = "0.8"
-__updated__ = "03.12.2022"
+__updated__ = "10.04.2023"
 
 from pprint import pprint
 import os
@@ -256,6 +256,7 @@ def updateSL(character = {}, datadir = "./data"):
 
                 for splist in spellbook.spelllists[magic].keys():
                     logger.debug(f"Spell List: {splist}")
+                    ## @bug if a Key Error rises things were not done but the program won't stop either...
                     if splist != "Category":
                         character["cat"][spcat]["Skill"][splist]["Spells"] = spellbook.spelllists[magic][splist]["Spells"]
                         character["cat"][spcat]["Skill"][splist]["Special Notes"] = spellbook.spelllists[magic][splist]["Special Notes"]
