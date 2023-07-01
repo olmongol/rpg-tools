@@ -14,12 +14,11 @@ other opponents.
 \version 1.0
 '''
 __version__ = "1.0"
-__updated__ = "23.01.2023"
+__updated__ = "01.07.2023"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "RM RPG Tools: attack checker module"
 
-from PIL import Image, ImageTk
 from copy import deepcopy
 from pprint import pformat
 from random import randint
@@ -28,6 +27,8 @@ from tkinter import filedialog
 from tkinter.ttk import Combobox
 import json
 import os
+
+from PIL import Image, ImageTk
 
 from gui.window import *
 from rolemaster.specials import *
@@ -53,9 +54,14 @@ class atWin(blankWindow):
     ----
     @todo
     - adding fight with magic
-    - use ranges for missile attacks
+    - adding & Storing ammo for missile combat
     - use breakage tests
-    - add fumble checks
+    - storing character status (hits, mods etc.)
+
+    ----
+    @bug known bugs are the following:
+    - you cannot proceed with next attacker if missle weapons are selected
+    - you cannot proceed with next attacker if he was disabled by damage (stun, etc)
     """
 
 
@@ -1941,6 +1947,7 @@ class atWin(blankWindow):
         """!Gets the next attacker if any from the init list (on button click)"""
         self.__updtAttckCombo()
         self.curr_attacker = self.__selectAttacker.get()
+        logger.debug(f"current Attacker: {self.curr_attacker}")
 
         if self.curr_attacker in self.__attackCombo["values"]:
             self.__pos = self.__attackCombo["values"].index(self.curr_attacker)

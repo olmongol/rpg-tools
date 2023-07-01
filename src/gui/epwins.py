@@ -49,7 +49,7 @@ from rpgtoolbox.rpgtools import calcTotals
 from rpgtoolbox.rpgtools import getLvl
 
 #from PIL import Image, ImageTk
-__updated__ = "10.04.2023"
+__updated__ = "01.07.2023"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -2260,7 +2260,7 @@ class skillcatWin(blankWindow):
         self.__rankbonus = rankbonus
 
         if storepath == None:
-#            self.spath = os.path.expanduser('~') + "/data"
+            self.spath = os.path.expanduser('~') + "/data"
             self.spath = os.getcwd() + "/data"
             logger.debug('Set storepath to %s' % (storepath)) + "/data"
 
