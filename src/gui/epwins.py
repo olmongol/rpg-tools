@@ -49,7 +49,7 @@ from rpgtoolbox.rpgtools import calcTotals
 from rpgtoolbox.rpgtools import getLvl
 
 #from PIL import Image, ImageTk
-__updated__ = "01.07.2023"
+__updated__ = "15.07.2023"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -58,7 +58,7 @@ __license__ = "GNU V3.0"
 __me__ = "A RPG tool package for Python 3.x"
 
 mycnf = chkCfg()
-logger = log.createLogger('window', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "epwins.log")
+logger = log.createLogger('window', 'info', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "epwins.log")
 
 
 
@@ -2655,7 +2655,7 @@ class skillcatWin(blankWindow):
             catNo += 1
         self.__tree.tag_configure('category', background = 'lightblue')
         self.__tree.bind('<ButtonRelease-1>', self.__selectTreeItem)
-        logger.debug("Tree bild from char data successfully.")
+        logger.debug("Tree build from char data successfully.")
 
 
     def __buildChangedTree(self):
@@ -3174,6 +3174,7 @@ class skillcatWin(blankWindow):
                     messg.showinfo(screenmesg['epwins_no_dp'][self.lang])
 
         self.DPtext.set(str(self._character['DP'] - self.__usedDP))
+        logger.info(f"remaining DPs set to {self.DPtext.get()}")
         self.__buildChangedTree()
 
 
@@ -3182,7 +3183,7 @@ class skillcatWin(blankWindow):
         This method takes added/modified skills/cats to a dict and treeview
 
         ----
-        @todo -check out correct level up: ranks, costs etc.
+        @todo -check out correct level up: ranks, costs etc. XXXX
         '''
         ## @var currcat
         # current category name
@@ -3273,6 +3274,7 @@ class skillcatWin(blankWindow):
 
             if "lvlups" in list(self.__changed['cat'][currcat].keys()):
                 self.__changed['cat'][currcat]['rank'] = newval
+                logger.debug(f"new rank {currcat}: {newval}")
 
                 if self.__changed['cat'][currcat]['lvlups'] < newval:
                     self.__changed['cat'][currcat]['lvlups'] += 1
@@ -3280,6 +3282,7 @@ class skillcatWin(blankWindow):
 
             else:
                 self.__changed['cat'][currcat]['rank'] = newval
+                logger.debug(f"new rank {currcat}: {newval}")
 
             self.__changed['cat'][currcat]['total bonus'] = newtotal
 
@@ -3295,7 +3298,7 @@ class skillcatWin(blankWindow):
 
     def __finalize(self):
         '''!
-        This method finalizes and saves all changes into character data
+        This method finalizes and saves all changes into character data.
 
         The changes done before are saved in the file <charname>_changes.json
         '''
@@ -3307,13 +3310,19 @@ class skillcatWin(blankWindow):
         # remove usedDP from character's available DP
         self._character['DP'] -= self.__usedDP
         logger.debug(f"remaining DP: {self._character['DP']}")
+        self.__usedDP = 0
+
+        if self._character['DP'] < 0:
+            logger.warn(f"Character's DP set from {self._character['DP']} to 0")
+            self._character['DP'] = 0
+
 #        handlemagic.updateSL(character = self._character, datadir = self.spath)
         self._character["soul dep"] = rm.raceHealingFactors[self._character["race"]]["soul dep"]
-        #logger.debug(f'soul depature set to {self._character["soul dep"]}')
+        logger.debug(f'soul depature set to {self._character["soul dep"]}')
         self._character["Stat Loss"] = rm.raceHealingFactors[self._character["race"]]["Stat Loss"]
-        #logger.debug(f'Stat Loss set to {self._character["Stat Loss"]}')
+        logger.debug(f'Stat Loss set to {self._character["Stat Loss"]}')
         self._character["Recovery"] = rm.raceHealingFactors[self._character["race"]]["Recovery"]
-        #logger.debug(f'Recovery set to: {self._character["Recovery"]}')
+        logger.debug(f'Recovery set to: {self._character["Recovery"]}')
 
         if self._character['DP'] == 0 and self._character['lvlup'] > 0:
             self._character['lvlup'] -= 1
@@ -3340,7 +3349,7 @@ class skillcatWin(blankWindow):
 
                 if pb in cat:
                     self._character['cat'][cat]['prof bonus'] = int(self.profs[self._character['prof']]['Profession Bonusses'][pb])
-                    break
+                    # break
 
                 else:
                     self._character['cat'][cat]['prof bonus'] = 0
@@ -3368,7 +3377,7 @@ class skillcatWin(blankWindow):
         # save character data snapshot
         self.__save('.json')
 
-        if  self._character['DP'] > 0:
+        if  self._character['DP'] >= 0:
             # save changes
             logger.debug(f"try to write {self.spath}/{self._character['player']}/{self._character['name']}")
             writeJSON("{}/{}/{}_changes.json".format(self.spath, self._character['player'], self._character['name']), self.__changed)

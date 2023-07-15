@@ -12,7 +12,7 @@
 @version 0.8
 '''
 __version__ = "0.8"
-__updated__ = "10.04.2023"
+__updated__ = "15.07.2023"
 
 from pprint import pprint
 import os
@@ -257,9 +257,19 @@ def updateSL(character = {}, datadir = "./data"):
                 for splist in spellbook.spelllists[magic].keys():
                     logger.debug(f"Spell List: {splist}")
                     ## @bug if a Key Error rises things were not done but the program won't stop either...
+                    if splist not in character["cat"][spcat]["Skill"].keys():
+                        logger.error(f"{splist} not in character's spell index!")
+                        logger.debug(f'character\'s spell index: {character["cat"][spcat]["Skill"].keys()}')
+                        character["cat"][spcat]["Skill"][splist] = {"Spells":"",
+                                                                   "Special Notes":""}
+                        logger.warn(f"{splist} added to character's spell index! - Check for corpse entries.")
+
+                        #----- @todo add a cleaner for character's spell index here
                     if splist != "Category":
                         character["cat"][spcat]["Skill"][splist]["Spells"] = spellbook.spelllists[magic][splist]["Spells"]
                         character["cat"][spcat]["Skill"][splist]["Special Notes"] = spellbook.spelllists[magic][splist]["Special Notes"]
+
+    logger.info("Spell Lists updated.")
 
 
 
@@ -280,3 +290,4 @@ def getSpellNames(slfile = "./data/default/magic/Channeling_Open/Barrier_Law.csv
             result.append(spell)
 
     return result
+
