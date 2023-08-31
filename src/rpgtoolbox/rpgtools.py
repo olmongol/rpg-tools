@@ -14,18 +14,19 @@ This module contains some helpful functions for role-playing games like:
 @email marcus@lederzeug.de
 @version 1.0
 '''
-__updated__ = "03.10.2022"
+__updated__ = "16.07.2023"
 __version__ = "1.0"
 __author__ = "Marcus Schwamberger"
 __me__ = "rpgtools.py"
 
-import random
 import json
-from rpgtoolbox.globaltools import readCSV
-from rpgtoolbox.rolemaster import rankbonus
+import random
+import re
+
 from rpgtoolbox import logbox as log
 from rpgtoolbox.confbox import *
-import re
+from rpgtoolbox.globaltools import readCSV
+from rpgtoolbox.rolemaster import rankbonus
 
 mycnf = chkCfg()
 logger = log.createLogger('rpgtools', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "rpgtools.log")
@@ -121,22 +122,34 @@ def calcTotals(charval = {}):
                                                        progression = progression
                                                        ) + statbonus + itembonus
 
+        cleanuplist = []
         for skill in charval['cat'][cat]['Skill']:
             #DEBUG
             print("calc total: {} - {}".format(cat, skill))
-            if (skill != "Progression" and "Spell" not in cat) or ("Spell" in cat and skill not in ['Stats', 'Progression']):
-                progression = charval['cat'][cat]['Skill'][skill]['Progression']
 
-                if type(progression) == type(2):
-                    progression = [progression]
+            if skill == "Category":
+                #del(charval['cat'][cat]['Skill']["Category"])
+                cleanuplist.append(cat)
 
-                rank = charval['cat'][cat]['Skill'][skill]['rank']
-                bonus = rankbonus(rank = rank, progression = progression)
-                charval['cat'][cat]['Skill'][skill]['rank bonus'] = bonus
-                total = bonus + charval['cat'][cat]['total bonus'] + charval['cat'][cat]['Skill'][skill]['item bonus'] + charval['cat'][cat]['Skill'][skill]['spec bonus']
-                charval['cat'][cat]['Skill'][skill]['total bonus'] = total
-                if skill == "Body Development":
-                    charval['cat'][cat]['Skill'][skill]['total bonus'] += 10
+            else:
+                if (skill != "Progression" and "Spell" not in cat) or ("Spell" in cat and skill not in ['Stats', 'Progression']):
+                    logger.debug(f'{cat}/{skill}')
+                    progression = charval['cat'][cat]['Skill'][skill]['Progression']
+                    logger.debug(f"Progression {progression}")
+
+                    if type(progression) == type(2):
+                        progression = [progression]
+
+                    rank = charval['cat'][cat]['Skill'][skill]['rank']
+                    bonus = rankbonus(rank = rank, progression = progression)
+                    charval['cat'][cat]['Skill'][skill]['rank bonus'] = bonus
+                    total = bonus + charval['cat'][cat]['total bonus'] + charval['cat'][cat]['Skill'][skill]['item bonus'] + charval['cat'][cat]['Skill'][skill]['spec bonus']
+                    charval['cat'][cat]['Skill'][skill]['total bonus'] = total
+                    if skill == "Body Development":
+                        charval['cat'][cat]['Skill'][skill]['total bonus'] += 10
+
+    for item in cleanuplist:
+        del(charval['cat'][item]['Skill']["Category"])
 
     return charval
 

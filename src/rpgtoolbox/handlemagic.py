@@ -12,9 +12,10 @@
 @version 0.8
 '''
 __version__ = "0.8"
-__updated__ = "15.07.2023"
+__updated__ = "06.08.2023"
 
 from pprint import pprint
+import json
 import os
 
 from rpgtoolbox.confbox import *
@@ -71,18 +72,20 @@ class getSpells(object):
         '''
         spellcat = os.listdir(datadir)
         spellcat.sort()
-        logger.debug("getAllLists: spellcat {}".format(spellcat))
+        logger.info("spellcat {}".format(spellcat))
 
         for i in range(0, len(spellcat)):
             slcat = spellcat[i].replace('_', ' ')
             slcat = slcat.replace("-", ' ')
             self.spelllists[slcat] = {}
+            logger.info(f"Spell Cat. : {slcat}")
+
             try:
                 splst = os.listdir(datadir + spellcat[i])
-                logger.debug("getAllLists: spell lists: {}".format(splst))
+                logger.info("spell lists: {}".format(splst))
 
             except Exception as error:
-                logger.error("handlemagic: __getAllLists: {} -> {}".format(datadir + spellcat[i], error))
+                logger.error(" {} -> {}".format(datadir + spellcat[i], error))
                 print(error)
                 pass
 
@@ -94,7 +97,7 @@ class getSpells(object):
                     self.spelllists[slcat][slist]["Special Notes"] = readNotes(datadir + spellcat[i], splst[j][:-4] + ".sn")
                     self.spelllists[slcat][slist]['Spells'] = readCSV(datadir + spellcat[i] + "/" + splst[j])
 
-        logger.debug("getAllLists: self.spelllists:\n{}".format(self.spelllists))
+        logger.debug(f"self.spelllists:\n{json.dumps(self.spelllists,indent=4)}")
 
 
     def __categorizeSLs(self):
@@ -105,36 +108,38 @@ class getSpells(object):
         @todo categorize Base lists for non-spell users
         '''
         purespellusers = {"Animist": ["Channeling"],
-                        "Cleric": ["Channeling"],
-                        "Illusionist": ["Essence"],
-                        "Magician": ["Essence"],
-                        "Lay Healer": ["Mentalism"],
-                        "Mentalist": ["Mentalism"],
-                        }
+                          "Cleric": ["Channeling"],
+                          "Illusionist": ["Essence"],
+                          "Magician": ["Essence"],
+                          "Lay Healer": ["Mentalism"],
+                          "Mentalist": ["Mentalism"],
+                          }
         hybridspellusers = {"Healer": ["Channeling", "Mentalism"],
                             "Mystic": ["Essence", "Mentalism"],
                             "Sorcerer": ["Channeling", "Essence"]
                             }
         semispellusers = {"Paladin": ["Channeling"],
-                         "Ranger": ["Channeling"],
-                         "Dabbler": ["Essence"],
-                         "Monk": ["Essence"],
-                         "Bard": ["Mentalism"],
-                         "Magent": ["Mentalism"],
-                         "Taoist Monk": ["Essence"],
-                         "Zen Monk": ["Mentalism"]
-                         }
+                          "Ranger": ["Channeling"],
+                          "Dabbler": ["Essence"],
+                          "Monk": ["Essence"],
+                          "Bard": ["Mentalism"],
+                          "Magent": ["Mentalism"],
+                          "Taoist Monk": ["Essence"],
+                          "Zen Monk": ["Mentalism"]
+                          }
         nonspellusers = {"Fighter":['choice'],
-                        "Thief":['choice'],
-                        "Rogue":["choice"],
-                        "Warrior Monk":['choice'],
-                        "Layman":['choice']
+                         "Thief":['choice'],
+                         "Rogue":["choice"],
+                         "Warrior Monk":['choice'],
+                         "Layman":['choice']
                         }
         if type(self.realm) != type([]):
             self.realm = [self.realm]
 
         for listcat in list(self.spelllists.keys()):
             lcat = listcat.split(' ')
+            logger.debug(f"SL categories: {lcat}")
+
             if len(lcat) > 3:
                 profcheck = "{} {}".format(lcat[2], lcat[3])
 
@@ -143,32 +148,35 @@ class getSpells(object):
                    profcheck in semispellusers.keys():
 
                     lcat[2] = "{} {}".format(lcat[2], lcat[3])
+
                 del(lcat[3])
 
-            logger.debug("CategorizeSL - lcat: {}".format(lcat))
+            logger.info("lcat: {}".format(lcat))
 
             if "Lay" in lcat:
                 lcat[-2:-1] = [lcat[-2] + " " + lcat[-1]]
 
-            logger.debug("CategorizeSL - prof: {} --> {}".format(self.prof, listcat))
+            logger.info("prof: {} --> {}".format(self.prof, listcat))
 
             if lcat[0] == "Base" and self.prof in listcat:
                 self.spelllists[listcat]["Category"] = "Own Realm Own Base Lists"
-                logger.debug("CategorizeSL: spellist[{}][Category]=Own RealM Own Base Lists".format(listcat))
+                logger.info("spellist[{}][Category]=Own Realm Own Base Lists".format(listcat))
 
             elif lcat[0] == "Base"  and self.prof not in listcat:
 
                 if lcat[2] in list(purespellusers.keys()):
-                    logger.info("categorizeSLs: identified pure spell user")
+                    logger.info("identified pure spell user")
 
                     if purespellusers[lcat[2]][0] in self.realm:
                         self.spelllists[listcat]["Category"] = "Own Realm Other Base Lists"
+                        logger.info(f"spellist[{listcat}][Category]=Own Realm Other Base Lists")
 
                     else:
                         self.spelllists[listcat]["Category"] = "Other Realm Base Lists"
+                        logger.info(f"spellist[{listcat}][Category]=Other Realm  Base Lists")
 
                 elif lcat[2] in list(hybridspellusers.keys()):
-                    logger.info("categorizeSLs: identified hybrid spell user")
+                    logger.info("identified hybrid spell user")
 
                     for item in hybridspellusers[lcat[2]]:
 
@@ -181,7 +189,7 @@ class getSpells(object):
                             self.spelllists[listcat]['Category'] = "Other Realm Base Lists"
 
                 elif lcat[2] in list(semispellusers.keys()):
-                    logger.info("categorizeSLs: identified semi spell user")
+                    logger.info("identified semi spell user")
 
                     if semispellusers[lcat[2]] in self.realm:
                         self.spelllists[listcat]["Category"] = "Own Realm Other Base Lists"
@@ -218,7 +226,7 @@ class getSpells(object):
                 elif lcat[0] not in self.realm and lcat[1] != "Open":
                     self.spelllists[listcat]["Category"] = "Other Realm Closed Lists"
 
-        logger.debug("categorizeSLs: self.spelllists\n{}".format(self.spelllists))
+        logger.debug("self.spelllists\n{}".format(self.spelllists))
 
 
 
@@ -257,6 +265,7 @@ def updateSL(character = {}, datadir = "./data"):
                 for splist in spellbook.spelllists[magic].keys():
                     logger.debug(f"Spell List: {splist}")
                     ## @bug if a Key Error rises things were not done but the program won't stop either...
+
                     if splist not in character["cat"][spcat]["Skill"].keys():
                         logger.error(f"{splist} not in character's spell index!")
                         logger.debug(f'character\'s spell index: {character["cat"][spcat]["Skill"].keys()}')
@@ -268,6 +277,13 @@ def updateSL(character = {}, datadir = "./data"):
                     if splist != "Category":
                         character["cat"][spcat]["Skill"][splist]["Spells"] = spellbook.spelllists[magic][splist]["Spells"]
                         character["cat"][spcat]["Skill"][splist]["Special Notes"] = spellbook.spelllists[magic][splist]["Special Notes"]
+
+                    else:
+                        pass
+
+            if "Category" in  character["cat"][spcat]["Skill"].keys():
+                del(character["cat"][spcat]["Skill"]["Category"])
+                logger.debug(f"category spell deleted {spcat}")
 
     logger.info("Spell Lists updated.")
 

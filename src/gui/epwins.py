@@ -49,7 +49,7 @@ from rpgtoolbox.rpgtools import calcTotals
 from rpgtoolbox.rpgtools import getLvl
 
 #from PIL import Image, ImageTk
-__updated__ = "15.07.2023"
+__updated__ = "06.08.2023"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -1804,10 +1804,9 @@ class genAttrWin(blankWindow):
                 if cat[:8] == "Spells -":
 
                     for slcat in list(self.spellbook.spelllists.keys()):
-                        #print("DeBUG: addCatnSkills (slcat) {}".format(slcat))
-                        #print("Debug: keys: {}".format(list(self.spellbook.spelllists[slcat].keys())))
 
                         if self.spellbook.spelllists[slcat]['Category'] in cat:
+
                             for spell in list(self.spellbook.spelllists[slcat].keys()):
 
                                 if spell != "Category":
@@ -1818,6 +1817,8 @@ class genAttrWin(blankWindow):
                                     self.character['cat'][cat]['Skill'][spell]['item bonus'] = 0
                                     self.character['cat'][cat]['Skill'][spell]["spec bonus"] = 0
 #                            break
+
+                                logger.debug("getting spell: {spell}")
 #XXXXXXXXXXXXXXXXXx
 
 
@@ -2739,6 +2740,7 @@ class skillcatWin(blankWindow):
 
                             if 'total bonus' in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
                                 stotal = self.__changed['cat'][cat]['Skill'][skill]['total bonus']
+
                             else:
                                 stotal = -1
 
@@ -2951,7 +2953,7 @@ class skillcatWin(blankWindow):
 
         for i in range(0, len(currdev)):
             currdev[i] = float(currdev[i])
-
+        logger.debug(f"currdev = {currdev}")
         ## @var oldtotal
         # Total bonus before any manipulation.
         oldtotal = self.__tree.item(self.__curItem)['values'][-1]
@@ -2967,6 +2969,8 @@ class skillcatWin(blankWindow):
 
         elif type(dpCosts) == type(1):
             dpCosts = [dpCosts]
+
+        logger.debug(f"dpCosts = {dpCosts}")
 
         for elem in self.__tree.item(self.__curItem)["tags"]:
             cat += elem + " "
@@ -3201,6 +3205,8 @@ class skillcatWin(blankWindow):
         for i in range(0, len(currdev)):
             currdev[i] = float(currdev[i])
 
+        logger.debug(f"currdev = {currdev}")
+
         ## @var oldtotal
         # Total bonus before any manipulation.
         oldtotal = self.__tree.item(self.__curItem)['values'][-1]
@@ -3215,6 +3221,8 @@ class skillcatWin(blankWindow):
 
         elif type(dpCosts) == type(1):
             dpCosts = [dpCosts]
+
+        logger.debug(f"dpCosts = {dpCosts}")
 
         if currcat not in list(self.__changed['cat'].keys()) and currcat in list(self._character['cat'].keys()):
             diff = newval - oldval
@@ -3324,17 +3332,22 @@ class skillcatWin(blankWindow):
         self._character["Recovery"] = rm.raceHealingFactors[self._character["race"]]["Recovery"]
         logger.debug(f'Recovery set to: {self._character["Recovery"]}')
 
-        if self._character['DP'] == 0 and self._character['lvlup'] > 0:
-            self._character['lvlup'] -= 1
-            logger.info(f"Count of level ups: {self._character['lvlup']}")
+        #---- clean up cat & skill lvlups
+        if self._character['DP'] <= 0:
+
+            if self._character['lvlup'] > 0:
+                self._character['lvlup'] -= 1
+                logger.info(f"Count of char's level ups: {self._character['lvlup']}")
 
             for c in self._character["cat"].keys():
                 self._character['cat'][c]['lvlups'] = 0
+                logger.info(f"{c} lvlups set to 0")
 
                 for sk in self._character["cat"][c]['Skill'].keys():
 
                     if type(self._character["cat"][c]['Skill'][sk]) == type({}):
                         self._character["cat"][c]['Skill'][sk]['lvlups'] = 0
+                        logger.info(f"{c}/{sk} lvlups set to 0")
 
             logger.info("cleaned all category and skill level up flags")
 
@@ -3342,6 +3355,7 @@ class skillcatWin(blankWindow):
         self._character["old_exp"] = int(self._character['exp'])
         logger.info(f'Character\'s Exp: {self._character["old_exp"]}')
 
+        logger.debug(f"prof bonusses {self._character['prof']}: {self.profs[self._character['prof']]['Profession Bonusses']}")
         # setting prof bonusses again
         for cat in self._character['cat'].keys():
 
@@ -3350,9 +3364,11 @@ class skillcatWin(blankWindow):
                 if pb in cat:
                     self._character['cat'][cat]['prof bonus'] = int(self.profs[self._character['prof']]['Profession Bonusses'][pb])
                     # break
-
+                    logger.debug(f"check pb: {pb} ")
                 else:
                     self._character['cat'][cat]['prof bonus'] = 0
+
+                logger.debug(f"prof bonus {self._character['cat'][cat]} set to {self._character['cat'][cat]}")
 
         logger.info("Profession bonusses set")
 
@@ -3371,11 +3387,12 @@ class skillcatWin(blankWindow):
                         self._character["cat"][cat]["Skill"][skill]["rank"] = self.__changed["cat"][cat]["Skill"][skill]["rank"]
                         self._character["cat"][cat]["Skill"][skill]["total bonus"] = self.__changed["cat"][cat]["Skill"][skill]["total bonus"]
 
-        logger.info("Category/Skil bonusses re-calculted")
+        logger.info("Category/Skill bonusses re-calculated")
         handlemagic.updateSL(character = self._character, datadir = self.spath)
         logger.info("Spell Lists updated")
         # save character data snapshot
         self.__save('.json')
+        logger.info("saved character.")
 
         if  self._character['DP'] >= 0:
             # save changes
