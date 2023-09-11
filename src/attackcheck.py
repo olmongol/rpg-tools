@@ -14,7 +14,7 @@ other opponents.
 \version 1.0
 '''
 __version__ = "1.0"
-__updated__ = "01.07.2023"
+__updated__ = "10.09.2023"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "RM RPG Tools: attack checker module"
@@ -41,7 +41,12 @@ from rpgtoolbox.globaltools import *
 from rpgtoolbox.handlemagic import getSpellNames
 
 mycnf = chkCfg()
-logger = log.createLogger('AT-Window', 'info', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "attackcheck.log")
+loglevel = "info"
+
+if "loglvl" in mycnf.cnfparam.keys():
+    loglevel = mycnf.cnfparam["loglvl"]
+
+logger = log.createLogger('AT-Window', loglevel, '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "attackcheck.log")
 
 
 
@@ -1293,12 +1298,16 @@ class atWin(blankWindow):
 
             if len(at["OB missile"][index]) > 1:
                 self.__skill.set(at["OB missile"][index][1])
+#----- XXXXX Error at[ammo] ist ein dict kein int
+                print(f"amor is type {type(at['ammo'])}")
 
                 if isinstance(at["ammo"][index], int()):
                     self.__ammo.set(str(at["ammo"][index]))
+                    logger.debug(f"ammo: {at['ammo']}")
+                    print(f"amor is type {type(at['ammo'])}")
                 else:
                     self.__ammo.set("0")
-
+                    logger.debug("ammo: not available")
             else:
                 self.__skill.set(at["OB missile"][index][0])
 
