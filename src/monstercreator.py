@@ -14,7 +14,7 @@ master DB where creatures can be chosen from for individual campaigns.
 \version 0.2
 '''
 __version__ = "0.2"
-__updated__ = "16.11.2022"
+__updated__ = "03.10.2023"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "RM RPG Tools: nsc/monster creator module"
@@ -744,7 +744,8 @@ class monstercreatorWin(blankWindow):
         #os.chdir(self.nscpicpath)
         pmask = [txtwin['jpg_files'][self.lang],
                  txtwin['jpeg_files'][self.lang],
-                 txtwin['png_files'][self.lang]
+                 txtwin['png_files'][self.lang],
+                 txtwin['all_files'][self.lang]
                  ]
         beastNPCpic = askopenfilename(filetypes = pmask,
                                       initialdir = self.nscpicpath

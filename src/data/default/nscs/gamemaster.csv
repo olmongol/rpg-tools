@@ -1,16 +1,340 @@
-category,name,lvl,Qu,AT,hits,PP,size,OB melee,OB missile,DB,DBm,comment,enc,immune,weakness,piclink,spells
-,Dunish Leader,4,5,8,59,0,M,72 sp,52 cl,25,25,"Solid Dunish Warriors, +5 Weapons",1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics/human_fighter_rogue3.jpg,
-,Dunish Warrior,2,0,8,42,0,M,52 sp,42 cl,25,25,Solid Dunish Warriors,5-15,,,/home/mongol/git/rpg-tools/src/data/default/pics/human_fighter_rogue3.jpg,
-,Forest Troll,6,0,11,100,0,L,70 L Cl/60 L Bi,0xx,10,0,Degenerate even by Trollish standards,1-4,,,data/default/pics/newhero.jpg,
-,Guard,2,0,8,45,0,M,30 sp,22 sb,50,25,Shield +25,10-50,,,/home/mongol/git/rpg-tools/src/data/default/pics/ranger_assassin.jpg,
-,Guard Leader,4,0,10,74,0,M,70 sp,40 sb,55,25,Shield +25,1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics/ranger_assassin.jpg,
-,Hill Troll,10,0,11,150,0,L,95 L Ba/85 L Cl/40 cl,0xx,20,0,Some use weapons,1-3,,sunlight;mod:-50,data/default/pics/newhero.jpg,
-,Ork (niederer),1,0,3,35,0,M,35 sc,35 sb,25,25,,2-40,,,data/default/pics/newhero.jpg,
-,Ork (schwacher),3,0,10,60,0,M,60 sc,60 sb,30,30,,2-40,,,data/default/pics/newhero.jpg,
-,Ork (stark),5,0,16,85,0,M,75 sc,75 sb,40,40,,1-5,,,data/default/pics/newhero.jpg,
-,Stone Troll,7,0,11,120,0,L,80 L Ba/65 L Cl/49 cl,0xx,15,0,Turn to stone in direct sunlight,1-5,,sunlight;die:6;ooo:6,data/default/pics/newhero.jpg,
-,Uruk,5,0,20,86,0,M,90 bs,90 cb,50,50,They can move in sunlight.,2-20,,,data/default/pics/newhero.jpg,
-,Warg,8,16,4,180,0,L,90 L Bi/60 M Ba/75 M Bi,0xx,55,0,,4-20,,,data/default/pics/newhero.jpg,
-,Warg (schwach),5,12,4,160,0,L,85 L Bi/50 M Cl,0xx,55,0,Often ridden by Orcs,4-20,,,data/default/pics/newhero.jpg,
-,Wight,7,0,2,100,0,L,100 bs/55 M Ba,0xx,75,25,,1-5,stunned;hits/rnd;mod,,data/default/pics/newhero.jpg,
-,young Troll,4,8,11,80,0,M,45 L Cl/35 L Bi/20 cl,0xx,15,0,"Faster, but more rash than their elders.",1-4,,,data/default/pics/newhero.jpg,
+category,name,lvl,Qu,AT,hits,PP,size,OB melee,OB missile,DB,DBm,comment,enc,immune,weakness,piclink,spells,
+Apsanakuni (Meat-Eaters),Black Bears,5,4,8,150,0,L,65 L Gr/60 L Cl/40 M Bi/70 M Ba,0xx,20,0,"Agressive, noctual Hunters
+
+
+
+
+
+
+",1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Beorninger.jpg,,
+Apsanakuni (Meat-Eaters),Sheep Hounds,5,12,4,140,0,M,80 M Bi,0xx,55,0,"Monesticated, fearless Dogs
+
+
+
+
+
+
+",1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/grey_wolf.jpg,,
+Campagne Minas Anghen,Friwihn,3,0,6,48,0,M,45 H ha,35 da,10,0,"
+
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/halunke4.png,,
+Campagne Minas Anghen,Hannuka,3,0,6,48,0,M,45 H da,39 da,10,0,"
+
+
+
+
+
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/halunke1.png,,
+Campagne Minas Anghen,Morgu,6,5,8,89,0,M,78 H ss,67 da,35,0,"
+
+
+
+
+
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/halsabschneider1.png,,
+Campagne Minas Anghen,Wihnuk,4,0,7,58,0,M,65 H ha,56 da,30,0,"
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/halunke3.png,,
+Campagne Minas Anghen,Coerba,4,15,10,64,0,M,78 H bs,72 cb/72 da,60,25,"Urban Man, +10 bs, +5 cp, +20 invisible throwing dagger, Boots of Leaping 1x/day, 1 Arpsusar, +5 Main gauche
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/coerba.png,,
+Campagne Minas Anghen,Sunil,4,10,7,57,0,M,87 H ha,55 sb,55,25,"
+
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/sunil3.png,,
+Campagne Minas Anghen,Niniel,12,35,1,140,54,M,105 H qs,0xx,65,65,"
+
+Lesser Dunadan, Female, +15 qs, 54 PP, Awareness 1000’r 3x/day, Crown x3 PP, +15 vs Chan., -15 DB
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/niniel_ghost2.png,Channeling Closed/Symbolic Ways:12;Channeling Closed/Locating Ways:12;Channeling Closed/Creations:12;Channeling Open/Barrier Law:12;Channeling Open/Spell Defense:12;Channeling Open/Detection Mastery:12,
+Campagne Minas Anghen,Gorghiric,5,15,9,26,5,m,10 H da,30 lb,10,0,"Northman, 5 PP, +2 spell adder, 10 Rewk, 1 Edram.
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Gorghiric.png,Base List Cleric/Channels:5;Base List Cleric/Summons:5,
+Campagne Minas Anghen,Duoveris Cleg,5,5,10,40,10,M,59 H sp,34 sb,15,0,"Rural Man, +10 sb, 10 PP, +1 spell adder, Belt of Presence 1x/day, 1 Kathkusa.
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/bard_lute.png,,
+Campagne Minas Anghen,Gaem Wulsen,1,10,1,18,0,M,29 H bs,15 sb,20,15,"Rural Man. Will run from any combat.
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Gaem.png,,
+Campagne Minas Anghen,Eriel,4,5,1,21,16,M,10 H da,30 sb,20,0,"Rural Woman, 16 PP, x2 multiplier, Cloak of Invisibility 1x/day
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Eriel.png,Base List Magician/Earth Law:4;Base List Magician/Light Law:4;Base List Magician/Water Law:4;Base List Magician/Fire Law:4;Base List Magician/Wind Law:4;Base List Magician/Ice Law:4,
+Campagne Minas Anghen,Forlong,2,20,1,31,0,M,20 H bs,10 cb,15,0,"Mixed Man, land owner, +5 bs, Purse of Coins (detects counterfeit/debased coinage)
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/rich_trader.jpg,,
+Campagne Minas Anghen,Dagnir,1,10,9,31,0,M,35 H bs,0xx/30 cb,55,25,"
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/rogue02.jpg,,
+Campagne Minas Anghen,Gorlim,1,5,13,28,0,M,40 H fa,0xx,40,20,"
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/rogue03.jpg,,
+Campagne Minas Anghen,Vagor,1,10,10,30,0,M,35 H ha,0xx,45,20,"
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/rogue01.jpg,,
+Campagne Minas Anghen,Pwyll,1,10,9,31,0,M,35 H bs,0xx,45,20,"
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/rogue04.jpg,,
+Campagne Minas Anghen,Hirgon,1,5,7,27,0,M,40 H sc,0xx,40,20,"
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/hirgon.png,,
+Campagne Minas Anghen,Dirhavel,1,10,14,30,0,M,45 H pa,20 sb,35,20,"
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/rogue08.jpg,,
+Campagne Minas Anghen,Treva,1,10,1,14,0,M,15 H ss,0xx,15,0,"Kitchen Maid
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Treva.jpg,,
+Dangerous Animals,Fen Boars,2,4,3,100,0,M,40 M Ho,0xx,30,0,"
+
+
+
+
+
+
+",1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/boar.jpg,,
+Dangerous Animals,Fen Boars,2,4,3,100,0,M,40 M Ho,0xx,30,0,"
+
+
+
+
+
+
+",1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/,,
+Demonic Beeings,Warg (schwach),5,12,4,160,0,L,85 L Bi/50 M Cl,0xx,55,0,"Often ridden by Orcs
+
+
+
+
+
+
+
+
+",4-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Warge.jpg,,
+Demonic Beeings,Warg (schwach),5,12,4,160,0,L,85 L Bi/50 M Cl,0xx,55,0,"Often ridden by Orcs
+
+
+
+
+
+
+
+
+",4-20,,,/home/mongol/git/rpg-tools/src/ata/default/pics/newhero.jpg,,
+Giant Insects,"Giant Spider, Greater",20,12,12,350,20,L,,0xx,60,0,"Evil, Very intelligent, many uses spells
+
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Token_giant_spider2.jpg,,
+Giant Insects,"Giant Spider, lesser",8,10,4,160,0,M,70 L pi/75 L st,0xx,40,0,"Poison attacks of LVL 8
+
+
+
+
+
+
+",1-10,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Token_giant_spider.png,,Giant Insects
+Humans,Dunish Leader,4,5,8,59,0,M,72 sp,52 cl,25,25,"Solid Dunish Warriors, +5 Weapons
+
+
+
+
+
+
+",1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics/human_fighter_rogue3.jpg,,
+Humans,Dunish Warrior,2,0,8,42,0,M,52 sp,42 cl,25,25,"Solid Dunish Warriors
+
+
+
+
+
+",5-15,,,/home/mongol/git/rpg-tools/src/data/default/pics/human_fighter_rogue3.jpg,,
+Humans,Dunish Warrior,2,0,8,42,0,M,52 sp,42 cl,25,25,"Solid Dunish Warriors
+
+
+
+
+
+",5-15,,,/home/mongol/git/rpg-tools/src/ata/default/pics/newhero.jpg,,
+Humans,Guard,2,0,8,45,0,M,30 sp,22 sb,50,25,"Shield +25
+
+
+
+
+
+",10-50,,,/home/mongol/git/rpg-tools/src/data/default/pics/ranger_assassin.jpg,,
+Humans,Guard Leader,4,0,10,74,0,M,70 sp,40 sb,55,25,"Shield +25
+
+
+
+
+
+
+",1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics/ranger_assassin.jpg,,
+Humans,Guard Leader,4,0,10,74,0,M,70 sp,40 sb,55,25,"Shield +25
+
+
+
+
+
+
+",1-5,,sunlight;mod:-50,/home/mongol/git/rpg-tools/src/ata/default/pics/newhero.jpg,,
+Humans,Guard Leader,4,0,10,74,0,M,70 sp,40 sb,55,25,"Shield +25
+
+
+
+
+
+
+",1-5,,,/home/mongol/git/rpg-tools/src/ata/default/pics/newhero.jpg,,
+Orcs,Ork (stark),5,0,16,85,0,M,75 sc,75 sb,40,40,"
+
+
+
+
+
+
+",1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/orc_in_cave.jpg,,
+Orcs,Uruk,5,0,20,86,0,M,90 bs,90 cb,50,50,"They can move in sunlight.
+
+
+
+
+
+",2-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Urukhai.jpg,,
+Party,Fonlon,1,5,5,35,0,M,20 H da,45 sl,20,0,"
+
+Servant of Party, stable boy
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/stable_boy.png,,
+Trolls,Stone Troll,7,0,11,120,0,L,80 L Ba/65 L Cl/49 cl,0xx,15,0,"Turn to stone in direct sunlight
+
+
+
+
+",1-5,,sunlight;die:6;ooo:6,/home/mongol/git/rpg-tools/src/data/default/pics/newhero.jpg,,
+Undead Beings,Warg,8,16,4,180,0,L,90 L Bi/60 M Ba/75 M Bi,0xx,55,0,"
+
+
+
+
+
+
+",4-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/war_wolf.jpg,,
+Undead Beings,Wight,7,0,2,100,0,L,100 bs/55 M Ba,0xx,75,25,"
+
+
+
+
+
+",1-5,stunned;hits/rnd;mod,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/wight.jpg,,
+Undead Beings,"Skeletons, minor",1,0,1,25,0,M,25 H bs/40 M Ba,0xx,10,0,"
+
+
+
+
+
+
+
+
+
+
+
+",2-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/skeleton_swamp.jpg,,
+Undead Beings,"Skeletons, lesser",3,,1,55,0,M,40 H ha/70 M Ba,0xx,30,4,"
+
+
+
+
+
+
+
+
+
+
+",1-10,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/skeleton_swamp.jpg,,
+Undead Beings,"Skeletons, greater",5,8,1,100,0,M,50 H bs/60 M Ba,0xx,30,0,"
+
+
+
+
+
+
+",1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/skeleton_swamp.jpg,,
+Undead Beings,Skeleton Lord,8,12,1,135,30,M,95 H bd2/70 L Ba,0xx,70,0,"Attacks also with spells
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/skeleton_king.png,,
+Animals,Rat,1,20,1,10,0,S,20 T Bi/20 S Bi,0xx,30,20,"The rat family produces some of the world’s most adaptable animals. Small rodents, they are omnivorous mammals known for long, thin tails, short legs, relatively large heads, and incredibly flexible bodies. They are quick scurriers, adept climbers, and strong swimmers. With their strong gnawing teeth and malleable bone structure, these creatures burrow their way through or into virtually any unarmored nook. Some (10%) rats produce a litter every 21-50 days. Also, some (5%) carry deadly diseases, either with their associated vermin (e.g., fleas) or internally (the latter communicated with a bite).
+
+",2-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/giant_rat.png,,
