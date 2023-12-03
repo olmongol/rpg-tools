@@ -1,0 +1,96 @@
+crit,roll,description,hits,hits/rnd,mod,mod_attacker,stunned,die,ooo,no_parry,parry,cover,alternate,damage_type
+normal,5,Weapon shatters on foe's solid form.,12,0,0,0,0,-1,0,0,0,,,
+normal,10,"Solid, but futile.",3,0,0,0,0,-1,0,0,0,,,
+normal,20,Hardly enough for victory. Weak side strike.,6,0,0,0,0,-1,0,0,0,,,
+normal,30,Strong blow to foe's forearm yields its measure.,9,0,0,0,0,-1,0,0,0,,,
+normal,40,Strike to beast's chest. Some unseen piece of protection blocks your attack.,12,0,0,0,0,-1,0,0,0,,,
+normal,50,Strike lands upon foe's side. He responds by leaping back away from you.,15,0,0,0,0,-1,0,0,0,,,
+normal,65,Blow crashes into foe's leg. The damage is obvious by the look on his face.,20,0,0,0,0,-1,0,0,0,,,
+normal,66,Well placed strike to foe's neck severs the jugular vein. Foe falls and dies in 6 rounds.,0,0,0,0,0,6,6,0,0,,,vein
+normal,70,Foe's leg catches your failing strike at the right moment. The leg is bruised badly.,25,0,0,0,0,-1,0,0,0,,,
+normal,80,Arm strike gives foe a bruise.,30,0,0,0,0,-1,0,0,0,,,
+normal,90,Strong blast to foe's stomach staggers foe. His guard drops for a moment. You have a chance.,20,0,0,10x1,2,-1,0,2,0,,,
+normal,95,"Strong blow to foe's leg yields a gaping wound. If foe has blood, you see a lot of it.",18,5,-10,0,3,-1,0,0,0,,,muscles
+normal,98,"Plunge your weapon into foe's heart. Foe dies instantly, and falls on you. You are pinned for 6 rounds and +20H!",0,0,0,0,0,0,0,0,0,,,
+normal,100,Strike through foe's lungs. Foe falls down and dies after 6 rounds. Allies get a bonus!,24,0,20x1,0,0,6,6,0,0,,,organ
+normal,150,Awesome strike to shoulder sends foe stumbling. He has trouble getting his balance back.,50,0,-35,0,3,-1,0,3,0,,,muscles/tendons
+normal,175,Strike drives bone into kidneys and liver. Foe drops and dies in 6 rounds. What a pity.,0,0,0,0,0,6,6,0,0,,,organ/bones
+normal,200,Strike to bowels destroys foe's abdomenal areas. Foe's blood is all over you. Foe dies in 12 rounds.,35,0,0,15x1,0,12,0,0,0,,,organ
+normal,250,Blow to foe's forearm severs a vein. Foe dies in 7 rounds from shock and blood loss. He is still standing.,15,0,-30,0,6,7,0,0,0,,,
+normal,2000,You grapple your foe and deal him a mighty blow. You are knocked out. Foe is also impaired,35,0,0,0,3,-1,0,3,0,,,
+magic,5,You fumble your weapon (roll on the fumble table).,15,0,0,0,0,-1,0,0,0,,,
+magic,10,Blow to foe's side. Pretty sparks.,4,0,0,0,0,-1,0,0,0,,,
+magic,20,"Your blade guides itself in, but you miss the opportunity.",8,0,0,0,0,-1,0,0,0,,,
+magic,30,"You give out an epic strike, but foe is an epic creature",10,0,0,0,0,-1,0,0,0,,,
+magic,40,Hard strike to foe's thigh. It glances off. You really wish that had landed better.,15,0,0,0,0,-1,0,0,0,,,
+magic,50,Your blade bites into foe's skin with a hiss. Foe roars out at you. You ready yourself for what comes next.,18,0,0,0,0,-1,0,0,0,,,
+magic,65,Blow to foe's back. It concerns him greatly. Good luck.,5,0,0,0,1,-1,0,0,0,,,
+magic,66,Vicious strike to abdomenal region destroys a variety of organs. Foe falls over with a crash. He dies in 3 rounds.,30,0,0,0,0,3,3,0,0,,,organ
+magic,70,Blow to thigh leaves a bad bruise. Foe almost falls over on you. You leap clear.,30,0,0,0,0,-1,0,0,0,,,
+magic,80,Minor forearm wound. The beast's guard is down for an instant. Press your attack.,13,0,0,0,3,-1,0,3,0,,,
+magic,90,"Hard blow to foe's back. If foe has wings they are damaged. If not, foe has broken ribs.",22,0,0,0,3,-1,0,1,0,,,
+magic,95,You strike at foe's face. It hits and causes him some difficulty.,5,3,-25,20x1,0,-1,0,0,0,,,
+magic,98,Your weapon plunges into foe's chest. He drops and dies in 3 rounds. Your weapon is stuck in him for 12 rounds.,25,0,0,0,0,3,0,0,0,,,
+magic,100,"Hard but flat strike. Your weapon takes much of the impact. In addition to his wound, your weapon is broken.",35,0,0,0,1,-1,0,1,0,,,
+magic,150,Strike foe in the side of his head. Foe stumbles back a few feet before he falls to the ground. He is out for 3 hours.,20,0,0,10x1,0,-1,1080,0,0,,,nerves
+magic,175,Strike shatters foe's jaw and sends it up into his brain. Foe is dead before he hits the ground. Half round left to act.,0,0,0,0,0,0,0,0,0,,,
+magic,200,Shot along side foe's head penetrates his ear and he dies in 3 rounds. You are mighty in battle.,10,0,0,20x1,0,3,3,0,0,,,
+magic,250,"Strike to foe's back. Hit severs spine. Foe is paralyzed from the neck down. Sadly, your weapon is broken.",15,0,0,0,0,-1,10000,0,0,,,bones/nerves
+magic,2000,Strike through foe's eye proves fatal. He dies immediately. You avoid his fall.,20,0,0,25x1,0,0,0,0,0,,,
+mithril,5,"Your weapon bites hard, but you move poorly. Lose initiative.",18,0,0,0,0,-1,0,0,0,,,
+mithril,10,Your weapon glances off foe's side and leaves a measurable wound.,5,0,0,0,0,-1,0,0,0,,,
+mithril,20,"Blow shoulder. It's well placed, but you'll need a lucky shot at this pace.",9,0,0,0,0,-1,0,0,0,,,
+mithril,30,"You strike is solid, but your grip fails on impact.",12,0,0,0,0,-1,0,0,0,,,
+mithril,40,"Your strike lands in a critical spot on foe's abdomen. You are unable to mortally wound him, for the moment.",20,0,0,0,0,-1,0,0,0,,,
+mithril,50,"Hack at foe's neck, landing on his shoulder. He moves before the strike bites deeper.",25,0,0,0,0,-1,0,0,0,,,
+mithril,65,"Grip foe's hide for leverage, before you strike. Blow lands solid, but he throws you clear.",30,0,0,0,0,-1,0,0,0,,,
+mithril,66,Strike to foe's heart. He dies instantly. You hit him one more time to make sure he is dead. Very clean kill.,0,0,0,0,0,0,0,0,0,,,
+mithril,70,"Strike to foe's thigh. Despite his size, it sends him back. Your Mithril bites deep and leaves a painful wound.",15,0,-20,10x1,2,-1,0,0,0,,,muscles
+mithril,80,"Tear him up! Your strike lands along foe's arm. The wound is bleeding everywhere. It's all over you, as well.",20,3,0,0,2,-1,0,2,0,,,muscles/tendons
+mithril,90,Reverse your strike to catch foe in his lower leg. He stumbles back out of reach.,15,2,-20,0,2,-1,0,0,0,,,muscles/tendons
+mithril,95,Weapon impacts upon foe's head with unmatched force. Foe comes over and is knocked out.,30,0,0,10x1,0,-1,100,0,0,,,nerves
+mithril,98,"Strike foe in his head and destroy his brain. If that's not power, what is? You have half the round left to act.",0,0,0,0,0,0,0,0,0,,,nerves/organ
+mithril,100,"You find a weak point and hammer foe's neck. Your weapon sticks in foe for 2 rounds, while he struggles to breathe. He dies in 6 rounds.",20,0,0,0,6,6,0,6,0,,,nerves/muscles
+mithril,150,Catch foe in chin with all your weight behind the weapon. Head snaps back and chin shatters. Foe is knocked out for 30 days.,60,0,0,0,0,-1,10800,0,0,,,
+mithril,175,Strike foe in the abdomen. The wound is mortal. A variety of important organs are destroyed on impact. Foe drops and dies after 6 rounds.,0,0,0,0,0,6,6,0,0,,,organ
+mithril,200,"Death comes swiftly! Your strike severs an artery in foe's leg. Foe fights for 2 rounds, then drops and dies in 6 rounds.",5,0,-20x2,0,0,6,0,0,0,,,atery
+mithril,250,Heart strike. Your foe dies in true epic form. He tumbles backwards and lands with a thunderous sound. Your strike knocks you to your knees. Foe is dead.,20,0,0,15x2,0,0,0,0,0,,,
+mithril,2000,You blind foe with a vicious crossing strike to the eyes. He grips his face and falls to his kness.,10,0,-100,0,6,-1,0,0,0,,,organ
+holy,5,Glancing blow shakes you up. You suffer a -10 penalty next round.,20,0,0,-10x1,0,-1,0,0,0,,,
+holy,10,Your swing lands lightly. You had hoped for better.,9,0,0,0,0,-1,0,0,0,,,
+holy,20,Your strike lands solid and righteous. You wish it had landed a little more.,12,0,0,0,0,-1,0,0,0,,,
+holy,30,You trip foe and slam his shin with your weapon. You are not being noble.,15,0,0,0,0,-1,0,0,0,,,
+holy,40,Your weapon sparks against the beast's hide and he realizes its mighty blessing.,25,0,0,0,0,-1,0,0,0,,,
+holy,50,Heavy blow with all of your weight behind it hits foe in his side.,30,0,0,0,0,-1,0,0,0,,,
+holy,65,Strike lands lightly against foe's shoulder. You have the initiative for 3 rounds. Foe's blood gets all over you.,10,2,0,0,0,-1,0,0,1,,,muscles
+holy,66,Drive home your attack right between your foe's eyes. He dies instantly. You have half the round left.,20,0,0,0,0,0,0,0,0,,,bones/nerves
+holy,70,Foe loses his footing with your solid strike. He takes time to gain his balance. You are in good position.,20,0,0,10x1,2,-1,0,2,0,,,
+holy,80,Tear open foe's leg with a brutal side swing. Foe is unbalanced and bleeding. His guard goes down.,9,3,-10,0,1,-1,0,1,0,,,muscles
+holy,90,"With a mighty cross swing you strike foe's head. If he has a helm (or hard head) you knock him out. If he has no helm, you behead him and he dies.",30,0,0,0,0,-1,1000,0,0,helm,die:0,
+holy,95,Your victory strike. Your weapon crashes into foe's chest and downs him for 2 rounds. He dies in 6 rounds.,0,0,0,0,0,6,2,0,0,,,
+holy,98,Strike foe in his ear. He dies next round. You are very confident in your combat skills.,15,0,0,25x1,0,-1,0,0,0,,,organ
+holy,100,Your precision surgery blinds foe. He quickly loses his direction and is in trouble.,5,0,-100,0,2,-1,0,2,0,,,organ
+holy,150,"You miss foe's weapon arm, but the strike lands on foe's knee. The results are acceptable.",3,2,-30,0,2,-1,0,0,0,,,muscles
+holy,175,"Smooth strike to foe's cheek. Just as he was about to deal you a deadly blow, you crush the side of his head. He dies. You have half the round left.",0,0,0,0,0,0,0,0,0,,,bones/nerves
+holy,200,Strike penetrates to foe's spine. Spine is broken and foe is paralyzed from the waist down. You will not have trouble killing him.,20,0,0,0,0,-1,10000,0,0,,,bones/nerves
+holy,250,Your weapon swings out and hammers foe's evil heart. He expires and your sword sings a joyful note. All who see your mighty deed are inspired by it.,25,0,0,20x3,0,0,0,0,0,,,organ
+holy,2000,Strike to foe's ribs punctures a lung. Foe is knocked out. Your weapon is stuck in foe for 6 rounds. Good luck.,0,0,0,0,0,-1,1000,0,0,,,organ
+slaying,5,Blade touches foe's exposed skin. Your weapon hisses.,5,0,0,0,0,-1,0,0,0,,,
+slaying,10,"Your blow is solid, but lands on a well protected area.",10,0,0,0,0,-1,0,0,0,,,
+slaying,20,A mortal blow poorly placed. Maybe you're holding it wrong?,15,0,0,0,0,-1,0,0,0,,,
+slaying,30,Bruise to foe's shoulder is made worse by your weapon's strong enchantment.,20,0,0,0,0,-1,0,0,0,,,
+slaying,40,"Your weapon strikes foe like a clap of thunder, clawing at his very essence.",30,0,0,0,0,-1,0,0,0,,,
+slaying,50,Your weapon drives deep into foe's abdomen. Blood pours out of foe. He looks looks like a statue in a fountain.,12,5,0,0,0,-1,0,1,0,,,muscles/organ
+slaying,65,Cave in the side of foe's head. Foe is down and dies in 2 rounds. Your foot is pinned under him for a round.,0,0,0,0,0,2,2,0,0,,,bones/nerves
+slaying,66,Chest wound knocks foe down.,10,0,0,0,2,-1,0,2,0,,,
+slaying,70,Plunge weapon into foe's heart. Your weapon seems to know the way. The wound is instantly mortal. He dies.,20,0,0,10x1,0,-1,0,0,0,,,
+slaying,80,Strike comes up under foe's arm. Blow breaks bones in upper arm. Arm is useless. Foe stumbles back.,15,0,0,0,3,-1,0,0,0,,,
+slaying,90,You see the opportunity you have needed. A legendary strike to foe's chest destroys heart and other vital organs. He drops and dies instantly.,25,0,0,15x1,0,-1,0,0,0,,,
+slaying,95,Blow to foe's leg slashes an artery open. Foe falls gripping his leg. He is inactive for 12 sad rounds and then dies.,0,0,0,0,0,12,12,0,0,,,atery
+slaying,98,"True to its name, your weapon slays foe by crushing his skull. Parts of bone fly in all directions. Not a pretty sight. Foe drops instantly to the ground.",0,0,0,0,0,0,0,0,0,,,bones/nerves
+slaying,100,Strike foe in his face. His cheek bones collapse. His neck is a bloody pulp. He dies a round later. Your weapon is lodged in foe.,0,0,0,0,0,1,1,0,0,,,bones
+slaying,150,Sever a vein in foe's forelimb. He falls to his knees. Blood is everywhere. He dies in 6 rounds.,20,12,0,0,6,6,0,6,0,,,vein
+slaying,175,"You almost sever foe's head, with a mighty blow to his neck. Foe is inactive and dies in 5 rounds.",0,0,0,20x1,0,5,5,0,0,,,bones/nerves
+slaying,200,Strike to abdomen damages a variety of organs. Internal bleeding will kill foe in 4 rounds. You have half the round to act.,0,0,0,20x1,0,4,4,0,0,,,organ
+slaying,250,Snap foe's head and break his neck. Foe drops and dies. You may direct another attack at anything you can reach.,0,0,0,0,0,0,0,0,0,,,
+slaying,2000,"Drive foe's eyes back into his skull, with a cross strike. Foe is blind and prone. Foe is in pain. He does not even try to get up.",6,0,0,0,24,-1,0,24,0,,,organ

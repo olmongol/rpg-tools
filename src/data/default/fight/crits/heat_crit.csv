@@ -1,0 +1,96 @@
+crit,roll,description,hits,hits/rnd,mod,mod_attacker,stunned,die,ooo,no_parry,parry,cover,alternate,damage_type
+A,5,The air around foe shimmers. Pfft.,0,0,0,0,0,-1,0,0,0,,,burn
+A,10,Hot wind makes foe uncomfortable.,1,0,0,0,0,-1,0,0,0,,,burn
+A,15,Foe covers his face and leaps aside. You have initiative.,2,0,0,0,0,-1,0,0,0,,,burn
+A,20,Blast stings foe's hands and arms. You have the initiative.,3,0,0,0,0,-1,0,0,0,,,burn
+A,35,Foe's chest and side heat up and garments smolder from assault. He will be easily kindled if you strike again.,4,0,0,0,1,-1,0,0,0,,,burn
+A,45,Hot winds dance around foe parching his exposed skin. He puts up a desperate defence.,6,0,0,0,0,-1,0,0,1,,,burn
+A,50,"Clothes smoke, then burn. Foe flails his arms trying to put them out. The pain edures longer than the flames.",7,1,0,0,0,-1,0,0,1,,,burn
+A,55,Spark sets a piece of foe's equipment on fire. Foe must remove the item.,8,1,0,0,0,-1,0,0,2,,,burn
+A,60,Assault ignites foe's back. Equipment crackles as it burns and falls clear.,9,2,0,0,1,-1,0,0,0,,,burn
+A,65,Well placed. Strike slams into foe's weapon arm. Garments are burned. Foe's evasion is comical.,7,1,0,0,0,-1,0,0,0,arm ,hits:10;hits/rnd:3,burn
+A,66,Flame grapples foe's shield and chest. The wound is grave and infection will follow.,9,0,-15,0,2,-1,0,2,0,,,burn
+A,70,Toast foe's side and send him stumbling back 5 feet away from you. He blocks his face against any renewed assault.,8,2,-5,0,2,-1,0,0,0,,,burn
+A,75,Fire consumes garments and hair. Blinding smoke keeps foe's defenses poorly aligned.,12,0,0,0,1,-1,0,1,0,,,burn
+A,80,Foe's shield side engulfed in flame. Foe's shield but it will be kindled if wooden.,10,2,0,0,2,-1,0,1,0,,,burn
+A,85,Foe exposes his back while evading the strike. Blast scorches a small wound in his shoulder blade.,8,2,-20,0,2,-1,0,0,0,,,burn
+A,90,Assault to foe's lower leg consumes covering. Foe falls down. One leg is on fire.,10,0,-10x2,0,0,-1,0,0,0,,,burn
+A,95,Blow to foe's head. If he has helmet it heats up like a furnace and must be painfully removed. Foe ears and cheeks are burned.,15,0,-10,0,3,-1,0,0,0,helm,hits:12;stunned:2;no_parry:2;mod:-30,burn
+A,99,Blast lands on the weapon arm and climbs up to foe's neck. It burns all it touches. If foe has any organic neck covering it is destroyed.,0,8,0,0,4,-1,0,4,0,,,burn
+A,100,Brutally scar the side of foe's face. Foe is knocked out. He loses 50 from his Appearance and 25 from his Presence.,20,5,0,0,0,-1,0,0,0,,,burn
+B,5,Attack is wild and boils nearby water.,0,0,0,0,0,-1,0,0,0,,,burn
+B,10,Singe foe's exposed skin. The heat dies quick. Foe is not impressed.,2,0,0,0,0,-1,0,0,0,,,burn
+B,15,Foe simmers in his clothes. He is unfocused and you have initiative.,2,0,0,0,0,-1,0,0,0,,,burn
+B,20,Assault blinds foe for a moment. You have 2 rounds of initiative.,0,0,0,0,0,-1,0,0,0,,,burn
+B,35,Fire laden blast forces foe back. Any containers of water boil and burst open. You have 2 rounds of initiative.,6,0,0,0,0,-1,0,0,0,,,burn
+B,45,"Foe's shield side is swathed in fire. He may use a shield to avoid the attack, but it combust. Shield hand is burned.",3,0,0,0,0,-1,0,0,3,shield,hits:7;parry:1;hits/rnd:1,burn
+B,50,Foe evades most of the damage with some grace. The remainder scorches his side lightly.,8,1,0,0,0,-1,0,0,2,,,burn
+B,55,Foe ducks; attack torches back and the ground behind him. He is shaken.,8,2,0,0,1,-1,0,0,0,,,burn
+B,60,Engulf foe in flame and smoke. The flames die down; foe escapes death.,10,2,0,0,2,-1,0,0,0,,,burn
+B,65,Concentrated strike burns through foe's leg. The flames do not last but foe's skin is exposed. Skin blisters.,9,2,-5,0,1,-1,0,1,0,,,burn
+B,66,"Fire lands along side foe's face. His hair, cheek, and ear are engulfed. Foe throws himself to the ground.",10,4,0,0,2,-1,0,0,0,,,burn
+B,70,Flames seek out foe with a predator's lust. He throws garments and equipment off franticly to satisfy the blaze. Foe is busy staying alive.,7,2,-10,0,2,-1,0,1,0,,,burn
+B,75,Chest and arm blast damages organic armor and engulfs any wood on foe. Metal armor heats up painfully.,9,0,-15,10x1,2,-1,0,1,0,,,burn
+B,80,Abdomen entangled in flames. The flames will spread upward next turn if not extinguished. Foe sees the danger.,20,2,0,0,0,-1,0,0,0,,,burn
+B,85,Strike knocks foe down on his back. The flames do not endure but much equipment is burned or crushed.,0,2,0,0,1,-1,0,0,0,,,burn
+B,90,Leg covering is set on fire by blast. It spreads quickly and foe is in trouble. The flames will grow if not put out.,16,0,0,0,3,-1,0,0,0,,,burn
+B,95,"Head strike. Force of blast removes any helmet worn. Hair, scalp and skin burn. Smoke and flame blind foe for 3 rnds.",10,2,0,0,0,-1,0,0,3,helm,hits/rnd:8,burn
+B,99,Flames burn into foe's throat. The damage is frightening. Foe's neck collapses in the flames. He drops and dies in 9 inactive rnds. He smells bad.,20,12,0,10x1,0,-1,0,0,0,,,burn
+B,100,Assault consumes clothing and tissue. Foe's arms and chest are without skin. Foe is paralyzed. Infection will follow.,25,0,0,0,0,-1,0,0,0,,,burn
+C,5,,0,0,0,0,0,-1,0,0,0,,,burn
+C,10,,0,0,0,0,0,-1,0,0,0,,,burn
+C,15,,0,0,0,0,0,-1,0,0,0,,,burn
+C,20,,0,0,0,0,0,-1,0,0,0,,,burn
+C,35,,0,0,0,0,0,-1,0,0,0,,,burn
+C,45,,0,0,0,0,0,-1,0,0,0,,,burn
+C,50,,0,0,0,0,0,-1,0,0,0,,,burn
+C,55,,0,0,0,0,0,-1,0,0,0,,,burn
+C,60,,0,0,0,0,0,-1,0,0,0,,,burn
+C,65,,0,0,0,0,0,-1,0,0,0,,,burn
+C,66,,0,0,0,0,0,-1,0,0,0,,,burn
+C,70,,0,0,0,0,0,-1,0,0,0,,,burn
+C,75,,0,0,0,0,0,-1,0,0,0,,,burn
+C,80,,0,0,0,0,0,-1,0,0,0,,,burn
+C,85,,0,0,0,0,0,-1,0,0,0,,,burn
+C,90,,0,0,0,0,0,-1,0,0,0,,,burn
+C,95,,0,0,0,0,0,-1,0,0,0,,,burn
+C,99,,0,0,0,0,0,-1,0,0,0,,,burn
+C,100,,0,0,0,0,0,-1,0,0,0,,,burn
+D,5,,0,0,0,0,0,-1,0,0,0,,,burn
+D,10,,0,0,0,0,0,-1,0,0,0,,,burn
+D,15,,0,0,0,0,0,-1,0,0,0,,,burn
+D,20,,0,0,0,0,0,-1,0,0,0,,,burn
+D,35,,0,0,0,0,0,-1,0,0,0,,,burn
+D,45,,0,0,0,0,0,-1,0,0,0,,,burn
+D,50,,0,0,0,0,0,-1,0,0,0,,,burn
+D,55,,0,0,0,0,0,-1,0,0,0,,,burn
+D,60,,0,0,0,0,0,-1,0,0,0,,,burn
+D,65,,0,0,0,0,0,-1,0,0,0,,,burn
+D,66,,0,0,0,0,0,-1,0,0,0,,,burn
+D,70,,0,0,0,0,0,-1,0,0,0,,,burn
+D,75,,0,0,0,0,0,-1,0,0,0,,,burn
+D,80,,0,0,0,0,0,-1,0,0,0,,,burn
+D,85,,0,0,0,0,0,-1,0,0,0,,,burn
+D,90,,0,0,0,0,0,-1,0,0,0,,,burn
+D,95,,0,0,0,0,0,-1,0,0,0,,,burn
+D,99,,0,0,0,0,0,-1,0,0,0,,,burn
+D,100,,0,0,0,0,0,-1,0,0,0,,,burn
+E,5,,0,0,0,0,0,-1,0,0,0,,,burn
+E,10,,0,0,0,0,0,-1,0,0,0,,,burn
+E,15,,0,0,0,0,0,-1,0,0,0,,,burn
+E,20,,0,0,0,0,0,-1,0,0,0,,,burn
+E,35,,0,0,0,0,0,-1,0,0,0,,,burn
+E,45,,0,0,0,0,0,-1,0,0,0,,,burn
+E,50,,0,0,0,0,0,-1,0,0,0,,,burn
+E,55,,0,0,0,0,0,-1,0,0,0,,,burn
+E,60,,0,0,0,0,0,-1,0,0,0,,,burn
+E,65,,0,0,0,0,0,-1,0,0,0,,,burn
+E,66,,0,0,0,0,0,-1,0,0,0,,,burn
+E,70,,0,0,0,0,0,-1,0,0,0,,,burn
+E,75,,0,0,0,0,0,-1,0,0,0,,,burn
+E,80,,0,0,0,0,0,-1,0,0,0,,,burn
+E,85,,0,0,0,0,0,-1,0,0,0,,,burn
+E,90,,0,0,0,0,0,-1,0,0,0,,,burn
+E,95,,0,0,0,0,0,-1,0,0,0,,,burn
+E,99,,0,0,0,0,0,-1,0,0,0,,,burn
+E,100,,0,0,0,0,0,-1,0,0,0,,,burn
