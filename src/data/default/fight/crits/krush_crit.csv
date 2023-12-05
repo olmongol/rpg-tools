@@ -85,8 +85,8 @@ E,50,Glancing strike to lower back. Foe turns away to avoid the damage. Foe uses
 E,55,Blow to chest. He seeks to regain his wind and survive your onslaught.,15,0,-15,0,2,-1,0,0,0,,,
 E,60,Blow to foe's thigh causes his right leg to falter for a moment.,10,0,-10,0,1,-1,0,1,0,,,muscles/tendons
 E,65,Strike foe's weapon arm with a titanic blow. Foe drops his weapon and reels,10,0,-15,0,1,-1,0,0,0,,,muscles/tendons
-E,66,"Crush what was once foe’s foe's head; head. he dies has a instantly.  f destroyed foe has a helm, it is destroyed also. blood. You are speckled with blood.",15,0,0,10,0,-1,0,0,0,,,
-E,70,"Blow to foe's shield arm. If foe has a shield, it is broken. If not, arm is broken.",0,0,0,0,0,-1,0,0,0,shield,,bones
+E,66,"Crush what was once foe's head; head. he dies has a instantly.  If destroyed foe has a helm, it is destroyed also. You are speckled with blood.",15,0,0,10,0,-1,0,0,0,,,
+E,70,"Blow to foe's shield arm. If foe has a shield, it is broken. If not, arm is broken.",0,0,0,0,0,0,0,0,0,shield,,bones
 E,75,Blow to foe's hip bonebreaks it. Help! Foe has fallen and cannot get up,15,0,-75,3,0,-1,0,0,0,,,bones
 E,80,Slap foe's arm and elbow around like string. Joint is shattered. Arm is useless. Foe should have stayed in bed.,9,0,0,0,2,-1,0,2,0,,,bones
 E,85,Blow to foe's armpit. Crush ribs and destroy organs. Foe dies in 3 rounds.,30,0,0,0,0,3,0,0,0,,,bones/organs
