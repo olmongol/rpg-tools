@@ -30,12 +30,12 @@ B,60,Engulf foe in flame and smoke. The flames die down; foe escapes death.,10,2
 B,65,Concentrated strike burns through foe's leg. The flames do not last but foe's skin is exposed. Skin blisters.,9,2,-5,0,1,-1,0,1,0,,,burn
 B,66,"Fire lands along side foe's face. His hair, cheek, and ear are engulfed. Foe throws himself to the ground.",10,4,0,0,2,-1,0,0,0,,,burn
 B,70,Flames seek out foe with a predator's lust. He throws garments and equipment off franticly to satisfy the blaze. Foe is busy staying alive.,7,2,-10,0,2,-1,0,1,0,,,burn
-B,75,Chest and arm blast damages organic armor and engulfs any wood on foe. Metal armor heats up painfully.,9,0,-15,10x1,2,-1,0,1,0,,,burn
+B,75,Chest and arm blast damages organic armor and engulfs any wood on foe. Metal armor heats up painfully.,9,0,-15,10,2,-1,0,1,0,,,burn
 B,80,Abdomen entangled in flames. The flames will spread upward next turn if not extinguished. Foe sees the danger.,20,2,0,0,0,-1,0,0,0,,,burn
 B,85,Strike knocks foe down on his back. The flames do not endure but much equipment is burned or crushed.,0,2,0,0,1,-1,0,0,0,,,burn
 B,90,Leg covering is set on fire by blast. It spreads quickly and foe is in trouble. The flames will grow if not put out.,16,0,0,0,3,-1,0,0,0,,,burn
 B,95,"Head strike. Force of blast removes any helmet worn. Hair, scalp and skin burn. Smoke and flame blind foe for 3 rnds.",10,2,0,0,0,-1,0,0,3,helm,hits/rnd:8,burn
-B,99,Flames burn into foe's throat. The damage is frightening. Foe's neck collapses in the flames. He drops and dies in 9 inactive rnds. He smells bad.,20,12,0,10x1,0,-1,0,0,0,,,burn
+B,99,Flames burn into foe's throat. The damage is frightening. Foe's neck collapses in the flames. He drops and dies in 9 inactive rnds. He smells bad.,20,12,0,10,0,-1,0,0,0,,,burn
 B,100,Assault consumes clothing and tissue. Foe's arms and chest are without skin. Foe is paralyzed. Infection will follow.,25,0,0,0,0,-1,0,0,0,,,burn
 C,5,Hot smoke makes foe's eyes red.,1,0,0,0,0,-1,0,0,0,,,burn
 C,10,Sparks and smoke dance all over foe. He waves them off with little effort.,3,0,0,0,0,-1,0,0,0,,,burn
@@ -55,7 +55,7 @@ C,85,Violent inferno destroys organic armor and ruins metal armor on leg. Much o
 C,90,"Foe's shield side is devoured by flames. Head, arm, side, and leg have critical burns. If foe has a shield, it is destroyed in place of his arm.",15,3,-85,0,6,-1,0,6,0,,,burn
 C,95,"Trapped in the furnace of your blast, foe is overcome and falls down. He is unconsious and still burning.",18,4,-90,0,6,-1,0,6,0,,,burn
 C,99,"Intense heat fuses metal, cloth and skin. Foe is unrecognizable. If no chest armor he is dead instantly. Otherwise he dies after 9 rounds of burning.",0,0,0,0,0,9,0,0,0,,die:0,burn
-C,100,"Strike to foe's head. If he has a helmet, his head is broiled and he dies in 2 rnds. If no helmet he dies instantly.",0,0,0,10x1,0,2,0,0,0,,die:0;mod_attacker:10x1,burn
+C,100,"Strike to foe's head. If he has a helmet, his head is broiled and he dies in 2 rnds. If no helmet he dies instantly.",0,0,0,10,0,2,0,0,0,,die:0;mod_attacker:10,burn
 D,5,Foe evades the embrace of the flames.,2,0,0,0,0,-1,0,0,0,,,burn
 D,10,Flames surround foe. He seems to step out of them unharmed.,4,0,0,0,0,-1,0,0,0,,,burn
 D,15,Foe is enshrouded by smoke. The heat harms him little. You have initiative.,4,0,0,0,0,-1,0,0,0,,,burn
@@ -92,5 +92,5 @@ E,80,Blast lands on foe's side but spreads to arms and legs. A shield prevents a
 E,85,"Foe inhales flames scalding lungs and throat Foe is active for 12 rnds (while he burns), then dies.",20,0,0,0,0,12,0,0,0,,,burn
 E,90,"Foe's lower body is badly burned. Nerves, organs and tissue destroyed. Foe is paralyzed and will die in 9 rounds from shock and dehydration.",20,0,0,0,0,9,9,0,0,,,organs/nerves/burn
 E,95,Foe is cremated before your very eyes. He remains standing for 6 rounds and then drops and dies. A small fire lingers over the remains. A horrible end.,25,0,0,0,0,6,0,0,0,,,burn
-E,99,Your foe is devoured by a hellfire of which even you are frightened. All combustibles within 10 ft ignite. Little will remain when the fire dies.,0,0,0,10x1,0,0,0,0,0,,,burn
+E,99,Your foe is devoured by a hellfire of which even you are frightened. All combustibles within 10 ft ignite. Little will remain when the fire dies.,0,0,0,10,0,0,0,0,0,,,burn
 E,100,"Fire devours every part of foe in an instant. Bits of metal, teeth and a few bones shower to the ground.",0,0,0,20,0,0,0,0,0,,,burn

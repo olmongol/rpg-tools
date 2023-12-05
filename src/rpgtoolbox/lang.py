@@ -22,7 +22,7 @@ Currently supported languages are:
 @license GNU V3.0
 '''
 __version__ = "1.1"
-__updated__ = "03.12.2022"
+__updated__ = "05.12.2023"
 ##
 # @var supportedrpg
 # Supported RPG systems
@@ -267,6 +267,9 @@ txtbutton = {'but_ok': {'de': 'OK',
              "but_show_overview":{"de": "Übersicht \nanzeigen",
                                   "en": "show \n overview",
                                  },
+             "but_reset": {"de": "zurücksetzen",
+                           "en": "reset",
+                           },
              }
 
 ## @var txtmenu

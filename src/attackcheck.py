@@ -474,7 +474,7 @@ class atWin(blankWindow):
 
         self.defenders = deepcopy(self.attackers)
         self.__selectAttacker.set(self.attackers[0])
-        self.__selectDefender.set(self.defenders[-1])
+        self.__selectDefender.set(self.defenders[0])
         self.__updDefCombo()
         self.__updtAttckCombo()
         self.__chgImg(attackerpic = "", defenderpic = self.enemygrp[0]["piclink"])
@@ -591,7 +591,6 @@ class atWin(blankWindow):
 
                 for skill in char["cat"][m]["Skill"].keys():
 
-                    #if skill not in ["Progression", "Stats"] and "+" not in skill and [skill, char["cat"][m]["Skill"][skill]["total bonus"]] not in dummy["OB missile"]:
                     if skill not in ["Progression", "Stats"] and [skill, char["cat"][m]["Skill"][skill]["total bonus"]] not in dummy["OB missile"]:
                         dummy["OB missile"].append([skill, char["cat"][m]["Skill"][skill]["total bonus"]])
 
@@ -772,9 +771,15 @@ class atWin(blankWindow):
 
         #self.defenders = deepcopy(self.initlist)
         self.combatround += 1
+        self.cbround.set(f"Round \n{self.combatround}")
         self.initroll = True
         self.__updDefCombo(None)
         self.__updtAttckCombo(None)
+
+
+    def __resetCounter(self, event):
+        self.combatround = 0
+        self.cbround.set("Round \n0")
 
 
     def __rollAttack(self):
@@ -1044,6 +1049,8 @@ class atWin(blankWindow):
 
         if self.curr_defender not in self.defenders:
             self.curr_defender = self.defenders[0]
+            self.__selectDefender.set(self.defenders[0])
+            #XXXXXXXXXXXXX
 
         self.curr_attacker = self.__selectAttacker.get()
         self.__defendCombo.configure(values = self.defenders)
@@ -1092,8 +1099,8 @@ class atWin(blankWindow):
         - update attacker / defender list when combatant was killed
 
         '''
-        self.combatround += 1
-        print(f" runde {self.combatround}")
+        #self.combatround += 1
+        #self.cbround.set(f"Round\n{self.combatround}")
         rm = []
         self.__healingpoints.set(0)
         self.__modstun = 0
@@ -1227,7 +1234,8 @@ class atWin(blankWindow):
                       "melee": "animal"
                       }
         selectedOB = self.__selectOB.get()
-        attype = "melee"
+        logger.debug(f"selectedOB: {selectedOB}")
+        attype = self.__selectType.get()
 
         if selectedOB in self.weaponslisted:
             logger.debug(f"{selectedOB} found in weaponlist")
@@ -1270,7 +1278,7 @@ class atWin(blankWindow):
                                 "very extreme":[200, -75]
                                 }
 
-            else:
+            elif attype == "missile":
 
                 for dist in ["near", "short", "medium", "long", "extreme"]:
 
@@ -1374,45 +1382,71 @@ class atWin(blankWindow):
         if obtype == attacktypes[self.lang][0]:
             self.__skill.set(at["OB melee"][index][1])
 
+            if "DB" in defend.keys():
+                self.__DB.set(int(defend["DB"]))
+                logger.debug(f"DB set to {defend['DB']}")
+
+            else:
+                self.__DB.set(0)
+                logger.debug("DB set to 0")
+
         elif obtype == attacktypes[self.lang][1]:
 
             if len(at["OB missile"][index]) > 1:
                 self.__skill.set(at["OB missile"][index][1])
 #----- XXXXX Error at[ammo] ist ein dict kein int -> at['ammo']['Longbow']
-
-                if isinstance(at["ammo"][index], int()):
-                    self.__ammo.set(str(at["ammo"][index]))
-                    logger.debug(f"ammo: {at['ammo']}")
+                if at["ammo"]:
+                    if isinstance(at["ammo"][index], int()):
+                        self.__ammo.set(str(at["ammo"][index]))
+                        logger.debug(f"ammo: {at['ammo']}")
 
                 else:
                     self.__ammo.set("0")
-                    logger.debug("ammo: not available")
+                    at["ammo"][index] = 0
+                    logger.debug("ammo: empty / not available")
             else:
                 self.__skill.set(at["OB missile"][index][0])
 
             if "DBm" in defend.keys():
                 self.__DB.set(int(defend["DBm"]))
+                logger.debug(f"DB set to {defend['DBm']}")
 
             else:
                 self.__DB.set(0)
+                logger.debug("DB set to 0")
+
+        elif obtype == attacktypes[self.lang][2]:
+            if len(at["OB magic"][index]) > 1:
+                self.__skill.set(at["OB magic"][index][1])
 
         if selectedOB.replace(" ", "_") in self.atlist:
             self.__selectAT.set(selectedOB.replace(" ", "_"))
+
+            #if "DBm" in defend.keys():
+            #    self.__DB.set(int(defend["DBm"]))
+            #    logger.debug(f"DB set to {defend['DBm']}")
+            #
+            #else:
+            #    self.__DB.set(0)
+            #    logger.debug("DB set to 0")
 
         else:
             self.__selectAT.set(self.__determineAT(selectedOB))
 
         if defend["status"]["no_parry"] > 0 or defend["status"]["ooo"] > 0:
             self.__DB.set(0)
+            logger.debug("DB set to 0 (no parry)")
 
         if defend["status"]["stunned"] > 0:
             db = self.__DB.get()
 
             if db < 25:
                 self.__DB.set(0)
+                logger.debug("DB set to 0 (stunned)")
 
             else:
                 self.__DB.set(db - 25)
+                logger.debug("reduced DB set to {db-25} (stunned)")
 
         self.__calcMod(event = None)
 
@@ -1795,6 +1829,7 @@ class atWin(blankWindow):
         self.__defendCombo.grid(column = 6, row = 6, sticky = "EW")
 
         #---------- row 7
+        #------------------- Attacker ------------------------------------------
         Button(self.window,
                text = txtbutton["but_nxtrd"][self.lang],
                command = self.__nextRnd
@@ -1804,6 +1839,21 @@ class atWin(blankWindow):
                text = txtbutton["but_next_at"][self.lang],
                command = self.__nextAttacker
                ).grid(column = 1, row = 7, rowspan = 3, sticky = "EW")
+
+        self.cbround = StringVar()
+        self.cbround.set("Round: \n0")
+        Label(self.window,
+              textvariable = self.cbround,
+              justify = "center",
+              borderwidth = 2,
+              relief = "sunken",
+              font = ("Helvetica", 16, "bold")
+              ).grid(column = 2, columnspan = 2, row = 7, rowspan = 3, sticky = "NEWS")
+
+        Button(self.window,
+               text = txtbutton["but_reset"][self.lang] + "\n<--",
+               command = self.__resetCounter
+               ).grid(column = 4, row = 7, rowspan = 3, sticky = "EW")
         #------------ row 8
 
         #------------ row 9

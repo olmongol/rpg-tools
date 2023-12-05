@@ -13,7 +13,7 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.5
 '''
 __version__ = "0.5"
-__updated__ = "03.12.2023"
+__updated__ = "05.12.2023"
 __me__ = "rpgtoolbox.combat"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
@@ -338,7 +338,8 @@ def switch(mystr):
         if ":" in elem:
             dummy2 = elem.split(':')
 
-            if dummy2[0] == "mod" and "x" in dummy2[1]:
+            #if dummy2[0] == "mod" and "x" in dummy2[1]:
+            if "mod" in dummy2[0] and "x" in dummy2[1]:
                 result[dummy2[0]] = {"mod":int(dummy2[1].split("x")[0]),
                                      "rnd":int(dummy2[1].split("x")[1])}
             elif dummy2[0] == "mod":
