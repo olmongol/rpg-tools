@@ -13,7 +13,7 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.5
 '''
 __version__ = "0.5"
-__updated__ = "02.12.2022"
+__updated__ = "03.12.2023"
 __me__ = "rpgtoolbox.combat"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
@@ -576,8 +576,11 @@ class attacktable():
         """
         Reads table data from csv file and creates the dictionary structures
         """
+        logger.debug(f"start to read {self.filename}")
         with open(self.filename, "r") as fp:
             cont = fp.read()
+
+        logger.debug(f"{self.filename} successfully read")
 
         cont = cont.strip("\n").split("\n")
         header = cont[0].split(",")
@@ -589,7 +592,7 @@ class attacktable():
 
             for j in range(1, len(header)):
 
-                if header[j] not in ["pattern", "type"] and dummy[j] != "":
+                if header[j] not in ["pattern", "type", "UM"] and dummy[j] != "":
                     self.attack[dummy[0].strip(" ")][header[j].strip(" ")] = int(dummy[j])
 
                 elif self.override:
@@ -598,15 +601,16 @@ class attacktable():
                 else:
                     self.attack[dummy[0].strip(" ")][header[j].strip(" ")] = dummy[j]
 
-    #def showResult(self):
-    #    """!
-    #    This prints out the result simply to stdout . just a debug method.
-    #    """
-    #    if self.crit == "":
-    #        print("Hits: {}".format(self.hits))
-    #
-    #    else:
-    #        print("Hits: {}\nCrit: {}\nType:{}".format(self.hits, self.crit, self.crittype))
+
+    def showResult(self):
+        """!
+        This prints out the result simply to stdout . just a debug method.
+        """
+        if self.crit == "":
+            print("Hits: {}".format(self.hits))
+
+        else:
+            print("Hits: {}\nCrit: {}\nType:{}".format(self.hits, self.crit, self.crittype))
 
 
     def getHits(self, roll = 50, AT = "1", AS = "H"):
@@ -666,7 +670,7 @@ class attacktable():
                 if roll >= self.attack[AT][c]:
                     self.crit = c
 
-        #self.showResult()
+        self.showResult()
 
 #class fumbletable():
 #    """!

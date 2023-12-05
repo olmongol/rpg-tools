@@ -14,7 +14,7 @@ other opponents.
 \version 1.0
 '''
 __version__ = "1.0"
-__updated__ = "10.09.2023"
+__updated__ = "05.12.2023"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "RM RPG Tools: attack checker module"
@@ -81,8 +81,8 @@ class atWin(blankWindow):
         self.datadir = datadir
         if "/default" not in self.datadir:
             self.datadir = self.datadir.strip("/") + "/default"
-        logger.debug(f"language: {lang}")
-        logger.debug(f"data dir: {datadir}")
+        logger.info(f"language: {lang}")
+        logger.info(f"data dir: {datadir}")
         ## @var self.fumbletype
         # attack type for fumble checks
         self.fumbletype = 'one-handed arms'
@@ -90,10 +90,20 @@ class atWin(blankWindow):
         ## @var self.maxfumble
         # the maximum value for fumble results.
         self.maxfumble = 4
+        ## @var self.attacktbls
+        # dictionary holding all (found) attack tables
         self.attacktbls = {}
+        ## @var self.crittbls
+        # dictionaray holding all (found) crit tables
         self.crittbls = {}
+        ## @var self.attackers
+        # list of all combatants able to attack
         self.attackers = ["Egon"]
+        ## @var self.defenders
+        # list of all combatants who are still alive
         self.defenders = ["Anton"]
+        ## @var self.combatants
+        # inital list of all combatants (at the begin of battle)
         self.combatants = []
         self.combatround = 0
         self.curphase = 0
@@ -111,6 +121,7 @@ class atWin(blankWindow):
         self.weapontab = getWeaponTab()
         logger.info("Weapon tables successfully read.")
 
+        self.__modstun = 0
         self.curr_attacker = 0
         self.curr_defender = 0
         self.__oblist = []
@@ -147,10 +158,11 @@ class atWin(blankWindow):
 
         # read all attack tables
         for table in os.listdir("{}/fight/attacks".format(self.datadir)):
+            logger.debug(f"working on {table}")
 
             if table[-4:] == ".csv" and table[-5:] != "-.csv":
                 self.attacktbls[table[:-4]] = attacktable("{}/fight/attacks/{}".format(self.datadir, table))
-                logger.debug(f"read {table[:-4]} successfully.")
+                logger.info(f"read {table[:-4]} successfully.")
 
         logger.info("All attack tables loaded.")
 
@@ -572,6 +584,7 @@ class atWin(blankWindow):
 
             #sort melee weapons highest ob first
             dummy["OB melee"] = sorted(dummy["OB melee"], key = lambda k: k[1], reverse = True)
+            logger.debug(f"{dummy['OB melee']}")
             logger.info(f"{dummy['name']}'s melee OBs sorted")
 
             for m in missile:
@@ -587,6 +600,7 @@ class atWin(blankWindow):
             dummy["OB missile"] = sorted(dummy["OB missile"], key = lambda k: k[1], reverse = True)
             dummy["weapon type"][0] = ["normal"] * len(dummy["OB melee"])
             dummy["weapon type"][1] = ["normal"] * len(dummy["OB missile"])
+            logger.debug(f"{dummy['OB missile']}")
             logger.info(f"{dummy['name']}'s missile OBs sorted.")
 
             for m in magic:
@@ -599,14 +613,15 @@ class atWin(blankWindow):
                         if addon not in dummy["OB magic"]:
                             dummy["OB magic"].append([skill, char["cat"][m]["Skill"][skill]["total bonus"], "H"])
 
-            logger.info(f"{dummy['name']}'s magic OBs collected")
+            logger.info(f"{dummy['name']}'s magic OBs collected.")
             #sort magic attacks' highest ob first
             dummy["OB magic"] = sorted(dummy["OB magic"], key = lambda k: k[1], reverse = True)
+            logger.debug(f"{dummy['OB magic']}")
             logger.info(f"{dummy['name']}'s magic OBs sorted")
 
             self.partygrp.append(dummy)
             logger.info(f"{dummy['name']} added to party.")
-            logger.debug(f"{json.dumps(dummy,indent=4)}")
+            #logger.debug(f"{json.dumps(dummy,indent=4)}")
             self.__chgImg(attackerpic = self.partygrp[0]["piclink"], defenderpic = "")
 
         self.partygrp = createCombatList(self.partygrp)
@@ -656,9 +671,9 @@ class atWin(blankWindow):
         '''
         logger.info("start preparing internal weapon list.")
 
-        self.weaponindex = {"melee":[],
-                           "missile":[],
-                           "magic":[]}
+        #self.weaponindex = {"melee":[],
+        #                   "missile":[],
+        #                   "magic":[]}
         for i in range(0, len(self.weaponlist)):
 
             # move '---' to None
@@ -728,8 +743,13 @@ class atWin(blankWindow):
 
             self.initlist[i]["init"] = int(self.initlist[i]['Qu']) + randint(1, 10)
 
+            if self.initlist[i]["status"]["stunned"] > 0:
+                self.initlist[i]["init"] -= 25
+
+            #----- TODO: think about filter out killed & unconcious combatants right here
             if self.initlist[i] not in cleaner:
                 cleaner.append(self.initlist[i])
+                logger.debug(f"Initative for {self.initlist[i]['name']}: {self.initlist[i]['init']}")
 
         self.initlist = deepcopy(cleaner)
         # sort self.initlist reversely
@@ -740,8 +760,7 @@ class atWin(blankWindow):
 
         for elem in self.initlist:
 
-            #if elem['name'] not in self.attackers:
-            #    self.attackers.append(elem["name"])
+            #----- think over
             if elem["status"]["hits"] > 0 and elem["status"]["ooo"] == 0 and \
             elem["status"]["die"] != 0 and elem["status"]["parry"] == 0 and \
             elem["status"]["no_parry"] == 0 and elem["status"]["stunned"] == 0:
@@ -927,11 +946,10 @@ class atWin(blankWindow):
 
             for key in [ "no_parry", "ooo", "parry", "stunned"]:
                 self.initlist[pos]["status"][key] += result[key]
+
             self.initlist[pos]["status"]["hits/rnd"] -= result["hits/rnd"]
             self.initlist[pos]["status"]["mod"].append(result["mod"])
             self.initlist[pos]["status"]["mod_total"] += result["mod"]["mod"]
-            #self.initlist[pos]["status"]["mod"][0]["mod"] += self.initlist[pos]["status"]["mod"][-1]["mod"]
-            #self.initlist[pos]["status"]["mod"][0]["rnd"] += self.initlist[pos]["status"]["mod"][-1]["rnd"]
             self.initlist[pos]["status"]["log"].append(f"damage type:{result['damage_type']}\nmod: {result['mod']['mod']}\nhits/rnd: {result['hits/rnd']}\nrnds: {result['mod']['rnd']}\n\n{result['description']}")
 
             if result["mod_attacker"]["mod_attacker"]:
@@ -993,7 +1011,13 @@ class atWin(blankWindow):
         self.__lvlAttacker.set(f"Lvl: {at['lvl']}")
         self.__curHPAttacker.set(f"HP: {at['status']['hits']}/{at['hits']}")
         self.__initAttacker.set(f"Init: {at['init']}")
-        self.__ppAttacker.set(f"PP: {at['status']['PP']}/{at['PP']}")
+
+        if "PP" in at["status"].keys() and "PP" in at.keys():
+            self.__ppAttacker.set(f"PP: {at['status']['PP']}/{at['PP']}")
+
+        else:
+            self.__ppAttacker.set("PP: 0/0")
+
         self.__wmodAttacker.set(f'Mod: {at["status"]["mod_total"]}')
         self.__stunAttacker.set(f'{labels["stunned"][self.lang]}: {at["status"]["stunned"]}')
         self.__parryAttacker.set(f'{labels["parry"][self.lang]}: {at["status"]["parry"]}')
@@ -1019,7 +1043,7 @@ class atWin(blankWindow):
         self.curr_defender = self.__selectDefender.get()
 
         if self.curr_defender not in self.defenders:
-            self.curr_defender = self.defenders[-1]
+            self.curr_defender = self.defenders[0]
 
         self.curr_attacker = self.__selectAttacker.get()
         self.__defendCombo.configure(values = self.defenders)
@@ -1038,7 +1062,13 @@ class atWin(blankWindow):
         self.__lvlDefender.set(f"Lvl: {defend['lvl']}")
         self.__curHPDefender.set(f"HP: {defend['status']['hits']}/{defend['hits']}")
         self.__initDefender.set(f"Init: {defend['init']}")
-        self.__ppDefender.set(f"PP: {defend['status']['PP']}/{defend['PP']}")
+
+        if "PP" in defend["status"].keys() and "PP" in defend.keys():
+            self.__ppDefender.set(f"PP: {defend['status']['PP']}/{defend['PP']}")
+
+        else:
+            self.__ppDefender.set(f"PP: 0/0")
+
         self.__wmodDefender.set(f'Mod: {defend["status"]["mod_total"]}')
         self.__bleedDefender.set(f"HP/rd: {defend['status']['hits/rnd']}")
         self.__stunDefender.set(f"{labels['stunned'][self.lang]}: {defend['status']['stunned']}")
@@ -1063,17 +1093,16 @@ class atWin(blankWindow):
 
         '''
         self.combatround += 1
+        print(f" runde {self.combatround}")
         rm = []
         self.__healingpoints.set(0)
+        self.__modstun = 0
 
         for i in range(0, len(self.initlist)):
             # bleeding
             self.initlist[i]["status"]["hits"] += self.initlist[i]["status"]["hits/rnd"]
 
             # status check
-            #if self.initlist[i]["status"]["stunned"] >= 1:
-            #    self.initlist[i]["status"]["mod_total"] -= 25
-
             for stat in ["parry", "no_parry", "ooo", "die", "stunned"]:
 
                 if  self.initlist[i]["status"][stat] > 0:
@@ -1087,12 +1116,12 @@ class atWin(blankWindow):
 
                 if "mod" in self.initlist[i]["status"]["mod"][j].keys():
 
-                    if self.initlist[i]["status"]["mod"][j]["mod"] == 0 or self.initlist[i]["status"]["mod"][j]["rnd"] == 0:
+                    if self.initlist[i]["status"]["mod"][j]["mod"] == 0 or self.initlist[i]["status"]["mod"][j]["rnd"] <= 0:
                         rm_mod.append(j)
-                        #self.initlist[i]["status"]["mod"]
+
                 else:
 
-                    if self.initlist[i]["status"]["mod"][j]["mod_attacker"] == 0 or self.initlist[i]["status"]["mod"][j]["rnd"] == 0:
+                    if self.initlist[i]["status"]["mod"][j]["mod_attacker"] == 0 or self.initlist[i]["status"]["mod"][j]["rnd"] <= 0:
                         rm_mod.append(j)
 
             # select killed combatants
@@ -1123,6 +1152,9 @@ class atWin(blankWindow):
         '''!
         This detemines the selected attack type an shows/hide the (not) needed
         Comboboxes for the skills
+
+        ----
+        @todo implement the skill list for directed spells skills
         '''
         self.curr_attacker = self.__selectAttacker.get()
         at = self.__findCombatant(name = self.curr_attacker, chklist = self.initlist)
@@ -1141,11 +1173,29 @@ class atWin(blankWindow):
             for mob in at["OB missile"]:
                 self.__oblist.append(mob[0])
 
-            self.__ammo.set(str(0))
+                for i in range(0, len(at["ammo"])):
 
-        else:
-            self.notdoneyet(f"{attacktypes[self.lang][2]}")
-            self.__ammo.set("n/a")
+                    if mob in at["ammo"][i].keys():
+                        self.__ammo.set(str(at["ammo"][i][mob]))
+
+                    else:
+                        at["ammo"][i][mob] = 0
+                        self.__ammo.set(str(0))
+
+        elif selected == attacktypes[self.lang][2]:
+
+            if at["OB magic"]:
+
+                for mob in at["OB magic"]:
+                    self.__oblist.append(mob[0])
+
+                    for i in range(0, len(at["ammo"])):
+
+                        if mob not in at["ammo"][i].keys():
+                            at["ammo"][i][mob] = at["status"]["PP"]
+            else:
+                self.notdoneyet(f"{attacktypes[self.lang][2]}")
+            self.__ammo.set(str(at["status"]["PP"]))
 
         self.__selectOB.set(self.__oblist[0])
         self.__obCombo.config(values = self.__oblist)
@@ -1154,19 +1204,19 @@ class atWin(blankWindow):
 
     def determineWeapon(self):
         """!
-        This determines the used weapon of the attacker
+        This determines the used weapon of the attacker of if a spell is used.
 
         ----
         @todo the following has to be implemented:
-        - ranges and mods for distance weapons
-        - breakage and strength
+        - breakage and strength for weapons
 
         """
         self.distance = {"near": [3, 0],
                         "short": [4, -1000],
                         "medium": [5, -1000],
                         "long": [6, -1000],
-                        "extreme":[7, -1000]
+                        "extreme":[7, -1000],
+                        "very extreme":[8, -1000]
                         }
         translation = {"1he": "one-handed arms",
                       "1hc": "one-handed arms",
@@ -1177,6 +1227,7 @@ class atWin(blankWindow):
                       "melee": "animal"
                       }
         selectedOB = self.__selectOB.get()
+        attype = "melee"
 
         if selectedOB in self.weaponslisted:
             logger.debug(f"{selectedOB} found in weaponlist")
@@ -1185,38 +1236,59 @@ class atWin(blankWindow):
 
             if type(weapon["wtype"]) == type(""):
                 self.fumbletype = translation[weapon["wtype"]]
+                self.maxfumble = int(weapon["fumble"])
 
             else:
                 attype = self.__selectType.get()
 
                 if attype == "magic":
-                    pass
+                    self.fumbletype = "spell"
+                    self.maxfumble = 4
 
                 elif attype == "missile":
                     self.fumbletype = translation[weapon["wtype"][1]]
+                    self.maxfumble = int(weapon["fumble"])
 
                 else:
                     self.fumbletype = translation[weapon["wtype"][0]]
+                    self.maxfumble = int(weapon["fumble"])
 
+            logger.debug(f"set fumbletype: {self.fumbletype}")
+            logger.debug(f"set maxfumble; {self.maxfumble}")
             self.ftype.set(self.fumbletype)
-            self.maxfumble = int(weapon["fumble"])
+            #self.maxfumble = int(weapon["fumble"])
             lastdist = 3
 
-            for dist in ["near", "short", "medium", "long", "extreme"]:
+            #------- determining the distance modifiers for ranged combat
 
-                if weapon[dist] == None:
+            if attype == "magic":
+                self.distance = {"near": [3, 35],
+                                "short": [15, 0],
+                                "medium": [30, -25],
+                                "long": [60, -40],
+                                "extreme":[90, -55],
+                                "very extreme":[200, -75]
+                                }
 
-                    if dist == "near":
-                        self.distance[dist] = [3, 0]
-                        lastdist += 1
+            else:
+
+                for dist in ["near", "short", "medium", "long", "extreme"]:
+
+                    if weapon[dist] == None:
+
+                        if dist == "near":
+                            self.distance[dist] = [3, 0]
+                            lastdist += 1
+                        else:
+                            self.distance[dist] = [lastdist, -1000]
+                            lastdist += 1
+
                     else:
-                        self.distance[dist] = [lastdist, -1000]
-                        lastdist += 1
+                        lastdist = int(weapon[dist][0])
+                        mod = int(weapon[dist][1])
+                        self.distance[dist] = [lastdist, mod]
 
-                else:
-                    lastdist = int(weapon[dist][0])
-                    mod = int(weapon[dist][1])
-                    self.distance[dist] = [lastdist, mod]
+            logger.debug(f"distance mods set to:\n{json.dumps(self.distance)}")
 
 
     def getFumbleType(self):
@@ -1225,7 +1297,9 @@ class atWin(blankWindow):
 
         ----
         @todo has to be fully implemented
-        mounted combat is missing
+        - mounted combat is missing
+        - spell combat / attacks & crits have to be implemented
+        - magic combat fumble
         """
         self.fumbletype = self.ftype.get()
         self.fumblerange = 4
@@ -1271,6 +1345,12 @@ class atWin(blankWindow):
                 self.fumbletype = "polearms and spears"
                 self.fumblerange = 5
 
+        elif obtype == "magic":
+            self.fumbletype = "force"
+            #----- TODO: magic fumble range has to be corrected by the entry in
+            # the connected attack table
+            self.fumblerange = 2
+
         self.determineWeapon()
         self.ftype.set(self.fumbletype)
 
@@ -1279,7 +1359,7 @@ class atWin(blankWindow):
         '''!
         This updates the attack credentials by the selected attack skills
         ---
-        @bug ValueError: 'Battle_Axe' is not in list every time the first list is loaded
+        @todo add more logging and debuging
         '''
         self.getFumbleType()
         self.updateRange()
@@ -1298,13 +1378,12 @@ class atWin(blankWindow):
 
             if len(at["OB missile"][index]) > 1:
                 self.__skill.set(at["OB missile"][index][1])
-#----- XXXXX Error at[ammo] ist ein dict kein int
-                print(f"amor is type {type(at['ammo'])}")
+#----- XXXXX Error at[ammo] ist ein dict kein int -> at['ammo']['Longbow']
 
                 if isinstance(at["ammo"][index], int()):
                     self.__ammo.set(str(at["ammo"][index]))
                     logger.debug(f"ammo: {at['ammo']}")
-                    print(f"amor is type {type(at['ammo'])}")
+
                 else:
                     self.__ammo.set("0")
                     logger.debug("ammo: not available")
@@ -1343,7 +1422,7 @@ class atWin(blankWindow):
         This method delivers the fitting Attack Table to weapons which have not their own.
 
         """
-        result = "Broadsword"
+        result = "Brawling"
 
         for elem in self.weaponlist:
 
@@ -1565,6 +1644,7 @@ class atWin(blankWindow):
         self.ooo_def.grid(row = 1, column = 11, sticky = W)
 
         #------------ row 2
+
         self.__selectType = StringVar()
         self.__selectType.set(attacktypes[self.lang][0])
         ## @var self.__typeCombo
@@ -1592,6 +1672,7 @@ class atWin(blankWindow):
         self.__ammoEntry.grid(row = 2, column = 3, sticky = "EW")
         self.__ammoEntry.bind("<Return>", self.setAmmo)
         self.__ammoEntry.bind("<<FocusOut>>", self.setAmmo)
+
         #---------- row 3
 
         self.__selectOB = StringVar()
@@ -1620,6 +1701,7 @@ class atWin(blankWindow):
         #------------ row 4
 
         #------------ row 5
+
         self.healings = ["hits", "hits/rnd", "stunned", "ooo", "mod_total", "die"]
         self.__selectHeal = StringVar()
         self.__selectHeal.set(self.healings[1])
@@ -1648,7 +1730,9 @@ class atWin(blankWindow):
                text = txtbutton["but_heal"][self.lang],
                command = self.__applyHealingOthers
                ).grid(column = 4, row = 5, sticky = "EW")
+
         #------------ row 6
+
         self.__selectAttacker = StringVar()
         self.__selectAttacker.set("Egon")
         ## @var self.__attackCombo
@@ -1799,11 +1883,7 @@ class atWin(blankWindow):
                                  values = ["S", "M", "L", "H"],
                                  textvariable = self.__maxlvl,
                                  width = 3)
-#        self.__maxOpt.bind('<<ComboboxSelected>>', output)
-#        self.__maxOpt = OptionMenu(self.window,
-#                                   self.__maxlvl,
-#                                   *["S", "M", "L", "H"]
-#                                   )
+
         self.__maxOpt.grid(column = 10, row = 10, sticky = "W")
 
         Button(self.window,
@@ -1848,6 +1928,7 @@ class atWin(blankWindow):
                ).grid(row = 11, column = 11)
 
         #------------ row 12
+
         Label(self.window,
               text = labels["crit table"][self.lang] + ":"
               ).grid(column = 0, row = 12, sticky = "W")
@@ -1983,6 +2064,9 @@ class atWin(blankWindow):
         """!
         This checks the result of a roll against an attack table
 
+
+        ----
+        @todo The attack checker for magic spell attacks has to  be implemented
         """
         self.checkFumble(rollresult = self.__atroll.get(), fumbletype = "weapon")
 
@@ -1997,8 +2081,14 @@ class atWin(blankWindow):
                                                                self.__AT.get(),
                                                                self.__maxlvl.get()
                                                                )
-            else:
-                pass
+            elif self.__selectType.get() == "magic":
+                self.attacktbls[self.__selectAT.get()].getHits(self.__skill.get() + self.__atroll.get() + self.__rangemod.get() - self.__DB.get(),
+                                                               self.__AT.get(),
+                                                               self.__maxlvl.get()
+                                                               )
+                #----- TODO: the directed spell skill selection and the determination of AT result
+                # has to be implemented
+                #pass
 
             self.hits = self.attacktbls[self.__selectAT.get()].hits
             self.__resultAT.set("Hits: {}\t Crit: {}\t Type: {}".format(self.attacktbls[self.__selectAT.get()].hits,
@@ -2109,14 +2199,14 @@ class atWin(blankWindow):
         self.__displayCrit.insert(END, result)
 
 
-    def __setBGColor(self, attrib, bgcolor = "green"):
+    def __setBGColor(self, attrib, bgcolor = "green", fgcolor = "black"):
         """!
 
         @param attrib tkinter label object
         @param bgcolor background color to set
-
+        @param fgcolor foreground (text) color to set
         """
-        attrib.config(bg = bgcolor)
+        attrib.config(bg = bgcolor, fg = fgcolor)
 
 
     def checkPhysicalCond(self, combatant, side = "defender"):
@@ -2126,38 +2216,67 @@ class atWin(blankWindow):
 
         @param combatant PC / NPC to check the physical condition for
         @param side of the combatant: attacker, defender
+
+        ----
+        @todo the long if-statements in this method have to be re-factored.
         """
         ## @var condition_color
         # this holds the physical condition as index and the resulting color as value.
         condition_color = {"die": "black",
+                           "die_fg": "white",
                            "ooo": "grey",
+                           "ooo_fg": "black",
                            "no parry": "red",
+                           "no parry_fg": "whitesmoke",
                            "parry": "deepskyblue",
+                           "parry_fg": "black",
                            "critical": "darkred",
+                           "critical_fg": "yellow",
                            "bad": "darkorange",
+                           "bad_fg": "black",
                            "not so good":"yellow",
+                           "not so good_fg": "black",
                            "good": "lime",
+                           "good_fg": "black",
                            "stunned": "sandybrown",
+                           "stunned_fg": "black",
                            "light bleeding": "khaki",
-                           "medium bleeding":"orange",
+                           "light bleeding_fg": "black",
+                           "medium bleeding": "orange",
+                           "medium bleeding_fg": "black",
                            "strong bleeding":"firebrick",
+                           "strong bleeding_fg": "yellow",
                            "no mod": "whitesmoke",
+                           "no mod_fg": "black",
                            "no stun": "whitesmoke",
+                           "no stun_fg": "black",
                            "no bleed": "whitesmoke",
+                           "no bleed_fg": "black",
                            "no bleeding":"whitesmoke",
+                           "no bleeding_fg": "black",
                            "nono parry":"whitesmoke",
+                           "nono parry_fg": "black",
                            "attack again": "whitesmoke",
+                           "attack again_fg": "black",
                            "awake":"whitesmoke",
+                           "awake_fg": "black",
                            "low mod":"lightgreen",
+                           "low mod_fg": "black",
                            "medium mod":"gold",
+                           "medium mod_fg": "black",
                            "high mod": "coral",
-                           "critical mod":"orangered"
+                           "high mod_fg": "black",
+                           "critical mod":"orangered",
+                           "critical mod_fg": "black"
                           }
 
         ## @var condition_color
         # this variable holds the color name which shall be finally set when the physical
         # condition is determined.
         condbgcolor = condition_color["good"]
+        ## @var txtcolor
+        # this hold the  text color to keep all readable.
+        txtcolor = "black"
 
         logger.debug(f"check data: \n{json.dumps(combatant,indent=4)}")
         ## @var hits
@@ -2166,196 +2285,223 @@ class atWin(blankWindow):
 
         if combatant["status"]["mod_total"] < -50:
             condbgcolor = condition_color["critical mod"]
+            txtcolor = condition_color["critical mod_fg"]
 
             if side == "defender":
-                self.__setBGColor(attrib = self.mod_def, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.mod_def, bgcolor = condbgcolor, fgcolor = txtcolor)
 
             elif side == "attacker":
-                self.__setBGColor(attrib = self.mod_at, bgcolor = condbgcolor)
+                self.__setBmod_totalGColor(attrib = self.mod_at, bgcolor = condbgcolor, fgcolor = txtcolor)
 
         elif combatant["status"]["mod_total"] < -20:
             condbgcolor = condition_color["high mod"]
+            txtcolor = condition_color["high mod_fg"]
 
             if side == "defender":
-                self.__setBGColor(attrib = self.mod_def, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.mod_def, bgcolor = condbgcolor, fgcolor = txtcolor)
 
             elif side == "attacker":
-                self.__setBGColor(attrib = self.mod_at, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.mod_at, bgcolor = condbgcolor, fgcolor = txtcolor)
 
         elif combatant["status"]["mod_total"] < -9:
             condbgcolor = condition_color["medium mod"]
+            txtcolor = condition_color["medium mod_fg"]
 
             if side == "defender":
-                self.__setBGColor(attrib = self.mod_def, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.mod_def, bgcolor = condbgcolor, fgcolor = txtcolor)
 
             elif side == "attacker":
-                self.__setBGColor(attrib = self.mod_at, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.mod_at, bgcolor = condbgcolor, fgcolor = txtcolor)
 
         elif combatant["status"]["mod_total"] < 0:
             condbgcolor = condition_color["low mod"]
+            txtcolor = condition_color["low mod_fg"]
 
             if side == "defender":
-                self.__setBGColor(attrib = self.mod_def, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.mod_def, bgcolor = condbgcolor, fgcolor = txtcolor)
 
             elif side == "attacker":
-                self.__setBGColor(attrib = self.mod_at, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.mod_at, bgcolor = condbgcolor, fgcolor = txtcolor)
 
         else:
             condbgcolor = condition_color["no mod"]
+            txtcolor = condition_color["no mod_fg"]
 
             if side == "defender":
-                self.__setBGColor(attrib = self.mod_def, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.mod_def, bgcolor = condbgcolor, fgcolor = txtcolor)
 
             elif side == "attacker":
-                self.__setBGColor(attrib = self.mod_at, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.mod_at, bgcolor = condbgcolor, fgcolor = txtcolor)
 
         if combatant["status"]["hits/rnd"] < 0:
             condbgcolor = condition_color["light bleeding"]
+            txtcolor = condition_color["light bleeding_fg"]
 
             if side == "defender":
-                self.__setBGColor(attrib = self.bleed_def, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.bleed_def, bgcolor = condbgcolor, fgcolor = txtcolor)
 
             elif side == "attacker":
-                self.__setBGColor(attrib = self.bleed_at, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.bleed_at, bgcolor = condbgcolor, fgcolor = txtcolor)
 
         elif combatant["status"]["hits/rnd"] < -2:
             condbgcolor = condition_color["medium bleeding"]
+            txtcolor = condition_color["medium bleeding_fg"]
 
             if side == "defender":
-                self.__setBGColor(attrib = self.bleed_def, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.bleed_def, bgcolor = condbgcolor, fgcolor = txtcolor)
 
             elif side == "attacker":
-                self.__setBGColor(attrib = self.bleed_at, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.bleed_at, bgcolor = condbgcolor, fgcolor = txtcolor)
 
         elif combatant["status"]["hits/rnd"] < -6:
             condbgcolor = condition_color["strong bleeding"]
+            txtcolor = condition_color["strong bleeding_fg"]
 
             if side == "defender":
-                self.__setBGColor(attrib = self.bleed_def, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.bleed_def, bgcolor = condbgcolor, fgcolor = txtcolor)
 
             elif side == "attacker":
-                self.__setBGColor(attrib = self.bleed_at, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.bleed_at, bgcolor = condbgcolor, fgcolor = txtcolor)
         else:
             condbgcolor = condition_color["no bleeding"]
+            txtcolor = condition_color["no bleeding_fg"]
 
             if side == "defender":
-                self.__setBGColor(attrib = self.bleed_def, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.bleed_def, bgcolor = condbgcolor, fgcolor = txtcolor)
 
             elif side == "attacker":
-                self.__setBGColor(attrib = self.bleed_at, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.bleed_at, bgcolor = condbgcolor, fgcolor = txtcolor)
 
         if combatant["status"]["stunned"] > 0:
             condbgcolor = condition_color["stunned"]
+            txtcolor = condition_color["stunned_fg"]
 
             if side == "defender":
-                self.__setBGColor(attrib = self.stunned_def, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.stunned_def, bgcolor = condbgcolor, fgcolor = txtcolor)
 
             elif side == "attacker":
-                self.__setBGColor(attrib = self.stunned_at, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.stunned_at, bgcolor = condbgcolor, fgcolor = txtcolor)
+
         else:
             condbgcolor = condition_color["no stun"]
+            txtcolor = condition_color["no stun_fg"]
 
             if side == "defender":
-                self.__setBGColor(attrib = self.stunned_def, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.stunned_def, bgcolor = condbgcolor, fgcolor = txtcolor)
 
             elif side == "attacker":
-                self.__setBGColor(attrib = self.stunned_at, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.stunned_at, bgcolor = condbgcolor, fgcolor = txtcolor)
 
         if combatant["status"]["no_parry"] > 0:
             condbgcolor = condition_color["no parry"]
+            txtcolor = condition_color["no parry_fg"]
 
             if side == "defender":
-                self.__setBGColor(attrib = self.noparry_def, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.noparry_def, bgcolor = condbgcolor, fgcolor = txtcolor)
 
             elif side == "attacker":
-                self.__setBGColor(attrib = self.noparry_at, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.noparry_at, bgcolor = condbgcolor, fgcolor = txtcolor)
 
         else:
             condbgcolor = condition_color["nono parry"]
+            txtcolor = condition_color["nono parry_fg"]
 
             if side == "defender":
-                self.__setBGColor(attrib = self.noparry_def, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.noparry_def, bgcolor = condbgcolor, fgcolor = txtcolor)
 
             elif side == "attacker":
-                self.__setBGColor(attrib = self.noparry_at, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.noparry_at, bgcolor = condbgcolor, fgcolor = txtcolor)
 
         if combatant["status"]["ooo"] > 0:
             condbgcolor = condition_color["ooo"]
+            txtcolor = condition_color["ooo_fg"]
 
             if side == "defender":
-                self.__setBGColor(attrib = self.ooo_def, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.ooo_def, bgcolor = condbgcolor, fgcolor = txtcolor)
 
             elif side == "attacker":
-                self.__setBGColor(attrib = self.ooo_at, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.ooo_at, bgcolor = condbgcolor, fgcolor = txtcolor)
 
         else:
             condbgcolor = condition_color["awake"]
+            txtcolor = condition_color["awake_fg"]
 
             if side == "defender":
-                self.__setBGColor(attrib = self.ooo_def, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.ooo_def, bgcolor = condbgcolor, fgcolor = txtcolor)
 
             elif side == "attacker":
-                self.__setBGColor(attrib = self.ooo_at, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.ooo_at, bgcolor = condbgcolor, fgcolor = txtcolor)
 
         if combatant["status"]["parry"] > 0:
             condbgcolor = condition_color["parry"]
+            txtcolor = condition_color["parry_fg"]
 
             if side == "defender":
-                self.__setBGColor(attrib = self.parry_def, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.parry_def, bgcolor = condbgcolor, fgcolor = txtcolor)
 
             elif side == "attacker":
-                self.__setBGColor(attrib = self.parry_at, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.parry_at, bgcolor = condbgcolor, fgcolor = txtcolor)
 
         else:
             condbgcolor = condition_color["attack again"]
+            txtcolor = condition_color["attack again_fg"]
 
             if side == "defender":
-                self.__setBGColor(attrib = self.parry_def, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.parry_def, bgcolor = condbgcolor, fgcolor = txtcolor)
 
             elif side == "attacker":
-                self.__setBGColor(attrib = self.parry_at, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.parry_at, bgcolor = condbgcolor, fgcolor = txtcolor)
 
         if hits == 0.0:
             condbgcolor = condition_color["dead"]
+            txtcolor = condition_color["dead_fg"]
+
+            if side == "defender":
+                self.__setBGColor(attrib = self.hits_def, bgcolor = condbgcolor, fgcolor = txtcolor)
 
         elif hits < 10.0:
             condbgcolor = condition_color["critical"]
+            txtcolor = condition_color["critical_fg"]
 
             if side == "defender":
-                self.__setBGColor(attrib = self.hits_def, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.hits_def, bgcolor = condbgcolor, fgcolor = txtcolor)
 
             elif side == "attacker":
-                self.__setBGColor(attrib = self.hits_at, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.hits_at, bgcolor = condbgcolor, fgcolor = txtcolor)
 
         elif hits < 25.0:
             condbgcolor = condition_color["bad"]
+            txtcolor = condition_color["bad_fg"]
 
             if side == "defender":
-                self.__setBGColor(attrib = self.hits_def, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.hits_def, bgcolor = condbgcolor, fgcolor = txtcolor)
 
             elif side == "attacker":
-                self.__setBGColor(attrib = self.hits_at, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.hits_at, bgcolor = condbgcolor, fgcolor = txtcolor)
 
         elif hits < 76.0:
             condbgcolor = condition_color["not so good"]
+            txtcolor = condition_color["not so good_fg"]
 
             if side == "defender":
-                self.__setBGColor(attrib = self.hits_def, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.hits_def, bgcolor = condbgcolor, fgcolor = txtcolor)
 
             elif side == "attacker":
-                self.__setBGColor(attrib = self.hits_at, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.hits_at, bgcolor = condbgcolor, fgcolor = txtcolor)
 
         elif hits > 75.0:
             condbgcolor = condition_color["good"]
+            txtcolor = condition_color["good_fg"]
 
             if side == "defender":
-                self.__setBGColor(attrib = self.hits_def, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.hits_def, bgcolor = condbgcolor, fgcolor = txtcolor)
 
             elif side == "attacker":
-                self.__setBGColor(attrib = self.hits_at, bgcolor = condbgcolor)
+                self.__setBGColor(attrib = self.hits_at, bgcolor = condbgcolor, fgcolor = txtcolor)
 
         if combatant["status"]["die"] >= 0:
             condbgcolor = condition_color["die"]
+            txtcolor = condition_color["die_fg"]
 
         if side == "defender":
             self.defcanvas.config(bg = condbgcolor)
@@ -2367,7 +2513,7 @@ class atWin(blankWindow):
 
 class enemySelector(blankWindow):
     '''
-    This class opens a window to select differnt monsters or npcs from a data
+    This class opens a window to select different monsters or npcs from a data
     file (CSV). This selection
     '''
 

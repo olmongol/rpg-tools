@@ -49,7 +49,7 @@ from rpgtoolbox.rpgtools import calcTotals
 from rpgtoolbox.rpgtools import getLvl
 
 #from PIL import Image, ImageTk
-__updated__ = "06.08.2023"
+__updated__ = "04.12.2023"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -58,7 +58,7 @@ __license__ = "GNU V3.0"
 __me__ = "A RPG tool package for Python 3.x"
 
 mycnf = chkCfg()
-logger = log.createLogger('window', 'info', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "epwins.log")
+logger = log.createLogger('window', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "epwins.log")
 
 
 
@@ -236,7 +236,7 @@ class MainWindow(blankWindow):
 
         else:
             export = latexexport.charsheet(self.char, "./data/", short = False)
-            logger.debug(f"LaTeX generated for {self.char['name']}")
+            logger.info(f"LaTeX generated for {self.char['name']}")
             msg = messageWindow()
             msg.showinfo("LaTeX generated")
 
@@ -874,6 +874,7 @@ class genAttrWin(blankWindow):
         if rpg == "RoleMaster":
             from rpgtoolbox import rolemaster as rm
             logger.debug(f"create RM Character")
+
         else:
             self.notdoneyet("support for %s" % (rpg))
             logger.debug("not a RM character")
@@ -1201,16 +1202,19 @@ class genAttrWin(blankWindow):
         and character names are set. If so it proceeds with collecting all data.
         '''
         logger.info("next step called")
-        logger.debug(f"Step 1 Character Data:\n\n {json.dumpe(self.stats,indent=4)}")
+        #logger.debug(f"Step 1 Character Data:\n\n {json.dumps(self.stats,indent=4)}")
 
         if self.points != self.__used:
             messageWindow(self.lang).showinfo(errmsg['stats_dp'][self.lang])
+            logger.warning(f"{errmsg['stats_dp'][self.lang]}")
 
         elif self.stats['player'].get() == "":
             messageWindow(self.lang).showinfo(errmsg['player'][self.lang])
+            logger.warning(f"{errmsg['player'][self.lang]}")
 
         elif self.stats['name'].get() == "":
             messageWindow(self.lang).showinfo(errmsg['name'][self.lang])
+            logger.warning(f"{errmsg['name'][self.lang]}")
 
         else:
             logger.debug("next step: collect data")
@@ -1574,6 +1578,8 @@ class genAttrWin(blankWindow):
             roll = random.randint(1, sides)
             result += roll
             i += 1
+
+        logger.debug(f"{number}d{sides} rolled: {result}")
         return result
 
 
@@ -1586,6 +1592,7 @@ class genAttrWin(blankWindow):
         if 0 < self.__count < 4:
             result = 600 + self.dice(10, 10)
             self.showno.set(result)
+            logger.debug(f"{self.__count} roll for DP: {result}")
 
         self.points = self.showno.get()
 
