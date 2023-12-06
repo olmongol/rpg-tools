@@ -87,6 +87,7 @@ class atWin(blankWindow):
         # attack type for fumble checks
         self.fumbletype = 'one-handed arms'
         self.fumbleroll = 0
+        self.umr = 5
         ## @var self.maxfumble
         # the maximum value for fumble results.
         self.maxfumble = 4
@@ -162,7 +163,7 @@ class atWin(blankWindow):
 
             if table[-4:] == ".csv" and table[-5:] != "-.csv":
                 self.attacktbls[table[:-4]] = attacktable("{}/fight/attacks/{}".format(self.datadir, table))
-                logger.info(f"read {table[:-4]} successfully.")
+                logger.debug(f"read {table[:-4]} successfully.")
 
         logger.info("All attack tables loaded.")
 
@@ -440,7 +441,6 @@ class atWin(blankWindow):
                                                                       "skill": spelldummy[s][1]
                                                                       }
                         logger.info(f"__prepareNSCs: {pathadd + spelldummy[s][0].replace(' ', '_') + '.csv'} read")
-                        #logger.debug(f"__prepareNSCs: spellists[{spelldummy[s][0].split('/')[-1]}] = \n{pformat(spellists[spelldummy[s][0].split('/')[-1]])}")
 
                     self.enemygrp[i]["spells"] = deepcopy(spellists)
 
@@ -487,8 +487,6 @@ class atWin(blankWindow):
         This method reduces character data to combatant data
 
         ----
-        @todo - learned spell casting lists and bonusses have to be selected and added
-        - weapon list with weapon data
         '''
         self.partygrp = []
         cindex = ["player", "name", "DB", "DB mod", "OB melee", "OB missile", "hits", "PP",
@@ -748,7 +746,7 @@ class atWin(blankWindow):
             #----- TODO: think about filter out killed & unconcious combatants right here
             if self.initlist[i] not in cleaner:
                 cleaner.append(self.initlist[i])
-                logger.debug(f"Initative for {self.initlist[i]['name']}: {self.initlist[i]['init']}")
+                logger.debug(f"Initiative for {self.initlist[i]['name']}: {self.initlist[i]['init']}")
 
         self.initlist = deepcopy(cleaner)
         # sort self.initlist reversely
@@ -792,7 +790,6 @@ class atWin(blankWindow):
 
 
     def resultMethod(self, data = 10):
-        print(f"DEBUG: fumbleroll {data}")
         self.fumbleroll = int(data)
         obtype = self.__selectType.get()
 
@@ -830,6 +827,7 @@ class atWin(blankWindow):
 
         else:
             result, self.umr = Dice(rules = "")
+
         self.__critroll.set(result[0])
 
 
@@ -843,6 +841,7 @@ class atWin(blankWindow):
         ----
         @todo the rest has to be implemented still:
         - load list of weapon specs
+        - weapon breakage
 
         '''
         broken = False
@@ -922,6 +921,10 @@ class atWin(blankWindow):
     def __applyDamage(self, event = None):
         '''!
         This method applies all modifications by a hit/critical hit to a combatant.
+
+        ----
+        @todo if a spell level for attack spells may be added it should be subtraced
+        from the "ammo" of magic attacks (instead of 1)
         '''
         self.curr_defender = self.__selectDefender.get()
         self.curr_attacker = self.__selectAttacker.get()
@@ -934,6 +937,9 @@ class atWin(blankWindow):
 
         if attacktype in ["missile", "magic"] and self.initlist[posa]["ammo"][attackskill] > 0:
             self.initlist[posa]["ammo"][attackskill] -= 1
+
+            if attacktype == "magic":
+                self.initlist[posa]["status"]["PP"] -= 1
 
         if crit in ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J" "T"]:
             result = self.crittbls[self.__selectCrit.get()].crithit
@@ -1103,8 +1109,6 @@ class atWin(blankWindow):
         - update attacker / defender list when combatant was killed
 
         '''
-        #self.combatround += 1
-        #self.cbround.set(f"Round\n{self.combatround}")
         rm = []
         self.__healingpoints.set(0)
         self.__modstun = 0
@@ -1164,8 +1168,6 @@ class atWin(blankWindow):
         This detemines the selected attack type an shows/hide the (not) needed
         Comboboxes for the skills
 
-        ----
-        @todo implement the skill list for directed spells skills
         '''
         self.curr_attacker = self.__selectAttacker.get()
         at = self.__findCombatant(name = self.curr_attacker, chklist = self.initlist)
@@ -1204,8 +1206,9 @@ class atWin(blankWindow):
 
                         if mob[0] not in at["ammo"].keys():
                             at["ammo"][mob[0]] = at["status"]["PP"]
-            else:
-                self.notdoneyet(f"{attacktypes[self.lang][2]}")
+                    else:
+                        at["ammo"][mob[0]] = at["status"]["PP"]
+
             self.__ammo.set(str(at["status"]["PP"]))
 
         self.__selectOB.set(self.__oblist[0])
@@ -2128,21 +2131,34 @@ class atWin(blankWindow):
         self.checkFumble(rollresult = self.__atroll.get(), fumbletype = "weapon")
 
         if not self.fumblestat:
+
+            if self.umr == 100 or self.__atroll.get() == 100:
+                umroll = 100
+
+            else:
+                umroll = self.umr
+
             if self.__selectType.get() == "melee":
+
                 self.attacktbls[self.__selectAT.get()].getHits(self.__skill.get() + self.__atroll.get() - self.__DB.get(),
                                                                self.__AT.get(),
-                                                               self.__maxlvl.get()
+                                                               self.__maxlvl.get(),
+                                                               UM = umroll
                                                                )
             elif self.__selectType.get() == "missile":
                 self.attacktbls[self.__selectAT.get()].getHits(self.__skill.get() + self.__atroll.get() + self.__rangemod.get() - self.__DB.get(),
                                                                self.__AT.get(),
-                                                               self.__maxlvl.get()
+                                                               self.__maxlvl.get(),
+                                                               UM = umroll
                                                                )
             elif self.__selectType.get() == "magic":
                 self.attacktbls[self.__selectAT.get()].getHits(self.__skill.get() + self.__atroll.get() + self.__rangemod.get() - self.__DB.get(),
                                                                self.__AT.get(),
-                                                               self.__maxlvl.get()
+                                                               self.__maxlvl.get(),
+                                                               UM = umroll
                                                                )
+                self.maxfumble = self.attacktbls[self.__selectAT.get()].fumble
+                self.checkFumble(rollresult = self.__atroll.get(), fumbletype = "magic")
                 #----- TODO: the directed spell skill selection and the determination of AT result
                 # has to be implemented
                 #pass
@@ -2281,6 +2297,8 @@ class atWin(blankWindow):
         # this holds the physical condition as index and the resulting color as value.
         condition_color = {"die": "black",
                            "die_fg": "white",
+                           "dead": "black",
+                           "dead_fg": "white",
                            "ooo": "grey",
                            "ooo_fg": "black",
                            "no parry": "red",
