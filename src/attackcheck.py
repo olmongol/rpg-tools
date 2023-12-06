@@ -14,7 +14,7 @@ other opponents.
 \version 1.0
 '''
 __version__ = "1.0"
-__updated__ = "05.12.2023"
+__updated__ = "06.12.2023"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "RM RPG Tools: attack checker module"
@@ -149,7 +149,7 @@ class atWin(blankWindow):
         self.reverseweaponindex = {}
 
         self.weaponfumble = fumbletable(tablefilename = self.datadir + f"/fight/fumble/combat_fumble_{self.lang}.csv", lang = self.lang)
-        self.magicfumble = fumbletable(tablefilename = self.datadir + f"/tables/spell_fumble_{self.lang}.csv", lang = self.lang)
+        self.magicfumble = fumbletable(tablefilename = self.datadir + f"/fight/fumble/spell_fumble_{self.lang}.csv", lang = self.lang)
 
         for key in self.weapontab.keys():
             self.reverseweaponindex[self.weapontab[key]["name"]] = key
@@ -777,7 +777,7 @@ class atWin(blankWindow):
         self.__updtAttckCombo(None)
 
 
-    def __resetCounter(self, event):
+    def __resetCounter(self, event = None):
         self.combatround = 0
         self.cbround.set("Round \n0")
 
@@ -928,9 +928,14 @@ class atWin(blankWindow):
         pos = self.__findCombatant(name = self.curr_defender, chklist = self.initlist, result = "index")
         posa = self.__findCombatant(name = self.curr_attacker, chklist = self.initlist, result = "index")
         crit = self.__critType.get()
+        attacktype = self.__selectType.get()
+        attackskill = self.__selectOB.get()
         self.initlist[pos]["status"]["hits"] -= self.hits
 
-        if crit in ["A", "B", "C", "D", "E", "T"]:
+        if attacktype in ["missile", "magic"] and self.initlist[posa]["ammo"][attackskill] > 0:
+            self.initlist[posa]["ammo"][attackskill] -= 1
+
+        if crit in ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J" "T"]:
             result = self.crittbls[self.__selectCrit.get()].crithit
             wo = self.__woItem.get()
 
@@ -1050,7 +1055,6 @@ class atWin(blankWindow):
         if self.curr_defender not in self.defenders:
             self.curr_defender = self.defenders[0]
             self.__selectDefender.set(self.defenders[0])
-            #XXXXXXXXXXXXX
 
         self.curr_attacker = self.__selectAttacker.get()
         self.__defendCombo.configure(values = self.defenders)
@@ -1180,14 +1184,14 @@ class atWin(blankWindow):
             for mob in at["OB missile"]:
                 self.__oblist.append(mob[0])
 
-                for i in range(0, len(at["ammo"])):
+                if at["ammo"] == {}:
 
-                    if mob in at["ammo"][i].keys():
-                        self.__ammo.set(str(at["ammo"][i][mob]))
+                    if mob[0] in at["ammo"].keys():
+                        self.__ammo.set(str(at["ammo"][mob[0]]))
 
-                    else:
-                        at["ammo"][i][mob] = 0
-                        self.__ammo.set(str(0))
+                else:
+                    #at["ammo"][mob[0]] = 0
+                    self.__ammo.set(str(0))
 
         elif selected == attacktypes[self.lang][2]:
 
@@ -1196,10 +1200,10 @@ class atWin(blankWindow):
                 for mob in at["OB magic"]:
                     self.__oblist.append(mob[0])
 
-                    for i in range(0, len(at["ammo"])):
+                    if at["ammo"]:
 
-                        if mob not in at["ammo"][i].keys():
-                            at["ammo"][i][mob] = at["status"]["PP"]
+                        if mob[0] not in at["ammo"].keys():
+                            at["ammo"][mob[0]] = at["status"]["PP"]
             else:
                 self.notdoneyet(f"{attacktypes[self.lang][2]}")
             self.__ammo.set(str(at["status"]["PP"]))
@@ -1250,7 +1254,7 @@ class atWin(blankWindow):
                 attype = self.__selectType.get()
 
                 if attype == "magic":
-                    self.fumbletype = "spell"
+                    self.fumbletype = "force"
                     self.maxfumble = 4
 
                 elif attype == "missile":
@@ -1277,6 +1281,11 @@ class atWin(blankWindow):
                                 "extreme":[90, -55],
                                 "very extreme":[200, -75]
                                 }
+
+                self.fumbletype = "force"
+                self.ftype.set(self.fumbletype)
+                logger.debug(f"set fumbletype: {self.fumbletype}")
+                logger.debug(f"set maxfumble; {self.maxfumble}")
 
             elif attype == "missile":
 
@@ -1356,7 +1365,7 @@ class atWin(blankWindow):
         elif obtype == "magic":
             self.fumbletype = "force"
             #----- TODO: magic fumble range has to be corrected by the entry in
-            # the connected attack table
+            # the connected attack table XXXXXXXXXXXX
             self.fumblerange = 2
 
         self.determineWeapon()
@@ -1394,11 +1403,11 @@ class atWin(blankWindow):
 
             if len(at["OB missile"][index]) > 1:
                 self.__skill.set(at["OB missile"][index][1])
-#----- XXXXX Error at[ammo] ist ein dict kein int -> at['ammo']['Longbow']
-                if at["ammo"]:
-                    if isinstance(at["ammo"][index], int()):
-                        self.__ammo.set(str(at["ammo"][index]))
-                        logger.debug(f"ammo: {at['ammo']}")
+                skillname = at["OB missile"][index][0]
+
+                if skillname in at["ammo"].keys():
+                    self.__ammo.set(str(at["ammo"][skillname]))
+                    logger.debug(f"ammo: {at['ammo'][skillname]}")
 
                 else:
                     self.__ammo.set("0")
@@ -1421,14 +1430,6 @@ class atWin(blankWindow):
 
         if selectedOB.replace(" ", "_") in self.atlist:
             self.__selectAT.set(selectedOB.replace(" ", "_"))
-
-            #if "DBm" in defend.keys():
-            #    self.__DB.set(int(defend["DBm"]))
-            #    logger.debug(f"DB set to {defend['DBm']}")
-            #
-            #else:
-            #    self.__DB.set(0)
-            #    logger.debug("DB set to 0")
 
         else:
             self.__selectAT.set(self.__determineAT(selectedOB))
@@ -2054,7 +2055,7 @@ class atWin(blankWindow):
         self.__displayCrit.grid(column = 0, columnspan = 12, row = 13, sticky = "NEWS")
 
 
-    def setAmmo(self, event = None, mod = 0):
+    def setAmmo(self, event = None):
         """!
         This sets the ammo of a distance weapon
 
@@ -2062,7 +2063,13 @@ class atWin(blankWindow):
         @todo this has to be fully implemented.
         """
         # set ammo count for current attacker for current distance weapon
-        pass
+        if self.__selectType.get() in ["missile", "magic"]:
+            self.curr_attacker = self.__selectAttacker.get()
+            pos = self.__findCombatant(name = self.curr_attacker, chklist = self.initlist, result = "index")
+            newammo = int(self.__ammo.get())
+            skill = self.__selectOB.get()
+            self.initlist[pos]["ammo"][skill] = newammo
+            logger.debug(f"For {self.curr_attacker} set ammo[{skill}] to {newammo}")
 
 
     def updateRange(self, event = None):
