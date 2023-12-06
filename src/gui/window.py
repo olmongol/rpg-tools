@@ -19,7 +19,7 @@ from rpgtoolbox.confbox import *
 from rpgtoolbox.lang import *
 
 __author__ = "Marcus Schwamberger"
-__updated__ = "20.11.2022"
+__updated__ = "06.12.2023"
 __copyright__ = "(C) 2015-{} {}".format(__updated__[-4:], __author__)
 __email__ = "marcus@lederzeug.de"
 __version__ = "1.1.1"
@@ -135,7 +135,6 @@ class testRollWindow(object):
         result
         """
         self.result = self.rollresult.get().strip("(,)")
-        print(f"Debug result: {self.result}")
         self.resultwidget(self.result)
         self.window.destroy()
 
