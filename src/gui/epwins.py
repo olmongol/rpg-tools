@@ -49,7 +49,7 @@ from rpgtoolbox.rpgtools import calcTotals
 from rpgtoolbox.rpgtools import getLvl
 
 #from PIL import Image, ImageTk
-__updated__ = "04.12.2023"
+__updated__ = "07.12.2023"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -3363,17 +3363,21 @@ class skillcatWin(blankWindow):
         logger.info(f'Character\'s Exp: {self._character["old_exp"]}')
 
         logger.debug(f"prof bonusses {self._character['prof']}: {self.profs[self._character['prof']]['Profession Bonusses']}")
+
         # setting prof bonusses again
         for cat in self._character['cat'].keys():
 
             for pb in self.profs[self._character['prof']]['Profession Bonusses']:
+                logger.debug(f"pb bonusses: {self.profs[self._character['prof']]['Profession Bonusses']}")
 
                 if pb in cat:
                     self._character['cat'][cat]['prof bonus'] = int(self.profs[self._character['prof']]['Profession Bonusses'][pb])
                     # break
-                    logger.debug(f"check pb: {pb} ")
+                    logger.debug(f"check pb: {pb} --> {self.profs[self._character['prof']]['Profession Bonusses'][pb]}")
+
                 else:
-                    self._character['cat'][cat]['prof bonus'] = 0
+                    if 'prof bonus' not in self._character['cat'][cat].keys():
+                        self._character['cat'][cat]['prof bonus'] = 0
 
                 logger.debug(f"prof bonus {self._character['cat'][cat]} set to {self._character['cat'][cat]}")
 
@@ -3397,6 +3401,7 @@ class skillcatWin(blankWindow):
         logger.info("Category/Skill bonusses re-calculated")
         handlemagic.updateSL(character = self._character, datadir = self.spath)
         logger.info("Spell Lists updated")
+        self._character = calcTotals(self._character)
         # save character data snapshot
         self.__save('.json')
         logger.info("saved character.")

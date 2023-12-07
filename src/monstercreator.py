@@ -14,7 +14,7 @@ master DB where creatures can be chosen from for individual campaigns.
 \version 0.2
 '''
 __version__ = "0.2"
-__updated__ = "03.10.2023"
+__updated__ = "06.12.2023"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "RM RPG Tools: nsc/monster creator module"
@@ -51,6 +51,7 @@ class monstercreatorWin(blankWindow):
     - speed
     - weaknesses edit/display
     - immunities edit/display
+    - OB magic
     """
 
 
@@ -64,6 +65,7 @@ class monstercreatorWin(blankWindow):
                - \b datapath    default path to store/read/find data
         """
         self.__currdir = os.getcwd()
+        logger.debug(f"current dir: {self.__currdir}")
         self.__index = 0
 
         if "config" in kwargs.keys():
@@ -213,7 +215,7 @@ class monstercreatorWin(blankWindow):
         This method builds the window content.
         """
 
-        ##------------ row 0
+        #------------ row 0
 
         # @bug Image is part of a different package with different functions
         # that's why here is a re-import.
@@ -226,7 +228,7 @@ class monstercreatorWin(blankWindow):
         self.picLabel.grid(row = 0,
                            column = 0,
                            columnspan = 2,
-                           rowspan = 9,
+                           rowspan = 12,
                            sticky = "NEWS",
                            padx = 5,
                            pady = 5)
@@ -483,14 +485,33 @@ class monstercreatorWin(blankWindow):
                ).grid(row = 4, column = 8, sticky = "EW")
 
         #------- row 5
+        self.__obstringmagic = StringVar()
+        self.__obstringmagic.set(self.currDataSet["OB magic"])
+        self.__EntryOBMStringMagic = Entry(self.window,
+                                           justify = "center",
+                                           textvariable = self.__obstringmagic,
+                                           width = 10
+                                           )
+        self.__EntryOBMStringMagic.bind("<FocusOut>", self.updateCurrentSet)
+        self.__EntryOBMStringMagic.bind("<Return>", self.updateCurrentSet)
+        self.__EntryOBMStringMagic.grid(row = 5, column = 2, sticky = "EW")
+
+        Label(self.window,
+              text = "mag. OB:",
+              ).grid(row = 5, column = 3, sticky = "EW")
+
+        self.__selectOBmagic = StringVar()
+        self.__selectOBmagic.set(self.__magiclist)
+        #----------- XXXXXXXXXXXX
+        #------- row 6
         Button(self.window,
                text = txtbutton["but_new_one"][self.lang],
                command = self.__newElement
-               ).grid(row = 5, column = 2, sticky = "EW")
+               ).grid(row = 6, column = 2, sticky = "EW")
 
         Label(self.window,
               text = "enc:"
-              ).grid(row = 5, column = 3, sticky = "EW")
+              ).grid(row = 6, column = 3, sticky = "EW")
 
         self.__enc = StringVar()
         self.__enc.set(self.currDataSet["enc"])
@@ -501,12 +522,12 @@ class monstercreatorWin(blankWindow):
                                   )
         self.__EntryEnc.bind("<FocusOut>", self.updateCurrentSet)
         self.__EntryEnc.bind("<Return>", self.updateCurrentSet)
-        self.__EntryEnc.grid(row = 5, column = 4, sticky = "EW")
+        self.__EntryEnc.grid(row = 6, column = 4, sticky = "EW")
 
         Button(self.window,
                text = txtbutton["but_edit_magic"][self.lang],
                command = self.__editMagic
-               ).grid(row = 5, column = 5, columnspan = 2, sticky = "NEW")
+               ).grid(row = 5, column = 6, columnspan = 2, sticky = "NEW")
         self.__magicstring = StringVar()
         self.__magicstring.set("")
         self.__EntryMagicSting = Entry(self.window,
@@ -515,21 +536,21 @@ class monstercreatorWin(blankWindow):
                                        )
         self.__EntryMagicSting.bind("<FocusOut>", self.updateCurrentSet)
         self.__EntryMagicSting.bind("<Return>", self.updateCurrentSet)
-        self.__EntryMagicSting.grid(row = 5, column = 7, columnspan = 2, sticky = "NEW")
+        self.__EntryMagicSting.grid(row = 6, column = 7, columnspan = 2, sticky = "NEW")
         #Button(self.window,
         #       text = txtbutton["but_show_magic"][self.lang],
         #       command = self.__editMagic
         #       ).grid(row = 5, column = 7, columnspan = 2, sticky = "NEW")
 
-        #------- row 6
+        #------- row 7
         vscroll = Scrollbar(self.window, orient = VERTICAL)
         self.__displayComment = Text(self.window,
                                   yscrollcommand = vscroll.set,
-                                  height = 6
+                                  height = 7
                                   )
         vscroll.config(command = self.__displayComment.yview)
         self.__displayComment.bind("<FocusOut>", self.updateCurrentSet)
-        self.__displayComment.grid(row = 6, rowspan = 4, column = 2, columnspan = 3, sticky = "NEWS")
+        self.__displayComment.grid(row = 7, rowspan = 4, column = 2, columnspan = 3, sticky = "NEWS")
         self.__insertComment()
 
         Button(self.window,
@@ -537,7 +558,6 @@ class monstercreatorWin(blankWindow):
                command = self.__editImunities
                ).grid(row = 6, column = 5, columnspan = 2, sticky = "NEW")
 
-        #------- row 7
         self.__LabelImunities = Label(self.window,
                                       text = self.currDataSet["immune"]
                                       )
@@ -893,7 +913,10 @@ class monstercreatorWin(blankWindow):
         ## @var self.__missilelist
         # list of all missile/thrown attack / weapon names
         self.__missilelist = []
-
+        ## @var self.__magiclist
+        # list of elemental attack spells
+        self.__magiclist = ["Fire Bolt", "Ice Bolt", "Lightning Bolt", "Shock Bolt", "Water Bolt", "Fire Ball", "Cold Ball"]
+        self.__magicsc = ["Fb", "Ib", "Lb", "Sb", "Wb", "FB", "CB"]
         for w in self.__weaponlist:
 
             if w["wtype"] not in ["th", "mis"]:
@@ -901,8 +924,13 @@ class monstercreatorWin(blankWindow):
 
             if  w["wtype"] in ["th", "mis"] or "th" in w["wtype"]:
                 self.__missilelist.append(w["item"])
-                #print(self.__missilelist)
+
             self.__attacks[w["item"]] = w["shortc"]
+
+        logger.info("finished melee & missile lists and shortcuts")
+        # add magic attacks and shortcuts
+        for i in range(0, len(self.__magiclist)):
+            self.__attacks[self.__magiclist[i]] = self.__magicsc[i]
 
     #def addToOBstring(self, event = None):
     #    """!This adds an additional entry to OB string

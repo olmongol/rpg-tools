@@ -14,7 +14,7 @@ This module contains some helpful functions for role-playing games like:
 @email marcus@lederzeug.de
 @version 1.0
 '''
-__updated__ = "16.07.2023"
+__updated__ = "07.12.2023"
 __version__ = "1.0"
 __author__ = "Marcus Schwamberger"
 __me__ = "rpgtools.py"
@@ -85,9 +85,13 @@ def calcTotals(charval = {}):
     '''
 
     for cat in charval['cat']:
+        logger.info(f"calculating {cat}")
         progression = charval['cat'][cat]['Progression']
         rank = charval['cat'][cat]['rank']
+        # determine bonus of category's rank
         catrankbonus = rankbonus(rank = rank, progression = progression)
+        logger.debug(f"{cat} (progression): rank - {rank} -> {catrankbonus}")
+        # set calculated rank bonus to category
         charval['cat'][cat]['rank bonus'] = catrankbonus
         statbonus = 0
         itembonus = charval['cat'][cat]['item bonus']
@@ -95,18 +99,23 @@ def calcTotals(charval = {}):
         if 'prof bonus' in charval['cat'][cat]:
             profbonus = charval['cat'][cat]['prof bonus']
 
-        else:
+        elif 'prof bonus' not in charval['cat'][cat].keys():
             profbonus = 0
+
+        logger.debug(f"prof bonus ({cat}): {profbonus}")
         specbonus = charval['cat'][cat]['spec bonus']
+        logger.debug(f"spec bonus ({cat}): {specbonus}")
 
         if charval['cat'][cat]['Stats'] == [""] or charval['cat'][cat]['Stats'] == '':
+            # if no stats given to a category
             pass
 
         elif type(charval['cat'][cat]['Stats']) != type([]):
+            # if stats not given in a list use the total stat bonus
             statbonus += charval[charval['cat'][cat]['Stats']]['total']
 
         else:
-
+            # calculate the sum of all 3 stat bonusses
             for s in charval['cat'][cat]['Stats']:
 
                 if s != "SD":
@@ -121,30 +130,32 @@ def calcTotals(charval = {}):
                                                        special = specbonus,
                                                        progression = progression
                                                        ) + statbonus + itembonus
-
+        logger.debug(f"calc. {cat}: {statbonus}+{catrankbonus}+{specbonus}+{profbonus}+{itembonus} = {charval['cat'][cat]['total bonus']}")
         cleanuplist = []
+
         for skill in charval['cat'][cat]['Skill']:
-            #DEBUG
-            print("calc total: {} - {}".format(cat, skill))
 
             if skill == "Category":
-                #del(charval['cat'][cat]['Skill']["Category"])
                 cleanuplist.append(cat)
 
             else:
+
                 if (skill != "Progression" and "Spell" not in cat) or ("Spell" in cat and skill not in ['Stats', 'Progression']):
-                    logger.debug(f'{cat}/{skill}')
+                    logger.info(f"calculate {skill} [{cat}]")
                     progression = charval['cat'][cat]['Skill'][skill]['Progression']
-                    logger.debug(f"Progression {progression}")
 
                     if type(progression) == type(2):
                         progression = [progression]
 
+                    # determine skill rank
                     rank = charval['cat'][cat]['Skill'][skill]['rank']
+                    # calculate skill rank bonus
                     bonus = rankbonus(rank = rank, progression = progression)
                     charval['cat'][cat]['Skill'][skill]['rank bonus'] = bonus
+                    # calc total bonus: rank bonus + total cat bonus + skill item bonus + skill spec bonus
                     total = bonus + charval['cat'][cat]['total bonus'] + charval['cat'][cat]['Skill'][skill]['item bonus'] + charval['cat'][cat]['Skill'][skill]['spec bonus']
                     charval['cat'][cat]['Skill'][skill]['total bonus'] = total
+
                     if skill == "Body Development":
                         charval['cat'][cat]['Skill'][skill]['total bonus'] += 10
 
