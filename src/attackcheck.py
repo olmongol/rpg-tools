@@ -14,7 +14,7 @@ other opponents.
 \version 1.0
 '''
 __version__ = "1.0"
-__updated__ = "06.12.2023"
+__updated__ = "08.12.2023"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "RM RPG Tools: attack checker module"
@@ -1516,7 +1516,6 @@ class atWin(blankWindow):
         key = self.__selectHeal.get()
         value = self.__healingpoints.get()
         self.initlist[at]["status"][key] += value
-        print(f"DEBUG: {self.initlist[at]['name']} {key}: {self.initlist[at]['status'][key]}")
         #self.__updtAttckCombo(event = None)
         self.__updDefCombo(event = None)
 
