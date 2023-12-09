@@ -30,7 +30,7 @@ from . import logbox as log
 #mycnf = cf.chkCfg()
 #logger = log.createLogger('global', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"] , logfile = 'globaltools.log')
 __version__ = "0.5.4"
-__updated__ = "30.10.2022"
+__updated__ = "06.08.2023"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "global tools  module"
@@ -326,18 +326,19 @@ def makeKeyList(dic = {}, klist = []):
 
 def writeJSON(filename = "", content = {}):
     '''!
-    This function writes a dictionary into a JSON file.
+    This function writes a dictionary into a JSON file with UTF.8 encoding.
 
     @param filename  path+file where to save the data in
     @param content dictionary which shall be saved as JSON content.
     '''
     try:
-        with open(filename, "w", encoding = "utf8") as fp:
+        with open(filename, "w", encoding = "utf-8") as fp:
             json.dump(content, fp, indent = 4)
-        logger.info("%s saved" % filename)
+        logger.info(f"{filename} successfully saved")
 
-    except:
-        logger.error("%s could not be saved!" % filename)
+    except Exception as error:
+        logger.error(f"{filename} could not be saved!")
+        logger.error(error)
 
 
 

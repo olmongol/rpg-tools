@@ -14,7 +14,7 @@ This package holds RM specific tools like Character Skill Progression.
 \date 2019
 \copyright 2015-2019 Marcus Schwamberger
 '''
-__updated__ = "15.04.2022"
+__updated__ = "07.12.2023"
 
 catnames = {'de': {'spells': "Spells",
                     'weapon': 'Weapon',
@@ -1265,6 +1265,7 @@ def choseProfession(lang = 'en'):
 def rankbonus(rank = 0, cat = 0, profession = 0, special = 0, progression = progressionType['standard cat']):
     '''
     This function returns the cumulative Bonus of a category or skill.
+
     \param rank rank/level of category/skill
     \param cat category bonus if any
     \param profession profession bonus if any

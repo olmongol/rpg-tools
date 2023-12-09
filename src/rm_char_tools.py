@@ -12,7 +12,7 @@ This tool handles
 @li Export characters/party information as JSON, LaTex, PDF
 @li Buying/keeping track of character's equipment & treasures
 
-@date (C) 2015-2022
+@date (C) 2015-2023
 @author Marcus Schwamberger
 @email marcus@lederzeug.de
 @license GNU V3.0
@@ -23,12 +23,12 @@ This tool handles
 
 '''
 from gui.epwins import *
-from rpgtoolbox.lang import *
-from rpgtoolbox.confbox import *
 from rpgtoolbox import logbox as log
+from rpgtoolbox.confbox import *
+from rpgtoolbox.lang import *
 
 __author__ = "Marcus Schwamberger"
-__updated__ = "03.10.2022"
+__updated__ = "07.04.2023"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + __author__
 __email__ = "marcus@lederzeug.de"
 __version__ = "1.1.0"

@@ -23,32 +23,33 @@ This holds window classes for generating and updating (level ups) characters.
  -# general more logging for debugging
 
 '''
-import random
-import os
-import sys
-import json
+from pprint import pprint  # for debugging purposes only
 from tkinter import *
-#from PIL import Image, ImageTk
 from tkinter.filedialog import *
 from tkinter.ttk import *
-from rpgtoolbox.lang import *
-from rpgtoolbox.globaltools import *
-from rpgtoolbox import logbox as log
-from rpgtoolbox import handlemagic
-from rpgtoolbox.errbox import *
-from rpgtoolbox.confbox import *
-from rpgtoolbox.rpgtools import getLvl
-from rpgtoolbox.rolemaster import stats
-from rpgtoolbox.rpgtools import calcTotals
-from gui.winhelper import AutoScrollbar
-from gui.winhelper import InfoCanvas
-from gui.window import *
+import json
+import os
+import random
+import sys
+
 from gui.gmtools import *
 from gui.mangroup import *
+from gui.window import *
+from gui.winhelper import AutoScrollbar
+from gui.winhelper import InfoCanvas
+from rpgtoolbox import handlemagic
+from rpgtoolbox import logbox as log
 from rpgtoolbox.confbox import *
-from pprint import pprint  # for debugging purposes only
+from rpgtoolbox.confbox import *
+from rpgtoolbox.errbox import *
+from rpgtoolbox.globaltools import *
+from rpgtoolbox.lang import *
+from rpgtoolbox.rolemaster import stats
+from rpgtoolbox.rpgtools import calcTotals
+from rpgtoolbox.rpgtools import getLvl
 
-__updated__ = "08.10.2022"
+#from PIL import Image, ImageTk
+__updated__ = "07.12.2023"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -102,7 +103,7 @@ class MainWindow(blankWindow):
         self.lang = lang
         self.myfile = "MyRPG.exp"
         self.char = char
-        logger.debug(f"Character: {char}")
+        #logger.debug(f"Character: {char['name']}")
 
         blankWindow.__init__(self, self.lang)
         self.window.title(title)
@@ -235,7 +236,7 @@ class MainWindow(blankWindow):
 
         else:
             export = latexexport.charsheet(self.char, "./data/", short = False)
-            logger.debug(f"LaTeX generated for {self.char['name']}")
+            logger.info(f"LaTeX generated for {self.char['name']}")
             msg = messageWindow()
             msg.showinfo("LaTeX generated")
 
@@ -872,9 +873,11 @@ class genAttrWin(blankWindow):
 
         if rpg == "RoleMaster":
             from rpgtoolbox import rolemaster as rm
+            logger.debug(f"create RM Character")
 
         else:
             self.notdoneyet("support for %s" % (rpg))
+            logger.debug("not a RM character")
 
         # @var self.character
         # the attribute where to store the character data in as 'JSON'
@@ -1198,16 +1201,20 @@ class genAttrWin(blankWindow):
         Checks whether all developing points (and not more) are used and player
         and character names are set. If so it proceeds with collecting all data.
         '''
-        logger.debug("next step called")
+        logger.info("next step called")
+        #logger.debug(f"Step 1 Character Data:\n\n {json.dumps(self.stats,indent=4)}")
 
         if self.points != self.__used:
             messageWindow(self.lang).showinfo(errmsg['stats_dp'][self.lang])
+            logger.warning(f"{errmsg['stats_dp'][self.lang]}")
 
         elif self.stats['player'].get() == "":
             messageWindow(self.lang).showinfo(errmsg['player'][self.lang])
+            logger.warning(f"{errmsg['player'][self.lang]}")
 
         elif self.stats['name'].get() == "":
             messageWindow(self.lang).showinfo(errmsg['name'][self.lang])
+            logger.warning(f"{errmsg['name'][self.lang]}")
 
         else:
             logger.debug("next step: collect data")
@@ -1360,13 +1367,12 @@ class genAttrWin(blankWindow):
         ----
         @bug potential cause for false DP calculations. It is not clear how to
         reproduce this bug.
-        @bug  if testr != self.profs[testp]['Realm'] and self.profs[testp]['Realm'] != "choice": KeyError: ''
-        @bug if realm chosen before profession an error occurs (sdtout)
 
         @note bug should be fixed
         '''
         testr = self.stats['realm'].get()
         testp = self.stats['prof'].get()
+
         if testp != "":
             if testr != self.profs[testp]['Realm'] and self.profs[testp]['Realm'] != "choice":
                 self.stats['realm'].set(self.profs[testp]['Realm'])
@@ -1409,6 +1415,7 @@ class genAttrWin(blankWindow):
         @param event object event given by OptionMenu but not used
         '''
         testp = self.stats['prof'].get()
+        logger.debug(f"magic realm {testp}")
         self.stats['realm'].set(self.profs[testp]['Realm'])
         self.__setPStats()
 
@@ -1571,18 +1578,21 @@ class genAttrWin(blankWindow):
             roll = random.randint(1, sides)
             result += roll
             i += 1
+
+        logger.debug(f"{number}d{sides} rolled: {result}")
         return result
 
 
     def rollDice(self):
         """!
-        Creates the pool for stat generation by rolling the dices.
+        Creates the developing pool points for stat generation by rolling the dices.
         """
         self.__count += 1
 
         if 0 < self.__count < 4:
             result = 600 + self.dice(10, 10)
             self.showno.set(result)
+            logger.debug(f"{self.__count} roll for DP: {result}")
 
         self.points = self.showno.get()
 
@@ -1647,9 +1657,9 @@ class genAttrWin(blankWindow):
         self.character["Stat Loss"] = rm.raceHealingFactors[self.character["race"]]["Stat Loss"]
         self.character["Recovery"] = rm.raceHealingFactors[self.character["race"]]["Recovery"]
 
-        logger.debug("Stats, RR etc. added")
+        logger.info("Stats, RR etc. added")
         self.__addCatnSkills()
-        logger.debug("successfully added categories and skills.")
+        logger.info("successfully added categories and skills.")
 
         if not os.path.exists(self.spath + self.character['player']):
             os.mkdir(self.spath + self.character['player'])
@@ -1662,13 +1672,16 @@ class genAttrWin(blankWindow):
 
                 logger.info(f"{self.spath + self.character['player'] + '/' + self.character['name']}.json saved ")
 
-            except:
+            except Exception as error:
                 with open(self.spath + self.character['player'] + '/' + self.character['name'] + ".json", "w") as outfile:
                     json.dump(self.character, outfile, indent = 4)
+                    logger.error(error)
+                    logger.error(f"wrote {self.spath + self.character['player'] + '/' + self.character['name'] + '.json'}")
 
-                logger.info(f"{self.spath + self.character['player'] + '/' + self.character['name']}.json saved ")
+            logger.info(f"{self.spath + self.character['player'] + '/' + self.character['name']}.json saved ")
 
             self.window.destroy()
+            ### ????
             self.window3 = priorizeWeaponsWin(self.lang, self.spath, self.character)
 
 
@@ -1684,7 +1697,7 @@ class genAttrWin(blankWindow):
         fp = open("%sdefault/Skills_%s.csv" % (self.spath, self.lang), encoding = "utf8")
         content = fp.readlines()
         fp.close()
-        logger.debug("skill file read.")
+        logger.info("skill file read: {self.spath}/skills_{self.lang}.csv}")
 
         if '\n' in content:
             content.remove('\n')
@@ -1702,6 +1715,7 @@ class genAttrWin(blankWindow):
                                        'item bonus': 0,
                                        'rank': 0
                                        }
+            logger.debug(f"get {skillcat[content[i][0]]}")
 
             for pb in list(self.profs[self.character['prof']]['Profession Bonusses'].keys()):
 
@@ -1718,8 +1732,10 @@ class genAttrWin(blankWindow):
                                                                  'item bonus': 0,
                                                                  'spec bonus': 0,
                                                                  }
+                logger.debug(f"get --> {skillcat[content[i][0]][content[0][1]][skill]}")
 
         del(content)
+        logger.info("destroyed raw data file content.")
         self.profs = rm.choseProfession(self.lang)
 
         for key in skillcat.keys():
@@ -1732,7 +1748,7 @@ class genAttrWin(blankWindow):
         fp = open('%s/default/SkillCat_%s.csv' % (self.spath, self.lang), 'r', encoding = "utf8")
         content = fp.readlines()
         fp.close()
-
+        logger.debug(f"read file: {self.spath}/default/Skillcat_{self.lang}.csv")
         content[0] = content[0].strip("\n").split(',')
 
         for i in range(1, len(content)):
@@ -1778,6 +1794,7 @@ class genAttrWin(blankWindow):
                 skillcat[content[i][0]]["Skill"][content[0][1]] = temp
 
         self.character['cat'] = skillcat
+
         if self.character['realm'] != "choice":
             self.spellbook = handlemagic.getSpells(self.spath,
                                                    self.character['prof'],
@@ -1794,10 +1811,9 @@ class genAttrWin(blankWindow):
                 if cat[:8] == "Spells -":
 
                     for slcat in list(self.spellbook.spelllists.keys()):
-                        print("DeBUG: addCatnSkills (slcat) {}".format(slcat))
-                        print("Debug: keys: {}".format(list(self.spellbook.spelllists[slcat].keys())))
 
                         if self.spellbook.spelllists[slcat]['Category'] in cat:
+
                             for spell in list(self.spellbook.spelllists[slcat].keys()):
 
                                 if spell != "Category":
@@ -1808,6 +1824,8 @@ class genAttrWin(blankWindow):
                                     self.character['cat'][cat]['Skill'][spell]['item bonus'] = 0
                                     self.character['cat'][cat]['Skill'][spell]["spec bonus"] = 0
 #                            break
+
+                                logger.debug("getting spell: {spell}")
 #XXXXXXXXXXXXXXXXXx
 
 
@@ -1919,10 +1937,6 @@ class priorizeWeaponsWin(blankWindow):
         @todo -check for double priorities. If any don't proceed- on selection of priority update all other Options so you cannot choose a priority twice
         - use readCSV function to open cvs
 
-        -----
-        @bug when you chose double entries:  File "/home/mongol/git/rpg-tools/src/gui/epwins.py", line 1808, in __getPrio
-        for i in range(len(content) - 7, len(content)):
-        IndexError: list index out of range
         '''
         self.__priolist = []
         self.__block = False
@@ -1939,6 +1953,7 @@ class priorizeWeaponsWin(blankWindow):
                 msg = messageWindow()
                 msg.showinfo(errmsg['double'][self.lang], "Info")
                 break
+        logger.debug(f"prio list: {self.__priolist}")
 
         if not self.__block:
             fp = open('./data/default/CatDPC_%s.csv' % self.lang, 'r', encoding = "utf8")
@@ -1953,6 +1968,7 @@ class priorizeWeaponsWin(blankWindow):
                                                 self.__priolist[j - 1])
                 j += 1
             self.__content = content
+            logger.debug(f"content is {content}")
 
 
     def __buildJSON(self):
@@ -1973,6 +1989,8 @@ class priorizeWeaponsWin(blankWindow):
             for j in range(1, len(self.__content[0])):
                 self.__catDBC[self.__content[0][j]
                               ][self.__content[i][0]] = self.__content[i][j]
+
+        logger.info("Profession level up costs are set")
 
 
     def __addToChar(self):
@@ -2229,6 +2247,8 @@ class skillcatWin(blankWindow):
       - hide skill/cat line when not selected in treeview
     @bug - DP are not always shown correctly
     - you lose DPs when you try to level up a skill/cat in multiple times
+    - sometimes it does not store the character sheet successfully
+
     """
 
 
@@ -2248,18 +2268,18 @@ class skillcatWin(blankWindow):
         self.__rankbonus = rankbonus
 
         if storepath == None:
-#            self.spath = os.path.expanduser('~') + "/data"
+            self.spath = os.path.expanduser('~') + "/data"
             self.spath = os.getcwd() + "/data"
             logger.debug('Set storepath to %s' % (storepath)) + "/data"
 
         else:
             self.spath = storepath
-            logger.debug('priorizeWeaponsWin: storepath set to %s' %
-                         (storepath))
+            logger.debug(f"storepath set to {storepath}")
 
         self.lang = lang
         self._character = dict(calcTotals(char))
         self.__save()
+        logger.debug(f"snapshot: {self._character['name']}")
 
         if os.path.isfile("{}/{}/{}_changes.json".format(self.spath, self._character['player'], self._character['name'])):
             self.__changed = readJSON("{}/{}/{}_changes.json".format(self.spath, self._character['player'], self._character['name']))
@@ -2382,8 +2402,8 @@ class skillcatWin(blankWindow):
                                   columns = self.__treecolumns,
                                   show = "headings",
                                   )
-        chgvscroll = AutoScrollbar(
-            orient = "vertical", command = self.__chgtree.xview)
+        chgvscroll = AutoScrollbar(orient = "vertical",
+                                   command = self.__chgtree.xview)
         self.__chgtree.configure(yscrollcommand = chgvscroll.set)
 
         self.__chgtree.grid(column = 0,
@@ -2643,6 +2663,7 @@ class skillcatWin(blankWindow):
             catNo += 1
         self.__tree.tag_configure('category', background = 'lightblue')
         self.__tree.bind('<ButtonRelease-1>', self.__selectTreeItem)
+        logger.debug("Tree build from char data successfully.")
 
 
     def __buildChangedTree(self):
@@ -2726,6 +2747,7 @@ class skillcatWin(blankWindow):
 
                             if 'total bonus' in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
                                 stotal = self.__changed['cat'][cat]['Skill'][skill]['total bonus']
+
                             else:
                                 stotal = -1
 
@@ -2743,6 +2765,8 @@ class skillcatWin(blankWindow):
                 catNo += 1
         self.__chgtree.tag_configure('category', background = 'lightblue')
         self.__chgtree.bind('<ButtonRelease-1>', self.__selectChangedItem)
+        logger.info("changed tree build successfully.")
+        logger.debug(f"changes:\n{json.dumps(self.__changed,indent=4)}")
 
 
     def __selectTreeItem(self, event):
@@ -2831,12 +2855,17 @@ class skillcatWin(blankWindow):
         level
         '''
         self._character['lvl'] = int(getLvl(self._character['exp']))
+        logger.debug(f"new lvl: {self._character['lvl']}")
         oldlvl = int(getLvl(self._character['old_exp']))
+        logger.debug(f"old lvl:{oldlvl} ")
+
         if "lvlup" in self._character.keys():
             self._character['lvlup'] += self._character['lvl'] - oldlvl
+
         else:
             self._character['lvlup'] = 1
             self._character['statgain'] = 0
+
         self._character['statgain'] = int(self._character['lvlup'] * 10)
 
 
@@ -2906,27 +2935,32 @@ class skillcatWin(blankWindow):
         This method takes added/modified skills/cats to a dict and treeview
         @todo The following__chgtree has to be implemented:
         -# check whether it is a new skill.
+        -# undone level ups have to add DP to total DP
         @bug
-        - after finalize button use 'edit' and levelups of already parially leveled skills can not be leveled to the given limit.
+        - after finalize button use 'edit' and levelups of already partially leveled skills can not be leveled to the given limit.
+        - submitting of more then one level up does not deliver the correct new ranks but only the correct lvlups
         '''
-
+        #--- POSSIBLE DEBUGS IF ONLY SKILL WAS CHOOSEN
+        #self.__takeValsCat()
         ## @var oldval
         # old catefory's rank value
         oldval = self.__tree.item(self.__curItem)['values'][3]
         ## @var newrank
         # new/changed skills's rank value
         newrank = int(self._skillspin.get())
+        logger.info(f"new rank: {newrank}")
 
         if type(self.__tree.item(self.__curItem)['values'][1]) != type(2):
             ## @val currdev
             # list of current development progression
             currdev = self.__tree.item(self.__curItem)['values'][1].split(" ")
+
         else:
             currdev = [str(self.__tree.item(self.__curItem)['values'][1])]
 
         for i in range(0, len(currdev)):
             currdev[i] = float(currdev[i])
-
+        logger.debug(f"currdev = {currdev}")
         ## @var oldtotal
         # Total bonus before any manipulation.
         oldtotal = self.__tree.item(self.__curItem)['values'][-1]
@@ -2942,6 +2976,8 @@ class skillcatWin(blankWindow):
 
         elif type(dpCosts) == type(1):
             dpCosts = [dpCosts]
+
+        logger.debug(f"dpCosts = {dpCosts}")
 
         for elem in self.__tree.item(self.__curItem)["tags"]:
             cat += elem + " "
@@ -2962,7 +2998,6 @@ class skillcatWin(blankWindow):
 
                 if skill in list(self.__changed['cat'][cat]['Skill'].keys()):
                     diff = newrank - self.__changed['cat'][cat]['Skill'][skill]['rank']
-                    diffcost = 0
 
                     if 'lvlups' not in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
                         ##@var lowval
@@ -2976,46 +3011,68 @@ class skillcatWin(blankWindow):
                     else:
                         lowval = diff
 
-                    if diff >= 0:
+                    if  diff > 0:
 
-                        for i  in range(lowval, diff):
+                        for i  in range(0, diff):
                             diffcost += int(dpCosts[i])
                     else:
-                        for i in range(diff, lowval):
+
+                        for i in range(diff, 0):
                             diffcost -= int(dpCosts[i])
 
+                    logger.info(f"diffcost: {diffcost}")
+
+                    #----- level up: skills
                     if (self._character['DP'] - (self.__usedDP + diffcost)) >= 0:
 
                         if 'lvlups' not in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
+                            self.__changed['cat'][cat]["Skill"][skill]['lvlups'] = 0
+
+                        logger.info(f"{cat}/{skill} lvlups: {self.__changed['cat'][cat]['Skill'][skill]['lvlups']}")
+
+                        if self.__changed['cat'][cat]["Skill"][skill]['lvlups'] <= len(dpCosts):
                             self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
+                            self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
+                            self.__usedDP += diffcost
+                            logger.info(f"used DP: {self.__usedDP}")
 
-                        else:
-                            self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank - self.__changed['cat'][cat]['Skill'][skill]['lvlups']
-
-                        self.__changed['cat'][cat]["Skill"][skill]['lvlups'] = diff
-                        self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
-                        self.__usedDP += diffcost
+                        if self.__changed['cat'][cat]['Skill'][skill]['lvlups'] < len(dpCosts):
+                            self.__changed['cat'][cat]["Skill"][skill]['lvlups'] += diff
 
                     else:
                         self.__info(screenmesg['epwins_no_dp'][self.lang])
 
                 else:
 
-                    if diff >= 0:
+                    if diff > 0:
 
                         for i  in range(0, diff):
                             diffcost += int(dpCosts[i])
+
                     else:
+
                         for i in range(diff, 0):
                             diffcost -= int(dpCosts[i])
 
+                    logger.info(f"diffcost: {diffcost}")
+
                     if (self._character['DP'] - (self.__usedDP + diffcost)) >= 0:
-                        self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
-                        self.__changed['cat'][cat]["Skill"][skill]['lvlups'] = diff
-                        self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
-                        self.__usedDP += diffcost
+
+                        if 'lvlups' not in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
+                            self.__changed['cat'][cat]["Skill"][skill]['lvlups'] = 0
+
+                        if self.__changed['cat'][cat]["Skill"][skill]['lvlups'] <= len(dpCosts):
+                            self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
+                            logger.info(f"{cat}/{skill} lvlups: {self.__changed['cat'][cat]['Skill'][skill]['lvlups']}")
+                            self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
+                            self.__usedDP += diffcost
+                            logger.info(f"used DP: {self.__usedDP}")
+
+                        if self.__changed['cat'][cat]['Skill'][skill]['lvlups'] < len(dpCosts):
+                            self.__changed['cat'][cat]["Skill"][skill]['lvlups'] += diff
 
                     else:
+
                         self.__info(screenmesg['epwins_no_dp'][self.lang])
 
             else:
@@ -3023,26 +3080,32 @@ class skillcatWin(blankWindow):
                 if self.__changed['cat'][cat]['Skill'][skill]['rank'] > newrank:
                     diff = -diff
 
-                diffcost = 0
-
-                if diff >= 0:
+                if diff > 0:
 
                     for i  in range(0, diff):
                             diffcost += int(dpCosts[i])
                 else:
+
                     for i in range(diff, 0):
                         diffcost -= int(dpCosts[i])
+
+                logger.info(f"diffcost: {diffcost}")
 
                 if (self._character['DP'] - (self.__usedDP + diffcost)) >= 0:
 
                     if 'lvlups' not in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
-                            self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
-                    else:
-                        self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank - self.__changed['cat'][cat]['Skill'][skill]['lvlups']
+                        self.__changed['cat'][cat]["Skill"][skill]['lvlups'] = 0
 
-                    self.__changed['cat'][cat]["Skill"][skill]['lvlups'] = diff
-                    self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
-                    self.__usedDP += diffcost
+                    logger.info(f"{cat}/{skill} lvlups: {self.__changed['cat'][cat]['Skill'][skill]['lvlups']}")
+
+                    if self.__changed['cat'][cat]["Skill"][skill]['lvlups'] <= len(dpCosts):
+                        self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
+                        self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
+                        self.__usedDP += diffcost
+                        logger.debug(f"used DP: {self.__usedDP}")
+
+                    if self.__changed['cat'][cat]['Skill'][skill]['lvlups'] < len(dpCosts):
+                        self.__changed['cat'][cat]["Skill"][skill]['lvlups'] += diff
 
                 else:
                     self.__info(screenmesg['epwins_no_dp'][self.lang])
@@ -3056,26 +3119,32 @@ class skillcatWin(blankWindow):
                 if self.__changed['cat'][cat]['Skill'][skill]['rank'] > newrank:
                     diff = newrank - self.__changed['cat'][cat]['Skill'][skill]['rank']
 
-                diffcost = 0
-
-                if diff >= 0:
+                if diff > 0:
 
                     for i  in range(0, diff):
                             diffcost += int(dpCosts[i])
                 else:
+
                     for i in range(diff, 0):
                         diffcost -= int(dpCosts[i])
+
+                logger.info(f"diffcost: {diffcost}")
 
                 if (self._character['DP'] - (self.__usedDP + diffcost)) >= 0:
 
                     if 'lvlups' not in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
-                            self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
-                    else:
-                        self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank - self.__changed['cat'][cat]['Skill'][skill]['lvlups']
+                        self.__changed['cat'][cat]["Skill"][skill]['lvlups'] = 0
 
-                    self.__changed['cat'][cat]["Skill"][skill]['lvlups'] = diff
-                    self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
-                    self.__usedDP += diffcost
+                    logger.info(f"{cat}/{skill} lvlups: {self.__changed['cat'][cat]['Skill'][skill]['lvlups']}")
+
+                    if self.__changed['cat'][cat]["Skill"][skill]['lvlups'] <= len(dpCosts):
+                        self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
+                        self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
+                        self.__usedDP += diffcost
+                        logger.info(f"used DP: {self.__usedDP}")
+
+                    if self.__changed['cat'][cat]['Skill'][skill]['lvlups'] < len(dpCosts):
+                        self.__changed['cat'][cat]["Skill"][skill]['lvlups'] += diff
 
                 else:
                     messg = messageWindow()
@@ -3087,39 +3156,45 @@ class skillcatWin(blankWindow):
                 if skill not in list(self.__changed['cat'][cat]['Skill'].keys()):
                     self.__changed['cat'][cat]['Skill'][skill] = {}
 
-                diffcost = 0
-
                 if diff >= 0:
 
                     for i  in range(0, diff):
                             diffcost += int(dpCosts[i])
                 else:
+
                     for i in range(diff, 0):
                         diffcost -= int(dpCosts[i])
 
                 if (self._character['DP'] - (self.__usedDP + diffcost)) >= 0:
 
                     if 'lvlups' not in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
-                            self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
+                        self.__changed['cat'][cat]["Skill"][skill]['lvlups'] = 0
 
-                    else:
-                        self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank - self.__changed['cat'][cat]['Skill'][skill]['lvlups']
+                    if self.__changed['cat'][cat]["Skill"][skill]['lvlups'] <= len(dpCosts):
+                        self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
+                        logger.info(f"{cat}/{skill} lvlups: {self.__changed['cat'][cat]['Skill'][skill]['lvlups']}")
+                        self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
+                        self.__usedDP += diffcost
+                        logger.info(f"used DP: {self.__usedDP}")
 
-                    self.__changed['cat'][cat]["Skill"][skill]['lvlups'] = diff
-                    self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
-                    self.__usedDP += diffcost
+                    if self.__changed['cat'][cat]['Skill'][skill]['lvlups'] < len(dpCosts):
+                        self.__changed['cat'][cat]['Skill'][skill]['lvlups'] += diff
 
                 else:
                     messg = messageWindow()
                     messg.showinfo(screenmesg['epwins_no_dp'][self.lang])
 
         self.DPtext.set(str(self._character['DP'] - self.__usedDP))
+        logger.info(f"remaining DPs set to {self.DPtext.get()}")
         self.__buildChangedTree()
 
 
     def __takeValsCat(self):
         '''!
         This method takes added/modified skills/cats to a dict and treeview
+
+        ----
+        @todo -check out correct level up: ranks, costs etc. XXXX
         '''
         ## @var currcat
         # current category name
@@ -3137,6 +3212,8 @@ class skillcatWin(blankWindow):
         for i in range(0, len(currdev)):
             currdev[i] = float(currdev[i])
 
+        logger.debug(f"currdev = {currdev}")
+
         ## @var oldtotal
         # Total bonus before any manipulation.
         oldtotal = self.__tree.item(self.__curItem)['values'][-1]
@@ -3146,22 +3223,25 @@ class skillcatWin(blankWindow):
         # calc DP consume:
         dpCosts = self.__tree.item(self.__curItem)['values'][2]
 
-        if type(dpCosts) == type("") or type(dpCosts) == type(""):
+        if type(dpCosts) == type(""):
             dpCosts = dpCosts.split(' ')
 
         elif type(dpCosts) == type(1):
             dpCosts = [dpCosts]
 
+        logger.debug(f"dpCosts = {dpCosts}")
+
         if currcat not in list(self.__changed['cat'].keys()) and currcat in list(self._character['cat'].keys()):
             diff = newval - oldval
             self.__changed['cat'][currcat] = self._character["cat"][currcat]
             self.__changed['cat'][currcat]['rank'] = newval
-
             self.__changed['cat'][currcat]['lvlups'] = diff
+            logger.debug(f"{currcat} lvlups: {self.__changed['cat'][currcat]['lvlups']}")
             lowval = 0
 
         else:
             self.__changed['cat'][currcat]['rank'] = newval
+
             if "lvlups" in list(self.__changed['cat'][currcat].keys()):
                 lowval = self.__changed['cat'][currcat]['lvlups']
 
@@ -3177,19 +3257,25 @@ class skillcatWin(blankWindow):
                 lowval = 0
                 diff = newval - self.__changed['cat'][currcat]['rank']
                 self.__changed['cat'][currcat]['lvlups'] = diff
+                logger.debug(f"{currcat} lvlups: {self.__changed['cat'][currcat]['lvlups']}")
 
         bkpusedDP = int(self.__usedDP)
 
         if diff > 0:
 
-            for i in range(lowval, diff):
+            for i in range(0, diff):
                 self.__usedDP += int(dpCosts[i])
 
-        elif diff < 0:
+            logger.debug(f"used DP: {self.__usedDP}")
 
-            for i in range(diff, lowval):
+        else:
+
+            for i in range(diff, 0):
                 self.__usedDP -= int(dpCosts[i])
 
+            logger.debug(f"used DP: {self.__usedDP}")
+
+        #------ level up: categories
         if (self._character['DP'] - self.__usedDP) >= 0:
 
             if currcat not in list(self.__changed['cat'].keys()) and currcat in list(self._character['cat'].keys()):
@@ -3203,17 +3289,21 @@ class skillcatWin(blankWindow):
 
             if "lvlups" in list(self.__changed['cat'][currcat].keys()):
                 self.__changed['cat'][currcat]['rank'] = newval
+                logger.debug(f"new rank {currcat}: {newval}")
 
                 if self.__changed['cat'][currcat]['lvlups'] < newval:
                     self.__changed['cat'][currcat]['lvlups'] += 1
+                    logger.debug(f"{currcat} lvlups: {self.__changed['cat'][currcat]['lvlups']}")
 
             else:
                 self.__changed['cat'][currcat]['rank'] = newval
+                logger.debug(f"new rank {currcat}: {newval}")
 
             self.__changed['cat'][currcat]['total bonus'] = newtotal
 
         else:
             self.__usedDP = bkpusedDP
+            logger.debug(f"used DP: {self.__usedDP}")
             messg = messageWindow()
             messg.showinfo(screenmesg['epwins_no_dp'][self.lang])
 
@@ -3223,7 +3313,7 @@ class skillcatWin(blankWindow):
 
     def __finalize(self):
         '''!
-        This method finalizes and saves all changes into character data
+        This method finalizes and saves all changes into character data.
 
         The changes done before are saved in the file <charname>_changes.json
         '''
@@ -3231,25 +3321,67 @@ class skillcatWin(blankWindow):
         self.profs = rm.choseProfession(self.lang)
         #refreshing/recalculating stat bonusses
         self._character = rm.refreshStatBonus(self._character)
+        logger.info(f"stat bonusses calculated for {self._character['name']}")
         # remove usedDP from character's available DP
         self._character['DP'] -= self.__usedDP
+        logger.debug(f"remaining DP: {self._character['DP']}")
+        self.__usedDP = 0
+
+        if self._character['DP'] < 0:
+            logger.warn(f"Character's DP set from {self._character['DP']} to 0")
+            self._character['DP'] = 0
+
 #        handlemagic.updateSL(character = self._character, datadir = self.spath)
         self._character["soul dep"] = rm.raceHealingFactors[self._character["race"]]["soul dep"]
+        logger.debug(f'soul depature set to {self._character["soul dep"]}')
         self._character["Stat Loss"] = rm.raceHealingFactors[self._character["race"]]["Stat Loss"]
+        logger.debug(f'Stat Loss set to {self._character["Stat Loss"]}')
         self._character["Recovery"] = rm.raceHealingFactors[self._character["race"]]["Recovery"]
+        logger.debug(f'Recovery set to: {self._character["Recovery"]}')
 
-        if self._character['DP'] == 0 and self._character['lvlup'] > 0:
-            self._character['lvlup'] -= 1
+        #---- clean up cat & skill lvlups
+        if self._character['DP'] <= 0:
+
+            if self._character['lvlup'] > 0:
+                self._character['lvlup'] -= 1
+                logger.info(f"Count of char's level ups: {self._character['lvlup']}")
 
             for c in self._character["cat"].keys():
                 self._character['cat'][c]['lvlups'] = 0
+                logger.info(f"{c} lvlups set to 0")
 
                 for sk in self._character["cat"][c]['Skill'].keys():
 
                     if type(self._character["cat"][c]['Skill'][sk]) == type({}):
                         self._character["cat"][c]['Skill'][sk]['lvlups'] = 0
+                        logger.info(f"{c}/{sk} lvlups set to 0")
 
+            logger.info("cleaned all category and skill level up flags")
+
+        logger.info(f'Character\'s old Exp: {self._character["old_exp"]}')
         self._character["old_exp"] = int(self._character['exp'])
+        logger.info(f'Character\'s Exp: {self._character["old_exp"]}')
+
+        logger.debug(f"prof bonusses {self._character['prof']}: {self.profs[self._character['prof']]['Profession Bonusses']}")
+
+        # setting prof bonusses again
+        for cat in self._character['cat'].keys():
+
+            for pb in self.profs[self._character['prof']]['Profession Bonusses']:
+                logger.debug(f"pb bonusses: {self.profs[self._character['prof']]['Profession Bonusses']}")
+
+                if pb in cat:
+                    self._character['cat'][cat]['prof bonus'] = int(self.profs[self._character['prof']]['Profession Bonusses'][pb])
+                    # break
+                    logger.debug(f"check pb: {pb} --> {self.profs[self._character['prof']]['Profession Bonusses'][pb]}")
+
+                else:
+                    if 'prof bonus' not in self._character['cat'][cat].keys():
+                        self._character['cat'][cat]['prof bonus'] = 0
+
+                logger.debug(f"prof bonus {self._character['cat'][cat]} set to {self._character['cat'][cat]}")
+
+        logger.info("Profession bonusses set")
 
         for cat in list(self.__changed["cat"].keys()):
             self._character['cat'][cat]["rank"] = self.__changed["cat"][cat]["rank"]
@@ -3266,30 +3398,30 @@ class skillcatWin(blankWindow):
                         self._character["cat"][cat]["Skill"][skill]["rank"] = self.__changed["cat"][cat]["Skill"][skill]["rank"]
                         self._character["cat"][cat]["Skill"][skill]["total bonus"] = self.__changed["cat"][cat]["Skill"][skill]["total bonus"]
 
-        # setting prof bonusses again
-        for cat in self._character['cat'].keys():
-
-            for pb in self.profs[self._character['prof']]['Profession Bonusses']:
-
-                if pb in cat:
-                    self._character['cat'][cat]['prof bonus'] = int(self.profs[self._character['prof']]['Profession Bonusses'][pb])
-                    break
-
-                else:
-                    self._character['cat'][cat]['prof bonus'] = 0
+        logger.info("Category/Skill bonusses re-calculated")
         handlemagic.updateSL(character = self._character, datadir = self.spath)
-        # save character data
+        logger.info("Spell Lists updated")
+        self._character = calcTotals(self._character)
+        # save character data snapshot
         self.__save('.json')
-        if  self._character['DP'] > 0:
+        logger.info("saved character.")
+
+        if  self._character['DP'] >= 0:
             # save changes
+            logger.debug(f"try to write {self.spath}/{self._character['player']}/{self._character['name']}")
             writeJSON("{}/{}/{}_changes.json".format(self.spath, self._character['player'], self._character['name']), self.__changed)
 
         else:
 
             if os.path.isfile("{}/{}/{}_changes.json".format(self.spath, self._character['player'], self._character['name'])):
+                logger.info(f"remove old file: {self.spath}/{self._character['player']}/{self._character['name']}_changes.json")
                 os.remove("{}/{}/{}_changes.json".format(self.spath, self._character['player'], self._character['name']))
+
+            writeJSON(f"{self.spath}/{self._character['player']}/{self._character['name']}_changes.json")
+
         self.window.destroy()
 
+        # ------------- deprecated code ???
         if "background" in self._character.keys():
             self.window2 = MainWindow(lang = self.lang, storepath = self.spath, char = self._character)
 
@@ -3350,6 +3482,8 @@ class skillcatWin(blankWindow):
         '''
         pathfile = self.spath + "/" + \
             self._character['player'] + "/" + self._character['name'] + ending
+
+        logger.debug(f"save path snap file: {pathfile}")
         writeJSON(pathfile, self._character)
 
 

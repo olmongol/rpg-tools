@@ -1,0 +1,96 @@
+crit,roll,description,hits,hits/rnd,mod,mod_attacker,stunned,die,ooo,no_parry,parry,cover,alternate,damage_type
+A,5,The air around foe shimmers. Pfft.,0,0,0,0,0,-1,0,0,0,,,burn
+A,10,Hot wind makes foe uncomfortable.,1,0,0,0,0,-1,0,0,0,,,burn
+A,15,Foe covers his face and leaps aside. You have initiative.,2,0,0,0,0,-1,0,0,0,,,burn
+A,20,Blast stings foe's hands and arms. You have the initiative.,3,0,0,0,0,-1,0,0,0,,,burn
+A,35,Foe's chest and side heat up and garments smolder from assault. He will be easily kindled if you strike again.,4,0,0,0,1,-1,0,0,0,,,burn
+A,45,Hot winds dance around foe parching his exposed skin. He puts up a desperate defence.,6,0,0,0,0,-1,0,0,1,,,burn
+A,50,"Clothes smoke, then burn. Foe flails his arms trying to put them out. The pain edures longer than the flames.",7,1,0,0,0,-1,0,0,1,,,burn
+A,55,Spark sets a piece of foe's equipment on fire. Foe must remove the item.,8,1,0,0,0,-1,0,0,2,,,burn
+A,60,Assault ignites foe's back. Equipment crackles as it burns and falls clear.,9,2,0,0,1,-1,0,0,0,,,burn
+A,65,Well placed. Strike slams into foe's weapon arm. Garments are burned. Foe's evasion is comical.,7,1,0,0,0,-1,0,0,0,arm ,hits:10;hits/rnd:3,burn
+A,66,Flame grapples foe's shield and chest. The wound is grave and infection will follow.,9,0,-15,0,2,-1,0,2,0,,,burn
+A,70,Toast foe's side and send him stumbling back 5 feet away from you. He blocks his face against any renewed assault.,8,2,-5,0,2,-1,0,0,0,,,burn
+A,75,Fire consumes garments and hair. Blinding smoke keeps foe's defenses poorly aligned.,12,0,0,0,1,-1,0,1,0,,,burn
+A,80,Foe's shield side engulfed in flame. Foe's shield but it will be kindled if wooden.,10,2,0,0,2,-1,0,1,0,,,burn
+A,85,Foe exposes his back while evading the strike. Blast scorches a small wound in his shoulder blade.,8,2,-20,0,2,-1,0,0,0,,,burn
+A,90,Assault to foe's lower leg consumes covering. Foe falls down. One leg is on fire.,10,0,-10x2,0,0,-1,0,0,0,,,burn
+A,95,Blow to foe's head. If he has helmet it heats up like a furnace and must be painfully removed. Foe ears and cheeks are burned.,15,0,-10,0,3,-1,0,0,0,helm,hits:12;stunned:2;no_parry:2;mod:-30,burn
+A,99,Blast lands on the weapon arm and climbs up to foe's neck. It burns all it touches. If foe has any organic neck covering it is destroyed.,0,8,0,0,4,-1,0,4,0,,,burn
+A,100,Brutally scar the side of foe's face. Foe is knocked out. He loses 50 from his Appearance and 25 from his Presence.,20,5,0,0,0,-1,0,0,0,,,burn
+B,5,Attack is wild and boils nearby water.,0,0,0,0,0,-1,0,0,0,,,burn
+B,10,Singe foe's exposed skin. The heat dies quick. Foe is not impressed.,2,0,0,0,0,-1,0,0,0,,,burn
+B,15,Foe simmers in his clothes. He is unfocused and you have initiative.,2,0,0,0,0,-1,0,0,0,,,burn
+B,20,Assault blinds foe for a moment. You have 2 rounds of initiative.,0,0,0,0,0,-1,0,0,0,,,burn
+B,35,Fire laden blast forces foe back. Any containers of water boil and burst open. You have 2 rounds of initiative.,6,0,0,0,0,-1,0,0,0,,,burn
+B,45,"Foe's shield side is swathed in fire. He may use a shield to avoid the attack, but it combust. Shield hand is burned.",3,0,0,0,0,-1,0,0,3,shield,hits:7;parry:1;hits/rnd:1,burn
+B,50,Foe evades most of the damage with some grace. The remainder scorches his side lightly.,8,1,0,0,0,-1,0,0,2,,,burn
+B,55,Foe ducks; attack torches back and the ground behind him. He is shaken.,8,2,0,0,1,-1,0,0,0,,,burn
+B,60,Engulf foe in flame and smoke. The flames die down; foe escapes death.,10,2,0,0,2,-1,0,0,0,,,burn
+B,65,Concentrated strike burns through foe's leg. The flames do not last but foe's skin is exposed. Skin blisters.,9,2,-5,0,1,-1,0,1,0,,,burn
+B,66,"Fire lands along side foe's face. His hair, cheek, and ear are engulfed. Foe throws himself to the ground.",10,4,0,0,2,-1,0,0,0,,,burn
+B,70,Flames seek out foe with a predator's lust. He throws garments and equipment off franticly to satisfy the blaze. Foe is busy staying alive.,7,2,-10,0,2,-1,0,1,0,,,burn
+B,75,Chest and arm blast damages organic armor and engulfs any wood on foe. Metal armor heats up painfully.,9,0,-15,10,2,-1,0,1,0,,,burn
+B,80,Abdomen entangled in flames. The flames will spread upward next turn if not extinguished. Foe sees the danger.,20,2,0,0,0,-1,0,0,0,,,burn
+B,85,Strike knocks foe down on his back. The flames do not endure but much equipment is burned or crushed.,0,2,0,0,1,-1,0,0,0,,,burn
+B,90,Leg covering is set on fire by blast. It spreads quickly and foe is in trouble. The flames will grow if not put out.,16,0,0,0,3,-1,0,0,0,,,burn
+B,95,"Head strike. Force of blast removes any helmet worn. Hair, scalp and skin burn. Smoke and flame blind foe for 3 rnds.",10,2,0,0,0,-1,0,0,3,helm,hits/rnd:8,burn
+B,99,Flames burn into foe's throat. The damage is frightening. Foe's neck collapses in the flames. He drops and dies in 9 inactive rnds. He smells bad.,20,12,0,10,0,-1,0,0,0,,,burn
+B,100,Assault consumes clothing and tissue. Foe's arms and chest are without skin. Foe is paralyzed. Infection will follow.,25,0,0,0,0,-1,0,0,0,,,burn
+C,5,Hot smoke makes foe's eyes red.,1,0,0,0,0,-1,0,0,0,,,burn
+C,10,Sparks and smoke dance all over foe. He waves them off with little effort.,3,0,0,0,0,-1,0,0,0,,,burn
+C,15,Foe suspects that he is on fire. He is wrong. You gain the initiative.,3,0,0,0,0,-1,0,0,0,,,burn
+C,20,Hair and bowstrings are singed. You have 2 rounds of initiative.,5,0,0,0,0,-1,0,0,0,,,burn
+C,35,Disorient foe with a tricky shot. Garments smolder suspiciously. He checks them carefully; guard is still up.,7,1,0,0,0,-1,0,0,1,,,burn
+C,45,Heat catchs foe in lower leg. You gain initiative while foe regains his balance. The pain stays with him.,8,1,0,0,0,-1,0,0,2,,,burn
+C,50,Flame spreads up foe's side and snaps at his arm and face. Exposed areas are lightly burned.,9,2,0,0,1,-1,0,0,0,,,burn
+C,55,"Hard strike to side, armor does not help. Blow leaves a blistering mark.",9,3,0,0,2,-1,0,0,0,,,burn
+C,60,Strong blast hits foe in legs; they nearly give with pain. He recoils 5 ft.,8,0,0,0,0,-1,0,0,2,,hits:10;hits/rnd:2;stunned:2,burn
+C,65,Flames burst against foe's side. He stumbles but does not fall. He tries to smother the fire with his garments.,10,3,-10,0,1,-1,0,1,0,,,burn
+C,66,Blaze consumes garments on weapon arm. Any metal covering heats up. Foe falls from the blast.,12,3,0,0,0,-1,0,0,0,,,burn
+C,70,Back blast. Foe drops to one knee and then rises again with some difficulty. Some of his garments still smoke from the assault. Skin is blistered badly.,0,2,-15,0,2,-1,0,1,0,,,burn
+C,75,Chest blast. Organic armor is destroyed. Metal armor should be removed quickly.,0,3,-15,0,3,-1,0,0,0,,,burn
+C,80,Strike engulfs foe's most exposed hand and burns it without mercy. Hand is useless. Arm clothing is destroyed.,0,6,-40,0,6,-1,0,0,0,,,burn
+C,85,Violent inferno destroys organic armor and ruins metal armor on leg. Much of the blast tumbles clear after impact.,0,2,-20,0,0,-1,0,0,0,,,burn
+C,90,"Foe's shield side is devoured by flames. Head, arm, side, and leg have critical burns. If foe has a shield, it is destroyed in place of his arm.",15,3,-85,0,6,-1,0,6,0,,,burn
+C,95,"Trapped in the furnace of your blast, foe is overcome and falls down. He is unconsious and still burning.",18,4,-90,0,6,-1,0,6,0,,,burn
+C,99,"Intense heat fuses metal, cloth and skin. Foe is unrecognizable. If no chest armor he is dead instantly. Otherwise he dies after 9 rounds of burning.",0,0,0,0,0,9,0,0,0,,die:0,burn
+C,100,"Strike to foe's head. If he has a helmet, his head is broiled and he dies in 2 rnds. If no helmet he dies instantly.",0,0,0,10,0,2,0,0,0,,die:0;mod_attacker:10,burn
+D,5,Foe evades the embrace of the flames.,2,0,0,0,0,-1,0,0,0,,,burn
+D,10,Flames surround foe. He seems to step out of them unharmed.,4,0,0,0,0,-1,0,0,0,,,burn
+D,15,Foe is enshrouded by smoke. The heat harms him little. You have initiative.,4,0,0,0,0,-1,0,0,0,,,burn
+D,20,Foe strikes out at the flames to protect himself. It seems to work well enough.,6,0,0,0,0,-1,0,0,1,,,burn
+D,35,"With a burst of flame, you cover foe with heated air. Foe jumps back to avoid any additional wounds.",8,1,0,0,0,-1,0,0,2,,,burn
+D,45,Cover foe with a flash fire. Exposed skin burns. The flames bite deep and the pain is great. (if not wet/if wet),9,2,0,0,0,-1,0,0,0,,hits:6;parry:2,burn
+D,50,Assault lands on foe's weapon arm. He makes a supreme effort to pull his arm away. Foe is unable to protect himself.,10,3,0,0,0,-1,0,0,0,,,burn
+D,55,Foe is aflame and takes damage for 3 rounds while he burns.,10,3,0,0,2,-1,0,0,0,,,burn
+D,60,Flames dance around foe's head. He seeks to get clear and almost falls.,3,0,-10x2,0,2,-1,0,0,0,,hits:12;hits/rnd:2,burn
+D,65,Foe's shield arm and shield are on fire. Dropping the shield only helps a little. The flames cling to his garements.,10,4,0,0,2,-1,0,1,0,,hits:13;hits/rd:6;stunned:2;no_parry:1,burn
+D,66,Foe's face and weapon hand are scalded. Foe is having trouble opening his eyes.,0,6,-10,0,10,-1,0,0,0,,,burn
+D,70,Foe leaps back from your deadly inferno. He escapes death but falls on his back. He is prone for 1 round. Minor arm burns.,15,3,0,0,1,-1,0,0,0,,,burn
+D,75,Foe's weapon arm is a conflagration. Hand and arm are useless. Muscles and nerves are damaged.,0,0,-50,0,6,-1,0,0,0,,,burn
+D,80,Foe's side is ignited by your strike and the wounds are deep. He smothers the fire but the damage is done.,0,5,0,0,3,-1,0,3,0,,,burn
+D,85,Foe's arms and chest embrace your infernal strike. Arms are useless and foe's skin is open to the air.,15,0,0,0,9,-1,0,0,0,,,burn
+D,90,"Blast engulfs lower half of foe's body. If foe has abdominal armor, he is knocked out. If not, he dies in 12 inactive rounds from organ damage.",0,2,0,0,0,-1,0,0,0,,die:12,organs/burn
+D,95,"Flames assault upper body. If foe has a full helm, he is blinded and in a coma for 2 days. If not, he dies in 6 rounds due to shock and brain damage.",0,0,-100,0,0,-1,17280,0,0,,die:6,organs/nerves/burn
+D,99,Foe is trapped in the furnace made by your attack. Organs are destroyed and foe's blood boils. He has no hope of survival and dies in 6 inactive rounds.,20,0,0,0,0,6,6,0,0,,,burn
+D,100,"Every part of foe is ablaze. He dies in 2 rounds, making terrifying noises. He continues to burn for 12 rounds.",0,0,0,15,0,2,0,0,0,,,burn
+E,5,Foe avoids the blast but not the heat.,3,0,0,0,0,-1,0,0,0,,,burn
+E,10,Sweltering heat reachs out for foe. He evades. You have initiative.,4,0,0,0,0,-1,0,0,0,,,burn
+E,15,Flash unbalances foe and sends him on the defensive. You have initiative.,6,0,0,0,1,-1,0,0,0,,,burn
+E,20,Foe fails to avoid some of the attack and almost falls down.,7,0,0,0,0,-1,0,0,1,,,burn
+E,35,Blister foe's weapon arm. He gives ground to escape the heat. His footing is better than you had hoped.,9,2,0,0,0,-1,0,0,1,,,burn
+E,45,Strike to side and back ignite foe's cloak and pack. Neck and shoulder are lightly burned.,8,1,0,0,0,-1,0,0,0,,hits:10;hits/rnd:3,burn
+E,50,Foe blocks flames with his weapon. A wooden weapon is destroyed. A metal weapon becomes too hot to hold.,12,3,0,0,2,-1,0,0,0,,,burn
+E,55,Your flames reach out. Foe frantically leaps back . His chest is burned.,13,3,0,0,1,-1,0,1,0,,,burn
+E,60,Garments over foe's shoulders and head are set afire. He is frantic.,8,1,-5,0,1,-1,0,1,0,,hits:15;hits/rnd:3;mod:-10;stunned:2;no_parry:2,burn
+E,65,Searing strike to foe's legs. Exposed skin and muscle is burned. Infection will follow. Foe struggles to stay up.,15,4,-10,0,2,-1,0,2,0,,,burn
+E,66,"Foe's combustible garments turn him into a torch. He runs a short distance, drops and dies in 6 rounds.",25,0,0,0,0,6,0,0,0,,,burn
+E,70,Blast leaps onto foe's shield arm. Any shield foe has and his arm are on fire. The heat penetrates deep and foe's face shows it.,0,5,-15,0,0,-1,0,0,0,,,burn
+E,75,Strike center of foe's chest. Flame spills in all directions. Foe is knocked down. Chest armor is destroyed.,15,6,-60,0,0,-1,0,0,0,,,burn
+E,80,Blast lands on foe's side but spreads to arms and legs. A shield prevents arm damage but his hands are burned off.,20,0,0,0,12,-1,0,0,0,,,burn
+E,85,"Foe inhales flames scalding lungs and throat Foe is active for 12 rnds (while he burns), then dies.",20,0,0,0,0,12,0,0,0,,,burn
+E,90,"Foe's lower body is badly burned. Nerves, organs and tissue destroyed. Foe is paralyzed and will die in 9 rounds from shock and dehydration.",20,0,0,0,0,9,9,0,0,,,organs/nerves/burn
+E,95,Foe is cremated before your very eyes. He remains standing for 6 rounds and then drops and dies. A small fire lingers over the remains. A horrible end.,25,0,0,0,0,6,0,0,0,,,burn
+E,99,Your foe is devoured by a hellfire of which even you are frightened. All combustibles within 10 ft ignite. Little will remain when the fire dies.,0,0,0,10,0,0,0,0,0,,,burn
+E,100,"Fire devours every part of foe in an instant. Bits of metal, teeth and a few bones shower to the ground.",0,0,0,20,0,0,0,0,0,,,burn

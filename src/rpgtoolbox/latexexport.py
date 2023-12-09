@@ -17,7 +17,7 @@ will be generated for printouts
 - revise the code
 '''
 
-__updated__ = "03.10.2022"
+__updated__ = "06.08.2023"
 __author__ = "Marcus Schwamberger"
 __copyright__ = "(C) 2015-" + __updated__[-4:] + " " + __author__
 __email__ = "marcus@lederzeug.de"
@@ -25,16 +25,17 @@ __version__ = "1.1"
 __license__ = "GNU V3.0"
 __me__ = "A RPG tool package for Python 3.x"
 
-from gui.window import messageWindow
-from rpgtoolbox import logbox as log
-from rpgtoolbox.confbox import *
-#from rpgtoolbox.rolemaster import stats
 import json
 import os
-import sys
 import string
-from rpgToolDefinitions.inventory import *
+import sys
 
+from gui.window import messageWindow
+from rpgToolDefinitions.inventory import *
+from rpgtoolbox import logbox as log
+from rpgtoolbox.confbox import *
+
+#from rpgtoolbox.rolemaster import stats
 mycnf = chkCfg()
 
 logger = log.createLogger('latexreport', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "latextexport.log")
@@ -114,17 +115,17 @@ class charsheet(object):
 
         if not os.path.exists(self.chardir + "/latex"):
             os.makedirs(self.chardir + "/latex")
-            logger.info("createMainLatex: created {}".format(self.chardir + "/latex"))
+            logger.info("created {}".format(self.chardir + "/latex"))
 
         template = readFile(self.storepath + "/default/latex/template_charsheet.tex")
-        logger.info("createMainLatex: read {}".format(self.storepath + "/default/latex/template_charsheet.tex"))
+        logger.info("read {}".format(self.storepath + "/default/latex/template_charsheet.tex"))
 
         template = template.replace("name_", self.char["name"].replace(" ", "-") + "_")
 
-        logger.info("createMainLatex: converted template")
+        logger.info("converted template")
 
         saveFile("{}/latex/{}.tex".format(self.chardir, self.char['name'].replace(" ", "-")), template)
-        logger.info("createMainLatex: {}/latex/{}.tex saved".format(self.chardir, self.char['name'].replace(" ", "-")))
+        logger.info("{}/latex/{}.tex saved".format(self.chardir, self.char['name'].replace(" ", "-")))
 
 
     def createGenInfo(self):
@@ -138,7 +139,7 @@ class charsheet(object):
         self.chardir += "/latex/"
         logger.debug(f"latex dir set to {self.chardir}")
         template = readFile(self.storepath + "/default/latex/template_gen_info.tex")
-        logger.info("createGenInfo: read {}".format(self.storepath + "/default/latex/template_gen_info.tex"))
+        logger.info("read {}".format(self.storepath + "/default/latex/template_gen_info.tex"))
         template = template.replace("==>realm", str(self.char['realm']).replace(", ", "/").strip("[]"))
 
         for index in data:
@@ -168,6 +169,7 @@ class charsheet(object):
 
                 if round(self.char["cat"]["Power Point Development"]["Skill"]["Power Point Development"]["total bonus"] / 2) >= 1:
                     sleepcycle = round(self.char["cat"]["Power Point Development"]["Skill"]["Power Point Development"]["total bonus"] / 2)
+
                 rest = 1
 
                 if self.char["realm"] == "Essence" and round(self.char["Em"]["total"] / 2) > 1:
@@ -267,6 +269,7 @@ class charsheet(object):
 
         for cat in self.catlist:
             datatable += u"\\hline\n"
+            logger.debug(f"working on {cat}")
 
             if "Weapon" in cat:
                 datatable += weapon + catstd.format(cat,
@@ -284,6 +287,7 @@ class charsheet(object):
                 skilllist.sort()
 
                 for skill in skilllist:
+                    logger.debug(f"\tworking on skill: {skill}")
 
                     if skill not in ['Progression', 'Costs'] and "+" not in skill:
 
@@ -329,6 +333,7 @@ class charsheet(object):
                 skilllist.sort()
 
                 for skill in skilllist:
+                    logger.debug(f"\tworking on skill: {skill}")
 
                     if skill not in ['Progression', ['Costs']] and "+" not in skill:
 
@@ -373,6 +378,7 @@ class charsheet(object):
                 skilllist.sort()
 
                 for skill in skilllist:
+                    logger.debug(f"\tworking on skill: {skill}")
 
                     if skill not in ['Progression', 'Costs', 'Stats'] and "+" not in skill:
 
@@ -417,6 +423,7 @@ class charsheet(object):
                 skilllist.sort()
 
                 for skill in skilllist:
+                    logger.debug(f"\tworking on skill: {skill}")
 
                     if skill not in ['Progression', ['Costs']] and "+" not in skill:
 
@@ -448,6 +455,7 @@ class charsheet(object):
 
         template = readFile(self.storepath + "/default/latex/template_catskill.tex")
         template = template.replace("==>fulltable", datatable)
+        logger.debug(f"try to save {self.char['name'].replace(' ', ' -')}_catskill.tex")
         saveFile(self.chardir + "{}_catskill.tex".format(self.char['name'].replace(" ", "-")), template)
         logger.info(f'file saved: {self.chardir}{self.char["name"].replace(" ", " - ")}_catskill.tex')
 
@@ -483,7 +491,7 @@ class charsheet(object):
 
         except Exception as error:
             print("ERROR: Could not execute PDF LaTex! Please try it manually!!\n{}".format(error))
-            logger.error("execLaTeX: {}".format(error))
+            logger.error("{}".format(error))
 
         finally:
             os.chdir(currpath)

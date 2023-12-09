@@ -22,7 +22,7 @@ Currently supported languages are:
 @license GNU V3.0
 '''
 __version__ = "1.1"
-__updated__ = "13.11.2022"
+__updated__ = "05.12.2023"
 ##
 # @var supportedrpg
 # Supported RPG systems
@@ -267,6 +267,9 @@ txtbutton = {'but_ok': {'de': 'OK',
              "but_show_overview":{"de": "Übersicht \nanzeigen",
                                   "en": "show \n overview",
                                  },
+             "but_reset": {"de": "zurücksetzen",
+                           "en": "reset",
+                           },
              }
 
 ## @var txtmenu
@@ -403,6 +406,7 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                               "ed_show_NPCs": "NSC-Liste anzeigen",
                               "ed_filter": "Filter",
                               "ed_search": "Suche",
+                              "ed_add_wpn": "Waffe hinzufügen",
                               'init': "Initativewurf",
                               "history": "Verlauf anzeigen",
                               },
@@ -430,6 +434,7 @@ submenu = {'file':{'de':{'open': 'Datei \xc3\xb6ffnen',
                               "ed_show_NPC": "show NPC list",
                               "ed_filter": "filter",
                               "ed_search": "search",
+                              "ed_add_wpn": "add weapon",
                               'init': "Initiative roll",
                               "history": "display history",
                                },
@@ -846,7 +851,11 @@ labels = {'cfg_path': {'de': 'Speicherpfad f\xc3\xbcr die Konfigurationsdatei',
           'avail magic': {"de": "verfügbare Spruchlisten",
                           "en": "available spell list"},
           'selected magic': {"de": "gewählte Spruchlisten",
-                             "en": "selected spell lists"},
+                             "en": "selected spell lists"
+                            },
+          'ammo':{"de": "Muni",
+                  "en": "Ammo"
+                 },
           }
 
 invedtacts = {"de": [u"wählen", u"ausgerüstet", "unausgerüstet"],

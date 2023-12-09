@@ -1,34 +1,34 @@
 #!/usr/bin/python3
 '''!
-\file find_herbs.py
-\package  find_herbs.py
 \brief This is a little tool for finding herbs in different areas of Middle-Earth
 
-
+This is for foraging checks in Middle-Earth.
 
 \date (C) 2020 - 2022
 \author Marcus Schwamberger
+
 \email marcus@lederzeug.de
-\license GNU V3.0
+\copyright GNU V3.0
 \version 1.1.1
 
 '''
-import os
-import json
-import csv
 from pprint import pprint
-from rpgtoolbox.globaltools import readCSV
-from rpgtoolbox.rpgtools import statManeuver as statMan
-from rpgtoolbox.rpgtools import dice
+from tkinter import filedialog
+import csv
+import json
+import os
+
+from gui.window import *
 from rpgToolDefinitions import inventory as inv
 from rpgToolDefinitions.epcalcdefs import maneuvers as manmod
-from rpgToolDefinitions.middleearth import *
-from gui.window import *
 from rpgToolDefinitions.helptools import RMDice as Dice
-from tkinter import filedialog
+from rpgToolDefinitions.middleearth import *
+from rpgtoolbox.globaltools import readCSV
+from rpgtoolbox.rpgtools import dice
+from rpgtoolbox.rpgtools import statManeuver as statMan
 
 __author__ = "Marcus Schwamberger"
-__updated__ = "08.10.2022"
+__updated__ = "26.11.2022"
 __copyright__ = "(C) 2015-{} {}".format(__updated__[-4:], __author__)
 __email__ = "marcus@lederzeug.de"
 __version__ = "1.1.1"

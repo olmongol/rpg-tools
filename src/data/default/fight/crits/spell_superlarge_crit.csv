@@ -1,0 +1,39 @@
+crit,roll,description,hits,hits/rnd,mod,mod_attacker,stunned,die,ooo,no_parry,parry,cover,alternate,damage_type
+normal,5,The strength of your strike is not up to the challange.,0,0,0,0,0,-1,0,0,0,,,
+normal,10,Strike lands with little result. You had better get serious soon.,1,0,0,0,0,-1,0,0,0,,,
+normal,20,The beast is made of stronger stuff than you hoped.,2,0,0,0,0,-1,0,0,0,,,
+normal,30,Strike glances off foe and damages his surroundings.,3,0,0,0,0,-1,0,0,0,,,
+normal,40,"Solid, but nowhere near a vital spot. Bruise foe's calf muscle.",5,0,0,0,0,-1,0,0,0,,,
+normal,50,Blow is placed solidly against foe's side. His vitals are beyond reach.,7,0,0,0,0,-1,0,0,0,,,
+normal,65,Strike threatens foe's eyes and he flinches. You have initiative.,7,0,0,0,0,-1,0,0,0,,,
+normal,66,"You find a weak point. Unexpectedly, foe reels and falls down. His shoulder is shattered. He gets up slowly.",25,0,-75,0,0,-1,0,0,0,,,
+normal,70,"Although not deadly, this strike leaves a visible and encouraging wound. You may win yet.",12,0,0,0,0,-1,0,0,0,,,
+normal,80,Blow to foe's upper arm. Discoloration and various bruises mark your success.,15,0,0,0,0,-1,0,0,0,,,
+normal,90,"Your strike hit no vitals, but you can hear the ribs in foe's side crackle. Foe fights on in some pain.",20,0,0,0,0,-1,0,0,0,,,
+normal,95,Heavy and hard. Your strike is effective. Foe's abdomen is damaged.,30,0,0,0,0,-1,0,0,0,,,organs
+normal,98,Your onslaught lands against foe's skull. Brain is damaged. Swelling fractures his skull. Foe drops and dies in 6 rounds.,0,0,0,0,0,6,6,0,0,,,bones/nerves
+normal,100,Violent strike to foe's face. His eyes are badly damaged. He is blinded. He falls over. You have him now.,0,0,-95,0,12,-1,0,12,0,,,organs
+normal,150,Titanic blast sends foe stumbling despite his bulk. He is unable to defend himself for a moment.,30,0,0,0,2,-1,0,2,0,,,
+normal,175,Side strike. Foe steps to the side and takes the damage in his ribs. Bones are broken.,0,0,-20,0,4,-1,0,4,0,,,bones
+normal,200,Mighty is your strike. Its your turn to give. Foe's chest tears open and blood sprays on all bystanders.,30,5,-30,0,0,-1,0,0,0,,,organs/muscles
+normal,250,Snap foe's head back and fracture his spine. Foe is paralyzed from the neck down.,40,0,0,0,0,-1,7000000,0,0,,,nerves
+normal,2000,Shatter parts of foe's skeleton. Heart and lungs are damaged. Foe falls dead. His blood pours out onto the floor.,0,0,0,0,0,0,0,0,0,,,bones/organs
+slaying,5,You warn foe of his doom with this tiny whisper of your power.,3,0,0,0,0,-1,0,0,0,,,
+slaying,10,Foe evades much of the damage. Maybe next time.,5,0,0,0,0,-1,0,0,0,,,
+slaying,20,Your blast scrapes along foe's shoulder hissing as it touches his skin.,9,0,0,0,0,-1,0,0,0,,,
+slaying,30,"Your strike is solid and flat, foe is burned by the enchantment.",12,0,0,0,0,-1,0,0,0,,,
+slaying,40,Heavy assault yields a measure of damage to foe's leg.,15,0,0,0,0,-1,0,0,0,,,
+slaying,50,Strike tears down foe's back. He ducts down in pain.,18,0,0,0,0,-1,0,0,0,,,
+slaying,65,Blast to foe's face. Most of the damage misses him. Some does not.,20,0,0,0,0,-1,0,0,0,,,
+slaying,66,Collapse foe's chest with perfect placement. His lungs are destroyed and his heart stops. He dies after 6 rounds of wheezing.,30,0,0,0,0,6,6,0,0,,,
+slaying,70,Assault bounces off foe's primary arm. Arm is damaged but still functioning. Try again.,25,0,0,0,0,-1,0,0,0,,,
+slaying,80,Solid strike to the chest. Foe steps back 10 feet and rebounds.,25,0,0,0,0,-1,0,0,0,,,
+slaying,90,Sparks fly and smoke rises off foe as your assault impacts.,30,0,0,0,0,-1,0,0,0,,,
+slaying,95,Your attack lands with a beautiful crash. Foe's leg is heavily damaged. He struggles to keeps his defense up.,25,0,0,0,2,-1,0,2,0,,,
+slaying,98,Shot lands against foe's chest. Strike infests foe with terminal poison. The full burden of the enchantment ends his life instantly.,0,0,0,0,0,0,0,0,0,,,
+slaying,100,Blast to foe's head. Inner ear destroyed. Foe dies in 6 inactive rounds.,20,0,0,0,0,-1,0,0,0,,,
+slaying,150,Foe stumbles 10 feet to his right with the impact of your attack. He is vulnerable.,35,0,0,0,3,-1,0,3,0,,,
+slaying,175,Blast breaks bones and causes bleeding in foe's leg. He can still operate.,0,5,-20,0,0,-1,0,0,0,,,bones/muscles
+slaying,200,Epic assault to foe's side sends foe onto his back. Wounds are severe. Internal bleeding. He is in trouble.,40,10,-50,0,0,-1,0,0,0,,,organs
+slaying,250,Hammer foe's neck and face. The energy engulfs his throat. Nerves are destroyed. Foe dies after 9 inactive rounds.,50,0,0,0,0,9,9,0,0,,,
+slaying,2000,Blast goes in through foe's eye and comes out ugly. Foe dies instantly. His terrible bulk comes crashing down.,0,0,0,0,0,0,0,0,0,,,

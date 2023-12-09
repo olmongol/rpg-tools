@@ -13,7 +13,7 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.5
 '''
 __version__ = "0.5"
-__updated__ = "21.10.2022"
+__updated__ = "06.12.2023"
 __me__ = "rpgtoolbox.combat"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
@@ -338,7 +338,8 @@ def switch(mystr):
         if ":" in elem:
             dummy2 = elem.split(':')
 
-            if dummy2[0] == "mod" and "x" in dummy2[1]:
+            #if dummy2[0] == "mod" and "x" in dummy2[1]:
+            if "mod" in dummy2[0] and "x" in dummy2[1]:
                 result[dummy2[0]] = {"mod":int(dummy2[1].split("x")[0]),
                                      "rnd":int(dummy2[1].split("x")[1])}
             elif dummy2[0] == "mod":
@@ -399,11 +400,13 @@ def createCombatList(comlist = []):
 
         if "PP" in comlist[i].keys() and comlist[i]["PP"]:
             comlist[i]["status"]["PP"] = int(comlist[i]["PP"])
+
         else:
             comlist[i]["status"]["pp"] = 0
 
         comlist[i]["comlog"] = comlog.copy()
         comlist[i]["switch"] = 0
+        comlist[i]["ammo"] = {}
 
     logger.debug("combat list type convert successfully done.")
     return comlist
@@ -568,14 +571,18 @@ class attacktable():
         self.lang = lang
         self.override = override
         self.__makeTable()
+        self.fumble = 4
 
 
     def __makeTable(self):
         """
         Reads table data from csv file and creates the dictionary structures
         """
+        logger.debug(f"start to read {self.filename}")
         with open(self.filename, "r") as fp:
             cont = fp.read()
+
+        logger.debug(f"{self.filename} successfully read")
 
         cont = cont.strip("\n").split("\n")
         header = cont[0].split(",")
@@ -587,7 +594,7 @@ class attacktable():
 
             for j in range(1, len(header)):
 
-                if header[j] not in ["pattern", "type"] and dummy[j] != "":
+                if header[j] not in ["pattern", "type", "UM"] and dummy[j] != "":
                     self.attack[dummy[0].strip(" ")][header[j].strip(" ")] = int(dummy[j])
 
                 elif self.override:
@@ -596,29 +603,32 @@ class attacktable():
                 else:
                     self.attack[dummy[0].strip(" ")][header[j].strip(" ")] = dummy[j]
 
-    #def showResult(self):
-    #    """!
-    #    This prints out the result simply to stdout . just a debug method.
-    #    """
-    #    if self.crit == "":
-    #        print("Hits: {}".format(self.hits))
-    #
-    #    else:
-    #        print("Hits: {}\nCrit: {}\nType:{}".format(self.hits, self.crit, self.crittype))
 
-
-    def getHits(self, roll = 50, AT = "1", AS = "H"):
+    def showResult(self):
         """!
-        Caculates the hitpoints
-        @param roll dice roll result on the table
+        This prints out the result simply to stdout . just a debug method.
+        """
+        if self.crit == "":
+            print(f"fumble: {self.fumble}\nHits: {self.hits}")
+
+        else:
+            print(f"fumble: {self.fumble}\nHits: {self.hits}\nCrit: {self.crit}\nType:{self.crittype}")
+
+
+    def getHits(self, roll = 50, AT = "1", AS = "H", UM = 50):
+        """!
+        Calculates the hit points, class of critical and type of damage.
+
+        @param roll full dice roll result with mods, skills etc.
         @param AT armor type to lock up (string)
         @param AS max. attack size: H,L,M,S   - huge, large, medium, small
+        @param UM unmodified roll, first roll without any modifications
         """
         attacksize = {"H": 150,
-                    "L": 135,
-                    "M": 120,
-                    "S": 105
-                    }
+                      "L": 135,
+                      "M": 120,
+                      "S": 105
+                      }
 
         if roll > attacksize[AS]:
             roll = attacksize[AS]
@@ -627,26 +637,36 @@ class attacktable():
         self.crittype = ""
         self.hits = 0
 
-        if roll >= self.attack[AT]["start"]:
-            #calc quotient
-            q = int((150 - self.attack[AT]["start"]) / (self.attack[AT]["high"] - self.attack[AT]["low"]))
-            self.hits = int(self.attack[AT]["low"] + (roll - self.attack[AT]["start"]) / q)
+        if "fumble" in self.attack[AT].keys():
+            self.fumble = self.attack[AT]["fumble"]
 
-        for c in "ABCDE":
-
-            if roll >= self.attack[AT][c]:
-                self.crit = c
-        if roll >= self.attack[AT]["first"]:
+        if UM == 100 and "UM" in self.attack[AT].keys():
+            self.crit = self.attack[AT]["UM"][-1]
+            self.hits = int(self.attack[AT]["UM"][:-1])
             self.crittype = self.attack[AT]["type"]
-
         else:
-            p = (roll - self.attack[AT]["start"]) % len(self.attack[AT]["pattern"])
 
-            if self.attack[AT]["pattern"] != self.attack[AT]["pattern"].lower():
-                self.crittype = self.attack[AT]["pattern"][p]
+            if roll >= self.attack[AT]["start"]:
+                #calc quotient
+                q = int((150 - self.attack[AT]["start"]) / (self.attack[AT]["high"] - self.attack[AT]["low"]))
+                self.hits = int(self.attack[AT]["low"] + (roll - self.attack[AT]["start"]) / q)
+
+            for c in "ABCDE":
+
+                if roll >= self.attack[AT][c]:
+                    self.crit = c
+
+            if roll >= self.attack[AT]["first"]:
+                self.crittype = self.attack[AT]["type"]
 
             else:
-                self.crittype = self.attack[AT]["pattern"]
+                p = (roll - self.attack[AT]["start"]) % len(self.attack[AT]["pattern"])
+
+                if self.attack[AT]["pattern"] != self.attack[AT]["pattern"].lower():
+                    self.crittype = self.attack[AT]["pattern"][p]
+
+                else:
+                    self.crittype = self.attack[AT]["pattern"]
 
         # tables with tiny crits
         for c in ["TA", "TB", "TC", "TD", "TE"]:
@@ -657,69 +677,23 @@ class attacktable():
                     self.crit = c.strip("T")
                     self.crittype = "T"
 
-        for c in ["F", "G", "H", "I"]:
+        for c in ["F", "G", "H", "I", "J"]:
 
             if c in self.attack[AT].keys():
 
                 if roll >= self.attack[AT][c]:
                     self.crit = c
 
-        #self.showResult()
-
-#class fumbletable():
-#    """!
-#    This class creates a combat fumble table for all types of weapon and non-weapon
-#    fumbles.
-#    """
-#
-#
-#    def __init__(self, tablefilename = "data/default/fight/fumble/combat_fumble.csv", lang = "en"):
-#        """!
-#        Constructor
-#        @param tablefilename path+filename of the fumble table to read
-#        """
-#        self.tablename = f"{tablefilename[:-4]}_{lang}{tablefilename[-4:]}"
-#        #logger.info(f"get fumble table from {self.tablename}")
-#        #self.fumbetypes = ['one-handed arms', 'two-handed arms', 'polearms and spears',
-#        #                   'mounted arms', 'thrown arms', 'missile weapons',
-#        #                   'MA strikes', 'MA sweeps', 'brawling', 'animal']
-#
-#        self.fumble = readCSV(self.tablename)
-#        self.fumbletypes = list(self.fumble[0].keys())[1:]
-#
-#
-#    def getResult(self, fumbletype = "one-handed arms", roll = 50):
-#        """!
-#        This method delivers the result from the fumble table by fumble type and
-#        fumble roll.It may be used for weapon and spell fumbles.
-#
-#        @param fumbletype type of the fumble concerning of the table header
-#        @param roll fumble roll result
-#        @retval result string holding the result of the fumble
-#
-#        """
-#        result = ""
-#
-#        if fumbletype not in self.fumbletypes:
-#            fumbletype = 'brawling'
-#            logger.warning(f"fumbletype not found! Set it to {fumbletype}")
-#
-#        for row in self.fumble:
-#
-#            if roll <= int(row["roll"]):
-#                result = row[fumbletype]
-#                break
-#
-#        return result
+        self.showResult()
 
 
 
 class combat():
     """!
     This class handles all combat issues
-    - combines comatant groups
+    - combines combatant groups
     - manages battle rounds, initiatives damage etc.
-    - vreates a log file of the battle
+    - creates a log file of the battle
     @deprecated
     """
 

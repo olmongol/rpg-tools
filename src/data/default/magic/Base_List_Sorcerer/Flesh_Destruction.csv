@@ -1,1 +1,22 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Sprain Limb,1 target,P,100',F,"A random part of a random limb is sprained. If it is part of a leg: movement is cut by 25\%, melee and missile attacks are modified by -10. If it is part of an arm, melee and missile attacks are modified by -20."
+2,Limb Pain,1 target,1 rnd/5 fail,100',F,"A random limb is in intense pain. For a leg, the target cannot walk (target may crawl at 10\% of his normal movement); for an arm, that arm cannot be used"
+3,Touch of Disruption,1 target,P,touch,F,"The bones and tissues of the target’s body are disrupted as if the target had fallen a long distance. If the target fails his RR by 1-10, he takes an 'A' Impact critical; by 11-20, he takes a 'B'; by 21-30, he takes a’C’; by 31-40, he takes a’D’; by more than 41, he takes an 'E'."
+4,Lock Joint,1 target,1 rnd/5 fail,100',F,One of the target’s joints locks. Target suffers the effects of Limb Pain. A moving target with a locked leg falls. A target with a locked arm drops anything he is carrying.
+5,Break Limb,1 target,P,100',F,A random limb is broken. A broken arm is useless. One broken leg cuts movement by 50\% and combat is modified by -75.
+6,Disruption II,1 target,P,20',F,"As Touch of Disruption, except range is 20'."
+7,Skin Death,1 target,varies,100',F,"Target’s skin will flake and peel all over his body. There is no tactical penalty, but target’s Appearance is lowered by -50 (to a minimum of 1). Lasts until dispelled and 1 month passes. Magical healing could reduce this time."
+8,Disruption V,1 target,P,50',F,"As Touch of Disruption, except range is 50'."
+9,Rupture Ear,1 target,P,100',F,"One of the target’s ears (random) is disrupted. His hearing is at 50\% of normal until cured. This results in a -25 penalty to Perception involving hearing; -50 to Perception only involving hearing. If this spell is cast upon the same ear twice, the target is deaf in that ear."
+10,Limb Death,1 target,P,100',F,"One of the target’s limbs (random) will wither and die. Target loses 5\% of the use of the limb per day; when the total reaches 100\%, the limb falls off. Can be cured through circulation and nerve repair spells up to the 80% point, then it must be regenerated. If the limb is a leg, movement is reduced by half the percentage lost (e.g., if a leg is 60\% withered, movement is cut by 30\%). If the limb is an arm, combat suffers a -1 penalty per 1% withered (e.g., if an arm is 75\% withered, all combat will suffer a -75 penalty)."
+11,Eye Disruption,1 target,P,100',F,"As Ear Disruption, except an eye is affected (as well as visual perception)."
+12,Collapse Lung,1 target,P,100',F,One of the target’s lungs collapses. He is at 50\% of normal for all activity until the lung is repaired.
+13,Muscle Death,1 target,P,100',F,"As Limb Death, except a random muscle is affected (not muscle organs, e.g., not the heart)."
+14,Bone Death,1 target,P,100',F,"As Limb Death, except a random bone (not part of spine or skull) gradually disintegrates."
+15,Black Channel I,1 target,varies,varies,F,One of the Black Channel I spells may be used (see Section 7.1.23).
+17,Long Flesh Destruction,1 target,P,300',F,"As any single 10th level or lower spell on this list, except with a range of 300'."
+19,Mass Flesh Destruction,1 target/lvl,P,100',F,"As any single lower level spell, except it may be cast upon as many targets as the caster has levels."
+20,Petrifaction,1 target,P,100',F,The target’s bones will gradually petrify; a loss of activity (as in Limb Death) occurs due to loss of blood production.
+25,Black Channel II,1 target,varies,varies,F,"As Black Channel I, except one of the Black Channel II spells may be used."
+30,Disruption True,1 target,P,300',F,"As Touch of Disruption, except range is 300' and always delivers an 'E' Impact critical if the target fails to resist."
+50,Black Channels III,1 target,varies,varies,F,"As Black Channel I, except one of the Black Channel III spells may be used."
