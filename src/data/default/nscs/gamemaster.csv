@@ -180,15 +180,6 @@ Dangerous Animals,Fen Boars,2,4,3,100,0,M,40 M Ho,0xx,0xx,30,0,"
 
 
 ",1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/boar.jpg,,
-Dangerous Animals,Fen Boars,2,4,3,100,0,M,40 M Ho,0xx,0xx,30,0,"
-
-
-
-
-
-
-
-",1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/boar.jpg,,
 Demonic Beeings,Warg (schwach),5,12,4,160,0,L,85 L Bi/50 M Cl,0xx,0xx,55,0,"Often ridden by Orcs
 
 
@@ -396,3 +387,5 @@ Undead Beings,Skeleton Lord,8,12,1,135,30,M,95 H bd2/70 L Ba,0xx,0xx,70,0,"Attac
 
 
 ",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/skeleton_king.png,,
+Pukel-Creatures,Pukel-men,15,0,16,150,0,L,90 H cl/60 H Ba,0xx,,25,25,"Stone man
+",1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/puckelman.jpg,,
