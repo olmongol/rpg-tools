@@ -11,19 +11,19 @@
 \version 1.0
 '''
 __version__ = "1.0"
-__updated__ = "08.10.2022"
+__updated__ = "21.04.2024"
 __me__ = "rpgtoolbox.epcalc"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __license__ = "GPL V3"
 
-from .rpgtools import getLvl as calcLvl
 from rpgtoolbox import logbox as log
 from rpgtoolbox.confbox import *
 
+from .rpgtools import getLvl as calcLvl
+
 mycnf = chkCfg()
 logger = log.createLogger('epcalc', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "epcalc.log")
-
 
 
 class experience(object):
@@ -39,7 +39,6 @@ class experience(object):
 
     '''
 
-
     def __init__(self, charname = "Conan", ep = 0):
         '''!
         Constructor experience
@@ -49,12 +48,13 @@ class experience(object):
         '''
         self.name = charname
         logger.debug(f"character: {self.name}")
+        # # \var self.ep
+        # attribute holding level of experience points
         self.ep = ep
         self.getLvl = calcLvl
         self.lvl = self.getLvl(self.ep)
         self.gainedep = 0
         self.updateInfo()
-
 
     def updateInfo(self):
         """!
@@ -68,7 +68,6 @@ class experience(object):
         self.newlvl = self.getLvl(self.newep)
         logger.debug(f" lvl ==> {self.newlvl}")
 
-
     def spell(self, spelllevel = 1, number = 1):
         '''!
         Adds EP gained by spells.
@@ -77,7 +76,6 @@ class experience(object):
         '''
         self.gainedep += (100 - (self.lvl - spelllevel) * 10) * number
         logger.debug(f"added spell EP: {self.gainedep}")
-
 
     def gainedCrit(self, crittype = "A", number = 0):
         '''!
@@ -95,7 +93,6 @@ class experience(object):
 
         self.gainedep += crits[crittype.upper()] * number
         logger.debug(f"added gained Crit EP: {self.gainedep}")
-
 
     def hitCrit(self, crittype = "A", monsterlvl = 1, number = 1):
         '''!
@@ -117,7 +114,6 @@ class experience(object):
         self.gainedep += int(round(monsterlvl * crits[crittype.upper()], 0)) * number
         logger.debug(f"added Crit EP: {self.gainedep}")
 
-
     def travelled(self, km = 0):
         '''!
         Adds EPs for traveled km.
@@ -125,7 +121,6 @@ class experience(object):
         '''
         self.gainedep += km
         logger.debug(f"added travelled EP: {self.gainedep}")
-
 
     def gainedHits(self, hits = 0):
         '''!
@@ -135,7 +130,6 @@ class experience(object):
         self.gainedep += hits
         logger.debug(f"added hits EP: {self.gainedep}")
 
-
     def ideas(self, eps = 0):
         '''!
         EPs for ideas, risk etc of the character.
@@ -143,7 +137,6 @@ class experience(object):
         '''
         self.gainedep += eps
         logger.debug(f"added ideas EP: {self.gainedep}")
-
 
     def maneuver(self, manlvl = "routine", number = 0):
         '''!
@@ -155,7 +148,6 @@ class experience(object):
 
         self.gainedep += maneuvers[manlvl]['ep'] * number
         logger.debug(f"added maneuvers EP: {self.gainedep}")
-
 
     def killedNPC(self, monsterlvl = 1, number = 1):
         '''!

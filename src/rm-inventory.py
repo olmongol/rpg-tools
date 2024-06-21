@@ -19,28 +19,32 @@ This tool handles
 
 
 ----
-@todo implement loggin for this module
+@todo the following has to be implemented
+- improvement of GUI
+- button & Window for more detailed information about the item (Pictures and description etc)
+
 '''
-import os
-import json
-import random
-from gui.window import *
-from gui.winhelper import AutoScrollbar
-from rpgtoolbox import epcalc, rpgtools as rpg
-from rpgToolDefinitions.epcalcdefs import maneuvers
-from rpgToolDefinitions.inventory import *
-from rpgtoolbox.rolemaster import realms, spellists
-from rpgtoolbox.latexexport import inventory
-from rpgToolDefinitions import inventory as inv
-from tkinter import filedialog
-from tkinter.ttk import *
-import re
 from PIL import Image, ImageTk
 from pprint import pprint
+from tkinter import filedialog
+from tkinter.ttk import *
+import json
+import os
+import random
+import re
+
+from gui.window import *
+from gui.winhelper import AutoScrollbar
+from rpgToolDefinitions import inventory as inv
+from rpgToolDefinitions.epcalcdefs import maneuvers
+from rpgToolDefinitions.inventory import *
+from rpgtoolbox import epcalc, rpgtools as rpg
 from rpgtoolbox import logbox as log
 from rpgtoolbox.confbox import *
+from rpgtoolbox.latexexport import inventory
+from rpgtoolbox.rolemaster import realms, spellists
 
-__updated__ = "03.10.2022"
+__updated__ = "21.06.2024"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "1.1.0"

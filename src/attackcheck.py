@@ -21,19 +21,19 @@ other opponents.
 - save damages and modifies to sc's character sheet
 '''
 __version__ = "1.0"
-__updated__ = "08.12.2023"
+__updated__ = "11.05.2024"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "RM RPG Tools: attack checker module"
 
 from copy import deepcopy
-import json
-import os
 from pprint import pformat
 from random import randint
 from random import randint
 from tkinter import filedialog
 from tkinter.ttk import Combobox
+import json
+import os
 
 from PIL import Image, ImageTk
 
@@ -56,6 +56,18 @@ if "loglvl" in mycnf.cnfparam.keys():
 logger = log.createLogger('AT-Window', loglevel, '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "attackcheck.log")
 
 
+
+class calFightEP():
+    """!
+    @todo has to be fully implemented
+    """
+
+
+    def __init__(self, charlist = {}, tempfile = "./epfight.json"):
+        pass
+
+
+
 class atWin(blankWindow):
     """!
     This class generates a window where you can look up your attack results.
@@ -75,6 +87,7 @@ class atWin(blankWindow):
     - you cannot proceed with next attacker if he was disabled by damage (stun, etc)
     """
 
+
     def __init__(self, lang = "en", datadir = "./data/default"):
         """!
         Constructor
@@ -88,27 +101,27 @@ class atWin(blankWindow):
             self.datadir = self.datadir.strip("/") + "/default"
         logger.info(f"language: {lang}")
         logger.info(f"data dir: {datadir}")
-        # # @var self.fumbletype
+        ## @var self.fumbletype
         # attack type for fumble checks
         self.fumbletype = 'one-handed arms'
         self.fumbleroll = 0
         self.umr = 5
-        # # @var self.maxfumble
+        ## @var self.maxfumble
         # the maximum value for fumble results.
         self.maxfumble = 4
-        # # @var self.attacktbls
+        ## @var self.attacktbls
         # dictionary holding all (found) attack tables
         self.attacktbls = {}
-        # # @var self.crittbls
+        ## @var self.crittbls
         # dictionaray holding all (found) crit tables
         self.crittbls = {}
-        # # @var self.attackers
+        ## @var self.attackers
         # list of all combatants able to attack
         self.attackers = ["Egon"]
-        # # @var self.defenders
+        ## @var self.defenders
         # list of all combatants who are still alive
         self.defenders = ["Anton"]
-        # # @var self.combatants
+        ## @var self.combatants
         # inital list of all combatants (at the begin of battle)
         self.combatants = []
         self.combatround = 0
@@ -121,7 +134,7 @@ class atWin(blankWindow):
         self.partygrp = None
         self.__enemypath = None
         self.enemygrp = None
-        # # \var self.weapontab
+        ## \var self.weapontab
         # holds the given weapon table as dictionary with short term as master key
         # and all information about the weapon (such as fumble or breaking numbers)
         self.weapontab = getWeaponTab()
@@ -142,7 +155,7 @@ class atWin(blankWindow):
         self.fmaske = [txtwin['enemygrp_files'][self.lang],
                      txtwin['all_files'][self.lang]]
 
-        # # \var self.weaponlist
+        ## \var self.weaponlist
         # a list of dictionaries holding all infomation about all weapons. If a
         # weapon has no specific attack table the standard attack table for it
         # will be documented here.
@@ -150,7 +163,7 @@ class atWin(blankWindow):
         logger.info("list of weapons read successfully.")
         self.__prepareWL()
         logger.debug("list of weapons successfully prepared for usage.")
-        # # \var self.reverseweaponindex
+        ## \var self.reverseweaponindex
         # This dictionary holds weapon name as key and short form as value
         self.reverseweaponindex = {}
 
@@ -198,6 +211,7 @@ class atWin(blankWindow):
         self.__buildWin()
         self.window.mainloop()
 
+
     def __addHelpMenu(self):
         """
         This methods defines a help menu.
@@ -210,6 +224,7 @@ class atWin(blankWindow):
         self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
                                   command = self._helpAbout)
         logger.debug("help menu build")
+
 
     def __addFileMenu(self):
         '''!
@@ -226,6 +241,7 @@ class atWin(blankWindow):
         self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
                                   command = self.__quit)
         logger.debug("file menu build")
+
 
     def __addEditMenu(self):
         '''!
@@ -257,6 +273,7 @@ class atWin(blankWindow):
                                   command = self.notdoneyet)
         logger.debug("edit menu build")
 
+
     def openParty(self):
         '''!
         This method reads a character party group file to self.partygrp
@@ -267,7 +284,7 @@ class atWin(blankWindow):
 
         try:
             with open(self.__partypath, "r") as fp:
-                # #@var self.__fullparty
+                ##@var self.__fullparty
                 # This is holding the full party data
                 self.__fullparty = json.load(fp)
             logger.info(f"{self.__partypath} was read")
@@ -284,6 +301,7 @@ class atWin(blankWindow):
             self.message.showinfo(f"{error}", "ERROR")
 
         # self.__prepareChars()
+
 
     def openEnemies(self):
         '''!
@@ -302,6 +320,7 @@ class atWin(blankWindow):
         self.__prepareNSCs()
 
    # def __getWeaponStrength(self,weapon="bs"):
+
 
     def __prepareNSCs(self, mode = "auto"):
         '''!
@@ -374,9 +393,9 @@ class atWin(blankWindow):
                 if len(melee[j]) == 2:
                     melee[j].insert(1, size)
 
-                # # add fumble number
+                ## add fumble number
                 # melee[j].append(int(self.weapontab[melee[j][0]]['fumble']))
-                # # add breakage number
+                ## add breakage number
                 # melee[j].append(int(self.weapontab[melee[j][0]]['breakage']))
 
                 melee[j].append(melee[j][0])
@@ -405,7 +424,7 @@ class atWin(blankWindow):
             self.enemygrp[i]["OB missile"] = missile
 
             if "weapon type" in self.enemygrp[i].keys():
-                # #@var wt
+                ##@var wt
                 # list of two lists: [0] contains melee weapon types and [1] missile weapon types
                 # they all will be stored in self.enemygrp
                 wt = self.enemygrp[i]["weapon type"].split("//")
@@ -479,6 +498,7 @@ class atWin(blankWindow):
         self.__chgImg(attackerpic = "", defenderpic = self.enemygrp[0]["piclink"])
         logger.info("__prepareNSCs: enemygrp set")
         logger.debug(f"__prepareNSCs: \n{pformat(self.enemygrp)}")
+
 
     def __prepareChars(self):
         '''!
@@ -639,6 +659,7 @@ class atWin(blankWindow):
         self.__updtAttckCombo()
         self.__updDefCombo()
 
+
     def sortList(self, mylist = [], key = 1):
         '''!
         Sorts reversely a list of lists/dictionaries by an index key of the elements.
@@ -648,11 +669,13 @@ class atWin(blankWindow):
         result = sorted(mylist, key = lambda k: k[key], reverse = True)
         return result
 
+
     def __quit(self):
         '''!
         This method closes the window
         '''
         self.window.destroy()
+
 
     def __prepareWL(self):
         '''!
@@ -719,6 +742,7 @@ class atWin(blankWindow):
             else:
                 self.weaponslisted.append(str(elem["item"]).strip("[]").replace("'", ""))
 
+
     def __rollInit(self):
         '''!
         This rolls the initiative
@@ -768,9 +792,11 @@ class atWin(blankWindow):
         self.__updDefCombo(None)
         self.__updtAttckCombo(None)
 
+
     def __resetCounter(self, event = None):
         self.combatround = 0
         self.cbround.set("Round \n0")
+
 
     def __rollAttack(self):
         '''!
@@ -779,6 +805,7 @@ class atWin(blankWindow):
         result, self.umr = Dice(rules = "RM")
         self.__atroll.set(result[0])
         self.checkFumble(rollresult = result[0], fumbletype = "weapon")
+
 
     def resultMethod(self, data = 10):
         self.fumbleroll = int(data)
@@ -792,6 +819,7 @@ class atWin(blankWindow):
 
         self.__displayCrit.delete("1.0", "end")
         self.__displayCrit.insert(END, "FUMBLE: " + self.fumbleresult)
+
 
     def checkFumble(self, rollresult = 5, fumbletype = "one-Handed arms"):
         """!
@@ -807,6 +835,7 @@ class atWin(blankWindow):
             self.fumblestat = True
             testRollWindow(rootwin = self, lang = self.lang, resultwidget = self.resultMethod)
 
+
     def __rollCrit(self):
         """!
         This method roles the dice for critical hits.
@@ -818,6 +847,7 @@ class atWin(blankWindow):
             result, self.umr = Dice(rules = "")
 
         self.__critroll.set(result[0])
+
 
     def checkBreakage(self, roll = 55, weapons = ["Broadsword", "Spear"]):
         '''!
@@ -859,6 +889,7 @@ class atWin(blankWindow):
 
         return broken
 
+
     def __chgImg(self, attackerpic = "./data/default/pics/default.jpg", defenderpic = "./data/default/pics/default.jpg"):
         '''!
         This method changes attacker's and defender's images when newly selected.
@@ -879,6 +910,7 @@ class atWin(blankWindow):
             self.picdefender = Image.open(defenderpic).resize((110, 110), Image.ANTIALIAS)
             self.picdefender = ImageTk.PhotoImage(self.picdefender)
             self.defcanvas.create_image((110, 110), image = self.picdefender, anchor = "se")
+
 
     def __findCombatant(self, name = "Egon", chklist = ["Egon"], result = "value"):
         """!
@@ -902,6 +934,7 @@ class atWin(blankWindow):
                     return pos
 
         return {"name":"Egon"}
+
 
     def __applyDamage(self, event = None):
         '''!
@@ -959,6 +992,7 @@ class atWin(blankWindow):
 
         self.__updDefCombo(event = None)
         self.__updtAttckCombo(event = None)
+
 
     def __updtAttckCombo(self, event = None):
         '''!
@@ -1029,6 +1063,7 @@ class atWin(blankWindow):
         self.__updOB(event = None)
         self.__updDefCombo(event = None)
 
+
     def __updDefCombo(self, event = None):
         '''!
         This method updates the list of the self.__defendCombo combobox and all
@@ -1078,6 +1113,7 @@ class atWin(blankWindow):
         self.__deathDefender.set(f"Death: {defend['status']['die']}")
         self.attackers = deepcopy(self.defenders)
         self.__updOB(event = None)
+
 
     def __nextRnd(self):
         '''!
@@ -1132,6 +1168,7 @@ class atWin(blankWindow):
 
         self.__rollInit()
 
+
     def __rmCombatant(self, name = ""):
         '''!
         This method removes combatants from self.initliast
@@ -1142,6 +1179,7 @@ class atWin(blankWindow):
             if name == elem["name"]:
                 self.initlist.remove(elem)
                 break
+
 
     def __getAttackType(self, event = None):
         '''!
@@ -1194,6 +1232,7 @@ class atWin(blankWindow):
         self.__selectOB.set(self.__oblist[0])
         self.__obCombo.config(values = self.__oblist)
         self.__updOB(event = None)
+
 
     def determineWeapon(self):
         """!
@@ -1289,6 +1328,7 @@ class atWin(blankWindow):
 
             logger.debug(f"distance mods set to:\n{json.dumps(self.distance)}")
 
+
     def getFumbleType(self):
         """!
         The determines the fumble type by the selected Attack type and skill.
@@ -1351,6 +1391,7 @@ class atWin(blankWindow):
 
         self.determineWeapon()
         self.ftype.set(self.fumbletype)
+
 
     def __updOB(self, event = None):
         '''!
@@ -1431,6 +1472,7 @@ class atWin(blankWindow):
 
         self.__calcMod(event = None)
 
+
     def __determineAT(self, obname = ""):
         """!
         This method delivers the fitting Attack Table to weapons which have not their own.
@@ -1445,6 +1487,7 @@ class atWin(blankWindow):
                 break
 
         return result
+
 
     def __calcMod(self, event = None):
         """!
@@ -1465,6 +1508,7 @@ class atWin(blankWindow):
         self.__skill.set(modob)
         self.__DB.set(moddb)
 
+
     def __applyHealing(self, event = None):
         """!
         This method applies healing to the combatant
@@ -1477,6 +1521,7 @@ class atWin(blankWindow):
         value = self.__healingpoints.get()
         self.initlist[at]["status"][key] += value
         self.__updtAttckCombo(event = None)
+
 
     def __applyHealingOthers(self, event = None):
         """!
@@ -1491,6 +1536,7 @@ class atWin(blankWindow):
         self.initlist[at]["status"][key] += value
         # self.__updtAttckCombo(event = None)
         self.__updDefCombo(event = None)
+
 
     def __buildWin(self):
         """!
@@ -1656,7 +1702,7 @@ class atWin(blankWindow):
 
         self.__selectType = StringVar()
         self.__selectType.set(attacktypes[self.lang][0])
-        # # @var self.__typeCombo
+        ## @var self.__typeCombo
         # This Combobox gives a selection of which type of attack is chosen:
         # - melee
         # - missile
@@ -1686,7 +1732,7 @@ class atWin(blankWindow):
 
         self.__selectOB = StringVar()
         self.__selectOB.set("Battle Axe")
-        # # @var self.__obCombo
+        ## @var self.__obCombo
         # This Combobox gives a selection of  offensive bonus/skill
         self.__obCombo = Combobox(self.window,
                         textvariable = self.__selectOB,
@@ -1714,7 +1760,7 @@ class atWin(blankWindow):
         self.healings = ["hits", "hits/rnd", "stunned", "ooo", "mod_total", "die"]
         self.__selectHeal = StringVar()
         self.__selectHeal.set(self.healings[1])
-        # # @var self.__healCombo
+        ## @var self.__healCombo
         # This Combobox gives a selection of  different type of healings during the battle
         self.__healCombo = Combobox(self.window,
                                    textvariable = self.__selectHeal,
@@ -1744,7 +1790,7 @@ class atWin(blankWindow):
 
         self.__selectAttacker = StringVar()
         self.__selectAttacker.set("Egon")
-        # # @var self.__attackCombo
+        ## @var self.__attackCombo
         # This Combobox gives a selection of attackers during the battle
         self.__attackCombo = Combobox(self.window,
                                       textvariable = self.__selectAttacker,
@@ -1795,7 +1841,7 @@ class atWin(blankWindow):
 
         self.__selectDefender = StringVar()
         self.__selectDefender.set("Anton")
-        # # @var self.__defendCombo
+        ## @var self.__defendCombo
         # This Combobox gives a selection of defenders during the battle
         self.__defendCombo = Combobox(self.window,
                                       textvariable = self.__selectDefender,
@@ -1839,13 +1885,13 @@ class atWin(blankWindow):
               text = labels["attack table"][self.lang] + ":",
               ).grid(column = 0, row = 10, sticky = "W")
 
-        # # @var self.atlist
+        ## @var self.atlist
         # List of names of Attack Tables
         self.atlist = list(self.attacktbls.keys())
         self.atlist.sort()
         self.__selectAT = StringVar()
         self.__selectAT.set(self.atlist[0])
-        # # @var self.__ATOptCombo
+        ## @var self.__ATOptCombo
         # This Combobox gives a selection of Attack Tables (weapons etc)
         self.__ATOpt = Combobox(self.window,
                                  values = self.atlist,
@@ -1902,7 +1948,7 @@ class atWin(blankWindow):
 
         self.__maxlvl = StringVar()
         self.__maxlvl.set("H")
-        # # @var self.__maxOpt
+        ## @var self.__maxOpt
         # This Combobox gives a selection of the maximum level of an attack
         self.__maxOpt = Combobox(self.window,
                                  values = ["S", "M", "L", "H"],
@@ -2028,6 +2074,7 @@ class atWin(blankWindow):
         vscroll.config(command = self.__displayCrit.yview)
         self.__displayCrit.grid(column = 0, columnspan = 12, row = 13, sticky = "NEWS")
 
+
     def setAmmo(self, event = None):
         """!
         This sets the ammo of a distance weapon
@@ -2043,6 +2090,7 @@ class atWin(blankWindow):
             skill = self.__selectOB.get()
             self.initlist[pos]["ammo"][skill] = newammo
             logger.debug(f"For {self.curr_attacker} set ammo[{skill}] to {newammo}")
+
 
     def updateRange(self, event = None):
         """!
@@ -2060,6 +2108,7 @@ class atWin(blankWindow):
             else:
                 self.__range.set("n/a")
                 self.__rangemod.set(-1000)
+
 
     def __nextAttacker(self, event = None):
         """!Gets the next attacker if any from the init list (on button click)"""
@@ -2086,6 +2135,7 @@ class atWin(blankWindow):
                 self.__selectAttacker.set(self.__attackCombo["values"][self.__pos])
                 self.__updtAttckCombo()
                 break
+
 
     def checkAttack(self):
         """!
@@ -2136,6 +2186,7 @@ class atWin(blankWindow):
                                                                         critc[self.attacktbls[self.__selectAT.get()].crittype][self.lang]))
             self.__selectCrit.set(critc[self.attacktbls[self.__selectAT.get()].crittype]["en"])
             self.__critType.set(self.attacktbls[self.__selectAT.get()].crit)
+
 
     def checkCrit(self):
         """!
@@ -2237,6 +2288,7 @@ class atWin(blankWindow):
         self.__displayCrit.delete("1.0", "end")
         self.__displayCrit.insert(END, result)
 
+
     def __setBGColor(self, attrib, bgcolor = "green", fgcolor = "black"):
         """!
 
@@ -2245,6 +2297,7 @@ class atWin(blankWindow):
         @param fgcolor foreground (text) color to set
         """
         attrib.config(bg = bgcolor, fg = fgcolor)
+
 
     def checkPhysicalCond(self, combatant, side = "defender"):
         """!
@@ -2257,7 +2310,7 @@ class atWin(blankWindow):
         ----
         @todo the long if-statements in this method have to be re-factored.
         """
-        # # @var condition_color
+        ## @var condition_color
         # this holds the physical condition as index and the resulting color as value.
         condition_color = {"die": "black",
                            "die_fg": "white",
@@ -2309,16 +2362,16 @@ class atWin(blankWindow):
                            "critical mod_fg": "black"
                           }
 
-        # # @var condition_color
+        ## @var condition_color
         # this variable holds the color name which shall be finally set when the physical
         # condition is determined.
         condbgcolor = condition_color["good"]
-        # # @var txtcolor
+        ## @var txtcolor
         # this hold the  text color to keep all readable.
         txtcolor = "black"
 
         logger.debug(f"check data: \n{json.dumps(combatant,indent=4)}")
-        # # @var hits
+        ## @var hits
         # this holds the remaining hit points in pecent
         hits = combatant['status']["hits"] / int(combatant["hits"]) * 100
 
@@ -2549,11 +2602,13 @@ class atWin(blankWindow):
             self.atcanvas.config(bg = condbgcolor)
 
 
+
 class enemySelector(blankWindow):
     '''
     This class opens a window to select different monsters or npcs from a data
     file (CSV). This selection
     '''
+
 
     def __init__(self, lang = "en", datapool = ""):
         '''
@@ -2561,16 +2616,16 @@ class enemySelector(blankWindow):
         @param datapool (path +) file where the default bestiarium is stored in.
         ----
         '''
-        # #\var self.lang
+        ##\var self.lang
         # display language
         self.lang = lang
-        # #\var self.datapool
+        ##\var self.datapool
         # path + file name of the default monster data file.
         self.datapool = datapool
-        # #\var self.selection
+        ##\var self.selection
         # a list of selected monsters/nscs (list of dictionaries)
         self.selection = []
-        # # \var self.fmaske
+        ## \var self.fmaske
         # file extension mask for "file open" window.
         self.fmaske = [txtwin['enemygrp_files'][self.lang],
                      txtwin['all_files'][self.lang]]
@@ -2582,6 +2637,7 @@ class enemySelector(blankWindow):
         self.__addHelpMenu()
         self.__buildWin()
         self.window.mainloop()
+
 
     def __addFileMenu(self):
         '''!
@@ -2596,6 +2652,7 @@ class enemySelector(blankWindow):
         self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
                                   command = self.__quit)
         logger.debug("__addHelpMenu: file menu build")
+
 
     def __addEditMenu(self):
         '''!
@@ -2614,6 +2671,7 @@ class enemySelector(blankWindow):
         self.editmenu.add_command(label = submenu['edit'][self.lang]["ed_mod_enemy"],
                                   command = self.notdoneyet)
 
+
     def __addHelpMenu(self):
         """
         This methods defines a help menu.
@@ -2627,11 +2685,13 @@ class enemySelector(blankWindow):
                                   command = self._helpAbout)
         logger.debug("__addHelpMenu: help menu build")
 
+
     def getSelection(self):
         '''
         getter method for selection of npcs/monsters
         '''
         return self.selection
+
 
     def __quit(self):
         '''!
@@ -2639,17 +2699,18 @@ class enemySelector(blankWindow):
         '''
         self.window.destroy()
 
+
     def openNPCs(self):
         """
         This method opens a file of npc/monstaer data for read out.
         """
-        # # \var self.__npcpath
+        ## \var self.__npcpath
         # path+ file name of selected data file
         self.__npcpath = askopenfilename(filetypes = self.fmaske, defaultextension = "*.csv", initialdir = os.getcwd())
         logger.debug(f"openNPCs: chosen npc/monster group file {self.__npcpath}")
 
         if self.__npcpath[-4:].lower() == ".csv":
-            # #\var self.npcgrp
+            ##\var self.npcgrp
             # content of npc/monster file (csv)
             self.npcgrp = readCSV(self.__enemypath)
             logger.info(f'openNPCs: {self.__enemypath} read successfully.')
@@ -2660,6 +2721,7 @@ class enemySelector(blankWindow):
 
         pass
 
+
     def __buildWin(self):
         """
         This method build the window with all elements
@@ -2668,6 +2730,7 @@ class enemySelector(blankWindow):
         @todo has to be fully implemented
         """
         pass
+
 
 
 if __name__ == '__main__':

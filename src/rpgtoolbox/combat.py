@@ -13,7 +13,7 @@ This module holds everything needed to handle melee/ranged/magical combat
 @version 0.5
 '''
 __version__ = "0.5"
-__updated__ = "06.12.2023"
+__updated__ = "11.05.2024"
 __me__ = "rpgtoolbox.combat"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
@@ -512,7 +512,13 @@ class crittable():
         @param weapontype type of weapon: normal, magic, Mithril, holy
         """
         self.crithit = {}
-        logger.debug("self.crithit initalized.")
+        logger.debug("self.crithit initialized.")
+        self.supercrit = {"F": ["E", "A"],
+                          "G": ["E", "B"],
+                          "H": ["E", "C", "A"],
+                          "I": ["E", "D", "B"],
+                          "J": ["E", "D", "C"]
+                          }
 
         if crit in self.crittable.keys():
             klist = list(self.crittable[crit].keys())
@@ -528,6 +534,39 @@ class crittable():
                     self.crithit = self.crittable[crit][str(klist[idx])].copy()
                     break
 
+        elif crit in self.supercrit.keys():
+            klist = list(self.crittable[crit].keys())
+
+            for scrit in self.supercrit[crit]:
+
+                for i in range(0, len(klist)):
+                    klist[i] = int(klist[i])
+
+                klist.sort()
+
+                for idx in range(0, len(klist)):
+
+                    if roll <= klist[idx]:
+                        self.crithit = self.crittable[crit][str(klist[idx])].copy()
+                        break
+
+                roll = dice(100, 1)
+            pass
+#{'alternate': {},
+# 'cover': '',
+# 'damage_type': 'muscle',
+# 'description': 'You wound foe in hip. Strike strips equipment from right side '
+#                'of waist',
+# 'die': -1,
+# 'hits': 0,
+# 'hits/rnd': 2,
+# 'mod': {'mod': 0, 'rnd': 777600},
+# 'mod_attacker': {'mod_attacker': 0, 'rnd': 777600},
+# 'no_parry': 0,
+# 'ooo': 0,
+# 'parry': 0,
+# 'stunned': 1}
+            #----- XXXXXXXXXXXXXXXXXXXXX
         elif weapontype in self.crittable.keys():
             klist = list(self.crittable[weapontype].keys())
 
@@ -542,15 +581,15 @@ class crittable():
                     break
 
         logger.debug(f"result critical hit:\n{json.dumps(self.crithit)}")
-    #    self.showResult()
-    #
-    #
-    #def showResult(self):
-    #    """!
-    #    This just prints out the result to stdout
-    #    """
-    #    print("Result")
-    #    pprint(self.crithit)
+        self.showResult()
+
+
+    def showResult(self):
+        """!
+        This just prints out the result to stdout
+        """
+        print("Result")
+        pprint(self.crithit)
 
 
 
