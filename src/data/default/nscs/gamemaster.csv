@@ -5,8 +5,10 @@ Animals,Rat,1,20,1,10,0,S,20 T Bi/20 S Bi,0xx,0xx/24 Fb,30,20,"The rat family pr
 
 
 
+
 ",2-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/giant_rat.png,,
 Apsanakuni (Meat-Eaters),Black Bears,5,4,8,150,0,L,65 L Gr/60 L Cl/40 M Bi/70 M Ba,0xx,0xx,20,0,"Agressive, noctual Hunters
+
 
 
 
@@ -25,8 +27,353 @@ Apsanakuni (Meat-Eaters),Sheep Hounds,5,12,4,140,0,M,80 M Bi,0xx,0xx,55,0,"Mones
 
 
 
+
 ",1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/grey_wolf.jpg,,
+Campagne Hogo Tarosvan,Baen Naeld,1,5,1,10,0,M,10 H cl,0xx,0xx,10,10,"
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Baen_Naeld.jpeg,,
+Campagne Hogo Tarosvan,Baega,1,20,1,10,0,S,10 M cl,10 sl,0xx,15,15,"
+
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Braega.jpeg,,
+Campagne Hogo Tarosvan,Brem,1,10,1,20,0,M,20 H cl,15 sl,0xx,20,20,"
+
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Brem.jpeg,,
+Campagne Hogo Tarosvan,Briannon,1,10,1,20,0,M,20 H cl,15 sl,0xx,20,20,"
+
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Briannon.jpeg,,
+Campagne Hogo Tarosvan,Brunwen,1,10,1,20,0,M,20 H cl,15 sl,0xx,20,20,"
+
+
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Brunwen.jpeg,,
+Campagne Hogo Tarosvan,Caradog,1,5,1,10,0,M,10 H cl,0xx,0xx,10,10,"Der Vater von Miren
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Caradog.jpeg,,
+Campagne Hogo Tarosvan,Celebriel,1,10,1,29,1,M,20 H ss,0xx,0xx,5,5,"Dieser junge (1. Ivl) Dunadan-Heilerin (Animist) wurde entführt beim Sammeln von Kräutern in der Nähe der Gräberfelder auf dem Blauen Butte, direkt über den sieben Mündungen von Hogo Tarosvan.
+Neugierig und rebellisch, ignorierte sie die Warnungen ihrer Tante Tante und ihres Bruders und schlüpfte in den kühlen Nebel der Nacht. Sie wird in einer Woche oder so ""getestet"" werden.
+Celebriel hat hellbraunes Haar, graue Augen und eine sternförmige Narbe auf ihrer linken Wange. Ihr spitzenbesetzter Rock, ihr goldener Umhang und ihre lyrische Sprache zeugen von einem besonderen Sinn für Unpraktikabilität. Sie ist nicht besonders zuverlässig, aber einzigartig und seltsam liebenswert.
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/celebriel.jpeg,,
+Campagne Hogo Tarosvan,Cigfa,1,20,1,10,0,M,10 M cl,10 sl,0xx,15,15,"
+
+
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/cigfa.jpeg,,
+Campagne Hogo Tarosvan,Chaen,1,20,1,10,0,M,10 H cl,10 sl,0xx,,15,"Thebos Sohn
+
+
+
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Chaen.jpeg,,
+Campagne Hogo Tarosvan,Dervorin,2,5,1,40,0,M,47 H bs,0xx,0xx,10,10,"
+
+Dieser (2. Ivl) Waldläufer ist ein neuer Bewohner von Hogo Tarosvan. Er ist ein 6'2"" großer Dunadan, der vor vier Monaten überwältigt (es waren vier Gefangene nötig) und hierher gebracht wurde. Seine Frau, sein Vater und sein Sohn wurden in dem darauf folgenden Gefecht getötet, was Shoglic verärgerte (der lebende Gefangene verlangt).
+Dervorin erfuhr nie das Schicksal seiner Familie und wurde bewusstlos vor den Alten Mann der Schlucht gebracht. Er bestand die Prüfung und und schon sieht Dervorin ein wenig hager aus und seine Augen leuchten mit der religiösen Inbrunst des Volkes von Shoglic.
+
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/dervorin.jpeg,,
+Campagne Hogo Tarosvan,Dian,1,5,1,10,0,M,10 H cl,0xx,0xx,10,10,"Frau von Orvig
+
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Dian.jpeg,,
+Campagne Hogo Tarosvan,Emaka,1,15,1,15,0,M,15 H cl,15 sl,0xx,15,15,"
+
+
+
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Emaka.jpeg,,
+Campagne Hogo Tarosvan,Geymun,1,5,1,10,0,M,10 H cl,0xx,0xx,10,10,"
+
+
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Geymun.jpeg,,
+Campagne Hogo Tarosvan,Goewin,1,10,1,20,0,M,20 H cl,15 sl,0xx,20,20,"
+
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/goewin.jpeg,,
+Campagne Hogo Tarosvan,Goewin,1,10,1,20,0,M,20 H cl,15 sl,0xx,20,20,"
+
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/,,
+Campagne Hogo Tarosvan,Gwun,1,5,1,10,0,M,10 H cl,0xx,,10,10,"Mutter von Thebo
+
+
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Gwun.jpeg,,
+Campagne Hogo Tarosvan,Gwydeth,1,15,1,15,0,M,15 H cl,15 sl,,15,15,"
+
+
+
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Gwydeth.jpeg,,
+Campagne Hogo Tarosvan,Haega,1,20,1,10,0,M,10 M cl,10 sl,,15,15,"
+
+
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Haega.jpeg,,
+Campagne Hogo Tarosvan,Hescen,1,1,1,15,0,M,15 H cl,15 sl,,15,15,"Tochter von Goewin
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/hescen.jpeg,,
+Campagne Hogo Tarosvan,Hwen,1,10,1,20,0,M,20 H cl,15 sl,,20,20,"Frau von Leu
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Hwen.jpeg,,
+Campagne Hogo Tarosvan,Is Coed,1,10,1,20,0,M,20 H cl,15 sl,,20,20,"
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/ISCoed.jpeg,,
+Campagne Hogo Tarosvan,Kollan,1,10,1,20,0,M,20 H cl,15 sl,0xx,20,20,"Sohn von Orvig
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Kollan.jpeg,,
+Campagne Hogo Tarosvan,Leu,1,10,1,20,0,M,20 H cl,15 sl, 0xx,20,20,"
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Leu.jpeg,,
+Campagne Hogo Tarosvan,Mey,1,15,1,15,0,M,15 H cl,15 sl,0xx,,,"Tochter von Therbo
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Mey.jpeg,,
+Campagne Hogo Tarosvan,Miren,1,10,1,20,0,M,20 H cl,15 sl,0xx,20,20,"
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Miren.jpeg,,
+Campagne Hogo Tarosvan,Orden,1,20,1,10,0,M,10 M cl,10 sl,0xx,15,15,"Sohn von Teycor (Zwilling)
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Orden_Gwawl2.jpeg,,
+Campagne Hogo Tarosvan,Orvig,6,5,9,32,6,M,44 H wh,47 lb,0xx,10,10,"+10 wh,+5 lb, +2 Spelladder
+
+Orvig kann seinen Gott jederzeit sehen, wenn er es will. Was könnte sich ein Priester mehr wünschen? Als Animist (6. Ivl) sind Orvig und sein Sekundant Scoel von der Gegenwart ihres Gottes so beseelt, dass sie Schmerzen (Betäubungsergebnisse) ignorieren, wenn sie in Sichtweite von Shoglic kämpfen.
+Orvig ist einer der ältesten Bewohner von Hogo Tarosvan und dient als Hohepriester des Shoglic-Kultes. Er trägt standesgemäße Kleidung: lange, dunkelblaue Wollgewänder mit grauem Lederbesatz, einen schwarz-blau karierten Umhang und feine Kalbslederschuhe. Seine vollständig tätowierte Haut weist Blau- und Grüntöne auf, die in den Falten und Runzeln seines verwitterten Gesichts noch dunkler werden. Wie seine Vorfahren bleicht er sein Haar mit einer Laugenmischung, so dass es ihm zu Berge steht. Dies verleiht ihm die Illusion einer größeren Körpergröße (1,90 m, obwohl er in Wirklichkeit 1,90 m groß ist).
+Orvig trägt einen Kriegshammer mit Knochengriff (+10) und einen passenden Dolch (+10) bei sich, die er beide gut werfen kann. Auf der Jagd trägt er einen (+ 5) Langbogen, die beste Bogenwaffe, die die Dorfbewohner benutzen. Er wird wird jedoch alt und zieht es vor, sich außer bei saisonalen Zeremonien in der Nähe des Butte, außer bei saisonalen Zeremonien.
+
+Orvig heiratete in seiner Jugend, aber seine Frau starb im Kindbett. Ihr Vermächtnis waren drei Töchter und der magische Ring Claenadh. Der Ring hat nur zwei Kräfte, aber die sind wahrlich überwältigend. Der Träger kann sieben Mal am Tag unsichtbar werden (bis zu sieben Minuten lang). Dreimal am Tag (für bis zu drei Runden und niemals weniger als eine Runde pro Anwendung) kann der Träger in einen Geist verwandelt werden, ohne Substanz und ohne Angst vor Schaden durch feste Gegenstände. Beide Kräfte wirken sofort auf Kommando, und Orvig hat sie mit großer Wirkung eingesetzt.
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/orvig.jpeg,,
+Campagne Hogo Tarosvan,Pesc,1,10,1,20,0,M,20 H cl,15 sl,0xx,20,20,"Thebos Sohn
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/pesc.jpeg,,
+Campagne Hogo Tarosvan,Pwedh,1,15,1,15,0,M,15 H cl,15 sl,0xx,15,15,"Goewins Sohn
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/pwedh.jpeg,,
+Campagne Hogo Tarosvan,Scoel,4,5,13,78,0,M,81 H sp,69 sb/69 sp,0xx,10,10,"Scoel ist ein einarmiger Dunman von außergewöhnlicher Größe (5'11"") und Stärke. Als (4. Ivl) Krieger ist er der Aufseher über die Waffen und Leutnant von Orvig. Er ist rücksichtslos, leicht zu verärgern und spielt mit Kranken, Gebrechlichen oder Behinderten. Scoel ist der Meinung, dass andere ihre Probleme so überwinden sollten, wie er es getan hat, und leidet nicht unter der Sorge.
+Scoels Handicap stört ihn nicht. Er kann problemlos einen Speer schwingen und besitzt sogar einen modifizierten Kurzbogen, den er mit seinem Arm, Armstumpf und Zähnen bedient. Seine Fähigkeit, Waffen zu werfen, ist unheimlich und selbst im Wasser oder auf unebenem Terrain ist er ein gefährlicher Gegner. Scoel trägt immer schwarz.
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/scoel.jpeg,,
+Campagne Hogo Tarosvan,Shauc,1,10,1,20,0,M,20 H cl,15 sl,0xx,20,20,"Sisias Mann
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Shauc.jpeg,,
+Campagne Hogo Tarosvan,Shoglic,8,40,1,81,24,M,85 H ha/85 H ma/25 H Ba,0xx,0xx,100,100,"+15ha,+15 Shield, Crown: 30% negates Head Crit
+
+Shoglic ist ein Geist, ein untoter Animist (Lvl 8). Jahrhunderte der Anbetung und lebendiger Opfer haben Shoglic zu einem Gott gemacht außer in der Tat.
+Die besonderen Kräfte des Geisterpriesters sind Legion. Er ist in der Lage 2 Runden überall in seiner Höhle zu bewegen, kann der Geisterpriester jeden seiner seine klerikalen Zaubersprüche anwenden, als wäre er 14. seit seinem Tod keine Zauber mehr gelernt hat, kennt Shoglic keine Zauber über der 10. Stufe). Da er ein Geist und ohne physische Substanz ist, kann er kann er nach Belieben sichtbar und unsichtbar werden (mit 1 Rd. Konzentration); dennoch kann er kann jedoch (durch Telekinese) Gegenstände von bis zu 50 Pfund Gewicht aufheben.
+
+Der Herr von Hogo Tarosvan ist eine furchterregende Erscheinung. Solange er sichtbar ist, müssen alle Personen im Umkreis von drei Metern einen RR machen oder in eine handlungsunfähige Trance fallen (für 1-100 Rds). Dann kann Shoglic bis zu fünf Konstitutionspunkte des Opfers pro Runde abziehen. Indem er einem Gegner in die Augen starrt (und sich konzentriert), kann der Geisterpriester ihn kontrollieren (01-100
+RR-Fehler) oder sogar sein Opfer fallen (101 + RR-Fehler).
+Shoglic kann auch seine Größe verändern (zwischen 5 und 9 Fuß hoch). Er manifestiert sich normalerweise als ein sieben Fuß großer Daen Coentis mit edlen Gesichtszügen, gekleidet in eine blaue Robe, die die Farbe des Felsens nachahmt, in dem er residiert. Sein Haupt, ein nackter Schädel, ist mit einer Krone aus Glasmain geschmückt. Wenn erweckt wird, wächst er auf eine Höhe von neun Fuß und seine magische Krone wird zu einem feurigen Helm. Er ignoriert Betäubungs- oder Blutungsschaden, unabhängig von seiner Veranlagung.
+Shoglic trägt eine flammende (+15) Axt und einen glühenden (+15) Schild aus Glasmain. Diese führt er mit der fließenden Anmut, die einem mächtigen Ghost gebührt. Außerdem trägt er einen Dolch und einen Streitkolben (die beide Elfen und Erze töten). Selbst wenn er von diesen Waffen isoliert ist (bis zu fünfzehn Meilen), kann er die magische Essenz herbeirufen und mit diesen Eigenschaften so zuschlagen, als ob er die Gegenstände selbst in der Hand hätte (z. B. kann er das verzauberte Feuer der Axt nutzen, obwohl die physische Waffe woanders ist und er nicht mit der Klinge zuschlagen kann).
+
+Trotz seiner großen Macht hat Shoglic keine Ahnung, woher er kommt. Seine Erinnerungen sind für immer in den schattenhaften Nebeln der Vergangenheit verloren. In seiner eigenen Vorstellung bleibt er ein Gott und Meister des Volkes hinter den Phantomtüren.
+
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Shogelic.jpeg,,
+Campagne Hogo Tarosvan,Sisia,1,10,1,20,0,M,20 H cl,20 sl,0xx,20,20,"Priesterin des Shoglic
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Sisia.jpeg,,
+Campagne Hogo Tarosvan,Coelmun,1,15,6,30,0,M,47 H ss,10 sb,0xx,30,30,"Coelmun ist ein Kundschafter (1. Ivl), der derzeit mit der Bewachung von Gefangenen betraut ist. Er ist recht aufgeweckt, stottert aber und hat ein ausgeprägtes Zucken. Seine kleine Statur (5'4"") und seine seltsame Kleidung machen ihn zum Gegenstand erheblichen Spottes. Scoel beschimpft ihn häufig.
+Coelmun trägt eine gelbe Hose und ein lila Hemd, beides verziert mit braunen Lederspiralen. Mit einem leuchtend roten Lederschild Lederschild (in Form einer gewundenen Schlange), den er sich über den Rücken gibt er einen guten Anblick ab.
+Coelmun hat sich in Celebriel verliebt, obwohl die Gefühle offenbar nicht auf Gegenseitigkeit beruhen.
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/coelmun.jpeg,,
+Campagne Hogo Tarosvan,Teycor,1,10,1,20,0,M,20 H cl,20 sl,0xx,20,20,"Priester
+
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Teycor.jpeg,,
+Campagne Hogo Tarosvan,Thebo,4,20,14,72,0,M,100 H wh,89 wh,0xx,60,60,"Häuptling, +10wh,+5shield
+
+Thebo ist Scoels extravaganter Rivale und Anführer der Dunmen von Hogo Tarosvan. Mit seinen leuchtend grün karierten Leggings und dem orangefarbenen Haarhemd ist er unverwechselbar. Als einer der wenigen dieses kleinen hinterwäldlerischen Stammes, der so etwas wie ein Krieger ist, ist Thebo von dem Stolz eines jeden Sterblichen erfüllt, der weiß, dass alle seine Handlungen von seinem Gott persönlich gebilligt werden. Erfahren (4. Ivl) in der Kriegskunst, führt er Einsätze in der nahen Umgebung durch.
+Diese Aufgaben befriedigen seinen Blutdurst, doch Thebo strebt nach einer höheren Position. Der Krieger zweifelt nicht daran, dass er der beste verfügbare Mann ist, um die Dorfbewohner anzuführen, und möchte sowohl Häuptling als auch Hohepriester werden. Er glaubt, dass Scoel zu alt und verkrüppelt ist, um Shoglic richtig zu dienen, und was Orvig betrifft, so hat Thebo wenig übrig für priesterliche Mätzchen, wenn sein Gott anwesend ist. Seit einem Jahr plant er im Stillen den Sturz seiner Rivalen, und er wird jeden Vorwand, jeden Aufruhr nutzen, um seinen Plan zu verbergen.
+
+
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Thebo.jpeg,,
+Campagne Hogo Tarosvan,Wydan,1,10,1,20,0,M,20 H cl,15 sl,0xx,20,20,"Teycors Frau
+
+
+
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/wydan.jpeg,,
 Campagne Minas Anghen,Friwihn,3,0,6,48,0,M,45 H ha,35 da,0xx,10,0,"
+
 
 
 
@@ -39,6 +386,7 @@ Campagne Minas Anghen,Friwihn,3,0,6,48,0,M,45 H ha,35 da,0xx,10,0,"
 
 ",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/halunke4.png,,
 Campagne Minas Anghen,Hannuka,3,0,6,48,0,M,45 H da,39 da,0xx,10,0,"
+
 
 
 
@@ -69,8 +417,10 @@ Campagne Minas Anghen,Morgu,6,5,8,89,0,M,78 H ss,67 da,0xx,35,0,"
 
 
 
+
 ",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/halsabschneider1.png,,
 Campagne Minas Anghen,Wihnuk,4,0,7,58,0,M,65 H ha,56 da,0xx,30,0,"
+
 
 
 
@@ -90,8 +440,10 @@ Campagne Minas Anghen,Coerba,4,15,10,64,0,M,78 H bs,72 cb/72 da,0xx,60,25,"Urban
 
 
 
+
 ",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/coerba.png,,
 Campagne Minas Anghen,Sunil,4,10,7,57,0,M,87 H ha,55 sb,0xx,55,25,"
+
 
 
 
@@ -115,6 +467,7 @@ Lesser Dunadan, Female, +15 qs, 54 PP, Awareness 1000’r 3x/day, Crown x3 PP, +
 
 
 
+
 ",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/niniel_ghost2.png,Channeling Closed/Symbolic Ways:12;Channeling Closed/Locating Ways:12;Channeling Closed/Creations:12;Channeling Open/Barrier Law:12;Channeling Open/Spell Defense:12;Channeling Open/Detection Mastery:12,
 Campagne Minas Anghen,Gorghiric,5,15,9,26,5,m,10 H da,30 lb,0xx,10,0,"Northman, 5 PP, +2 spell adder, 10 Rewk, 1 Edram.
 
@@ -123,8 +476,10 @@ Campagne Minas Anghen,Gorghiric,5,15,9,26,5,m,10 H da,30 lb,0xx,10,0,"Northman, 
 
 
 
+
 ",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Gorghiric.png,Base List Cleric/Channels:5;Base List Cleric/Summons:5,
 Campagne Minas Anghen,Duoveris Cleg,5,5,10,40,10,M,59 H sp,34 sb,0xx,15,0,"Rural Man, +10 sb, 10 PP, +1 spell adder, Belt of Presence 1x/day, 1 Kathkusa.
+
 
 
 
@@ -139,8 +494,10 @@ Campagne Minas Anghen,Gaem Wulsen,1,10,1,18,0,M,29 H bs,15 sb,0xx,20,15,"Rural M
 
 
 
+
 ",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Gaem.png,,
 Campagne Minas Anghen,Eriel,4,5,1,21,16,M,10 H da,30 sb,0xx,20,0,"Rural Woman, 16 PP, x2 multiplier, Cloak of Invisibility 1x/day
+
 
 
 
@@ -153,8 +510,10 @@ Campagne Minas Anghen,Forlong,2,20,1,31,0,M,20 H bs,10 cb,0xx,15,0,"Mixed Man, l
 
 
 
+
 ",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/rich_trader.jpg,,
 Campagne Minas Anghen,Dagnir,1,10,9,31,0,M,35 H bs,0xx/30 cb,0xx,55,25,"
+
 
 
 
@@ -166,8 +525,10 @@ Campagne Minas Anghen,Gorlim,1,5,13,28,0,M,40 H fa,0xx,0xx,40,20,"
 
 
 
+
 ",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/rogue03.jpg,,
 Campagne Minas Anghen,Vagor,1,10,10,30,0,M,35 H ha,0xx,0xx,45,20,"
+
 
 
 
@@ -178,8 +539,10 @@ Campagne Minas Anghen,Pwyll,1,10,9,31,0,M,35 H bs,0xx,0xx,45,20,"
 
 
 
+
 ",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/rogue04.jpg,,
 Campagne Minas Anghen,Hirgon,1,5,7,27,0,M,40 H sc,0xx,0xx,40,20,"
+
 
 
 
@@ -189,13 +552,16 @@ Campagne Minas Anghen,Dirhavel,1,10,14,30,0,M,45 H pa,20 sb,0xx,35,20,"
 
 
 
+
 ",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/rogue08.jpg,,
 Campagne Minas Anghen,Treva,1,10,1,14,0,M,15 H ss,0xx,0xx,15,0,"Kitchen Maid
+
 
 
 ",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Treva.jpg,,
 Campaign Setmaenen,Haedric,4,10,1,32,8,M,20 H da,20 sb,,20,0,"
 Lesser Dunadan, +2 spell adder,Ring +10 to Runes, 2 Mirenna, +5
+
 
 
 
@@ -371,24 +737,33 @@ Orcs,Uruk,5,0,20,86,0,M,90 bs,90 cb,0xx,50,50,"They can move in sunlight.
 
 
 
-",2-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Urukhai.jpg,,
-Party,Fonlon,1,5,5,35,0,M,20 H da,45 sl,0xx,20,0,"
 
-Servant of Party, stable boy
+",2-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Urukhai.jpg,,
+Party,Fonlon,1,5,5,35,0,M,20 H da,45 sl,0xx,20,0,"Servant of Party, stable boy
+
+
+
 
 
 
 
 ",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/stable_boy.png,,
-Pukel-Creatures,Pukel-men,15,0,16,150,0,L,90 H cl/60 H Ba,0xx,,25,25,"Stone man
+Pukel-Creatures,Pukel-men,15,0,16,150,0,L,90 H cl/60 H Ba,0xx,0xx,25,25,"Stone man
+
+
+
 ",1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/puckelman.jpg,,
 Trolls,Stone Troll,7,0,11,120,0,L,80 L Ba/65 L Cl/49 cl,0xx,0xx,15,0,"Turn to stone in direct sunlight
 
 
 
 
+
+
 ",1-5,,sunlight;die:6;ooo:6,/home/mongol/git/rpg-tools/src/data/default/pics/newhero.jpg,,
 Undead Beings,Warg,8,16,4,180,0,L,90 L Bi/60 M Ba/75 M Bi,0xx,0xx,55,0,"
+
+
 
 
 
@@ -402,8 +777,12 @@ Undead Beings,Wight,7,0,2,100,0,L,100 bs/55 M Ba,0xx,0xx,75,25,"
 
 
 
+
+
 ",1-5,stunned;hits/rnd;mod,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/wight.jpg,,
 Undead Beings,"Skeletons, minor",1,0,1,25,0,M,25 H bs/40 M Ba,0xx,0xx,10,0,"
+
+
 
 
 
@@ -427,6 +806,8 @@ Undead Beings,"Skeletons, lesser",3,,1,55,0,M,40 H ha/70 M Ba,0xx,0xx,30,4,"
 
 
 
+
+
 ",1-10,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/skeleton_swamp.jpg,,
 Undead Beings,"Skeletons, greater",5,8,1,100,0,M,50 H bs/60 M Ba,0xx,0xx,30,0,"
 
@@ -435,8 +816,15 @@ Undead Beings,"Skeletons, greater",5,8,1,100,0,M,50 H bs/60 M Ba,0xx,0xx,30,0,"
 
 
 
+
+
+
 ",1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/skeleton_swamp.jpg,,
 Undead Beings,Skeleton Lord,8,12,1,135,30,M,95 H bd2/70 L Ba,0xx,0xx,70,0,"Attacks also with spells
+
+
+
+
 
 
 
