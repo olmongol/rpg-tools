@@ -32,6 +32,7 @@ import re
 import pickle
 from PIL import Image, ImageTk
 from rpgtoolbox import logbox as log
+from PIL import Image, ImageTk
 
 logger = log.createLogger('global', 'debug', '1 MB', 1, './log' , 'epcalcwin.log')
 
@@ -869,8 +870,10 @@ class manWin(object):
             self.skilllabel.config(text = "")
 
             for skill in self.character["cat"][self.category]["Skill"].keys():
+
                 if skill not in ["Progression", "Stats"] and skill[-1] != "+":
                     self.skilllb.insert(END, skill)
+
                 else:
                     print("-->".format(skill))
 
@@ -879,9 +882,12 @@ class manWin(object):
         Getting selected Skill
         '''
         selskill = self.skilllb.curselection()
+
         if selskill != ():
             self.skill = self.skilllb.get(selskill[0])
             self.skilllabel.config(text = self.skill)
+
+        logger.debug(f"selelcted skill {self.skill}")
 
     def _getMan(self, event):
         '''
@@ -889,10 +895,12 @@ class manWin(object):
         '''
 
         selman = self.manlb.curselection()
+
         if selman != ():
             self.man = self.manlb.get(selman[0])
             self.manlabel.configure(text = self.man)
-        print("{} - {} - {}".format(self.category, self.skill, self.man))
+
+        logger.debug(f"maneuver: {self.category} - {self.skill} - {self.man}")
 
     def _rollDice(self):
         '''!
@@ -904,6 +912,7 @@ class manWin(object):
 
         if self.result[1] == []:
             self.diceroll.set(str(self.result[0][0]))
+
         else:
             self.diceroll.set("um {}".format(self.result[1][0]))
 
@@ -925,22 +934,26 @@ class manWin(object):
 
         if self.category:
             skilladd = self.character["cat"][self.category]["total bonus"]
+            logger.info("total category bonus added")
+            logger.debug(f"{self.category}: {skilladd}")
 
             if self.skill:
                 skilladd = self.character["cat"][self.category]["Skill"][self.skill]["total bonus"]
+                logger.info("total skill bonus added")
+                logger.debug(f"{self.skill}:{skilladd}")
 
         mod = self.mod.get()
         man = maneuvers[self.man]["mod"]
         self.total += skilladd + mod + man
 
-        if "Spell" not in self.category:
+        if "Spell" not in self.category or "Runes" in self.skill:
             self.probe = self.mantab.checkRoll(self.total)
             logger.debug(f"non-spell result: {self.probe} ")
-            print(f"non-spell result: {self.probe} ")
+
         else:
             self.probe = self.spelltab.checkRoll(self.total)
             logger.debug(f"spell result: {self.probe} ")
-            print(f"spell result: {self.probe} ")
+
         self._updTotal()
 
     def _updTotal(self):
