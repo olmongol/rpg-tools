@@ -22,16 +22,20 @@ This tool handles
 @todo the following has to be implemented
 - improvement of GUI
 - button & Window for more detailed information about the item (Pictures and description etc)
+- count of number item to summarize them into one entry --> calculate total weight of each bunch
+-- summarize globally
+-- summarize to specific "pile size", e.g. arrows at bunches of 20
+-- split a pile into bunches
+- automatically add generated items to the shops general item lists if not found in there.
 
 '''
-from PIL import Image, ImageTk
-from pprint import pprint
-from tkinter import filedialog
-from tkinter.ttk import *
 import json
 import os
+from pprint import pprint
 import random
 import re
+from tkinter import filedialog
+from tkinter.ttk import *
 
 from gui.window import *
 from gui.winhelper import AutoScrollbar
@@ -43,15 +47,15 @@ from rpgtoolbox import logbox as log
 from rpgtoolbox.confbox import *
 from rpgtoolbox.latexexport import inventory
 from rpgtoolbox.rolemaster import realms, spellists
+from PIL import Image, ImageTk
 
-__updated__ = "21.06.2024"
+__updated__ = "03.07.2024"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __version__ = "1.1.0"
 
 mycnf = chkCfg()
 logger = log.createLogger('inventory', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "inventory.log")
-
 
 
 class InventoryWin(blankWindow):
@@ -296,7 +300,7 @@ class InventoryWin(blankWindow):
                      pady = 1,
                      sticky = "EW"
                      )
-        #row 4
+        # row 4
         Label(self.window,
               text = charattribs['carr_weight'][self.lang] + " (lbs):"
               ).grid(column = 2,
@@ -358,7 +362,7 @@ class InventoryWin(blankWindow):
         ----
         @todo add fallback if image not found
         '''
-
+        from PIL import Image, ImageTk
         for elem in self.filterlist:
 
             if elem == "piclink":
@@ -368,7 +372,10 @@ class InventoryWin(blankWindow):
                     self.picLabel.config(image = self.wcont[elem])
 
                 else:
-                    self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.ANTIALIAS))
+                    img = Image.open(self.character[elem])
+                    rez_img = img.resize((210, 210), Image.LANCZOS)
+                    self.wcont[elem] = ImageTk.PhotoImage(rez_img)
+                    # self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.ANTIALIAS))
 
             elif type(self.character[elem]) == type(""):
 
@@ -450,7 +457,7 @@ class InventoryWin(blankWindow):
 
         unequipped = ["", "unequipped", "transport"]
         carried = 0.0
-        #transports are no weight
+        # transports are no weight
         if "idxtransport" in self.character.keys():
             for elem in self.character["idxtransport"]:
                 if elem["name"] not in unequipped:
@@ -484,7 +491,7 @@ class InventoryWin(blankWindow):
 
 
     def idxContainerTransport(self):
-        """
+        """!
         This makes an index for container and transport type items.
         """
         self.containers = []
@@ -536,6 +543,50 @@ class InventoryWin(blankWindow):
         self.transpnamelist.sort()
 
 
+    def getItemBonus(self):
+        """!
+        This function runs through the inventory and adds equipped item boni to categories and skills
+        """
+        itemcats = ("armor", "constant item", "daily item", "gear", "gems", "weapon")
+        for category in itemcats:
+
+            for elem in self.character['inventory'][category]:
+
+                if "location" in elem.keys():
+
+                    if elem["location"] == "equipped" and "skill" in elem.keys() and "bonus" in elem.keys():
+
+                        if elem["skill"] != "---" and elem["bonus"] != 0:
+                            catlist = list(self.character["cat"])
+
+                            if elem['skill'] in catlist:
+                                self.character["cat"][elem['skill']]["item bonus"] += elem["bonus"]
+
+                            else:
+
+                                for ccat in catlist:
+                                    skilllist = list(self.character['cat'][ccat]["Skill"].keys())
+
+                                    if elem['skill'] in skilllist:
+                                        self.character["cat"][ccat]['Skill'][elem['skill']]["item bonus"] += elem['bonus']
+
+                    elif elem["location"] != 'equipped' and "skill" in elem.keys() and "bonus" in elem.keys():
+
+                        if elem["skill"] != "---" and elem["bonus"] != 0:
+                            catlist = list(self.character["cat"])
+
+                            if elem['skill'] in catlist:
+                                self.character["cat"][elem['skill']]["item bonus"] -= elem["bonus"]
+
+                            else:
+
+                                for ccat in catlist:
+                                    skilllist = list(self.character["cat"][ccat]["Skill"].keys())
+
+                                    if elem['skill'] in skilllist:
+                                        self.character["cat"][ccat]['Skill'][elem['skill']]["item bonus"] -= elem['bonus']
+
+
     def __open(self):
         """!
         this method opens a character file
@@ -579,6 +630,7 @@ class InventoryWin(blankWindow):
         '''
         self.calcCarriedWeight()
         self.calcMMP()
+        self.getItemBonus()
         savedir = filedialog.asksaveasfilename(defaultextension = ".json", filetypes = [("Character & Group Files", ".json")])
         with open(savedir, "w") as fp:
             json.dump(self.character, fp, indent = 4)
@@ -653,7 +705,6 @@ class InventoryWin(blankWindow):
         """
         self. window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "herbs")
-
 
 
 class shopWin(blankWindow):
@@ -937,7 +988,7 @@ class shopWin(blankWindow):
                      pady = 1,
                      sticky = "EW"
                      )
-        #row 4
+        # row 4
         Label(self.window,
               text = charattribs['carr_weight'][self.lang] + " (lbs):",
               anchor = W,
@@ -1210,7 +1261,7 @@ class shopWin(blankWindow):
         """
         self.curr_inv = self.invtree.focus()
         self.curr_invitem = self.invtree.item(self.curr_inv)["values"]
-        #add changes to charracter's inventory
+        # add changes to charracter's inventory
         self.character["inventory"] = self.inv_char.copy()
         # transform self.item treeview item into character's inventory data struct
         self.item = {}
@@ -1532,6 +1583,7 @@ class shopWin(blankWindow):
         '''
         This method updates widget content like texts or images
         '''
+        from PIL import Image, ImageTk
 
         for elem in self.filterlist:
 
@@ -1632,13 +1684,13 @@ class shopWin(blankWindow):
 
         unequipped = ["", "unequipped", "transport"]
         carried = 0.0
-        #transports are no weight
-#<<<<<<< HEAD
+        # transports are no weight
+# <<<<<<< HEAD
 #=======
 #        if "idxtransport" not in self.character.keys():
 #            self.character["idxtransport"] = []
 #
-#>>>>>>> py3
+# >>>>>>> py3
         for elem in self.character["idxtransport"]:
             if elem["name"] not in unequipped:
                 unequipped.append(elem["name"])
@@ -1659,7 +1711,7 @@ class shopWin(blankWindow):
 #                if elem["name"] not in unequipped:
 #                    unequipped.append(elem["name"])
 #
-#>>>>>>> py3
+# >>>>>>> py3
         for cat in shoptypes:
 
             for elem in self.character["inventory"][cat]:
@@ -1914,7 +1966,6 @@ class shopWin(blankWindow):
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "herbs")
 
 
-
 class enchantItem(blankWindow):
     """
     This is a GUI for EP calculation for your character party.
@@ -2161,7 +2212,7 @@ class enchantItem(blankWindow):
                      pady = 1,
                      sticky = "EW"
                      )
-        #row 4
+        # row 4
         Label(self.window,
               text = charattribs['carr_weight'][self.lang] + " (lbs):"
               ).grid(column = 2,
@@ -2302,7 +2353,7 @@ class enchantItem(blankWindow):
                       sticky = "EW"
                       )
         # here comes the selected item
-        #row 10
+        # row 10
         self.frame = {}
 
         for i in range(1, len(self.enchantment)):
@@ -2941,7 +2992,7 @@ class enchantItem(blankWindow):
         '''
         This switches the specific frames for the different types of magic items
         '''
-        #"charged magic item", "daily item", "magic bonus item", "permanent magic item"
+        # "charged magic item", "daily item", "magic bonus item", "permanent magic item"
         try:
             for elem in self.enchantment[1:]:
                 self.frame[elem].grid_forget()
@@ -3343,7 +3394,6 @@ class enchantItem(blankWindow):
         self.armorwin = shopWin(self.lang, self.character, self.storepath, self.shoptype)
 
 
-
 class editinventory(blankWindow):
     '''
     Class for Editing individual items and/or equip them as well adding newly edited items to a shop.
@@ -3596,7 +3646,7 @@ class editinventory(blankWindow):
                      pady = 1,
                      sticky = "EW"
                      )
-        #row 4
+        # row 4
         Label(self.window,
               text = charattribs['carr_weight'][self.lang] + ":"
               ).grid(column = 2,
@@ -4500,7 +4550,7 @@ class editinventory(blankWindow):
         self.__fillTree()
         self.__getMoney()
         self.__setMoney()
-        self.edtselect.set("name")
+        # self.edtselect.set("name")
         self.updEdtFrame("name")
 
 
@@ -4508,7 +4558,7 @@ class editinventory(blankWindow):
         '''
         This method updates widget content like texts or images
         '''
-
+        from PIL import Image, ImageTk
         for elem in self.filterlist:
 
             if elem == "piclink":
@@ -4559,7 +4609,7 @@ class editinventory(blankWindow):
             self.wcont["MMP"].set(0)
 
         elif "MMP" not in self.character.keys():
-            #self.character["MMP"] = calcMMP(self.character)
+            # self.character["MMP"] = calcMMP(self.character)
             self.calcMMP()
             self.wcont["MMP"].set(self.character["MMP"])
 
@@ -4599,7 +4649,7 @@ class editinventory(blankWindow):
 
         unequipped = ["", "unequipped", "transport"]
         carried = 0.0
-        #transports are no weight
+        # transports are no weight
         for elem in self.character["idxtransport"]:
             if elem["name"] not in unequipped:
                 unequipped.append(elem["name"])
@@ -4924,7 +4974,6 @@ class editinventory(blankWindow):
         self.calcMMP()
 
 
-
 def buyStuff(purse = {}, prize = {}):
     """!
     This function does the payment calculations
@@ -4966,7 +5015,6 @@ def buyStuff(purse = {}, prize = {}):
     return result
 
 
-
 def worth2string(worth = {}):
     '''!
     This converts the worth dictionary to a string
@@ -4984,7 +5032,6 @@ def worth2string(worth = {}):
     return result.strip(" ")
 
 
-
 def string2worth(worth = ""):
     '''!
     This converts a string like "2gp 42cp" into a worth dictionary
@@ -5000,7 +5047,6 @@ def string2worth(worth = ""):
         result[inv.coins["long"][pos]] = int(v[:-2])
 
     return result
-
 
 
 win = InventoryWin()

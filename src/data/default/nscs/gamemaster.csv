@@ -829,4 +829,28 @@ Undead Beings,Skeleton Lord,8,12,1,135,30,M,95 H bd2/70 L Ba,0xx,0xx,70,0,"Attac
 
 
 
+
 ",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/skeleton_king.png,,
+Undead Beings,Chaos Warrior,7,20,18,135,0,M,130 H bd2,120 sb,0xx,50,25,"
+
+Den Chaos-Soldaten erkennt man an seiner einheitlichen dunklen Kleidung und Rüstung, seiner Neigung zu exotischen Helmen mit Hörnern oder Flügeln und Augenschlitzen sowie an den oft blumig gestalteten Waffen.
+Chaos-Soldaten erlangen ihre relativ große Immunität und Tüchtigkeit durch eine schreckliche Massenzeremonie, bei der sich die Anwärter auf ihre eigenen Waffen aufspießen.
+Die von ihren Gottheiten „Gesegneten“ werden geheilt und verwandelt. Sollte der Soldat jedoch sein Gelübde brechen, überlässt ihn die Gottheit dem Tod oder der Verstümmelung, die er
+während der Zeremonie.
+In jeder anderen Hinsicht werden Chaoskrieger als lebende Menschen betrachtet. Diese untotenähnlichen
+Wesen sind die Geißel des Schlachtfelds. Abgesehen von ihren oft spektakulären Helmen gibt es nichts, was einen Soldaten einer gegnerischen Armee zunächst als Chaos-Soldaten ausweist. Das heißt, bis sich herausstellt, dass sie massive Schläge, die Sterbliche außer Gefecht setzen würden, einfach so wegstecken, als wären sie nichts, als wäre der Soldat selbst ein Untoter. Allerdings haben Chaos-Soldaten keine Klasse und können nicht von Zaubern betroffen werden, die Untote betreffen. Diese besonderen Soldaten sind gut ausgebildete und hervorragend konditionierte Krieger, die sich auf eine oder mehrere Waffen so weit spezialisiert haben, dass sie unter Normalsterblichen als Meister gelten würden.
+
+
+
+
+
+
+",1-300,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/ghost_warrior1.jpeg,,
+Undead Beings,Chaos Commander,20,30,19,400,0,M,175 H bd/150 H Kd/150 H Sw,160 sb,0xx,75,38,"Den Chaos-Soldaten erkennt man an seiner einheitlichen dunklen Kleidung und Rüstung, seiner Neigung zu exotischen Helmen mit Hörnern oder Flügeln und Augenschlitzen sowie an den oft blumig gestalteten Waffen.
+Chaos-Soldaten erlangen ihre relativ große Immunität und Tüchtigkeit durch eine schreckliche Massenzeremonie, bei der sich die Anwärter auf ihre eigenen Waffen aufspießen.
+Die von ihren Gottheiten „Gesegneten“ werden geheilt und verwandelt. Sollte der Soldat jedoch sein Gelübde brechen, überlässt ihn die Gottheit dem Tod oder der Verstümmelung, die er
+während der Zeremonie.
+In jeder anderen Hinsicht werden Chaoskrieger als lebende Menschen betrachtet. Diese untotenähnlichen
+Wesen sind die Geißel des Schlachtfelds. Abgesehen von ihren oft spektakulären Helmen gibt es nichts, was einen Soldaten einer gegnerischen Armee zunächst als Chaos-Soldaten ausweist. Das heißt, bis sich herausstellt, dass sie massive Schläge, die Sterbliche außer Gefecht setzen würden, einfach so wegstecken, als wären sie nichts, als wäre der Soldat selbst ein Untoter. Allerdings haben Chaos-Soldaten keine Klasse und können nicht von Zaubern betroffen werden, die Untote betreffen. Diese besonderen Soldaten sind gut ausgebildete und hervorragend konditionierte Krieger, die sich auf eine oder mehrere Waffen so weit spezialisiert haben, dass sie unter Normalsterblichen als Meister gelten würden.
+
+",1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/ghost_warrior.jpeg,,

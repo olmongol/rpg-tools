@@ -35,11 +35,10 @@ from rpgToolDefinitions.inventory import *
 from rpgtoolbox import logbox as log
 from rpgtoolbox.confbox import *
 
-#from rpgtoolbox.rolemaster import stats
+# from rpgtoolbox.rolemaster import stats
 mycnf = chkCfg()
 
 logger = log.createLogger('latexreport', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "latextexport.log")
-
 
 
 def readFile(filename = ""):
@@ -64,7 +63,6 @@ def readFile(filename = ""):
     return content
 
 
-
 def saveFile(filename = "", content = ""):
     '''!
     This saves a file
@@ -78,12 +76,10 @@ def saveFile(filename = "", content = ""):
     print("{} successfully saved.".format(filename))
 
 
-
 class charsheet(object):
     '''
     This class generates LaTeX code from character's data
     '''
-
 
     def __init__(self, char = {}, storepath = "./", short = True):
         '''!
@@ -105,7 +101,6 @@ class charsheet(object):
         self.createCatSkill()
         self.execLaTeX()
 
-
     def createMainLatex(self):
         '''
         Creates the main LaTeX file from template and saves it into a sub directory
@@ -126,7 +121,6 @@ class charsheet(object):
 
         saveFile("{}/latex/{}.tex".format(self.chardir, self.char['name'].replace(" ", "-")), template)
         logger.info("{}/latex/{}.tex saved".format(self.chardir, self.char['name'].replace(" ", "-")))
-
 
     def createGenInfo(self):
         '''
@@ -207,7 +201,6 @@ class charsheet(object):
         saveFile(self.chardir + "{}_gen_info.tex".format(self.char['name'].replace(" ", "-")), template)
         logger.info(f'file saved: {self.chardir}{self.char["name"].replace(" ", " - ")}_gen_info.tex')
 
-
     def createStats(self):
         '''
         This creates a LaTeX file with character stats from LaTeX template
@@ -221,7 +214,6 @@ class charsheet(object):
 
         saveFile(self.chardir + "{}_stats.tex".format(self.char['name'].replace(" ", "-")), template)
         logger.info(f'file saved: {self.chardir}{self.char["name"].replace(" ", " - ")}_stats.tex')
-
 
     def createRRATDB(self):
         '''
@@ -251,7 +243,6 @@ class charsheet(object):
 
         saveFile(self.chardir + "{}_rr_at_db.tex".format(self.char['name'].replace(" ", "-")), template)
         logger.info(f'file saved: {self.chardir}{self.char["name"].replace(" ", " - ")}_rr_at_db.tex')
-
 
     def createCatSkill(self):
         '''
@@ -459,14 +450,12 @@ class charsheet(object):
         saveFile(self.chardir + "{}_catskill.tex".format(self.char['name'].replace(" ", "-")), template)
         logger.info(f'file saved: {self.chardir}{self.char["name"].replace(" ", " - ")}_catskill.tex')
 
-
     def createSpells(self):
         '''!
         This makes a sheet with all learned spells
         @todo this has to be fully implemented
         '''
         print("not done yet")
-
 
     def execLaTeX(self):
         '''
@@ -497,13 +486,11 @@ class charsheet(object):
             os.chdir(currpath)
 
 
-
 class spellbook(object):
     '''
     This class generates a LaTeX file for all learned spells of a character and
     compiles it into a PDF.
     '''
-
 
     def __init__(self, character = {}, storepath = "./data/"):
         '''!
@@ -528,7 +515,6 @@ class spellbook(object):
 
         self.exportSB()
         self.compilePDF()
-
 
     def exportSB(self):
         '''
@@ -592,7 +578,6 @@ class spellbook(object):
         fp.close()
         logger.debug(f'generate latex in {self.charpath + self.fn.replace(" ", "_")}')
 
-
     def compilePDF(self):
         '''
         This runs the pdflatex compiler to generate the PDF
@@ -622,12 +607,10 @@ class spellbook(object):
             os.chdir(currpath)
 
 
-
 class inventory(object):
     '''
     This class generates an inventory PDF from a character file if the character has an inventory.
     '''
-
 
     def __init__(self, character = {}, storepath = "./data/"):
         '''!
@@ -678,7 +661,6 @@ class inventory(object):
         self.saveLatex()
         self.compilePDF()
 
-
     def prepTemplate(self):
         '''
         This exchanges the placeholder of the template with data from character's dictionary.
@@ -707,7 +689,6 @@ class inventory(object):
 
             for r in rpurse:
                 self.latex = self.latex.replace("==>{}".format(r), "0")
-
 
     def tblArmor(self):
         """
@@ -748,7 +729,7 @@ class inventory(object):
 #                                                                          armor["spell"],
 #                                                                          armor["lvl"],
 #                                                                          armor["daily"])
-##                    if "pp mult" in armor.keys():
+# #                    if "pp mult" in armor.keys():
 #                        descadd += ", PP x{}".format(armor["pp mult"])
 #                    if "add spell" in armor.keys():
 #                        descadd += ", Spelladder +{}".format(armor["add spell"])
@@ -826,7 +807,6 @@ class inventory(object):
         self.latex += "\\end{longtable}\n"
         self.latex += "}\n"
 
-
     def tblWeapon(self):
         """!
         this creates a table with all weapons.
@@ -856,6 +836,10 @@ class inventory(object):
             \\endlastfoot
         """
         for weapon in self.character["inventory"]["weapon"]:
+
+            if "wtype" not in weapon.keys():
+                weapon["wtype"] = "1hc"
+
             if weapon["breakage"] != "---" and weapon["strength"] != "---" and weapon["wtype"] not in ["th", "mis"]:
                 rcolor = ""
                 descadd = ""
@@ -988,7 +972,6 @@ class inventory(object):
         self.latex += "\\end{longtable}\n"
         self.latex += "}\n"
 
-
     def tblTransport(self):
         """
         this creates a table with all transports.
@@ -1052,7 +1035,6 @@ class inventory(object):
         self.latex += "\\end{longtable}\n"
         self.latex += "}\n"
 
-
     def tblGear(self):
         """
         this creates a table with all gear.
@@ -1108,7 +1090,6 @@ class inventory(object):
 
         self.latex += "\\end{longtable}\n"
         self.latex += "}\n"
-
 
     def tblHerb(self):
         """
@@ -1166,7 +1147,6 @@ class inventory(object):
         self.latex += "\\end{longtable}\n"
         self.latex += "}\n"
 
-
     def tblGems(self):
         """
         this creates a table with all gems and jewelry.
@@ -1218,7 +1198,6 @@ class inventory(object):
 
         self.latex += "\\end{longtable}\n"
         self.latex += "}\n"
-
 
     def tblFood(self):
         """
@@ -1277,7 +1256,6 @@ class inventory(object):
         self.latex += "\\end{longtable}\n"
         self.latex += "}\n"
 
-
     def saveLatex(self):
         '''
         This saves the generated LaTeX source code
@@ -1285,7 +1263,6 @@ class inventory(object):
         fp = open(self.charpath + self.fn.replace(" ", "_"), "w")
         fp.write(self.latex)
         fp.close()
-
 
     def compilePDF(self):
         '''

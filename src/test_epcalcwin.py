@@ -32,16 +32,15 @@ import re
 import pickle
 from PIL import Image, ImageTk
 from rpgtoolbox import logbox as log
+from PIL import Image, ImageTk
 
 logger = log.createLogger('global', 'debug', '1 MB', 1, './log' , 'epcalcwin.log')
-
 
 
 class EPCalcWin(blankWindow):
     """!
     This is a GUI for EP calculation for your character party.
     """
-
 
     def __init__(self, lang = "en", charlist = [], storepath = "./data"):
         """!
@@ -70,7 +69,6 @@ class EPCalcWin(blankWindow):
         self.__loadAutosave()
         self.window.mainloop()
 
-
     def __addMenu(self):
         '''!
         This methods adds the menu bar to the window
@@ -86,7 +84,6 @@ class EPCalcWin(blankWindow):
         self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
                                   command = self.__quit)
 
-
     def __addHelpMenu(self):
         """!
         This methods defines a help menu.
@@ -99,15 +96,14 @@ class EPCalcWin(blankWindow):
         self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
                                   command = self._helpAbout)
 
-
     def __buildWin(self):
         """!
         This method builds the window content.
         """
-        ## \var self.players
+        # # \var self.players
         # list of given player names
         self.players = []
-        ## \var self.group
+        # # \var self.group
         # dictionary of EP objects per player
         self.group = {}
 
@@ -167,7 +163,7 @@ class EPCalcWin(blankWindow):
               textvariable = self.__newlvl,
               ).grid(row = 0, column = 6, sticky = "EW")
 
-        #row 1
+        # row 1
         Label(self.window,
               text = s_elem_def['MANEUVER'][self.lang] + ":",
               ).grid(row = 1, column = 0, sticky = "EW")
@@ -203,7 +199,7 @@ class EPCalcWin(blankWindow):
                command = self.__callManWin
                ).grid(row = 1, column = 6, sticky = "EW")
 
-        #row 2
+        # row 2
         Label(self.window,
               text = s_elem_def["SPELL"][self.lang] + ":",
               ).grid(row = 2, column = 0, sticky = "W")
@@ -235,7 +231,7 @@ class EPCalcWin(blankWindow):
                text = labels["win_casting"][self.lang],
                command = self.notdoneyet
                ).grid(row = 2, column = 6, sticky = "EW")
-        #row 3
+        # row 3
         self.critlist = ['T', 'A', 'B', 'C', 'D', 'E', "KILL"]
         Label(self.window,
               text = s_elem_def["H_CRITS"][self.lang] + ":",
@@ -269,7 +265,7 @@ class EPCalcWin(blankWindow):
                command = self.notdoneyet
                ).grid(row = 3, column = 6, sticky = "NEWS")
 
-        #row 4
+        # row 4
         Label(self.window,
               text = s_elem_def["CRITICAL"][self.lang] + ":",
               ).grid(row = 4, column = 0, sticky = "W")
@@ -300,7 +296,7 @@ class EPCalcWin(blankWindow):
                command = self.__rrroll
                ).grid(row = 4, column = 6, sticky = "EW")
 
-        #row 5
+        # row 5
         Label(self.window,
               text = s_elem_def["TRAVEL"][self.lang] + ":",
               ).grid(row = 5, column = 0, sticky = "W")
@@ -330,7 +326,7 @@ class EPCalcWin(blankWindow):
                text = labels["diary"][self.lang],
                command = self.notdoneyet
                ).grid(row = 5, column = 6, sticky = "EW")
-        #row 6
+        # row 6
         Label(self.window,
               text = s_elem_def["IDEAS"][self.lang] + ":",
               ).grid(row = 6, column = 0, sticky = "W")
@@ -363,7 +359,6 @@ class EPCalcWin(blankWindow):
                fg = "white"
                ).grid(row = 6, column = 6, sticky = "EW")
 
-
     def __updDispay(self, curPlayer = ""):
         '''!
         Updates display of current player
@@ -373,7 +368,6 @@ class EPCalcWin(blankWindow):
         self.__gained.set("+{}".format(self.group[curPlayer].gainedep))
         self.__newep.set("<{}>".format(self.group[curPlayer].newep))
         self.__newlvl.set(self.group[curPlayer].newlvl)
-
 
     def __updSelec(self, event):
         """!
@@ -388,14 +382,12 @@ class EPCalcWin(blankWindow):
         self.__newep.set("<{}>".format(self.group[self.charlist[ind]["player"]].gainedep + self.group[self.charlist[ind]["player"]].newep))
         self.__newlvl.set(self.group[self.charlist[ind]["player"]].newlvl)
 
-
     def __autoSave(self):
         """!
         This function is for aut saving the group object in case of a program / computer crash
         """
         with open("autosave.pkl", "wb") as fp:
             pickle.dump(self.group, fp)
-
 
     def __loadAutosave(self):
         """!
@@ -406,7 +398,6 @@ class EPCalcWin(blankWindow):
                 self.group = pickle.load(fp)
 
             os.remove("autosave.pkl")
-
 
     def __grpBonus(self):
         '''!
@@ -425,7 +416,6 @@ class EPCalcWin(blankWindow):
 
         self.__autoSave()
 
-
     def __calcMan(self):
         '''!
         This computes EPs for each successful maneuver and add them to character's
@@ -439,7 +429,6 @@ class EPCalcWin(blankWindow):
         self.__autoSave()
         self.__updDispay(curPlayer)
 
-
     def __calcSpell(self):
         '''!
         This computes EPs for a given number aof spells aof the same level
@@ -450,7 +439,6 @@ class EPCalcWin(blankWindow):
         self.group[curPlayer].spell(spellLvl, spellNo)
         self.__autoSave()
         self.__updDispay(curPlayer)
-
 
     def __calcGCrit(self):
         '''!
@@ -470,7 +458,6 @@ class EPCalcWin(blankWindow):
         self.__autoSave()
         self.__updDispay(curPlayer)
 
-
     def __calcCrit(self):
         '''!
         This calculates EP for caused criticals against an enemy of a certain level
@@ -487,7 +474,6 @@ class EPCalcWin(blankWindow):
         self.__autoSave()
         self.__updDispay(curPlayer)
 
-
     def __calcTravel(self):
         '''!
         Travelled EPs
@@ -502,7 +488,6 @@ class EPCalcWin(blankWindow):
         self.__autoSave()
         self.__updDispay(curPlayer)
 
-
     def __calcIdeas(self):
         '''!
         EPs for ideas and role-playing
@@ -516,7 +501,6 @@ class EPCalcWin(blankWindow):
 
         self.__autoSave()
         self.__updDispay(curPlayer)
-
 
     def __finalize(self):
         '''!
@@ -543,7 +527,6 @@ class EPCalcWin(blankWindow):
         self.__autoSave()
         gw = showGrpEP(self.charlist, self.storepath, self.lang)
 
-
     def __callManWin(self):
         '''!
         Opens Maneuver Window for maneuver rolls
@@ -552,7 +535,6 @@ class EPCalcWin(blankWindow):
         for elem in self.charlist:
             if elem['player'] == who:
                 manWin(elem, self.lang)
-
 
     def __rrroll(self):
         '''!
@@ -566,7 +548,6 @@ class EPCalcWin(blankWindow):
 #                RRWin(self.lang, elem, self.charlist, self.storepath)
         RRWin(self.lang, who, self.charlist, self.storepath)
 
-
     def __save(self):
         '''!
         This opens a file dialog window for saving
@@ -575,7 +556,6 @@ class EPCalcWin(blankWindow):
         with open(savedir, "w") as fp:
             json.dump(self.charlist, fp, indent = 4)
 
-
     def __open(self):
         '''!
         This opens a file dialog window for opening a group file.
@@ -583,7 +563,7 @@ class EPCalcWin(blankWindow):
         opendir = filedialog.askopenfilename(defaultextension = ".json", filetypes = [("Char Group Files", ".json")])
         with open(opendir, "r") as fp:
             self.charlist = json.load(fp)
-        #set up new player group list
+        # set up new player group list
         self.players = []
         self.group = {}
         for elem in self.charlist:
@@ -598,7 +578,6 @@ class EPCalcWin(blankWindow):
                                       command = self.__updSelec)
         self.__playerOpt.grid(column = 0, row = 0, sticky = "W")
 
-
     def __quit(self):
         '''!
         This method closes the window
@@ -606,12 +585,10 @@ class EPCalcWin(blankWindow):
         self.window.destroy()
 
 
-
 class showGrpEP(object):
     '''!
     Display and save window for group EPs
     '''
-
 
     def __init__(self, charlist = [], storepath = "./data", lang = 'en'):
         """!
@@ -648,7 +625,6 @@ class showGrpEP(object):
 
         self.window.mainloop()
 
-
     def saveChars(self):
         '''!
         This saves all single characters separated from group
@@ -670,7 +646,6 @@ class showGrpEP(object):
 #        if os.path.exists("autosave.pkl"):
 #            os.remove("autosave.pkl")
 
-
     def saveGroup(self):
         '''!
         Saves all data in a groupfile
@@ -683,12 +658,10 @@ class showGrpEP(object):
             os.remove("autosave.pkl")
 
 
-
 class manWin(object):
     '''
     Maneuver Window
     '''
-
 
     def __init__(self, character = {}, lang = "en"):
         '''!
@@ -699,7 +672,7 @@ class manWin(object):
         self.character = character
         self.lang = lang
         self.man_ep = 0
-        ## @var self.total
+        # # @var self.total
         # total result of skill check
         self.total = 0
         self.category = "Armor - Heavy"
@@ -707,13 +680,13 @@ class manWin(object):
         self.man = "routine"
         self.maneuver = maneuvers
         self.mantab = rpg.statManeuver()
+        self.spelltab = rpg.statManeuver("./data/default/tables/spell_casting_smt.csv")
         self.dice = dice
         self.window = Toplevel()
         self.title = "{}: {} - {}".format(wintitle['rm_maneuver'][self.lang], self.character['player'], self.character['name'])
         self.window.title(self.title)
         self._buildwin()
         self.window.mainloop()
-
 
     def _buildwin(self):
         '''
@@ -793,7 +766,7 @@ class manWin(object):
         self.manlabel = Label(self.window,
                               text = self.man)
         self.manlabel.grid(row = 2, column = 4, sticky = "EWS")
-        #row 3
+        # row 3
         Label(self.window,
               text = "+ {}:".format(labels['modifier'][self.lang])
               ).grid(row = 3, column = 0, sticky = "NEWS")
@@ -860,7 +833,7 @@ class manWin(object):
         Label(self.window,
               textvariable = self.timef,
               ).grid(row = 6, column = 4, sticky = "NEWS")
-        #row 7
+        # row 7
         Label(self.window,
               text = labels['modifier'][self.lang] + ":"
               ).grid(row = 7, column = 0, sticky = "NEWS")
@@ -870,7 +843,7 @@ class manWin(object):
         Label(self.window,
               textvariable = self.modif
               ).grid(row = 7, column = 2, sticky = "NEWS")
-        #row 8
+        # row 8
         self.desc = StringVar()
         self.desc.set("")
         Label(self.window,
@@ -881,7 +854,6 @@ class manWin(object):
                      column = 0,
                      columnspan = 5,
                      sticky = "NEWS")
-
 
     def _fillSkill(self, event):
         '''
@@ -898,21 +870,24 @@ class manWin(object):
             self.skilllabel.config(text = "")
 
             for skill in self.character["cat"][self.category]["Skill"].keys():
+
                 if skill not in ["Progression", "Stats"] and skill[-1] != "+":
                     self.skilllb.insert(END, skill)
+
                 else:
                     print("-->".format(skill))
-
 
     def _getSkill(self, event):
         '''
         Getting selected Skill
         '''
         selskill = self.skilllb.curselection()
+
         if selskill != ():
             self.skill = self.skilllb.get(selskill[0])
             self.skilllabel.config(text = self.skill)
 
+        logger.debug(f"selelcted skill {self.skill}")
 
     def _getMan(self, event):
         '''
@@ -920,11 +895,12 @@ class manWin(object):
         '''
 
         selman = self.manlb.curselection()
+
         if selman != ():
             self.man = self.manlb.get(selman[0])
             self.manlabel.configure(text = self.man)
-        print("{} - {} - {}".format(self.category, self.skill, self.man))
 
+        logger.debug(f"maneuver: {self.category} - {self.skill} - {self.man}")
 
     def _rollDice(self):
         '''!
@@ -936,9 +912,9 @@ class manWin(object):
 
         if self.result[1] == []:
             self.diceroll.set(str(self.result[0][0]))
+
         else:
             self.diceroll.set("um {}".format(self.result[1][0]))
-
 
     def _chkResult(self):
         '''
@@ -958,17 +934,27 @@ class manWin(object):
 
         if self.category:
             skilladd = self.character["cat"][self.category]["total bonus"]
+            logger.info("total category bonus added")
+            logger.debug(f"{self.category}: {skilladd}")
 
             if self.skill:
                 skilladd = self.character["cat"][self.category]["Skill"][self.skill]["total bonus"]
+                logger.info("total skill bonus added")
+                logger.debug(f"{self.skill}:{skilladd}")
 
         mod = self.mod.get()
         man = maneuvers[self.man]["mod"]
         self.total += skilladd + mod + man
 
-        self.probe = self.mantab.checkRoll(self.total)
-        self._updTotal()
+        if "Spell" not in self.category or "Runes" in self.skill:
+            self.probe = self.mantab.checkRoll(self.total)
+            logger.debug(f"non-spell result: {self.probe} ")
 
+        else:
+            self.probe = self.spelltab.checkRoll(self.total)
+            logger.debug(f"spell result: {self.probe} ")
+
+        self._updTotal()
 
     def _updTotal(self):
         self.totallabel.set(str(self.total))
@@ -986,7 +972,6 @@ class manWin(object):
 #        from rpgToolDefinitions.epcalcdefs import maneuvers
 #
 #        self.man_ep += maneuvers[manlvl]['ep'] * number
-
 
 
 if __name__ == '__main__':
