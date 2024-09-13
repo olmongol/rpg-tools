@@ -25,10 +25,10 @@ import random as rd
 
 from . import logbox as log
 
-#from rpgtoolbox.confbox import *
-#import rpgtoolbox.confbox as cf
-#mycnf = cf.chkCfg()
-#logger = log.createLogger('global', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"] , logfile = 'globaltools.log')
+# from rpgtoolbox.confbox import *
+# import rpgtoolbox.confbox as cf
+# mycnf = cf.chkCfg()
+# logger = log.createLogger('global', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"] , logfile = 'globaltools.log')
 __version__ = "0.5.4"
 __updated__ = "06.08.2023"
 __author__ = "Marcus Schwamberger"
@@ -45,7 +45,6 @@ __msg__ = {'ERR_NO_DATA': "ERROR: no data to compute :(",
 logger = log.createLogger('global', 'debug', '1 MB', 1, logpath = "./log/" , logfile = 'globaltools.log')
 
 
-
 def sortDictlist(dictlist = [], key = "", reverse = True):
     """!
     This function sorts a list of dictionaries by the value of a key.
@@ -58,7 +57,6 @@ def sortDictlist(dictlist = [], key = "", reverse = True):
     result = sorted(dictlist, key = lambda k: k[key], reverse = reverse)
 
     return result
-
 
 
 def remDoubletsFromList(mylist = [1, 2, 2]):
@@ -82,7 +80,6 @@ def remDoubletsFromList(mylist = [1, 2, 2]):
 
     finally:
         return result
-
 
 
 def readFile(path = './', file_name = None, mode = 'r'):
@@ -123,7 +120,6 @@ def readFile(path = './', file_name = None, mode = 'r'):
 
     logger.debug('readFile: cleaned file content')
     return content
-
 
 
 def writeFile(path = './', file_name = 'output', data = None, mode = 'w'):
@@ -178,7 +174,6 @@ def writeFile(path = './', file_name = 'output', data = None, mode = 'w'):
     return __msg__['OK']
 
 
-
 def checkFiles(path = './', file_list = []):
     """!
     This function check out whether a list of files exists in a specific
@@ -193,8 +188,14 @@ def checkFiles(path = './', file_list = []):
     """
 
     result = {}
-    if os.name == 'posix' and path[-1] != '/':
-        path += '/'
+    if os.name == 'posix':
+
+        if path[-1] != '/':
+            path += '/'
+
+        if "./" != path[:2]:
+            path = "./" + path
+
     if os.path.exists(path):
 
         if type(file_list) == type([]):
@@ -217,9 +218,8 @@ def checkFiles(path = './', file_list = []):
 
     else:
         result = {'path': False}
-
+    print(os.getcwd())
     return result
-
 
 
 def sortIndex(dic = {}):
@@ -236,7 +236,6 @@ def sortIndex(dic = {}):
     index = list(dic.keys())
     index.sort()
     return index
-
 
 
 def array2dict(array = [], expr = '=', comment = '#'):
@@ -265,7 +264,6 @@ def array2dict(array = [], expr = '=', comment = '#'):
     return result
 
 
-
 def list2str(array = []):
     """!
     This function transforms a list/tuple into a string where the elements are
@@ -280,7 +278,6 @@ def list2str(array = []):
 
         result = result.strip()
     return result
-
 
 
 def tstr2list(string = '(1,2,3)'):
@@ -299,7 +296,6 @@ def tstr2list(string = '(1,2,3)'):
         result[i] = result[i].strip(' \"\'')
         i += 1
     return result
-
 
 
 def makeKeyList(dic = {}, klist = []):
@@ -323,7 +319,6 @@ def makeKeyList(dic = {}, klist = []):
         return klist, False
 
 
-
 def writeJSON(filename = "", content = {}):
     '''!
     This function writes a dictionary into a JSON file with UTF.8 encoding.
@@ -339,7 +334,6 @@ def writeJSON(filename = "", content = {}):
     except Exception as error:
         logger.error(f"{filename} could not be saved!")
         logger.error(error)
-
 
 
 def readJSON(filename):
@@ -360,7 +354,6 @@ def readJSON(filename):
     return content
 
 
-
 def getLast(string = "/", sep = '/'):
     '''!
     This function gives the last element of a list stored in a string.
@@ -372,9 +365,7 @@ def getLast(string = "/", sep = '/'):
     return str(dummy[-1].split())
 
 
-
 '''@fixme duplicate readCSV in spelleditor '''
-
 
 
 def readCSV(fname = "test.csv"):
@@ -396,7 +387,6 @@ def readCSV(fname = "test.csv"):
     return result
 
 
-
 def getCSVNames(chkpath = "data/default/fight/attacks"):
     """!
     This returns a list of CSV files from a path, but CSVs <name>-.csv are excluded
@@ -415,7 +405,6 @@ def getCSVNames(chkpath = "data/default/fight/attacks"):
     return result
 
 
-
 def sortTupleList(tuplelist, sortindex = 0, desc = True):
     """!
     This sorts a list of tuples by the given index.
@@ -424,7 +413,6 @@ def sortTupleList(tuplelist, sortindex = 0, desc = True):
     @param desc determines whether list shall be sorted descending (true/false)
     """
     tuplelist.sort(key = lambda x:x[sortindex], reverse = desc)
-
 
 
 def splitExceptBetween(inputstr = 'bla,fasel', delimiter = ',', quotes = '"'):
@@ -459,7 +447,6 @@ def splitExceptBetween(inputstr = 'bla,fasel', delimiter = ',', quotes = '"'):
     return result
 
 
-
 def writeCSV(fname = "test.csv", cont = [{'Spam': 'Ham'}, {'Spam':'eggs'}]):
     '''!
     This function creates a CSV file from a given list of dictionaries
@@ -475,7 +462,6 @@ def writeCSV(fname = "test.csv", cont = [{'Spam': 'Ham'}, {'Spam':'eggs'}]):
             writer.writerow(myrow)
 
     csvfile.close()
-
 
 
 def readMagic(root = "./data/default/magic", slgroup = None):
@@ -503,7 +489,6 @@ def readMagic(root = "./data/default/magic", slgroup = None):
         return magiclists
 
 
-
 def getIdx(chklist = [], key = "", value = ""):
     '''!
     This function searches a list of dictionaries by an key/value and delivers
@@ -521,7 +506,6 @@ def getIdx(chklist = [], key = "", value = ""):
     return None
 
 
-
 def rollInit(clist = []):
     '''!
     This function rolls the initiative for a list of combatants as defined in
@@ -534,7 +518,6 @@ def rollInit(clist = []):
         clist[i]["init"] = clist[i]["Qu"] + roll
 
     return clist
-
 
 
 def sortList(clist = [], key = "init"):

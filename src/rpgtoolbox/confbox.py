@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 '''!
 \package rpgtoolbox.confbox
 \file confbox.py
@@ -34,7 +34,7 @@ defaultconfigpath = "conf/"
 defaultconfigfile = "rpg-tools.cfg"
 defaultlang = locale.getdefaultlocale()[0][:2]
 defaultlogpath = "log/"
-## cfgopts
+# # cfgopts
 # holds allowed configuration options and their descriptions
 cfgopts = {'lang':'''
 #-------------------------------------------------------------------------------
@@ -112,7 +112,7 @@ cfgopts = {'lang':'''
 
            }
 
-##defval
+# #defval
 # holds default values for a configuration file.
 defval = {'lang': 'en',
           'datapath': './data',
@@ -131,10 +131,9 @@ defval = {'lang': 'en',
           'calc_type': 'simple',
           }
 
-## home
+# # home
 # holds users home directory
 home = os.path.expanduser('~')
-
 
 
 def getDefaultConfPath():
@@ -152,7 +151,6 @@ def getDefaultConfPath():
             return result2
 
     return result
-
 
 
 class chkCfg(object):
@@ -213,7 +211,7 @@ class chkCfg(object):
                 self.cnfparam = defval
         else:
             self.__exists = rpgtools.checkFiles(self.path, [self.fn])
-
+            print(self.__exists)
             if self.__exists[self.fn]:
 
                 self._fcon = rpgtools.readFile(self.path, self.fn, 'r')

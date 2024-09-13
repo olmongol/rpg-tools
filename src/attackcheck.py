@@ -21,19 +21,19 @@ other opponents.
 - save damages and modifies to sc's character sheet
 '''
 __version__ = "1.0"
-__updated__ = "11.05.2024"
+__updated__ = "08.09.2024"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "RM RPG Tools: attack checker module"
 
 from copy import deepcopy
+import json
+import os
 from pprint import pformat
 from random import randint
 from random import randint
 from tkinter import filedialog
 from tkinter.ttk import Combobox
-import json
-import os
 
 from PIL import Image, ImageTk
 
@@ -101,27 +101,27 @@ class atWin(blankWindow):
             self.datadir = self.datadir.strip("/") + "/default"
         logger.info(f"language: {lang}")
         logger.info(f"data dir: {datadir}")
-        ## @var self.fumbletype
+        # # @var self.fumbletype
         # attack type for fumble checks
         self.fumbletype = 'one-handed arms'
         self.fumbleroll = 0
         self.umr = 5
-        ## @var self.maxfumble
+        # # @var self.maxfumble
         # the maximum value for fumble results.
         self.maxfumble = 4
-        ## @var self.attacktbls
+        # # @var self.attacktbls
         # dictionary holding all (found) attack tables
         self.attacktbls = {}
-        ## @var self.crittbls
+        # # @var self.crittbls
         # dictionaray holding all (found) crit tables
         self.crittbls = {}
-        ## @var self.attackers
+        # # @var self.attackers
         # list of all combatants able to attack
         self.attackers = ["Egon"]
-        ## @var self.defenders
+        # # @var self.defenders
         # list of all combatants who are still alive
         self.defenders = ["Anton"]
-        ## @var self.combatants
+        # # @var self.combatants
         # inital list of all combatants (at the begin of battle)
         self.combatants = []
         self.combatround = 0
@@ -134,7 +134,7 @@ class atWin(blankWindow):
         self.partygrp = None
         self.__enemypath = None
         self.enemygrp = None
-        ## \var self.weapontab
+        # # \var self.weapontab
         # holds the given weapon table as dictionary with short term as master key
         # and all information about the weapon (such as fumble or breaking numbers)
         self.weapontab = getWeaponTab()
@@ -155,7 +155,7 @@ class atWin(blankWindow):
         self.fmaske = [txtwin['enemygrp_files'][self.lang],
                      txtwin['all_files'][self.lang]]
 
-        ## \var self.weaponlist
+        # # \var self.weaponlist
         # a list of dictionaries holding all infomation about all weapons. If a
         # weapon has no specific attack table the standard attack table for it
         # will be documented here.
@@ -163,7 +163,7 @@ class atWin(blankWindow):
         logger.info("list of weapons read successfully.")
         self.__prepareWL()
         logger.debug("list of weapons successfully prepared for usage.")
-        ## \var self.reverseweaponindex
+        # # \var self.reverseweaponindex
         # This dictionary holds weapon name as key and short form as value
         self.reverseweaponindex = {}
 
@@ -278,19 +278,20 @@ class atWin(blankWindow):
         '''!
         This method reads a character party group file to self.partygrp
         '''
-
         self.__partypath = askopenfilename(filetypes = self.fmaskc, initialdir = os.getcwd(), defaultextension = ".json")
         logger.debug(f"chosen group file {self.__partypath}")
 
         try:
             with open(self.__partypath, "r") as fp:
-                ##@var self.__fullparty
+                # #@var self.__fullparty
                 # This is holding the full party data
                 self.__fullparty = json.load(fp)
+
             logger.info(f"{self.__partypath} was read")
 
             if type(self.__fullparty) == type({}):
                 self.__fullparty = [self.__fullparty]
+
             logger.debug("fullparty initialized.")
 
             self.__prepareChars()
@@ -313,13 +314,12 @@ class atWin(blankWindow):
         if self.__enemypath[-4:].lower() == ".csv":
             self.enemygrp = readCSV(self.__enemypath)
             logger.info(f'openEnemies: {self.__enemypath} read')
+
         else:
             logger.error("openEnemies: wrong file format! must be CSV")
             self.message("openEnemies: wrong file format: must be CSV")
 
         self.__prepareNSCs()
-
-   # def __getWeaponStrength(self,weapon="bs"):
 
 
     def __prepareNSCs(self, mode = "auto"):
@@ -393,9 +393,9 @@ class atWin(blankWindow):
                 if len(melee[j]) == 2:
                     melee[j].insert(1, size)
 
-                ## add fumble number
+                # # add fumble number
                 # melee[j].append(int(self.weapontab[melee[j][0]]['fumble']))
-                ## add breakage number
+                # # add breakage number
                 # melee[j].append(int(self.weapontab[melee[j][0]]['breakage']))
 
                 melee[j].append(melee[j][0])
@@ -424,7 +424,7 @@ class atWin(blankWindow):
             self.enemygrp[i]["OB missile"] = missile
 
             if "weapon type" in self.enemygrp[i].keys():
-                ##@var wt
+                # #@var wt
                 # list of two lists: [0] contains melee weapon types and [1] missile weapon types
                 # they all will be stored in self.enemygrp
                 wt = self.enemygrp[i]["weapon type"].split("//")
@@ -533,6 +533,7 @@ class atWin(blankWindow):
             dummy["Qu"] = char["Qu"]["total"]
             piclink = char["piclink"]
             logger.debug(piclink)
+            logger.debug(f"character's Qu: {dummy['Qu']}")
 
             if "AT" in char.keys():
 
@@ -952,6 +953,11 @@ class atWin(blankWindow):
         attacktype = self.__selectType.get()
         attackskill = self.__selectOB.get()
         self.initlist[pos]["status"]["hits"] -= self.hits
+
+        ### DEBUG
+        #print(f"DEBUG: attackskill: {attackskill}")
+        if attackskill not in self.initlist[posa]["ammo"].keys():
+            self.initlist[posa]["ammo"][attackskill] = 0
 
         if attacktype in ["missile", "magic"] and self.initlist[posa]["ammo"][attackskill] > 0:
             self.initlist[posa]["ammo"][attackskill] -= 1
@@ -1702,7 +1708,7 @@ class atWin(blankWindow):
 
         self.__selectType = StringVar()
         self.__selectType.set(attacktypes[self.lang][0])
-        ## @var self.__typeCombo
+        # # @var self.__typeCombo
         # This Combobox gives a selection of which type of attack is chosen:
         # - melee
         # - missile
@@ -1732,7 +1738,7 @@ class atWin(blankWindow):
 
         self.__selectOB = StringVar()
         self.__selectOB.set("Battle Axe")
-        ## @var self.__obCombo
+        # # @var self.__obCombo
         # This Combobox gives a selection of  offensive bonus/skill
         self.__obCombo = Combobox(self.window,
                         textvariable = self.__selectOB,
@@ -1757,10 +1763,10 @@ class atWin(blankWindow):
 
         #------------ row 5
 
-        self.healings = ["hits", "hits/rnd", "stunned", "ooo", "mod_total", "die"]
+        self.healings = ["hits", "hits/rnd", "stunned", "no parry" , "ooo", "mod_total", "die"]
         self.__selectHeal = StringVar()
         self.__selectHeal.set(self.healings[1])
-        ## @var self.__healCombo
+        # # @var self.__healCombo
         # This Combobox gives a selection of  different type of healings during the battle
         self.__healCombo = Combobox(self.window,
                                    textvariable = self.__selectHeal,
@@ -1790,7 +1796,7 @@ class atWin(blankWindow):
 
         self.__selectAttacker = StringVar()
         self.__selectAttacker.set("Egon")
-        ## @var self.__attackCombo
+        # # @var self.__attackCombo
         # This Combobox gives a selection of attackers during the battle
         self.__attackCombo = Combobox(self.window,
                                       textvariable = self.__selectAttacker,
@@ -1841,7 +1847,7 @@ class atWin(blankWindow):
 
         self.__selectDefender = StringVar()
         self.__selectDefender.set("Anton")
-        ## @var self.__defendCombo
+        # # @var self.__defendCombo
         # This Combobox gives a selection of defenders during the battle
         self.__defendCombo = Combobox(self.window,
                                       textvariable = self.__selectDefender,
@@ -1885,13 +1891,13 @@ class atWin(blankWindow):
               text = labels["attack table"][self.lang] + ":",
               ).grid(column = 0, row = 10, sticky = "W")
 
-        ## @var self.atlist
+        # # @var self.atlist
         # List of names of Attack Tables
         self.atlist = list(self.attacktbls.keys())
         self.atlist.sort()
         self.__selectAT = StringVar()
         self.__selectAT.set(self.atlist[0])
-        ## @var self.__ATOptCombo
+        # # @var self.__ATOptCombo
         # This Combobox gives a selection of Attack Tables (weapons etc)
         self.__ATOpt = Combobox(self.window,
                                  values = self.atlist,
@@ -1948,7 +1954,7 @@ class atWin(blankWindow):
 
         self.__maxlvl = StringVar()
         self.__maxlvl.set("H")
-        ## @var self.__maxOpt
+        # # @var self.__maxOpt
         # This Combobox gives a selection of the maximum level of an attack
         self.__maxOpt = Combobox(self.window,
                                  values = ["S", "M", "L", "H"],
@@ -2077,10 +2083,7 @@ class atWin(blankWindow):
 
     def setAmmo(self, event = None):
         """!
-        This sets the ammo of a distance weapon
-
-        ----
-        @todo this has to be fully implemented.
+        This sets the ammo of a distance weapons
         """
         # set ammo count for current attacker for current distance weapon
         if self.__selectType.get() in ["missile", "magic"]:
@@ -2310,7 +2313,7 @@ class atWin(blankWindow):
         ----
         @todo the long if-statements in this method have to be re-factored.
         """
-        ## @var condition_color
+        # # @var condition_color
         # this holds the physical condition as index and the resulting color as value.
         condition_color = {"die": "black",
                            "die_fg": "white",
@@ -2362,16 +2365,16 @@ class atWin(blankWindow):
                            "critical mod_fg": "black"
                           }
 
-        ## @var condition_color
+        # # @var condition_color
         # this variable holds the color name which shall be finally set when the physical
         # condition is determined.
         condbgcolor = condition_color["good"]
-        ## @var txtcolor
+        # # @var txtcolor
         # this hold the  text color to keep all readable.
         txtcolor = "black"
 
         logger.debug(f"check data: \n{json.dumps(combatant,indent=4)}")
-        ## @var hits
+        # # @var hits
         # this holds the remaining hit points in pecent
         hits = combatant['status']["hits"] / int(combatant["hits"]) * 100
 
@@ -2616,16 +2619,16 @@ class enemySelector(blankWindow):
         @param datapool (path +) file where the default bestiarium is stored in.
         ----
         '''
-        ##\var self.lang
+        # #\var self.lang
         # display language
         self.lang = lang
-        ##\var self.datapool
+        # #\var self.datapool
         # path + file name of the default monster data file.
         self.datapool = datapool
-        ##\var self.selection
+        # #\var self.selection
         # a list of selected monsters/nscs (list of dictionaries)
         self.selection = []
-        ## \var self.fmaske
+        # # \var self.fmaske
         # file extension mask for "file open" window.
         self.fmaske = [txtwin['enemygrp_files'][self.lang],
                      txtwin['all_files'][self.lang]]
@@ -2704,13 +2707,13 @@ class enemySelector(blankWindow):
         """
         This method opens a file of npc/monstaer data for read out.
         """
-        ## \var self.__npcpath
+        # # \var self.__npcpath
         # path+ file name of selected data file
         self.__npcpath = askopenfilename(filetypes = self.fmaske, defaultextension = "*.csv", initialdir = os.getcwd())
         logger.debug(f"openNPCs: chosen npc/monster group file {self.__npcpath}")
 
         if self.__npcpath[-4:].lower() == ".csv":
-            ##\var self.npcgrp
+            # #\var self.npcgrp
             # content of npc/monster file (csv)
             self.npcgrp = readCSV(self.__enemypath)
             logger.info(f'openNPCs: {self.__enemypath} read successfully.')
