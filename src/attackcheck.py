@@ -16,16 +16,17 @@ other opponents.
 ----
 @todo the following has to be implemented:
 - logging of hits and crits for EP calculation (writing to a file)
-- logging ammo resources of a (n)pc; wirte to sc's inventory
-- adding ammo by entering a number - saving to scs inventroy
+- logging ammo resources of a (n)pc; write to sc's inventory
+- adding ammo by entering a number - saving to scs inventory
 - save damages and modifies to sc's character sheet
 '''
 __version__ = "1.0"
-__updated__ = "08.09.2024"
+__updated__ = "30.10.2024"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
 __me__ = "RM RPG Tools: attack checker module"
 
+from PIL import Image, ImageTk
 from copy import deepcopy
 import json
 import os
@@ -34,8 +35,6 @@ from random import randint
 from random import randint
 from tkinter import filedialog
 from tkinter.ttk import Combobox
-
-from PIL import Image, ImageTk
 
 from gui.window import *
 from rolemaster.specials import *
@@ -48,7 +47,7 @@ from rpgtoolbox.globaltools import *
 from rpgtoolbox.handlemagic import getSpellNames
 
 mycnf = chkCfg()
-loglevel = "info"
+loglevel = "debug"
 
 if "loglvl" in mycnf.cnfparam.keys():
     loglevel = mycnf.cnfparam["loglvl"]
@@ -59,7 +58,7 @@ logger = log.createLogger('AT-Window', loglevel, '1 MB', 1, logpath = mycnf.cnfp
 
 class calFightEP():
     """!
-    @todo has to be fully implemented
+    @todo has to be fully implemented: shall store EPs for fights
     """
 
 
@@ -76,15 +75,16 @@ class atWin(blankWindow):
 
     ----
     @todo
-    - adding fight with magic
+    - adding fight with ball magic
     - adding & Storing ammo for missile combat
     - use breakage tests
     - storing character status (hits, mods etc.)
 
     ----
     @bug known bugs are the following:
-    - you cannot proceed with next attacker if missle weapons are selected
+    - you cannot proceed with next attacker if missile weapons are selected
     - you cannot proceed with next attacker if he was disabled by damage (stun, etc)
+    - Bastard Sword goes on Brawling Table
     """
 
 
@@ -97,8 +97,10 @@ class atWin(blankWindow):
         logger.debug(f"language: {lang}\n datadir: {datadir}")
         self.lang = lang
         self.datadir = datadir
+
         if "/default" not in self.datadir:
             self.datadir = self.datadir.strip("/") + "/default"
+
         logger.info(f"language: {lang}")
         logger.info(f"data dir: {datadir}")
         # # @var self.fumbletype
@@ -642,12 +644,12 @@ class atWin(blankWindow):
 
         self.partygrp = createCombatList(self.partygrp)
         logger.info(f"combatant list created from party group.")
-        logger.debug(f"partygrp length {len(self.partygrp)} ")
-
+        logger.info(f"partygrp length {len(self.partygrp)} ")
+        logger.debug(f"partygrp: \n{format(self.partygrp)}")
         self.initlist += self.partygrp
         logger.info("added partygrp to initlist")
-        logger.debug(f"length initlist {len(self.initlist)} ")
-        # logger.debug(f"partygrp: \n{pformat(self.partygrp)}")
+        logger.info(f"length initlist {len(self.initlist)} ")
+        logger.debug(f"partygrp: \n{format(self.partygrp)}")
         self.attackers = []
 
         for elem in self.initlist:
@@ -733,6 +735,7 @@ class atWin(blankWindow):
         # sort weaponlist
         # self.weaponlist = sorted(self.weaponlist, key = lambda d: d['shortc'])
         self.weaponlist = self.sortList(self.weaponlist, "shortc")
+        logger.debug(f"weaponlist: \n {self.weaponlist}")
         self.weaponslisted = []
 
         for elem in self.weaponlist:
@@ -954,8 +957,8 @@ class atWin(blankWindow):
         attackskill = self.__selectOB.get()
         self.initlist[pos]["status"]["hits"] -= self.hits
 
-        ### DEBUG
-        #print(f"DEBUG: attackskill: {attackskill}")
+        # ## DEBUG
+        # print(f"DEBUG: attackskill: {attackskill}")
         if attackskill not in self.initlist[posa]["ammo"].keys():
             self.initlist[posa]["ammo"][attackskill] = 0
 
@@ -1203,6 +1206,7 @@ class atWin(blankWindow):
             for mob in at["OB melee"]:
                 self.__oblist.append(mob[0])
 
+            print(f"1207 Debug: {self.__oblist}")
             self.__ammo.set("n/a")
 
         elif selected == attacktypes[self.lang][1]:
@@ -1350,6 +1354,7 @@ class atWin(blankWindow):
         obtype = self.__selectType.get()
         selectedOB = self.__selectOB.get()
         selectedOB.replace("_", " ")
+        print(f"1356 DEBUG: {selectedOB}")
 
         if obtype == "missile":
 

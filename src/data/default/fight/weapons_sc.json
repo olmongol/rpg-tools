@@ -28,7 +28,7 @@
         "crits": "krush/slash/puncture"
     },
     "bd2": {
-        "name": "Bastard Sword",
+        "name": "Bastard Sword 2h",
         "wtype": "2h",
         "breakage": "5",
         "strength": "68-82",

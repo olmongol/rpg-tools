@@ -41,7 +41,6 @@ mycnf = chkCfg()
 logger = log.createLogger('combat', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "combat.log")
 
 
-
 def getAttackSpec(shortterm = "", longterm = "", stattable = "data/default/fight/weapon_stats.csv"):
     '''!
     This function checks out specific weapon/attack data and returns all needed additional
@@ -57,7 +56,6 @@ def getAttackSpec(shortterm = "", longterm = "", stattable = "data/default/fight
     pass
 
 
-
 def sortIniti(cl = []):
     """!
     Sorts list of tuples decending by the first tuple entry.
@@ -65,7 +63,6 @@ def sortIniti(cl = []):
     @return sorted tuple list
     """
     return sorted(cl, key = lambda x: x[0], reverse = True)
-
 
 
 def getWeaponTab(filename = "data/default/fight/weapons_sc.json"):
@@ -78,7 +75,6 @@ def getWeaponTab(filename = "data/default/fight/weapons_sc.json"):
     return content
 
 
-
 def convertNSC(filename = "data/default/nscs/default.csv"):
     """!
     Converts CSV NSCs/monsters into combatants
@@ -86,7 +82,7 @@ def convertNSC(filename = "data/default/nscs/default.csv"):
 
     weapons = getWeaponTab()
     logger.info("weapon table read")
-    r = r"([1-9][0-9]{1,2})([HLMST]*)([A-Za-z][a-z])"
+    r = r"([1-9][0-9]{1,2})([HLMST]*)([A-Za-z][a-z]|A-Za-z][a-z]2)"
     check = re.compile(r)
 
     with open(filename, "r") as fp:
@@ -135,14 +131,14 @@ def convertNSC(filename = "data/default/nscs/default.csv"):
 
         for i in range(0, len(header)):
 
-            #check for different OBs
+            # check for different OBs
             if header[i] in ["OB melee", "OB missile"]:
                 logger.debug(f"working on header {header[i]}")
 
                 if dummy[i] != "0xx":
                     dummy[i] = dummy[i].strip("\t ").split("/")
 
-                    #divide data into OB (value), size, and attack/weapon type
+                    # divide data into OB (value), size, and attack/weapon type
                     for j in range(0, len(dummy[i])):
                         passed = check.match(dummy[i][j])
 
@@ -164,7 +160,6 @@ def convertNSC(filename = "data/default/nscs/default.csv"):
     logger.info(f'NSCs successfully transformed.')
     logger.debug(json.dumps(nsclist, indent = 4))
     return nsclist
-
 
 
 def makeCombatant(achar = {}):
@@ -260,7 +255,6 @@ def makeCombatant(achar = {}):
     return combatant
 
 
-
 def addStatusParam(cmbtlist = []):
     """!
     This function adds vitial stats to combattant list
@@ -310,7 +304,6 @@ def addStatusParam(cmbtlist = []):
     return result
 
 
-
 def rollInitative(Qu = 0, mod = 0):
     """!
     This rolls a initiative based on Quickness and additional modifiers
@@ -320,7 +313,6 @@ def rollInitative(Qu = 0, mod = 0):
     """
     roll = dice(10)[0] + 1 + Qu + mod
     return roll
-
 
 
 def switch(mystr):
@@ -338,7 +330,7 @@ def switch(mystr):
         if ":" in elem:
             dummy2 = elem.split(':')
 
-            #if dummy2[0] == "mod" and "x" in dummy2[1]:
+            # if dummy2[0] == "mod" and "x" in dummy2[1]:
             if "mod" in dummy2[0] and "x" in dummy2[1]:
                 result[dummy2[0]] = {"mod":int(dummy2[1].split("x")[0]),
                                      "rnd":int(dummy2[1].split("x")[1])}
@@ -352,7 +344,6 @@ def switch(mystr):
     return result
 
 
-
 def createCombatList(comlist = []):
     """!
     This adds a status and combat log section to combatants in a  list.
@@ -360,9 +351,9 @@ def createCombatList(comlist = []):
     @param comlist a list of combatants (dictionaries)
     @return modified list
     """
-    #r = r'([1-9][0-9]{1,2})([HLMST]*)([A-Za-z][a-z])'
-    #checkob = re.compile(r)
-    #clist = ["lvl", "hits", "AT", "OB", "DB", "Qu", "name", "type", "ooo", "status", "die", "parry", "no_parry", "mod", "hits/rnd", "weapon", "PP", "spell lvl"]
+    # r = r'([1-9][0-9]{1,2})([HLMST]*)([A-Za-z][a-z])'
+    # checkob = re.compile(r)
+    # clist = ["lvl", "hits", "AT", "OB", "DB", "Qu", "name", "type", "ooo", "status", "die", "parry", "no_parry", "mod", "hits/rnd", "weapon", "PP", "spell lvl"]
     status = {"ooo":0,
               "hits/rnd":0,
               "mod":[{"mod":0, "rnd":0}],
@@ -412,7 +403,6 @@ def createCombatList(comlist = []):
     return comlist
 
 
-
 class crittable():
     """!
     This Class delivers results from crit tables to a combatant.
@@ -436,14 +426,14 @@ class crittable():
         This reads the crit table from file and creates the dictionary structure
         for further computation.
         """
-        #read file content
+        # read file content
         with open(self.filename, "r") as fp:
             self.fcont = fp.read()
 
         logger.info(f"read file: {self.filename}")
-        #print("read {}".format(self.filename))
+        # print("read {}".format(self.filename))
 
-        #transform csv to json
+        # transform csv to json
         self.fcont = self.fcont.strip("\n").split("\n")
         self.crittable = {}
         header = self.fcont[0].split(",")
@@ -496,8 +486,8 @@ class crittable():
                         self.crittable[crit][roll]["alternate"] = {}
 
                     for elem in ["hits", "hits/rnd", "stunned", "die", "ooo", "parry", "no_parry"]:
-                        #debug
-                        #print("{} : {} - {} ==> {}".format(crit, roll, elem, self.crittable[crit][roll][elem]))
+                        # debug
+                        # print("{} : {} - {} ==> {}".format(crit, roll, elem, self.crittable[crit][roll][elem]))
                         self.crittable[crit][roll][elem] = int(self.crittable[crit][roll][elem])
 
         logger.info("successfully converted from csv to dictionary")
@@ -552,7 +542,7 @@ class crittable():
 
                 roll = dice(100, 1)
             pass
-#{'alternate': {},
+# {'alternate': {},
 # 'cover': '',
 # 'damage_type': 'muscle',
 # 'description': 'You wound foe in hip. Strike strips equipment from right side '
@@ -590,7 +580,6 @@ class crittable():
         """
         print("Result")
         pprint(self.crithit)
-
 
 
 class attacktable():
@@ -686,7 +675,7 @@ class attacktable():
         else:
 
             if roll >= self.attack[AT]["start"]:
-                #calc quotient
+                # calc quotient
                 q = int((150 - self.attack[AT]["start"]) / (self.attack[AT]["high"] - self.attack[AT]["low"]))
                 self.hits = int(self.attack[AT]["low"] + (roll - self.attack[AT]["start"]) / q)
 
@@ -724,7 +713,6 @@ class attacktable():
                     self.crit = c
 
         self.showResult()
-
 
 
 class combat():
@@ -781,4 +769,4 @@ class combat():
         else:
             print("Error: {] has the wrong file type!".format(filename))
 
-#slash = crittable(critfilename = "/home/mongol/git/rpg-tools/src/data/default/fight/crits/slash_crit.csv")
+# slash = crittable(critfilename = "/home/mongol/git/rpg-tools/src/data/default/fight/crits/slash_crit.csv")
