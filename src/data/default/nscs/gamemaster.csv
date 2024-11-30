@@ -1,19 +1,6 @@
 category,name,lvl,Qu,speed code,AT,hits,PP,size,OB melee,OB missile,OB magic,Primary Attack,Secondary Attack,Tertiary Attack,DB,DBm,comment,Notes,enc,immune,weakness,piclink,spells,climate code,habitat code,frequency of encounter code,measurement
-Rávatsar (Amphibians/Reptiles),Evil Huorn,25,-8,VS/VS,20,400,0,H/La,80 H Ba/70 H Gr/100 H Cr,0xx,0xx,,,,0,0,"?
+Rávatsar (Amphibians/Reptiles),Gorilla,4,8,MD/FA,3,120,0,L,45 L Gr/70 M Bi/50 M Bi,0xx,0xx,45LGr80,70MBi «,50MBi20,0,0,"
 
-
-
-
-
-","Evil, If Hgr grabs prex, Hcr next round",1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Huorn.jpeg,,?,?,0,?
-Rávatsar (Amphibians/Reptiles),Evil Huorn,25,-8,--/MD,20,400,0,H/La,80 H Ba/70 H Gr/100 H Cr,0xx,0xx,,,,0,0,"?
-
-
-
-
-
-","Hungry, ignore Stun damage",1-5,,,,,,,,
-Ape,Gorilla,4,8,MD/FA,3,120,0,L,45 L Gr/70 M Bi/50 M Bi,0xx,0xx,45LGr80,70MBi «,50MBi20,0,0,"
 
 
 
@@ -27,8 +14,10 @@ Ape,Ape (Giant),5,8,MF/FA,8,120,0,L,55 M Cl/70 L Gr,0xx,0xx,55MCl100,70LGr «,60
 
 
 
+
 ",Can use simple hand weapons.,2-4,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/giant_ape.jpeg,,hnwms,BMVDJ,5,5.5 ft
 Apsanakuni (Meat-Eaters),Bear (Grappling),5,4,MF/MF,8,170,0,L,70 L Gr/60 L Cl/20 M Bi,0xx,0xx,70LGr100,60LCl «,20MBi «,10,0,"
+
 
 
 
@@ -45,8 +34,10 @@ Apsanakuni (Meat-Eaters),Bear (Charging),5,4,MF/MF,8,170,0,L,60 L Ba,0xx,0xx,60L
 
 
 
+
 ",-,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/charging_bear.jpeg,,,,,
 Apsanakuni (Meat-Eaters),"Cat (leopard,  etc.)",3,12,VF/VF,3,100,0,M,40 M Cl/60 M Ba/60 M Bi,0xx,0xx,40MCl40,60MBa60,60MBi √,40,0,"
+
 
 
 
@@ -62,8 +53,10 @@ Apsanakuni (Meat-Eaters),Cheetah,3,16,BF/VF,3,70,0,M,45 M Cl/65 M Bi/45 M Bi,0xx
 
 
 
+
 ",Little endurance.,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/cheetah.jpeg,,,,,
 Apsanakuni (Meat-Eaters),Lion,5,0,FA/MF,4,150,0,L,85 L Cl/85 L Bi/120 L Cl,0xx,0xx,85LCl100,85LBi «,120LCl √,20,0,"
+
 
 
 
@@ -72,35 +65,46 @@ Apsanakuni (Meat-Eaters),Lion,5,0,FA/MF,4,150,0,L,85 L Cl/85 L Bi/120 L Cl,0xx,0
 Apsanakuni (Meat-Eaters),Mongoose,2,16,FA/BF,3,35,0,S,50 S Bi,0xx,0xx,50SBi100,-,-,70,0,"
 
 
+
 ",DB unusually large due to AQ,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/mongoose.jpeg,,,,,
 Apsanakuni (Meat-Eaters),Sabertooth Tiger,5,12,VF/VF,8,250,0,L,110 L Bi/70 L Cl,0xx,0xx,110LBi70,70LCl20,Both 10,30,0,"
+
 
 ",-,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/sabertooth_ai.jpg,,,,,
 Apsanakuni (Meat-Eaters),Tiger,5,12,VF/VF,4,150,0,L,90 L Ba/110 L Bi,0xx,0xx,75LC140,90LBa60,110LBi √,30,0,"
 
+
 ",Rushes from short range.,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/tiger.jpeg,,,,,
 Apsanakuni (Meat-Eaters),Weasel,1,12,FA/VF,1,35,0,S,50 M Bi,0xx,0xx,50MBi100,-,-,50,0,"
+
 
 ",Vicious.,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/weasel.jpeg,,,,,
 Apsanakuni (Meat-Eaters),Wildcat (many types),3,12,VF/VF,3,60,0,S,20 S Bi,0xx,0xx,30MC130,20SBi30,Both40,60,0,"
 
+
 ","Loners, ambushers.",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/wildcat.jpeg,,,,,
 Apsanakuni (Meat-Eaters),Wolf,3,8,FA/FA,3,110,0,M,65 M Bi,0xx,0xx,65MBi100,-,-,30,0,"
+
 
 ","Pack hunter, intelligent.",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/wolf.jpeg,,,,,
 Apsanakuni (Meat-Eaters),Chimera,10,8,FA/FA,4,180,0,L,90 L Bi/90 L Cl/40 M Ho,0xx,0xx,90LBi50,90LCl30,40MHo20,30,0,"
 
+
 ",Has unusual abilities.,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Chimera.jpeg,,,,,
 Apsanakuni (Meat-Eaters),Harpy ,6,0,MD/MD ,,50,0,M,30 M Cl,0xx,0xx,30MCl100 ,30Wp opt,-,,0,"
+
 
 ",Has unusual abilities. ,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/harpy.jpeg,,,,,
 Apsanakuni (Meat-Eaters),Hippogriff ,9,8,MF/FA ,,160,0,L,90 L Cl/75 L Pi,0xx,0xx,90LCl35 ,75LPi30,Both35,,0,"
 
+
 ",Has unusual abilities. ,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/hippogriff.jpeg,,,,,
 Apsanakuni (Meat-Eaters),Roc (huge bird) ,10,12,VF/FA ,,200,0,L,90 H Cl/80 L Pi,0xx,0xx,90HCl100 ,80LPi √,-,,0,"
 
+
 ",Trained rider could also attack. ,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Roc.jpeg,,,,,
 Apsanakuni (Meat-Eaters),Sphinx ,12,1,VF/VF ,,250,0,H*,170 H Cl/150 H Bi,0xx,0xx,170HCl50 ,150HBi25,Both25,,0,"
+
 
 ",Extremely vicious physical fighter. ,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/sphinx.jpeg,,,,,
 Apsanakuni (Meat-Eaters),Black Bears,5,4,,8,150,0,L,65 L Gr/60 L Cl/40 M Bi/70 M Ba,0xx,0xx,,,,20,0,"Agressive, noctual Hunters
@@ -117,8 +121,10 @@ Apsanakuni (Meat-Eaters),Black Bears,5,4,,8,150,0,L,65 L Gr/60 L Cl/40 M Bi/70 M
 
 
 
+
 ",,1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/black_bear.jpeg,,,,,
 Apsanakuni (Meat-Eaters),Sheep Hounds,5,12,,4,140,0,M,80 M Bi,0xx,0xx,,,,55,0,"Monesticated, fearless Dogs
+
 
 
 
@@ -151,8 +157,10 @@ Apsanakuni (Meat-Eaters),Sheep Hounds,5,12,MF/MF,4,140,0,M,80 M Bi,0xx,0xx,65LGr
 
 
 
+
 ",Aggressive. Nocturnal hunters.,1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/,,nwmktc,AFMCDL,7,5-6ft
 Apsanakuni (Meat-Eaters),Black Minks,1,12,VF/VF,3,50,0,M,50 M Bi,0xx,0xx,50MBi,-,-,60,0,"Cunning, carnivorous mammals reaching up to 4' in length Black Minks are dangerous freshwater predators. Much larger than their kin, they are strong swimmers in spite of their weight which is fifty to eighty pounds. (Males are larger than female Black Mink are most common in the Wetwang (Nindalf), near Ithilien, but they can occasionally be found in other areas in north central Middle-earth, always near water (marshes, stream or river banks, or the shore of freshwater lakes). Black Minks are voracious and seem to possess a surprising degree of brutal intelligence. They have been known, for example to wait for a young, tender creature of some sort to stray far from its mother before attacking. They usually hunt alone, but in the early spring they come together in groups of 7-12 to choose mates for the year. At this time they will attack anything that crosses the path. They cannot be driven off when they are in this state, on killed, and they will fight until literally torn apart. If an intact pelt is somehow obtained by such subtle methods poison or drowning (difficult, as they can hold their breath for up to ten minutes), it is worth a great deal of money (anywhere from six to fifteen gold pieces, depending upon the market), for the fur of the Black Mink is fabulously thick and glossy, as well as heir entirely waterproof.
+
 
 
 
@@ -164,8 +172,10 @@ Apsanakuni (Meat-Eaters),Blue Bears,7,4,MF/MF,8,200,0,L/I,80 L Gr/70 L Cl/30 M B
 
 
 
+
 ",Aggressive. Nocturnal hunters.,1-6,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/blue_bear.jpeg,,mkt,AFMCDELX,4,6-8ft
 Apsanakuni (Meat-Eaters),Blue Otters,4,4,MF/MF,3,80,0,M,40 M Cl/40 M Bi,0xx,0xx,40MCl,40MBi,-,30,0,"While similar to their more mundane brethren. Blue Otters are larger and have flattened tails with sharp crests on each edge. They generally travel in small groups during the day, feeding on fish eggs, smaller aquatic mammals, and birds. Using tree roots as structural supports, they reside in dens cut into larger, stabler sandbars or riverbanks. Here they produce litters of only one or two young each year. Their breeding pattern, coupled with their large profile and valuable pelts, makes them ideal targets for extinction. It is not surprising then, that Blue Otters are endangered. In many areas of northwestern Endor (notably Gondor). however, they are protected by hunting bans.
+
 
 
 
@@ -174,8 +184,10 @@ Apsanakuni (Meat-Eaters),Cave Bears,12,8,MF/FA,8,300,0,L/La,95 H Ba/90 L Cl/85 L
 
 
 
+
 ",Normal. Huge. retiring creatures.,1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/cave_bear.jpeg,,mktc,AFMCDELX,3,8-9ft
 Apsanakuni (Meat-Eaters),Chetmíg,5,12,FA/VF,4,150,0,L,75 L Cl/90 M Ba/100 L Bi,0xx,0xx,75LCl,90MBa,100LBi,30,0,"The Chatmoig (pl. 'Chetmíg') is a huge, rare, gray cat with faint tabby markings that enable it to hide with a degree of skill surprising in so large a beast. A nocturnal predator, it has huge forequarters and great (5-7 inch) fangs. Its body tapers from the shoulders to strong but compact hindquarters. Using its long tail, the Chatmoig can balance itself when leaping, which it does prodigiously: up to 150ft horizontally and 40ft vertically. The Cat can be found (when it can be found at all) in northern hills and mountains.
+
 
 
 
@@ -184,13 +196,16 @@ Apsanakuni (Meat-Eaters),Cliff Lions,5,8,FA/MF,4,140,0,M,85 L Bi/70 M Cl,0xx,0xx
 
 
 
+
 ","Normal. Snowy White, solitary creatures.",1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/cliff_lion.jpeg,,haawmsk,AFMCDL,4,4.5-6.5ft
 Apsanakuni (Meat-Eaters),Death Shrews,1,8,MD/FA,11,2,0,T,45 T Ti,0xx,0xx,45TTi,disease,-,70,0,"Death Shrews are mild-looking little creatures with soft white fur and an even softer, blue-gray underbelly. One would hardly think that such a harmless looking little beast would deserve such a foul name, but the little Death Shrew carries a grim disease, called the Blue Hand. Victims who contract the disease develop a bluish cast to the skin, large boils on their hands, feet and under their eyes, and begin to bleed from the nose and ears. Sufferers often become crippled, and many kill themselves. The Shrews, of course, are merely carriers, or they would have died out long ago. Even if they did not carry this disease, they would still be considered suprisingly unpleasant creatures, for they secrete a foul-smelling spray to protect themselves from large predators. Superb climbers, Death Shrews can avoid most encounters; however, even when cornered they are formidable. The vicious beasts have voracious appetites and will bite at exposed skin, regardless of the size of the creature to which it belongs. They also have spines strong enough to support the weight of a Man.
 
 
 
+
 ",Aggressive. Emit a foul-smelling spray.,1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/death_shrew.jpeg,,kt,UVL,7,2-3 inches
 Apsanakuni (Meat-Eaters),Dire Wolves (Adult),4,12,VF/FA,3,80,0,L/I,75 L Bi/45 M Cl,0xx,0xx,75LBi,45MCl,-,45,0,"In most ways, the Dire Wolf (S. 'Gothraug'; Q. 'Narmosse'; pl. 'Narmossi') resembles its smaller cousin, the common Timber Wolf. Found all over northern Middle-earth, they are intelligent, social animals that live in family groups or small packs (2-11 and 10-60 members, respectively). Dire Wolves mate for life, settle disputes among themselves with non-fatal duels, and cooperate among themselves in hunting. However, unlike common wolves, they have little or no fear of the Free Peoples. They will hunt Men, Elves, or Dwarves like any other prey. Dire Wolves weigh up to one hundred and fifty pounds, reach running speeds of up to thirty miles per hour, and leap up to six feet in the air with little effort. Possessed of tremendous nightvision, they are more nocturnal than their smaller kin.
+
 
 
 
@@ -201,8 +216,10 @@ Apsanakuni (Meat-Eaters),Dire Wolves (Adult),4,12,VF/FA,3,80,0,L/I,75 L Bi/45 M 
 
 
 
+
 ",Social animals. do not fear People.,2-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/,,ktc,AFMCDHPTINR,5,5-6ft
 Apsanakuni (Meat-Eaters),Dunmen's Dogs,1,4,MD/MF,3,40,0,S,45 S Bi,0xx,0xx,45SBi,-,-,40,0,"Kept only by the tribal Dunlendings, the Dunmen's Dogs look like a large, fat toy hound. These Dogs are sometimes used as guards or for pack-hunting, of which they are marginally capable. Most Dunmen's Dogs end up in the stewpot.
+
 
 
 
@@ -211,8 +228,10 @@ Apsanakuni (Meat-Eaters),Fishing Cats,1,12,VF/VF,3,50,0,S,30 M Cl/20 S Bi,0xx,0x
 
 
 
+
 ",Normal. Kittens can be domesticated.,1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/fish_cat.jpeg,,wmk,FMDH,4,2-3ft
 Apsanakuni (Meat-Eaters),Gích,2,12,FA/VF,3,45,0,S,40 M Bi/40 S Cl,0xx,0xx,40MBi,40SCl,-,50,0,"The Gaich (pl. 'Gích') is a large Fox found throughout the foothills of the Misty Mountains. It is the primary small predator in Rhudaur. Its name means 'changer,' for the Gaich is black in the summer and white in the winter. Rhudaurans hold many superstitious views about its nature and consider it sacrosanct when it is molting. For about two weeks a year — when it sheds its old coat and its new fur is growing in — the Gaich appears striped and is purportedly immune to weaponry. Gích eat primarily small mammals such as Rabbits, Mice, and Squirrels, although they will also eat eggs, ripe fruit, and carrion. Their furs are marketable, but not especially valuable.
+
 
 
 
@@ -221,8 +240,10 @@ Apsanakuni (Meat-Eaters),Gích,2,12,VF/VF,3,45,0,S,40 M Bi/40 S Cl,0xx,0xx,60MBi
 
 
 
+
 ",Aggressive. Crazy + mean + fierce.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/,,ktc,AFMCDHP,7,3-4ft (including tail)
 Apsanakuni (Meat-Eaters),Glutani,4,12,FA/VF,3,50,0,S,50 M Bi/45 M Cl,0xx,0xx,50MBi,45MCl,-,50,0,"The dreadful Glutan (pl. 'Glutani') is found thoughout northwestern Endor, but the largest concentration of the creatures is undoubtedly in western Minhiriath in Eriador. A Wolverine-like creature, it is one of the most fearsome predators in Middle-earth. It is a solitary, dark-furred beast shaped like a large badger. The Glutan is unbelievably quick and fierce, and appears to be quite insane. They have been known to attack large groups of armed men without the slightest provocation, fighting to the death even if escape is easily available. There are two currently recognized varieties. The Lowland variety is approximately two feet long on the average, with a reddish brown coloration that fades to a lighter color in the winter. They are very powerful for their size and will fight long after other animals would have fled. These animals are quite temperamental and will attack for no reason. A bounty has been placed on their heads of 25 gp, but this reward is not one highly sought after. Those that do hunt Glutani can sell the live creatures for more to Dunlanders who use them in fights against Bears or Wolves. The Highland or Mountain Glutan is no longer than its Lowland relative, but it is somewhat bulkier. They are dark brown to black in coloration, and stalk the high hills of Dunland unafraid of anything. Similar in disposition to their Lowland relatives, they are usually not sought after for bounty or capture because cages that will hold them are hard to come by and Dunlanders are fond of keeping their limbs.
+
 
 
 
@@ -231,8 +252,10 @@ Apsanakuni (Meat-Eaters),Grass Cats,3,12,VF/VF,3,100,0,M,40 M Cl/60 M Ba/60 M Bi
 
 
 
+
 ",Aggressive. Long-legged Plains cat.,1-10,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/grass_cat.jpeg,,wmskt,FP,3,4-5ft
 Apsanakuni (Meat-Eaters),Grey Wolves,3,8,FA/FA,3,110,0,M,55 L Bi/30 M Cl,0xx,0xx,55LBi,30MCl,-,30,0,"The Grey Wolf (S. 'Draugwath'; pl. 'Draugwaith'; Q. 'Mistanarmo'; pl. 'Mistanarmor'; aka 'Sindanarmo') is a powerful, muscular Dog with a thick coat of hair and a bushy tail. They range all over Middle-earth. Varying in color from nearly black in wanner locales to almost white in the North, they are exceptionally adaptable. Grey Wolves are exceptionally social animals who live in family groups or packs that roam and hunt together. These packs cooperate to run down their favorite prey: generally Deer and Sheep in the warmer climes and Caru or Losrandír in cooler regions. While typically interested only in larger herd animals, they also feed on rodents, fish, and crustaceans and, in rare cases (e.g., during hard winters or famines), they may attack lone travellers, trappers, or hunters. The wolfpack's hierarchy is organized and regulated in accord with the Wolves' ritualized postures, gestures, and combat. Grey Wolves, however, do not fight over mates except in extraordinary circumstances. Pairs normally remain together for life.
+
 
 
 
@@ -241,8 +264,10 @@ Apsanakuni (Meat-Eaters),Highland Lynxes,3,12,VF/VF,3,70,0,M,45 M Cl/30 M Bi,0xx
 
 
 
+
 ",Aggressive. Live and hunt in groups.,2-10,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/highland_lynx.jpeg,,ktc,AFGCHP,5,3-4.5ft
 Apsanakuni (Meat-Eaters),Hounds,3,12,VF/FA,3,65,0,M,45 M Bi,0xx,0xx,45MBi,-,-,40,0,"In Middle-earth, the term 'Hound' (Q. 'Huo': pl. 'Huron') almost always means the fierce Wolfhound (S. 'Huadraug'). These creatures range in size from the (relatively) diminutive dogs used by Hobbit farmers and shirriffs near the borders of the Shire to the great and noble beasts used by the noble Men of old to hunt the Wargs and werewolves of Morgoth. Hounds are found wherever there are Men or Hobbits; they also sometimes run wild in desolate areas where Men no longer dwell. Huan. A Noble Hound From Valinor, Huan was originally one of the immortal hunting dogs of Oromë, the Huntsman of the Valar. When he followed his first master, the Noldorin Elf Celegorm, away from Valinor, he became mortal, but it was decreed by the Valar that he would only die at the jaws of the mightiest Wolf of Arda. Huan was more intelligent than any other hound since seen in Middle-earth; he could even speak with words upon occasion, as well as being exceptionally eloquent in the usual houndish vocabulary of gestures and postures. He betrayed his treacherous master to aid Lúthien and later Beren in the Quest of the Silmaril. In this he met his doom; after killing numerous werewolves and defeating Sauron when the evil Maia took wolfform, Huan both slew and was slain by Carcharoth, the huge wolf bred by Morgoth to be the noble Hound's bane.
+
 
 
 
@@ -251,8 +276,10 @@ Apsanakuni (Meat-Eaters),Lisicavi,3,12,FA/VF,3,45,0,S,60 S Bi,0xx,0xx,60SBi,-,-,
 
 
 
+
 ",Normal. Small + large-eared Foxes.,1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Lisicavi.jpeg,,nawms,BFVZDP,5,2-3ft
 Apsanakuni (Meat-Eaters),Madratines,2,8,MF/FA,3,45,0,S,30 S Cl/25 S Bi,0xx,0xx,30SCl,25SBi,-,60,0,"The Madratine is a small cat-like Fox found mainly in the highlands of Eriador. Its white mask and ears stand out in sharp relief to its reddish brown fur. Madratine are very shy, nocturnal creatures that prey on rodents, birds, insects, and lizards. Pairs mate for life and generally occupy only one burrow during the course of a year.
+
 
 
 
@@ -261,8 +288,10 @@ Apsanakuni (Meat-Eaters),Marsh Mastiffs,3,8,MF/FA,3,60,0,M,50 M Bi,0xx,0xx,50MBi
 
 
 
+
 ",Domesticated. Fearless + loyal Dogs.,1-8,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/marsh _mastiff.jpeg,,wmkt,FMDH,4,5-6ft
 Apsanakuni (Meat-Eaters),Merisc Tyka,1,8,FA/FA,3,55,0,S,45 M Bi,0xx,0xx,45MBi,-,-,40,0,"The Merisc Tyke (pl. 'Merisc Tyka') is a wild dog found throughout Rhovanion, Rhûn, and the lands of the Kykurian Kyn. They arc related to the feral dogs of the Talath Harroch (the plains south of Mirkwood). Frequenting the fens and moorlands in small packs, they typically fish, scavenge for carrion, or attack small mammals in order to survive. Tyka will, however, attack weak, stranded, or bewildered cattle and have been known to prey on sleeping or sickly Men. Fortunately, they are afraid of fire and are easily scared off in the face of a torchlight. The Tyke has a dappled coat of yellowish-tan and brownish-grey (giving it a +40 Hiding bonus).
+
 
 
 
@@ -271,8 +300,10 @@ Apsanakuni (Meat-Eaters),North Bears,10,8,FA/FA,4,240,0,L/II,75 L Cl/80 L Gr/90 
 
 
 
+
 ",Normal. White. excellent swimmers.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/north_bear.jpeg,,cf,FGOSVWHPT,6,8-9ft
 Apsanakuni (Meat-Eaters),Red Foxes,2,12,FA/VF,3,45,0,S,40 S Bi/35 S Cl,0xx,0xx,40SBi,35SCl,-,50,0,"Unlike the common variety, the Red Fox of Calenardhon has truly red, rather than just rust-colored, fur. Understandably, this makes them a favorite target of fur hunters. Fortunately for the survival of the species, they are also more intelligent than the average Fox. Very clever about avoiding Men and anything that might be a trap, these wily creatures rarely stumble into death; they must be hunted. Red Foxes are also canny thieves and steal not only hens and rabbits but small, brightly colored objects. Unlike almost all other carnivorous mammals, they enjoy some color vision.
+
 
 
 
@@ -281,8 +312,10 @@ Apsanakuni (Meat-Eaters),Red Wolves,5,12,VF/VF,4,130,0,M,70 L Bi/55 M Cl,0xx,0xx
 
 
 
+
 ",Aggressive. Intelligent. ruthless canines.,2-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/red_wolves.jpeg,,mkt,FCDPILX,5,4.5-5.5ft
 Apsanakuni (Meat-Eaters),Sheep Hounds,5,12,VF/VF,4,140,0,M,80 M Bi,0xx,0xx,80MBi,-,-,55,0,"Dogs are popular among shepherds throughout Middle-earth. One favorite breed is the Sheep Hound (Q. 'Húoton'; pl. 'Húotoni'), a large, short-muzzled, long-haired Dog. They endure harsh weather exceptionally well and perform even when fatigued. Most importantly, their great size, stealth, and speed enable them to ward off predators. The Sheep Hound is very loyal, intelligent, and fierce. When equipped with a stout armored collar, it is a match for two or three Wolves. The Dúnedain also use them for hunting and as guard Dogs. Experiments in using them as War Dogs, though, have been failures. A smaller breed is often seen as a pet for women and children.
+
 
 
 
@@ -293,8 +326,10 @@ Apsanakuni (Meat-Eaters),Sloth Bears,11,0,SL/MD,8,325,0,L/La,100 H Ba/95 L Cl/60
 
 
 
+
 ",Normal. Huge sloth-like creatures.,1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/sloth_bear.jpeg,,nams,BFMOSDHLQR,3,15-20ft
 Apsanakuni (Meat-Eaters),Spotted Lions,5,4,FA/MF,4,140,0,M,85 L Cl/70 M Bi/50 M Ba,0xx,0xx,85LCl,70MBi,50MBa,25,0,"The Spotted Lion gets its name from the black spots on their almost white underbellies; the rest of their coat is a burnt orange color. Although quite rare, due to hunting, they still range throughout Cardolan. The lions are not evil creatures and, while they are extremely cunning, they are not capable of speech. Their feud with the wolves is old and bitter and has probably contributed to their decline more than the efforts of Men. The Spotted Lions live in small family groups, keeping lairs in trees and caves. They prefer to hunt Fiara, but sheep will do. Spotted lions are known to kill men in self-defense.
+
 
 
 
@@ -303,8 +338,10 @@ Apsanakuni (Meat-Eaters),Uncavi,3,12,FA/VF,3,100,0,M,80 L Cl/50 L Bi,0xx,0xx,80L
 
 
 
+
 ",Aggressive. Leopard-like cat.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/uncavi.jpg,,nas,FCPL,5,3.5-4.5ft
 Apsanakuni (Meat-Eaters),Undarlaif,3,8,FA/FA,3,90,0,M,70 M Bi/30 M Cl,0xx,0xx,70MBi,30MCl,-,40,0,"The Undarlaif (Rh. 'Leavings') are large, black jackals that came into the Talath Harroch (southern Rhovanion plain) south of Mirkwood at the time of the Great Plague of T.A. 1636-1637. Originally migrating from the East, they now range from the western flanks of the Orocarni (Q. 'Red Mountains') to the eastern bank of the Anduin. Their reddish ears complement and soften their distinct black coloring and their eerie blue eyes, lending them an attractive and somewhat innocent guise that obscures their sly, pitiless ways. Undarlaif hunt mostly at night, moving and working in wellcoordinated packs of four to twenty. The packs hunt cooperatively in a clever and sinister manner. First, they encircle a small group of prey (Deer, Kine, Sheep, Men, etc.). Then some of them decoy away the strongest defenders, while the others close in on the choicest victims. In lean times, however, they are not too proud to scavenge for carrion and refuse; thus their name.
+
 
 
 
@@ -313,8 +350,10 @@ Apsanakuni (Meat-Eaters),Vuk,3,8,FA/FA,3,110,0,M,70 M Bi,0xx,0xx,70Bi,-,-,30,0,"
 
 
 
+
 ",Aggressive. Wild hill Dogs.,6-30,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/vuk.jpeg,,nams,BFOSHPILX,7,4-5ft
 Apsanakuni (Meat-Eaters),War wolves,7,12,VF/VF,4,170,0,L/I,85 L Bi/65 M Cl,0xx,0xx,85LBi,65MCl,-,50,0,"Often mistaken for Wargs, War-wolves (S. 'Ormaráka'; pi. Ormarákar'; aka 'Yelmaráka') are huge Dogs who have been bred and trained for combat. They are frequently employed in large numbers as trackers, scouts, or as a means of harassing enemy armies. Some, like the War-wolves of Waw, are actually fielded as combat units. Others, such as the War-wolves of Angmar, serve as mounts for Orcish raiders and Ore-lords. These creatures appear to be just overlarge Wolves. This is true, but War-wolves are bolder, more violent, and much more cunning.
+
 
 
 
@@ -323,8 +362,10 @@ Apsanakuni (Meat-Eaters),White Foxes,1,4,MF/MF,3,40,0,S,35 S Bi/25 S Cl,0xx,0xx,
 
 
 
+
 ",Normal. Rare + shy+ live in burrows.,1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/white_fox.jpeg,,mktcf,AFCDHPL,3,3ft
 Apsanakuni (Meat-Eaters),White Wolves,8,12,VF/VF,4,170,0,M,90 L Bi/80 L Cl,0xx,0xx,90LBi,80LCl,-,70,0,"White Wolves (S. 'Drauglos'; pl. 'Drauglys'; Q. 'Lossanarmo'; pl. 'Lossanarmor'; aka 'Nimanno') are northerly kin of the Dire Wolves (above) and are distantly related to the common Grey Wolf. They are true denizens of the cold, thriving in temperatures as low as -60°F (-50°C). Although most at home in the Far North, they have been seen as far south as the Shire in Eriador and the Celduin Valley in Rhovanion (usually during especially bad winters). All that has been said of the Dire Wolves applies to the White Wolves as well, but even more so; the need to survive as a species in the frigid North has made these huge Dogs even more clever and bold as hunters. Preying on everything from rodents and carrion to well-armed Lossoth, they are the most dangerous of nonmagical canines. Like the White Fox, the Drauglos has a glistening white coat comprised of long, thick, hollow hairs which are set in a tough, oily hide. Their small ears, two-chambered nostrils, and well-furred feet are ideally suited for life on the ice and snow.
+
 
 
 
@@ -333,8 +374,10 @@ Apsanakuni (Meat-Eaters),Wolverine,2,12,FA/VF,3,45,0,S,50 L Bi,0xx,0xx,50LBi40,4
 
 
 
+
 ",Extremely vicious and bellicose.,1-3,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/wolverine.jpeg,,ktcf,AGTC,6,65–113 cm 
 Bat,Vault Shrikes,1,18,VF/BF,1,5,0,T,30 T Bi/40 T Bi,0xx,0xx,30TBi,40TTi,poison,60,0,"The Vault Shrike is a tiny, bright red Bat with a long no tongue with which it pokes into holes and crevices for insect - It also secretes from its tongue a highly toxic nerve poison enables it to deal with larger prey. These the Vault Shrike paralyzes or kills by means of the poison. It then rips its victim to shreds with its tiny sharp teeth. The Vault Shrike's diet is further enhanced by its ability to catch small frogs in an ironically froglike manner - by snatching the prey midleap with that long tongue. Vault Shrikes get their name from their unnerving, shrieking cry. They are only found in Moria the caverns of the Misty Mountains. 
+
 
 
 
@@ -343,8 +386,10 @@ Bat,Hunting Bats,2,12,VF/VF,1,20,0,S,50 S Bi,0xx,0xx,50SBi,-,-,50,0,"A large, ca
 
 
 
+
 ",Aggressive. Carry disease.,10-30,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/hunting_bat.jpeg,,wm,AFUCD,5,3-6 ft wingspan
 Bat,Pond Bats,0,12,VF/VF,1,5,0,S,25 T Bi,0xx,0xx,25TBi,-,-,60,0,"A small black creature, the Pond Bat rarely attacks Men or Elves unless panicked and confused, or trapped. It is, however, a noted carrier of fleas and other parasites, which it leaves in isolated dwellings and camps. Thus, they are a common cause of Cyclic Fever.
+
 
 
 
@@ -353,13 +398,16 @@ Bat,Flying Foxes,1,12,VF/VF,1,10,0,S,20 S Bi/20 T Cl,0xx,0xx,20SBi,20TCl,-,50,0,
 
 
 
+
 ",Normal. Good eyesight and smell.,1-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/flying_fox.jpeg,,mst,FMSVWZHPQ,4,6-9 inch body / 2-3 ft wingspan
 Bat,Golodos,1,0,MD/MD,1,40,0,M,35 S Pi,0xx,0xx,35SPi,-,-,20,0,"Seldom-seen, the grey and purple Great Bat is found in remoter parts of Mirkwood. Little is known of its habits. It eats night-flying birds (e.g.. Owls), large spiders, and various rodents, although larger individuals have been known to fell small bear. The Great Bat suck blood (always a tempting notion to those who dislike bats, even the small insectivorous kind) from its victims, and feeds on the softer flesh of its prey. 
 
 
 
+
 ",Passive. Aggressive during mating season.,1-100,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/golodos.jpeg,,ktc,FUVCDL,7,5 ft wingspan
 Bat,Cavern Wings,1,12,FA/VF,1,8,0,S,50 S Cl/40 S Bi,0xx,0xx,50SCl,40SBi,-,50,0,"Cavern Wings are large, intelligent Bats found predominantly in Moria, although they have been reported in other caverns in the Misty Mountains. They seem to have a very sophisticated 'biting order', culminating in a leader, a phenomenon not observed in any other Bat species. This leader directs the other bats in their group hunts, indicating which potential victims to ignore, which to attack. The Cavern Wings' weapon is their razor sharp claws, with which they rip their victims into bite-sized shreds. Their voices are low-pitched for bats, allowing most of their victims to have some warning of their approach — although this rarely helps, as the Cavern Wings are very quick and extremely maneuverable. These bats have dark gray to black fur, often speckled in younger Cavern Wings. The best defense is the ability to pick out the leader, for if that bat is slain, the rest will retreat until the flock sorts itself out and chooses a new leader.
+
 
 
 
@@ -369,8 +417,10 @@ Bat,Bat,1,12,VF/VF,1,4,0,S,20 S Bi,0xx,0xx,20SBi100,-,-,60,0,"
 
 
 
+
 ",-,1-30,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/bat.jpeg,,,,,
 Bird,Condor,4,12,VF/MF,1,90,0,L,50 L Cl/45 M Pi,0xx,0xx,50LCl100,45MPi √,-,30,0,"
+
 
 
 
@@ -389,8 +439,10 @@ Bird,Eagle,3,8,FA/FA,1,30,0,M,45 M Cl/35 S Pi,0xx,0xx,45MCl100,35SPi √,-,30,0,
 
 
 
+
 ",-,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/eagle.jpeg,,,,,
 Bird,Falcon,2,16,VF/BF,1,25,0,S,30 M Cl/20 S Pi,0xx,0xx,30MCl100,20SPi √,-,60,0,"
+
 
 
 
@@ -405,15 +457,19 @@ Bird,Hawk,2,12,VF/VF,1,25,0,S,40 M Cl/25 S Pi,0xx,0xx,40MCl100,25SPi √,-,60,0,
 
 
 
+
 ",-,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/hawk.jpeg,,,,,
 Bird,Eagle (Giant),8,12,VF/VF,3,150,0,L,80 L Cl/60 L Pi,0xx,0xx,80LCl100,60LPi √,-,40,0,"The Great Eagles are the most noble of all birds, having been created by the Valar Manwë, Lord of the Air, and Yavanna, Queen of the Earth. Appointed as overseers of all the Kelvar, they have played many glorious roles in the history of Middle-earth. Their exploits are legion. They have rescued numerous champions who were in their hour of greatest need. Both the Noldo Elf Maedhros, who was imprisoned in Thangorodrim, and Gandalf the Grey, who was confined at Orthanc by Saruman, owe their salvation to these graceful creatures. (Indeed, they also aided Gandalf after his combat with the Balrog of Moria.) Great Eagles are as intelligent as any of the Free Peoples but are not numbered among them, presumably because they lack the power to build things and fashion crafts. These huge birds are not to be trifled with, though they are fierce foes when aroused to anger and have little patience with faint-heartedness in the face of danger. They are stalwart foes of Evil and especially hate any other creature of the air who has allied with the Valar's enemies. Great Eagles confer among themselves in their own tongue, Eryr-aryth, but they can usually also speak Sindarin and some prevalent Mannish tongue(s) (e.g., Westron). Some particularly scholarly Eagles have mastered dozens of languages. 'Thorondor, Lord of the Eagles of Crissaegrim.' Thorondor was the chief of the Eagles of Beleriand in the First Age. He was a staunch friend and ally of the Edain and the Noldor. Among his noble deeds was the leading of the guard force of Eagles on Gondolin, the city of the Noldor in that Age, the rescue of Maedhros, the wounding of Morgoth himself, the recovery of the body of the Noldo Fingolfin during the Battle of the Sudden Flame (Dagor Bragollach), the rescue of Beren and Lúthien as they fled from Angband, and the leading of the Eagle forces during the Great Battle at the end of the First Age. Thorondur was allowed to go West at the end of the Age. No Great Eagle since has left such a legacy or been so powerful. His 180' wingspan made Thorondor the largest bird ever to fly over Endor, and his size enabled him to melee Dragons. 'Gwaihir Windlord, Lord of the Eagles of the Misty Mountains.' Gwaihir became a friend of Gandalf the Istar after the latter healed him of a poisoned wound. Gwaihir repaid his friend's kindness many times over as the years went by, rescuing Gandalf, Thorin Oakenshield and their companions from Wargs and Goblins (Orcs) on their way to the Lonely Mountain. The Windlord subsequently led his Eagles to the Battle of the Five Annies. He also rescued Gandalf from his imprisonment atop Isengard and later from the Peak of Zirak Zigil (Silvertine) after his battle with the Balrog. Finally, Gwaihir saved Frodo the Ringbearer and his companion Samwise from Orodruin (Mount Doom) after the destruction of the One Ring. Gwaihir's Eagles also served Gandalf and his fellow Istar Radagast as spies at their Lord's instructions. 'Landroval, Brother of Gwaihir.' Nearly as mighty as his brother, Landroval aided in the rescue of Frodo and Samwise from Mordor in the cataclysm accompanying the destruction of the Ruling Ring.
+
 ",Trained rider could also attack,1-15,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/giant_eagle.jpeg,,,,,
 Bird,Barrow Owls,2,8,FA/FA,1,20,0,S,34 A Cl/10 S Pi,0xx,0xx,35SCl,10SPi,-,50,0,"The Barrow Owl is a small, rare Owl which has taken to living in the open barrows and abandoned gopher tunnels of Eriador (especially in northern Cardolan). Nocturnal and exceedingly specialized, they are virtually blind when confronted with bright light (e.g., in day- or torchlight). This is important, for they startle easily and swarm like Bees when confronted with a potential foe. They carry numerous diseases, including rabies and lycanthresis, to which they are immune. (Normally 2nd-3rd level, the latter disease is a severe psychiatric infliction that affects victims in 110 days and leaves them with the false belief that they are wild animals.)
 
 
 
+
 ",Normal. Nocturnal predators.,1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/barrow_owl.jpeg,,mkt,VHPL,6,6 inch wingspan
 Bird,Vereut Eagles,3,8,FA/FA,1,30,0,M,45 M Cl/35 S Pi,0xx,0xx,45MCl,35SPi,-,35,0,"The Vereut Eagle inhabits the hills of eastern Eriador. It is blue over most of its body and wings, but its hue reaches a dark purple near the face and wing tips. The Eagle's beak and eyes standout in stark contrast, for they both are a bright yellow color. While hunting, they fly silently, low to the ground, enabling them to the tops of hills and ridges to surprise their favorite prey - Gophers and Rock Hydrax. This method of hunting is startling to those are unacquainted with the beasts, and many an Eriadoran has suddenly found himself in a brief, bewildering combat at the crest of a hill. Several Dunlanders wear scars on their faces attesting that these chance meetings can be dangerous.
+
 
 
 
@@ -424,8 +480,10 @@ Bird,Thrushes,0,12,VF/FA,1,6,0,T,15 T Pi,0xx,0xx,15TPi,-,-,60,0,"Thrushes are la
 
 
 
+
 ",Curious. Intelligent messengers.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/thush.jpeg,,wmkt,EFLACDH,3,12-18 inches
 Bird,Sea Eagles,5,12,VF/VF,1,65,0,M,65 M Cl/50 M Pi,0xx,0xx,65MCl,50MPi,-,45,0,"Smaller, swifter kinsmen of the fierce Red Eagles, Sea Eagles live along the coasts of the Romenëar (Q. 'East Sea') and the eastern Haragaer(S. 'South Sea'). There, they hunt sea mammals, large fish that swin near the surface, and even sea turtles. The bane of Water Drakes, Sea Eagles are often worshipped as saviors by the seafaring tribes of the remote eastern isles. Sea Eagles have yellowish-gold underplumage and blue-green feathers on the tops of their backs and wings. They have golden beaks. 
+
 
 
 
@@ -434,28 +492,35 @@ Bird,Short-eared Owls,4,8,FA/FA,1,20,0,S,50 S Cl/25 M Cl,0xx,0xx,50SCl,25MCl,-,5
 
 
 
+
 ",Normal. Rare nocturnal predators.,1-10,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/short-eared_owl.jpeg,,wmktc,BMCDHPQR,7,3 ft wing-span
 Bird,Red Eagles,6,12,VF/FA,1,75,0,M,70 L Cl/45 M Pi,0xx,0xx,70LCl,45MPi,-,40,0,"The Red Eagle dominates the skies of the East. Smaller relatives of the Great Eagles, who are rare in eastern Endor, these magnificent predators are relatively numerous and pose a threat to travellers in the Red Mountains and Mountains of the Wind. Fortunately, though, they usually prefer to hunt goats, sheep, or wild horses. Red Eagles are known for the deep red hue that accents the tips of their gold-colored plumage. They have scarlet beaks. 
+
 
 
 ",Aggressive. Numerous. Predators.,1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/red_eagle.jpeg,,mkt,AFCDEL,6,4.5 ft body / 25 ft wingspan
 Bird,Ravens,4,12,VF/VF,3,20,0,S,50 S Cl/25 M Cl,0xx,0xx,50SCl,25MCl,-,50,0,"Ravens are among the more intelligent birds to be found in Middle-earth. Not as noble nor as wise as the Great Eagles (see below). Ravens are nevertheless on the side of good — unlike all too many of their lesser Corvidae cousins. They are reputedly the messengers of the Vala Námo (Mandos) and are associated with Fate and Prescience. The Ravens of Erebor befriended and counselled the Dwarves of the Line of Durin during the Third Age. These noble birds live a long time - Roäc of Erebor lived past 150 years of age. Brilliant and somewhat enchanted, most Ravens can speak the tongues of the Free Peoples (or at least of Men and Elves
 
 
+
 ",Normal. Intelligent. somewhat enchanted.,1-30,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/raven.jpeg,,ktc,AFMWCDHPERY,4,4-5 ft wingspan
 Bird,Jatewoones,9,12,FA/VF,1,120,0,L,80 L Pi/70 L Cl/50 L Ba,0xx,0xx,80LPi,70LCl,50LBa,30,0,"The Jatewoone is also known as the cleaverbeak or marsh bird. Standing 9' tall and endowed with Swan-like necks and long, powerful legs, these white waterfowl sport a scarlet band across the eyes. From a distance they might look like a large crane, although they are not of that family. Their beak is a light grey with the exception of the sharp, brilliant indigo dorsal ridge from which they get their name. Extending from this ridge over their head and thrusting out behind is a crest of feathers of the the same color. Birds of prey in every sense, their legs end in talons that can grip even small creatures tightly, and their beaks are made for tearing. Jatewoones live on snakes, fish, and small mammals. Their reputation for hostility comes from their protection of their nests which are usually hidden in swampy areas. They will also attack when they are surprised by noisy people. These birds are incredibly strong and, with their superior height, can do terrible damage to the normal human, often splitting the skull. They can also use their large talons with great effectiveness. Jatewoones mate for life and produce one or two eggs every year or every other year. Usually only one of the fledglings will survive. These young Jatewoones grow at a remarkable pace, reaching three-quarters of their full height in only one year and are fully mature by two. Jatewoones can fly, but if the need to escape danger arises, it is more common to see them running at high speeds, using still water areas for cover.
+
 
 
 ",Protective. Huge marsh birds.,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/jatewoone.jpeg,,mktc,M,3,12-14 ft wingspan
 Bird,Kingfishers,1,12,VF/FA,1,8,0,T,20 T Pi,0xx,0xx,20TPi,-,-,60,0,"The smallest of Endor's fisherfowl, the Kingfisher is also the most attractive. It has a large, silvery bill and silver, blue, orange and white feathers. The Kingfisher's riverbank home belies its beauty, though, for it is little more than a dirty hole full of old fish bones and rotting mess. Besides fish, the Kingfisher preys on insects, centipedes, and small lizards and amphibians. 
 
 
+
 ","Normal. Small, attractive waterfowl.",1-50,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/kingfisher.jpeg,,wmk,M,3,9 inch wingspan
 Bird,Kirinkir,0,8,FA/MF,1,5,0,T,5 T Pi,0xx,0xx,5TPi,-,-,55,0,"The Kirinki is a tiny scarlet bird with an extremely high chirp that was one of the most beloved songbirds of Númenor. After the Downfall in S.A. 3319, knowledge of these wondrous singers became confined to verse, illustrations in books, and works of art depicting the little creatures. Some of the Faithful who escaped from Númenor, however, brought their pet Kirinkir with them. Whether any survived or thrived is another matter, although there have been rumors that Radagast the Brown has a pair at his home at Rhosgobel (near the southwestern eaves of Mirkwood). 
 
 
+
 ","Passive. Small, scarlet songbirds.",1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/kirinki.jpeg,,wmk,FDEL,9,2-3 inches
 Bird,Orao,6,12,VF/VF,1,120,0,L,81 M CL/60 S Pi,0xx,0xx,81MCl,60SPi,-,30,0,"The Desert Orao is the principal native Eagle of Far Harad. It is quite similar to the Eagles of the North, except that the environment has forced him to play the role of scavenger as well as hunter. These soaring hunters swoop to attack smaller birds or prey on the ground. Unlike the northern birds, the desert Eagle will as readily eat carrion as fresh meat. This is an adaptation made necessary by the environment. They are aggressive enough to strike travellers along Harad's southern caravan roads. Aside from Men, the Orao are the dominant hunters on the vast plains of southwestern Harad. Their eyries are set in the caverns of the northern Yellow Mountains, and in wind-hollowed caves the highest of the hills east of the hilly Raj region to the north. In size, they are no match for the Great Eagles, but they are large enough to carry off a shepherd's goat or lamb. 
+
 
 
 
@@ -464,34 +529,53 @@ Bird,Pied Swans,1,4,MF/SL,1,35,0,M,40 M Ba/30 S Pi,0xx,0xx,40MBa,30SPi,-,20,0,"H
 
 
 
+
 ",Normal. Very intelligent.,2-40,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/pied_swan.jpeg,,wmk,FMHPY,5,6 ft wingspan
 Bird,Golodo,30,12,VF/VF,11,300,0,H/La,120 H Cl/100 L Pi/100 L Ba,0xx,0xx,120HCl,100LPi,100LBa,90,0,"A Golodo is a bright green, moderately large, flightless bird, rather like a large goose on stilts. Excellent swimmers, they subsist primarily on fish, crustaceans, and shellfish. Golodos gather in large flocks during the breeding season in early summer, traveling in small groups during the rest of the year. Golodos will immediately flee the scent of any predator with surprising, if ungainly speed — except during the nesting season, when they will bravely defend their eggs. Given to snapping up carrion, Golodos enjoy the taste of meat, however, they will eat anything, since they are poor hunters.
 
+
 ","Good, very intelligent. Use Large Crits.",1-10,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/golodo.jpeg,,mktc,M,4,3.5 ft wingspan
-Bird,Great Falcons of Ardor,15,12,VF/VF,4,150,0,H/II,95 L Cl/70 M Pi/60 M Ba,0xx,0xx,95LCl,70MPi,60MBa,60,0,"Rarely seen despite their huge size. Great Falcons reside in remoter and higher reaches of the Forest of Mirkwood. (Actually most reside in the Emyn-nu-Fuin. the 'Mountains of Mirkwood.') They are almost untameable, probably due to the difficulty of hooding and confining such a huge bird, even as an eyas (fledgling). Great Falcons are surprisingly maneuverable for such large birds, as is necessary for any winged beast that would live in the dense forest. Their light build makes them unable to carry more than around 70 lbs, so they make poor mounts. ",Fierce. Mounts Of the Lords of Air.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/great_falcon_ardor.jpeg,,ktc,FMCDHPLRY,4,4 ft wingspan
-Bird,Great Falcons of Mirkwood,10,12,VF/VF,4,100,0,L/I,90 L Cl/60 M Pi/50 M Ba,0xx,0xx,90LCl,60MPi,50MBa,60,0,"These fierce creatures were the preferred mounts of the Lords of the Air of the Court of Ardor in southern Middle-earth. They were perhaps developed from the Great Falcons of Mirkwood (see below). This fact would have been known to Sauron, who could have shared his knowledge with the evil Elda Court. The fiercest of these Falcons were tied to specific of the Windlords by magical means. Their loyalty to their masters was unswerving, and no one else could ride them unless they could somehow overcome the will of the Falcons by magical means. 'Sûlroch, Elros, and Gilsûl, Finest Falcons of Ardor'. These mighty birds were the steeds of Sûlherok, Messenger of the Court of Ardor, and Valkrist, the Court 's Lord of Arms (who had the latter two at his disposal). ",Normal. Rare. Very maneuverable.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/great_falcon_mirkwood.jpeg,,wmk,FPL,3,8-12 inches
+Bird,Great Falcons of Ardor,15,12,VF/VF,4,150,0,H/II,95 L Cl/70 M Pi/60 M Ba,0xx,0xx,95LCl,70MPi,60MBa,60,0,"Rarely seen despite their huge size. Great Falcons reside in remoter and higher reaches of the Forest of Mirkwood. (Actually most reside in the Emyn-nu-Fuin. the 'Mountains of Mirkwood.') They are almost untameable, probably due to the difficulty of hooding and confining such a huge bird, even as an eyas (fledgling). Great Falcons are surprisingly maneuverable for such large birds, as is necessary for any winged beast that would live in the dense forest. Their light build makes them unable to carry more than around 70 lbs, so they make poor mounts. 
+",Fierce. Mounts Of the Lords of Air.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/great_falcon_ardor.jpeg,,ktc,FMCDHPLRY,4,4 ft wingspan
+Bird,Great Falcons of Mirkwood,10,12,VF/VF,4,100,0,L/I,90 L Cl/60 M Pi/50 M Ba,0xx,0xx,90LCl,60MPi,50MBa,60,0,"These fierce creatures were the preferred mounts of the Lords of the Air of the Court of Ardor in southern Middle-earth. They were perhaps developed from the Great Falcons of Mirkwood (see below). This fact would have been known to Sauron, who could have shared his knowledge with the evil Elda Court. The fiercest of these Falcons were tied to specific of the Windlords by magical means. Their loyalty to their masters was unswerving, and no one else could ride them unless they could somehow overcome the will of the Falcons by magical means. 'Sûlroch, Elros, and Gilsûl, Finest Falcons of Ardor'. These mighty birds were the steeds of Sûlherok, Messenger of the Court of Ardor, and Valkrist, the Court 's Lord of Arms (who had the latter two at his disposal). 
+",Normal. Rare. Very maneuverable.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/great_falcon_mirkwood.jpeg,,wmk,FPL,3,8-12 inches
 Bird,Gorcrows,1,8,FA/MF,1,20,0,S,10 S Pi/10 S Cl,0xx,0xx,10SPi,10SCl,-,55,0,"Smaller cousins of the evil Crebain, Gorcrows are not so much evil as indifferent to suffering. Not nearly as bright as their larger cousins, Gorcrows live to eat (although, if asked, they would probably insist that they merely eat to live). They are attracted to shiny things, and Gorcrows have picked up unbelievable numbers of shiny trinkets and small coins. Their untidy, communal nesting sites are often littered with minor yet still significant amount wealth. However, since Gorcrows will cooperate in protect their nest sites, would-be plunderers are well-advised to be cautious and to wear helmets with small eyeslits - Gorerows notoriously fond of eyeballs!
 
 
-",Hungry. Attracted to shiny things.,5-50,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,hf,AGFSJTEKLQ,7,5 ft body / 30 ft wingspan
+
+",Hungry. Attracted to shiny things.,5-50,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Gorcrow.jpeg,,hf,AGFSJTEKLQ,7,5 ft body / 30 ft wingspan
 Bird,Grass Grouses,0,8,FA/FA,1,8,0,T,10 T Pi,0xx,0xx,10TPi,-,-,70,0,"A plump, gallinaceous (chickenlike) bird of the grasslands Calenardhon (Rohan), the tasty Grass Grouse is the preferred prey of many hunters, be they winged or two- or four-legged. Many man, Red Fox, or Hawk will pass easier prey by for a crack at greasy Grass Grouse. Their black-speckled brown plumage provides good camouflage in the tall grasses, so the birds prosper and spread in spite of their inherent appeal to the palate. The male booming mating cry is most remeniscent of a drunk blowing over the neck of a bottle. 
 
 
 
-",Passive. Standard gamebirds.,1-10,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,h,AFJPL,7,4.5 ft body / 25 ft wingspan
-Bird,Great Bats,5,12,VF/VF,3,60,0,M,75 M Bi/60 M Cl,0xx,0xx,75MBi,60MCl,-,60,0,,Aggressive. Nocturnal predators.,1-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,k,AFCDEL,8,3.5 ft body / 20 ft wingspan
-Bird,Great Green Pheasants,1,8,MF/FA,1,15,0,S,30 S Ba/20 S Pi,0xx,0xx,30SBa,20SPi,-,40,0,"The Great Green Pheasant is a handsome bird. Females and their immature offspring sport lustrous bornze-green plumage. Emerald green feathers and long, trailing tail plumes adorn the male. The cocks are famous for their ferocious duels over potential mates - they rush at each other fiercely, broadsiding their rivals in clouds of emerald green down, until one or the other retreats, exhausted and bedraggled. Great Green Pheasants, like the Grass Grouse, are considered tasty, but this larger bird must be hung before eating, as it is tougher (in every way) than the passive Grass Grouse. ",Normal. Spot beautiful plumage.,1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,wmk,FPL,4,18-24 inches (3-4 ft with tail)
-Bird,Green-Winged Crows,1,8,FA/MF,1,15,0,S,10 S Pi/15 S Cl,0xx,0xx,10SPi,15SCl,-,55,0,"A lively, intelligent bird of the marshes and shores, the Greenwinged Crow can be tamed even as an adult. They make effective messengers, able to find their way home from any direction within a 75- 100 mile radius. However, like most of the Corvidae. they are attracted and distracted by shiny objects. With their shiny black plumage marked distinctively on the 'shoulder' of the wing with a patch of iridescent green, these crows make attractive pets.",Lively. Attracted to shiny things.,2-40,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,wmk,FMHL,3,10-12 inches
-Bird,Bitterns,1,0,MD/MD,1,15,0,S,20 S Cl/10 S Pi,0xx,0xx,20SCl,10SPi,-,30,0,"A wading and fishing bird found in the deltas of northwestern Endor, the Bittern, or Northern Heron, is known for its strange resonant, mournful cry. It is slow, cunning, deliberate hunter that feeds on snakes, crustaceans, and fish. Bitterns migrate, spending their winters in the wetlands along the temperate seacoasts and their summers in the lakes and deltas of the North.",Normal. Fishing birds.,1-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,mktc,M,2,4 ft wingspan
-Bird,Black Swans,3,4,MF/SL,1,35,0,M,20 M Ba/25 S Pi,0xx,0xx,20MBa,25SPi,-,20,0,"Black Swans are found from Mordor and northward into Wilderland, as far as the southern reaches of Mirkwood. They are also quite common in the river valleys of Nûrad and Rhovanion, especially along the River Anduin. They are large for Swans and have been known to mob and overturn boats, usually because the vessels had come too close to the Swans' huge nests.",Passive. Large for Swans.,1-50,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,wmk,FWH,6,7 ft wingspan
-Bird,Chamber Birds,2,12,VF/FA,1,11,0,S,50 S Pi/35 M Cl,0xx,0xx,50SPi,35MCl,-,60,0,"White, mute, and almost blind, the odd, fungus-eating Chamber Bird is one of the many strange inhabitants of Moria. They seek out the fungus by their remarkable sense of smell (odd indeed for a bird) and note enemies by their inaudibly high cries, in the manner of bats. Their large, gaping beaks have serrated edges and their bluish talons are both sharp and strong. Totally herbivorous (primarily fungivorous), they rarely attack animals unless surprised or starving (some instinct for meat seems to remain from some predacious ancestor).",Shy. +/- 5 to Crit results if foe surprised.,21-30,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,wmkt,UVLX,7,3 ft wingspan
-Bird,Cliff Buzzard,2,12,VF/VF,1,30,0,S,40 M Cl/25 S Pi,0xx,0xx,40MCl,25SPi,-,50,0,"The Cliff Buzzard is a large, black-feathered bird of the mountains. It builds its nest on inaccessible cliffs. Often several pairs will nest in the same area, behavior more typical of the Corvidae (crowlike birds) than of the Raptors (Hawks and so on). Cliff Buzzards exhibit a great deal of intelligence (for birds) and will cooperate in hunting. They will band together to mob some large creature and drive it over a cliff so that they may all feast together on the shattered body. Any wounded creature, no matter what its size, may be subject to the unwanted attentions of the Cliff Buzzards. They are most common on the southern slopes of the White Mountains.",Aggressive. Band together against foes.,2-10,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,wmkt,AFCDLRY,4,6 ft wingspan
-Bird,Crakes/Coots,1,12,VF/FA,1,15,0,S,30 S Pi,0xx,0xx,30SPi,-,-,50,0,"A black-and-purple ducklike species, the Crake is known as a noisy and obnoxious waterbird. It has wide, splayed feet, allowing it to dash across pondweed and mudflats. Crakes are also excellent swimmers and remarkably swift flyers. They are among the most flexible and adaptable species in all of Middle-earth, ranging as far north as Forodwaith, Mur, and Urb. The Crake's closest relative, the Coot, builds island nests up to three or four feet across from reeds and weeds.",Normal. Very adaptable.,1-50,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,mktc,M,2,2 ft wingspan
-Bird,Echo Hawks,3,16,VF/BF,1,27,0,S,50 M Cl/40 M  Pi,0xx,0xx,50MCl,40MPi,-,65,0,"The Echo Hawk is a large subterranean bird and a menace that few would expect to meet underground in a cave. It is a raptor that has totally adapted to life in a lightless environment, utilizing both infravision and echo-location for its hunting. The echo Hawk's nostrils are unusually large, giving it, like the chamber bird (above), a keenness of scent quite rare in a bird. Its beak and talons are unusually large, hard, and sharp, so much so that the Echo Hawk can pierce through most types of armor. As is usual with the raptors, the female Hawk is larger than the male. Otherwise, the sexes are similar, with dull white feathers, colorless skin, and beaks and talons like translucent horn. ",Opportunistic. Often found near Green—flower vine.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,wmskt,UVLRX,6,2-3 ft wingspan
-Bird,Bird (small),1,12,VF/FA,1,5,0,T,0 S Cl,0xx,0xx,0Ti100,6 or more-0SCl,-,70,0,,"Sparrows, doves, etc.",1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
-Bird,Bird (large),1,8,FA/FA,1,8,0,S,0 S Pi,0xx,0xx,0SPi100,3 or more-20MCl,-,50,0,,"Gull, ravens, etc.",1-10,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
-Bird,Owl,1,8,FA/FA,1,35,0,M,40 M Cl/40 S Pi,0xx,0xx,40MCl100,40SPi √,-,30,0,,Primarily nocturnal.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
+
+",Passive. Standard gamebirds.,1-10,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/grass_grouse.jpeg,,h,AFJPL,7,4.5 ft body / 25 ft wingspan
+Bird,Great Bats,5,12,VF/VF,3,60,0,M,75 M Bi/60 M Cl,0xx,0xx,75MBi,60MCl,-,60,0,"
+",Aggressive. Nocturnal predators.,1-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/great_bat.jpeg,,k,AFCDEL,8,3.5 ft body / 20 ft wingspan
+Bird,Great Green Pheasants,1,8,MF/FA,1,15,0,S,30 S Ba/20 S Pi,0xx,0xx,30SBa,20SPi,-,40,0,"The Great Green Pheasant is a handsome bird. Females and their immature offspring sport lustrous bornze-green plumage. Emerald green feathers and long, trailing tail plumes adorn the male. The cocks are famous for their ferocious duels over potential mates - they rush at each other fiercely, broadsiding their rivals in clouds of emerald green down, until one or the other retreats, exhausted and bedraggled. Great Green Pheasants, like the Grass Grouse, are considered tasty, but this larger bird must be hung before eating, as it is tougher (in every way) than the passive Grass Grouse. 
+",Normal. Spot beautiful plumage.,1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/great_green_pheasants.jpeg,,wmk,FPL,4,18-24 inches (3-4 ft with tail)
+Bird,Green-Winged Crows,1,8,FA/MF,1,15,0,S,10 S Pi/15 S Cl,0xx,0xx,10SPi,15SCl,-,55,0,"A lively, intelligent bird of the marshes and shores, the Greenwinged Crow can be tamed even as an adult. They make effective messengers, able to find their way home from any direction within a 75- 100 mile radius. However, like most of the Corvidae. they are attracted and distracted by shiny objects. With their shiny black plumage marked distinctively on the 'shoulder' of the wing with a patch of iridescent green, these crows make attractive pets.
+",Lively. Attracted to shiny things.,2-40,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/green-winged_crows.jpeg,,wmk,FMHL,3,10-12 inches
+Bird,Bitterns,1,0,MD/MD,1,15,0,S,20 S Cl/10 S Pi,0xx,0xx,20SCl,10SPi,-,30,0,"A wading and fishing bird found in the deltas of northwestern Endor, the Bittern, or Northern Heron, is known for its strange resonant, mournful cry. It is slow, cunning, deliberate hunter that feeds on snakes, crustaceans, and fish. Bitterns migrate, spending their winters in the wetlands along the temperate seacoasts and their summers in the lakes and deltas of the North.
+",Normal. Fishing birds.,1-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/bittern.jpeg,,mktc,M,2,4 ft wingspan
+Bird,Black Swans,3,4,MF/SL,1,35,0,M,20 M Ba/25 S Pi,0xx,0xx,20MBa,25SPi,-,20,0,"Black Swans are found from Mordor and northward into Wilderland, as far as the southern reaches of Mirkwood. They are also quite common in the river valleys of Nûrad and Rhovanion, especially along the River Anduin. They are large for Swans and have been known to mob and overturn boats, usually because the vessels had come too close to the Swans' huge nests.
+",Passive. Large for Swans.,1-50,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/black_swan.jpeg,,wmk,FWH,6,7 ft wingspan
+Bird,Chamber Birds,2,12,VF/FA,1,11,0,S,50 S Pi/35 M Cl,0xx,0xx,50SPi,35MCl,-,60,0,"White, mute, and almost blind, the odd, fungus-eating Chamber Bird is one of the many strange inhabitants of Moria. They seek out the fungus by their remarkable sense of smell (odd indeed for a bird) and note enemies by their inaudibly high cries, in the manner of bats. Their large, gaping beaks have serrated edges and their bluish talons are both sharp and strong. Totally herbivorous (primarily fungivorous), they rarely attack animals unless surprised or starving (some instinct for meat seems to remain from some predacious ancestor).
+",Shy. +/- 5 to Crit results if foe surprised.,21-30,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/chamber_bird.jpeg,,wmkt,UVLX,7,3 ft wingspan
+Bird,Cliff Buzzard,2,12,VF/VF,1,30,0,S,40 M Cl/25 S Pi,0xx,0xx,40MCl,25SPi,-,50,0,"The Cliff Buzzard is a large, black-feathered bird of the mountains. It builds its nest on inaccessible cliffs. Often several pairs will nest in the same area, behavior more typical of the Corvidae (crowlike birds) than of the Raptors (Hawks and so on). Cliff Buzzards exhibit a great deal of intelligence (for birds) and will cooperate in hunting. They will band together to mob some large creature and drive it over a cliff so that they may all feast together on the shattered body. Any wounded creature, no matter what its size, may be subject to the unwanted attentions of the Cliff Buzzards. They are most common on the southern slopes of the White Mountains.
+",Aggressive. Band together against foes.,2-10,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/cliff_buzzard.jpeg,,wmkt,AFCDLRY,4,6 ft wingspan
+Bird,Crakes/Coots,1,12,VF/FA,1,15,0,S,30 S Pi,0xx,0xx,30SPi,-,-,50,0,"A black-and-purple ducklike species, the Crake is known as a noisy and obnoxious waterbird. It has wide, splayed feet, allowing it to dash across pondweed and mudflats. Crakes are also excellent swimmers and remarkably swift flyers. They are among the most flexible and adaptable species in all of Middle-earth, ranging as far north as Forodwaith, Mur, and Urb. The Crake's closest relative, the Coot, builds island nests up to three or four feet across from reeds and weeds.
+",Normal. Very adaptable.,1-50,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/crakes.jpeg,,mktc,M,2,2 ft wingspan
+Bird,Echo Hawks,3,16,VF/BF,1,27,0,S,50 M Cl/40 M  Pi,0xx,0xx,50MCl,40MPi,-,65,0,"The Echo Hawk is a large subterranean bird and a menace that few would expect to meet underground in a cave. It is a raptor that has totally adapted to life in a lightless environment, utilizing both infravision and echo-location for its hunting. The echo Hawk's nostrils are unusually large, giving it, like the chamber bird (above), a keenness of scent quite rare in a bird. Its beak and talons are unusually large, hard, and sharp, so much so that the Echo Hawk can pierce through most types of armor. As is usual with the raptors, the female Hawk is larger than the male. Otherwise, the sexes are similar, with dull white feathers, colorless skin, and beaks and talons like translucent horn. 
+",Opportunistic. Often found near Green—flower vine.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/echo_hawk.jpeg,,wmskt,UVLRX,6,2-3 ft wingspan
+Bird,Bird (small),1,12,VF/FA,1,5,0,T,0 S Cl,0xx,0xx,0Ti100,6 or more-0SCl,-,70,0,"
+","Sparrows, doves, etc.",1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/small_bird.jpeg,,,,,
+Bird,Bird (large),1,8,FA/FA,1,8,0,S,0 S Pi,0xx,0xx,0SPi100,3 or more-20MCl,-,50,0,"
+","Gull, ravens, etc.",1-10,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/large_bird.jpeg,,,,,
+Bird,Owl,1,8,FA/FA,1,35,0,M,40 M Cl/40 S Pi,0xx,0xx,40MCl100,40SPi √,-,30,0,"
+",Primarily nocturnal.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/owl.jpeg,,,,,
 Campagne Hogo Tarosvan,Baen Naeld,1,5,,1,10,0,M,10 H cl,0xx,0xx,,,,10,10,"
+
 
 
 
@@ -502,6 +586,7 @@ Campagne Hogo Tarosvan,Baen Naeld,1,5,,1,10,0,M,10 H cl,0xx,0xx,,,,10,10,"
 
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Baen_Naeld.jpeg,,,,,
 Campagne Hogo Tarosvan,Baega,1,20,,1,10,0,S,10 M cl,10 sl,0xx,,,,15,15,"
+
 
 
 
@@ -522,8 +607,10 @@ Campagne Hogo Tarosvan,Brem,1,10,,1,20,0,M,20 H cl,15 sl,0xx,,,,20,20,"
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Brem.jpeg,,,,,
 Campagne Hogo Tarosvan,Briannon,1,10,,1,20,0,M,20 H cl,15 sl,0xx,,,,20,20,"
+
 
 
 
@@ -545,8 +632,10 @@ Campagne Hogo Tarosvan,Brunwen,1,10,,1,20,0,M,20 H cl,15 sl,0xx,,,,20,20,"
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Brunwen.jpeg,,,,,
 Campagne Hogo Tarosvan,Caradog,1,5,,1,10,0,M,10 H cl,0xx,0xx,,,,10,10,"Der Vater von Miren
+
 
 
 
@@ -557,6 +646,7 @@ Campagne Hogo Tarosvan,Caradog,1,5,,1,10,0,M,10 H cl,0xx,0xx,,,,10,10,"Der Vater
 Campagne Hogo Tarosvan,Celebriel,1,10,,1,29,1,M,20 H ss,0xx,0xx,,,,5,5,"Dieser junge (1. Ivl) Dunadan-Heilerin (Animist) wurde entführt beim Sammeln von Kräutern in der Nähe der Gräberfelder auf dem Blauen Butte, direkt über den sieben Mündungen von Hogo Tarosvan.
 Neugierig und rebellisch, ignorierte sie die Warnungen ihrer Tante Tante und ihres Bruders und schlüpfte in den kühlen Nebel der Nacht. Sie wird in einer Woche oder so ""getestet"" werden.
 Celebriel hat hellbraunes Haar, graue Augen und eine sternförmige Narbe auf ihrer linken Wange. Ihr spitzenbesetzter Rock, ihr goldener Umhang und ihre lyrische Sprache zeugen von einem besonderen Sinn für Unpraktikabilität. Sie ist nicht besonders zuverlässig, aber einzigartig und seltsam liebenswert.
+
 
 
 
@@ -577,8 +667,10 @@ Campagne Hogo Tarosvan,Cigfa,1,20,,1,10,0,M,10 M cl,10 sl,0xx,,,,15,15,"
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/cigfa.jpeg,,,,,
 Campagne Hogo Tarosvan,Chaen,1,20,,1,10,0,M,10 H cl,10 sl,0xx,,,,15,15,"Thebos Sohn
+
 
 
 
@@ -604,6 +696,7 @@ Dervorin erfuhr nie das Schicksal seiner Familie und wurde bewusstlos vor den Al
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/dervorin.jpeg,,,,,
 Campagne Hogo Tarosvan,Dian,1,5,,1,10,0,M,10 H cl,0xx,0xx,,,,10,10,"Frau von Orvig
 
@@ -615,8 +708,10 @@ Campagne Hogo Tarosvan,Dian,1,5,,1,10,0,M,10 H cl,0xx,0xx,,,,10,10,"Frau von Orv
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Dian.jpeg,,,,,
 Campagne Hogo Tarosvan,Emaka,1,15,,1,15,0,M,15 H cl,15 sl,0xx,,,,15,15,"
+
 
 
 
@@ -640,8 +735,10 @@ Campagne Hogo Tarosvan,Geymun,1,5,,1,10,0,M,10 H cl,0xx,0xx,,,,10,10,"
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Geymun.jpeg,,,,,
 Campagne Hogo Tarosvan,Goewin,1,10,,1,20,0,M,20 H cl,15 sl,0xx,,,,20,20,"
+
 
 
 
@@ -662,8 +759,10 @@ Campagne Hogo Tarosvan,Goewin,1,10,,1,20,0,M,20 H cl,15 sl,0xx,,,,20,20,"
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/,,,,,
 Campagne Hogo Tarosvan,Gwun,1,5,,1,10,0,M,10 H cl,0xx,0xx,,,,10,10,"Mutter von Thebo
+
 
 
 
@@ -687,8 +786,10 @@ Campagne Hogo Tarosvan,Gwydeth,1,15,,1,15,0,M,15 H cl,15 sl,0xx,,,,15,15,"
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Gwydeth.jpeg,,,,,
 Campagne Hogo Tarosvan,Haega,1,20,,1,10,0,M,10 M cl,10 sl,0xx,,,,15,15,"
+
 
 
 
@@ -706,8 +807,10 @@ Campagne Hogo Tarosvan,Hescen,1,1,,1,15,0,M,15 H cl,15 sl,0xx,,,,15,15,"Tochter 
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/hescen.jpeg,,,,,
 Campagne Hogo Tarosvan,Hwen,1,10,,1,20,0,M,20 H cl,15 sl,0xx,,,,20,20,"Frau von Leu
+
 
 
 
@@ -722,8 +825,10 @@ Campagne Hogo Tarosvan,Is Coed,1,10,,1,20,0,M,20 H cl,15 sl,0xx,,,,20,20,"
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/ISCoed.jpeg,,,,,
 Campagne Hogo Tarosvan,Kollan,1,10,,1,20,0,M,20 H cl,15 sl,0xx,,,,20,20,"Sohn von Orvig
+
 
 
 
@@ -735,8 +840,10 @@ Campagne Hogo Tarosvan,Leu,1,10,,1,20,0,M,20 H cl,15 sl,0xx,,,,20,20,"
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Leu.jpeg,,,,,
 Campagne Hogo Tarosvan,Mey,1,15,,1,15,0,M,15 H cl,15 sl,0xx,,,,20,0,"Tochter von Therbo
+
 
 
 
@@ -748,8 +855,10 @@ Campagne Hogo Tarosvan,Miren,1,10,,1,20,0,M,20 H cl,15 sl,0xx,,,,20,20,"
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Miren.jpeg,,,,,
 Campagne Hogo Tarosvan,Orden,1,20,,1,10,0,M,10 M cl,10 sl,0xx,,,,15,15,"Sohn von Teycor (Zwilling)
+
 
 
 
@@ -770,8 +879,10 @@ Orvig heiratete in seiner Jugend, aber seine Frau starb im Kindbett. Ihr Vermäc
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/orvig.jpeg,,,,,
 Campagne Hogo Tarosvan,Pesc,1,10,,1,20,0,M,20 H cl,15 sl,0xx,,,,20,20,"Thebos Sohn
+
 
 
 
@@ -789,6 +900,7 @@ Campagne Hogo Tarosvan,Pwedh,1,15,,1,15,0,M,15 H cl,15 sl,0xx,,,,15,15,"Goewins 
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/pwedh.jpeg,,,,,
 Campagne Hogo Tarosvan,Scoel,4,5,,13,78,0,M,81 H sp,69 sb/69 sp,0xx,,,,10,10,"Scoel ist ein einarmiger Dunman von außergewöhnlicher Größe (5'11"") und Stärke. Als (4. Ivl) Krieger ist er der Aufseher über die Waffen und Leutnant von Orvig. Er ist rücksichtslos, leicht zu verärgern und spielt mit Kranken, Gebrechlichen oder Behinderten. Scoel ist der Meinung, dass andere ihre Probleme so überwinden sollten, wie er es getan hat, und leidet nicht unter der Sorge.
 Scoels Handicap stört ihn nicht. Er kann problemlos einen Speer schwingen und besitzt sogar einen modifizierten Kurzbogen, den er mit seinem Arm, Armstumpf und Zähnen bedient. Seine Fähigkeit, Waffen zu werfen, ist unheimlich und selbst im Wasser oder auf unebenem Terrain ist er ein gefährlicher Gegner. Scoel trägt immer schwarz.
@@ -797,8 +909,10 @@ Scoels Handicap stört ihn nicht. Er kann problemlos einen Speer schwingen und b
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/scoel.jpeg,,,,,
 Campagne Hogo Tarosvan,Shauc,1,10,,1,20,0,M,20 H cl,15 sl,0xx,,,,20,20,"Sisias Mann
+
 
 
 
@@ -826,8 +940,10 @@ Trotz seiner großen Macht hat Shoglic keine Ahnung, woher er kommt. Seine Erinn
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Shogelic.jpeg,,,,,
 Campagne Hogo Tarosvan,Sisia,1,10,,1,20,0,M,20 H cl,20 sl,0xx,,,,20,20,"Priesterin des Shoglic
+
 
 
 
@@ -850,8 +966,10 @@ Coelmun hat sich in Celebriel verliebt, obwohl die Gefühle offenbar nicht auf G
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/coelmun.jpeg,,,,,
 Campagne Hogo Tarosvan,Teycor,1,10,,1,20,0,M,20 H cl,20 sl,0xx,,,,20,20,"Priester
+
 
 
 
@@ -874,6 +992,7 @@ Diese Aufgaben befriedigen seinen Blutdurst, doch Thebo strebt nach einer höher
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Thebo.jpeg,,,,,
 Campagne Hogo Tarosvan,Wydan,1,10,,1,20,0,M,20 H cl,15 sl,0xx,,,,20,20,"Teycors Frau
 
@@ -882,8 +1001,10 @@ Campagne Hogo Tarosvan,Wydan,1,10,,1,20,0,M,20 H cl,15 sl,0xx,,,,20,20,"Teycors 
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/wydan.jpeg,,,,,
 Campagne Hogo Tarosvan,Usha,1,10,,1,20,3,M,20 H cl,15 sl,0xx,,,,20,0,"
+
 
 
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Usha.jpeg,,,,,
@@ -901,8 +1022,10 @@ Campagne Minas Anghen,Friwihn,3,0,,6,48,0,M,45 H ha,35 da,0xx,,,,10,0,"
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/halunke4.png,,,,,
 Campagne Minas Anghen,Hannuka,3,0,,6,48,0,M,45 H da,39 da,0xx,,,,10,0,"
+
 
 
 
@@ -939,8 +1062,10 @@ Campagne Minas Anghen,Morgu,6,5,,8,89,0,M,78 H ss,67 da,0xx,,,,35,0,"
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/halsabschneider1.png,,,,,
 Campagne Minas Anghen,Wihnuk,4,0,,7,58,0,M,65 H ha,56 da,0xx,,,,30,0,"
+
 
 
 
@@ -966,8 +1091,10 @@ Campagne Minas Anghen,Coerba,4,15,,10,64,0,M,78 H bs,72 cb/72 da,0xx,,,,60,25,"U
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/coerba.png,,,,,
 Campagne Minas Anghen,Sunil,4,10,,7,57,0,M,87 H ha,55 sb,0xx,,,,55,25,"
+
 
 
 
@@ -997,6 +1124,7 @@ Lesser Dunadan, Female, +15 qs, 54 PP, Awareness 1000’r 3x/day, Crown x3 PP, +
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/niniel_ghost2.png,Channeling Closed/Symbolic Ways:12;Channeling Closed/Locating Ways:12;Channeling Closed/Creations:12;Channeling Open/Barrier Law:12;Channeling Open/Spell Defense:12;Channeling Open/Detection Mastery:12,,,,
 Campagne Minas Anghen,Gorghiric,5,15,,9,26,5,m,10 H da,30 lb,0xx,,,,10,0,"Northman, 5 PP, +2 spell adder, 10 Rewk, 1 Edram.
 
@@ -1008,8 +1136,10 @@ Campagne Minas Anghen,Gorghiric,5,15,,9,26,5,m,10 H da,30 lb,0xx,,,,10,0,"Northm
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Gorghiric.png,Base List Cleric/Channels:5;Base List Cleric/Summons:5,,,,
 Campagne Minas Anghen,Duoveris Cleg,5,5,,10,40,10,M,59 H sp,34 sb,0xx,,,,15,0,"Rural Man, +10 sb, 10 PP, +1 spell adder, Belt of Presence 1x/day, 1 Kathkusa.
+
 
 
 
@@ -1030,8 +1160,10 @@ Campagne Minas Anghen,Gaem Wulsen,1,10,,1,18,0,M,29 H bs,15 sb,0xx,,,,20,15,"Rur
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Gaem.png,,,,,
 Campagne Minas Anghen,Eriel,4,5,,1,21,16,M,10 H da,30 sb,0xx,,,,20,0,"Rural Woman, 16 PP, x2 multiplier, Cloak of Invisibility 1x/day
+
 
 
 
@@ -1050,8 +1182,10 @@ Campagne Minas Anghen,Forlong,2,20,,1,31,0,M,20 H bs,10 cb,0xx,,,,15,0,"Mixed Ma
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/rich_trader.jpg,,,,,
 Campagne Minas Anghen,Dagnir,1,10,,9,31,0,M,35 H bs,0xx/30 cb,0xx,,,,55,25,"
+
 
 
 
@@ -1069,8 +1203,10 @@ Campagne Minas Anghen,Gorlim,1,5,,13,28,0,M,40 H fa,0xx,0xx,,,,40,20,"
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/rogue03.jpg,,,,,
 Campagne Minas Anghen,Vagor,1,10,,10,30,0,M,35 H ha,0xx,0xx,,,,45,20,"
+
 
 
 
@@ -1087,8 +1223,10 @@ Campagne Minas Anghen,Pwyll,1,10,,9,31,0,M,35 H bs,0xx,0xx,,,,45,20,"
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/rogue04.jpg,,,,,
 Campagne Minas Anghen,Hirgon,1,5,,7,27,0,M,40 H sc,0xx,0xx,,,,40,20,"
+
 
 
 
@@ -1104,8 +1242,10 @@ Campagne Minas Anghen,Dirhavel,1,10,,14,30,0,M,45 H pa,20 sb,0xx,,,,35,20,"
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/rogue08.jpg,,,,,
 Campagne Minas Anghen,Treva,1,10,,1,14,0,M,15 H ss,0xx,0xx,,,,15,0,"Kitchen Maid
+
 
 
 
@@ -1114,6 +1254,7 @@ Campagne Minas Anghen,Treva,1,10,,1,14,0,M,15 H ss,0xx,0xx,,,,15,0,"Kitchen Maid
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Treva.jpg,,,,,
 Campaign Setmaenen,Haedric,4,10,,1,32,8,M,20 H da,20 sb,0xx,,,,20,0,"
 Lesser Dunadan, +2 spell adder,Ring +10 to Runes, 2 Mirenna, +5
+
 
 
 
@@ -1134,8 +1275,10 @@ Rural Man, +10 ha, +2 adder
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/ruem_laer.jpg,,,,,
 Campaign Setmaenen,Jesec Gael,2,10,,2,29,0,M,74 H bs,59 lb,0xx,,,,40,0,"Urban Female, +15 bs, +10 lb, +10 lockpick, Boots of Silence 2x/day
+
 
 
 
@@ -1146,28 +1289,39 @@ Mixed Man
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Hoeg Cuerd.jpg,,,,,
 Dangerous Animals,Boar,3,8,FA/MD,4,120,0,M,40 L Ho/30 M Ba/20 M Ts,0xx,0xx,40LHo100,30MBa «,20MTs «,30,0,"
 
 
-","Unpredictable, ill-tempered.",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
+
+
+","Unpredictable, ill-tempered.",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/boar.jpeg,,,,,
 Dangerous Animals,Elephant (male),7,8,FA/FA,12,450,0,L*,90 H Ho/80 H Ba/75 H Ts,0xx,0xx,90HHo70,80HBa30,75HTs «,10,0,"
 
 
-",Could grapple if trained.,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
+
+
+",Could grapple if trained.,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/male_elefant.jpeg,,,,,
 Dangerous Animals,Elephant (female),7,8,FA/FA,12,450,0,L*,80 H Ba/75 H Ts,0xx,0xx,80HBa100,75HTs «,-,10,0,"
 
 
-",Could grapple if trained.,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
+
+",Could grapple if trained.,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/femaile_elefant.jpeg,,,,,
 Dangerous Animals,Elk (male),3,8,FA/FA,8,200,0,L,100 H Ho/90 L Ba/60 L Ts,0xx,0xx,100HHo100,90LBa «,60LTs «,10,0,"
 
 
-",Loner except during mating season.,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
+
+",Loner except during mating season.,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/male_elk.jpeg,,,,,
 Dangerous Animals,"Hyenas (Jackals, etc.)",2,12,VF/FA,3,70,0,M,45 M Bi,0xx,0xx,45MBi100,-,-,40,0,"
-","Large Packs, cunning.",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
-Dangerous Animals,Rhinoceros,7,4,MD/MF,12,240,0,L,130 H Ho/110 H Ba/110 H Ts,0xx,0xx,130HHo100,110HBa «,110HTs √,0,0,,"Blind charge, poor eyesight.",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
-Dangerous Animals,Centaur,5,12,VF/VF,4,80,0,L,50 L Ba/40 L Ts,0xx,0xx,50LBa100,40LTs «,50Wp opt,30,0,"A centaur has the upper body of a humanoid, and the lower body of a large horse. The centaur is a large creature that lives in temperate forests. They can live solitary lives or live in small tribes.",Intelligent Centaurs may use weapons.,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,6-7 ft / 4 feet at the withers
-Dangerous Animals,Unicorn ,10,16,BF/VF ,,90,0,L,100 L Ho/30 M Ba/50 M Ts,0xx,0xx,100LHo100 ,30MBa «,50MTs «,,0,,Has unusual abilities. ,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
+
+","Large Packs, cunning.",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/hyena.jpeg,,,,,
+Dangerous Animals,Rhinoceros,7,4,MD/MF,12,240,0,L,130 H Ho/110 H Ba/110 H Ts,0xx,0xx,130HHo100,110HBa «,110HTs √,0,0,"
+","Blind charge, poor eyesight.",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/rhinoceros.jpeg,,,,,
+Dangerous Animals,Centaur,5,12,VF/VF,4,80,0,L,50 L Ba/40 L Ts,0xx,0xx,50LBa100,40LTs «,50Wp opt,30,0,"A centaur has the upper body of a humanoid, and the lower body of a large horse. The centaur is a large creature that lives in temperate forests. They can live solitary lives or live in small tribes.
+",Intelligent Centaurs may use weapons.,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/centaur.jpeg,,,,,6-7 ft / 4 feet at the withers
+Dangerous Animals,Unicorn ,10,16,BF/VF ,,90,0,L,100 L Ho/30 M Ba/50 M Ts,0xx,0xx,100LHo100 ,30MBa «,50MTs «,,0,"
+",Has unusual abilities. ,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/unicorn.jpeg,,,,,
 Dangerous Animals,Fen Boars,2,4,,3,100,0,M,40 M Ho,0xx,0xx,,,,30,0,"
 
 
@@ -1179,13 +1333,20 @@ Dangerous Animals,Fen Boars,2,4,,3,100,0,M,40 M Ho,0xx,0xx,,,,30,0,"
 
 
 
-",,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/boar.jpg,,,,,
-Dangerous Animals,Boars,3,8,FA/MF,4,120,0,M,50 M Ho/50 M Ba/40 S Ts,0xx,0xx,50MHo,50MBa,40STs,30,0,"Boars are fierce wild Pigs, the ancestors of all domesticated varieties. They are found throughout the temperate regions of Endor. The largest species, the Red Boar, is found in the woodlands east of the Orocarni (Q. 'Red Mountains') in easternmost part of the continent (particularly in Aegan). Exceptionally dangerous, generally nocturnal creatures, Boars are agile, quick, and aggressive whenever they are alarmed. When angry, they will charge straight at an enemy, regardless of its size, and bowl it over, trampling the foe with sharp hooves and slashing it with even sharper tusks. Injuries, unless to a limb, hardly slow a Boar down. Boars are hunted all over Middle-earth. Men often hunt them using special spears that have extra stout shafts, huge, sharp heads, and (most important) a stout crossbar about 18 inches below the point. The crossbar is handy because a speared Boar will run straight up the spear to get at the hunter. Omnivores, Boars eat bulbs, tubers, fruit, nuts, insects, and carrion. They are most active at night and in the morning and travel in groups of 1-20. Males (who can be distinguished by their long canine-tusks) roam apart from, but close to, the females and young. The Boar of Everholt. This huge example of porcine power had become a byword for wildness and ferocity in the Firien Wood on the borders of Rohan in T.A. 2864. King Folca of Rohan, after cleaning all the Orcholds from Rohan, went to reward himself with a true royal hunt, but it was the Boar who became the hunter that day. Folca speared the Boar in a vital spot, but this mighty creature still had enough strength left to gouge the king to death with its mighty tusks. Boar and monarch died together.",Aggressive. Mean-tempered and solitary.,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,hnwmk,FCDHJ,5, 3.5-4.5ft
-Dangerous Animals,Fen-Boars,2,8,FA/MF,3,100,0,M,40 M Ho/30 M Ba/20 S Ts,0xx,0xx,40MHo,30MBa,20STs,30,0,"Fen boars are smaller than their forest-dwelling relatives, who can gorge on nuts all autumn. However, they make for good hunting and tasty eating. Males can be dangerous if cornered, lashing out with the long tusks they normally employ for digging in the mud for tasty roots, as well as for grubbing out rotten meat. Even more than other Pigs, Fen Boars enjoy berries, insects, and fish in addition to their normal vegetarian diet.",Aggressive. Dangerous if cornered.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,hnwmk,FMHPR,5,3ft
-Demonic Beeings,Gorgon,6,12,MF/VF,,110,0,L,40 M Ho/60 L Ba/50 L Ts,0xx,0xx,40MHo100 ,60LBa «,50LTs √,,0,,Has unusual abilities. ,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
-Demonic Beeings,Hydra ,10,8,MD/FA ,,150,0,L*,60 M Bi,0xx,0xx,60MBi100 ,-,-,,0,,"4-7 heads,  each head gets an attack.  ",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
-Demonic Beeings,Lich ,20,16,BF/BF ,,150,0,M,70 H we,0xx,0xx,70Wp100 ,-,-,,0,,"Has Very unusual abilities, good luck. ",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
-Demonic Beeings,Medusa ,5,12,MF/VF ,,60,0,M,30 H we,0xx,0xx,30Wp100 ,-,-,,0,,Has unusual abilities. ,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
+
+",,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/fen_boar.jpeg,,,,,
+Dangerous Animals,Boars,3,8,FA/MF,4,120,0,M,50 M Ho/50 M Ba/40 S Ts,0xx,0xx,50MHo,50MBa,40STs,30,0,"Boars are fierce wild Pigs, the ancestors of all domesticated varieties. They are found throughout the temperate regions of Endor. The largest species, the Red Boar, is found in the woodlands east of the Orocarni (Q. 'Red Mountains') in easternmost part of the continent (particularly in Aegan). Exceptionally dangerous, generally nocturnal creatures, Boars are agile, quick, and aggressive whenever they are alarmed. When angry, they will charge straight at an enemy, regardless of its size, and bowl it over, trampling the foe with sharp hooves and slashing it with even sharper tusks. Injuries, unless to a limb, hardly slow a Boar down. Boars are hunted all over Middle-earth. Men often hunt them using special spears that have extra stout shafts, huge, sharp heads, and (most important) a stout crossbar about 18 inches below the point. The crossbar is handy because a speared Boar will run straight up the spear to get at the hunter. Omnivores, Boars eat bulbs, tubers, fruit, nuts, insects, and carrion. They are most active at night and in the morning and travel in groups of 1-20. Males (who can be distinguished by their long canine-tusks) roam apart from, but close to, the females and young. The Boar of Everholt. This huge example of porcine power had become a byword for wildness and ferocity in the Firien Wood on the borders of Rohan in T.A. 2864. King Folca of Rohan, after cleaning all the Orcholds from Rohan, went to reward himself with a true royal hunt, but it was the Boar who became the hunter that day. Folca speared the Boar in a vital spot, but this mighty creature still had enough strength left to gouge the king to death with its mighty tusks. Boar and monarch died together.
+",Aggressive. Mean-tempered and solitary.,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/boar.jpeg,,hnwmk,FCDHJ,5, 3.5-4.5ft
+Dangerous Animals,Fen-Boars,2,8,FA/MF,3,100,0,M,40 M Ho/30 M Ba/20 S Ts,0xx,0xx,40MHo,30MBa,20STs,30,0,"Fen boars are smaller than their forest-dwelling relatives, who can gorge on nuts all autumn. However, they make for good hunting and tasty eating. Males can be dangerous if cornered, lashing out with the long tusks they normally employ for digging in the mud for tasty roots, as well as for grubbing out rotten meat. Even more than other Pigs, Fen Boars enjoy berries, insects, and fish in addition to their normal vegetarian diet.
+",Aggressive. Dangerous if cornered.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/fen_boar.jpeg,,hnwmk,FMHPR,5,3ft
+Demonic Beeings,Gorgon,6,12,MF/VF,,110,0,L,40 M Ho/60 L Ba/50 L Ts,0xx,0xx,40MHo100 ,60LBa «,50LTs √,,0,"
+",Has unusual abilities. ,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/gorgon.jpeg,,,,,
+Demonic Beeings,Hydra ,10,8,MD/FA ,,150,0,L*,60 M Bi,0xx,0xx,60MBi100 ,-,-,,0,"
+","4-7 heads,  each head gets an attack.  ",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/hydra.jpg,,,,,
+Demonic Beeings,Lich ,20,16,BF/BF ,,150,0,M,70 H we,0xx,0xx,70Wp100 ,-,-,,0,"
+","Has Very unusual abilities, good luck. ",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/lich.jpeg,,,,,
+Demonic Beeings,Medusa ,5,12,MF/VF ,,60,0,M,30 H we,0xx,0xx,30Wp100 ,-,-,,0,"
+",Has unusual abilities. ,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/medusa.jpg,,,,,
 Demonic Beeings,Warg (schwach),5,12,,4,160,0,L,85 L Bi/50 M Cl,0xx,0xx,,,,55,0,"Often ridden by Orcs
 
 
@@ -1199,9 +1360,25 @@ Demonic Beeings,Warg (schwach),5,12,,4,160,0,L,85 L Bi/50 M Cl,0xx,0xx,,,,55,0,"
 
 
 
-",,4-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Warge.jpg,,,,,
-Giant Insects,"Giant Spider, lesser",20,8,MF/FA,8,160,20,M/l,70 L Pi/75 L St,0xx,0xx,,,poison,40,0,Evil. Uses webs to trap victims.,Evil. Uses webs to trap victims.,1-10,,,/home/mongol/git/rpg-tools/src/ata/default/pics/newhero.jpg,,,,,
+
+",,4-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/warg2.jpg,,,,,
+Demonic Beeings,Warg (schwach),5,12,MF/FA,4,160,0,L,85 L Bi/50 M Cl,0xx,0xx,,,poison,55,0,"Often ridden by Orcs
+
+
+
+
+
+
+
+
+
+
+
+
+
+",Evil. Uses webs to trap victims.,4-20,,,/home/mongol/git/rpg-tools/src/ata/default/pics/newhero.jpg,,,,,
 Giant Insects,"Giant Spider, Greater",20,12,,12,350,20,L,120 H Pi/90 L Ho,0xx,0xx,,,poison,60,0,"Evil, Very intelligent, many uses spells
+
 
 
 
@@ -1239,10 +1416,14 @@ Giant Insects,"Giant Spider, lesser",8,10,,4,160,0,M,70 L pi/75 L st,0xx,0xx,,,,
 
 
 
+
 ",,1-10,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Token_giant_spider.png,,,,,
-Giant Insects,HUMMERHORNS,,,,,,0,,,0xx,0xx,,,,,0,"Surely one of Endor's most vicious insects, the rare but often lethal Hummerhorn is the stuff of legend. Each weighs 6-8 lbs and has a razor sharp, pointed proboscis of chitin (transparent horn). It gores a victim to death, then feasts on the corpse with three sets of mandibles. They resemble gigantic black and grey wasps, and their only failing is the noise they make whenever they approach.",,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,nwmkt,FMHJEQ,9, 4-6ft wingspan
-Humans,Goblin,1,4,MD/MF,1,15,0,M,25 H we,0xx,0xx,20Ti100,25 Wp opt,-,10,0,,"""Wears armor,  wp OB varies with Ivl. Usually have little intelligence. The sizes for the golems need not be L and H; the L* and are given to indicate the critical charts used when Golems are attacked.""",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
+Giant Insects,HUMMERHORNS,,,,,,0,,,0xx,0xx,,,,,0,"Surely one of Endor's most vicious insects, the rare but often lethal Hummerhorn is the stuff of legend. Each weighs 6-8 lbs and has a razor sharp, pointed proboscis of chitin (transparent horn). It gores a victim to death, then feasts on the corpse with three sets of mandibles. They resemble gigantic black and grey wasps, and their only failing is the noise they make whenever they approach.
+",,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Hummerhorn.jpeg,,nwmkt,FMHJEQ,9, 4-6ft wingspan
+Humans,Goblin,1,4,MD/MF,1,15,0,M,25 H we,0xx,0xx,20Ti100,25 Wp opt,-,10,0,"
+","""Wears armor,  wp OB varies with Ivl. Usually have little intelligence. The sizes for the golems need not be L and H; the L* and are given to indicate the critical charts used when Golems are attacked.""",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/goblin.jpeg,,,,,
 Humans,Dunish Leader,4,5,,8,59,0,M,72 sp,52 cl,0xx,,,,25,25,"Solid Dunish Warriors, +5 Weapons
+
 
 
 
@@ -1264,19 +1445,22 @@ Humans,Dunish Warrior,2,0,,8,42,0,M,52 sp,42 cl,0xx,,,,25,25,"Solid Dunish Warri
 
 
 
+
 ",,5-15,,,/home/mongol/git/rpg-tools/src/data/default/pics/human_fighter_rogue3.jpg,,,,,
+Humans,Dunish Warrior,2,0,,8,42,0,M,52 sp,42 cl,0xx,,,,25,25,"Solid Dunish Warriors
+
+
+
+
+
+
+
+
+
+
+",,5-15,,,/home/mongol/git/rpg-tools/src/ata/default/pics/newhero.jpg,,,,,
 Humans,Guard,2,0,,8,45,0,M,30 sp,22 sb,0xx,,,,50,25,"Shield +25
 
-
-
-
-
-
-
-
-
-",,10-50,,,/home/mongol/git/rpg-tools/src/ata/default/pics/newhero.jpg,,,,,
-Humans,Guard,2,0,,8,45,0,M,30 sp,22 sb,0xx,,,,50,25,"Shield +25
 
 
 
@@ -1298,8 +1482,18 @@ Humans,Guard Leader,4,0,,10,74,0,M,70 sp,40 sb,0xx,,,,55,25,"Shield +25
 
 
 
+
 ",,1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics/ranger_assassin.jpg,,,,,
-Humans,"Rogue, Female",10,5,,13,114,21,M,104 H ax/67 H ss,89 sb/53 da,0xx,,,,55,25,"
+Humans,Guard Leader,4,0,,10,74,0,M,70 sp,40 sb,0xx,,,,55,25,"Shield +25
+
+
+
+
+
+
+
+
+
 
 
 ",,1-5,,sunlight;mod:-50,/home/mongol/git/rpg-tools/src/ata/default/pics/newhero.jpg,,,,,
@@ -1316,36 +1510,70 @@ Humans,Rogue,5,0,,13,89,15,N,79 H ha/54 H da,64 sb/50 da,0xx,,,,55,25,"
 
 
 
+
 ",,1-10,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/rogue01.jpg,,,,,
 Lasanakûni (leaf Eaters),Bull,3,4,MF/MF,4,150,0,L,35 M Ho/40 L Ba/30 L Ts,0xx,0xx,35MHo80,40LBa20,30LTs «,10,0,"
 
 
-",-,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
+
+",-,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/bull.jpeg,,,,,
 Lasanakûni (leaf Eaters),"Deer (Stag,  etc.)",2,12,VF/FA,3,70,0,M,20 M Ho/20 M Ts,0xx,0xx,20MHo90,20MTs10,-,40,0,"
 
 
-",Males only.,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
-Lasanakûni (leaf Eaters),Moose,3,8,FA/MF,4,120,0,L,30 L Ho/40 L Ba/60 L Ts,0xx,0xx,30LHo100,40LBa «,60LTs √,20,0,,Males only.,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
-Lasanakûni (leaf Eaters),Astabanhéli,2,12,VF/FA,3,95,0,M,35 M Ho/30 M Ts,0xx,0xx,35MHo,30MTs,-,30,0,"The Astabanhe or Giant Pronghorn is an antelope-like creature found mainly in the Pinnath Ceren (S. 'Red Fells') and the Girithlin highlands of Eriador. They stand about 4' tall, and are dull yellow in color. While renowned for their loud white rump, their short black horns give the Astabanhéli their name. Pronghorns travel in small herds (10-100) and are inquisitive, but they are quick to flee. Movements of their white tail fur signal other Astanbanhéli when there is danger or when they have taken to flight. They can travel at speeds of up to forty miles per hour and can swim quite well.","Timid. Antelope-like, inquisitive.",10-100,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,wmskt,FP,4,4.5-6.5ft
-Lasanakûni (leaf Eaters),Aurych,2,0,MD/MD,3,140,0,L,50 M Ho/50 L Ts,0xx,0xx,50MHo,50LTs,-,20,0,"The Auroch (pl. 'Aurych') is a domesticated breed of the wild cattle or Kine that roam Rhovanion (Wilderland). They vary in color, but most have medium length, dark brown fur on their bodies, and shorter, whiter fur on their legs and foreheads. Males have larger, curving, conical horns. Like all Kine, Aurych migrate with the seasons and tend to wander wide areas whenever breeding.","Domesticated. Cattle, passive 'til disturbed.",1-10,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,mskt,BFPIX,8,7.5-9.5ft
-Lasanakûni (leaf Eaters),Caru,2,12,VF/FA,3,70,0,M,20 M Ho/20 M Ts,0xx,0xx,20MHo,20MTs,-,40,0,"The Caru (Du. 'Elk') is a large brown Deer commonly found in northern Eriador, but ranging throughout the cooler parts of northwestern Middle-earth. It is the only Deer species, save the Losrandir, in which both the males and females sport antlers. Caru travel in huge herds of one to twenty thousand and range over vast areas of open country or broken woodlands. Feeding on grass and other tundra plants in the summer, some roam well into the Far North.","Timid. Deer, males & females have horns.",20-2000,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,mktc,BFCDHPT,7,5-7.5ft
-Lasanakûni (leaf Eaters),Culcarnix,1,0,MD/MD,3,12,0,S,10 S Bi,0xx,0xx,10SBi,-,-,0,0,"This large, ground-dwelling rodent is found on the Talath Harroch, the plain south of Mirkwood. They are reported to be totally harmless, an opinion which owes much to the lack of farmsteads in the Talath Harroch. Culcamix can devastate a farm field. Nevertheless, they are totally unaggressive toward other living beings. Tailless and blunt-nosed, Culcarnix live in burrows beneath the earth, and can occasionally be seen standing on the mounds of earth by the entrances to their burrows, sniffing the air for any scent of approaching enemies. They have thick, red-brown fur that has at various times been much in demand by furriers. The Wainriders, for instance, raised them in great numbers for their hides. Thus, they have become scarce in areas where there is widespread settlement.",Passive. Ground-dwelling rodent.,1-6,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,wmskt,BFP,5,2-3ft
-Lasanakûni (leaf Eaters),Cunara,0,4,MF/MD,3,10,0,S,5 S Bi/20 S Cl,0xx,0xx,5SBi,20SCl,-,10,0,"The most common rodent in Cardolan, the Cunaura (Du. 'Gophers') of Eriador resemble big stout Rats and live mainly on grass roots. On the plains they are a major nuisance because they live in large colonies of interlocking burrows. Their holes rise up about a foot from ground level but their tunnels run very close to the surface and cannot be easily detected by Sheep, Horses, or Men (leading to many broken legs).","Timid. 'Gophers', live in large colonies.",10-100,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,wmkt,FP,8,2-3ft
-Lasanakûni (leaf Eaters),Dappled Deer,1,8,FA/MF,3,50,0,M,20 S Ho/35 S Ts,0xx,0xx,20SHo,35STs,-,45,0,"Akin to the Roe Deer (Fiara) of Eriador, the Dappled Deer is small, hardy, and pugnacious creature. Only the stags fight, but they are exceptionally skiddish and aggressive, especially in Spring. They usually employ their tough horns, which can effectively penetrate mail. Nocturnal creatures. Dappled Deer browse for food at night. They feed on shrubs and broadleafed trees. During breeding season, males mark their territory by scratching the bark off trees. NOTE: The Dúnadan Rangers have frequently used this trait to their advantage by disguising their own trail markings as Deer scratches. Only the Rangers understand the subtle differences.",Aggressive. Hardy and pugnacious.,2-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,mkt,LDP,7, 4.5-6.5ft
-Lasanakûni (leaf Eaters),Fiara,1,12,VF/VF,3,45,0,M,15 S Ho/25 T Ts,0xx,0xx,15SHo,25TTs,-,35,0,"Thriving on the scant grasses of south-central Eriador, the Fiara is the most common wild herbivore in Cardolan and Minhiriath. They keep to small groups of four or five does and a buck and range all over the region. Extremely timid, though, they shy away from settled areas and seem much rarer than their real numbers would dictate. It is fortunate that these small beasts are prolific, for no creature in northwestern Endor is hunted as often as the Fiara. Eriadoran hunters have long relied on the Fiara as a food staple, and cooks from Bree to Tharbad create dozens of dishes using this tasty Deer meat.",Timid. Most common wild herbivore.,1-10,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,wmkt,FDP,6, 3.5-4.5ft
-Lasanakûni (leaf Eaters),Fintónarki,2,8,FA/FA,3,70,0,M,50 M Ho/40 M Ba/30 S Ts,0xx,0xx,50MHo,40MBa,30STs,15,0,"The Fintónarki, or Wild Goats, are odd beasts found on the plains south of Mirkwood. They have several characteristics that set them apart from the other Goats of Middle-earth. For one thing, they are sometimes found in mixed herds with the Wild Horses of the area, an arrangement found nowhere else. Second, they are almost untamable, although it is reported that Elves may have some success at this task (although Elves are generally uninterested in animal husbandry). Third, they are immune to all naturally occurring ingestible poisons and hence can live on almost anything that contains nourishment. Finally, these strange creatures have an unquenchable desire to be scratched on the head, between their long, dangerous horns. It is rumored by various denizens of the Talath Harroch region (particularly those with small, naive children) that if one should do one of these hoofed hedonists the favor of scratching it in the proper spot, it will become ever loyal to the person who scratches it. This tale has caused numerous injuries to youngsters seeking an unusual pet.","Normal. Wild goats, immune to poisons.",1-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,wmskt,BFP,5, 3-4ft
-Lasanakûni (leaf Eaters),Goral,2,8,FA/FA,3,55,0,M,50 M Ba/45 M Ts,0xx,0xx,50MBa,45MTs,-,40,0,"Goral are a wild, golden bighorn Sheep found exclusively in the Downs of Eriador. They have long, curving, whitish horns. Solitary and intractable, they arc unique among Sheep. Goral only gather during mating season, when small groups of males join and then seek out the females. Ranked by the size of their horns, the males instinctively know their place, so there is little fighting during these brief unions. After mating, the females travel as a herd with the young for a couple of months and then scatter. Goral have been very profitably interbred with domestic Sheep, producing excellent varieties of wool-bearing species (Q. 'Toa' = 'Wool').","Normal. Wild, golden bighorn Sheep.",1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,wmkt,FPH,5, 4.5-6.5ft
-Lasanakûni (leaf Eaters),Kine Of Araw,5,0,MD/MD,3,135,0,L,100 L Ho/80 L Ba/90 L Ts,0xx,0xx,100LHo,80LBa,90LTs,30,0,"The Kine of Araw are the largest of Middle-earth's bovids, that is creatures with split, even-toed, hoofs. It is believed that these large, white cattle are the gift of the Vala Oromë (Araw). This is quite possibly true. The beasts are found on the shores of the Sea of Rhûn and on the Plain of Talath Harroch, east and south of Mirkwood. As far as anyone can tell, the Easterling tribes are the only people to have domesticated these creatures and used them as draft beasts, since the Rhovanion Northmen revered the Kine and used them only for breeding other cattle. Easterlings, on the other hand, employed Kine to pull the Great Wains of their chiefs. During the brief existence of the Wainrider Kingdom in Wilderland (T.A. 1854-99), dozens of these magnificent beasts were pressed into service, and many perished in the raiding and wars that accompanied the Wain-easterlings' occupation. Many people of central Middle-earth value the long gray horns of these cattle, both to use as trumpets and drinking horns and to cut into sections for superb compound bows. A few superstitious folk use the ground horn as an ingredient for healing potions, but no proof has ever been found that this substance is of any real value in healing.","Normal. Large, White cattle.",1-10,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,wmskt,FHP,4,10-12ft
-Lasanakûni (leaf Eaters),Losrandír,2,8,FA/MF,3,90,0,M,40 M Ho/35 M Ts,0xx,0xx,40MHo,35MTs,-,20,0,"The Losrandir is a hardy, gregarious Deer with a long, low profile and large antlers. They come in many colors — everything from white to jet black — but most are grey or silver. Unlike those of other Deer, the low forward tine of its antlers is branched. Both males and females bear antlers, although those of the female are usually smaller. Female Losrandír (aka 'Lesraindír') move in large herds while males travel in small groups or, in some cases, alone. Wolves and Bears prey on weaker individuals, but the Losrandír's greatest natural enemy is undoubtedly Man. The Lossoth of northwestern Middle-earth and the Urd of the northeast hunt the graceful creature for its fur, meat, and utility as a beast of burden.","Normal. Hardy, gregarious Deer.",10-100,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,mktc,BFCDHPT,7,5-7.5ft
-Lasanakûni (leaf Eaters),Nimfiara,4,8,FA/FA,3,110,0,L,55 M Ho/65 M Ts,0xx,0xx,55MHo,65MTs,-,25,0,"Larger and rarer than Elk, the Nimfiara (S./Du. 'White Hart') is the strongest and most imposing breed of Deer found in northwestern Middle-earth. Reputedly mystical creatures, they range in the ancient woodlands of Rhovanion, Gondor, Calenardhon, and Eriador. They are found deep within the Old Forest and the Dark Wood, and a few have been spotted in Fangorn. The Nimfiara's lustrous silver pelt is prized for fine garments, so it is hunted and trapped by woodsmen. Worse, its horns are said to produce a potion which retards aging. Thus, the beast's value threatens its survival and, aside from the inaccessibility of their habitat, the Nimfiara has few defenses against extinction. They are, however, very wily, and they will put up a good fight when cornered.","Normal Wily, largest of Endor's Deer.",1-10,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,mktc,BFCDHE,3,7-9ft
-Lasanakûni (leaf Eaters),Rútorassi,3,8,FA/FA,3,65,0,M,60 M Ba/50 M Ts,0xx,0xx,60MBa,50MTs,-,30,0,"The largest and most powerful of Endor's Sheep, the Rútorasse (Q. 'Eastern Woolhoms'; pl. 'Rútorassi') is a stout, black and silver beast that stands about 4-5ft at the shoulder. It is aptly named, for its silvery head fur grows up the sides of its curved horns. These two forward- facing weapons can be lethal, however, and the Woolhorn is quick to employ them for defense. Thus, this beast is difficult to domesticate. Native to the lands of Dalpygis, Chey , and the Kargagis Ahar in central Middle-earth, Woolhorns roam at night in small, segregated herds. Males run apart from the females except during the mating season, which lasts from late summer until early fall. When united, the mixed herd is relatively stationary for about a month. The first half of this period is devoted to courting rituals, which include brutal duels between males seeking dominance (and their choice of mates).",Normal. Largest Of Endor's Sheep.,2-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,msktc,ABFMP,5, 6-7ft
-Lasanakûni (leaf Eaters),Stetanavi,2,12,MD/VF,3,50,0,M,40 S Bi/25 S Cl,0xx,0xx,40SBi,25SCl,-,40,0,"In Apysaic, Stetan means 'mischievous.' It applies perfectly to this otter-like creature. The beast's body is as large as a big dog, and it is as friendly and playful as the most lively of puppies. It has very short legs, though, so no one would mistake it for a hound. The Stetan's name was earned from Haradrim who journeyed into the wood, worked a long day gathering herbs, then saw their sacks and parcels playfully torn apart just before they returned home. Only their overpowering air of pure innocence keeps Stetanavi from being killed on sight by most men who glean their living from the wood. As it is, they are usually viewed as a sign of long-term good luck even if they are a short-term nuisance. There have been attempts to tame the friendly beasts, but Stetanavi that are taken into captivity invariably die shortly thereafter, an occurrence that is usually blamed on loneliness for their own kind. It is possible, however, to overcome this problem through the use of a Familiar spell, though having such a puckish creature as a familiar would certainly have its drawbacks.","Playful. Mischievous, Otter-like creatures.",1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,wmk,BFMPD,7,6-7ft
-Lasanakûni (leaf Eaters),Wild Goats,3,8,FA/FA,1,60,0,M,40 M Ho/30 M Ba/30 M Ts,0xx,0xx,40MHo,30MBa,30MTs,25,0,"Essentially descendants of various escaped domestic varieties, the Wild Goats have dirty, shaggy coats and short, black horns. They range all over Middle-earth. Their small, sharp hooves make them agile climbers, and they can swim remarkably well; however, they restrict the beasts' movements in the boglands, where wide feet provide stability in the muck.",Normal. Agile climbers and swimmers.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,wmskt,ABFMZPT,6,3-4ft
-Lasanakûni (leaf Eaters),Snowhare,1,8,FA/FA,1,20,0,S,50 S Gr,0xx,0xx,50SGr,-,-,50,0,Tiny white Rabbit,-,1-10,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,c,A,5, 2-3ft
-Orcs,Orc (non-combatant) ,1,4,MD/MF ,,15,0,M,20 H we,0xx,0xx,15Wp60 ,20Ti40,-,,0,,"Women,  children and non-fighters. ",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
-Orcs,Orc (fighter) ,3,4,MD/MF ,,45,0,M,35 H we,0xx,0xx,35Wp85 ,25Ti15,-,,0,,Uses weapons and armor. ,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
-Orcs,Orc (leader) ,6,4,MD/MF ,,75,0,M,60 H we,0xx,0xx,60Wp95 ,30Ti05,-,,0,,Leads squads of fighters. ,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
-Orcs,Orc (commander) ,10,4,MD/MF ,,11,0,M,90 H we,0xx,0xx,90Wp99 ,35Ti01,-,,0,,Rules large Clans or groups of Orcs. ,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
+
+",Males only.,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/deer.jpeg,,,,,
+Lasanakûni (leaf Eaters),Moose,3,8,FA/MF,4,120,0,L,30 L Ho/40 L Ba/60 L Ts,0xx,0xx,30LHo100,40LBa «,60LTs √,20,0,"
+",Males only.,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/moose.jpeg,,,,,
+Lasanakûni (leaf Eaters),Astabanhéli,2,12,VF/FA,3,95,0,M,35 M Ho/30 M Ts,0xx,0xx,35MHo,30MTs,-,30,0,"The Astabanhe or Giant Pronghorn is an antelope-like creature found mainly in the Pinnath Ceren (S. 'Red Fells') and the Girithlin highlands of Eriador. They stand about 4' tall, and are dull yellow in color. While renowned for their loud white rump, their short black horns give the Astabanhéli their name. Pronghorns travel in small herds (10-100) and are inquisitive, but they are quick to flee. Movements of their white tail fur signal other Astanbanhéli when there is danger or when they have taken to flight. They can travel at speeds of up to forty miles per hour and can swim quite well.
+","Timid. Antelope-like, inquisitive.",10-100,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Astabanheli.jpeg,,wmskt,FP,4,4.5-6.5ft
+Lasanakûni (leaf Eaters),Aurych,2,0,MD/MD,3,140,0,L,50 M Ho/50 L Ts,0xx,0xx,50MHo,50LTs,-,20,0,"The Auroch (pl. 'Aurych') is a domesticated breed of the wild cattle or Kine that roam Rhovanion (Wilderland). They vary in color, but most have medium length, dark brown fur on their bodies, and shorter, whiter fur on their legs and foreheads. Males have larger, curving, conical horns. Like all Kine, Aurych migrate with the seasons and tend to wander wide areas whenever breeding.
+","Domesticated. Cattle, passive 'til disturbed.",1-10,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/cattle.jpeg,,mskt,BFPIX,8,7.5-9.5ft
+Lasanakûni (leaf Eaters),Caru,2,12,VF/FA,3,70,0,M,20 M Ho/20 M Ts,0xx,0xx,20MHo,20MTs,-,40,0,"The Caru (Du. 'Elk') is a large brown Deer commonly found in northern Eriador, but ranging throughout the cooler parts of northwestern Middle-earth. It is the only Deer species, save the Losrandir, in which both the males and females sport antlers. Caru travel in huge herds of one to twenty thousand and range over vast areas of open country or broken woodlands. Feeding on grass and other tundra plants in the summer, some roam well into the Far North.
+","Timid. Deer, males & females have horns.",20-2000,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/caru.jpeg,,mktc,BFCDHPT,7,5-7.5ft
+Lasanakûni (leaf Eaters),Culcarnix,1,0,MD/MD,3,12,0,S,10 S Bi,0xx,0xx,10SBi,-,-,0,0,"This large, ground-dwelling rodent is found on the Talath Harroch, the plain south of Mirkwood. They are reported to be totally harmless, an opinion which owes much to the lack of farmsteads in the Talath Harroch. Culcamix can devastate a farm field. Nevertheless, they are totally unaggressive toward other living beings. Tailless and blunt-nosed, Culcarnix live in burrows beneath the earth, and can occasionally be seen standing on the mounds of earth by the entrances to their burrows, sniffing the air for any scent of approaching enemies. They have thick, red-brown fur that has at various times been much in demand by furriers. The Wainriders, for instance, raised them in great numbers for their hides. Thus, they have become scarce in areas where there is widespread settlement.
+",Passive. Ground-dwelling rodent.,1-6,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/culcarnix.jpeg,,wmskt,BFP,5,2-3ft
+Lasanakûni (leaf Eaters),Cunara,0,4,MF/MD,3,10,0,S,5 S Bi/20 S Cl,0xx,0xx,5SBi,20SCl,-,10,0,"The most common rodent in Cardolan, the Cunaura (Du. 'Gophers') of Eriador resemble big stout Rats and live mainly on grass roots. On the plains they are a major nuisance because they live in large colonies of interlocking burrows. Their holes rise up about a foot from ground level but their tunnels run very close to the surface and cannot be easily detected by Sheep, Horses, or Men (leading to many broken legs).
+","Timid. 'Gophers', live in large colonies.",10-100,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/cunara.jpeg,,wmkt,FP,8,2-3ft
+Lasanakûni (leaf Eaters),Dappled Deer,1,8,FA/MF,3,50,0,M,20 S Ho/35 S Ts,0xx,0xx,20SHo,35STs,-,45,0,"Akin to the Roe Deer (Fiara) of Eriador, the Dappled Deer is small, hardy, and pugnacious creature. Only the stags fight, but they are exceptionally skiddish and aggressive, especially in Spring. They usually employ their tough horns, which can effectively penetrate mail. Nocturnal creatures. Dappled Deer browse for food at night. They feed on shrubs and broadleafed trees. During breeding season, males mark their territory by scratching the bark off trees. NOTE: The Dúnadan Rangers have frequently used this trait to their advantage by disguising their own trail markings as Deer scratches. Only the Rangers understand the subtle differences.
+",Aggressive. Hardy and pugnacious.,2-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/dappled_deer.jpeg,,mkt,LDP,7, 4.5-6.5ft
+Lasanakûni (leaf Eaters),Fiara,1,12,VF/VF,3,45,0,M,15 S Ho/25 T Ts,0xx,0xx,15SHo,25TTs,-,35,0,"Thriving on the scant grasses of south-central Eriador, the Fiara is the most common wild herbivore in Cardolan and Minhiriath. They keep to small groups of four or five does and a buck and range all over the region. Extremely timid, though, they shy away from settled areas and seem much rarer than their real numbers would dictate. It is fortunate that these small beasts are prolific, for no creature in northwestern Endor is hunted as often as the Fiara. Eriadoran hunters have long relied on the Fiara as a food staple, and cooks from Bree to Tharbad create dozens of dishes using this tasty Deer meat.
+",Timid. Most common wild herbivore.,1-10,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/fiara.jpeg,,wmkt,FDP,6, 3.5-4.5ft
+Lasanakûni (leaf Eaters),Fintónarki,2,8,FA/FA,3,70,0,M,50 M Ho/40 M Ba/30 S Ts,0xx,0xx,50MHo,40MBa,30STs,15,0,"The Fintónarki, or Wild Goats, are odd beasts found on the plains south of Mirkwood. They have several characteristics that set them apart from the other Goats of Middle-earth. For one thing, they are sometimes found in mixed herds with the Wild Horses of the area, an arrangement found nowhere else. Second, they are almost untamable, although it is reported that Elves may have some success at this task (although Elves are generally uninterested in animal husbandry). Third, they are immune to all naturally occurring ingestible poisons and hence can live on almost anything that contains nourishment. Finally, these strange creatures have an unquenchable desire to be scratched on the head, between their long, dangerous horns. It is rumored by various denizens of the Talath Harroch region (particularly those with small, naive children) that if one should do one of these hoofed hedonists the favor of scratching it in the proper spot, it will become ever loyal to the person who scratches it. This tale has caused numerous injuries to youngsters seeking an unusual pet.
+","Normal. Wild goats, immune to poisons.",1-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Fintonarki.jpeg,,wmskt,BFP,5, 3-4ft
+Lasanakûni (leaf Eaters),Goral,2,8,FA/FA,3,55,0,M,50 M Ba/45 M Ts,0xx,0xx,50MBa,45MTs,-,40,0,"Goral are a wild, golden bighorn Sheep found exclusively in the Downs of Eriador. They have long, curving, whitish horns. Solitary and intractable, they arc unique among Sheep. Goral only gather during mating season, when small groups of males join and then seek out the females. Ranked by the size of their horns, the males instinctively know their place, so there is little fighting during these brief unions. After mating, the females travel as a herd with the young for a couple of months and then scatter. Goral have been very profitably interbred with domestic Sheep, producing excellent varieties of wool-bearing species (Q. 'Toa' = 'Wool').
+","Normal. Wild, golden bighorn Sheep.",1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/goral.jpeg,,wmkt,FPH,5, 4.5-6.5ft
+Lasanakûni (leaf Eaters),Kine Of Araw,5,0,MD/MD,3,135,0,L,100 L Ho/80 L Ba/90 L Ts,0xx,0xx,100LHo,80LBa,90LTs,30,0,"The Kine of Araw are the largest of Middle-earth's bovids, that is creatures with split, even-toed, hoofs. It is believed that these large, white cattle are the gift of the Vala Oromë (Araw). This is quite possibly true. The beasts are found on the shores of the Sea of Rhûn and on the Plain of Talath Harroch, east and south of Mirkwood. As far as anyone can tell, the Easterling tribes are the only people to have domesticated these creatures and used them as draft beasts, since the Rhovanion Northmen revered the Kine and used them only for breeding other cattle. Easterlings, on the other hand, employed Kine to pull the Great Wains of their chiefs. During the brief existence of the Wainrider Kingdom in Wilderland (T.A. 1854-99), dozens of these magnificent beasts were pressed into service, and many perished in the raiding and wars that accompanied the Wain-easterlings' occupation. Many people of central Middle-earth value the long gray horns of these cattle, both to use as trumpets and drinking horns and to cut into sections for superb compound bows. A few superstitious folk use the ground horn as an ingredient for healing potions, but no proof has ever been found that this substance is of any real value in healing.
+","Normal. Large, White cattle.",1-10,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/kine_of_araw.jpeg,,wmskt,FHP,4,10-12ft
+Lasanakûni (leaf Eaters),Losrandír,2,8,FA/MF,3,90,0,M,40 M Ho/35 M Ts,0xx,0xx,40MHo,35MTs,-,20,0,"The Losrandir is a hardy, gregarious Deer with a long, low profile and large antlers. They come in many colors — everything from white to jet black — but most are grey or silver. Unlike those of other Deer, the low forward tine of its antlers is branched. Both males and females bear antlers, although those of the female are usually smaller. Female Losrandír (aka 'Lesraindír') move in large herds while males travel in small groups or, in some cases, alone. Wolves and Bears prey on weaker individuals, but the Losrandír's greatest natural enemy is undoubtedly Man. The Lossoth of northwestern Middle-earth and the Urd of the northeast hunt the graceful creature for its fur, meat, and utility as a beast of burden.
+","Normal. Hardy, gregarious Deer.",10-100,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Losrandir.jpeg,,mktc,BFCDHPT,7,5-7.5ft
+Lasanakûni (leaf Eaters),Nimfiara,4,8,FA/FA,3,110,0,L,55 M Ho/65 M Ts,0xx,0xx,55MHo,65MTs,-,25,0,"Larger and rarer than Elk, the Nimfiara (S./Du. 'White Hart') is the strongest and most imposing breed of Deer found in northwestern Middle-earth. Reputedly mystical creatures, they range in the ancient woodlands of Rhovanion, Gondor, Calenardhon, and Eriador. They are found deep within the Old Forest and the Dark Wood, and a few have been spotted in Fangorn. The Nimfiara's lustrous silver pelt is prized for fine garments, so it is hunted and trapped by woodsmen. Worse, its horns are said to produce a potion which retards aging. Thus, the beast's value threatens its survival and, aside from the inaccessibility of their habitat, the Nimfiara has few defenses against extinction. They are, however, very wily, and they will put up a good fight when cornered.
+","Normal Wily, largest of Endor's Deer.",1-10,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/nimfiara.jpeg,,mktc,BFCDHE,3,7-9ft
+Lasanakûni (leaf Eaters),Rútorassi,3,8,FA/FA,3,65,0,M,60 M Ba/50 M Ts,0xx,0xx,60MBa,50MTs,-,30,0,"The largest and most powerful of Endor's Sheep, the Rútorasse (Q. 'Eastern Woolhoms'; pl. 'Rútorassi') is a stout, black and silver beast that stands about 4-5ft at the shoulder. It is aptly named, for its silvery head fur grows up the sides of its curved horns. These two forward- facing weapons can be lethal, however, and the Woolhorn is quick to employ them for defense. Thus, this beast is difficult to domesticate. Native to the lands of Dalpygis, Chey , and the Kargagis Ahar in central Middle-earth, Woolhorns roam at night in small, segregated herds. Males run apart from the females except during the mating season, which lasts from late summer until early fall. When united, the mixed herd is relatively stationary for about a month. The first half of this period is devoted to courting rituals, which include brutal duels between males seeking dominance (and their choice of mates).
+",Normal. Largest Of Endor's Sheep.,2-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/rutorassi.jpeg,,msktc,ABFMP,5, 6-7ft
+Lasanakûni (leaf Eaters),Stetanavi,2,12,MD/VF,3,50,0,M,40 S Bi/25 S Cl,0xx,0xx,40SBi,25SCl,-,40,0,"In Apysaic, Stetan means 'mischievous.' It applies perfectly to this otter-like creature. The beast's body is as large as a big dog, and it is as friendly and playful as the most lively of puppies. It has very short legs, though, so no one would mistake it for a hound. The Stetan's name was earned from Haradrim who journeyed into the wood, worked a long day gathering herbs, then saw their sacks and parcels playfully torn apart just before they returned home. Only their overpowering air of pure innocence keeps Stetanavi from being killed on sight by most men who glean their living from the wood. As it is, they are usually viewed as a sign of long-term good luck even if they are a short-term nuisance. There have been attempts to tame the friendly beasts, but Stetanavi that are taken into captivity invariably die shortly thereafter, an occurrence that is usually blamed on loneliness for their own kind. It is possible, however, to overcome this problem through the use of a Familiar spell, though having such a puckish creature as a familiar would certainly have its drawbacks.
+","Playful. Mischievous, Otter-like creatures.",1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/stetanavi.jpeg,,wmk,BFMPD,7,6-7ft
+Lasanakûni (leaf Eaters),Wild Goats,3,8,FA/FA,1,60,0,M,40 M Ho/30 M Ba/30 M Ts,0xx,0xx,40MHo,30MBa,30MTs,25,0,"Essentially descendants of various escaped domestic varieties, the Wild Goats have dirty, shaggy coats and short, black horns. They range all over Middle-earth. Their small, sharp hooves make them agile climbers, and they can swim remarkably well; however, they restrict the beasts' movements in the boglands, where wide feet provide stability in the muck.
+
+",Normal. Agile climbers and swimmers.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/wild_goat.jpeg,,wmskt,ABFMZPT,6,3-4ft
+Lasanakûni (leaf Eaters),Snowhare,1,8,FA/FA,1,20,0,S,50 S Gr,0xx,0xx,50SGr,-,-,50,0,"Tiny white Rabbit
+
+",-,1-10,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/snowhare.jpeg,,c,A,5, 2-3ft
+Orcs,Orc (non-combatant) ,1,4,MD/MF ,10,15,0,M,20 H we,0xx,0xx,15Wp60 ,20Ti40,-,,0,"
+
+","Women,  children and non-fighters. ",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/orc.jpeg,,,,,
+Orcs,Orc (fighter) ,3,4,MD/MF ,13,45,0,M,35 H we,0xx,0xx,35Wp85 ,25Ti15,-,,0,"
+
+
+",Uses weapons and armor. ,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/orc_fighter.jpeg,,,,,
+Orcs,Orc (leader) ,6,4,MD/MF ,15,75,0,M,60 H we,0xx,0xx,60Wp95 ,30Ti05,-,,0,"
+
+
+",Leads squads of fighters. ,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/orc_leader.jpeg,,,,,
+Orcs,Orc (commander) ,10,4,MD/MF ,16,11,0,M,90 H we,0xx,0xx,90Wp99 ,35Ti01,-,,0,"
+
+
+
+",Rules large Clans or groups of Orcs. ,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/orc_commander.jpeg,,,,,
 Orcs,Ork (stark),5,0,,16,85,0,M,75 sc,75 sb,0xx,,,,40,40,"
 
 
@@ -1355,7 +1583,11 @@ Orcs,Ork (stark),5,0,,16,85,0,M,75 sc,75 sb,0xx,,,,40,40,"
 
 
 
-",,1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/orc_in_cave.jpg,,,,,
+
+
+
+
+",,1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/orc2.jpeg,,,,,
 Orcs,Uruk,5,0,,20,86,0,M,90 bs,90 cb,0xx,,,,50,50,"They can move in sunlight.
 
 
@@ -1365,7 +1597,9 @@ Orcs,Uruk,5,0,,20,86,0,M,90 bs,90 cb,0xx,,,,50,50,"They can move in sunlight.
 
 
 
-",,2-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Urukhai.jpg,,,,,
+
+
+",,2-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/uruk.jpeg,,,,,
 Party,Fonlon,1,5,,5,35,0,M,20 H da,45 sl,0xx,,,,20,0,"Servant of Party, stable boy
 
 
@@ -1376,33 +1610,70 @@ Party,Fonlon,1,5,,5,35,0,M,20 H da,45 sl,0xx,,,,20,0,"Servant of Party, stable b
 
 
 
+
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/stable_boy.png,,,,,
-Poitili (Insects/Spiders),Ant (Giant),1,4,MD/MF,17,25,0,S,15 S Pi,0xx,0xx,15SPi100,-,-,30,0,,Assumes Ant is 1 to 2 feet long.,1-60,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,hnawmskt,UVE,5,1-2 ft
-Poitili (Insects/Spiders),Ant (Giant Warrior),2,8,MF/FA,19,40,0,S,35 M Pi,0xx,0xx,35MPi100,-,-,40,0,,Assumes Ant is 2 to 3 feet long.,1-30,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,hnawmskt,UVE,5,2-3 ft
-Poitili (Insects/Spiders),Beetle (Giant),2,8,MF/FA,16,50,0,M,60 L Pi,0xx,0xx,60LPi100,-,-,10,0,,Assumes Beetle is 3 feet long.,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,hw,BMVDJ,,3 ft
-Poitili (Insects/Spiders),Cockatrice,5,12,VF/MF,3,30,0,S,50 M Pi,0xx,0xx,50MPi100,-,-,50,0,,Has unusual abilities.,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
-Poitili (Insects/Spiders),Bees,1,12,MD/VF,1,1,0,T,10 T St/20 S St,0xx,0xx,10Ti100,Swarm-20SSt,-,40,0,,Poison does hit 1 hit/bee.,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
-Poitili (Insects/Spiders),"Spider (Ants,  etc.)",1,8,CR/FA,1,1,0,T,0 T St,0xx,0xx,-50Ti100,Swarm 0Ti,-,10,0,,"Innocuous, possibly poisonous.",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
-Pukel-Creatures,Gargoyle,5,8,MF/FA,16,80,0,M,60 L Cl/40 M Bi,0xx,0xx,60LCl60,40MBi «,Both10,30,0,,If intelligent- can use weapons.,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
-Pukel-Creatures,Golem (Flesh),10,0,MD/MD,,100,0,L,100 M Ba/50 L Cr,0xx,0xx,100MBa100,50LCr «,-,,0,,"""Wears armor,  wp OB varies with Ivl. Usually have little intelligence. The sizes for the golems need not be L and H; the L* and are given to indicate the critical charts used when Golems are attacked.""",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
-Pukel-Creatures,Golem (Clay),10,0,MD/MD,,120,0,L*,110 L Ba/60 L Cr,0xx,0xx,110LBa100,60LCr «,-,,0,,"""Wears armor,  wp OB varies with Ivl. Usually have little intelligence. The sizes for the golems need not be L and H; the L* and are given to indicate the critical charts used when Golems are attacked.""",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
-Pukel-Creatures,Golem (Stone),10,0,MD/MD,,170,0,L*,130 L Ba/70 L Cr,0xx,0xx,130LBa100,70LCr «,-,,0,,"""Wears armor,  wp OB varies with Ivl. Usually have little intelligence. The sizes for the golems need not be L and H; the L* and are given to indicate the critical charts used when Golems are attacked.""",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
-Pukel-Creatures,Golem (Iron),10,0,MD/MD,,200,0,H*,150 H Ba/80 L Cr,0xx,0xx,150HBa100,80LCr «,-,,0,,"""Wears armor,  wp OB varies with Ivl. Usually have little intelligence. The sizes for the golems need not be L and H; the L* and are given to indicate the critical charts used when Golems are attacked.""",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
-Pukel-Creatures,Golem (Mithril),10,0,MD/MD,,250,0,H*,200 H Ba/100 H Cr,0xx,0xx,200HBa100,100HCr «,-,,0,,"""Wears armor,  wp OB varies with Ivl. Usually have little intelligence. The sizes for the golems need not be L and H; the L* and are given to indicate the critical charts used when Golems are attacked.""",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
+Poitili (Insects/Spiders),Ant (Giant),1,4,MD/MF,17,25,0,S,15 S Pi,0xx,0xx,15SPi100,-,-,30,0,"
+",Assumes Ant is 1 to 2 feet long.,1-60,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/giant_ant.jpeg,,hnawmskt,UVE,5,1-2 ft
+Poitili (Insects/Spiders),Ant (Giant Warrior),2,8,MF/FA,19,40,0,S,35 M Pi,0xx,0xx,35MPi100,-,-,40,0,"
+",Assumes Ant is 2 to 3 feet long.,1-30,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/giant_ant_warrior.jpeg,,hnawmskt,UVE,5,2-3 ft
+Poitili (Insects/Spiders),Beetle (Giant),2,8,MF/FA,16,50,0,M,60 L Pi,0xx,0xx,60LPi100,-,-,10,0,"
+",Assumes Beetle is 3 feet long.,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/giant_beetle.jpeg,,hw,BMVDJ,,3 ft
+Bird,Cockatrice,5,12,VF/MF,3,30,0,S,50 M Pi,0xx,0xx,50MPi100,-,-,50,0,"
+",Has unusual abilities.,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/cockatrice.jpeg,,,,,
+Poitili (Insects/Spiders),Bees,1,12,MD/VF,1,1,0,T,10 T St/20 S St,0xx,0xx,10Ti100,Swarm-20SSt,-,40,0,"
+",Poison does hit 1 hit/bee.,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/bee.jpeg,,,,,
+Poitili (Insects/Spiders),"Spider (Ants,  etc.)",1,8,CR/FA,1,1,0,T,0 T St,0xx,0xx,-50Ti100,Swarm 0Ti,-,10,0,"
+","Innocuous, possibly poisonous.",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/spider.jpeg,,,,,
+Pukel-Creatures,Gargoyle,5,8,MF/FA,16,80,0,M,60 L Cl/40 M Bi,0xx,0xx,60LCl60,40MBi «,Both10,30,0,"
+",If intelligent- can use weapons.,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/gargoyle.jpeg,,,,,
+Pukel-Creatures,Golem (Flesh),10,0,MD/MD,,100,0,L,100 M Ba/50 L Cr,0xx,0xx,100MBa100,50LCr «,-,,0,"
+","""Wears armor,  wp OB varies with Ivl. Usually have little intelligence. The sizes for the golems need not be L and H; the L* and are given to indicate the critical charts used when Golems are attacked.""",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/flesh_golem.jpeg,,,,,
+Pukel-Creatures,Golem (Clay),10,0,MD/MD,,120,0,L*,110 L Ba/60 L Cr,0xx,0xx,110LBa100,60LCr «,-,,0,"
+","""Wears armor,  wp OB varies with Ivl. Usually have little intelligence. The sizes for the golems need not be L and H; the L* and are given to indicate the critical charts used when Golems are attacked.""",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/clay_golem.jpeg,,,,,
+Pukel-Creatures,Golem (Stone),10,0,MD/MD,,170,0,L*,130 L Ba/70 L Cr,0xx,0xx,130LBa100,70LCr «,-,,0,"
+","""Wears armor,  wp OB varies with Ivl. Usually have little intelligence. The sizes for the golems need not be L and H; the L* and are given to indicate the critical charts used when Golems are attacked.""",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/golem.jpeg,,,,,
+Pukel-Creatures,Golem (Iron),10,0,MD/MD,,200,0,H*,150 H Ba/80 L Cr,0xx,0xx,150HBa100,80LCr «,-,,0,"
+","""Wears armor,  wp OB varies with Ivl. Usually have little intelligence. The sizes for the golems need not be L and H; the L* and are given to indicate the critical charts used when Golems are attacked.""",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
+Pukel-Creatures,Golem (Mithril),10,0,MD/MD,,250,0,H*,200 H Ba/100 H Cr,0xx,0xx,200HBa100,100HCr «,-,,0,"
+","""Wears armor,  wp OB varies with Ivl. Usually have little intelligence. The sizes for the golems need not be L and H; the L* and are given to indicate the critical charts used when Golems are attacked.""",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
 Pukel-Creatures,Pukel-men,15,0,,16,150,0,L,90 H cl/60 H Ba,0xx,0xx,,,,25,25,"Stone man
 
 
 
 
 
+
 ",,1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/puckelman.jpg,,,,,
-Pukel-Creatures,COLBRAN,,,,,,0,,,0xx,0xx,,,,,0,"Colbran are unseen until activated. Their 'spirits' inhabit stone or metal, causing it to glow with a faint blue light that betrays their presence to the very few who know of the existence of these beings. When awakened, they take the form of attenuated manlike beings who glow with such a fierce blue light that they are difficult to gaze upon. These creations are the strongest and most clever of the works of the Drúedain and the Daen Coentis. Colbran are the closest thing, perhaps, to demons that has ever been created (rather than summoned) by mortal Man. Some can even cast balls of lightning or lightning bolts. Darkness-producing spells have little or no effect on the intense glare of a Colbran, although the equally intense natural Utterdarkness of other enchanted beings may weaken (dim) or vanquish (extinguish) them. There is a 25% chance that any unenhanced weapon will shatter when striking a Colbran, causing one to ten +0 sling attacks to anyone within a 30ft radius.",,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,all,E,8,l0ft tall
-Pukel-Creatures,HURNDAEN,,,,,,0,,,0xx,0xx,,,,,0,"Hurndaen look like iron pillars unless disturbed. Then they become iron manlike forms, attacking as Mendaen (see below) but with even more deadly effect. Like Mensharag (see below), they can reconstitute themselves, but this process takes at least 50 years of undisturbed repose.",,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,all,E,8,l2ft tall
-Pukel-Creatures,HURNKENNEC,,,,,,0,,,0xx,0xx,,,,,0,"Basically giant spiders of iron, Hurnkennec look like lumps of ore until aroused. They climb walls and ceilings and may attack by dropping upon their victims and crushing them, as well as striking with their pincer-mouths and the slashing spines on their long legs. Like Hurndaen, the can recompose.",,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,hnawmskcf,E,8,body diameter 2ft/legs 7ft long
-Pukel-Creatures,MENDAEN,,,,,,0,,,0xx,0xx,,,,,0,,,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
-Pukel-Creatures,MENSHARAG,,,,,,0,,,0xx,0xx,,,,,0,,,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
-Pukel-Creatures,SILENT WATCHERS,,,,,,0,,,0xx,0xx,,,,,0,,,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
+Pukel-Creatures,COLBRAN,,,,,,0,,,0xx,0xx,,,,,0,"Colbran are unseen until activated. Their 'spirits' inhabit stone or metal, causing it to glow with a faint blue light that betrays their presence to the very few who know of the existence of these beings. When awakened, they take the form of attenuated manlike beings who glow with such a fierce blue light that they are difficult to gaze upon. These creations are the strongest and most clever of the works of the Drúedain and the Daen Coentis. Colbran are the closest thing, perhaps, to demons that has ever been created (rather than summoned) by mortal Man. Some can even cast balls of lightning or lightning bolts. Darkness-producing spells have little or no effect on the intense glare of a Colbran, although the equally intense natural Utterdarkness of other enchanted beings may weaken (dim) or vanquish (extinguish) them. There is a 25% chance that any unenhanced weapon will shatter when striking a Colbran, causing one to ten +0 sling attacks to anyone within a 30ft radius.
+",,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/colbran.jpeg,,all,E,8,l0ft tall
+Pukel-Creatures,HURNDAEN,,,,,,0,,,0xx,0xx,,,,,0,"Hurndaen look like iron pillars unless disturbed. Then they become iron manlike forms, attacking as Mendaen (see below) but with even more deadly effect. Like Mensharag (see below), they can reconstitute themselves, but this process takes at least 50 years of undisturbed repose.
+",,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/hurndaen.jpeg,,all,E,8,l2ft tall
+Pukel-Creatures,HURNKENNEC,,,,,,0,,,0xx,0xx,,,,,0,"Basically giant spiders of iron, Hurnkennec look like lumps of ore until aroused. They climb walls and ceilings and may attack by dropping upon their victims and crushing them, as well as striking with their pincer-mouths and the slashing spines on their long legs. Like Hurndaen, the can recompose.
+",,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/hurnkennec.jpeg,,hnawmskcf,E,8,body diameter 2ft/legs 7ft long
+Pukel-Creatures,MENDAEN,,,,,,0,,,0xx,0xx,,,,,0,"
+",,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
+Pukel-Creatures,MENSHARAG,,,,,,0,,,0xx,0xx,,,,,0,"
+",,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
+Pukel-Creatures,SILENT WATCHERS,,,,,,0,,,0xx,0xx,,,,,0,"
+",,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
+Rávatsar (Amphibians/Reptiles),Evil Huorn,25,-8,VS/VS,20,400,0,H/La,80 H Ba/70 H Gr/100 H Cr,0xx,0xx,,,,0,0,"?
+
+
+
+
+
+
+","Evil, If Hgr grabs prex, Hcr next round",1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Huorn.jpeg,,?,?,0,?
+Rávatsar (Amphibians/Reptiles),Evil Huorn,25,-8,--/MD,20,400,0,H/La,80 H Ba/70 H Gr/100 H Cr,0xx,0xx,,,,0,0,"?
+
+
+
+
+
+
+","Hungry, ignore Stun damage",1-5,,,,,,,,
 Rávatsar (Amphibians/Reptiles),Rat,1,20,,1,10,0,S,20 T Bi/20 S Bi,0xx,0xx,,,,30,20,"The rat family produces some of the world’s most adaptable animals. Small rodents, they are omnivorous mammals known for long, thin tails, short legs, relatively large heads, and incredibly flexible bodies. They are quick scurriers, adept climbers, and strong swimmers. With their strong gnawing teeth and malleable bone structure, these creatures burrow their way through or into virtually any unarmored nook. Some (10%) rats produce a litter every 21-50 days. Also, some (5%) carry deadly diseases, either with their associated vermin (e.g., fleas) or internally (the latter communicated with a bite).
+
 
 
 
@@ -1418,39 +1689,68 @@ Rávatsar (Amphibians/Reptiles),Rat,1,20,,1,10,0,S,20 T Bi/20 S Bi,0xx,0xx,,,,30
 Rávatsar (Amphibians/Reptiles),Housecat,1,20,FA/FA,1,10,0,S,10 T Cl/0 T Bi,0xx,0xx,10Ti60,0Ti20,Both20,40,0,"
 
 
+
 ",-,1-8,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/housecat.jpeg,,,,,
 Rávatsar (Amphibians/Reptiles),Alligator (Crocidile),2,0,MD/MD,7,120,0,L,60 L Bi,0xx,0xx,60LBi100,-,-,0,0,"
 
-","DB = +20, OB = +20 if in water.",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
+
+
+","DB = +20, OB = +20 if in water.",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/aligator.jpeg,,,,,
 Rávatsar (Amphibians/Reptiles),Boa Constrictor (15'),2,-4,SL/SL,3,50,0,M,60 M Gr/75 L Gr,0xx,0xx,60MGr100,75LGr,-,0,0,"
 
 
-",-,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
+
+
+",-,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/boa_constrictor.jpeg,,,,,
 Rávatsar (Amphibians/Reptiles),Lizard (general class),1,0,BF/VF,1,8,0,T,0 T Pi/10 S Pi,0xx,0xx,0Ti100,6 or more-l0SPi,-,80,0,"
 
-",-,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
+
+",-,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/lizzard.jpeg,,,,,
 Rávatsar (Amphibians/Reptiles),Lizard (large),1,0,FA/MF,1,16,0,S,10 S Pi,0xx,0xx,10SPi100,3 or more-40SPi,-,50,0,"
-","If poisonous, 1st attack is 50%.",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
-Rávatsar (Amphibians/Reptiles),Snake (non-constr.),1,12,FA/VF,1,10,0,S,27 S St,0xx,0xx,25Ti100,6 or more-0SBi,-,50,0,,-,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
-Rávatsar (Amphibians/Reptiles),Snake (large non-constr.),1,12,FA/VF,1,20,0,M,10 S Bi,0xx,0xx,10SBi100,3 or more-25SBi,-,30,0,,-,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
-Rávatsar (Amphibians/Reptiles),Turtle (large),3,-8,CR/SL,12,80,0,M,20 L Pi,0xx,0xx,20LPi100,-,-,30,0,,-,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
-Rávatsar (Amphibians/Reptiles),Andodailion,3,4,MF/MD,7,55,0,S,30 S Cl/30 S Ba/25 T Bi,0xx,0xx,30 S Cl,30 S Ba,25 T Bi,30,0,"The Andodaio, or 'Gate-shadow' (pl. 'Andodailion'), is a black, nocturnal lizard with a prehensile tongue and tail. It is without doubt the greatest climber among all the Rávatsar. Rugged landscapes and subterranean settings accommodate this creature quite well, for the Andodaio is insulated with an unusual array of the three layers of hollow scales that enable it to survive in environments which are far too cool for its brethren. Hanging from rocks, it swings across the caves and precipices, leaping onto prey and tearing its victims appart with its steely claws. Larger creatures would have little to fear from the Andodailion, except for the fact that they live in large communities and often hunt in groups of 10-100 individuals. Unusually social, a horde of Andodailion can easily fell a Man by attacking in concert.","Normal. Social, nocturnal lizards.",10-100,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,mkt,ABUVHPLR,6,2.5-3 ft
-Rávatsar (Amphibians/Reptiles),Angusaiwéli,2,8,VF/FA,4,25,0,S,30 S Bi/40 S St/5 S Cl,0xx,0xx,30SBi,40St,5SCl+poison,50,0,"Found virtually anywhere in Middle-earth, save in the coldest climes, the Angusaiwë (Q. 'Iron Unbirds'; pi. 'Angusaiwéli') is the most resilient, advanced, and common of the larger Rávatsar. This is due to the fact that they are, unlike any other reptile or amphibian, warm-blooded. The Angusaiwé1i constitute a unique branch of the Rávatsar and are closely related to flightless birds; thus their name. There are nine species of Angusaiwéli. All are deep grey or black in color and have bright red eyes. The only notable distinction in the family is between those that run on four legs (three species), those that run on two legs (five species), and those that hop (one species). The former group consists of the species that live near the water, especially along rocky seashores. All other Angusaiwéli have exaggerated hind legs and walk upright, using their tails for balance. Astoundingly agile, they can travel over rugged terrain at speeds exceeding 35 miles an hour. The Leaping Unbird found in Khand and Chey is the slowest of these creatures; however, they are astoundingly efficient and need less water and sustenance than other Angusaiwéli. Poisonous carnivores, Unbirds hunt lizards, frogs, birds, large insects, and small mammals. They have very sharp teeth and curving, retractable, viper-like fangs. When facing most foes, though, they bite their prey while keeping these foreteeth hidden in pockets in their upper jaw. Angusaiwéli prefer to swallow their victims whole. Against larger foes, they can bear their hollow, needle-like fangs and puncture the unfortunate beasts' hides, injecting a potent (3rd lvl) venom that immobilizes (1 -100 rds with RR failure 01-65) or kills (in 1-10 rds with RR failure of 66+). Aside from its great speed, an Angusaiwë relies on its cunning and horny body armor in combat. It has a ridge of pointed scales that protects its spine, and the scales on its back and sides are, as its name suggests, as tough as iron. NOTE: The Angusaiwéli are found on a number of ICE's covers, for they are active at all hours and savor action.",Aggressive. Poisonous carnivores.,1-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,hnawmskt,(All),7,9-18 inches
-Rávatsar (Amphibians/Reptiles),Blue Terrapins,5,4,MF/MF,12,150,0,M,65 M Bi/40 M Cl,0xx,0xx,65MBi,poison,40MCl,20,0,"Blue Terrapins (Q. 'Luinikrúmori'; sing. 'Luinikrúmor') arc only found in thickets or very dense, overgrown swamp areas. Their native home is Fangorn Forest. Small, their shells average 18' across, but they have a 12' neck. Thus, a Blue Terrapin can strike like a snake, delivering a 2nd level muscle poison (with a Critical Strike) that can paralyze a small mammal (up to 40 lbs). If it bites, it will paralyze the area or limb it penetrates, partially paralyzing one adjacent area. The poison wears off in 3 hours.",Protective. Lvl 2 Muscle poison.,1-4,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,mkt,FMCDE,4,3-3.5 ft
-Rávatsar (Amphibians/Reptiles),Coireals,2,12,SL/VF,1,30,0,S,55 S St,0xx,0xx,55SSt,poison,-,40,0,"This inoffensive snake inhabits forests and heavy copses; it can be readily identified by the bright yellow bands on its glossy black body. It is generally docile and will avoid people. Most bites occur when witless folk try to pick up this 'pretty snake.' Instead, the Coireal is happy to hunt large insects. It should be left alone, for its venom is highly potent, one of the most lethal (10th lvl) natural poisons in Middle-earth. Symptoms appear in one to four hours, resulting in all but certain death from paralysis.",Passive. Lvl 10 Nerve poison.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,mkt,FMCDH,5,2-3 ft
-Rávatsar (Amphibians/Reptiles),Ëgil's Vipers,8,12,VF/VF,4,100,0,L,75 M Bi,0xx,0xx,75MBi,special,-,60,0,"A huge, poisonous, predatory serpent. Ëgil's Viper is one of the strangest hazards of the plain of Talath Harroch, south of Mirkwood. It is said that these remarkable snakes were driven out of other areas of Rhovanion into the Talath Harroch, but this seems unlikely at best. In any case, the serpents are there, preying upon eggs, rodents, young animals, and (in the case of the largest Vipers) Men and Kine. Of a yellowish-brown color that blends well with the soil of the area, and with the grasses of the plain in dry seasons and in the autumn, Ëgil's Viper hunts in the late afternoon or early evening. It may spit its venom into a victim's eyes from a distance up to thirty ft, or it may bite and inject the venom in the normal manner of most snakes. The Viper's fangs reach up to three inches in length and can penetrate leather and, in some cases, even chain armor.",Aggressive. Spits Poison up to 30'.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,mskt,BFPIL,6,20 ft
-Rávatsar (Amphibians/Reptiles),Grey Flyers,0,-4,VS/SL,1,5,0,T,0 T Ba/0 T Cl,0xx,0xx,0TBa,0TCl,poison,20,0,"A slimy, silvery, gliding frog, the Grey Flyer is a small but deadly amphibian. They carry a nasty venom in their bluish claws. Grey Flyers are rare, living only in the depths of thick rain forests, but they live in huge colonies and woe to anyone who stumbles upon their nests!",Protective. Lvl 3 Muscle Poison.,10-100,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,wmkt,FMCDJE,7,1-2 inches
-Rávatsar (Amphibians/Reptiles),Green Asps,3,12,SL/VF,3,20,0,S,35 S St,0xx,0xx,35SSt,poison,-,40,0,"The Green Asp is the only venomous serpent indigenous to Calenardhon (Rohan) and the northern White Mountains. It is a sociable creature (for a snake), making its home with as many as fifty of its fellows in empty Rabbit or Ground Squirrel burrows. On sunny days, the Asp community will come out to sun themselves en masse on the slopes near their subterranean home. Green Asps have dull green skin and are usually fat and torpid, with puffy poison glands below their eyes. They are considered unattractive even by those fond of serpents. Their fetid odor, reminiscent of rotting strawberries, does nothing to relieve this unpleasant impression. The (5th lvl) bite of this snake is rarely fatal, but the area surrounding the wound generally becomes necrotic, turning awful shades of violet and yellow-green before sloughing off, usually exposing the bone. These dreadful afflictions may take months to heal. In some cases (15% chance, modified by Co stat bonus), the snake's injection may even cause the entire limb to turn gangrenous and fall off. Regardless of the primary effects, however, the victim will in any case be incapacitated for 3-6 days with a high fever and hallucinations.",Aggressive. Lvl 5 Conversion Poison.,5-50,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,wmkt,BFHP,5,2-3 ft
-Rávatsar (Amphibians/Reptiles),Land Tortoises,4,0,SL/MD,12,75,0,M,55 M Pi,0xx,0xx,55MPi,-,-,30,0,"Land Tortoises were once common in southern Eriador and western Gondor, particularly in the Gwathló basin. Unfortunately, they are extremely tasty and nutritious, so they are favored by Eriadoran hunters and are nearly extinct. Their beautiful green and grey shells are now exceptionally rare. Prized for their value as armor (the shell makes excellent reinforcement) and (when ground) as a source of medicine to combat blood diseases and ailments, a Land Tortoise shell can bring up to two hundred gold pieces on the open market. Very slow and inoffensive, the Land Tortoise's primary defense is its size. The average specimen is five ft long and three high, weighing about three hundred pounds. A few older Tortoises, those with ages over three hundred years, have reached six ft in length and weigh over a quarter ton. In the case of an attack, Land Tortoises will retreat until cornered. If confronted by an overwhelming number of foes, they w i l l then ground themselves and pull into their shells. If it appears that they contest the attack, though, they may lash out with their necks, biting the attackers with their hard, sharp beaks. Land Tortoises feed on nearly every type of vegetation and often roam into the highlands in search of richer grass or shrubs. They mate at any time, since the males are twice as large as the females. Female Tortoises then dig holes along river banks or on the seashore, laying their (11-20) eggs and covering them with moist soil that hardens in the sun and incubates the young. These caches are abandoned, so the hatchlings are forced to dig their way out and survive on their own.",Passive. Very slow and inoffensive.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,mkt,BFMSCDE,8,5-6 ft
-Rávatsar (Amphibians/Reptiles),Marsh Adders,1,12,MD/VF,1,20,0,S,50 T St,0xx,0xx,50TSt,poison,-,60,0,"The Marsh Adder is a large, aquatic serpent common throughout all marshy areas of central Endor. Especially prevalent in the Dead Marshes and Nindalf (the Wetwang), this creature is an excellent swimmer whose mottled gray and brown scales allow it to go all but unnoticed in the foul waters of the marshes. Marsh Adders are easily startled and bite with little provocation. Usually seeking out small creatures such as ducklings and frogs for prey, the Adder will also attack larger beings if it feels threatened. Its large, curved fangs allow it to deliver its poison deeply, so that it quickly takes effect. The (10th lvl) venom can be lethal and many victims (RR failure of 51+) die in five rounds due to respiratory paralysis. A less imposing dose (RR failure of 01 -50) will give the victim a case of flaccid paralysis: their joints will become limp, and they will lose voluntary muscle control for 1-100 hours.",Aggressive. Lvl 10 Muscle poison.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,wmk,M,5,2-4 ft
-Rávatsar (Amphibians/Reptiles),Marsh Crocodiles (in water),3,0,MD/MD,7,120,0,L,80 L Bi/80 M Gr,0xx,0xx,80LBi,80MGr,drown,10,0,"Swift but usually inactive, the Marsh, or 'Fish-eating,' Crocodiles are common in the wetter, wanner parts of Endor. They are inoffensive when let alone, but can be quite deadly when surprised (or hungry). Black, with green stripes and light blue undersides, they are colorful carnivores. Its diet consists of large mammals and birds who enter or come to the edge of the water in search of food or drink. After grabbing its prey in its long, powerful snout, the Marsh Crocodile drowns the victim and then tears the flacid body apart with twisting bites. This involves spinning its entire body, but the beast is exceptionally agile when its in the water. The Marsh Crocodile spends its nights in the water and basks on the shore during the days the sun is out. It feeds on an average of once every two days. While swimming, it uses the rocks it swallows for ballast. Its nostrils and throat are equipped with flaps and valves that enable it to stay under water for extended periods without fear of intaking part of the marsh or river. ",Aggressive. Uses grappling bite to drown foes.,1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,hnwm,FM,5,15-18 ft
-Rávatsar (Amphibians/Reptiles),Marsh Crocodiles (on land),3,-4,VS/SL,7,120,0,L,40 M Bi/60 M Ba/80 L Bi,0xx,0xx,40MBi,60MBa,80LBi,0,0,"Swift but usually inactive, the Marsh, or 'Fish-eating,' Crocodiles are common in the wetter, wanner parts of Endor. They are inoffensive when let alone, but can be quite deadly when surprised (or hungry). Black, with green stripes and light blue undersides, they are colorful carnivores. Its diet consists of large mammals and birds who enter or come to the edge of the water in search of food or drink. After grabbing its prey in its long, powerful snout, the Marsh Crocodile drowns the victim and then tears the flacid body apart with twisting bites. This involves spinning its entire body, but the beast is exceptionally agile when its in the water. The Marsh Crocodile spends its nights in the water and basks on the shore during the days the sun is out. It feeds on an average of once every two days. While swimming, it uses the rocks it swallows for ballast. Its nostrils and throat are equipped with flaps and valves that enable it to stay under water for extended periods without fear of intaking part of the marsh or river. ",Aggressive. Uses LBi if MBa knocks foe down.,1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,hnwm,FM,5,15-18 ft
-Rávatsar (Amphibians/Reptiles),Nethairin,1,12,SL/VF,1,30,0,S,40 S St,0xx,0xx,40SSt,poison,-,20,0,"The Plains Snake (Si. 'Nathair'; pl. 'Nethairin') is roughly six ft long. It has a thick triangular head and a cream-colored body overlaid with a dark diamond pattern. Hiding in shallow burrows and hunting amidst the tall grass of the steppes or plains, the serpent is a quiet creature that relies on stealth and patience in order to defeat its foes. Rodents, birds, and small lizards make up its diet. Although ostensibly cunning, the Nathair angers easily and will vigorously defend itself rather than flee, even in a fruitless confrontation. Its venom is rather toxic (level 6). Symptoms include swelling, weak pulse, shock, and wide discolorations.",Aggressive. Very toxic poison (Lvl 6).,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,mkt,FMCDE,4,5-7 ft
-Rávatsar (Amphibians/Reptiles),Nethairin Erdyr,1,16,SL/BF,1,20,0,S,30 S St,0xx,0xx,30SSt,poison,-,30,0,"The Nethairin Erdyr (sing 'Nathair Ardor') live in burrows beneath rocks or within caverns and favor highland locales or the cool wastelands of the North. While very similar in coloration to the Nathair of the Plains, the Nathair Ardor attains a length of only 2-3 ft. It angers easily and will defend itself viciously. Its poison is similar to that of the common Nathair, however it is weaker (5th lvl) and takes longer (6 vs 2 minutes) to affect the victim.",Aggressive. Toxic poison (Lvl 5).,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,mktcf,AUWHTL,4,2-3 ft
-Rávatsar (Amphibians/Reptiles),Nethraich,1,16,MD/BF,1,25,0,S,35 S St,0xx,0xx,35SSt,poison,-,25,0,"The Nathrach (pl 'Nethraich') is an aquatic snake that resides in relatively placid or stagnant pools, marshes, and lakes. Brown bands surround its rust-colored body, which typically measures three to five ft in length. Contrary to popular belief, this serpent does not normally strike in water; most victims are on dry land or a marsh island when they stray into a snake run. These snakes only attack when their 'runs' are encountered, and then it bites with astounding quickness. A Nathrach's critical strike is accompanied by a muscle poison that causes bleeding, bruises, and swelling (double all these effects on this and subsequent criticals). The venom is not very toxic (level 2) but does cause bleeding, bruises, and swelling. It is designed to stun small rodents before the snake envelops and crushes them. The Arnathrach (pl 'Ernaithrach'), or Royal Nathrach, is a much larger cousin that inhabits the brackish waters near the coasts.",Protective. Lvl 2 Muscle poison.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,wmk,M,5,3-5 ft
-Rávatsar (Amphibians/Reptiles),Nethraich Arnathrach,4,8,MD/FA,3,75,0,M,60 M St/40 M Gr,0xx,0xx,60MSt,poison,40MGr,20,0,"The Nathrach (pl 'Nethraich') is an aquatic snake that resides in relatively placid or stagnant pools, marshes, and lakes. Brown bands surround its rust-colored body, which typically measures three to five ft in length. Contrary to popular belief, this serpent does not normally strike in water; most victims are on dry land or a marsh island when they stray into a snake run. These snakes only attack when their 'runs' are encountered, and then it bites with astounding quickness. A Nathrach's critical strike is accompanied by a muscle poison that causes bleeding, bruises, and swelling (double all these effects on this and subsequent criticals). The venom is not very toxic (level 2) but does cause bleeding, bruises, and swelling. It is designed to stun small rodents before the snake envelops and crushes them. The Arnathrach (pl 'Ernaithrach'), or Royal Nathrach, is a much larger cousin that inhabits the brackish waters near the coasts.",Royal Nathrach. Lvl 6 Muscle poison.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,wmk,M,5,3-5 ft
-Rávatsar (Amphibians/Reptiles),Otrovativi,1,12,MD/VF,1,30,0,S,35 S St,0xx,0xx,35SSt,-,-,30,0,"The Otravati (Ap. 'Poison'; pi. 'Otrovativi) is small snake found in western Harad. Rarely exceeding two ft in length, it has a murky grey coloring and is easy to overlook. It is, however, not an animal to take lightly. The Otravati's narrow head opens to reveal a surprisingly large mouth full of tiny needlelike teeth. Each tooth is an injector that delivers a dose of the snake's poison on any successful bite (whenever a critical is scored on the attack table). Locals consider amputation to be the only effective remedy when confronted by the snake's potent (25th lvl) venom. A nerve poison, it attacks through the bloodstream and the nervous system simultaneously. The venom is lethal within one hour. Only immediate removal of the bitten member will serve as a cure. It is no wonder that the snake bears a name which translates as 'poison.'",Normal. Lvl 25 Nerve poison.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,hwsa,BFMUZCDPIRX,4,18-24 inches
-Rávatsar (Amphibians/Reptiles),Petlavi,6,4,VS/MF,3,120,0,L/I,80 M Bi/70 M Gr/100 L Cr,0xx,0xx,80MBi,20MGr,100LCr,10,0,"The Petla (pi. 'Petlavi'), or 'Forest-strangler,' of southwestern Endor is commonly found in the scattered woodlands of Far Harad (particularly in the Forest of Tears). It haunts the oases between Umbar and Drel, lurking in the branches and pools that the Haradrim prize so dearly. One of Middle-earth's most fearsome reptiles, the Petla is an able hunter who has perfected the arts of camouflage and ambush. It is mottled brown in color and blends perfectly with woodland hues. Dropping from above or entangling its prey in water, the snake attacks by using its powerful jaws to gain a grip and then coils its length around its hapless victim. Petlavi reaches lengths exceeding thirty ft and at least one specimen measured forty-five ft in length. Their thickest portions are over a foot wide, and they have been known to swallow a whole goat (using their distended jaws). Petlavi like to bite; however their principal weapon is their coiling, constricting body. Whenever they take hold of prey (typically after a 'B' critical strike result), the victim has little hope of survival. From that point on, the enormously powerful body will move to coil itself around the target's body. This process takes one to ten rounds. It is an extremely hard (-30) maneuver (add ST bonus) to break out of a Petla's grasp and, once the beast perfects its grip, the victim will perish due to suffocation in three to thirty minutes. The tables are turned when the Petla confronts a group, as its methods of attack leave it relatively defenseless if other foes are involved. For this reason, the snake will not often stand and fight when confronted by more than one enemy.",Normal. Uses LCr if MGr successful.,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,hwsa,FMZCDJIRX,4,26-32 ft
+
+","If poisonous, 1st attack is 50%.",,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/large_lizzard.jpeg,,,,,
+Rávatsar (Amphibians/Reptiles),Snake (non-constr.),1,12,FA/VF,1,10,0,S,27 S St,0xx,0xx,25Ti100,6 or more-0SBi,-,50,0,"
+",-,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/snake.jpeg,,,,,
+Rávatsar (Amphibians/Reptiles),Snake (large non-constr.),1,12,FA/VF,1,20,0,M,10 S Bi,0xx,0xx,10SBi100,3 or more-25SBi,-,30,0,"
+",-,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/large_snake.jpeg,,,,,
+Rávatsar (Amphibians/Reptiles),Turtle (large),3,-8,CR/SL,12,80,0,M,20 L Pi,0xx,0xx,20LPi100,-,-,30,0,"
+",-,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/large_turtle.jpeg,,,,,
+Rávatsar (Amphibians/Reptiles),Andodailion,3,4,MF/MD,7,55,0,S,30 S Cl/30 S Ba/25 T Bi,0xx,0xx,30 S Cl,30 S Ba,25 T Bi,30,0,"The Andodaio, or 'Gate-shadow' (pl. 'Andodailion'), is a black, nocturnal lizard with a prehensile tongue and tail. It is without doubt the greatest climber among all the Rávatsar. Rugged landscapes and subterranean settings accommodate this creature quite well, for the Andodaio is insulated with an unusual array of the three layers of hollow scales that enable it to survive in environments which are far too cool for its brethren. Hanging from rocks, it swings across the caves and precipices, leaping onto prey and tearing its victims appart with its steely claws. Larger creatures would have little to fear from the Andodailion, except for the fact that they live in large communities and often hunt in groups of 10-100 individuals. Unusually social, a horde of Andodailion can easily fell a Man by attacking in concert.
+","Normal. Social, nocturnal lizards.",10-100,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Andodailion.jpeg,,mkt,ABUVHPLR,6,2.5-3 ft
+Rávatsar (Amphibians/Reptiles),Angusaiwéli,2,8,VF/FA,4,25,0,S,30 S Bi/40 S St/5 S Cl,0xx,0xx,30SBi,40St,5SCl+poison,50,0,"Found virtually anywhere in Middle-earth, save in the coldest climes, the Angusaiwë (Q. 'Iron Unbirds'; pi. 'Angusaiwéli') is the most resilient, advanced, and common of the larger Rávatsar. This is due to the fact that they are, unlike any other reptile or amphibian, warm-blooded. The Angusaiwé1i constitute a unique branch of the Rávatsar and are closely related to flightless birds; thus their name. There are nine species of Angusaiwéli. All are deep grey or black in color and have bright red eyes. The only notable distinction in the family is between those that run on four legs (three species), those that run on two legs (five species), and those that hop (one species). The former group consists of the species that live near the water, especially along rocky seashores. All other Angusaiwéli have exaggerated hind legs and walk upright, using their tails for balance. Astoundingly agile, they can travel over rugged terrain at speeds exceeding 35 miles an hour. The Leaping Unbird found in Khand and Chey is the slowest of these creatures; however, they are astoundingly efficient and need less water and sustenance than other Angusaiwéli. Poisonous carnivores, Unbirds hunt lizards, frogs, birds, large insects, and small mammals. They have very sharp teeth and curving, retractable, viper-like fangs. When facing most foes, though, they bite their prey while keeping these foreteeth hidden in pockets in their upper jaw. Angusaiwéli prefer to swallow their victims whole. Against larger foes, they can bear their hollow, needle-like fangs and puncture the unfortunate beasts' hides, injecting a potent (3rd lvl) venom that immobilizes (1 -100 rds with RR failure 01-65) or kills (in 1-10 rds with RR failure of 66+). Aside from its great speed, an Angusaiwë relies on its cunning and horny body armor in combat. It has a ridge of pointed scales that protects its spine, and the scales on its back and sides are, as its name suggests, as tough as iron. NOTE: The Angusaiwéli are found on a number of ICE's covers, for they are active at all hours and savor action.
+",Aggressive. Poisonous carnivores.,1-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Angusaiweli.jpeg,,hnawmskt,(All),7,9-18 inches
+Rávatsar (Amphibians/Reptiles),Blue Terrapins,5,4,MF/MF,12,150,0,M,65 M Bi/40 M Cl,0xx,0xx,65MBi,poison,40MCl,20,0,"Blue Terrapins (Q. 'Luinikrúmori'; sing. 'Luinikrúmor') arc only found in thickets or very dense, overgrown swamp areas. Their native home is Fangorn Forest. Small, their shells average 18' across, but they have a 12' neck. Thus, a Blue Terrapin can strike like a snake, delivering a 2nd level muscle poison (with a Critical Strike) that can paralyze a small mammal (up to 40 lbs). If it bites, it will paralyze the area or limb it penetrates, partially paralyzing one adjacent area. The poison wears off in 3 hours.
+",Protective. Lvl 2 Muscle poison.,1-4,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Blue_Terrapins.jpeg,,mkt,FMCDE,4,3-3.5 ft
+Rávatsar (Amphibians/Reptiles),Coireals,2,12,SL/VF,1,30,0,S,55 S St,0xx,0xx,55SSt,poison,-,40,0,"This inoffensive snake inhabits forests and heavy copses; it can be readily identified by the bright yellow bands on its glossy black body. It is generally docile and will avoid people. Most bites occur when witless folk try to pick up this 'pretty snake.' Instead, the Coireal is happy to hunt large insects. It should be left alone, for its venom is highly potent, one of the most lethal (10th lvl) natural poisons in Middle-earth. Symptoms appear in one to four hours, resulting in all but certain death from paralysis.
+",Passive. Lvl 10 Nerve poison.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Coireals.jpeg,,mkt,FMCDH,5,2-3 ft
+Rávatsar (Amphibians/Reptiles),Ëgil's Vipers,8,12,VF/VF,4,100,0,L,75 M Bi,0xx,0xx,75MBi,special,-,60,0,"A huge, poisonous, predatory serpent. Ëgil's Viper is one of the strangest hazards of the plain of Talath Harroch, south of Mirkwood. It is said that these remarkable snakes were driven out of other areas of Rhovanion into the Talath Harroch, but this seems unlikely at best. In any case, the serpents are there, preying upon eggs, rodents, young animals, and (in the case of the largest Vipers) Men and Kine. Of a yellowish-brown color that blends well with the soil of the area, and with the grasses of the plain in dry seasons and in the autumn, Ëgil's Viper hunts in the late afternoon or early evening. It may spit its venom into a victim's eyes from a distance up to thirty ft, or it may bite and inject the venom in the normal manner of most snakes. The Viper's fangs reach up to three inches in length and can penetrate leather and, in some cases, even chain armor.
+",Aggressive. Spits Poison up to 30'.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/egil_viper.jpeg,,mskt,BFPIL,6,20 ft
+Rávatsar (Amphibians/Reptiles),Grey Flyers,0,-4,VS/SL,1,5,0,T,0 T Ba/0 T Cl,0xx,0xx,0TBa,0TCl,poison,20,0,"A slimy, silvery, gliding frog, the Grey Flyer is a small but deadly amphibian. They carry a nasty venom in their bluish claws. Grey Flyers are rare, living only in the depths of thick rain forests, but they live in huge colonies and woe to anyone who stumbles upon their nests!
+",Protective. Lvl 3 Muscle Poison.,10-100,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/grey_flyers.jpeg,,wmkt,FMCDJE,7,1-2 inches
+Rávatsar (Amphibians/Reptiles),Green Asps,3,12,SL/VF,3,20,0,S,35 S St,0xx,0xx,35SSt,poison,-,40,0,"The Green Asp is the only venomous serpent indigenous to Calenardhon (Rohan) and the northern White Mountains. It is a sociable creature (for a snake), making its home with as many as fifty of its fellows in empty Rabbit or Ground Squirrel burrows. On sunny days, the Asp community will come out to sun themselves en masse on the slopes near their subterranean home. Green Asps have dull green skin and are usually fat and torpid, with puffy poison glands below their eyes. They are considered unattractive even by those fond of serpents. Their fetid odor, reminiscent of rotting strawberries, does nothing to relieve this unpleasant impression. The (5th lvl) bite of this snake is rarely fatal, but the area surrounding the wound generally becomes necrotic, turning awful shades of violet and yellow-green before sloughing off, usually exposing the bone. These dreadful afflictions may take months to heal. In some cases (15% chance, modified by Co stat bonus), the snake's injection may even cause the entire limb to turn gangrenous and fall off. Regardless of the primary effects, however, the victim will in any case be incapacitated for 3-6 days with a high fever and hallucinations.
+",Aggressive. Lvl 5 Conversion Poison.,5-50,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/green_asp.jpeg,,wmkt,BFHP,5,2-3 ft
+Rávatsar (Amphibians/Reptiles),Land Tortoises,4,0,SL/MD,12,75,0,M,55 M Pi,0xx,0xx,55MPi,-,-,30,0,"Land Tortoises were once common in southern Eriador and western Gondor, particularly in the Gwathló basin. Unfortunately, they are extremely tasty and nutritious, so they are favored by Eriadoran hunters and are nearly extinct. Their beautiful green and grey shells are now exceptionally rare. Prized for their value as armor (the shell makes excellent reinforcement) and (when ground) as a source of medicine to combat blood diseases and ailments, a Land Tortoise shell can bring up to two hundred gold pieces on the open market. Very slow and inoffensive, the Land Tortoise's primary defense is its size. The average specimen is five ft long and three high, weighing about three hundred pounds. A few older Tortoises, those with ages over three hundred years, have reached six ft in length and weigh over a quarter ton. In the case of an attack, Land Tortoises will retreat until cornered. If confronted by an overwhelming number of foes, they w i l l then ground themselves and pull into their shells. If it appears that they contest the attack, though, they may lash out with their necks, biting the attackers with their hard, sharp beaks. Land Tortoises feed on nearly every type of vegetation and often roam into the highlands in search of richer grass or shrubs. They mate at any time, since the males are twice as large as the females. Female Tortoises then dig holes along river banks or on the seashore, laying their (11-20) eggs and covering them with moist soil that hardens in the sun and incubates the young. These caches are abandoned, so the hatchlings are forced to dig their way out and survive on their own.
+",Passive. Very slow and inoffensive.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Land_Tortoises.jpeg,,mkt,BFMSCDE,8,5-6 ft
+Rávatsar (Amphibians/Reptiles),Marsh Adders,1,12,MD/VF,1,20,0,S,50 T St,0xx,0xx,50TSt,poison,-,60,0,"The Marsh Adder is a large, aquatic serpent common throughout all marshy areas of central Endor. Especially prevalent in the Dead Marshes and Nindalf (the Wetwang), this creature is an excellent swimmer whose mottled gray and brown scales allow it to go all but unnoticed in the foul waters of the marshes. Marsh Adders are easily startled and bite with little provocation. Usually seeking out small creatures such as ducklings and frogs for prey, the Adder will also attack larger beings if it feels threatened. Its large, curved fangs allow it to deliver its poison deeply, so that it quickly takes effect. The (10th lvl) venom can be lethal and many victims (RR failure of 51+) die in five rounds due to respiratory paralysis. A less imposing dose (RR failure of 01 -50) will give the victim a case of flaccid paralysis: their joints will become limp, and they will lose voluntary muscle control for 1-100 hours.
+",Aggressive. Lvl 10 Muscle poison.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Marsh_Adders.jpeg,,wmk,M,5,2-4 ft
+Rávatsar (Amphibians/Reptiles),Marsh Crocodiles (in water),3,0,MD/MD,7,120,0,L,80 L Bi/80 M Gr,0xx,0xx,80LBi,80MGr,drown,10,0,"Swift but usually inactive, the Marsh, or 'Fish-eating,' Crocodiles are common in the wetter, wanner parts of Endor. They are inoffensive when let alone, but can be quite deadly when surprised (or hungry). Black, with green stripes and light blue undersides, they are colorful carnivores. Its diet consists of large mammals and birds who enter or come to the edge of the water in search of food or drink. After grabbing its prey in its long, powerful snout, the Marsh Crocodile drowns the victim and then tears the flacid body apart with twisting bites. This involves spinning its entire body, but the beast is exceptionally agile when its in the water. The Marsh Crocodile spends its nights in the water and basks on the shore during the days the sun is out. It feeds on an average of once every two days. While swimming, it uses the rocks it swallows for ballast. Its nostrils and throat are equipped with flaps and valves that enable it to stay under water for extended periods without fear of intaking part of the marsh or river. 
+",Aggressive. Uses grappling bite to drown foes.,1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Marsh_Crocodile.jpeg,,hnwm,FM,5,15-18 ft
+Rávatsar (Amphibians/Reptiles),Marsh Crocodiles (on land),3,-4,VS/SL,7,120,0,L,40 M Bi/60 M Ba/80 L Bi,0xx,0xx,40MBi,60MBa,80LBi,0,0,"Swift but usually inactive, the Marsh, or 'Fish-eating,' Crocodiles are common in the wetter, wanner parts of Endor. They are inoffensive when let alone, but can be quite deadly when surprised (or hungry). Black, with green stripes and light blue undersides, they are colorful carnivores. Its diet consists of large mammals and birds who enter or come to the edge of the water in search of food or drink. After grabbing its prey in its long, powerful snout, the Marsh Crocodile drowns the victim and then tears the flacid body apart with twisting bites. This involves spinning its entire body, but the beast is exceptionally agile when its in the water. The Marsh Crocodile spends its nights in the water and basks on the shore during the days the sun is out. It feeds on an average of once every two days. While swimming, it uses the rocks it swallows for ballast. Its nostrils and throat are equipped with flaps and valves that enable it to stay under water for extended periods without fear of intaking part of the marsh or river. 
+",Aggressive. Uses LBi if MBa knocks foe down.,1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Marsh_Crocodile.jpeg,,hnwm,FM,5,15-18 ft
+Rávatsar (Amphibians/Reptiles),Nethairin,1,12,SL/VF,1,30,0,S,40 S St,0xx,0xx,40SSt,poison,-,20,0,"The Plains Snake (Si. 'Nathair'; pl. 'Nethairin') is roughly six ft long. It has a thick triangular head and a cream-colored body overlaid with a dark diamond pattern. Hiding in shallow burrows and hunting amidst the tall grass of the steppes or plains, the serpent is a quiet creature that relies on stealth and patience in order to defeat its foes. Rodents, birds, and small lizards make up its diet. Although ostensibly cunning, the Nathair angers easily and will vigorously defend itself rather than flee, even in a fruitless confrontation. Its venom is rather toxic (level 6). Symptoms include swelling, weak pulse, shock, and wide discolorations.
+",Aggressive. Very toxic poison (Lvl 6).,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/netharin.jpeg,,mkt,FMCDE,4,5-7 ft
+Rávatsar (Amphibians/Reptiles),Nethairin Erdyr,1,16,SL/BF,1,20,0,S,30 S St,0xx,0xx,30SSt,poison,-,30,0,"The Nethairin Erdyr (sing 'Nathair Ardor') live in burrows beneath rocks or within caverns and favor highland locales or the cool wastelands of the North. While very similar in coloration to the Nathair of the Plains, the Nathair Ardor attains a length of only 2-3 ft. It angers easily and will defend itself viciously. Its poison is similar to that of the common Nathair, however it is weaker (5th lvl) and takes longer (6 vs 2 minutes) to affect the victim.
+",Aggressive. Toxic poison (Lvl 5).,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Nethairin_Erdyr.jpeg,,mktcf,AUWHTL,4,2-3 ft
+Rávatsar (Amphibians/Reptiles),Nethraich,1,16,MD/BF,1,25,0,S,35 S St,0xx,0xx,35SSt,poison,-,25,0,"The Nathrach (pl 'Nethraich') is an aquatic snake that resides in relatively placid or stagnant pools, marshes, and lakes. Brown bands surround its rust-colored body, which typically measures three to five ft in length. Contrary to popular belief, this serpent does not normally strike in water; most victims are on dry land or a marsh island when they stray into a snake run. These snakes only attack when their 'runs' are encountered, and then it bites with astounding quickness. A Nathrach's critical strike is accompanied by a muscle poison that causes bleeding, bruises, and swelling (double all these effects on this and subsequent criticals). The venom is not very toxic (level 2) but does cause bleeding, bruises, and swelling. It is designed to stun small rodents before the snake envelops and crushes them. The Arnathrach (pl 'Ernaithrach'), or Royal Nathrach, is a much larger cousin that inhabits the brackish waters near the coasts.
+
+",Protective. Lvl 2 Muscle poison.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Nethraich.jpeg,,wmk,M,5,3-5 ft
+Rávatsar (Amphibians/Reptiles),Nethraich Arnathrach,4,8,MD/FA,3,75,0,M,60 M St/40 M Gr,0xx,0xx,60MSt,poison,40MGr,20,0,"The Nathrach (pl 'Nethraich') is an aquatic snake that resides in relatively placid or stagnant pools, marshes, and lakes. Brown bands surround its rust-colored body, which typically measures three to five ft in length. Contrary to popular belief, this serpent does not normally strike in water; most victims are on dry land or a marsh island when they stray into a snake run. These snakes only attack when their 'runs' are encountered, and then it bites with astounding quickness. A Nathrach's critical strike is accompanied by a muscle poison that causes bleeding, bruises, and swelling (double all these effects on this and subsequent criticals). The venom is not very toxic (level 2) but does cause bleeding, bruises, and swelling. It is designed to stun small rodents before the snake envelops and crushes them. The Arnathrach (pl 'Ernaithrach'), or Royal Nathrach, is a much larger cousin that inhabits the brackish waters near the coasts.
+
+",Royal Nathrach. Lvl 6 Muscle poison.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Netraich_Arnathrach.jpeg,,wmk,M,5,3-5 ft
+Rávatsar (Amphibians/Reptiles),Otrovativi,1,12,MD/VF,1,30,0,S,35 S St,0xx,0xx,35SSt,-,-,30,0,"The Otravati (Ap. 'Poison'; pi. 'Otrovativi) is small snake found in western Harad. Rarely exceeding two ft in length, it has a murky grey coloring and is easy to overlook. It is, however, not an animal to take lightly. The Otravati's narrow head opens to reveal a surprisingly large mouth full of tiny needlelike teeth. Each tooth is an injector that delivers a dose of the snake's poison on any successful bite (whenever a critical is scored on the attack table). Locals consider amputation to be the only effective remedy when confronted by the snake's potent (25th lvl) venom. A nerve poison, it attacks through the bloodstream and the nervous system simultaneously. The venom is lethal within one hour. Only immediate removal of the bitten member will serve as a cure. It is no wonder that the snake bears a name which translates as 'poison.'
+",Normal. Lvl 25 Nerve poison.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Otrovativi.jpeg,,hwsa,BFMUZCDPIRX,4,18-24 inches
+Rávatsar (Amphibians/Reptiles),Petlavi,6,4,VS/MF,3,120,0,L/I,80 M Bi/70 M Gr/100 L Cr,0xx,0xx,80MBi,20MGr,100LCr,10,0,"The Petla (pi. 'Petlavi'), or 'Forest-strangler,' of southwestern Endor is commonly found in the scattered woodlands of Far Harad (particularly in the Forest of Tears). It haunts the oases between Umbar and Drel, lurking in the branches and pools that the Haradrim prize so dearly. One of Middle-earth's most fearsome reptiles, the Petla is an able hunter who has perfected the arts of camouflage and ambush. It is mottled brown in color and blends perfectly with woodland hues. Dropping from above or entangling its prey in water, the snake attacks by using its powerful jaws to gain a grip and then coils its length around its hapless victim. Petlavi reaches lengths exceeding thirty ft and at least one specimen measured forty-five ft in length. Their thickest portions are over a foot wide, and they have been known to swallow a whole goat (using their distended jaws). Petlavi like to bite; however their principal weapon is their coiling, constricting body. Whenever they take hold of prey (typically after a 'B' critical strike result), the victim has little hope of survival. From that point on, the enormously powerful body will move to coil itself around the target's body. This process takes one to ten rounds. It is an extremely hard (-30) maneuver (add ST bonus) to break out of a Petla's grasp and, once the beast perfects its grip, the victim will perish due to suffocation in three to thirty minutes. The tables are turned when the Petla confronts a group, as its methods of attack leave it relatively defenseless if other foes are involved. For this reason, the snake will not often stand and fight when confronted by more than one enemy.
+",Normal. Uses LCr if MGr successful.,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,hwsa,FMZCDJIRX,4,26-32 ft
 Rávatsar (Amphibians/Reptiles),Rock Vipers,1,16,SL/BF,1,15,0,S,20 S St,0xx,0xx,20SSt,poison,-,50,0,"An inconspicuous little creature, the Rock Viper would not be worth mentioning, save that those climbing cliffs and mountains in Endor would be well-advised to watch where they place their hands or their bare ft (Hobbits, especially), for this snakeling is fond of sunbathing on rocky ledges. Their grey skin is speckled with brown and black spots, enabling the serpent to blend in with rock surfaces. (The creature is also called the Leopard Viper.) Although it is small, the Rock Viper's bite is quite deadly (20th lvl). There has never been a proven case of anyone surviving such a bite without some sort of medical treatment, either magical or herbal. The victim of such a bite first suffers swelling, massive bruising, and discoloration around the wound. Then, within 60 seconds after being bitten, his heart will begin to palpitate, his breathing will become irregular, his endocrine system w i l l fail, and he will die of total system shock within 6-10 minutes.",Passive. Incredibly toxic poison (Lvl 20).,1-4,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,wmskt,ADCHLR,6,12-18 inches
 Rávatsar (Amphibians/Reptiles),Sea Crocodiles,7,4,MF/MF,11,245,0,H/La,100 L Bi/110 L Ba/90 L Gr,0xx,0xx,100LBi,110LBa,90LGr,30,0,"This small, gray snake has a distinctive ruff of loose scales that give off a faint, odd rattling sound when the serpent is startled or about to strike. Its potent venom (level 8) causes massive internal hemorrhage, causing tremendous (24-60 hits) shock and often (with 26+ RR failure) death. The Shaking Asp is a native of Rhudaur, the region in eastern Eriador between the Mitheithel (Hoarwell) and Bruinen (Loudwater) Rivers.",Aggressive. Will attack ships.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,kt,FCDHL,5,15-24 inches
 Rávatsar (Amphibians/Reptiles),Shaking Asps,2,12,SL/VF,3,15,0,S,25 S St,0xx,0xx,25SSt,poison,-,50,0,"The Slow-fang is one of the most dangerous and dominant creatures in the rain forests of southern Endor. Large (9' long) and exceptionally strong, it leaves in trees and hunts large mammals and smaller reptiles. Its body coloration varies with the surface they happen to cross, although it is usually brownish and has mottled green stripes. They have friction pads on their ft, specialized scales that enable them to stick to vertical surfaces for indefinite periods. The Slow-fangs are naturally agile tree-climbers. This feature, however, impairs their movement on the jungle floor, and they are awkward runners; thus their name. Still, they can be quite deadly. Endowed with a strong, 6' long prehensile tongue that acts like a whip or bola, they can strike a foe quickly. Then they bite the immobilized victim with a pair of 7' fangs, injecting a mild (2nd lvl) muscle poison. This venom disables the prey long enough for the Slow-fang to slowly discard any inedible trappings (e.g., clothing) before swallowing the meal in one long gulp.",Normal. Potent poison (Lvl 8).,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,hw,FMDJL,4,8-10 ft
