@@ -55,7 +55,6 @@ if "loglvl" in mycnf.cnfparam.keys():
 logger = log.createLogger('AT-Window', loglevel, '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "attackcheck.log")
 
 
-
 class calFightEP():
     """!
     @todo has to be fully implemented: shall store EPs for fights
@@ -64,7 +63,6 @@ class calFightEP():
 
     def __init__(self, charlist = {}, tempfile = "./epfight.json"):
         pass
-
 
 
 class atWin(blankWindow):
@@ -1354,7 +1352,7 @@ class atWin(blankWindow):
         obtype = self.__selectType.get()
         selectedOB = self.__selectOB.get()
         selectedOB.replace("_", " ")
-        print(f"1356 DEBUG: {selectedOB}")
+        print(f"1356 DEBUG(getFumbleType): {selectedOB}")
 
         if obtype == "missile":
 
@@ -2299,7 +2297,7 @@ class atWin(blankWindow):
 
     def __setBGColor(self, attrib, bgcolor = "green", fgcolor = "black"):
         """!
-
+        This sets the backgroun colors for label widgets
         @param attrib tkinter label object
         @param bgcolor background color to set
         @param fgcolor foreground (text) color to set
@@ -2610,7 +2608,6 @@ class atWin(blankWindow):
             self.atcanvas.config(bg = condbgcolor)
 
 
-
 class enemySelector(blankWindow):
     '''
     This class opens a window to select different monsters or npcs from a data
@@ -2738,7 +2735,6 @@ class enemySelector(blankWindow):
         @todo has to be fully implemented
         """
         pass
-
 
 
 if __name__ == '__main__':
