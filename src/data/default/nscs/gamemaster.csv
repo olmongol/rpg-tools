@@ -158,7 +158,7 @@ Apsanakuni (Meat-Eaters),Sheep Hounds,5,12,MF/MF,4,140,0,M,80 M Bi,0xx,0xx,65LGr
 
 
 
-",Aggressive. Nocturnal hunters.,1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/,,nwmktc,AFMCDL,7,5-6ft
+",Aggressive. Nocturnal hunters.,1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,nwmktc,AFMCDL,7,5-6ft
 Apsanakuni (Meat-Eaters),Black Minks,1,12,VF/VF,3,50,0,M,50 M Bi,0xx,0xx,50MBi,-,-,60,0,"Cunning, carnivorous mammals reaching up to 4' in length Black Minks are dangerous freshwater predators. Much larger than their kin, they are strong swimmers in spite of their weight which is fifty to eighty pounds. (Males are larger than female Black Mink are most common in the Wetwang (Nindalf), near Ithilien, but they can occasionally be found in other areas in north central Middle-earth, always near water (marshes, stream or river banks, or the shore of freshwater lakes). Black Minks are voracious and seem to possess a surprising degree of brutal intelligence. They have been known, for example to wait for a young, tender creature of some sort to stray far from its mother before attacking. They usually hunt alone, but in the early spring they come together in groups of 7-12 to choose mates for the year. At this time they will attack anything that crosses the path. They cannot be driven off when they are in this state, on killed, and they will fight until literally torn apart. If an intact pelt is somehow obtained by such subtle methods poison or drowning (difficult, as they can hold their breath for up to ten minutes), it is worth a great deal of money (anywhere from six to fifteen gold pieces, depending upon the market), for the fur of the Black Mink is fabulously thick and glossy, as well as heir entirely waterproof.
 
 
@@ -217,7 +217,7 @@ Apsanakuni (Meat-Eaters),Dire Wolves (Adult),4,12,VF/FA,3,80,0,L/I,75 L Bi/45 M 
 
 
 
-",Social animals. do not fear People.,2-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/,,ktc,AFMCDHPTINR,5,5-6ft
+",Social animals. do not fear People.,2-20,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,ktc,AFMCDHPTINR,5,5-6ft
 Apsanakuni (Meat-Eaters),Dunmen's Dogs,1,4,MD/MF,3,40,0,S,45 S Bi,0xx,0xx,45SBi,-,-,40,0,"Kept only by the tribal Dunlendings, the Dunmen's Dogs look like a large, fat toy hound. These Dogs are sometimes used as guards or for pack-hunting, of which they are marginally capable. Most Dunmen's Dogs end up in the stewpot.
 
 
@@ -241,7 +241,7 @@ Apsanakuni (Meat-Eaters),Gích,2,12,VF/VF,3,45,0,S,40 M Bi/40 S Cl,0xx,0xx,60MBi
 
 
 
-",Aggressive. Crazy + mean + fierce.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/,,ktc,AFMCDHP,7,3-4ft (including tail)
+",Aggressive. Crazy + mean + fierce.,1-2,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,ktc,AFMCDHP,7,3-4ft (including tail)
 Apsanakuni (Meat-Eaters),Glutani,4,12,FA/VF,3,50,0,S,50 M Bi/45 M Cl,0xx,0xx,50MBi,45MCl,-,50,0,"The dreadful Glutan (pl. 'Glutani') is found thoughout northwestern Endor, but the largest concentration of the creatures is undoubtedly in western Minhiriath in Eriador. A Wolverine-like creature, it is one of the most fearsome predators in Middle-earth. It is a solitary, dark-furred beast shaped like a large badger. The Glutan is unbelievably quick and fierce, and appears to be quite insane. They have been known to attack large groups of armed men without the slightest provocation, fighting to the death even if escape is easily available. There are two currently recognized varieties. The Lowland variety is approximately two feet long on the average, with a reddish brown coloration that fades to a lighter color in the winter. They are very powerful for their size and will fight long after other animals would have fled. These animals are quite temperamental and will attack for no reason. A bounty has been placed on their heads of 25 gp, but this reward is not one highly sought after. Those that do hunt Glutani can sell the live creatures for more to Dunlanders who use them in fights against Bears or Wolves. The Highland or Mountain Glutan is no longer than its Lowland relative, but it is somewhat bulkier. They are dark brown to black in coloration, and stalk the high hills of Dunland unafraid of anything. Similar in disposition to their Lowland relatives, they are usually not sought after for bounty or capture because cages that will hold them are hard to come by and Dunlanders are fond of keeping their limbs.
 
 
@@ -760,7 +760,7 @@ Campagne Hogo Tarosvan,Goewin,1,10,,1,20,0,M,20 H cl,15 sl,0xx,,,,20,20,"
 
 
 
-",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/,,,,,
+",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
 Campagne Hogo Tarosvan,Gwun,1,5,,1,10,0,M,10 H cl,0xx,0xx,,,,10,10,"Mutter von Thebo
 
 
@@ -1671,7 +1671,7 @@ Rávatsar (Amphibians/Reptiles),Evil Huorn,25,-8,--/MD,20,400,0,H/La,80 H Ba/70 
 
 
 
-","Hungry, ignore Stun damage",1-5,,,,,,,,
+","Hungry, ignore Stun damage",1-5,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/default.jpg,,,,,
 Rávatsar (Amphibians/Reptiles),Rat,1,20,,1,10,0,S,20 T Bi/20 S Bi,0xx,0xx,,,,30,20,"The rat family produces some of the world’s most adaptable animals. Small rodents, they are omnivorous mammals known for long, thin tails, short legs, relatively large heads, and incredibly flexible bodies. They are quick scurriers, adept climbers, and strong swimmers. With their strong gnawing teeth and malleable bone structure, these creatures burrow their way through or into virtually any unarmored nook. Some (10%) rats produce a litter every 21-50 days. Also, some (5%) carry deadly diseases, either with their associated vermin (e.g., fleas) or internally (the latter communicated with a bite).
 
 

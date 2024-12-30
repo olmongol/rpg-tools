@@ -221,7 +221,7 @@ class monstercreatorWin(blankWindow):
         # @bug Image is part of a different package with different functions
         # that's why here is a re-import.
         from PIL import Image, ImageTk
-        self.selectedPic = ImageTk.PhotoImage(Image.open(self.GMcontent[0]["piclink"]).resize((300, 300), Image.ANTIALIAS))
+        self.selectedPic = ImageTk.PhotoImage(Image.open(self.GMcontent[0]["piclink"]).resize((300, 300), Image.Resampling.LANCZOS))
         self.picLabel = Label(master = self.window,
                               image = self.selectedPic
                               )
@@ -698,7 +698,7 @@ class monstercreatorWin(blankWindow):
             self.currDataSet["piclink"] = self.__currdir + "/" + self.currDataSet["piclink"][1:]
 
         from PIL import Image
-        self.selectedPic = ImageTk.PhotoImage(Image.open(self.currDataSet["piclink"]).resize((300, 300), Image.ANTIALIAS))
+        self.selectedPic = ImageTk.PhotoImage(Image.open(self.currDataSet["piclink"]).resize((300, 300), Image.Resampling.LANCZOS))
         self.picLabel.configure(image = self.selectedPic)
 
         #------- update category, name etc.
@@ -827,7 +827,7 @@ class monstercreatorWin(blankWindow):
             # @bug Image is part of a different package with different functions
             # that's why here is a re-import.
             from PIL import Image, ImageTk
-            self.selectedPic = ImageTk.PhotoImage(Image.open(self.piclink).resize((300, 300), Image.ANTIALIAS))
+            self.selectedPic = ImageTk.PhotoImage(Image.open(self.piclink).resize((300, 300), Image.Resampling.LANCZOS))
             self.picLabel.configure(image = self.selectedPic)
 
 

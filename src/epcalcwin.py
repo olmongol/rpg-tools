@@ -42,6 +42,7 @@ class EPCalcWin(blankWindow):
     This is a GUI for EP calculation for your character party.
     """
 
+
     def __init__(self, lang = "en", charlist = [], storepath = "./data"):
         """!
         Class constructor
@@ -69,6 +70,7 @@ class EPCalcWin(blankWindow):
         self.__loadAutosave()
         self.window.mainloop()
 
+
     def __addMenu(self):
         '''!
         This methods adds the menu bar to the window
@@ -84,6 +86,7 @@ class EPCalcWin(blankWindow):
         self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
                                   command = self.__quit)
 
+
     def __addHelpMenu(self):
         """!
         This methods defines a help menu.
@@ -95,6 +98,7 @@ class EPCalcWin(blankWindow):
         self.helpmenu.add_separator()
         self.helpmenu.add_command(label = submenu['help'][self.lang]['about'],
                                   command = self._helpAbout)
+
 
     def __buildWin(self):
         """!
@@ -359,6 +363,7 @@ class EPCalcWin(blankWindow):
                fg = "white"
                ).grid(row = 6, column = 6, sticky = "EW")
 
+
     def __updDispay(self, curPlayer = ""):
         '''!
         Updates display of current player
@@ -368,6 +373,7 @@ class EPCalcWin(blankWindow):
         self.__gained.set("+{}".format(self.group[curPlayer].gainedep))
         self.__newep.set("<{}>".format(self.group[curPlayer].newep))
         self.__newlvl.set(self.group[curPlayer].newlvl)
+
 
     def __updSelec(self, event):
         """!
@@ -382,12 +388,14 @@ class EPCalcWin(blankWindow):
         self.__newep.set("<{}>".format(self.group[self.charlist[ind]["player"]].gainedep + self.group[self.charlist[ind]["player"]].newep))
         self.__newlvl.set(self.group[self.charlist[ind]["player"]].newlvl)
 
+
     def __autoSave(self):
         """!
         This function is for aut saving the group object in case of a program / computer crash
         """
         with open("autosave.pkl", "wb") as fp:
             pickle.dump(self.group, fp)
+
 
     def __loadAutosave(self):
         """!
@@ -398,6 +406,7 @@ class EPCalcWin(blankWindow):
                 self.group = pickle.load(fp)
 
             os.remove("autosave.pkl")
+
 
     def __grpBonus(self):
         '''!
@@ -416,6 +425,7 @@ class EPCalcWin(blankWindow):
 
         self.__autoSave()
 
+
     def __calcMan(self):
         '''!
         This computes EPs for each successful maneuver and add them to character's
@@ -429,6 +439,7 @@ class EPCalcWin(blankWindow):
         self.__autoSave()
         self.__updDispay(curPlayer)
 
+
     def __calcSpell(self):
         '''!
         This computes EPs for a given number aof spells aof the same level
@@ -439,6 +450,7 @@ class EPCalcWin(blankWindow):
         self.group[curPlayer].spell(spellLvl, spellNo)
         self.__autoSave()
         self.__updDispay(curPlayer)
+
 
     def __calcGCrit(self):
         '''!
@@ -458,6 +470,7 @@ class EPCalcWin(blankWindow):
         self.__autoSave()
         self.__updDispay(curPlayer)
 
+
     def __calcCrit(self):
         '''!
         This calculates EP for caused criticals against an enemy of a certain level
@@ -474,6 +487,7 @@ class EPCalcWin(blankWindow):
         self.__autoSave()
         self.__updDispay(curPlayer)
 
+
     def __calcTravel(self):
         '''!
         Travelled EPs
@@ -488,6 +502,7 @@ class EPCalcWin(blankWindow):
         self.__autoSave()
         self.__updDispay(curPlayer)
 
+
     def __calcIdeas(self):
         '''!
         EPs for ideas and role-playing
@@ -501,6 +516,7 @@ class EPCalcWin(blankWindow):
 
         self.__autoSave()
         self.__updDispay(curPlayer)
+
 
     def __finalize(self):
         '''!
@@ -527,6 +543,7 @@ class EPCalcWin(blankWindow):
         self.__autoSave()
         gw = showGrpEP(self.charlist, self.storepath, self.lang)
 
+
     def __callManWin(self):
         '''!
         Opens Maneuver Window for maneuver rolls
@@ -535,6 +552,7 @@ class EPCalcWin(blankWindow):
         for elem in self.charlist:
             if elem['player'] == who:
                 manWin(elem, self.lang)
+
 
     def __rrroll(self):
         '''!
@@ -548,6 +566,7 @@ class EPCalcWin(blankWindow):
 #                RRWin(self.lang, elem, self.charlist, self.storepath)
         RRWin(self.lang, who, self.charlist, self.storepath)
 
+
     def __save(self):
         '''!
         This opens a file dialog window for saving
@@ -555,6 +574,7 @@ class EPCalcWin(blankWindow):
         savedir = filedialog.asksaveasfilename(defaultextension = ".json", filetypes = [("Char Group Files", ".json")])
         with open(savedir, "w") as fp:
             json.dump(self.charlist, fp, indent = 4)
+
 
     def __open(self):
         '''!
@@ -578,6 +598,7 @@ class EPCalcWin(blankWindow):
                                       command = self.__updSelec)
         self.__playerOpt.grid(column = 0, row = 0, sticky = "W")
 
+
     def __quit(self):
         '''!
         This method closes the window
@@ -589,6 +610,7 @@ class showGrpEP(object):
     '''!
     Display and save window for group EPs
     '''
+
 
     def __init__(self, charlist = [], storepath = "./data", lang = 'en'):
         """!
@@ -625,6 +647,7 @@ class showGrpEP(object):
 
         self.window.mainloop()
 
+
     def saveChars(self):
         '''!
         This saves all single characters separated from group
@@ -646,6 +669,7 @@ class showGrpEP(object):
 #        if os.path.exists("autosave.pkl"):
 #            os.remove("autosave.pkl")
 
+
     def saveGroup(self):
         '''!
         Saves all data in a groupfile
@@ -662,6 +686,7 @@ class manWin(object):
     '''
     Maneuver Window
     '''
+
 
     def __init__(self, character = {}, lang = "en"):
         '''!
@@ -688,6 +713,7 @@ class manWin(object):
         self._buildwin()
         self.window.mainloop()
 
+
     def _buildwin(self):
         '''
         This defines the different element in the window layout
@@ -705,7 +731,7 @@ class manWin(object):
                                          self.character["lvl"])
               ).grid(row = 0, column = 4, sticky = "NEWS")
         from PIL import Image, ImageTk
-        self.cpic = ImageTk.PhotoImage(Image.open(self.character["piclink"]).resize((210, 210), Image.ANTIALIAS))
+        self.cpic = ImageTk.PhotoImage(Image.open(self.character["piclink"]).resize((210, 210), Image.Resampling.LANCZOS))
         self.picLabel = Label(master = self.window,
                               image = self.cpic
                               )
@@ -855,6 +881,7 @@ class manWin(object):
                      columnspan = 5,
                      sticky = "NEWS")
 
+
     def _fillSkill(self, event):
         '''
         Depending on the selected category fill the skill listbox
@@ -877,6 +904,7 @@ class manWin(object):
                 else:
                     print("-->".format(skill))
 
+
     def _getSkill(self, event):
         '''
         Getting selected Skill
@@ -888,6 +916,7 @@ class manWin(object):
             self.skilllabel.config(text = self.skill)
 
         logger.debug(f"selelcted skill {self.skill}")
+
 
     def _getMan(self, event):
         '''
@@ -902,6 +931,7 @@ class manWin(object):
 
         logger.debug(f"maneuver: {self.category} - {self.skill} - {self.man}")
 
+
     def _rollDice(self):
         '''!
         This trows a d100. Result ist ([dice result], [unmodified])
@@ -915,6 +945,7 @@ class manWin(object):
 
         else:
             self.diceroll.set("um {}".format(self.result[1][0]))
+
 
     def _chkResult(self):
         '''
@@ -955,6 +986,7 @@ class manWin(object):
             logger.debug(f"spell result: {self.probe} ")
 
         self._updTotal()
+
 
     def _updTotal(self):
         self.totallabel.set(str(self.total))

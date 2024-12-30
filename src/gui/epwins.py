@@ -3863,7 +3863,7 @@ class charInfo(blankWindow):
         #charpic row 1-8 column 2-4
         #BUG pic does not work
         from PIL import Image, ImageTk
-        self.cpic = ImageTk.PhotoImage(Image.open(self.charpic).resize((310, 310), Image.ANTIALIAS))
+        self.cpic = ImageTk.PhotoImage(Image.open(self.charpic).resize((310, 310), Image.Resampling.LANCZOS))
         self.picLabel = Label(master = self.window,
                               image = self.cpic
                               )
@@ -3887,7 +3887,7 @@ class charInfo(blankWindow):
         if type(self.charpic) == type(""):
             self._character['piclink'] = self.charpic
             from PIL import Image, ImageTk
-            self.cpic = ImageTk.PhotoImage(Image.open(self.charpic).resize((300, 300), Image.ANTIALIAS))
+            self.cpic = ImageTk.PhotoImage(Image.open(self.charpic).resize((300, 300), Image.Resampling.LANCZOS))
             self.picLabel.configure(image = self.cpic)
 
 
@@ -3900,7 +3900,7 @@ class charInfo(blankWindow):
         if type(self.charpic) == type(""):
             self._character['piclink'] = self.charpic
             from PIL import Image, ImageTk
-            self.cpic = ImageTk.PhotoImage(Image.open(self.charpic).resize((300, 300), Image.ANTIALIAS))
+            self.cpic = ImageTk.PhotoImage(Image.open(self.charpic).resize((300, 300), Image.Resampling.LANCZOS))
             self.picLabel.configure(image = self.cpic)
 
 

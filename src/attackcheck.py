@@ -904,12 +904,12 @@ class atWin(blankWindow):
         '''
         if attackerpic:
             from PIL import Image, ImageTk
-            self.picattacker = Image.open(attackerpic).resize((110, 110), Image.ANTIALIAS)
+            self.picattacker = Image.open(attackerpic).resize((110, 110), Image.Resampling.LANCZOS)
             self.picattacker = ImageTk.PhotoImage(self.picattacker)
             self.atcanvas.create_image((110, 110), image = self.picattacker, anchor = "se")
         if defenderpic:
             from PIL import Image, ImageTk
-            self.picdefender = Image.open(defenderpic).resize((110, 110), Image.ANTIALIAS)
+            self.picdefender = Image.open(defenderpic).resize((110, 110), Image.Resampling.LANCZOS)
             self.picdefender = ImageTk.PhotoImage(self.picdefender)
             self.defcanvas.create_image((110, 110), image = self.picdefender, anchor = "se")
 
