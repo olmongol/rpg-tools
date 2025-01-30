@@ -109,9 +109,9 @@ class monstercreatorWin(blankWindow):
                 self.datapath = f"os.getcwd()/data/default/"
                 logger.debug(f"datapath: {self.datapath}")
 
-            if self.datapath[:2] == "./":
-                self.datapath = self.__currdir + self.datapath[1:]
-                logger.debug(f"datapath: {self.datapath}")
+            # if self.datapath[:2] == "./":
+            #     self.datapath = self.__currdir + self.datapath[1:]
+            #     logger.debug(f"datapath: {self.datapath}")
 
             self.nscpath = f"{self.datapath}/nscs/"
             self.nscpicpath = f"{self.datapath}/pics_nsc/"
@@ -225,8 +225,8 @@ class monstercreatorWin(blankWindow):
         # @bug Image is part of a different package with different functions
         # that's why here is a re-import.
         from PIL import Image, ImageTk
-        print(self.GMcontent[0]["piclink"], os.getcwd())
-        self.selectedPic = ImageTk.PhotoImage(Image.open(os.getcwd() + "/" + self.GMcontent[0]["piclink"]).resize((300, 300), Image.Resampling.LANCZOS))
+
+        self.selectedPic = ImageTk.PhotoImage(Image.open(self.GMcontent[0]["piclink"]).resize((300, 300), Image.Resampling.LANCZOS))
         self.picLabel = Label(master = self.window,
                               image = self.selectedPic
                               )
@@ -726,7 +726,7 @@ class monstercreatorWin(blankWindow):
         self.__obstring.set(self.currDataSet["OB melee"])
         self.__obstringmis.set(self.currDataSet["OB missile"])
         self.__obstringmagic.set(self.currDataSet["OB magic"])
-        print("DEBUG: ob magic {self.currDataSet['OB Magic']}")
+       # print("DEBUG: ob magic {self.currDataSet['OB Magic']}")
         self.__enc.set(self.currDataSet["enc"])
         self.__magicstring.set(self.currDataSet["spells"])
         self.__insertComment()
@@ -756,7 +756,7 @@ class monstercreatorWin(blankWindow):
             self.currDataSet["OB missile"] = "0xx"
 
         self.currDataSet["enc"] = self.__enc.get()
-        print(f'DEBUG: {self.currDataSet["name"]} {self.currDataSet["enc"]}')
+     #   print(f'DEBUG: {self.currDataSet["name"]} {self.currDataSet["enc"]}')
         self.__getComment()
         self.GMcontent[self.__index] = deepcopy(self.currDataSet)
 
