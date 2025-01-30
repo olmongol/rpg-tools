@@ -41,6 +41,8 @@ from rpgtoolbox.handlemagic import getSpellNames
 mycnf = chkCfg()
 logger = log.createLogger('Monster', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "monstercreator.log")
 
+print(os.getcwd())
+
 
 class monstercreatorWin(blankWindow):
     """!
@@ -129,7 +131,7 @@ class monstercreatorWin(blankWindow):
 
         self.prepareAttackData()
         self.loadGMTable()
-        os.chdir(self.nscpath)
+        # os.chdir(self.nscpath)
 
         #---- window components
         blankWindow.__init__(self, self.lang)
@@ -223,7 +225,8 @@ class monstercreatorWin(blankWindow):
         # @bug Image is part of a different package with different functions
         # that's why here is a re-import.
         from PIL import Image, ImageTk
-        self.selectedPic = ImageTk.PhotoImage(Image.open(self.GMcontent[0]["piclink"]).resize((300, 300), Image.Resampling.LANCZOS))
+        print(self.GMcontent[0]["piclink"], os.getcwd())
+        self.selectedPic = ImageTk.PhotoImage(Image.open(os.getcwd() + "/" + self.GMcontent[0]["piclink"]).resize((300, 300), Image.Resampling.LANCZOS))
         self.picLabel = Label(master = self.window,
                               image = self.selectedPic
                               )
