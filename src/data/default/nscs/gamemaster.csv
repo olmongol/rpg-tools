@@ -1376,7 +1376,7 @@ Demonic Beeings,Warg (schwach),5,12,MF/FA,4,160,0,L,85 L Bi/50 M Cl,0xx,0xx,,,po
 
 
 
-",Evil. Uses webs to trap victims.,4-20,,,/home/mongol/git/rpg-tools/src/ata/default/pics/newhero.jpg,,,,,
+",Evil. Uses webs to trap victims.,4-20,,,./ata/default/pics/newhero.jpg,,,,,
 Giant Insects,"Giant Spider, Greater",20,12,,12,350,20,L,120 H Pi/90 L Ho,0xx,0xx,,,poison,60,0,"Evil, Very intelligent, many uses spells
 
 
@@ -1458,7 +1458,7 @@ Humans,Dunish Warrior,2,0,,8,42,0,M,52 sp,42 cl,0xx,,,,25,25,"Solid Dunish Warri
 
 
 
-",,5-15,,,/home/mongol/git/rpg-tools/src/ata/default/pics/newhero.jpg,,,,,
+",,5-15,,,./ata/default/pics/newhero.jpg,,,,,
 Humans,Guard,2,0,,8,45,0,M,30 sp,22 sb,0xx,,,,50,25,"Shield +25
 
 
@@ -1496,7 +1496,7 @@ Humans,Guard Leader,4,0,,10,74,0,M,70 sp,40 sb,0xx,,,,55,25,"Shield +25
 
 
 
-",,1-5,,sunlight;mod:-50,/home/mongol/git/rpg-tools/src/ata/default/pics/newhero.jpg,,,,,
+",,1-5,,sunlight;mod:-50,./ata/default/pics/newhero.jpg,,,,,
 Humans,Rogue,5,0,,13,89,15,N,79 H ha/54 H da,64 sb/50 da,0xx,,,,55,25,"
 
 

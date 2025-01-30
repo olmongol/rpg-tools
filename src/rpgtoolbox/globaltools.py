@@ -188,6 +188,9 @@ def checkFiles(path = './', file_list = []):
     """
 
     result = {}
+    logger.info(f"OS: {os.name}")
+
+    print(f"DEBUG gtools 193:{path}")
     if os.name == 'posix':
 
         if path[-1] != '/':
@@ -195,6 +198,8 @@ def checkFiles(path = './', file_list = []):
 
         if "./" != path[:2]:
             path = "./" + path
+
+        logger.debug(f"path: {path}")
 
     if os.path.exists(path):
 
@@ -218,7 +223,8 @@ def checkFiles(path = './', file_list = []):
 
     else:
         result = {'path': False}
-    print(os.getcwd())
+
+    logger.debug(f"result: {result}")
     return result
 
 

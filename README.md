@@ -5,6 +5,7 @@ A usefull toolbox of scripts for pen & paper role playing.
 # Needed Packages:
 
 ## Python 3:
+This project supports since Jan 2025 no Python versions below 3.12
 - tkinter
 - pillow/PIL
 

@@ -136,8 +136,20 @@ defval = {'lang': 'en',
 home = os.path.expanduser('~')
 
 
+def goToWorkDirectory():
+    """This function tries to identify the work directory if not configured and changes into it"""
+    currentpath = os.getcwd()
+
+    if os.path.exists("src") and currentpath[-9:] == "rpg-tools":
+        currentpath += "/src"
+        os.chdir(currentpath)
+
+
+goToWorkDirectory()
+
+
 def getDefaultConfPath():
-    '''!This function gets the default path of the configuraton file and returns
+    '''!This function gets the default path of the configuration file and returns
     it.
 
     @retval result config path+file of installation'''
@@ -211,9 +223,15 @@ class chkCfg(object):
                 self.cnfparam = defval
         else:
             self.__exists = rpgtools.checkFiles(self.path, [self.fn])
-            print(self.__exists)
-            if self.__exists[self.fn]:
+            localfs = os.getcwd()
 
+            if "src" != localfs[-3:]:
+                localfs += "/src/" + self.path
+                self.__exists = rpgtools.checkFiles(localfs, [self.fn])
+            print(self.__exists, "src" != localfs[-3:])
+            print(f"pso: {os.getcwd()}")
+            print(f"DEBUG 215:{self.path} {self.fn}")
+            if self.__exists[self.fn]:
                 self._fcon = rpgtools.readFile(self.path, self.fn, 'r')
                 self.cnfparam = rpgtools.array2dict(self._fcon, self.exp, self.com)
             else:

@@ -42,7 +42,6 @@ mycnf = chkCfg()
 logger = log.createLogger('Monster', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "monstercreator.log")
 
 
-
 class monstercreatorWin(blankWindow):
     """!
     This class generates a GUI to enter NSCs, monsters etc.
@@ -102,12 +101,15 @@ class monstercreatorWin(blankWindow):
 
             if "datapath" in kwargs.keys():
                 self.datapath = kwargs["datapath"] + "/default/"
+                logger.debug(f"datapath: {self.datapath}")
 
             else:
                 self.datapath = f"os.getcwd()/data/default/"
+                logger.debug(f"datapath: {self.datapath}")
 
             if self.datapath[:2] == "./":
                 self.datapath = self.__currdir + self.datapath[1:]
+                logger.debug(f"datapath: {self.datapath}")
 
             self.nscpath = f"{self.datapath}/nscs/"
             self.nscpicpath = f"{self.datapath}/pics_nsc/"
@@ -194,7 +196,7 @@ class monstercreatorWin(blankWindow):
                                   command = self.notdoneyet)
         self.editmenu.add_command(label = submenu['edit'][self.lang]["ed_show_NPC"],
                                   command = self.notdoneyet)
-        #self.editmenu.add_command(label = submenu["edit"][self.lang]["history"],
+        # self.editmenu.add_command(label = submenu["edit"][self.lang]["history"],
         #                          command = self.notdoneyet)
         logger.debug("edit menu build")
 
@@ -426,7 +428,7 @@ class monstercreatorWin(blankWindow):
                                     textvariable = self.__selectOBsize,
                                     values = ["T", "S", "M", "L", "H"],
                                     width = 4)
-        #self.__obSizeCombo.bind("<<ComboboxSelected>>", self.__getOB)
+        # self.__obSizeCombo.bind("<<ComboboxSelected>>", self.__getOB)
         self.__obSizeCombo.grid(row = 3, column = 7, sticky = "EW")
 
         Button(self.window,
@@ -454,7 +456,7 @@ class monstercreatorWin(blankWindow):
         self.__missileCombo = Combobox(self.window,
                                     textvariable = self.__selectOBmis,
                                     values = self.__missilelist)
-        #self.__catCombo.bind("<<ComboboxSelected>>", self.__getOBm)
+        # self.__catCombo.bind("<<ComboboxSelected>>", self.__getOBm)
         self.__missileCombo.grid(row = 4, column = 4, sticky = EW)
 
         Label(self.window,
@@ -471,14 +473,14 @@ class monstercreatorWin(blankWindow):
         self.__EntryOBmVal.bind("<FocusOut>", self.updateCurrentSet)
         self.__EntryOBmVal.grid(row = 4, column = 6, sticky = "EW")
 
-        #self.__selectOBsize = StringVar()
-        #self.__selectOBsize.set("M")
-        #self.__obSizeCombo = Combobox(self.window,
+        # self.__selectOBsize = StringVar()
+        # self.__selectOBsize.set("M")
+        # self.__obSizeCombo = Combobox(self.window,
         #                            textvariable = self.__selectOBsize,
         #                            values = ["T", "S", "M", "L", "H"],
         #                            width = 4)
-        #self.__obSizeCombo.bind("<<ComboboxSelected>>", self.__getOB)
-        #self.__obSizeCombo.grid(row = 3, column = 7, sticky = "EW")
+        # self.__obSizeCombo.bind("<<ComboboxSelected>>", self.__getOB)
+        # self.__obSizeCombo.grid(row = 3, column = 7, sticky = "EW")
 
         Button(self.window,
                text = txtbutton["but_add"][self.lang],
@@ -563,7 +565,7 @@ class monstercreatorWin(blankWindow):
         self.__EntryMagicSting.bind("<FocusOut>", self.updateCurrentSet)
         self.__EntryMagicSting.bind("<Return>", self.updateCurrentSet)
         self.__EntryMagicSting.grid(row = 6, column = 7, columnspan = 2, sticky = "NEW")
-        #Button(self.window,
+        # Button(self.window,
         #       text = txtbutton["but_show_magic"][self.lang],
         #       command = self.__editMagic
         #       ).grid(row = 5, column = 7, columnspan = 2, sticky = "NEW")
@@ -781,7 +783,7 @@ class monstercreatorWin(blankWindow):
 
 
         """
-        #self.updateCurrentSet(event)
+        # self.updateCurrentSet(event)
         self.currDataSet["OB missile"] = f"{self.__obstringmis.get()}/{self.__obmval.get()} {self.__attacks[self.__selectOBmis.get()]}".strip("/")
 
         self.updateWindow()
@@ -801,7 +803,7 @@ class monstercreatorWin(blankWindow):
         '''!
         This method adds the link to a NPC's /beast's picture (jpg/png)
         '''
-        #os.chdir(self.nscpicpath)
+        # os.chdir(self.nscpicpath)
         pmask = [txtwin['jpg_files'][self.lang],
                  txtwin['jpeg_files'][self.lang],
                  txtwin['png_files'][self.lang],
@@ -860,7 +862,7 @@ class monstercreatorWin(blankWindow):
         self.GMcontent = readCSV(self.GMtable)
         logger.info(f"{self.GMtable} loaded successfully.")
         self.__header = list(self.GMcontent[0].keys())
-        ## @var self.NPCs
+        # # @var self.NPCs
         # a list of NPCs / monsters for campaigns
         self.NPCs = [dict.fromkeys(self.__header, "")]
         logger.debug(f"table header: {self.__header}")
@@ -927,7 +929,7 @@ class monstercreatorWin(blankWindow):
         @todo this has to be fully implemented
         '''
         cp = showCPWin(rootwin = self.window, CPtable = [])
-        #self.notdoneyet("newCPTable")
+        # self.notdoneyet("newCPTable")
 
 
     def openCPTable(self):
@@ -944,16 +946,16 @@ class monstercreatorWin(blankWindow):
         """!
         This prepares the attack data for displaying widgets
         """
-        ## @var self.__attacks
+        # # @var self.__attacks
         # holding weapon/attack name as index and short form as value
         self.__attacks = {}
-        ## @var self.__meleelist
+        # # @var self.__meleelist
         # list of all melee attack / weapon names
         self.__meleelist = []
-        ## @var self.__missilelist
+        # # @var self.__missilelist
         # list of all missile/thrown attack / weapon names
         self.__missilelist = []
-        ## @var self.__magiclist
+        # # @var self.__magiclist
         # list of elemental attack spells
         self.__magiclist = ["Fire Bolt", "Ice Bolt", "Lightning Bolt", "Shock Bolt", "Water Bolt", "Fire Ball", "Cold Ball"]
         self.__magicsc = ["Fb", "Ib", "Lb", "Sb", "Wb", "FB", "CB"]
@@ -972,7 +974,7 @@ class monstercreatorWin(blankWindow):
         for i in range(0, len(self.__magiclist)):
             self.__attacks[self.__magiclist[i]] = self.__magicsc[i]
 
-    #def addToOBstring(self, event = None):
+    # def addToOBstring(self, event = None):
     #    """!This adds an additional entry to OB string
     #
     #    ----
@@ -989,7 +991,6 @@ class monstercreatorWin(blankWindow):
 
         CPwin = showNPCWin(rootwin = self.window, GMtable = self.GMcontent,
                            CPtable = self.NPCs, lang = self.lang)
-
 
 
 class showNPCWin(blankWindow):
@@ -1054,7 +1055,7 @@ class showNPCWin(blankWindow):
         self.filemenu = Menu(master = self.menu)
         self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
                               menu = self.filemenu)
-        #self.filemenu.add_command(label = submenu['file'][self.lang]['save GM'],
+        # self.filemenu.add_command(label = submenu['file'][self.lang]['save GM'],
         #                          command = self.saveGM)
         self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['new CP'],
@@ -1079,7 +1080,7 @@ class showNPCWin(blankWindow):
         self.editmenu = Menu(master = self.menu)
         self.menu.add_cascade(label = txtmenu["menu_edit"][self.lang],
                               menu = self.editmenu)
-        #self.editmenu.add_command(label = submenu['edit'][self.lang]["ed_add_enemy"],
+        # self.editmenu.add_command(label = submenu['edit'][self.lang]["ed_add_enemy"],
         logger.debug("edit menu build")
 
 
@@ -1187,7 +1188,7 @@ class showNPCWin(blankWindow):
 
                 self.cptree.insert('', END, iid = self.cats[self.oldcat], text = self.oldcat)
                 self.cptree.insert(self.cats[self.oldcat], END, values = tuple(elem[1:]))
-                #self.catid += 1
+                # self.catid += 1
 
             else:
                 self.cptree.insert(self.catid - 1, END, values = tuple(elem[1:]))
@@ -1206,8 +1207,8 @@ class showNPCWin(blankWindow):
             if self.gmtree.item(selected_item)["values"]:
                 self.__gmitem.append(self.gmtree.item(selected_item))
                 self.__gm_parent_id.append(self.gmtree.parent(selected_item))
-                #print(f"DEBUG {json.dumps(self.__gmitem, indent = 3)}")
-                #print(f"DEBUG {selected_item}")
+                # print(f"DEBUG {json.dumps(self.__gmitem, indent = 3)}")
+                # print(f"DEBUG {selected_item}")
 
 
     def __CPItemSelected(self, event = None):
@@ -1222,7 +1223,7 @@ class showNPCWin(blankWindow):
 
         for selected_item in self.cptree.selection():
             self.__cpitem.append(self.cptree.item(selected_item))
-            #print(json.dumps(self.__cpitem, indent = 3))
+            # print(json.dumps(self.__cpitem, indent = 3))
 
 
     def __pushToCP(self, event = None):
@@ -1314,7 +1315,7 @@ class showNPCWin(blankWindow):
         '''
         This saves all data in the CP (campaign) table
         '''
-        #print(f"DEBUG: save {json.dumps(self.NPCs,indent=4)}")
+        # print(f"DEBUG: save {json.dumps(self.NPCs,indent=4)}")
         if self.NPCs != []:
 
             if not filename:
@@ -1342,7 +1343,7 @@ class showNPCWin(blankWindow):
         @param fields fields for the tuples in result
         @retval result list for treeview
         """
-        #print(json.dumps(dictlist, indent = 4))
+        # print(json.dumps(dictlist, indent = 4))
         result = []
 
         if dictlist:
@@ -1383,7 +1384,7 @@ class showNPCWin(blankWindow):
         ----
         @todo this has ti be fully implemented
         """
-        #for catkey in self.cats.keys():
+        # for catkey in self.cats.keys():
         #    self.cptree.insert('', END, iid = self.cats[catkey], text = catkey)
 
         for elem in self.CPtree:
@@ -1398,11 +1399,10 @@ class showNPCWin(blankWindow):
                     self.catid += 1
 
                 self.cptree.insert(self.cats[self.oldcat], END, values = tuple(elem[1:]))
-                #self.catid += 1
+                # self.catid += 1
 
             else:
                 self.cptree.insert(self.catid - 1, END, values = tuple(elem[1:]))
-
 
 
 class magicSelectorWin(blankWindow):
@@ -1419,7 +1419,7 @@ class magicSelectorWin(blankWindow):
         @param datapath configured data path
         @param magicstring string that holds the spell lists and levels
         """
-        ##\var self.rootwin
+        # #\var self.rootwin
         # the reference to the root window/object \ref monstercreatorWin to transfer finally the modified
         # #magicstring back
         self.rootwin = rootwin
@@ -1432,7 +1432,7 @@ class magicSelectorWin(blankWindow):
         if  "/magic" not in self.__datapath:
             self.__datapath = self.__datapath.rstrip("/") + "/magic"
 
-        ##\var self.magicstring
+        # #\var self.magicstring
         # this is the string for all the spell lists, their types and their levels
         self.magicstring = magicstring.strip(" ").replace(" ", "_")
 
@@ -1448,14 +1448,14 @@ class magicSelectorWin(blankWindow):
         #---- window components
         blankWindow.__init__(self, self.lang)
         self.window.title("NSC/Monster Magic Selector")
-        #self.topmagic = Toplevel(self.window)
-        #self.topmagic.title("NSC/Monster Magic Selector")
-        #self.topmagic.grab_set()
+        # self.topmagic = Toplevel(self.window)
+        # self.topmagic.title("NSC/Monster Magic Selector")
+        # self.topmagic.grab_set()
         self.__addFileMenu()
         self.__addEditMenu()
         self.__addHelpMenu()
         self.__buildWin()
-        #self.window.mainloop()
+        # self.window.mainloop()
 
         pass
 
@@ -1481,16 +1481,16 @@ class magicSelectorWin(blankWindow):
         self.filemenu = Menu(master = self.menu)
         self.menu.add_cascade(label = txtmenu['menu_file'][self.lang],
                               menu = self.filemenu)
-        #self.filemenu.add_command(label = submenu['file'][self.lang]['save GM'],
+        # self.filemenu.add_command(label = submenu['file'][self.lang]['save GM'],
         #                          command = self.saveGM)
-        #self.filemenu.add_separator()
-        #self.filemenu.add_command(label = submenu['file'][self.lang]['new CP'],
+        # self.filemenu.add_separator()
+        # self.filemenu.add_command(label = submenu['file'][self.lang]['new CP'],
         #                          command = self.__newCPTable)
-        #self.filemenu.add_command(label = submenu['file'][self.lang]['open CP'],
+        # self.filemenu.add_command(label = submenu['file'][self.lang]['open CP'],
         #                          command = self.__openCPTable)
-        #self.filemenu.add_command(label = submenu['file'][self.lang]['save CP'],
+        # self.filemenu.add_command(label = submenu['file'][self.lang]['save CP'],
         #                          command = self.__saveCPTable)
-        #self.filemenu.add_separator()
+        # self.filemenu.add_separator()
         self.filemenu.add_command(label = submenu['file'][self.lang]['close'],
                                   command = self.__quit)
         logger.debug("file menu build")
@@ -1559,7 +1559,7 @@ class magicSelectorWin(blankWindow):
         index = 0
         keylist = list(self.__magicdict.keys())
         keylist.sort()
-        ## @var self.__magicParents
+        # # @var self.__magicParents
         # a dictionary holding  the spell list type as value and the concerned
         # treeview index as index (for faster identification later on)
         self.__magicParents = {}
@@ -1575,7 +1575,7 @@ class magicSelectorWin(blankWindow):
 
             for sl in self.__magicdict[oldtype]:
                 self.allMagicTree.insert(index, END, values = (sl))
-            #for sl in self.__magicdict[oldtype]:
+            # for sl in self.__magicdict[oldtype]:
             #    self.allMagicTree.insert(index,E)
 
         Label(self.window,
@@ -1639,7 +1639,7 @@ class magicSelectorWin(blankWindow):
         This initially prepares the internal data structure self.__selectedMagic
         for treeview from self.magicstring
         """
-        ##\var self.__selectMagic
+        # #\var self.__selectMagic
         # a dictionary that holds the type of spell list as primary index, the
         # spell list as secondary and the level as value
         self.__selectedMagic = {}
@@ -1662,7 +1662,7 @@ class magicSelectorWin(blankWindow):
         """
         allfiles = glob(self.__datapath + "/*/*.csv")
 
-        ## \var self.__magicdict
+        # # \var self.__magicdict
         # a dictionary for all available spell lists with spell list kind as index
         # and spell list name as value.
         self.__magicdict = {}
@@ -1687,7 +1687,7 @@ class magicSelectorWin(blankWindow):
         """
         self.__getSelectedSL()
         lvl = self.__levelSL.get()
-        #print(f"DEBUG: {self.__SLitem}\n\t{self.__SL_parent_id}")
+        # print(f"DEBUG: {self.__SLitem}\n\t{self.__SL_parent_id}")
 
         for i in range(0, len(self.__SLitem)):
             values = self.__SLitem[i]["values"]
@@ -1706,7 +1706,7 @@ class magicSelectorWin(blankWindow):
 
                 if not self.__existInTreeview(treeview = self.selectedMagicTree, comparevalues = self.__SLitem[i]["values"]):
                     self.selectedMagicTree.insert(self.__SL_parent_id[i], END, values = tuple(values))
-                    #print(f"DEBUG Values: {values}")
+                    # print(f"DEBUG Values: {values}")
 
 
     def __deleteSpellList(self, event = None):
@@ -1793,7 +1793,7 @@ class magicSelectorWin(blankWindow):
         """
         self.rootwin.currDataSet["spells"] = deepcopy(self.magicstring).replace("_", " ")
         self.rootwin.updateWindow()
-        #self.__quit()
+        # self.__quit()
 
 
     def __checkMagicString(self):
@@ -1822,7 +1822,6 @@ class magicSelectorWin(blankWindow):
                         break
 
 
-
 class showCPWin(Toplevel, blankWindow):
     '''!
     This generates a display window for individual campaign tables
@@ -1841,7 +1840,6 @@ class showCPWin(Toplevel, blankWindow):
         self.notdoneyet("showCPWin")
 
 
-
 if __name__ == '__main__':
     monstercreator = monstercreatorWin(config = mycnf)
-    #monstercreator.ref = monstercreator
+    # monstercreator.ref = monstercreator
