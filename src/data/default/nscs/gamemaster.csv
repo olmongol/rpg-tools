@@ -1,14 +1,4 @@
 category,name,lvl,Qu,speed code,AT,hits,PP,size,OB melee,OB missile,OB magic,Primary Attack,Secondary Attack,Tertiary Attack,DB,DBm,comment,Notes,enc,immune,weakness,piclink,spells,climate code,habitat code,frequency of encounter code,measurement
-Rávatsar (Amphibians/Reptiles),Gorilla,4,8,MD/FA,3,120,0,L,45 L Gr/70 M Bi/50 M Bi,0xx,0xx,45LGr80,70MBi «,50MBi20,0,0,"
-
-
-
-
-
-
-
-
-",-,1-8,,,data/default/pics_nsc/Gorilla.jpeg,,,,,
 Ape,Ape (Giant),5,8,MF/FA,8,120,0,L,55 M Cl/70 L Gr,0xx,0xx,55MCl100,70LGr «,60Wp √,10,0,"gorilla-like ape, 200–300 kg
 
 
@@ -574,6 +564,8 @@ Bird,Bird (large),1,8,FA/FA,1,8,0,S,0 S Pi,0xx,0xx,0SPi100,3 or more-20MCl,-,50,
 ","Gull, ravens, etc.",1-10,,,data/default/pics_nsc/large_bird.jpeg,,,,,
 Bird,Owl,1,8,FA/FA,1,35,0,M,40 M Cl/40 S Pi,0xx,0xx,40MCl100,40SPi √,-,30,0,"
 ",Primarily nocturnal.,1-2,,,data/default/pics_nsc/owl.jpeg,,,,,
+Bird,Cockatrice,5,12,VF/MF,3,30,0,S,50 M Pi,0xx,0xx,50MPi100,-,-,50,0,"
+",Has unusual abilities.,,,,data/default/pics_nsc/cockatrice.jpeg,,,,,
 Campagne Hogo Tarosvan,Baen Naeld,1,5,,1,10,0,M,10 H cl,0xx,0xx,,,,10,10,"
 
 
@@ -1618,8 +1610,6 @@ Poitili (Insects/Spiders),Ant (Giant Warrior),2,8,MF/FA,19,40,0,S,35 M Pi,0xx,0x
 ",Assumes Ant is 2 to 3 feet long.,1-30,,,data/default/pics_nsc/giant_ant_warrior.jpeg,,hnawmskt,UVE,5,2-3 ft
 Poitili (Insects/Spiders),Beetle (Giant),2,8,MF/FA,16,50,0,M,60 L Pi,0xx,0xx,60LPi100,-,-,10,0,"
 ",Assumes Beetle is 3 feet long.,,,,data/default/pics_nsc/giant_beetle.jpeg,,hw,BMVDJ,,3 ft
-Bird,Cockatrice,5,12,VF/MF,3,30,0,S,50 M Pi,0xx,0xx,50MPi100,-,-,50,0,"
-",Has unusual abilities.,,,,data/default/pics_nsc/cockatrice.jpeg,,,,,
 Poitili (Insects/Spiders),Bees,1,12,MD/VF,1,1,0,T,10 T St/20 S St,0xx,0xx,10Ti100,Swarm-20SSt,-,40,0,"
 ",Poison does hit 1 hit/bee.,,,,data/default/pics_nsc/bee.jpeg,,,,,
 Poitili (Insects/Spiders),"Spider (Ants,  etc.)",1,8,CR/FA,1,1,0,T,0 T St,0xx,0xx,-50Ti100,Swarm 0Ti,-,10,0,"
@@ -1656,6 +1646,16 @@ Pukel-Creatures,MENSHARAG,,,,,,0,,,0xx,0xx,,,,,0,"
 ",,,,,data/default/pics_nsc/default.jpg,,,,,
 Pukel-Creatures,SILENT WATCHERS,,,,,,0,,,0xx,0xx,,,,,0,"
 ",,,,,data/default/pics_nsc/default.jpg,,,,,
+Rávatsar (Amphibians/Reptiles),Gorilla,4,8,MD/FA,3,120,0,L,45 L Gr/70 M Bi/50 M Bi,0xx,0xx,45LGr80,70MBi «,50MBi20,0,0,"
+
+
+
+
+
+
+
+
+",-,1-8,,,data/default/pics_nsc/Gorilla.jpeg,,,,,
 Rávatsar (Amphibians/Reptiles),Evil Huorn,25,-8,VS/VS,20,400,0,H/La,80 H Ba/70 H Gr/100 H Cr,0xx,0xx,,,,0,0,"?
 
 
@@ -2036,3 +2036,6 @@ water beast,SLIRDU,1,8,MF/FA,3,25,0,Size/Crit,30 S Bi,0xx,0xx,30SBi,-,-,40,0,"ac
 ",Normal. Attractive. lively Monkeys.,2-200,,,data/default/pics_nsc/default.jpg,,hnw,FCDJE,7, 15-25ft
 water beast,Crab (Giant),3,4,MF/MF,16,60,0,M,75 L Pi,0xx,0xx,75LPi100,-,-,20,0,"
 ",Assumes Crab is 4 feet wide.,,,,data/default/pics_nsc/default.jpg,,,,,
+Campagne Phantom der Nordmarken,Alfward,3,10,,14,70,0,M,71 H bs,0xx,0xx,,,,50,10,"
+
+",,1-1,,,data/default/pics_nsc/Alfward.jpg,,,,,
