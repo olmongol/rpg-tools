@@ -977,14 +977,6 @@ class monstercreatorWin(blankWindow):
         for i in range(0, len(self.__magiclist)):
             self.__attacks[self.__magiclist[i]] = self.__magicsc[i]
 
-    # def addToOBstring(self, event = None):
-    #    """!This adds an additional entry to OB string
-    #
-    #    ----
-    #    @todo has to be implemented fully
-    #    """
-    #    pass
-
 
     def __chooseCP(self):
         """!
