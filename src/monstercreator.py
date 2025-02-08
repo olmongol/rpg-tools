@@ -11,9 +11,9 @@ master DB where creatures can be chosen from for individual campaigns.
 \copyright GNU V3.0
 \author Marcus Schwamberger
 \email marcus@lederzeug.de
-\version 0.2
+\version 0.3
 '''
-__version__ = "0.2"
+__version__ = "0.3"
 __updated__ = "08.12.2023"
 __author__ = "Marcus Schwamberger"
 __email__ = "marcus@lederzeug.de"
@@ -88,8 +88,21 @@ class monstercreatorWin(blankWindow):
             if "nscpicpath" in self.__config.cnfparam.keys():
                 self.nscpicpath = self.__config.cnfparam["nscpicpath"]
 
-            else:
+            elif "datapath" in self.__config.cnfparam.keys():
                 self.nscpicpath = f"{self.datapath}/pics_nsc/"
+
+            else:
+                logger.error(f"datapath not set! Please set parameter in rpg-tools.cfg")
+                firsttry = self.__currdir + "/data/default"
+                logger.warn(f"Try to set datapath to {firsttry}")
+
+                if os.path.exists(firsttry):
+                    self.datapath = firsttry
+                    logger.warn(f"set datapath :{self.datapath}")
+                    self.nscpath = self.datapath + "/nscs/"
+                    logger.warning(f"set nscpath: {self.nscpath}")
+                    self.nscpicpath = self.datapath + "/pics_nsc/"
+                    logger.warn(f"set nscpicpath: {self.nscpicpath}")
 
         else:
 
@@ -183,8 +196,6 @@ class monstercreatorWin(blankWindow):
         '''!
         This adds an Edit menu to the windows menu bar:
 
-        ----
-        @todo has to be implemended fully.
         '''
         self.editmenu = Menu(master = self.menu)
         self.menu.add_cascade(label = txtmenu["menu_edit"][self.lang],
@@ -195,9 +206,9 @@ class monstercreatorWin(blankWindow):
         self.editmenu.add_command(label = submenu['edit'][self.lang]["ed GM table"],
                                   command = self.__newElement)
         self.editmenu.add_command(label = submenu['edit'][self.lang]["ed_rem_enemy"],
-                                  command = self.notdoneyet)
+                                  command = self.__remoCurrentElement)
         self.editmenu.add_command(label = submenu['edit'][self.lang]["ed_show_NPC"],
-                                  command = self.notdoneyet)
+                                  command = self.__filterElements)
         # self.editmenu.add_command(label = submenu["edit"][self.lang]["history"],
         #                          command = self.notdoneyet)
         logger.debug("edit menu build")
@@ -642,7 +653,17 @@ class monstercreatorWin(blankWindow):
         self.notdoneyet("__showMagic")
 
 
-    def __newElement(self, even = None):
+    def __remoCurrentElement(self, event = None):
+        """!
+        This removes the current element from the gamemaster's table
+
+        ----
+        @todo this has to be fully implemented
+        """
+        self.notdoneyet("removing current element is not yet implemented")
+
+
+    def __newElement(self, event = None):
         """!
         This adds a new element to the NPC / Beast list
         """
@@ -663,6 +684,14 @@ class monstercreatorWin(blankWindow):
     def __getComment(self, event = None):
         """!This gets data from comment text widget """
         self.currDataSet["comment"] = self.__displayComment.get("1.0", END)
+
+
+    def __filterElements(self, event = None):
+        """!
+        This function filters all entries by chosen / entered options
+        @todo this has to be fully implemented
+        """
+        self.notdoneyet("fiNSCs, creatures and monsters ist not yet implemented.")
 
 
     def __prevItem(self, event = None):
@@ -696,11 +725,11 @@ class monstercreatorWin(blankWindow):
         This updates all window widgets with data of the current data set
         """
         #------- update pic
-        if self.currDataSet["piclink"][:2] == "./":
-            self.currDataSet["piclink"] = self.__currdir + self.currDataSet["piclink"][1:]
+        # if self.currDataSet["piclink"][:2] == "./":
+        #     self.currDataSet["piclink"] = self.__currdir + self.currDataSet["piclink"][1:]
 
-        elif self.currDataSet["piclink"][0] != "/":
-            self.currDataSet["piclink"] = self.__currdir + "/" + self.currDataSet["piclink"][1:]
+        # elif self.currDataSet["piclink"][0] != "/":
+        #     self.currDataSet["piclink"] = self.__currdir + "/" + self.currDataSet["piclink"][1:]
 
         from PIL import Image
         self.selectedPic = ImageTk.PhotoImage(Image.open(self.currDataSet["piclink"]).resize((300, 300), Image.Resampling.LANCZOS))
@@ -726,7 +755,6 @@ class monstercreatorWin(blankWindow):
         self.__obstring.set(self.currDataSet["OB melee"])
         self.__obstringmis.set(self.currDataSet["OB missile"])
         self.__obstringmagic.set(self.currDataSet["OB magic"])
-       # print("DEBUG: ob magic {self.currDataSet['OB Magic']}")
         self.__enc.set(self.currDataSet["enc"])
         self.__magicstring.set(self.currDataSet["spells"])
         self.__insertComment()
@@ -756,7 +784,6 @@ class monstercreatorWin(blankWindow):
             self.currDataSet["OB missile"] = "0xx"
 
         self.currDataSet["enc"] = self.__enc.get()
-     #   print(f'DEBUG: {self.currDataSet["name"]} {self.currDataSet["enc"]}')
         self.__getComment()
         self.GMcontent[self.__index] = deepcopy(self.currDataSet)
 
@@ -932,7 +959,6 @@ class monstercreatorWin(blankWindow):
         @todo this has to be fully implemented
         '''
         cp = showCPWin(rootwin = self.window, CPtable = [])
-        # self.notdoneyet("newCPTable")
 
 
     def openCPTable(self):
