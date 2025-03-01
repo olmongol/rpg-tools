@@ -122,10 +122,6 @@ class monstercreatorWin(blankWindow):
                 self.datapath = f"os.getcwd()/data/default/"
                 logger.debug(f"datapath: {self.datapath}")
 
-            # if self.datapath[:2] == "./":
-            #     self.datapath = self.__currdir + self.datapath[1:]
-            #     logger.debug(f"datapath: {self.datapath}")
-
             self.nscpath = f"{self.datapath}/nscs/"
             self.nscpicpath = f"{self.datapath}/pics_nsc/"
 
@@ -144,7 +140,6 @@ class monstercreatorWin(blankWindow):
 
         self.prepareAttackData()
         self.loadGMTable()
-        # os.chdir(self.nscpath)
 
         #---- window components
         blankWindow.__init__(self, self.lang)
@@ -208,9 +203,9 @@ class monstercreatorWin(blankWindow):
         self.editmenu.add_command(label = submenu['edit'][self.lang]["ed_rem_enemy"],
                                   command = self.__remoCurrentElement)
         self.editmenu.add_command(label = submenu['edit'][self.lang]["ed_show_NPC"],
-                                  command = self.__filterElements)
-        # self.editmenu.add_command(label = submenu["edit"][self.lang]["history"],
-        #                          command = self.notdoneyet)
+                                  command = self.__showElements)
+        self.editmenu.add_command(label = submenu["edit"][self.lang]["ed_filter"],
+                                 command = self.__filterElements)
         logger.debug("edit menu build")
 
 
@@ -686,12 +681,24 @@ class monstercreatorWin(blankWindow):
         self.currDataSet["comment"] = self.__displayComment.get("1.0", END)
 
 
+    def __showElements(self, event = None):
+        """!
+        shows a table of all elements (NSCs, monsters, creatures etc.) of one category.
+
+        ----
+        @todo this hast to be fully implemented
+        """
+        self.notdoneyet("showElements")
+
+
     def __filterElements(self, event = None):
         """!
         This function filters all entries by chosen / entered options
+
+        ----
         @todo this has to be fully implemented
         """
-        self.notdoneyet("fiNSCs, creatures and monsters ist not yet implemented.")
+        self.notdoneyet("filterElements.")
 
 
     def __prevItem(self, event = None):
