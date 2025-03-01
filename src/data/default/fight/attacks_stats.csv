@@ -21,4 +21,7 @@ Knockdown,kd,melee,2,---,---,---,---,---,Ram_Butt_Bash_Knockdown,unbalance/krush
 Stinger,st,melee,2,---,---,---,---,---,Stinger,tiny/puncture
 Tiny,ti,melee,2,---,---,---,---,---,Tiny,tiny/krush/puncture/slash
 Trample/Stomp,ts,melee,2,---,---,---,---,---,Trample_Stomp,tiny/krush
- Ice Bold,Ib,mag,2,10':35,50':0,100':-25,200':-40,300':-55,Ice_Bolt,impact/cold
+Ice Bold,Ib,mag,2,10':35,50':0,100':-25,200':-40,300':-55,Ice_Bolt,impact/cold
+Fire Bold,Fb,mag,2,10':35,50':0,100':-25,200':-40,300':-55,Fire_Bolt,heat
+Shock Bolt,Sb,mag,2,10':35,50':0,100':-25,200':-40,300':-55,Shock_Bolt,electricity
+Fire Ball,FB,mag,4,10':35,50':0,100':-25,200':-40,300':-55,Fire_Ball,heat
