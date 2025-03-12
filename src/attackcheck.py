@@ -15,6 +15,9 @@ other opponents.
 
 ----
 @todo the following has to be implemented:
+- configuration window for equip combatant with weapons, herbs, artifacts etc.
+- window for herb usage.
+-- function to extract game data from herbs and show description.
 - logging of hits and crits for EP calculation (writing to a file)
 - logging ammo resources of a (n)pc; write to sc's inventory
 - adding ammo by entering a number - saving to scs inventory
@@ -74,7 +77,9 @@ class atWin(blankWindow):
     ----
     @todo
     - adding fight with ball magic
-    - adding & Storing ammo for missile combat
+    - adding & Storing ammo for missile combat (inventory)
+    - adding Weapon bonus if equipped in inventory
+    - adding DB of amor & artefacts if equipped from inventory.
     - use breakage tests
     - storing character status (hits, mods etc.)
 
@@ -2149,7 +2154,8 @@ class atWin(blankWindow):
 
 
         ----
-        @todo The attack checker for magic spell attacks has to  be implemented
+        @todo
+        The attack checker for magic ball spell attacks has to  be implemented
         """
         self.checkFumble(rollresult = self.__atroll.get(), fumbletype = "weapon")
 
@@ -2197,6 +2203,11 @@ class atWin(blankWindow):
     def checkCrit(self):
         """!
         This checks the result of a roll against a critical table
+
+        ----
+        @todo
+        -# handling of Crits higher than E with a loop on the crit table; output of all the text & results as sum
+
         """
         words = {"hits": "additional hits: {}\n",
                "mod": "Modifier {} for {} rounds ({} d : {} h : {} m : {} s)\n",
