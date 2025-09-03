@@ -58,6 +58,7 @@ mycnf = chkCfg()
 logger = log.createLogger('inventory', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "inventory.log")
 
 
+
 class InventoryWin(blankWindow):
     """
     This is a GUI character's inventory window.
@@ -368,14 +369,14 @@ class InventoryWin(blankWindow):
             if elem == "piclink":
 
                 if elem in self.wcont.keys():
-                    self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.ANTIALIAS))
+                    self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.Resampling.LANCZOS))
                     self.picLabel.config(image = self.wcont[elem])
 
                 else:
                     img = Image.open(self.character[elem])
                     rez_img = img.resize((210, 210), Image.LANCZOS)
                     self.wcont[elem] = ImageTk.PhotoImage(rez_img)
-                    # self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.ANTIALIAS))
+                    # self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.Resampling.LANCZOS))
 
             elif type(self.character[elem]) == type(""):
 
@@ -705,6 +706,7 @@ class InventoryWin(blankWindow):
         """
         self. window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "herbs")
+
 
 
 class shopWin(blankWindow):
@@ -1590,11 +1592,11 @@ class shopWin(blankWindow):
             if elem == "piclink":
 
                 if elem in self.wcont.keys():
-                    self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.ANTIALIAS))
+                    self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.Resampling.LANCZOS))
                     self.picLabel.config(image = self.wcont[elem])
 
                 else:
-                    self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.ANTIALIAS))
+                    self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.Resampling.LANCZOS))
 
             elif type(self.character[elem]) == type(""):
 
@@ -1964,6 +1966,7 @@ class shopWin(blankWindow):
         self.character["inventory"] = self.inv_char
         self. window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, shoptype = "herbs")
+
 
 
 class enchantItem(blankWindow):
@@ -3210,11 +3213,11 @@ class enchantItem(blankWindow):
             if elem == "piclink":
 
                 if elem in self.wcont.keys():
-                    self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.ANTIALIAS))
+                    self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.Resampling.LANCZOS))
                     self.picLabel.config(image = self.wcont[elem])
 
                 else:
-                    self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.ANTIALIAS))
+                    self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.Resampling.LANCZOS))
 
             elif type(self.character[elem]) == type(""):
 
@@ -3392,6 +3395,7 @@ class enchantItem(blankWindow):
         '''
         self.window.destroy()
         self.armorwin = shopWin(self.lang, self.character, self.storepath, self.shoptype)
+
 
 
 class editinventory(blankWindow):
@@ -4564,11 +4568,11 @@ class editinventory(blankWindow):
             if elem == "piclink":
 
                 if elem in self.wcont.keys():
-                    self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.ANTIALIAS))
+                    self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.Resampling.LANCZOS))
                     self.picLabel.config(image = self.wcont[elem])
 
                 else:
-                    self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.ANTIALIAS))
+                    self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.Resampling.LANCZOS))
 
             elif type(self.character[elem]) == type(""):
 
@@ -4974,6 +4978,7 @@ class editinventory(blankWindow):
         self.calcMMP()
 
 
+
 def buyStuff(purse = {}, prize = {}):
     """!
     This function does the payment calculations
@@ -5015,6 +5020,7 @@ def buyStuff(purse = {}, prize = {}):
     return result
 
 
+
 def worth2string(worth = {}):
     '''!
     This converts the worth dictionary to a string
@@ -5032,6 +5038,7 @@ def worth2string(worth = {}):
     return result.strip(" ")
 
 
+
 def string2worth(worth = ""):
     '''!
     This converts a string like "2gp 42cp" into a worth dictionary
@@ -5047,6 +5054,7 @@ def string2worth(worth = ""):
         result[inv.coins["long"][pos]] = int(v[:-2])
 
     return result
+
 
 
 win = InventoryWin()
