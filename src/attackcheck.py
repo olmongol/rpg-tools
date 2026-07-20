@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-'''!
+r'''!
 \file attackcheck.py
 \package attackcheck
 \brief This program can be used to  get the results of  attack and critical tables
@@ -92,7 +92,7 @@ class atWin(blankWindow):
 
 
     def __init__(self, lang = "en", datadir = "./data/default"):
-        """!
+        r"""!
         Constructor
         \param lang selected output language
         \param datadir configured default datadir
@@ -276,7 +276,71 @@ class atWin(blankWindow):
         self.editmenu.add_separator()
         self.editmenu.add_command(label = submenu["edit"][self.lang]["history"],
                                   command = self.notdoneyet)
+        self.editmenu.add_separator()
+        self.editmenu.add_command(label = "Save Party Status",
+                                  command = self.savePartyStatus)
         logger.debug("edit menu build")
+
+
+    def savePartyStatus(self):
+        """
+        Save combat status (hits, PP, conditions) back to character JSON files.
+        Reads initlist status and writes it to loaded __fullparty.
+        Returns: number of combatants saved, or 0 on error.
+        """
+        if not hasattr(self, '__source_party_file') or not self.__source_party_file:
+            logger.warning("No party file loaded, cannot save status.")
+            return 0
+
+        if not hasattr(self, '__fullparty') or not self.__fullparty:
+            logger.warning("No party data loaded, cannot save status.")
+            return 0
+
+        # map name -> index in __fullparty
+        name_to_idx = {}
+        for i, c in enumerate(self.__fullparty):
+            if 'name' in c:
+                name_to_idx[c['name']] = i
+
+        saved_count = 0
+
+        for ic in self.initlist:
+            name = ic.get('name', '')
+            if name not in name_to_idx:
+                logger.warning("Combatant '%s' not found in loaded party, skipping.", name)
+                continue
+
+            char_entry = self.__fullparty[name_to_idx[name]]
+
+            # Ensure status dict exists
+            if 'status' not in char_entry or not isinstance(char_entry['status'], dict):
+                char_entry['status'] = {}
+
+            # Write initlist values back to status
+            cur_hp = ic.get('hits', 0)
+            char_entry['status']['current_hp'] = cur_hp
+            char_entry['status']['max_hp'] = ic.get('max_hits', cur_hp)
+            char_entry['status']['current_pp'] = ic.get('PP', 0)
+            char_entry['status']['max_pp'] = ic.get('PPmax', 0)
+            char_entry['status']['stunned'] = ic['status'].get('stunned', 0)
+            char_entry['status']['ooo'] = ic['status'].get('ooo', 0)
+            char_entry['status']['bleed'] = ic['status'].get('bleed', 0)
+            char_entry['status']['mod_total'] = ic['status'].get('mod_total', 0)
+            char_entry['status']['no_parry'] = ic['status'].get('no_parry', 0)
+            saved_count += 1
+
+        # Write back to file
+        if saved_count:
+            try:
+                with open(self.__source_party_file, 'w') as fp:
+                    json.dump(self.__fullparty, fp, indent=4, ensure_ascii=False)
+                logger.info("Saved combat status for %d combatant(s) %s", saved_count, self.__source_party_file)
+            except Exception as e:
+                logger.error("Failed to save party status: %s", e)
+            return saved_count
+        else:
+            logger.warning("No combatants were saved.")
+            return 0
 
 
     def openParty(self):
@@ -299,6 +363,7 @@ class atWin(blankWindow):
 
             logger.debug("fullparty initialized.")
 
+            self.__source_party_file = self.__partypath  # for savePartyStatus()
             self.__prepareChars()
 
         except Exception as error:
@@ -582,8 +647,34 @@ class atWin(blankWindow):
             logger.debug(f"{dummy['name']}'s DB is: {dummy['DB']}.")
 
             dummy["init"] = 0
-            dummy["hits"] = char["cat"]["Body Development"]["Skill"]["Body Development"]["total bonus"]
-            dummy["PP"] = char["cat"]["Power Point Development"]["Skill"]["Power Point Development"]["total bonus"]
+
+            # read status section from JSON (persisted combat state)
+            if "status" in char and isinstance(char["status"], dict):
+                dummy["hits"] = char["status"].get("current_hp", 0)
+                dummy["max_hits"] = char["status"].get("max_hp", dummy["hits"])
+                dummy["PP"] = char["status"].get("current_pp", 0)
+                dummy["PPmax"] = char["status"].get("max_pp", dummy["PP"])
+                dummy["status"] = {
+                    "stunned": char["status"].get("stunned", 0),
+                    "ooo": char["status"].get("ooo", 0),
+                    "bleed": char["status"].get("bleed", 0),
+                    "mod_total": char["status"].get("mod_total", 0),
+                    "no_parry": char["status"].get("no_parry", 0),
+                }
+            else:
+                # legacy: calculate from Body Development
+                base_hpsp = char["cat"]["Body Development"]["Skill"]["Body Development"]["total bonus"]
+                dummy["hits"] = base_hpsp
+                dummy["max_hits"] = base_hpsp
+                dummy["PP"] = char["cat"]["Power Point Development"]["Skill"]["Power Point Development"]["total bonus"]
+                dummy["PPmax"] = dummy["PP"]
+                dummy["status"] = {
+                    "stunned": 0,
+                    "ooo": 0,
+                    "bleed": 0,
+                    "mod_total": 0,
+                    "no_parry": 0,
+                }
             dummy["OB melee"] = []
             dummy["OB missile"] = []
             dummy["OB magic"] = []
