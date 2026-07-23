@@ -363,7 +363,6 @@ class InventoryWin(blankWindow):
         ----
         @todo add fallback if image not found
         '''
-        from PIL import Image, ImageTk
         for elem in self.filterlist:
 
             if elem == "piclink":
@@ -598,12 +597,12 @@ class InventoryWin(blankWindow):
         with open(self.opendir, "r") as fp:
             self.charlist = json.load(fp)
 
-        if type(self.charlist) == type({}):
+        if isinstance(self.charlist, dict):
             self.character = dict(self.charlist).copy()
             self.updWidgedCont()
-        elif type(self.charlist) == []:
+        elif isinstance(self.charlist, list):
             print("char list computing is not implemented yet")
-            pass
+            raise NotImplementedError("char list computing is not implemented yet")
         else:
             print("ERROR: wrong data format in {}".format(self.opendir))
 
@@ -1585,7 +1584,6 @@ class shopWin(blankWindow):
         '''
         This method updates widget content like texts or images
         '''
-        from PIL import Image, ImageTk
 
         for elem in self.filterlist:
 
@@ -1829,12 +1827,12 @@ class shopWin(blankWindow):
         with open(self.opendir, "r") as fp:
             self.charlist = json.load(fp)
 
-        if type(self.charlist) == type({}):
+        if isinstance(self.charlist, dict):
             self.character = dict(self.charlist).copy()
             self.updWidgedCont()
             self.invlabel.config(text = submenu["inventory"][self.lang]["armor"] + " " + self.character["name"])
 
-        elif type(self.charlist) == []:
+        elif isinstance(self.charlist, list):
             print("char list computing is not implemented yet")
 
         else:
@@ -1880,7 +1878,8 @@ class shopWin(blankWindow):
                 json.dump(self.character, fp, indent = 4)
 
             print("{} saved".format(self.opendir))
-        except:
+        except (OSError, IOError):
+            print("Warning: fast save failed, falling back to __save()", file=sys.stderr)
             self.__save()
 
 
@@ -2955,7 +2954,7 @@ class enchantItem(blankWindow):
         self.spellrealm = self.realm.get()
         self.splvl = self.spell_lvl.get()
         self.price = self.item["worth"].copy()
-        descadd = "; Enhancement({}-daily x{}): {}\{}, lvl {}".format(self.spellrealm,
+        descadd = "; Enhancement({}-daily x{}): {}{{}, lvl {}".format(self.spellrealm,
                                                                       self.daily.get(),
                                                                       self.spell_list.get(),
                                                                       self.spell.get(),
@@ -2975,7 +2974,7 @@ class enchantItem(blankWindow):
         """
         spell_prices = [15, 50, 100, 150, 200, 300, 400, 500, 600, 750]
         daily_use = self.daily.get()
-        sum = 20
+        _sum_base = 20
 
         if ("Channeling" or "Leitmagie") in self.spellrealm:
             chan = 2
@@ -2999,7 +2998,7 @@ class enchantItem(blankWindow):
         try:
             for elem in self.enchantment[1:]:
                 self.frame[elem].grid_forget()
-        except:
+        except Exception:  # grid_forget failures are non-fatal UI issues
 
             pass
 
@@ -3097,7 +3096,7 @@ class enchantItem(blankWindow):
 
             elif choice == "charged magic item":
                 self.item["type"] = self.typus.get()
-                self.item["spell"] = "{}\{}".format(self.spell_list.get(), self.spell.get())
+                self.item["spell"] = "{}{{}".format(self.spell_list.get(), self.spell.get())
                 self.item["lvl"] = self.spell_lvl.get()
                 self.item["description"] = self.description.get()
                 self.item["realm"] = self.realm.get()
@@ -3116,8 +3115,7 @@ class enchantItem(blankWindow):
                 self.item["add spell"] = int(self.spell_adder.get()[1])
 
         else:
-            pass
-
+            pass  # no special handling for unknown enchantment type
         # subtract the costs from purse
         newpurse = buyStuff(purse = self.character["purse"], prize = self.item["worth"])
 
@@ -3178,7 +3176,7 @@ class enchantItem(blankWindow):
 
             elif choice == "charged magic item":
                 self.item["type"] = self.typus.get()
-                self.item["spell"] = "{}\{}".format(self.spell_list.get(), self.spell.get())
+                self.item["spell"] = "{}{{}".format(self.spell_list.get(), self.spell.get())
                 self.item["lvl"] = self.spell_lvl.get()
                 self.item["description"] = self.description.get()
                 self.item["realm"] = self.realm.get()
@@ -3197,8 +3195,7 @@ class enchantItem(blankWindow):
                 self.item["add spell"] = int(self.spell_adder.get()[1])
 
         else:
-            pass
-
+            pass  # no special handling for unknown enchantment type
         self.character["inventory"][self.shoptype][self.elem] = self.item.copy()
         self.__quit()
 
@@ -3346,12 +3343,12 @@ class enchantItem(blankWindow):
         with open(self.opendir, "r") as fp:
             self.charlist = json.load(fp)
 
-        if type(self.charlist) == type({}):
+        if isinstance(self.charlist, dict):
             self.character = dict(self.charlist).copy()
             self.updWidgedCont()
-        elif type(self.charlist) == []:
+        elif isinstance(self.charlist, list):
             print("char list computing is not implemented yet")
-            pass
+            raise NotImplementedError("char list computing is not implemented yet")
         else:
             print("ERROR: wrong data format in {}".format(self.opendir))
 
@@ -4400,14 +4397,13 @@ class editinventory(blankWindow):
                         else:
                             self.fields[key].set(int(self.item[key]))
 
-            else:
-                pass
-
+                            else:
+                            pass  # no field type to update
         # destroy option menu to rebuild it
         try:
             if self.edtopt:
                 del(self.edtopt)
-        except:
+        except (AttributeError, KeyError):  # edtopt cleanup is best-effort
             pass
 
         self.edtselect = StringVar()
@@ -4562,7 +4558,6 @@ class editinventory(blankWindow):
         '''
         This method updates widget content like texts or images
         '''
-        from PIL import Image, ImageTk
         for elem in self.filterlist:
 
             if elem == "piclink":
@@ -4694,12 +4689,12 @@ class editinventory(blankWindow):
         with open(self.opendir, "r") as fp:
             self.charlist = json.load(fp)
 
-        if type(self.charlist) == type({}):
+        if isinstance(self.charlist, dict):
             self.character = dict(self.charlist).copy()
             self.updWidgedCont()
-        elif type(self.charlist) == []:
+        elif isinstance(self.charlist, list):
             print("char list computing is not implemented yet")
-            pass
+            raise NotImplementedError("char list computing is not implemented yet")
         else:
             print("ERROR: wrong data format in {}".format(self.opendir))
 
@@ -4815,10 +4810,9 @@ class editinventory(blankWindow):
             for b in ["magic", "holy", "mithril"]:
                 self.item[b] = bool(self.item[b])
             self.character["inventory"][self.shoptype][self.itemidx] = self.item
-        except:
+        except (KeyError, IndexError, TypeError):  # item addition error
             print("Debug item could not be added")
-            pass
-
+            pass  # already logged above
 
     def selectItem(self, event):
         """
