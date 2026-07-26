@@ -119,7 +119,7 @@ class monstercreatorWin(blankWindow):
                 logger.debug(f"datapath: {self.datapath}")
 
             else:
-                self.datapath = f"os.getcwd()/data/default/"
+                self.datapath = f"{os.getcwd()}/data/default/"
                 logger.debug(f"datapath: {self.datapath}")
 
             self.nscpath = f"{self.datapath}/nscs/"
@@ -228,11 +228,12 @@ class monstercreatorWin(blankWindow):
 
         #------------ row 0
 
-        # @bug Image is part of a different package with different functions
-        # that's why here is a re-import.
-        from PIL import Image, ImageTk
-
-        self.selectedPic = ImageTk.PhotoImage(Image.open(self.GMcontent[0]["piclink"]).resize((300, 300), Image.Resampling.LANCZOS))
+        try:
+            _img = Image.open(self.GMcontent[0]["piclink"]).resize((300, 300), Image.Resampling.LANCZOS)
+            self.selectedPic = ImageTk.PhotoImage(_img)
+        except (FileNotFoundError, Image.UnidentifiedImageError, OSError) as _e:
+            logger.error(f"Failed to load image: {_e}")
+            self.selectedPic = ImageTk.PhotoImage()
         self.picLabel = Label(master = self.window,
                               image = self.selectedPic
                               )
@@ -738,8 +739,12 @@ class monstercreatorWin(blankWindow):
         # elif self.currDataSet["piclink"][0] != "/":
         #     self.currDataSet["piclink"] = self.__currdir + "/" + self.currDataSet["piclink"][1:]
 
-        from PIL import Image
-        self.selectedPic = ImageTk.PhotoImage(Image.open(self.currDataSet["piclink"]).resize((300, 300), Image.Resampling.LANCZOS))
+        try:
+            _img = Image.open(self.currDataSet["piclink"]).resize((300, 300), Image.Resampling.LANCZOS)
+            self.selectedPic = ImageTk.PhotoImage(_img)
+        except (FileNotFoundError, Image.UnidentifiedImageError, OSError) as _e:
+            logger.error(f"Failed to load image: {_e}")
+            self.selectedPic = ImageTk.PhotoImage()
         self.picLabel.configure(image = self.selectedPic)
 
         #------- update category, name etc.
@@ -811,6 +816,7 @@ class monstercreatorWin(blankWindow):
         ---
         @todo this has to be implemented fully.
         """
+        self.updateCurrentSet()
         self.currDataSet["OB melee"] = f"{self.__obstring.get()}/{self.__obval.get()} {self.__selectOBsize.get()} {self.__attacks[self.__selectOB.get()]}"
         self.updateWindow()
 
@@ -820,9 +826,9 @@ class monstercreatorWin(blankWindow):
 
 
         """
-        # self.updateCurrentSet(event)
         self.currDataSet["OB missile"] = f"{self.__obstringmis.get()}/{self.__obmval.get()} {self.__attacks[self.__selectOBmis.get()]}".strip("/")
 
+        self.updateCurrentSet()
         self.updateWindow()
 
 
@@ -833,6 +839,7 @@ class monstercreatorWin(blankWindow):
         """
         self.currDataSet["OB magic"] = f"{self.__obstringmagic.get()}/{self.__obmagval.get()} {self.__attacks[self.__selectOBmagic.get()]}".strip("/")
 
+        self.updateCurrentSet()
         self.updateWindow()
 
 
@@ -862,12 +869,15 @@ class monstercreatorWin(blankWindow):
             shutil.copyfile(src = beastNPCpic, dst = self.piclink)
             logger.info(f"file copied to {self.piclink}")
 
-        if type(self.piclink) == type(""):
-            # @bug Image is part of a different package with different functions
-            # that's why here is a re-import.
-            from PIL import Image, ImageTk
-            self.selectedPic = ImageTk.PhotoImage(Image.open(self.piclink).resize((300, 300), Image.Resampling.LANCZOS))
-            self.picLabel.configure(image = self.selectedPic)
+        if type(self.piclink) == type("") and self.piclink:
+            try:
+                _img = Image.open(self.piclink).resize((300, 300), Image.Resampling.LANCZOS)
+                self.selectedPic = ImageTk.PhotoImage(_img)
+                self.picLabel.configure(image = self.selectedPic)
+            except (FileNotFoundError, Image.UnidentifiedImageError, OSError) as _e:
+                logger.error(f"Failed to load image: {_e}")
+                self.selectedPic = ImageTk.PhotoImage()
+                self.picLabel.configure(image = self.selectedPic)
 
 
     def saveGM(self):
@@ -1374,7 +1384,12 @@ class showNPCWin(blankWindow):
         # print(json.dumps(dictlist, indent = 4))
         result = []
 
+        # Sort dictlist so 'Other' appears last, rest alphabetically
+        def cat_sort_key(entry):
+            cat = entry.get('category', '').lower()
+            return (cat == 'other', cat)
         if dictlist:
+            dictlist = sorted(dictlist, key=cat_sort_key)
             dummy = []
 
             for creature in dictlist:
@@ -1726,8 +1741,9 @@ class magicSelectorWin(blankWindow):
                 self.selectedMagicTree.insert('', END, iid = self.__SL_parent_id[i], text = self.__magicParents[int(self.__SL_parent_id[i])])
                 logger.debug(f"add {self.__magicParents[self.__SL_parent_id[i]]} to selection tree")
 
-            except:
-                # parent already exists...
+            except Exception as e:
+                # parent already exists... or duplicate ID — expected in normal flow
+                logger.debug(f"insert parent failed (likely already exists): {e}")
                 pass
 
             finally:
@@ -1841,7 +1857,8 @@ class magicSelectorWin(blankWindow):
                         try:
                             self.selectedMagicTree.insert('', END, iid = int(index), text = cat)
 
-                        except:
+                        except Exception as e:
+                            logger.debug(f"insert magic parent failed (likely already exists): {e}")
                             pass
 
                         finally:

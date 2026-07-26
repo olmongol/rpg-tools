@@ -3009,15 +3009,29 @@ class skillcatWin(blankWindow):
                         lowval = self.__changed['cat'][cat]['Skill'][skill]['lvlups']
 
                     else:
-                        lowval = diff
+                        # dpCosts exhausted — extend with parent category costs
+                        lowval = self.__changed['cat'][cat]['Skill'][skill]['lvlups']
+                        
+                        # Dynamically extend skill costs by borrowing from parent category
+                        parent_item = self.__tree.parent(self.__curItem)
+                        if parent_item:
+                            parent_vals = self.__tree.item(parent_item)['values']
+                            raw_parent_dp = parent_vals[2]
+                            parent_dpCosts = raw_parent_dp.split() if isinstance(raw_parent_dp, str) else raw_parent_dp
+                            
+                            # Extend current skill dpCosts with next available category levels
+                            extended = list(dpCosts)
+                            for i in range(len(dpCosts), len(parent_dpCosts)):
+                                extended.append(int(parent_dpCosts[i]))
+                            dpCosts = extended
 
                     if  diff > 0:
 
-                        for i  in range(0, diff):
+                        for i  in range(lowval, lowval + diff):
                             diffcost += int(dpCosts[i])
                     else:
 
-                        for i in range(diff, 0):
+                        for i in range(lowval + diff, lowval):
                             diffcost -= int(dpCosts[i])
 
                     logger.info(f"diffcost: {diffcost}")
@@ -3046,12 +3060,12 @@ class skillcatWin(blankWindow):
 
                     if diff > 0:
 
-                        for i  in range(0, diff):
+                        for i  in range(lowval, lowval + diff):
                             diffcost += int(dpCosts[i])
 
                     else:
 
-                        for i in range(diff, 0):
+                        for i in range(lowval + diff, lowval):
                             diffcost -= int(dpCosts[i])
 
                     logger.info(f"diffcost: {diffcost}")
@@ -3082,11 +3096,11 @@ class skillcatWin(blankWindow):
 
                 if diff > 0:
 
-                    for i  in range(0, diff):
+                    for i  in range(lowval, lowval + diff):
                             diffcost += int(dpCosts[i])
                 else:
 
-                    for i in range(diff, 0):
+                    for i in range(lowval + diff, lowval):
                         diffcost -= int(dpCosts[i])
 
                 logger.info(f"diffcost: {diffcost}")
@@ -3121,11 +3135,11 @@ class skillcatWin(blankWindow):
 
                 if diff > 0:
 
-                    for i  in range(0, diff):
+                    for i  in range(lowval, lowval + diff):
                             diffcost += int(dpCosts[i])
                 else:
 
-                    for i in range(diff, 0):
+                    for i in range(lowval + diff, lowval):
                         diffcost -= int(dpCosts[i])
 
                 logger.info(f"diffcost: {diffcost}")
@@ -3158,11 +3172,11 @@ class skillcatWin(blankWindow):
 
                 if diff >= 0:
 
-                    for i  in range(0, diff):
+                    for i  in range(lowval, lowval + diff):
                             diffcost += int(dpCosts[i])
                 else:
 
-                    for i in range(diff, 0):
+                    for i in range(lowval + diff, lowval):
                         diffcost -= int(dpCosts[i])
 
                 if (self._character['DP'] - (self.__usedDP + diffcost)) >= 0:
@@ -3246,16 +3260,21 @@ class skillcatWin(blankWindow):
                 lowval = self.__changed['cat'][currcat]['lvlups']
 
                 if self.__changed['cat'][currcat]['lvlups'] < len(dpCosts):
-                    diff = newval - self.__changed['cat'][currcat]['rank']
+                    diff = newval - oldval
 
                 else:
-                    diff = 0
-                    newval = oldval
-                    newtotal = self.__calcRanks(currdev, int(newval)) - self.__calcRanks(currdev, int(oldval)) + int(oldtotal)
+                    # No more progression tiers available — calculate with extended costs
+                    # Use the last tier's cost as the base for further progression
+                    diff = newval - oldval
+                    # Extend dpCosts with the last tier's cost repeated for the additional levels
+                    extra = diff
+                    dpCosts_extended = list(dpCosts) + [int(dpCosts[-1])] * extra
+                    dpCosts = dpCosts_extended
+                    self.__changed['cat'][currcat]['lvlups'] = len(dpCosts_extended)
 
             else:
                 lowval = 0
-                diff = newval - self.__changed['cat'][currcat]['rank']
+                diff = newval - oldval
                 self.__changed['cat'][currcat]['lvlups'] = diff
                 logger.debug(f"{currcat} lvlups: {self.__changed['cat'][currcat]['lvlups']}")
 
@@ -3263,14 +3282,14 @@ class skillcatWin(blankWindow):
 
         if diff > 0:
 
-            for i in range(0, diff):
+            for i in range(lowval, lowval + diff):
                 self.__usedDP += int(dpCosts[i])
 
             logger.debug(f"used DP: {self.__usedDP}")
 
         else:
 
-            for i in range(diff, 0):
+            for i in range(lowval + diff, lowval):
                 self.__usedDP -= int(dpCosts[i])
 
             logger.debug(f"used DP: {self.__usedDP}")

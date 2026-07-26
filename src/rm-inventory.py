@@ -521,7 +521,7 @@ class InventoryWin(blankWindow):
         while "container" in clist:
             idx = clist.index("container")
 
-            if "container{}".format(counter) not  in clist:
+            if f"container{counter}" not  in clist:
                 self.containers[idx]["type"] += str(counter)
                 clist[idx] += str(counter)
                 self.character["inventory"]["gear"][self.containers[idx]["index"]]["type"] += str(counter)
@@ -531,7 +531,7 @@ class InventoryWin(blankWindow):
         while "transport" in tlist:
             idx = tlist.index("transport")
 
-            if "transport{}".format(counter) not in tlist:
+            if f"transport{counter}" not in tlist:
                 self.transports[idx]["type"] += str(counter)
                 tlist[idx] += str(counter)
                 self.character["inventory"]["transport"][self.transports[idx]["index"]]["type"] += str(counter)
@@ -604,7 +604,7 @@ class InventoryWin(blankWindow):
             print("char list computing is not implemented yet")
             raise NotImplementedError("char list computing is not implemented yet")
         else:
-            print("ERROR: wrong data format in {}".format(self.opendir))
+            print(f"ERROR: wrong data format in {self.opendir}")
 
         if "inventory" not in self.character.keys():
             self.character["inventory"] = {'weapon':[],
@@ -760,7 +760,7 @@ class shopWin(blankWindow):
         self.filterlist = ['player', 'exp', 'lvl', 'prof', 'race', 'name', 'piclink', 'realm']
         self.bgfilter = ['act_age', 'carr_weight', "sex", "height", "weight"]
         self.storepath = storepath
-        self.datafile = "{}/default/inventory/{}.csv".format(storepath, shoptype)
+        self.datafile = f"{storepath}/default/inventory/{shoptype}.csv"
         self.loadData()
 
         blankWindow.__init__(self, self.lang)
@@ -1763,7 +1763,7 @@ class shopWin(blankWindow):
         while "container" in clist:
             idx = clist.index("container")
 
-            if "container{}".format(counter) not  in clist:
+            if f"container{counter}" not  in clist:
                 self.containers[idx]["type"] += str(counter)
                 clist[idx] += str(counter)
                 self.character["inventory"]["gear"][self.containers[idx]["index"]]["type"] += str(counter)
@@ -1773,7 +1773,7 @@ class shopWin(blankWindow):
         while "transport" in tlist:
             idx = tlist.index("transport")
 
-            if "transport{}".format(counter) not in tlist:
+            if f"transport{counter}" not in tlist:
                 self.transports[idx]["type"] += str(counter)
                 tlist[idx] += str(counter)
                 self.character["inventory"]["transport"][self.transports[idx]["index"]]["type"] += str(counter)
@@ -1836,7 +1836,7 @@ class shopWin(blankWindow):
             print("char list computing is not implemented yet")
 
         else:
-            print("ERROR: wrong data format in {}".format(self.opendir))
+            print(f"ERROR: wrong data format in {self.opendir}")
 
         if "inventory" not in self.character.keys():
             self.character["inventory"] = {'weapon':[],
@@ -1877,7 +1877,7 @@ class shopWin(blankWindow):
             with open(self.opendir, "w") as fp:
                 json.dump(self.character, fp, indent = 4)
 
-            print("{} saved".format(self.opendir))
+            print(f"{self.opendir} saved")
         except (OSError, IOError):
             print("Warning: fast save failed, falling back to __save()", file=sys.stderr)
             self.__save()
@@ -2936,14 +2936,16 @@ class enchantItem(blankWindow):
         desc = ""
 
         if sa_selec != "+0":
-            desc += "; {} {}".format(labels["spell adder"][self.lang], sa_selec)
+            desc += f"; {labels["spell adder"[{self.lang}]}} {sa_selec}"
 
         if ppm_selec != "x1":
-            desc += "; {} {}".format(labels["pp mult"][self.lang], ppm_selec)
+            desc += f"; {labels["pp mult"[{self.lang}]}} {ppm_selec}"
 
         self.description.set(self.item["description"] + desc)
         self.price = self.item["worth"].copy()
-        self.price["gold"] += perm_item["spell adder"][sa_selec] + perm_item["pp mult"][ppm_selec]
+        sa_val = int(sa_selec.lstrip("+"))
+        ppm_val = float(ppm_selec.lstrip("x"))
+        self.price["gold"] += sa_val + ppm_val
         self.cost.set(self.getCosts())
 
 
@@ -2975,8 +2977,11 @@ class enchantItem(blankWindow):
         spell_prices = [15, 50, 100, 150, 200, 300, 400, 500, 600, 750]
         daily_use = self.daily.get()
         _sum_base = 20
+        _sum_total = 0
 
-        if ("Channeling" or "Leitmagie") in self.spellrealm:
+        # BUG-006 FIX: "Channeling" or "Leitmagie" is always True due to Python tautology.
+        # Corrected to check if either string is a substring of spellrealm.
+        if "Channeling" in self.spellrealm or "Leitmagie" in self.spellrealm:
             chan = 2
         else:
             chan = 1
@@ -2984,10 +2989,10 @@ class enchantItem(blankWindow):
         daily_mult = 1
 
         for i in range(1, daily_use + 1):
-            sum += chan * daily_mult * spell_prices[self.splvl - 1]
+            _sum_total += chan * daily_mult * spell_prices[self.splvl - 1]
             daily_mult = 0.5
 
-        self.price["gold"] += round(sum)
+        self.price["gold"] += round(_sum_total + _sum_base)
 
 
     def getChoice(self, selection):
@@ -3045,8 +3050,8 @@ class enchantItem(blankWindow):
         elif weight_choice == 100:
             weight_mult = 1
 
-        mb = "; magic bonus (+{})".format(bonus_choice)
-        wb = "; magic weight reduced ({}%)".format(weight_choice)
+        mb = f"; magic bonus (+{bonus_choice})""
+        wb = f"; magic weight reduced ({{weight_choice}}%)"
         desc = self.item["description"]
 
         if bonus_mult[bonus_choice] > 1:
@@ -3311,7 +3316,7 @@ class enchantItem(blankWindow):
         while "container" in clist:
             idx = clist.index("container")
 
-            if "container{}".format(counter) not  in clist:
+            if f"container{counter}" not  in clist:
                 self.containers[idx]["type"] += str(counter)
                 clist[idx] += str(counter)
                 self.character["inventory"]["gear"][self.containers[idx]["index"]]["type"] += str(counter)
@@ -3321,7 +3326,7 @@ class enchantItem(blankWindow):
         while "transport" in tlist:
             idx = tlist.index("transport")
 
-            if "transport{}".format(counter) not in tlist:
+            if f"transport{counter}" not in tlist:
                 self.transports[idx]["type"] += str(counter)
                 tlist[idx] += str(counter)
                 self.character["inventory"]["transport"][self.transports[idx]["index"]]["type"] += str(counter)
@@ -3350,7 +3355,7 @@ class enchantItem(blankWindow):
             print("char list computing is not implemented yet")
             raise NotImplementedError("char list computing is not implemented yet")
         else:
-            print("ERROR: wrong data format in {}".format(self.opendir))
+            print(f"ERROR: wrong data format in {self.opendir}")
 
         if "inventory" not in self.character.keys():
             self.character["inventory"] = {'weapon':[],
@@ -3752,7 +3757,7 @@ class editinventory(blankWindow):
                 self.itemname.set(self.item["name"])
 
             except Exception as error:
-                print("Error: (editinventory - buildwin): {}".format(error))
+                print(f"Error: (editinventory - buildwin): {error}")
                 self.itemname.set("---")
                 print("dabug - item")
                 pprint(self.item)
@@ -4396,9 +4401,8 @@ class editinventory(blankWindow):
                             self.fields[key].set(worth2string(self.item[key]))
                         else:
                             self.fields[key].set(int(self.item[key]))
-
-                            else:
-                            pass  # no field type to update
+                    else:
+                        pass  # no field type to update
         # destroy option menu to rebuild it
         try:
             if self.edtopt:
@@ -4465,7 +4469,8 @@ class editinventory(blankWindow):
                     self.fields[selection].set(self.item[selection])
                 else:
                     wert = worth2string(self.item[selection])
-                    print("Debug: {}\n{}".format(wert, self.item[selection]))
+                    print(f"Debug: {{wert}}
+{{self.item[{selection}]}}")
                     self.fields[selection].set(wert)
 
         elif selection == "description":
@@ -4696,7 +4701,7 @@ class editinventory(blankWindow):
             print("char list computing is not implemented yet")
             raise NotImplementedError("char list computing is not implemented yet")
         else:
-            print("ERROR: wrong data format in {}".format(self.opendir))
+            print(f"ERROR: wrong data format in {self.opendir}")
 
         if "inventory" not in self.character.keys():
             self.character["inventory"] = {'weapon':[],
@@ -4873,7 +4878,7 @@ class editinventory(blankWindow):
         while "container" in clist:
             idx = clist.index("container")
 
-            if "container{}".format(counter) not  in clist:
+            if f"container{counter}" not  in clist:
                 self.containers[idx]["type"] += str(counter)
                 clist[idx] += str(counter)
                 self.character["inventory"]["gear"][self.containers[idx]["index"]]["type"] += str(counter)
@@ -4883,7 +4888,7 @@ class editinventory(blankWindow):
         while "transport" in tlist:
             idx = tlist.index("transport")
 
-            if "transport{}".format(counter) not in tlist:
+            if f"transport{counter}" not in tlist:
                 self.transports[idx]["type"] += str(counter)
                 tlist[idx] += str(counter)
                 self.character["inventory"]["transport"][self.transports[idx]["index"]]["type"] += str(counter)
@@ -5027,7 +5032,7 @@ def worth2string(worth = {}):
         for coin in inv.coins["long"]:
 
             if worth[coin] > 0:
-                result += "{}{}p ".format(worth[coin], coin[0])
+        result += f"{{worth[{coin}]}}{coin[0]}p "
 
     return result.strip(" ")
 
