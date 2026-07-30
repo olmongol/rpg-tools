@@ -65,7 +65,7 @@ class InventoryWin(blankWindow):
     """
 
 
-    def __init__(self, lang = "en", char = {}, storepath = "./data"):
+    def __init__(self, lang = "en", char = None, storepath = "./data"):
         """
         Class constructor
         @param lang The chosen language for window's and button's
@@ -714,7 +714,7 @@ class shopWin(blankWindow):
     """
 
 
-    def __init__(self, lang = "en", char = {}, storepath = "./data", shoptype = "armor"):
+    def __init__(self, lang = "en", char = None, storepath = "./data", shoptype = "armor"):
         """!
         Class constructor
         @param lang The chosen language for window's and button's
@@ -1265,7 +1265,7 @@ class shopWin(blankWindow):
         # add changes to charracter's inventory
         self.character["inventory"] = self.inv_char.copy()
         # transform self.item treeview item into character's inventory data struct
-        self.item = {}
+        self.item = None
 
         if self.shoptype == "weapon":
             self.item = weapon.copy()
@@ -1431,7 +1431,7 @@ class shopWin(blankWindow):
         self.__sortInventory()
         self.curr_shop = self.shoptree.focus()
         self.curr_item = self.shoptree.item(self.curr_shop)['values']
-        newitem = {}
+        newitem = None
 
         if self.shoptype == "weapon":
             newitem = weapon.copy()
@@ -1974,7 +1974,7 @@ class enchantItem(blankWindow):
     """
 
 
-    def __init__(self, lang = "en", char = {}, storepath = "./data", item = {}, shoptype = ""):
+    def __init__(self, lang = "en", char = None, storepath = "./data", item = None, shoptype = ""):
         """!
         Class constructor
         @param lang The chosen language for window's and button's
@@ -2936,10 +2936,10 @@ class enchantItem(blankWindow):
         desc = ""
 
         if sa_selec != "+0":
-            desc += f"; {labels["spell adder"[{self.lang}]}} {sa_selec}"
+            desc += f"; {labels['spell adder'][self.lang]} {sa_selec}"
 
         if ppm_selec != "x1":
-            desc += f"; {labels["pp mult"[{self.lang}]}} {ppm_selec}"
+            desc += f"; {labels['pp mult'][self.lang]} {ppm_selec}"
 
         self.description.set(self.item["description"] + desc)
         self.price = self.item["worth"].copy()
@@ -3050,7 +3050,7 @@ class enchantItem(blankWindow):
         elif weight_choice == 100:
             weight_mult = 1
 
-        mb = f"; magic bonus (+{bonus_choice})""
+        mb = f"; magic bonus (+{bonus_choice})"
         wb = f"; magic weight reduced ({{weight_choice}}%)"
         desc = self.item["description"]
 
@@ -3406,7 +3406,7 @@ class editinventory(blankWindow):
     '''
 
 
-    def __init__(self, lang = "en", char = {}, item = {}, shoptype = "armor", storepath = "./data"):
+    def __init__(self, lang = "en", char = None, item = None, shoptype = "armor", storepath = "./data"):
         """!
         Class constructor
         @param lang The chosen language for window's and button's
@@ -4469,8 +4469,7 @@ class editinventory(blankWindow):
                     self.fields[selection].set(self.item[selection])
                 else:
                     wert = worth2string(self.item[selection])
-                    print(f"Debug: {{wert}}
-{{self.item[{selection}]}}")
+                    print("Debug: " + str(wert) + "\n" + str(self.item[selection]))
                     self.fields[selection].set(wert)
 
         elif selection == "description":
@@ -4978,7 +4977,7 @@ class editinventory(blankWindow):
 
 
 
-def buyStuff(purse = {}, prize = {}):
+def buyStuff(purse = None, prize = None):
     """!
     This function does the payment calculations
     @param purse of character
@@ -5020,7 +5019,7 @@ def buyStuff(purse = {}, prize = {}):
 
 
 
-def worth2string(worth = {}):
+def worth2string(worth = None):
     '''!
     This converts the worth dictionary to a string
     @param worth dictionary that holds the values for mithril, gold, silver etc.
@@ -5032,7 +5031,7 @@ def worth2string(worth = {}):
         for coin in inv.coins["long"]:
 
             if worth[coin] > 0:
-        result += f"{{worth[{coin}]}}{coin[0]}p "
+                result += f"{{worth[{coin}]}}{coin[0]}p "
 
     return result.strip(" ")
 

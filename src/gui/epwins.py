@@ -88,7 +88,7 @@ class MainWindow(blankWindow):
         @param char Character as JSON
         """
 
-        if storepath == None:
+        if storepath is None:
             #needs to be changed
 #            self.mypath = os.path.expanduser('~')
             self.mypath = os.getcwd() + "/data/"
@@ -203,7 +203,7 @@ class MainWindow(blankWindow):
                             self.char["piclink"] = "{}/{}/default.jpg".format(os.getcwd(), pl[:pl.rfind("/")])
                     logger.debug(f"char piclink: {self.char['piclink']}")
 
-                elif self.__filein[-3:].lower == "grp":
+                elif self.__filein[-3:].lower() == "grp":
                     self.grp = json.load(filecontent)
                     logger.debug(f"{self.__filein} successfully read")
 
@@ -229,7 +229,7 @@ class MainWindow(blankWindow):
         '''
         from rpgtoolbox import latexexport
 
-        if self.char == None:
+        if self.char is None:
             logger.error("No data for LaTex generation!")
             msg = messageWindow()
             msg.showinfo(errmsg['no_data'][self.lang])
@@ -248,7 +248,7 @@ class MainWindow(blankWindow):
         '''
         from rpgtoolbox import latexexport
 
-        if self.char == None:
+        if self.char is None:
             msg = messageWindow()
             msg.showinfo(errmsg['no_data'][self.lang])
 
@@ -264,7 +264,7 @@ class MainWindow(blankWindow):
         '''
         from rpgtoolbox.latexexport import spellbook
 
-        if self.char == None:
+        if self.char is None:
             msg = messageWindow()
             msg.showinfo(errmsg['no_data'][self.lang])
             logger.error(errmsg['no_data']['en'])
@@ -1331,7 +1331,7 @@ class genAttrWin(blankWindow):
         omenu = self.optMenu0.children['menu']
         omenu.delete(0, "end")
 
-        if testr == "" or testr == None:
+        if testr == "" or testr is None:
             msg = messageWindow()
             msg.showinfo(errmsg['no_race'][self.lang], 'Info')
 
@@ -1862,7 +1862,7 @@ class priorizeWeaponsWin(blankWindow):
         from rpgtoolbox.rolemaster import catnames
         self.__catnames = catnames
 
-        if storepath == None:
+        if storepath is None:
             self.spath = os.getcwd() + "/data"
             logger.debug('Set storepath to %s' % (storepath)) + "/data"
 
@@ -2167,7 +2167,7 @@ class priorizeWeaponsWin(blankWindow):
             with open(self.spath + self.character['player'] + '/' + charname + ".json", "w") as outfile:
                 json.dump(self.character, outfile, sort_keys = True,
                           indent = 4, ensure_ascii = False)
-        except:
+        except Exception:
             logger.error("saveChar: could not save {} sorted".format(self.spath + self.character['player'] + '/' + charname + ".json"))
             with open(self.spath + self.character['player'] + '/' + charname + ".json", "w") as outfile:
                 json.dump(self.character, outfile, indent = 4)
@@ -2267,7 +2267,7 @@ class skillcatWin(blankWindow):
         self.__catnames = catnames
         self.__rankbonus = rankbonus
 
-        if storepath == None:
+        if storepath is None:
             self.spath = os.path.expanduser('~') + "/data"
             self.spath = os.getcwd() + "/data"
             logger.debug('Set storepath to %s' % (storepath)) + "/data"
@@ -2632,7 +2632,7 @@ class skillcatWin(blankWindow):
 
         for cat in ckeys:
 
-            if cat != None:
+            if cat is not None:
                 catID[cat] = self.__tree.insert("",
                                                 catNo,
                                                 text = cat,
@@ -2695,7 +2695,7 @@ class skillcatWin(blankWindow):
 
         for cat in ckeys:
 
-            if cat != None:
+            if cat is not None:
 
                 if 'Progression' in list(self.__changed['cat'][cat].keys()):
                     progression = self.__changed['cat'][cat]['Progression']
@@ -3542,7 +3542,7 @@ class charInfo(blankWindow):
         @param char Character as JSON/dictionary
         """
 
-        if storepath == None:
+        if storepath is None:
 #            self.spath = os.path.expanduser('~') + "/data"
             self.spath = os.getcwd() + "/data"
             logger.info('Set storepath to %s' % (storepath)) + "/data"
@@ -3652,11 +3652,11 @@ class charInfo(blankWindow):
 
                 if self.__filein[-4:].lower() == "json":
                     self.char = json.load(filecontent)
-                    logger.debug("charInfo:(character) content read from {}.".fomat(self.__filein))
+                    logger.debug("charInfo:(character) content read from {}.".format(self.__filein))
 
-                elif self.__filein[-3:].lower == "grp":
+                elif self.__filein[-3:].lower() == "grp":
                     self.grp = json.load(filecontent)
-                    logger.debug("charInfo:(group) content read from {}.".fomat(self.__filein))
+                    logger.debug("charInfo:(group) content read from {}.".format(self.__filein))
 
                 else:
                     msg = messageWindow()
@@ -3989,7 +3989,7 @@ class statGainWin(blankWindow):
         @param char Character as JSON/dictionary
         """
 
-        if storepath == None:
+        if storepath is None:
 #            self.spath = os.path.expanduser('~') + "/data"
             self.spath = os.getcwd() + "/data"
             logger.debug('Set storepath to %s' % (os.getcwd())) + "/data"
@@ -4098,7 +4098,7 @@ class statGainWin(blankWindow):
 #                if self.__filein[-4:].lower() == "json":
 #                    self.char = json.load(filecontent)
 #
-#                elif self.__filein[-3:].lower == "grp":
+#                elif self.__filein[-3:].lower() == "grp":
 #                    self.grp = json.load(filecontent)
 #
 #                else:
@@ -4327,7 +4327,7 @@ class editEPWin(blankWindow):
         @param char Character as JSON/dictionary
         """
 
-        if storepath == None:
+        if storepath is None:
 #            self.spath = os.path.expanduser('~') + "/data"
             self.spath = os.getcwd() + "/data"
             logger.debug('Set storepath to %s' % (storepath)) + "/data"
@@ -4426,7 +4426,7 @@ class editEPWin(blankWindow):
                 if self.__filein[-4:].lower() == "json":
                     self.char = json.load(filecontent)
 
-                elif self.__filein[-3:].lower == "grp":
+                elif self.__filein[-3:].lower() == "grp":
                     self.grp = json.load(filecontent)
 
                 else:
@@ -4584,7 +4584,7 @@ class BGOselectWin(blankWindow):
         @param char Character as JSON/dictionary
         """
 
-        if storepath == None:
+        if storepath is None:
 #            self.spath = os.path.expanduser('~') + "/data"
             self.spath = os.getcwd() + "/data"
             logger.debug('Set storepath to %s' % (storepath)) + "/data"
@@ -4700,7 +4700,7 @@ class BGOselectWin(blankWindow):
                 if self.__filein[-4:].lower() == "json":
                     self.char = json.load(filecontent)
 
-                elif self.__filein[-3:].lower == "grp":
+                elif self.__filein[-3:].lower() == "grp":
                     self.grp = json.load(filecontent)
 
                 else:
