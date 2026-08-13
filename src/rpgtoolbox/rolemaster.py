@@ -1,6 +1,6 @@
 #!/bin/env python
 # -*- coding: utf-8 -*-
-'''!
+r'''!
 \package rpgtoolbox.rolemaster
 \file rolemaster.py
 \brief Rolemaster specific toolbox
@@ -749,7 +749,7 @@ raceHealingFactors = {"Common Men": {"soul dep": 12,
 
 
 def DPCostSpells(skill = 0, listtype = "Own Realm Own Base Lists", profession = "Magician", no = 1):
-    '''
+    r'''
     Returns Developing Points Costs of Spell Lists. This is just needed if payed
     with variable DP costs for spell lists.
     \param skill skill rank in that Spell List
@@ -1214,7 +1214,7 @@ def DPCostSpells(skill = 0, listtype = "Own Realm Own Base Lists", profession = 
 
 
 def choseProfession(lang = 'en'):
-    '''
+    r'''
     This function reads the ProfBonus.csv and delivers a structured dictionary
     for further computation.
     \param lang chosen language - at the moment there is just English supported
@@ -1263,7 +1263,7 @@ def choseProfession(lang = 'en'):
 
 
 def rankbonus(rank = 0, cat = 0, profession = 0, special = 0, progression = progressionType['standard cat']):
-    '''
+    r'''
     This function returns the cumulative Bonus of a category or skill.
 
     \param rank rank/level of category/skill
@@ -1296,8 +1296,8 @@ def rankbonus(rank = 0, cat = 0, profession = 0, special = 0, progression = prog
 
 
 def pointsneeded(statvalue = 20):
-    '''
-    This gives back the amount of ṕoints to assing for stats
+    r'''
+    This gives back the amount of points to assing for stats
     \param statvalue wanted stat value
     \return points needed to assign give stat value
     '''
@@ -1316,7 +1316,7 @@ def pointsneeded(statvalue = 20):
 
 
 def statbonus(statvalue = 20):
-    '''
+    r'''
     Returns calculated bonus of stat value
     \param statvalue stat value for which the bonus should be calculated
     \return stat value's bonus

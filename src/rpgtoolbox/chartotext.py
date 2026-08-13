@@ -102,7 +102,7 @@ class latexsheets(object):
             self.createLatexFile(page, self.selectData(page))
 
 
-    def createLatexFile(self, page = "main", data = {}):
+    def createLatexFile(self, page = "main", data = None):
         '''
         Creates Latex file from given template file.
         '''
@@ -136,7 +136,7 @@ class latexsheets(object):
         '''
 
         if page == "main":
-            data = {}
+            data = None
             elements = list(self.__tmplfiles.values())
 
             for i in range(0, len(elements)):
@@ -145,7 +145,7 @@ class latexsheets(object):
             data['name' + elements[i]] = self.character['name'] + elements[i]
 
         elif page == "general":
-            data = {}
+            data = None
             elements = ['name', 'profession', 'race', 'culture', 'hometown', 'lord', 'parents', 'siblings', 'partner', 'children', 'deity',
                       'gender', 'skin', 'eyes', 'hair', 'size', 'weight', 'apparentage', 'actualage', 'looking', 'souldeparture', 'recovery', 'lvl',
                       'jpg', 'description', 'motivation', 'realm', 'exp']
@@ -159,19 +159,19 @@ class latexsheets(object):
                     data[item] = " --"
 
         elif page == "categories":
-            data = {}
+            data = None
             pass
 
         elif page == "skills":
-            data = {}
+            data = None
             pass
 
         elif page == "mixed":
-            data = {}
+            data = None
             pass
 
         elif page == "rr_at_db":
-            data = {}
+            data = None
             elements = ["RRChan", "RRFear", "RRDisease", "RREss", "RRMent", "RRArc", "RRPoison", "RRC/M", "RRE/M", "RRC/E"]
             for item in elements:
 
@@ -182,7 +182,7 @@ class latexsheets(object):
                     data[item] = " --"
 
         elif page == "stats":
-            data = {}
+            data = None
             elements = ["Pr_temp", "Pr_pot", "Pr_std", "Pr_race", "Pr_spec", "Pr_total",
                         "Me_temp", "Me_pot", "Me_std", "Me_race", "Me_spec", "Me_total",
                         "Qu_temp", "Qu_pot", "Qu_std", "Qu_race", "Qu_spec", "Qu_total",
@@ -200,11 +200,11 @@ class latexsheets(object):
                 data[elem] = self.character[stat][stattype]
 
         elif page == "spells":
-            data = {}
+            data = None
             pass
 
         elif page == "training":
-            data = {}
+            data = None
             pass
 
         return data

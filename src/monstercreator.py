@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-'''!
+r'''!
 \file monstercreator.py
 \package monstercreator
 \brief Tool for creating Monsters, NPCs etc.
@@ -29,7 +29,7 @@ import json
 import os
 import shutil
 
-from PIL import Image, ImageTk
+from PIL import Image as _pilimg, ImageTk
 
 from gui.window import *
 from rpgToolDefinitions.magic import magicpath
@@ -41,11 +41,11 @@ from rpgtoolbox.handlemagic import getSpellNames
 mycnf = chkCfg()
 logger = log.createLogger('Monster', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"], logfile = "monstercreator.log")
 
-print(os.getcwd())
+
 
 
 class monstercreatorWin(blankWindow):
-    """!
+    r"""!
     This class generates a GUI to enter NSCs, monsters etc.
 
     ----
@@ -58,7 +58,7 @@ class monstercreatorWin(blankWindow):
 
 
     def __init__(self, **kwargs):
-        """!Constructor:
+        r"""!Constructor:
         This generates the NSC/monster creator window with the read configuration given.
         @param kwargs dictionary of free key/value pairs. The following parameters will
                be computed:
@@ -74,7 +74,7 @@ class monstercreatorWin(blankWindow):
             self.__config = kwargs["config"]
             logger.debug(f"config get: {json.dumps(self.__config.cnfparam,indent=4)}")
             self.lang = self.__config.cnfparam["lang"]
-            self.datapath = self.__config.cnfparam["datapath"] + "default/"
+            self.datapath = self.__config.cnfparam["datapath"] + "/default/"
 
             if self.datapath[0:2] == "./":
                 self.datapath = self.__currdir + self.datapath[1:]
@@ -166,7 +166,7 @@ class monstercreatorWin(blankWindow):
 
 
     def __addFileMenu(self):
-        '''!
+        r'''!
         This methods adds the menu bar to the window
         '''
         self.filemenu = Menu(master = self.menu)
@@ -188,7 +188,7 @@ class monstercreatorWin(blankWindow):
 
 
     def __addEditMenu(self):
-        '''!
+        r'''!
         This adds an Edit menu to the windows menu bar:
 
         '''
@@ -210,7 +210,7 @@ class monstercreatorWin(blankWindow):
 
 
     def __quit(self):
-        '''!
+        r'''!
         This method saves changes and closes the window
         '''
         self.saveGM()
@@ -222,16 +222,19 @@ class monstercreatorWin(blankWindow):
 
 
     def __buildWin(self):
-        """!
+        r"""!
         This method builds the window content.
         """
 
         #------------ row 0
 
         try:
-            _img = Image.open(self.GMcontent[0]["piclink"]).resize((300, 300), Image.Resampling.LANCZOS)
+            picpath = self.GMcontent[0].get("piclink", "")
+            if not picpath:
+                raise ValueError("piclink is empty or None")
+            _img = _pilimg.open(picpath).resize((300, 300), _pilimg.Resampling.LANCZOS)
             self.selectedPic = ImageTk.PhotoImage(_img)
-        except (FileNotFoundError, Image.UnidentifiedImageError, OSError) as _e:
+        except (FileNotFoundError, _pilimg.UnidentifiedImageError, OSError, ValueError) as _e:
             logger.error(f"Failed to load image: {_e}")
             self.selectedPic = ImageTk.PhotoImage()
         self.picLabel = Label(master = self.window,
@@ -616,7 +619,7 @@ class monstercreatorWin(blankWindow):
 
 
     def __editImunities(self, event = None):
-        """!This opens a window to edit Imunities of NPCs / beasts
+        r"""!This opens a window to edit Imunities of NPCs / beasts
 
         ----
         @todo this has to be fully implemented
@@ -625,7 +628,7 @@ class monstercreatorWin(blankWindow):
 
 
     def __editWeaknesses(self, event = None):
-        """!This opens a window to edit Weaknesses of NPCs / beasts
+        r"""!This opens a window to edit Weaknesses of NPCs / beasts
 
         ----
         @todo this has to be fully implemented
@@ -634,7 +637,7 @@ class monstercreatorWin(blankWindow):
 
 
     def __editMagic(self, event = None):
-        """!This opens a window to edit magic skills of NPCs / beasts
+        r"""!This opens a window to edit magic skills of NPCs / beasts
 
         ----
         @todo this has to be fully implemented"""
@@ -642,7 +645,7 @@ class monstercreatorWin(blankWindow):
 
 
     def __showMagic(self, event = None):
-        """!This opens a window to show magic skills of NPCs / beasts
+        r"""!This opens a window to show magic skills of NPCs / beasts
 
         ----
         @todo this has to be fully implemented"""
@@ -650,7 +653,7 @@ class monstercreatorWin(blankWindow):
 
 
     def __remoCurrentElement(self, event = None):
-        """!
+        r"""!
         This removes the current element from the gamemaster's table
 
         ----
@@ -660,7 +663,7 @@ class monstercreatorWin(blankWindow):
 
 
     def __newElement(self, event = None):
-        """!
+        r"""!
         This adds a new element to the NPC / Beast list
         """
         if self.__datatemplate not in self.GMcontent:
@@ -672,18 +675,18 @@ class monstercreatorWin(blankWindow):
 
 
     def __insertComment(self, event = None):
-        """!This puts data into comment text widget"""
+        r"""!This puts data into comment text widget"""
         self.__displayComment.delete("1.0", "end")
         self.__displayComment.insert(END, self.currDataSet["comment"])
 
 
     def __getComment(self, event = None):
-        """!This gets data from comment text widget """
+        r"""!This gets data from comment text widget """
         self.currDataSet["comment"] = self.__displayComment.get("1.0", END)
 
 
     def __showElements(self, event = None):
-        """!
+        r"""!
         shows a table of all elements (NSCs, monsters, creatures etc.) of one category.
 
         ----
@@ -693,7 +696,7 @@ class monstercreatorWin(blankWindow):
 
 
     def __filterElements(self, event = None):
-        """!
+        r"""!
         This function filters all entries by chosen / entered options
 
         ----
@@ -703,7 +706,7 @@ class monstercreatorWin(blankWindow):
 
 
     def __prevItem(self, event = None):
-        """!
+        r"""!
         This moves to the previous NSC / beast in the GM master table
         """
         self.updateCurrentSet()
@@ -716,7 +719,7 @@ class monstercreatorWin(blankWindow):
 
 
     def __nextItem(self, event = None):
-        """!
+        r"""!
         This moves to the previous NSC / beast in the GM master table
         """
         self.updateCurrentSet()
@@ -729,7 +732,7 @@ class monstercreatorWin(blankWindow):
 
 
     def updateWindow(self, event = None):
-        """!
+        r"""!
         This updates all window widgets with data of the current data set
         """
         #------- update pic
@@ -740,9 +743,12 @@ class monstercreatorWin(blankWindow):
         #     self.currDataSet["piclink"] = self.__currdir + "/" + self.currDataSet["piclink"][1:]
 
         try:
-            _img = Image.open(self.currDataSet["piclink"]).resize((300, 300), Image.Resampling.LANCZOS)
+            picpath = self.GMcontent[0].get("piclink", "")
+            if not picpath:
+                raise ValueError("piclink is empty or None")
+            _img = _pilimg.open(picpath).resize((300, 300), _pilimg.Resampling.LANCZOS)
             self.selectedPic = ImageTk.PhotoImage(_img)
-        except (FileNotFoundError, Image.UnidentifiedImageError, OSError) as _e:
+        except (FileNotFoundError, _pilimg.UnidentifiedImageError, OSError, ValueError) as _e:
             logger.error(f"Failed to load image: {_e}")
             self.selectedPic = ImageTk.PhotoImage()
         self.picLabel.configure(image = self.selectedPic)
@@ -775,7 +781,7 @@ class monstercreatorWin(blankWindow):
 
 
     def updateCurrentSet(self, event = None):
-        """!
+        r"""!
         This updates the current data set
         """
         self.currDataSet["category"] = self.__selectCat.get()
@@ -801,7 +807,7 @@ class monstercreatorWin(blankWindow):
 
 
     def __getCategory(self, event = None):
-        '''!
+        r'''!
         This detemines the selected category
         '''
         self.currDataSet["category"] = self.__selectCat.get()
@@ -811,7 +817,7 @@ class monstercreatorWin(blankWindow):
 
 
     def __getOB(self, event = None):
-        """! This determines the selected attack for melee OB string
+        r"""! This determines the selected attack for melee OB string
 
         ---
         @todo this has to be implemented fully.
@@ -822,7 +828,7 @@ class monstercreatorWin(blankWindow):
 
 
     def __getOBm (self, event = None):
-        """! This determines the selected attack for missile OB string
+        r"""! This determines the selected attack for missile OB string
 
 
         """
@@ -833,7 +839,7 @@ class monstercreatorWin(blankWindow):
 
 
     def __getOBmag(self, event = None):
-        """! This determins the selected attack for magic OB string
+        r"""! This determins the selected attack for magic OB string
          ---
         @todo this has to be implemented fully.
         """
@@ -844,7 +850,7 @@ class monstercreatorWin(blankWindow):
 
 
     def __addPic(self, event):
-        '''!
+        r'''!
         This method adds the link to a NPC's /beast's picture (jpg/png)
         '''
         # os.chdir(self.nscpicpath)
@@ -871,10 +877,10 @@ class monstercreatorWin(blankWindow):
 
         if type(self.piclink) == type("") and self.piclink:
             try:
-                _img = Image.open(self.piclink).resize((300, 300), Image.Resampling.LANCZOS)
+                _img = _pilimg.open(self.piclink).resize((300, 300), _pilimg.Resampling.LANCZOS)
                 self.selectedPic = ImageTk.PhotoImage(_img)
                 self.picLabel.configure(image = self.selectedPic)
-            except (FileNotFoundError, Image.UnidentifiedImageError, OSError) as _e:
+            except (FileNotFoundError, _pilimg.UnidentifiedImageError, OSError) as _e:
                 logger.error(f"Failed to load image: {_e}")
                 self.selectedPic = ImageTk.PhotoImage()
                 self.picLabel.configure(image = self.selectedPic)
@@ -903,7 +909,7 @@ class monstercreatorWin(blankWindow):
 
 
     def loadGMTable(self):
-        """!
+        r"""!
         This loads the data of the GM default table.
         """
         self.GMcontent = readCSV(self.GMtable)
@@ -936,7 +942,7 @@ class monstercreatorWin(blankWindow):
 
 
     def loadCP(self):
-        """!
+        r"""!
         This loads a campaign NSC/monster file
         """
 
@@ -968,18 +974,18 @@ class monstercreatorWin(blankWindow):
 
 
     def newCPTable(self):
-        '''!
+        r'''!
         This opens a new campaign table an the selection window of the GM master
         table.
 
         ----
         @todo this has to be fully implemented
         '''
-        cp = showCPWin(rootwin = self.window, CPtable = [])
+        cp = showCPWin(rootwin = self.window, CPtable = None)
 
 
     def openCPTable(self):
-        '''!This opens an existing campaign table for editing purposes
+        r'''!This opens an existing campaign table for editing purposes
 
         ----
         @todo this has to be implemented fully
@@ -989,7 +995,7 @@ class monstercreatorWin(blankWindow):
 
 
     def prepareAttackData(self):
-        """!
+        r"""!
         This prepares the attack data for displaying widgets
         """
         # # @var self.__attacks
@@ -1022,7 +1028,7 @@ class monstercreatorWin(blankWindow):
 
 
     def __chooseCP(self):
-        """!
+        r"""!
         this opens a window to choose NPCs beasts you want to save in a separate
         campaign list.
         """
@@ -1032,7 +1038,7 @@ class monstercreatorWin(blankWindow):
 
 
 class showNPCWin(blankWindow):
-    '''!This generates a window to show / list the content of the GM NPC / Beast DB
+    r'''!This generates a window to show / list the content of the GM NPC / Beast DB
     and to select from for individual campaign tables.
 
     ----
@@ -1040,9 +1046,9 @@ class showNPCWin(blankWindow):
     '''
 
 
-    def __init__(self, rootwin, GMtable = [], CPtable = [], lang = "en", datapath = "",
+    def __init__(self, rootwin, GMtable = None, CPtable = None, lang = "en", datapath = "",
                  nscpath = "", nscpicpath = ""):
-        '''!
+        r'''!
         Constructor
 
         @param GMtable list of dictionaries (GM master table to select from
@@ -1087,7 +1093,7 @@ class showNPCWin(blankWindow):
 
 
     def __addFileMenu(self):
-        '''!
+        r'''!
         This methods adds the menu bar to the window
         '''
         self.filemenu = Menu(master = self.menu)
@@ -1109,7 +1115,7 @@ class showNPCWin(blankWindow):
 
 
     def __addEditMenu(self):
-        '''!
+        r'''!
         This adds an Edit menu to the windows menu bar:
 
         ----
@@ -1123,7 +1129,7 @@ class showNPCWin(blankWindow):
 
 
     def __quit(self):
-        '''!
+        r'''!
         This method saves changes and closes the window
         '''
         self.__saveCPTable(self.CPtable)
@@ -1131,7 +1137,7 @@ class showNPCWin(blankWindow):
 
 
     def __buildWin(self):
-        """!
+        r"""!
         This method builds the window content.
 
         ----
@@ -1235,7 +1241,7 @@ class showNPCWin(blankWindow):
 
 
     def __GMItemSelected(self, event = None):
-        """!This handles the detailed display of the selected treeview item
+        r"""!This handles the detailed display of the selected treeview item
         """
         self.__gmitem = []
         self.__gm_parent_id = []
@@ -1250,7 +1256,7 @@ class showNPCWin(blankWindow):
 
 
     def __CPItemSelected(self, event = None):
-        """!This handles the detailed display of the selected treeview item
+        r"""!This handles the detailed display of the selected treeview item
 
         ----
         @note currently it is a dummy method
@@ -1265,7 +1271,7 @@ class showNPCWin(blankWindow):
 
 
     def __pushToCP(self, event = None):
-        """!
+        r"""!
         This copies items from the GM NPC list / treeview to the campaign list / treeview
         """
         for i in range(0, len(self.__gmitem)):
@@ -1285,7 +1291,7 @@ class showNPCWin(blankWindow):
 
 
     def __remFromCP(self, event = None):
-        """!
+        r"""!
         This removes items from the campaign list / treeview
         """
         rowid = self.cptree.focus()
@@ -1303,7 +1309,7 @@ class showNPCWin(blankWindow):
 
 
     def __newCPTable(self, event = None):
-        """!
+        r"""!
         This initializes a new (empty) NPC / Beast table for campaigns
 
         ----
@@ -1312,8 +1318,8 @@ class showNPCWin(blankWindow):
         self.notdoneyet("__newCPTable")
 
 
-    def __existInTreeview(self, treeview, comparevalues = []):
-        """!This checks if a value set already exists in a treeview widget
+    def __existInTreeview(self, treeview, comparevalues = None):
+        r"""!This checks if a value set already exists in a treeview widget
 
         @param treeview treeview widget to check
         @param comparevalues values to check for existence in the treeview
@@ -1338,7 +1344,7 @@ class showNPCWin(blankWindow):
 
 
     def __openCPTable(self):
-        """!
+        r"""!
         This loads a campaign NSC/monster file
         """
 
@@ -1374,8 +1380,8 @@ class showNPCWin(blankWindow):
             logger.info(f"{self.CPtable} saved successfully.")
 
 
-    def prepareDataForTreeview(self, dictlist = [], fields = ["category", "name", "lvl", "enc", "hits", "AT", "size"]):
-        """!This prepares data for the treeview widget
+    def prepareDataForTreeview(self, dictlist = None, fields = ["category", "name", "lvl", "enc", "hits", "AT", "size"]):
+        r"""!This prepares data for the treeview widget
 
         @param dictlist list of dictionaries for preparation
         @param fields fields for the tuples in result
@@ -1411,7 +1417,7 @@ class showNPCWin(blankWindow):
 
 
     def __updateWin(self, event = None):
-        """!
+        r"""!
         This updates teh windows widgets
 
         ----
@@ -1422,7 +1428,7 @@ class showNPCWin(blankWindow):
 
 
     def __updateDataLists(self, event = None):
-        """!This updates all internal data lists
+        r"""!This updates all internal data lists
 
         ----
         @todo this has ti be fully implemented
@@ -1449,14 +1455,14 @@ class showNPCWin(blankWindow):
 
 
 class magicSelectorWin(blankWindow):
-    """!
+    r"""!
     This generates a window to select spell lists and determine their level for a NPC
     or a beast.
     """
 
 
     def __init__(self, rootwin = None, lang = "en", datapath = "./data", magicstring = ""):
-        """!
+        r"""!
         Constructor
 
         @param datapath configured data path
@@ -1518,7 +1524,7 @@ class magicSelectorWin(blankWindow):
 
 
     def __addFileMenu(self):
-        '''!
+        r'''!
         This methods adds the menu bar to the window
         '''
         self.filemenu = Menu(master = self.menu)
@@ -1540,7 +1546,7 @@ class magicSelectorWin(blankWindow):
 
 
     def __addEditMenu(self):
-        '''!
+        r'''!
         This adds an Edit menu to the windows menu bar:
 
         ----
@@ -1557,7 +1563,7 @@ class magicSelectorWin(blankWindow):
 
 
     def __quit(self):
-        '''!
+        r'''!
         This method saves changes and closes the window
         '''
         self.__finalize()
@@ -1566,7 +1572,7 @@ class magicSelectorWin(blankWindow):
 
 
     def __buildWin(self):
-        """!
+        r"""!
         This method builds the window content.
 
         ----
@@ -1678,7 +1684,7 @@ class magicSelectorWin(blankWindow):
 
 
     def __prepSelectedMagic(self):
-        """!
+        r"""!
         This initially prepares the internal data structure self.__selectedMagic
         for treeview from self.magicstring
         """
@@ -1700,7 +1706,7 @@ class magicSelectorWin(blankWindow):
 
 
     def __loadMagic(self):
-        """!
+        r"""!
         This Loads all the available Spell lists
         """
         allfiles = glob(self.__datapath + "/*/*.csv")
@@ -1723,7 +1729,7 @@ class magicSelectorWin(blankWindow):
 
 
     def __addSpellList(self, event = None):
-        """!This adds a selected spell list with the selected level to the list
+        r"""!This adds a selected spell list with the selected level to the list
 
         ----
         @todo this has  to be fully implemented
@@ -1754,7 +1760,7 @@ class magicSelectorWin(blankWindow):
 
 
     def __deleteSpellList(self, event = None):
-        """!
+        r"""!
         This removes a selected spell list from the list of selected spell lists.
         """
         selected_items = self.selectedMagicTree.selection()
@@ -1765,14 +1771,14 @@ class magicSelectorWin(blankWindow):
 
 
     def __slComboGet(self, event = None):
-        """!
+        r"""!
         A dirty workaround because the class has to be re-factored for Toplevel instead mainloop
         """
         self.__levelSL.set(self.__slCombo.get())
 
 
     def __getSelectedSL(self):
-        """!
+        r"""!
         This gets the selection of treeview items
         """
         self.__SLitem = []
@@ -1785,8 +1791,8 @@ class magicSelectorWin(blankWindow):
                 self.__SL_parent_id.append(self.allMagicTree.parent(selected_item))
 
 
-    def __existInTreeview(self, treeview, comparevalues = []):
-        """!
+    def __existInTreeview(self, treeview, comparevalues = None):
+        r"""!
         This checks if a value set already exists in a treeview widget
 
         @param treeview treeview widget to check
@@ -1813,7 +1819,7 @@ class magicSelectorWin(blankWindow):
 
 
     def __finalize(self, event = None):
-        """!
+        r"""!
         This builds a new #magicstring
         """
         self.magicstring = ""
@@ -1831,7 +1837,7 @@ class magicSelectorWin(blankWindow):
 
 
     def __updMagicRoot(self):
-        """!
+        r"""!
         This generates a new #magicstring from data of #selectedMagicTree and
         hands it over to  \ref monstercreatorWin
         """
@@ -1841,7 +1847,7 @@ class magicSelectorWin(blankWindow):
 
 
     def __checkMagicString(self):
-        """!
+        r"""!
         This enters the data of an existing #magicstring into the #selectedMagicTree
         """
         if self.magiclist:
@@ -1868,7 +1874,7 @@ class magicSelectorWin(blankWindow):
 
 
 class showCPWin(Toplevel, blankWindow):
-    '''!
+    r'''!
     This generates a display window for individual campaign tables
 
     ----
@@ -1876,8 +1882,8 @@ class showCPWin(Toplevel, blankWindow):
     '''
 
 
-    def __init__(self, rootwin, CPtable = []):
-        '''!constructor
+    def __init__(self, rootwin, CPtable = None):
+        r'''!constructor
         @param CPtable list of dictionaries (NPCs / Monster data) of campaign table
         '''
         super().__init__(rootwin)

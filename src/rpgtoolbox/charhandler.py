@@ -29,7 +29,7 @@ from rpgtoolbox.confbox import *
 from rpgtoolbox.globaltools import *
 
 mycnf = chkCfg()
-logger = log.createLogger('global', 'debug', '1 MB', 1, logpath = mycnf.cnfparam["logpath"] , 'charhandler.log')
+logger = log.createLogger('global', 'debug', '1 MB', 1, mycnf.cnfparam["logpath"], 'charhandler.log')
 
 
 
@@ -50,7 +50,7 @@ class Server:
                            npcs from
         """
 
-        if groupfile:
+        if groupfile and os.path.isfile(groupfile):
             logger.debug(f"read {groupfile}")
 
             with open(groupfile) as fp:
@@ -60,7 +60,7 @@ class Server:
         else:
             self.chargrp = []
 
-        if npcfile:
+        if npcfile and os.path.isfile(npcfile):
             logger.debug(f"read {npcfile}")
             self.npcgrp = readCSV(npcfile)
             logger.info(f"{npcfile} successfully read")

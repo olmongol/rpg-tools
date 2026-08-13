@@ -76,7 +76,7 @@ class combatant(object):
     """
 
 
-    def __init__(self, data = {}, datatype = "char", lang = "en", storepath = "./data/"):
+    def __init__(self, data = None, datatype = "char", lang = "en", storepath = "./data/"):
         """!
         Constructor combatant
         @param data dictionary that holds the fight credentials of an opponent:
@@ -85,6 +85,8 @@ class combatant(object):
         @param lang display language
         @param storepath global sorage path
         """
+        if data is None:
+            data = {}, datatype
         self.data = data
         self.dtype = datatype
         self.lang = lang
@@ -135,7 +137,7 @@ class combatant(object):
         pass
 
 
-    def writeCritResult(self, critresult = {}):
+    def writeCritResult(self, critresult = None or {}):
         pass
 
 

@@ -94,10 +94,10 @@ class treasure():
 
         try:
             treasuretype = trtypelist[self.lang].index(ttype) + 1
-        except:
+        except Exception:
             try:
                 treasuretype = trtypelist['num'].index(ttype) + 1
-            except:
+            except Exception:
                 print("Error: Invalid value category! Set value to default (normal)")
                 treasuretype = 3
 
@@ -124,7 +124,7 @@ class treasure():
                 print((screenmesg['file_saved'][self.lang][:-2] + ': ' + output))
                 return(fcontent)
 
-            except:
+            except Exception:
                 print('Error: invalid file name')
                 return("")
 
@@ -204,7 +204,8 @@ class treasure():
             # look up amount
             for j in range(0, len(table)):
 
-                if table[j][0][0] <= roll <= table[j][0][1]:
+                row = table[j][0]
+                if len(row) >= 2 and row[0] <= roll <= row[1]:
                     dummy = table[j][richness]
 
             # sum up amounts
@@ -219,7 +220,7 @@ class treasure():
 
         for i in range(0, nuov - 2):
 
-            if self.money[i][0] is not 0:
+            if self.money[i][0] != 0:
                 description.append("%s %s" % (str(self.money[i][0]),
                                            valueTranslation[self.money[i][1]][self.lang]))
 
@@ -306,7 +307,8 @@ class treasure():
 
             for j in range(0, len(itemit)):
 
-                if itemit[j][0][0] <= roll <= itemit[j][0][1]:
+                row = itemit[j][0]
+                if len(row) >= 2 and row[0] <= roll <= row[1]:
                     dummy = itemit[j][richness]
 
             if "Spruch" in dummy:

@@ -79,6 +79,9 @@ def createLogger(logger = 'rpg-Logger', loglvl = 'debug', logsize = '2 MB',
     if logsize[0] > 10 * GB:
         logsize[0] = 10 * GB
 
+    # Ensure log directory exists before creating file handler
+    os.makedirs(os.path.dirname(logfile), exist_ok=True) if logfile and '/' in logfile else None
+    
     handler = logging.handlers.RotatingFileHandler(logfile,
                                                    maxBytes = logsize[0],
                                                    backupCount = count)

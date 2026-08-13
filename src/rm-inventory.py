@@ -47,7 +47,7 @@ from rpgtoolbox import logbox as log
 from rpgtoolbox.confbox import *
 from rpgtoolbox.latexexport import inventory
 from rpgtoolbox.rolemaster import realms, spellists
-from PIL import Image, ImageTk
+from PIL import Image as _pilimg, ImageTk
 
 __updated__ = "03.07.2024"
 __author__ = "Marcus Schwamberger"
@@ -77,8 +77,9 @@ class InventoryWin(blankWindow):
 
         self.lang = lang
         self.character = char
-
-        if self.character == {}:
+        
+        # FIX: guard against None/empty-list character that skips default init
+        if not isinstance(self.character, dict) or self.character == {}:
             self.character = {  "player": "Dummy",
                                 "exp": 10000,
                                 'lvl':1,
@@ -363,28 +364,40 @@ class InventoryWin(blankWindow):
         ----
         @todo add fallback if image not found
         '''
+        # FIX: guard against missing character index (L108 curCharIdx out of range for self.chars, causing updateCharacter to set self.character=None)
+        if not isinstance(self.character, dict):
+            self.character = {}
+            return
+
         for elem in self.filterlist:
+            # FIX: defensive check - elem might be missing/None/empty dict in self.character
+            if elem not in self.character or self.character[elem] is None:
+                continue
+            # FIX: also skip empty dicts or falsy values that aren't valid piclinks
+            val = self.character[elem]
+            if isinstance(val, dict) and not val:
+                continue
 
             if elem == "piclink":
 
                 if elem in self.wcont.keys():
-                    self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.Resampling.LANCZOS))
+                    self.wcont[elem] = ImageTk.PhotoImage(_pilimg.open(val).resize((210, 210), _pilimg.Resampling.LANCZOS))
                     self.picLabel.config(image = self.wcont[elem])
 
                 else:
-                    img = Image.open(self.character[elem])
-                    rez_img = img.resize((210, 210), Image.LANCZOS)
+                    img = _pilimg.open(val)
+                    rez_img = img.resize((210, 210), _pilimg.Resampling.LANCZOS)
                     self.wcont[elem] = ImageTk.PhotoImage(rez_img)
                     # self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.Resampling.LANCZOS))
 
-            elif type(self.character[elem]) == type(""):
+            elif isinstance(val, str):
 
                 if elem not in self.wcont.keys():
                     self.wcont[elem] = StringVar()
 
-                self.wcont[elem].set(self.character[elem])
+                self.wcont[elem].set(val)
 
-            elif type(self.character[elem]) == type(0):
+            elif isinstance(val, int):
                 if elem not in self.wcont.keys():
                     self.wcont[elem] = IntVar()
 
@@ -1590,11 +1603,11 @@ class shopWin(blankWindow):
             if elem == "piclink":
 
                 if elem in self.wcont.keys():
-                    self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.Resampling.LANCZOS))
+                    self.wcont[elem] = ImageTk.PhotoImage(_pilimg.open(self.character[elem]).resize((210, 210), _pilimg.Resampling.LANCZOS))
                     self.picLabel.config(image = self.wcont[elem])
 
                 else:
-                    self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.Resampling.LANCZOS))
+                    self.wcont[elem] = ImageTk.PhotoImage(_pilimg.open(self.character[elem]).resize((210, 210), _pilimg.Resampling.LANCZOS))
 
             elif type(self.character[elem]) == type(""):
 
@@ -3215,11 +3228,11 @@ class enchantItem(blankWindow):
             if elem == "piclink":
 
                 if elem in self.wcont.keys():
-                    self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.Resampling.LANCZOS))
+                    self.wcont[elem] = ImageTk.PhotoImage(_pilimg.open(self.character[elem]).resize((210, 210), _pilimg.Resampling.LANCZOS))
                     self.picLabel.config(image = self.wcont[elem])
 
                 else:
-                    self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.Resampling.LANCZOS))
+                    self.wcont[elem] = ImageTk.PhotoImage(_pilimg.open(self.character[elem]).resize((210, 210), _pilimg.Resampling.LANCZOS))
 
             elif type(self.character[elem]) == type(""):
 
@@ -4567,11 +4580,11 @@ class editinventory(blankWindow):
             if elem == "piclink":
 
                 if elem in self.wcont.keys():
-                    self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.Resampling.LANCZOS))
+                    self.wcont[elem] = ImageTk.PhotoImage(_pilimg.open(self.character[elem]).resize((210, 210), _pilimg.Resampling.LANCZOS))
                     self.picLabel.config(image = self.wcont[elem])
 
                 else:
-                    self.wcont[elem] = ImageTk.PhotoImage(Image.open(self.character[elem]).resize((210, 210), Image.Resampling.LANCZOS))
+                    self.wcont[elem] = ImageTk.PhotoImage(_pilimg.open(self.character[elem]).resize((210, 210), _pilimg.Resampling.LANCZOS))
 
             elif type(self.character[elem]) == type(""):
 

@@ -75,7 +75,7 @@ def getLvl(ep = 10000):
 
 
 
-def calcTotals(charval = {}):
+def calcTotals(charval = None):
     '''!
      This function calculates total bonusses for all categories and skills of a
      character.
@@ -83,6 +83,8 @@ def calcTotals(charval = {}):
      @param charval the character's (whole) data in JSON format
      @retval result updated character's data concerning the total bonusses.
     '''
+    if charval is None:
+        charval = {}
 
     for cat in charval['cat']:
         logger.info(f"calculating {cat}")
@@ -271,7 +273,8 @@ class equipmentPenalities(object):
     """
 
 
-    def __init__(self, character = {}):
+    def __init__(self, character=None):
+        self.character = character or {}
         """
         Constructor equipmentPenalties
         @param character JSON structure with all character data

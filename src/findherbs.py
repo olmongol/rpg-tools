@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-'''!
+r'''!
 \brief This is a little tool for finding herbs in different areas of Middle-Earth
 
 This is for foraging checks in Middle-Earth.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-'''!
+r'''!
 \file winhelper.py
 
 \brief collection of helper tools for building Tk() windows/apps
@@ -35,8 +35,8 @@ __me__ = "A RPG tool package for Python 3"
 
 
 
-def buildWinCheck(win = None, opts = {}):
-    """!
+def buildWinCheck(win = None, opts = None):
+    r"""!
     This function is a  little helper for building windows with check buttons.
 
     \param win this is the Tk() main window where the frames build by this
@@ -73,7 +73,7 @@ def buildWinCheck(win = None, opts = {}):
                                                 )
                 buttons[index[j]].pack(anchor = "nw")
 
-                if opts[index[j]] == True:
+                if opts[index[j]] is True:
                     buttons[index[j]].select()
                 j += 1
 
@@ -84,8 +84,8 @@ def buildWinCheck(win = None, opts = {}):
 
 
 
-def buildWinRadio(win = None, opts = {}):
-    """
+def buildWinRadio(win = None, opts = None):
+    r"""
     This function is a little helper to build with radio buttons.
 
     \param win    this is the Tk() window where the herein build frames were
@@ -146,7 +146,7 @@ class AutoScrollbar(Scrollbar):
 
 
 class InfoCanvas(object):
-    '''!
+    r'''!
     A Canvas-widget that holds a scrollable Message-widget. This widget can only
     be used by the grid() Geometry Manager.
 
@@ -165,7 +165,7 @@ class InfoCanvas(object):
                  row = 0,
                  column = 0,
                  relief = SUNKEN):
-        """!
+        r"""!
         Constructor InfoCanvas
 
         \param master master Tk()-object

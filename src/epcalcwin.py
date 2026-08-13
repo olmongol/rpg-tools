@@ -30,9 +30,8 @@ from pprint import pprint
 from tkinter import filedialog
 import re
 import pickle
-from PIL import Image, ImageTk
+from PIL import Image as _pilimg, ImageTk
 from rpgtoolbox import logbox as log
-from PIL import Image, ImageTk
 
 logger = log.createLogger('global', 'debug', '1 MB', 1, './log' , 'epcalcwin.log')
 
@@ -43,7 +42,7 @@ class EPCalcWin(blankWindow):
     """
 
 
-    def __init__(self, lang = "en", charlist = [], storepath = "./data"):
+    def __init__(self, lang = "en", charlist = None, storepath = "./data"):
         """!
         Class constructor
         @param lang The chosen language for window's and button's
@@ -54,7 +53,9 @@ class EPCalcWin(blankWindow):
         """
 
         self.lang = lang
-        self.charlist = charlist
+        # BUG-FIX: charlist could be None instead of [], causing TypeError on iteration.
+        # Guard against None to prevent crash at L114 (__buildWin).
+        self.charlist = charlist if charlist is not None else []
         if self.charlist == []:
             self.charlist.append({  "player": "Marcus",
                                     "exp": 10000,
@@ -173,6 +174,9 @@ class EPCalcWin(blankWindow):
               ).grid(row = 1, column = 0, sticky = "EW")
 
         self.manlist = list(maneuvers.keys())
+        if not self.manlist:
+            logger.warning("No maneuvers available; using 'unavailable' as default!")
+            self.manlist = ["unavailable"]
         self.__selecman = StringVar()
         self.__selecman.set(self.manlist[0])
 
@@ -612,7 +616,7 @@ class showGrpEP(object):
     '''
 
 
-    def __init__(self, charlist = [], storepath = "./data", lang = 'en'):
+    def __init__(self, charlist = None, storepath = "./data", lang = 'en'):
         """!
         Constructor
         @param lang contains the chosen display language.
@@ -688,7 +692,7 @@ class manWin(object):
     '''
 
 
-    def __init__(self, character = {}, lang = "en"):
+    def __init__(self, character = None, lang = "en"):
         '''!
         Constructor
         @param character whole character daa
@@ -730,8 +734,8 @@ class manWin(object):
                                          self.character["prof"],
                                          self.character["lvl"])
               ).grid(row = 0, column = 4, sticky = "NEWS")
-        from PIL import Image, ImageTk
-        self.cpic = ImageTk.PhotoImage(Image.open(self.character["piclink"]).resize((210, 210), Image.Resampling.LANCZOS))
+        from PIL import Image as _pilimg, ImageTk
+        self.cpic = ImageTk.PhotoImage(_pilimg.open(self.character["piclink"]).resize((210, 210), _pilimg.Resampling.LANCZOS))
         self.picLabel = Label(master = self.window,
                               image = self.cpic
                               )

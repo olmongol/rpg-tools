@@ -39,7 +39,7 @@ class getSpells(object):
     '''
 
 
-    def __init__(self, datadir = "./data", charprof = "", charrealm = [], charlvl = 1):
+    def __init__(self, datadir = "./data", charprof = "", charrealm = None, charlvl = 1):
         '''!
         This class generates an object to get all spell lists into the right context
         for a single character.
@@ -55,10 +55,20 @@ class getSpells(object):
         self.lvl = charlvl
         self.spelllists = {}
 
-        if datadir[-1] == "/":
+        # Ensure consistent path handling - strip trailing slash for uniform join
+        if datadir and datadir[-1] == "/":
             datadir = datadir[:-1]
 
-        self.__getAllLists(datadir + "/default/magic/")
+        # Try to find the magic directory: try data/default/magic, then data/magic
+        candidates = [os.path.join(datadir, "default", "magic"), os.path.join(datadir, "magic")]
+        chosen_path = None
+        for c in candidates:
+            if os.path.isdir(c):
+                chosen_path = c
+                break
+        if not chosen_path:
+            raise FileNotFoundError("Magic directory not found. Tried: %s" % ", ".join(candidates))
+        self.__getAllLists(chosen_path)
         self.__categorizeSLs()
 
         if type(self.realm) != type([]):
@@ -81,21 +91,22 @@ class getSpells(object):
             logger.info(f"Spell Cat. : {slcat}")
 
             try:
-                splst = os.listdir(datadir + spellcat[i])
+                slpath = os.path.join(datadir, spellcat[i])
+                splst = os.listdir(slpath)
                 logger.info("spell lists: {}".format(splst))
+
+                for j in range(0, len(splst)):
+
+                    if splst[j].endswith(".csv"):
+                        slist = splst[j].replace('_', ' ')[:-4]
+                        self.spelllists[slcat][slist] = {}
+                        self.spelllists[slcat][slist]["Special Notes"] = readNotes(slpath, splst[j][:-4] + ".sn")
+                        self.spelllists[slcat][slist]['Spells'] = readCSV(os.path.join(slpath, splst[j]))
 
             except Exception as error:
                 logger.error(" {} -> {}".format(datadir + spellcat[i], error))
                 print(error)
                 pass
-
-            for j in range(0, len(splst)):
-
-                if splst[j].endswith(".csv"):
-                    slist = splst[j].replace('_', ' ')[:-4]
-                    self.spelllists[slcat][slist] = {}
-                    self.spelllists[slcat][slist]["Special Notes"] = readNotes(datadir + spellcat[i], splst[j][:-4] + ".sn")
-                    self.spelllists[slcat][slist]['Spells'] = readCSV(datadir + spellcat[i] + "/" + splst[j])
 
         logger.debug(f"self.spelllists:\n{json.dumps(self.spelllists,indent=4)}")
 
@@ -230,7 +241,7 @@ class getSpells(object):
 
 
 
-def updateSL(character = {}, datadir = "./data"):
+def updateSL(character = None, datadir = "./data"):
     '''!
     This function updates the character's spell abilities if new spells/spell lists
     are defined.

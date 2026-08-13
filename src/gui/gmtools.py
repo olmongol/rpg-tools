@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-'''!
+r'''!
 \file gui/gmtools.py
 \package gui
 \brief Window classes for GM tools gui
@@ -30,14 +30,14 @@ logger = log.createLogger('gmtools', 'debug', '1 MB', 1, logpath = mycnf.cnfpara
 
 
 class createTreasureWin(blankWindow):
-    """!
+    r"""!
     This class builds a window for treasure generation.
     \todo createTreasureWin layout could be improved
     """
 
 
     def __init__(self, lang = 'en', filename = ''):
-        """!
+        r"""!
         Class constructor createTreasureWin
         \param lang The chosen language for window's and button's
                     texts. At the moment, only English (en, default
@@ -154,7 +154,7 @@ class createTreasureWin(blankWindow):
                 self.__trtext.insert (END, submenu['items'][self.lang]['itemgen'])
                 self.trcontent = ''
 
-            except:
+            except Exception:
                 print('Error: Invalid file name')
                 print(outputfile)
 
@@ -168,14 +168,14 @@ class createTreasureWin(blankWindow):
 
 
 class createMagicWin(blankWindow):
-    """!
+    r"""!
     This class creates a window for the generation of magical items. The output text can be edited and copied.
     \todo createMagicWin window layout could be improved
     """
 
 
     def __init__(self, lang = 'en'):
-        """!
+        r"""!
         Class constructor createMagicWin
         \param lang The chosen language for window's and button's
                     texts. At the moment, only English (en, default
@@ -249,8 +249,8 @@ class EPCalcWin(blankWindow):
     """
 
 
-    def __init__(self, lang = "en", charlist = [], storepath = "./data"):
-        """!
+    def __init__(self, lang = "en", charlist = None, storepath = "./data"):
+        r"""!
         Class constructor EPCalcWin
         \param lang The chosen language for window's and button's
                     texts. At the moment, only English (en, default
@@ -560,7 +560,7 @@ class EPCalcWin(blankWindow):
 
 
     def __updDispay(self, curPlayer = ""):
-        '''!
+        r'''!
         Updates display of current player
         \param curPlayer name of selected player
         '''
@@ -659,7 +659,7 @@ class EPCalcWin(blankWindow):
 
 
     def __calcTravel(self):
-        '''!
+        r'''!
         Travelled EPs
         ----
         @todo The comments have to be added to the  character's diary
@@ -673,7 +673,7 @@ class EPCalcWin(blankWindow):
 
 
     def __calcIdeas(self):
-        '''!
+        r'''!
         EPs for ideas and role-playing
         ----
         @todo The comments have to be added to the character's diary
@@ -687,7 +687,7 @@ class EPCalcWin(blankWindow):
 
 
     def __finalize(self):
-        '''!
+        r'''!
         Do all finalizing steps:
         -# adding new EPs to characters
         -# open display window for whole group EPs
@@ -718,8 +718,8 @@ class showGrpEP(object):
     '''
 
 
-    def __init__(self, charlist = [], storepath = "./data", lang = 'en'):
-        """!
+    def __init__(self, charlist = None, storepath = "./data", lang = 'en'):
+        r"""!
         Constructor showGrpEP
         \param lang contains the chosen display language.
         """
@@ -755,7 +755,7 @@ class showGrpEP(object):
 
 
     def saveChars(self):
-        '''!
+        r'''!
         This method saves all data in character files
         @todo this has to be fully implemented
         '''

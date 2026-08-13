@@ -45,7 +45,7 @@ __msg__ = {'ERR_NO_DATA': "ERROR: no data to compute :(",
 logger = log.createLogger('global', 'debug', '1 MB', 1, logpath = "./log/" , logfile = 'globaltools.log')
 
 
-def sortDictlist(dictlist = [], key = "", reverse = True):
+def sortDictlist(dictlist = None, key = "", reverse = True):
     """!
     This function sorts a list of dictionaries by the value of a key.
 
@@ -54,22 +54,34 @@ def sortDictlist(dictlist = [], key = "", reverse = True):
     @param reverse direction of sorting, bottom -> up, top -> down
     @retval result sorted list of dicts
     """
-    result = sorted(dictlist, key = lambda k: k[key], reverse = reverse)
+    if dictlist is None or dictlist == []:
+        return []
+
+    # Filter out None entries before sorting
+    dictlist = [d for d in dictlist if isinstance(d, dict) and len(d) > 0]
+    
+    # wenn kein Key angegeben ist, sortiere nach dem ersten Wert jedes Dicts
+    if key == "":
+        result = sorted(dictlist, key=lambda k: list(k.values())[0], reverse=reverse)
+    else:
+        result = sorted(dictlist, key = lambda k: k.get(key, 0), reverse = reverse)
 
     return result
 
 
-def remDoubletsFromList(mylist = [1, 2, 2]):
+def remDoubletsFromList(mylist=None):
     """! This removes doublet entries from a list
 
     @param mylist list to remove the doublets from
     @retval result cleaned list
     """
+    if mylist is None:
+        mylist = []
     try:
         result = list(set(mylist))
         logger.debug("fast cleaning successful.")
 
-    except:
+    except Exception:
         result = []
 
         for elem in mylist:
@@ -98,7 +110,7 @@ def readFile(path = './', file_name = None, mode = 'r'):
         logger.warning('readFile: %s' % (__msg__['ERR_WRONG_MODE']))
         return(__msg__['ERR_WRONG_MODE'])
 
-    if file_name == None:
+    if file_name is None:
         print((__msg__['ERR_NO_FILENAME']))
         logger.error('readFile: %s' % (__msg__['ERR_NO_FILENAME']))
         return(__msg__['ERR_NO_FILENAME'])
@@ -140,7 +152,7 @@ def writeFile(path = './', file_name = 'output', data = None, mode = 'w'):
         logger.warning('writeFile: %s' % (__msg__['ERR_WRONG_MODE']))
         return __msg__['ERR_WRONG_MODE']
 
-    if data == None:
+    if data is None:
         print(__msg__['ERR_NO_DATA'])
         logger.error('writeFile: %s' % (__msg__['ERR_NO_DATA']))
         return __msg__['ERR_NO_DATA']
@@ -174,7 +186,7 @@ def writeFile(path = './', file_name = 'output', data = None, mode = 'w'):
     return __msg__['OK']
 
 
-def checkFiles(path = './', file_list = []):
+def checkFiles(path = './', file_list = None):
     """!
     This function check out whether a list of files exists in a specific
     directory.
@@ -186,11 +198,11 @@ def checkFiles(path = './', file_list = []):
                    as value. If the path does not exist it contains just
                    {'path':False}
     """
+    if file_list is None:
+        file_list = []
 
     result = {}
-    logger.info(f"OS: {os.name}")
-
-    print(f"DEBUG gtools 193:{path}")
+    
     if os.name == 'posix':
 
         if path[-1] != '/':
@@ -228,7 +240,7 @@ def checkFiles(path = './', file_list = []):
     return result
 
 
-def sortIndex(dic = {}):
+def sortIndex(dic=None):
     """!
     \brief This function is a little helper when sorting a dictionary.
 
@@ -239,12 +251,14 @@ def sortIndex(dic = {}):
     @param dic a dictionary whose index shall be sorted
     @retval index an array with the sorted index of the given dictionary dict
     """
+    if dic is None:
+        dic = []
     index = list(dic.keys())
     index.sort()
     return index
 
 
-def array2dict(array = [], expr = '=', comment = '#'):
+def array2dict(array=None, expr='=', comment='#'):
     """!
     This function transforms an array <str1>=<str2> into a dictionary
     { <str1> : <str2>}
@@ -256,9 +270,8 @@ def array2dict(array = [], expr = '=', comment = '#'):
     @retval result a dictionary
     """
     result = {}
-
-    if type(array) != type([]):
-        return result
+    if array is None:
+        array = []
 
     for i in range(len(array)):
         if comment not in array[i]:
@@ -270,20 +283,30 @@ def array2dict(array = [], expr = '=', comment = '#'):
     return result
 
 
-def list2str(array = []):
+def list2str(array=None):
     """!
     This function transforms a list/tuple into a string where the elements are
     separated by spaces.
     @param array List/tupel to be transformed to string
     @retval result string which holds the elements space separated
     """
-    if type(array) == type([]) or type(array) == type(()):
-        result = ''
-        for key in array:
-            result += str(key) + " "
-
-        result = result.strip()
-    return result
+    if array is None:
+        return ''
+    try:
+        if type(array) == type([]) or type(array) == type(()):
+            result = ''
+            for key in array:
+                result += str(key) + " "
+            result = result.strip()
+            return result
+        
+        elif isinstance(array, str):
+            result = array.strip()
+            return result
+    except Exception:
+        pass
+    
+    return str(array)
 
 
 def tstr2list(string = '(1,2,3)'):
@@ -304,7 +327,7 @@ def tstr2list(string = '(1,2,3)'):
     return result
 
 
-def makeKeyList(dic = {}, klist = []):
+def makeKeyList(dic=None, klist=None):
     '''!
     This function simply extracts/compares the key index of a given dictionary
     with a list. If the list is lacking entries they will be added from the key
@@ -314,6 +337,8 @@ def makeKeyList(dic = {}, klist = []):
     @return klist generated/completed list
     @return fit Boolean whether index and key list are the same.
     '''
+    if dic is None:
+        dic = []
     for key in dic:
         if key not in klist:
             klist.append(key)
@@ -325,13 +350,15 @@ def makeKeyList(dic = {}, klist = []):
         return klist, False
 
 
-def writeJSON(filename = "", content = {}):
+def writeJSON(filename="", content=None):
     '''!
     This function writes a dictionary into a JSON file with UTF.8 encoding.
 
     @param filename  path+file where to save the data in
     @param content dictionary which shall be saved as JSON content.
     '''
+    if content is None:
+        content = []
     try:
         with open(filename, "w", encoding = "utf-8") as fp:
             json.dump(content, fp, indent = 4)
@@ -353,7 +380,7 @@ def readJSON(filename):
             content = json.load(fp)
 
         logger.info('%s loaded.' % filename)
-    except:
+    except Exception:
         content = {}
         logger.error("Could not load %s" % filename)
 
@@ -368,7 +395,7 @@ def getLast(string = "/", sep = '/'):
     @return last element of the list.
     '''
     dummy = string.split(sep)
-    return str(dummy[-1].split())
+    return dummy[-1] if dummy else ""
 
 
 '''@fixme duplicate readCSV in spelleditor '''
@@ -453,12 +480,14 @@ def splitExceptBetween(inputstr = 'bla,fasel', delimiter = ',', quotes = '"'):
     return result
 
 
-def writeCSV(fname = "test.csv", cont = [{'Spam': 'Ham'}, {'Spam':'eggs'}]):
+def writeCSV(fname = "test.csv", cont=None):
     '''!
     This function creates a CSV file from a given list of dictionaries
     @param fname file name of the CSV
     @param cont list of dictionaries
     '''
+    if cont is None:
+        raise ValueError("cont cannot be None")
     header = list(cont[0].keys())
     with open(fname, 'w', encoding = "utf8") as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames = header)
@@ -495,7 +524,7 @@ def readMagic(root = "./data/default/magic", slgroup = None):
         return magiclists
 
 
-def getIdx(chklist = [], key = "", value = ""):
+def getIdx(chklist=None, key = "", value = ""):
     '''!
     This function searches a list of dictionaries by an key/value and delivers
     the list index of an element (dictionary) or None if not found.
@@ -504,6 +533,8 @@ def getIdx(chklist = [], key = "", value = ""):
     @param value the value to search for in the key index
     @return the index of the first finding in the list or None
     '''
+    if chklist is None:
+        chklist = []
 
     for i in range(0, len(chklist)):
         if key in chklist[i].keys():
@@ -512,13 +543,15 @@ def getIdx(chklist = [], key = "", value = ""):
     return None
 
 
-def rollInit(clist = []):
+def rollInit(clist=None):
     '''!
     This function rolls the initiative for a list of combatants as defined in
     attackcheck.py
     @param clist list of dictionaries (combatants)
     @retval clist with rolled initiative updated list
     '''
+    if clist is None:
+        clist = []
     for i in range(0, len(clist)):
         roll = rd.randint(1, 10)
         clist[i]["init"] = clist[i]["Qu"] + roll
@@ -526,7 +559,7 @@ def rollInit(clist = []):
     return clist
 
 
-def sortList(clist = [], key = "init"):
+def sortList(clist = None, key = "init"):
     '''!
     This function reversely sorts a list of combatant dictionaries by the values
     of a given key (default: init)
@@ -534,5 +567,7 @@ def sortList(clist = [], key = "init"):
     @param key the key to reversely sort by
     @retval result reversely sorted list of dictionaries
     '''
+    if clist is None:
+        clist = []
     result = sorted(clist, key = lambda k: k[key], reverse = True)
     return result

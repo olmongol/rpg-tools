@@ -43,7 +43,8 @@ class RRWin(blankWindow):
     """
 
 
-    def __init__(self, lang = "en", selected = "", charlist = [], storepath = "./data"):
+    def __init__(self, lang="en", selected="", charlist=None, storepath="./data"):
+        self.charlist = charlist or []
         """!
         Class constructor RRWin
         @param lang The chosen language for window's and button's

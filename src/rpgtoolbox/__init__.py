@@ -9,4 +9,7 @@ from . import calendar
 from . import handlemagic
 from . import epcalc
 from . import chartotext
+from . import combat
+from . import rolemaster
+from . import rmfight
 #from . import latexexport

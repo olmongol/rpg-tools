@@ -81,7 +81,7 @@ class charsheet(object):
     This class generates LaTeX code from character's data
     '''
 
-    def __init__(self, char = {}, storepath = "./", short = True):
+    def __init__(self, char = None, storepath = "./", short = True):
         '''!
         Constructor:
         @param char character data in a dictionary
@@ -89,6 +89,13 @@ class charsheet(object):
         @param short a flag parameter whether the export should be short (no skills
                      with rank = 0) or long (all skills)
         '''
+        if char is None:
+            self.char = {}
+            self.storepath = storepath
+            self.short = short
+            # No valid character data, don't run further methods
+            return
+        
         from rpgtoolbox.rolemaster import stats
         self.char = char
         self.storepath = storepath
@@ -106,7 +113,7 @@ class charsheet(object):
         Creates the main LaTeX file from template and saves it into a sub directory
         of the characters saving path
         '''
-        self.chardir = self.storepath + self.char['player']
+        self.chardir = self.storepath + self.char.get('player', 'Unknown')
 
         if not os.path.exists(self.chardir + "/latex"):
             os.makedirs(self.chardir + "/latex")
@@ -612,7 +619,7 @@ class inventory(object):
     This class generates an inventory PDF from a character file if the character has an inventory.
     '''
 
-    def __init__(self, character = {}, storepath = "./data/"):
+    def __init__(self, character = None or {}, storepath = "./data/"):
         '''!
         Class constructor
         @param character dictionary holding character's data
@@ -1077,16 +1084,16 @@ class inventory(object):
                 if gear["worth"][coins["long"][i]] > 0:
                     worth += "{}{} ".format(gear["worth"][coins["long"][i]], coins["short"][i])
 
-            self.latex += rcolor + " {} & {} & {} & {} & {} &{} & {} & {} & {} \\\\\n\hline\n".format(gear["name"],
-                                                                                           gear["bonus"],
-                                                                                           str(gear["weight"]) + " lbs.",
-                                                                                           gear["capacity"],
-                                                                                           gear["volume"],
-                                                                                           gear["location"],
-                                                                                           gear["skill"],
-                                                                                           worth,
-                                                                                           gear["description"].replace("%", "\%") + descadd
-                                                                                           )
+            self.latex += rcolor + r" {} & {} & {} & {} & {} &{} & {} & {} & {} \\\\\n\hline\n".format(gear["name"],
+                                                                                                       gear["bonus"],
+                                                                                                       str(gear["weight"]) + " lbs.",
+                                                                                                       gear["capacity"],
+                                                                                                       gear["volume"],
+                                                                                                       gear["location"],
+                                                                                                       gear["skill"],
+                                                                                                       worth,
+                                                                                                       gear["description"].replace("%", r"\%") + descadd
+                                                                                                       )
 
         self.latex += "\\end{longtable}\n"
         self.latex += "}\n"

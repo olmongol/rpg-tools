@@ -210,10 +210,10 @@ class chkCfg(object):
         self.com = comment
         self._fcon = []
 
-        if path == None:
+        if path is None:
             self.__exists = rpgtools.checkFiles('./', [self.fn])
 
-            if self.__exists[self.fn]:
+            if self.fn in self.__exists:
                 self._fcon = rpgtools.readFile('./', self.fn, 'r')
                 self.cnfparam = rpgtools.array2dict(self._fcon, self.exp, self.com)
 #                logger.debug('confbox: read config file')
@@ -228,10 +228,7 @@ class chkCfg(object):
             if "src" != localfs[-3:]:
                 localfs += "/src/" + self.path
                 self.__exists = rpgtools.checkFiles(localfs, [self.fn])
-            print(self.__exists, "src" != localfs[-3:])
-            print(f"pso: {os.getcwd()}")
-            print(f"DEBUG 215:{self.path} {self.fn}")
-            if self.__exists[self.fn]:
+            if self.fn in self.__exists:
                 self._fcon = rpgtools.readFile(self.path, self.fn, 'r')
                 self.cnfparam = rpgtools.array2dict(self._fcon, self.exp, self.com)
             else:
@@ -264,7 +261,12 @@ class chkCfg(object):
             self._content += cfgopts[key]
             self._content += key + " = " + str(defval[key])
 
-        self._fp = open(self.path + '/' + self.fn, 'w')
+        if not os.path.exists(self.path):
+            os.makedirs(self.path)
+        if not os.path.exists(self.path):
+            os.makedirs(self.path)
+        
+        self._fp = open(os.path.join(self.path, self.fn), 'w')
         self._fp.write(self._content)
         self._fp.close()
 
@@ -363,7 +365,7 @@ class chkCfg(object):
 
             if content != {}:
 
-                if self.path == None:
+                if self.path is None:
                     self.path = "."
 
                 for param in content:

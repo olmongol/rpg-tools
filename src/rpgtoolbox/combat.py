@@ -56,12 +56,14 @@ def getAttackSpec(shortterm = "", longterm = "", stattable = "data/default/fight
     pass
 
 
-def sortIniti(cl = []):
+def sortIniti(cl = None):
     """!
     Sorts list of tuples decending by the first tuple entry.
     @param cl list of tuple
     @return sorted tuple list
     """
+    if cl is None:
+        cl = []
     return sorted(cl, key = lambda x: x[0], reverse = True)
 
 
@@ -147,7 +149,9 @@ def convertNSC(filename = "data/default/nscs/default.csv"):
                                                         weapons[passed.groups()[2]]["table"]),
                                                         passed.groups()[0], passed.groups()[1]]
                             if passed.groups()[1] == "":
-                                dummy[i][j][2] = "H"
+                                sublist = dummy[i].get(j)
+                                if isinstance(sublist, list) and len(sublist) > 2:
+                                    sublist[2] = "H"
 
                 else:
                     dummy[i] = []
@@ -162,7 +166,7 @@ def convertNSC(filename = "data/default/nscs/default.csv"):
     return nsclist
 
 
-def makeCombatant(achar = {}):
+def makeCombatant(achar=None):
     """!
     This function creates a combatant dictionary out of a character dictionary.
     @param achar character dictionary
@@ -255,7 +259,7 @@ def makeCombatant(achar = {}):
     return combatant
 
 
-def addStatusParam(cmbtlist = []):
+def addStatusParam(cmbtlist=None):
     """!
     This function adds vitial stats to combattant list
     @param cmbtlist list of combatants (dictionatries)
@@ -344,7 +348,7 @@ def switch(mystr):
     return result
 
 
-def createCombatList(comlist = []):
+def createCombatList(comlist = None or []):
     """!
     This adds a status and combat log section to combatants in a  list.
 
@@ -487,8 +491,9 @@ class crittable():
 
                     for elem in ["hits", "hits/rnd", "stunned", "die", "ooo", "parry", "no_parry"]:
                         # debug
-                        # print("{} : {} - {} ==> {}".format(crit, roll, elem, self.crittable[crit][roll][elem]))
-                        self.crittable[crit][roll][elem] = int(self.crittable[crit][roll][elem])
+                        # print("{} : {} - {} ==> {}".format(crit, roll, elem, self.crittable[crit][roll].get(elem)))
+                        inner = self.crittable.get(crit, {}).get(roll, {})
+                        self.crittable[crit][roll][elem] = int(inner.get(elem, 0))
 
         logger.info("successfully converted from csv to dictionary")
 
