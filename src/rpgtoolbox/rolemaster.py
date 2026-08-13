@@ -1345,13 +1345,15 @@ def statbonus(statvalue = 20):
 
 
 
-def refreshStatBonus(character = {}):
+def refreshStatBonus(character=None):
     '''
     This function recalculates Stat bonusses and refreshes their bunus values in
     the complete character data structure: Stat, Category
     @param character data in a dictionary/JSON
     @retval result refreshed character data
     '''
+    if character is None:
+        character = {}
     result = character
     statlist = ["Ag", "Co", "Me", "Re", "In", "Pr", "SD", "Em", "Qu", "St"]
 
@@ -1382,12 +1384,14 @@ def refreshStatBonus(character = {}):
 
 
 
-def bgoMoney(purse = {}):
+def bgoMoney(purse=None):
     '''
     Extra money by BGO
     @param purse dictionary holding the character's purse
     @retval result dictionary as new purse of character
     '''
+    if purse is None:
+        purse = {}
     from rpgtoolbox.rpgtools import dice
     roll = dice(100, 1)
     result = dict(purse)
@@ -1460,12 +1464,14 @@ def calcEncumberance(charweight = 80, maxv = 15):
 
 
 
-def calcHitMods(char = {}):
+def calcHitMods(char=None):
     '''
     This calculates all data concerning hits like recovery or modifikations by injuries.
     @param char whole character dictionary/JSON
     @reval result dictionary holding all calculated data
     '''
+    if char is None:
+        char = {}
     Co = char["Co"]['total']
     result = {"total hits": char["cat"]["Body Development"]["Skill"]["Body Development"]["total bonus"]}
     result["active"] = "1 hit/3 hours"

@@ -72,15 +72,24 @@ def sumDices(sides = 4, number = 1):
 
 
 
-def findHerbs(herbs = [], roll = 0, skill = -15, area = ["---"], climate = [], locale = []):
+def findHerbs(herbs=None, roll=0, skill=-15, area=None, climate=None, locale=None):
+        if herbs is None:
+            herbs = []
+        if area is None:
+            area = ["---"]
+        if climate is None:
+            climate = []
+        if locale is None:
+            locale = []
         """!
         This function searches for herbs by area, climate and locale dependend on difficulty of
         finding and the success of the skill (foraging) roll.
+        @param herbs list of available herbs (optional)
         @param roll result of the dice roll
         @param skill total skill bonus for Foraging
-        @param area local area where the herb might grow
-        @param climate climate conditions
-        @param locale local environment conditions like 'desert'
+        @param area local area where the herb might grow (optional)
+        @param climate climate conditions (optional)
+        @param locale local environment conditions like 'desert' (optional)
         @retval result list of dictionaries holding the found herbs
         """
         logger.debug(f"herbs:\n {json.dumps(herbs, indent=4)}")
@@ -255,7 +264,9 @@ class searchHerbsWin(blankWindow):
     """
 
 
-    def __init__(self, lang = "en", charlist = [], storepath = "./data", herbsfile = "herbs.csv"):
+    def __init__(self, lang = "en", charlist = None, storepath = "./data", herbsfile = "herbs.csv"):
+        if charlist is None:
+            charlist = []
         """!
         Constructor searchHerbsWin
         @param lang chosen language for window content.

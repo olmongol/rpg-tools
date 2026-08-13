@@ -499,7 +499,9 @@ class spellbook(object):
     compiles it into a PDF.
     '''
 
-    def __init__(self, character = {}, storepath = "./data/"):
+    def __init__(self, character=None, storepath="./data/"):
+        if character is None:
+            character = {}
         '''!
         Class constructor
         @param character dictionary which hold full character data.

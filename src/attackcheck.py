@@ -1372,7 +1372,9 @@ class showNPCWin(blankWindow):
             logger.info(f"{self.CPtable} saved successfully.")
 
 
-    def prepareDataForTreeview(self, dictlist = None, fields = ["category", "name", "lvl", "enc", "hits", "AT", "size"]):
+    def prepareDataForTreeview(self, dictlist = None, fields = None):
+        if fields is None:
+            fields = ["category", "name", "lvl", "enc", "hits", "AT", "size"]
         r"""!This prepares data for the treeview widget
 
         @param dictlist list of dictionaries for preparation
