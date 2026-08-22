@@ -1030,7 +1030,7 @@ def castBaseSpell(**kwargs):
             elif total in range(25, 29):
                 rrmod = 35
 
-            elif total in range(29.33):
+            elif total in range(29, 33):
                 rrmod = 30
 
             elif total in range(33, 37):
@@ -1107,7 +1107,7 @@ def castBaseSpell(**kwargs):
             elif total in range(25, 29):
                 rrmod = 30
 
-            elif total in range(29.33):
+            elif total in range(29, 33):
                 rrmod = 25
 
             elif total in range(33, 37):
@@ -1190,7 +1190,7 @@ def castBaseSpell(**kwargs):
             elif total in range(25, 29):
                 rrmod = 35
 
-            elif total in range(29.33):
+            elif total in range(29, 33):
                 rrmod = 30
 
             elif total in range(33, 37):
@@ -1261,7 +1261,7 @@ def castBaseSpell(**kwargs):
             elif total in range(25, 29):
                 rrmod = 45
 
-            elif total in range(29.33):
+            elif total in range(29, 33):
                 rrmod = 40
 
             elif total in range(33, 37):
@@ -1335,7 +1335,7 @@ def castBaseSpell(**kwargs):
             elif total in range(25, 29):
                 rrmod = 35
 
-            elif total in range(29.33):
+            elif total in range(29, 33):
                 rrmod = 30
 
             elif total in range(33, 37):
@@ -1418,7 +1418,7 @@ def castBaseSpell(**kwargs):
             elif total in range(25, 29):
                 rrmod = 35
 
-            elif total in range(29.33):
+            elif total in range(29, 33):
                 rrmod = 30
 
             elif total in range(33, 37):
@@ -1488,7 +1488,7 @@ def castBaseSpell(**kwargs):
             elif total in range(25, 29):
                 rrmod = 45
 
-            elif total in range(29.33):
+            elif total in range(29, 33):
                 rrmod = 35
 
             elif total in range(33, 37):
@@ -1565,7 +1565,7 @@ def castBaseSpell(**kwargs):
             elif total in range(25, 29):
                 rrmod = 30
 
-            elif total in range(29.33):
+            elif total in range(29, 33):
                 rrmod = 25
 
             elif total in range(33, 37):
@@ -1648,7 +1648,7 @@ def castBaseSpell(**kwargs):
             elif total in range(25, 29):
                 rrmod = 35
 
-            elif total in range(29.33):
+            elif total in range(29, 33):
                 rrmod = 30
 
             elif total in range(33, 37):
