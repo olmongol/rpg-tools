@@ -1,21 +1,21 @@
 #!/usr/bin/python3
 '''!
-@file test_epcalcwin.py
-@package test_epcalcwin.py
-@brief This is a little tool for tracking the EPs  of Role Master Characters
+\file epcalcwin_gui.py
+\package gui.epcalcwin
+\brief GUI for the EP calculator: experience points, maneuvers, spells and basic spell casting
+This module provides the main EP calculation window (\c EPCalcWin) incl. a basic
+spell-casting window driven by the basic spell table (magic.readBasicTable) and
+resistance rolls (rpgtools.RRroll), plus the maneuver window (\c manWin) and the
+group-EP display/helper class (\c showGrpEP).
 
-@date (C) 2015-2021
-@author Marcus Schwamberger
-@email marcus@lederzeug.de
-@license GNU V3.0
-@version 1.2.0
+\date (C) 2015-2026
+\author Marcus Schwamberger
+\email marcus@lederzeug.de
+\license GNU V3.0
+\version 1.3.0
 ----
-@todo
-- adding a RR window
+\todo
 - adding a cat/skill checker window for the whole group (select skill once and check for all)
-- adding spellcasting windpw (stat man)
-
-
 '''
 import os
 import json
@@ -633,189 +633,440 @@ class EPCalcWin(blankWindow):
 
         return target, label
 
+def __winCasting(self):
+    '''!
+    Opens a Toplevel window for basic spell-casting via the basic spell table
+    (magic.readBasicTable), followed by a resistance roll (rpgtools.RRroll).
+    Flow:
+      1. pick character (or 'universell' = no character filter), spell list, spell
+      2. roll d100 (button) or enter a value manually
+      3. Zaubern: probe = list total bonus + d100  ->  basic table cell
+                  cell 'F'  -> Fumble;  cell int  -> RR-Modifikator
+      4. RRroll(stufe zauberer, stufe ziel, rrmod + RR-Ziel-Modifikator)
+         resisted=True  -> Ziel widersteht (Zauber schlaegt FEHL)
+    '''
+    from rpgToolDefinitions import magic as _magic
+    from rpgtoolbox.rpgtools import RRroll as _RRroll
 
-    def __winCasting(self):
-        '''!
-        Opens a Toplevel window for a basic spell-casting roll.
-        Flow (mirrors rolemaster.spellcasting.castBaseSpell):
-          1. pick the spell list (rank + total bonus)
-          2. pick the target (self by default, or another named character)
-          3. roll a d100, add rank bonus
-          4. look up the resistance-roll modifier via castBaseSpell
-          5. if rrmod != 'F': resolve target armor, then run RRroll
-        '''
-        from rolemaster.spellcasting import castBaseSpell
-        from rpgtoolbox.rpgtools import RRroll
+    top = Toplevel(self.window)
+    top.transient(self.window)
+    try:
+        top.title(labels["win_casting"][self.lang])
+    except (KeyError, IndexError):
+        top.title("Zauber wirken")
+    top.grid_columnconfigure(0, weight=1)
+    top.grid_columnconfigure(2, weight=1)
+    L = self.lang
 
-        top = Toplevel(self.window)
-        top.transient(self.window)
-        top.title(wintitle["win_casting"][self.lang] if "win_casting" in wintitle
-                  else labels["win_casting"][self.lang])
-        top.grid_columnconfigure(0, weight=1)
+    def _t(key, fallback):
+        """!
+        Localized label lookup in the langpack labels dict.
 
-        # --- selected character
-        cur = self.__selecPlayer.get()
-        char = None
-        for c in self.charlist:
-            if c.get("player") == cur:
-                char = c
-                break
+        @param key      label key in gui.window.labels
+        @param fallback text to return if the key or language is missing
+        @return localized string or fallback
+        """
+        d = labels.get(key) or {}
+        return d.get(L) or d.get("de") or fallback
+
+    # --- helper: collect learned spell-list blocks for a character ----------
+    def _spell_blocks(char):
+        """!
+        Collects all spell-list blocks of one character from its 'Spells - *'
+        categories (cat -> Skill -> list -> Spells).
+
+        @param char character dict (or None for no list at all)
+        @return list of dicts with keys 'cat', 'name', 'rank', 'total bonus',
+                'cat total bonus', 'Spells'
+        """
+        out = []
         if char is None:
-            char = self.charlist[0]
+            return out
+        cat = char.get('cat') or {}
+        if not isinstance(cat, dict):
+            return out
+        for cname, blk in sorted(cat.items()):
+            if not str(cname).startswith('Spells - '):
+                continue
+            if not isinstance(blk, dict):
+                continue
+            cat_total = blk.get('total bonus', 0)
+            skill = blk.get('Skill')
+            if isinstance(skill, dict):
+                for lname, lblk in sorted(skill.items()):
+                    if not isinstance(lblk, dict):
+                        continue
+                    spells = lblk.get('Spells') or []
+                    if not spells:
+                        continue
+                    out.append({
+                        'cat': cname,
+                        'name': lname,
+                        'rank': lblk.get('rank', 0),
+                        'total bonus': lblk.get('total bonus', 0),
+                        'cat total bonus': cat_total,
+                        'Spells': spells,
+                    })
+            else:
+                # fallback: no 'Skill' sub-dict -> spells directly on the block
+                spells = blk.get('Spells') or []
+                if spells:
+                    out.append({
+                        'cat': cname,
+                        'name': cname.split(' - ', 1)[-1],
+                        'rank': blk.get('rank', 0),
+                        'total bonus': blk.get('total bonus', 0),
+                        'cat total bonus': cat_total,
+                        'Spells': spells,
+                    })
+        return out
 
-        # --- spell lists
-        lists = self.__winSpellLists(char)
-        if not lists:
-            Label(top, text="Keine Zauber-/Skill-Listen gefunden",
-                  bg="#282828", fg="white").grid(
-                row=0, column=0, columnspan=2, sticky="WE", padx=4, pady=4)
-            top.grab_set()
-            btn_close = Button(top,
-                               text=txtbutton['but_clos'][self.lang],
-                               command=top.destroy)
-            btn_close.grid(row=1, column=0, columnspan=2)
-            btn_close.focus_set()
+    def _learned_blocks(char):
+        """only lists the character actually learned (cat OR list bonus > 0)"""
+        res = []
+        for b in _spell_blocks(char):
+            if (isinstance(b['total bonus'], int) and b['total bonus'] > 0) or \
+               (isinstance(b['cat total bonus'], int) and b['cat total bonus'] > 0):
+                res.append(b)
+        return res
+
+    # --- collect all spell lists (all characters) for 'universell' -----------
+    all_blocks = []
+    for c in self.charlist:
+        for b in _spell_blocks(c):
+            b.setdefault('realm', c.get('realm') or 'Essence')
+            all_blocks.append(b)
+
+    def _char_entry(sel):
+        """resolve the charlist dict behind a selected display name"""
+        for c in self.charlist:
+            if (c.get('player') or c.get('name') or '?') == sel:
+                return c
+        return None
+
+    def _current_blocks():
+        """(blocks, realm) for the current character selection"""
+        sel = char_var.get()
+        if sel == 'universell':
+            blocks = all_blocks
+            realm = 'Essence'
+            caster = self.charlist[0] if self.charlist else None
+            if caster and isinstance(caster.get('realm'), str):
+                realm = caster['realm']
+            return blocks, realm, caster
+        caster = _char_entry(sel)
+        blocks = _learned_blocks(caster) if caster else []
+        realm = 'Essence'
+        if caster and isinstance(caster.get('realm'), str):
+            realm = caster['realm']
+        return blocks, realm, caster
+
+    # --- dropdowns: character / spell list / spell ----------------------------
+    char_names = ['universell'] + [c.get('player') or c.get('name') or '?'
+                                   for c in self.charlist]
+    char_names_uniq = []
+    for n in char_names:
+        if n not in char_names_uniq:
+            char_names_uniq.append(n)
+    char_names = char_names_uniq if char_names_uniq else ['universell']
+
+    char_var = StringVar(top)
+    list_var = StringVar(top)
+    spell_var = StringVar(top)
+
+    def _set_options(menu, var, options):
+        """replace OptionMenu options dynamically and re-select first entry"""
+        old = var.get()
+        menu['menu'].delete(0, 'end')
+        for o in options:
+            menu['menu'].add_command(label=o, command=lambda x=o: var.set(x))
+        if options:
+            var.set(old if old in options else options[0])
+        else:
+            var.set('-')
+
+    # --- spell info output ----------------------------------------------------
+    info = Text(top, height=6, width=56, wrap='word')
+    info.grid(row=4, column=0, columnspan=4, sticky='WE', padx=2, pady=2)
+    info.config(state='disabled')
+
+    def _show_spell_info():
+        """show the fields of the currently selected spell"""
+        info.config(state='normal')
+        info.delete('1.0', 'end')
+        blocks, _realm, _caster = _current_blocks()
+        blk = next((b for b in blocks if b['name'] == list_var.get()), None)
+        s = None
+        if blk is not None:
+            s = next((x for x in (blk.get('Spells') or [])
+                      if str(x.get('Spell')) == str(spell_var.get())), None)
+        if s is None:
+            info.insert('end', '(kein Zauber gewaehlt)\n')
+        else:
+            info.insert('end', 'Zauber      : %s\n' % s.get('Spell', '-'))
+            info.insert('end', 'Stufe       : %s\n' % s.get('Lvl', '-'))
+            info.insert('end', 'Dauer       : %s\n' % s.get('Duration', '-'))
+            info.insert('end', 'Reichweite  : %s\n' % s.get('Range', '-'))
+            info.insert('end', 'Ziel        : %s\n' % s.get('Area of Effect', '-'))
+            info.insert('end', 'Typ         : %s\n' % s.get('Type', '-'))
+            info.insert('end', 'Beschreibung: %s\n' % (s.get('Description') or '-'))
+            if blk is not None:
+                info.insert('end', '\nListe : %s  (Rank %s, Bonus %s)\n' % (
+                    blk['name'], blk.get('rank', '-'), blk.get('total bonus', '-')))
+        info.config(state='disabled')
+
+    def _rebuild_spells():
+        """!
+        Refills the spell dropdown with the spells of the currently selected
+        list; only spells with Lvl <= list rank are offered. Afterwards the
+        spell-info output is updated.
+        """
+        blocks, _realm, _caster = _current_blocks()
+        blk = next((b for b in blocks if b['name'] == list_var.get()), None)
+        names = []
+        if blk is not None:
+            try:
+                lvl_ok = int(blk.get('rank', 0))
+            except (TypeError, ValueError):
+                lvl_ok = 0
+            for s in (blk.get('Spells') or []):
+                if not isinstance(s, dict):
+                    continue
+                try:
+                    if int(s.get('Lvl', 0)) > lvl_ok and lvl_ok > 0:
+                        continue
+                except (TypeError, ValueError):
+                    pass
+                names.append(str(s.get('Spell', '?')))
+        _set_options(spell_menu, spell_var, names)
+        _show_spell_info()
+
+    def _rebuild_lists():
+        """!
+        Refills the spell-list dropdown from the currently selected character
+        (or all lists for 'universell') and triggers _rebuild_spells().
+        """
+        blocks, _realm, _caster = _current_blocks()
+        list_opts = [b['name'] for b in blocks]
+        _set_options(list_menu, list_var, list_opts)
+        _rebuild_spells()
+
+    # --- input fields -------------------------------------------------------
+    st_z_var = IntVar(top);    st_z_var.set(1)
+    st_t_var = IntVar(top);    st_t_var.set(1)
+    name_t_var = StringVar(top)
+    rr_mod_var = IntVar(top);  rr_mod_var.set(0)
+    d100_var = IntVar(top)
+
+    Label(top, text='Stufe Zaub.:', bg='#333333').grid(row=1, column=0, sticky='E', padx=1, pady=1)
+    Entry(top, width=5, textvariable=st_z_var).grid(row=1, column=1, sticky='W', padx=1, pady=1)
+    Label(top, text='Stufe Ziel:', bg='#333333').grid(row=1, column=2, sticky='E', padx=1, pady=1)
+    Entry(top, width=5, textvariable=st_t_var).grid(row=1, column=3, sticky='W', padx=1, pady=1)
+
+    Label(top, text='Name Ziel:', bg='#333333').grid(row=2, column=0, sticky='E', padx=1, pady=1)
+    Entry(top, width=14, textvariable=name_t_var).grid(row=2, column=1, sticky='W', padx=1, pady=1)
+    Label(top, text='RR-Ziel-Mod.:', bg='#333333').grid(row=2, column=2, sticky='E', padx=1, pady=1)
+    Entry(top, width=5, textvariable=rr_mod_var).grid(row=2, column=3, sticky='W', padx=1, pady=1)
+
+    Label(top, text='Wuerfel:', bg='#333333').grid(row=3, column=0, sticky='E', padx=1, pady=1)
+    Entry(top, width=5, textvariable=d100_var).grid(row=3, column=1, sticky='W', padx=1, pady=1)
+
+    # --- result output -------------------------------------------------------
+    res = Text(top, height=8, width=56, wrap='word')
+    res.grid(row=5, column=0, columnspan=4, sticky='WE', padx=2, pady=2)
+    res.config(state='disabled')
+
+    def _emit(text=''):
+        """!
+        Appends one line to the cast-result text widget and scrolls to the end.
+
+        @param text line to append (newline is added automatically)
+        """
+        res.config(state='normal')
+        res.insert('end', text + '\n')
+        res.see('end')
+        res.config(state='disabled')
+
+    # --- actions -------------------------------------------------------------
+    def _do_roll():
+        """!
+        Rolls a d100 via the helptools RMDice function (rules="RM") and stores
+        the result in the 'Wuerfel' entry field. Falls back to a plain random
+        d100 if the dice function fails.
+        """
+        try:
+            roll_res = dice(rules="RM")
+            v = int(roll_res[0][0])
+        except Exception:
+            import random as _r
+            v = _r.randint(1, 100)
+        d100_var.set(v)
+
+    def _do_cast():
+        """!
+        Casts the currently selected spell: takes the list bonus plus the
+        d100 value as probe, resolves the result cell from the basic spell
+        table (magic.readBasicTable) for the target realm and armor class,
+        then applies the cell modifier to a resistance roll
+        (rpgtools.RRroll(caster level, target level, roll)).
+        All steps are printed to the result output; 'F' in the table is a
+        Fumble, a resisted target means the spell fails.
+        """
+        sel_char = char_var.get()
+        sel_list = list_var.get()
+        sel_spell = spell_var.get()
+
+        blocks, realm, caster = _current_blocks()
+        blk = next((b for b in blocks if b['name'] == sel_list), None)
+        if blk is None:
+            _emit('FEHLER: keine Spruchliste gewaehlt.')
             return
 
-        def _list_repr(name, tb):
-            return "{}  (+{})".format(name, tb)
+        # cast bonus: list bonus, fallback: cat bonus
+        total = blk.get('total bonus', 0)
+        if not isinstance(total, (int, float)):
+            total = blk.get('cat total bonus', 0)
+        try:
+            total = int(total)
+        except (TypeError, ValueError):
+            total = 0
 
-        list_var = StringVar(top)
-        list_var.set(_list_repr(*lists[0]))
-        OptionMenu(top, list_var, *[_list_repr(*x) for x in lists]).grid(
-            row=0, column=0, sticky="WE", padx=2, pady=2)
+        try:
+            d100      = int(d100_var.get())
+            st_z      = int(st_z_var.get() or 1)
+            st_t      = int(st_t_var.get() or 1)
+            rr_target = int(rr_mod_var.get() or 0)
+        except (TypeError, ValueError):
+            _emit('FEHLER: unguelle Zahleneingabe.')
+            return
 
-        # --- target options (only other players as targets)
-        target_options = []
-        for c in self.charlist:
-            if c.get("player") != char.get("player"):
-                target_options.append("vs {}.{}"
-                                      .format(c.get("name", "-"),
-                                              c.get("lvl", "-")))
-        if not target_options:
-            target_options = ["(no other player)"]
-        target_var = StringVar(top)
-        target_var.set(target_options[0])
-        OptionMenu(top, target_var, *target_options).grid(
-            row=1, column=0, sticky="WE", padx=2, pady=2)
+        # realm: realm of the character who learned this list (if any)
+        if blk.get('realm'):
+            realm = blk['realm']
 
-        # --- additional modifier (range / situation)
-        add_var = IntVar(top)
-        add_var.set(0)
-        Entry(top, width=6, textvariable=add_var).grid(
-            row=2, column=0, sticky="E", padx=2, pady=2)
-        Label(top, text="(additional modifier)").grid(
-            row=2, column=1, sticky="W")
-
-        # output
-        out = Text(top, height=10, width=50, wrap="word")
-        out.grid(row=3, column=0, columnspan=2, sticky="WE", padx=4, pady=4)
-        out.config(state="disabled")
-
-        def _emit(text):
-            out.config(state="normal")
-            out.insert("end", text + "\n")
-            out.see("end")
-            out.config(state="disabled")
-
-        def _roll():
-            # current selection
-            sel = list_var.get()
-            chosen = lists[0]
-            for name, tb in lists:
-                if _list_repr(name, tb) == sel:
-                    chosen = (name, tb)
-                    break
-            list_name, total_bonus = chosen
-
-            roll_res = dice(rules="RM")
-            r = int(roll_res[0][0])
-
-            rrmod = castBaseSpell(
-                realm = char.get("realm", "essence").lower(),
-                roll = int(r),
-                skill = int(total_bonus),
-                additional = int(add_var.get() or 0),
-            )
-
-            if rrmod == "F" or not isinstance(rrmod, int):
-                _emit("-" * 46)
-                _emit("  {0:<18} {1:>4}".format("spell list", list_name))
-                _emit("  {0:<18} {1:>4}".format("d100 roll", r))
-                _emit("  {0:<18} {1:>4}".format("total bonus", total_bonus))
-                _emit("  {0}  —  Fumble / no successful hit."
-                      .format(labels['roll'][self.lang]))
-                return
-
-            # determine target character
-            tgt_var_val = target_var.get()
-            tgt_char = char
+        # resolve target character by name (exact match on player/name)
+        target_char = None
+        tname = name_t_var.get().strip()
+        if tname:
             for c in self.charlist:
-                key = "vs {}.{}".format(c.get("name", "-"), c.get("lvl", "-"))
-                if key == tgt_var_val:
-                    tgt_char = c
+                cand = [(c.get('player') or '').strip(),
+                        (c.get('name') or '').strip()]
+                if tname in cand or tname.lower() in [x.lower() for x in cand]:
+                    target_char = c
                     break
 
-            tarmor, armor_lbl = self.__targetArmor(tgt_char)
-            rrmod_final = castBaseSpell(
-                realm = char.get("realm", "essence").lower(),
-                roll = int(r),
-                skill = int(total_bonus),
-                additional = int(add_var.get() or 0),
-                targetarmor = tarmor,
-            )
+        # armor class of the TARGET (no target -> unarmored 'Other')
+        armor_dict, armor_lbl = self.__targetArmor(
+            target_char if target_char is not None else {'inventory': {}})
+        armor_token = 'Other'
+        if armor_dict.get('metal armor'):
+            armor_token = 'Metal Armor'
+        elif armor_dict.get('leather armor'):
+            armor_token = 'Leather Armor'
+        elif armor_dict.get('metal shield'):
+            armor_token = 'Metal Shield'
+        elif armor_dict.get('metal helmet'):
+            armor_token = 'Metal Helmet'
+        elif armor_dict.get('leather helmet'):
+            armor_token = 'Leather Helmet'
 
-            if not isinstance(rrmod_final, int):
-                _emit("-" * 46)
-                _emit("  {0:<18} {1:>4}".format("spell list", list_name))
-                _emit("  {0:<18} {1:>4}".format("target armor", armor_lbl))
-                _emit("  {0}  —  spell resisted / fumble (no usable rrmod)."
-                      .format(rrmod_final))
-                return
+        col = '%s_%s' % (realm, armor_token)
 
-            # resistance roll table: RRroll(attacklvl, targetlvl, roll)
-            # canonical flow: roll = rrmod from the basic spell table,
-            # attacklvl = spell rank (total bonus of the list)
-            target_lvl = int(tgt_char.get("lvl") or 1)
-            resisted, value = RRroll(
-                int(total_bonus), target_lvl, int(rrmod_final))
+        probe = total + d100
+        _emit('=' * 52)
+        _emit('Zauber wirken : %s  /  %s  /  %s' % (sel_char, sel_list, sel_spell))
+        _emit('  Stufe Zauberer : %d    Stufe Ziel : %d' % (st_z, st_t))
+        _emit('  Ziel          : %s   (Ruestung: %s)' % (name_t_var.get() or '-', armor_lbl))
+        _emit('  Realm         : %s    Spalte: %s' % (realm, col))
+        _emit('  Listenbonus   : %d    d100: %d' % (total, d100))
+        _emit('  Probe (= bonus + d100) : %d' % probe)
 
-            res_word = labels['success'][self.lang] if resisted else "Fehlschlag"
+        try:
+            table = _magic.readBasicTable()
+        except Exception as e:
+            _emit('  FEHLER: Grundtabelle nicht lesbar: %s' % e)
+            return
+        ladder = table.get('roll') or []
+        if col not in table or not ladder:
+            _emit('  FEHLER: Spalte "%s" nicht in der Grundtabelle.' % col)
+            return
 
-            _emit("-" * 46)
-            _emit("  {0}: {1}".format(labels['win_casting'][self.lang],
-                                     res_word))
-            _emit("    spell list      : {0}".format(list_name))
-            _emit("    {0}      : {1}".format(labels['roll'][self.lang], r))
-            _emit("    total bonus     : {0}".format(total_bonus))
-            _emit("    realm           : {0}".format(char.get("realm", "-")))
-            _emit("    target          : {0}  (lvl {1}, armor: {2})"
-                  .format(tgt_char.get("name", "-"), target_lvl, armor_lbl))
-            _emit("    rrmod           : {0}".format(rrmod_final))
-            _emit("    rr table value  : {0}".format(value))
-            _emit("    RESULT          : {0}  (resisted={1})"
-                  .format(res_word, resisted))
-
-        def _close():
+        # last table row whose ladder value is <= probe (worst row if probe < first)
+        idx, found = 0, False
+        for i, v in enumerate(ladder):
             try:
-                top.grab_release()
-            except Exception:
+                if int(v) <= probe:
+                    idx, found = i, True
+                else:
+                    break
+            except (TypeError, ValueError):
+                break
+        if not found:
+            try:
+                if probe < int(ladder[0]):
+                    idx, found = 0, True
+            except (TypeError, ValueError):
                 pass
-            top.destroy()
+        if not found:
+            _emit('  FEHLER: Probe %d nicht in der Tabelle.' % probe)
+            return
 
-        btn = Button(top, text=txtbutton['but_roll'][self.lang],
-                     command=_roll, bg="grey", fg="white")
-        btn.grid(row=4, column=0)
+        cell = table[col][idx]
+        _emit('  Tabelle       : Zeile <= %s    Zelle = %s' % (ladder[idx], cell))
 
-        Button(top, text=txtbutton['but_clos'][self.lang],
-               command=_close).grid(row=4, column=1)
+        if str(cell).strip().upper() == 'F':
+            _emit('  ERGEBNIS       : FUMBLE  -  der Zauber FEHLSCHLAGT.')
+            return
 
-        top.bind("<Return>", lambda e: _roll())
-        top.bind("<Escape>", lambda e: _close())
-        top.grab_set()
-        btn.focus_set()
-        self.win_casting = top
+        try:
+            rrmod = int(str(cell).strip())
+        except (TypeError, ValueError):
+            _emit('  ERGEBNIS       : ungueltiger Tabellenwert (%s)' % cell)
+            return
+        _emit('  RR-Modifikator : %d' % rrmod)
 
+        final_roll = rrmod + rr_target
+        _emit('  RR-Schlusswert : %d + %d (Ziel-Mod) = %d' % (rrmod, rr_target, final_roll))
+
+        try:
+            resisted, value = _RRroll(st_z, st_t, final_roll)
+        except Exception as e:
+            _emit('  FEHLER bei RR-Wurf: %s' % e)
+            return
+        _emit('  RR-Wert Ziel   : %s' % value)
+        if resisted:
+            _emit('  ERGEBNIS       : ZIEL WIDERSTEHT  -  Zauber FEHLSCHLAGT.')
+        else:
+            _emit('  ERGEBNIS       : ZIEL WIDERSTEHT NICHT  -  Zaubern GELINGT.')
+
+    # --- menus + buttons -------------------------------------------------------
+    Label(top, text='Charakter:').grid(row=0, column=0, sticky='E', padx=1, pady=1)
+    char_menu = OptionMenu(top, char_var, *char_names, command=lambda x: _rebuild_lists())
+    char_menu.grid(row=0, column=1, columnspan=3, sticky='WE', padx=1, pady=1)
+
+    Label(top, text='Spruchliste:').grid(row=1, column=0, sticky='E', padx=1, pady=1)
+    list_menu = OptionMenu(top, list_var, '-', command=lambda x: _rebuild_spells())
+    list_menu.grid(row=1, column=1, columnspan=3, sticky='WE', padx=1, pady=1)
+
+    Label(top, text='Zauber:').grid(row=2, column=0, sticky='E', padx=1, pady=1)
+    spell_menu = OptionMenu(top, spell_var, '-', command=lambda x: _show_spell_info())
+    spell_menu.grid(row=2, column=1, columnspan=3, sticky='WE', padx=1, pady=1)
+
+    btn_roll = Button(top, text=_t('but_roll', 'Wuerfeln'), command=_do_roll,
+                      bg='#2a5d8a', fg='white', padx=6, pady=2)
+    btn_cast = Button(top, text=_t('but_cast', 'Zaubern'), command=_do_cast,
+                      bg='#3a7d3a', fg='white', padx=6, pady=2)
+    btn_close = Button(top, text=_t('but_clos', 'schliessen'), command=top.destroy,
+                       bg='#555555', fg='white', padx=6, pady=2)
+    btn_roll.grid(row=9, column=0, sticky='WE', padx=2, pady=2)
+    btn_cast.grid(row=9, column=1, sticky='WE', padx=2, pady=2)
+    btn_close.grid(row=9, column=2, columnspan=2, sticky='E', padx=2, pady=2)
+
+    # initial population + focus
+    _rebuild_lists()
+    btn_roll.focus_set()
+    top.protocol('WM_DELETE_WINDOW', top.destroy)
+    self.win_casting = top
 
     def __winSpellLists(self, char):
         '''!
@@ -889,8 +1140,11 @@ class showGrpEP(object):
 
     def __init__(self, charlist = None, storepath = "./data", lang = 'en'):
         """!
-        Constructor
-        @param lang contains the chosen display language.
+        Class constructor
+
+        @param charlist   list of dictionaries holding: player, charname, EPs
+        @param storepath  path for storing the data into the character files
+        @param lang       interface language ("en" default, "de")
         """
         self.lang = lang
         self.storepath = storepath
@@ -1266,6 +1520,11 @@ class manWin(object):
 
 
     def _updTotal(self):
+        """!
+        Refreshes the displayed total bonus from self.total and the
+        classification fields (classification, success percent, timef,
+        modificator, description) from the last checkRoll probe.
+        """
         self.totallabel.set(str(self.total))
         self.classif.set(self.probe["classification"])
         self.perc.set(self.probe['success'])
