@@ -53,6 +53,10 @@ from rpgtoolbox.enchant_core import (
     calc_bonus_multiplier,
     calc_weight_mult, worth_to_string, process_enchantment
 )
+# @todo (BUG-REPORT 2026-08-26, recommendation 3, OPEN): this edit_inv_core
+# @todo import duplicates the one ~6 lines above (same 3 symbols pulled in,
+# @todo no name conflict). Merge it into the first import to drop the
+# @todo duplicated module load.
 from rpgtoolbox.edit_inv_core import (
     build_container_index, transport_item_to_container, unpack_container_item
 )

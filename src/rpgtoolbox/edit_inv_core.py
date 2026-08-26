@@ -1,8 +1,26 @@
 #!/usr/bin/env python3
-"""EditInventory-Core-Logik: carried_weight, container/transport."""
+"""!
+\file edit_inv_core.py
+\package rpgtoolbox.edit_inv_core
+EditInventory core logic: carried-weight calculation, container/transport
+indexing, and moving items in and out of containers.
+
+\p Bug & todo history: see docs/bug_report_2026-08-26.md.
+  BUG-01 (transport_item_to_container, FIXED 2026-08-26) — note is attached
+  to that function below; the duplicate edit_inv_core import in
+  gui/modules/inventory_gui.py is an open @todo flagged at that import site.
+"""
 
 
 def calc_carried_weight(character):
+    """!
+    Recalculate the character's carried weight from inventory locations
+    and store the result in both character['carried'] and
+    character['background']['carr_weight'].
+    @param character the character dictionary
+    @retval carried the recalculated carried weight
+    @see docs/bug_report_2026-08-26.md (no bugs on record for this function)
+    """
     shoptypes = ['weapon', 'gear', 'gems', 'services', 'herbs']
     unequipped = ['', 'unequipped', 'transport']
     carried = 0.0
@@ -41,6 +59,13 @@ def calc_carried_weight(character):
 
 
 def build_container_index(character):
+    """!
+    Scan the character's gear list and build the container/transport
+    indexes (idxcontainer / idxtransport) used by the inventory UI.
+    @param character the character dictionary
+    @retval result dictionary {'containers': [...], 'transports': [...]}
+    @see docs/bug_report_2026-08-26.md (no bugs on record for this function)
+    """
     containers = []
     transports = []
     gear = character.get('inventory', {}).get('gear', []) or []
@@ -59,6 +84,21 @@ def build_container_index(character):
 
 
 def transport_item_to_container(character, gear_idx, container_name):
+    """!
+    Move the gear item at gear_idx into the named container by marking it
+    'unequipped' and updating its 'container' field, then recalculate the
+    carried weight.
+    @param character the character dictionary
+    @param gear_idx index of the item in character['inventory']['gear']
+    @param container_name name of the target container
+    @retval result {'success': True, 'placed_in': container_name} on success,
+                   {'success': False, 'msg': ...} on an invalid index
+    @fixes BUG-01 (2026-08-26): the shallow copy
+           `item = dict(gear[gear_idx])` was missing (see sibling
+           unpack_container_item() below for the pattern) -> every call raised
+           NameError: name 'item' is not defined. Fixed + live-tested in
+           commit 98e5105; details: docs/bug_report_2026-08-26.md, BUG-01.
+    """
     gear = character.get('inventory', {}).get('gear', []) or []
     if gear_idx < 0 or gear_idx >= len(gear):
         return {'success': False, 'msg': 'Ungultiger Container-Index'}
@@ -74,6 +114,16 @@ def transport_item_to_container(character, gear_idx, container_name):
 
 
 def unpack_container_item(character, gear_idx):
+    """!
+    Remove the 'container' assignment of the gear item at gear_idx and
+    recalculate the carried weight. Pattern reference for other gear
+    item movers (see transport_item_to_container()).
+    @param character the character dictionary
+    @param gear_idx index of the item in character['inventory']['gear']
+    @retval result {'success': True, 'unpacked_into': old_container} on success,
+                   {'success': False, 'msg': ...} on an invalid index
+    @see docs/bug_report_2026-08-26.md (no bugs on record for this function)
+    """
     gear = character.get('inventory', {}).get('gear', []) or []
     if gear_idx < 0 or gear_idx >= len(gear):
         return {'success': False, 'msg': 'Container nicht gefunden'}
@@ -88,12 +138,27 @@ def unpack_container_item(character, gear_idx):
 
 
 def get_carried_capacity(char):
+    """!
+    Calculate the character's carried-weight capacity from strength
+    (15 per point, capped at 200).
+    @param char the character dictionary
+    @retval capacity the max carried weight (rounded, max 200)
+    @see docs/bug_report_2026-08-26.md (no bugs on record for this function)
+    """
     strength = char.get('str', 10) or 10
     base = float(strength) * 15.0
     return round(base, 2) if base < 200 else 200.0
 
 
 def calculate_equipment_mmp(character):
+    """!
+    Derive the movement-penalty (MMP) and the equipment-derived AT /
+    missile / agility / max-man-mana modifiers from
+    character['equipmentPenalty'] and cache them on the character.
+    @param character the character dictionary
+    @retval result {'mmp': ..., 'AT': ..., 'misslepen': ...}
+    @see docs/bug_report_2026-08-26.md (no bugs on record for this function)
+    """
     mmp = 0
     calcpen = character.get('equipmentPenalty', {}) or {}
     if isinstance(calcpen, dict):
