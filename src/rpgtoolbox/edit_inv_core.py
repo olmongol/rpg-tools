@@ -63,6 +63,7 @@ def transport_item_to_container(character, gear_idx, container_name):
     if gear_idx < 0 or gear_idx >= len(gear):
         return {'success': False, 'msg': 'Ungultiger Container-Index'}
 
+    item = dict(gear[gear_idx])
     item['location'] = 'unequipped'
     item['container'] = container_name
 
