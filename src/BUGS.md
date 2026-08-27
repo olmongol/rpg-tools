@@ -33,6 +33,23 @@
 - **Status:** Gefixt am 2026-08-12 — `self.manlist[0]` ohne len-check gefixt mit leerem Guard und fallback default.
 - **Beschreibung:** `maneuvers.keys()` konnte bei leeren dict_keys zu IndexError auf `[0]` führen.
 
+## [BUG-015] DP-Abzug + GUI-Anzeige bei Cat/Skill-Rank-Steigerung ✅ FIXED
+
+- **Datei:** src/gui/epwins.py (`__takeValsCat` L3210, `__takeValsSkill` L2937).
+- **Status:** FIXED — Stand in Commit `63cad53` (hermes_dev).
+- **Beschreibung:** DP wurde bei Rank-Steigerung weder abgezogen noch
+  angezeigt. Ursache: `dpCosts`/`parent_dpCosts` im JSON als Listen
+  (z. B. `[2,2,2]`), Code erwartete teils String (`.split(' ')`) →
+  stummer `AttributeError` im Tkinter-Button-Callback.
+  Abgedeckt über Typ-Guards (`ab23950`: `isinstance(..., str)`-Zweig,
+  `type(dpCosts) == type(1)`-Zweig) + D1-Fix in `63cad53`
+  (Reserved-Commit in `__closewin`), DP-Zeilen in `__finalize` aktiviert.
+- **Verifiziert:** Xvfb-Harness `src/gui/test_dp_repro.py` — Cat:
+  `__usedDP` 0→2, DPtext 79→77; Skill: 2→3, DPtext 77→76. EXIT=0.
+  Analyse: `src/BUG_008_DP_DEDUCTION_ANALYSIS.md` (Abschnitt 9).
+- **Offener Rest:** None — `__finalize` bleibt ohne try/finally
+  (Defekt D3, dokumentiert in Analyse-Notiz, kein User-Crash-Pfad).
+
 ## BEREITS GEFIXT - NICHT MEHR AKTUELL
 
 | Bug | Status | Details |
