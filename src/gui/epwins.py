@@ -175,8 +175,8 @@ class MainWindow(blankWindow):
     def __openFile(self):
         """
         This method opens a dialogue window (Tk) for opening files.
-        The content of the opened file will be saved in \e file
-        \e content as an array.
+        The content of the opened file will be saved in
+        this class instance's ``file`` array.
         """
         self.__filein = askopenfilename(filetypes = self.mask,
                                         initialdir = self.mypath)
@@ -2324,11 +2324,15 @@ class skillcatWin(blankWindow):
     def __closewin(self):
         '''!
         A method to destroy the current window and go back to MainWindow.
+        @fixes (D1) commits the reserved DP (__usedDP) into the character on
+              close-without-finalize; before the fix these two lines were
+              commented out and the reservation was silently lost. See
+              src/BUG_008_DP_DEDUCTION_ANALYSIS.md.
         '''
         if self.__usedDP > 0:
             self._character['lvlup'] -= 1
-#            self._character['DP'] -= self.__usedDP
-#            self.__usedDP = 0
+            self._character['DP'] -= self.__usedDP
+            self.__usedDP = 0
 
             if self._character['lvlup'] < 0:
                 self._character['lvlup'] = 0
@@ -3209,6 +3213,10 @@ class skillcatWin(blankWindow):
 
         ----
         @todo -check out correct level up: ranks, costs etc. XXXX
+        @note bkpusedDP is a snapshot of __usedDP taken BEFORE the
+              reservation; the rollback branch restores that snapshot -
+              it is NOT a reset to zero
+              (see src/BUG_008_DP_DEDUCTION_ANALYSIS.md, defect D2).
         '''
         ## @var currcat
         # current category name
@@ -3453,7 +3461,10 @@ class skillcatWin(blankWindow):
         This method renames all skill+ and adds new ones
         ----
         @todo checkup whether values exist in self.__changed. If so take rank value from self.__changed.
-
+        @bug this method commits __usedDP straight into the character's DP
+             and zeroes the ledger WITHOUT try/finally; an exception
+             in between loses the reservation
+             (see src/BUG_008_DP_DEDUCTION_ANALYSIS.md, defect D3).
         '''
         from rpgtoolbox.rolemaster import progressionType
         self._character['DP'] -= self.__usedDP
@@ -3642,8 +3653,8 @@ class charInfo(blankWindow):
     def __openFile(self):
         """!
         This method opens a dialogue window (Tk) for opening files.
-        The content of the opened file will be saved in \e file
-        \e content as an array.
+        The content of the opened file will be saved in
+        this class instance's ``file`` array.
         """
         self.__filein = askopenfilename(filetypes = self.cmask,
                                         initialdir = self.mypath)
@@ -4087,8 +4098,8 @@ class statGainWin(blankWindow):
 #    def __openFile(self):
 #        """
 #        This method opens a dialogue window (Tk) for opening files.
-#        The content of the opened file will be saved in \e file
-#        \e content as an array.
+#        The content of the opened file will be saved in
+#        this class instance's ``file`` array.
 #        """
 #        self.__filein = askopenfilename(filetypes = self.cmask,
 #                                        initialdir = self.mypath)
@@ -4415,8 +4426,8 @@ class editEPWin(blankWindow):
     def __openFile(self):
         """!
         This method opens a dialogue window (Tk) for opening files.
-        The content of the opened file will be saved in \e file
-        \e content as an array.
+        The content of the opened file will be saved in
+        this class instance's ``file`` array.
         """
         self.__filein = askopenfilename(filetypes = self.cmask,
                                         initialdir = self.mypath)
@@ -4689,8 +4700,8 @@ class BGOselectWin(blankWindow):
     def __openFile(self):
         """!
         This method opens a dialogue window (Tk) for opening files.
-        The content of the opened file will be saved in \e file
-        \e content as an array.
+        The content of the opened file will be saved in
+        this class instance's ``file`` array.
         """
         self.__filein = askopenfilename(filetypes = self.cmask,
                                         initialdir = self.mypath)
