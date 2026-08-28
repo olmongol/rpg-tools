@@ -47,8 +47,34 @@
 - **Verifiziert:** Xvfb-Harness `src/gui/test_dp_repro.py` — Cat:
   `__usedDP` 0→2, DPtext 79→77; Skill: 2→3, DPtext 77→76. EXIT=0.
   Analyse: `src/BUG_008_DP_DEDUCTION_ANALYSIS.md` (Abschnitt 9).
-- **Offener Rest:** None — `__finalize` bleibt ohne try/finally
-  (Defekt D3, dokumentiert in Analyse-Notiz, kein User-Crash-Pfad).
+- **Offener Rest:** D3-Defekt (`__renameSkill`) wurde in BUG-016 behoben.
+
+## [BUG-016] `__renameSkill` commit/restore-Tanz verliert `__usedDP` bei Exception (Defekt D3) ✅ FIXED
+
+- **Datei:** src/gui/epwins.py (`__renameSkill` L3459).
+- **Status:** FIXED — Stand in diesem Commit (hermes_dev).
+- **Beschreibung:** `__renameSkill` zählte die Session-DP-Reservierung
+  aus `__usedDP` ab und in `character['DP']` ein (L3459–3460) und
+  stellte `character['DP']` am Ende manuell wieder her (L3492) — ohne
+  try/finally. Bei Exception im Rebuild-Pfad (`__calcTotals`/
+  `__buildWin`/`__buildTree`/`__buildChangedTree`) blieb die Reservierung
+  dauerhaft in `character['DP']` eingebrannt und das Ledger leer →
+  doppelter DP-Abzug beim späteren Finalize bzw. verlorenes Rename
+  ohne Rollback. Zweitens: safe Lookup fehlte — ein KeyError auf
+  `__changed['cat'][cat]` bei fehlender Category schlug nach
+  Reservation-Abzug.
+- **Fix:** Vor dem temporären Commit ist der Vor-Zustand gesichert
+  (`origDP`, `pre_new`/`prev_entry`, `prev_old`); `try/except/finally`
+  stellt bei Exception das Skill-Dict UND die Reservation wieder her und
+  gibt die Reservierung in das `__usedDP`-Ledger zurück. Im Erfolgsfall
+  bleibt die Reservation im Ledger, weil `__finalize` der einzige
+  Commit-Punkt ist (konsistent zum D1-Modell). Zusätzlich: safe
+  `.get()`-Lookup auf `__changed['cat']`.
+- **Verifiziert:** Xvfb-Harness `src/gui/test_d3_rename.py` —
+  FAIL-PATH (Rollback auf Exception), OK-PATH (Reservation im Ledger),
+  FINALIZE (exakt `DP0 - RES` abgezogen). **ALL GREEN**.
+  Regression: `src/gui/test_dp_repro.py` EXIT=0.
+  Analyse: `src/BUG_008_DP_DEDUCTION_ANALYSIS.md` (Abschnitt D3).
 
 ## BEREITS GEFIXT - NICHT MEHR AKTUELL
 

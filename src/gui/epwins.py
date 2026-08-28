@@ -3461,14 +3461,18 @@ class skillcatWin(blankWindow):
         This method renames all skill+ and adds new ones
         ----
         @todo checkup whether values exist in self.__changed. If so take rank value from self.__changed.
-        @bug this method commits __usedDP straight into the character's DP
-             and zeroes the ledger WITHOUT try/finally; an exception
-             in between loses the reservation
-             (see src/BUG_008_DP_DEDUCTION_ANALYSIS.md, defect D3).
+        @fixes D3 (src/BUG_008_DP_DEDUCTION_ANALYSIS.md): the temporary
+        commit/restore dance is now an explicit rollback — on ANY failure
+        (rename target missing, rebuild raising) the character dict is
+        restored to its pre-rename state AND the DP reservation is put
+        back into the __usedDP ledger. On success the reservation stays
+        in the ledger too, so __finalize remains the sole commit point
+        (consistent with the D1 model). The old behaviour baked the
+        session reservation permanently into character['DP'].
         '''
         from rpgtoolbox.rolemaster import progressionType
-        self._character['DP'] -= self.__usedDP
-        self.__usedDP = 0
+        reservedDP = self.__usedDP
+        origDP = int(self._character['DP'])
         curitem = self.__tree.item(self.__curItem)
         skillentry = self._skillentry.get()
         cat = ""
@@ -3477,6 +3481,11 @@ class skillcatWin(blankWindow):
             cat += elem + " "
 
         cat = cat.strip(" ")
+        oldname = curitem['text']
+        skills = self._character['cat'][cat]['Skill']
+        pre_new = skillentry in skills
+        prev_entry = dict(skills[skillentry]) if pre_new else None
+        prev_old = dict(skills[oldname]) if oldname in skills else None
         skill = {skillentry: {"item bonus":0,
                              "rank": int(curitem["values"][3]),
                              "rank bonus": 0,
@@ -3486,21 +3495,40 @@ class skillcatWin(blankWindow):
                              "Costs": list(self._character['cat'][cat]['Costs'])
                              }
                 }
-        if skillentry in self.__changed['cat'][cat]['Skill'].keys():
-            skill[skillentry]["rank"] = self.__changed['cat'][cat]['Skill'][skillentry]["rank"]
+        # D3-hardening: safe lookup — a missing changed-cat entry used to
+        # raise KeyError AFTER the reservation was deducted (DP leak).
+        changed_skill = self.__changed['cat'].get(cat, {}).get('Skill', {})
+        if skillentry in changed_skill:
+            skill[skillentry]["rank"] = changed_skill[skillentry]["rank"]
 
-        self._character['cat'][cat]["Skill"][skillentry] = skill[skillentry]
-
-        dummyDP = int(self._character['DP'])
-
-        for entry in ["item bonus", "rank"]:
-            self._character['cat'][cat]["Skill"][curitem['text']][entry] = 0
-
-        self.__calcTotals()
-        self.__buildWin()
-        self.__buildTree()
-        self.__buildChangedTree()
-        self._character['DP'] = dummyDP
+        # Temporary commit (as before): deduct the reservation so the
+        # rebuild functions see the post-change state …
+        self._character['DP'] -= reservedDP
+        self.__usedDP = 0
+        try:
+            skills[skillentry] = skill[skillentry]
+            if oldname in skills:
+                for entry in ["item bonus", "rank"]:
+                    skills[oldname][entry] = 0
+            self.__calcTotals()
+            self.__buildWin()
+            self.__buildTree()
+            self.__buildChangedTree()
+        except Exception:
+            # D3: full rollback of a failed rename attempt (skill dict
+            # AND reservation) before re-raising
+            if oldname in skills and prev_old is not None:
+                skills[oldname] = prev_old
+            if pre_new:
+                skills[skillentry] = prev_entry
+            else:
+                skills.pop(skillentry, None)
+            raise
+        finally:
+            # D3: … and then UNDO the temporary commit: the reservation
+            # belongs to the ledger until __finalize commits it.
+            self._character['DP'] = origDP
+            self.__usedDP = reservedDP
 
 
     def __save(self, ending = '.snap'):

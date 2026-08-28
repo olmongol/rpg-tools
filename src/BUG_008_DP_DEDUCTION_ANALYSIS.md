@@ -308,7 +308,19 @@ Rollback-Zweig `__usedDP` **auf jenen Wert** zurücksetzt, nicht auf 0.
 
 ---
 
-### D3 — **`__renameSkill` commit/restore-Tanz verliert `__usedDP` bei Exception** (Kritikalität: MITTEL)
+### D3 — ~~`__renameSkill` commit/restore-Tanz verliert `__usedDP` bei Exception~~ (Kritikalität: MITTEL) — **FIXED 2026-08-28**
+
+**Fix:** `__renameSkill` hat jetzt einen expliziten Rollback. Vor dem
+temporären Commit wird der Vor-Zustand gesichert (`origDP`,
+`pre_new`/`prev_entry`, `prev_old`); `try/except/finally` stellt bei
+Exception das Skill-Dict UND die Reservation wieder her und gibt die
+Reservierung in das `__usedDP`-Ledger zurück. Im Erfolgsfall bleibt
+die Reservation im Ledger (`__usedDP = reservedDP`), weil
+`__finalize` der **einzige** Commit-Punkt ist — konsistent zum D1-Modell.
+Zusätzlich: safe `.get()`-Lookup auf `__changed['cat']` (kein KeyError
+mehr bei fehlender changed-cat-Entry). Verifiziert in
+`gui/test_d3_rename.py` (FAIL-PATH: Rollback, OK-PATH: Reservation im
+Ledger, FINALIZE: exakt `DP0 - RES` abgezogen) — **ALL GREEN**.
 
 **Befund:** L3459–L3460:
 ```
