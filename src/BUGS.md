@@ -76,6 +76,33 @@
   Regression: `src/gui/test_dp_repro.py` EXIT=0.
   Analyse: `src/BUG_008_DP_DEDUCTION_ANALYSIS.md` (Abschnitt D3).
 
+## [BUG-017] `UnboundLocalError('lowval')` in `__takeValsSkill` bei bereits geaendeter Kategorie ✅ FIXED
+
+- **Datei:** src/gui/epwins.py (`__takeValsSkill`, Ableitungsblock L2993ff).
+- **Status:** FIXED — Stand in Commit `f67705b` (hermes_dev).
+- **Beschreibung:** Skill-DP-Abzug war defekt, wenn ZUERST eine Kategorie
+  geaendert (`__takeValsCat`) und danach ein Skill derselben Kategorie
+  hochgestuft wurde — der normale GUI-Flow. Der
+  "cat-bereits-in-__changed"-Zweig referenzierte `lowval`, das zuvor
+  nur im "cat-noch-unveraendert + Skill-existiert"-Unterzweig
+  zugewiesen wurde → `UnboundLocalError: cannot access local variable
+  'lowval'`. Das Tkinter-Button-Callback stirbt still, also wird der
+  Skill-Abzug nie gebucht — exakt das gemeldete Symptom "DP-Abzug fuer
+  cat funktioniert, fuer skill nicht". Die bisherigen Harnesses
+  deckten den Fall nicht ab, weil sie Cat + Skill in *verschiedenen*
+  Kategorien kombinierten.
+- **Fix:** `lowval` wird einmalig VOR der if/else-Logik aus
+  `character['cat'][cat]['Skill'][skill]['lvlups']` abgeleitet
+  (Fallback 0). Da `__changed['cat'][cat]` dieselbe Objekt-Referenz
+  ist, stimmt die Ableitung in beiden Zweigen uberein; der
+  "cat-bereits-veraendert"-Zweig ueberschreibt konsistent mit
+  `__changed`, wie zuvor.
+- **Verifiziert:** Neue Xvfb-Harness `src/gui/test_skill_after_cat.py`
+  (cat + Skill in derselben Kategorie) — ohne Fix
+  `UnboundLocalError('lowval')` (rot), mit Fix usedDP 0→2 (cat) → 4
+  (skill), EXIT=0. Regression: `src/gui/test_dp_repro.py` EXIT=0;
+  `test_d3_rename.py` ALL GREEN; `test_d1_close.py` OK.
+
 ## BEREITS GEFIXT - NICHT MEHR AKTUELL
 
 | Bug | Status | Details |
