@@ -2245,9 +2245,7 @@ class skillcatWin(blankWindow):
     @todo  not finished yet:
       - selecting items here can make changes undone or change them again
       - hide skill/cat line when not selected in treeview
-    @bug - DP are not always shown correctly
-    - you lose DPs when you try to level up a skill/cat in multiple times
-    - sometimes it does not store the character sheet successfully
+    @bug - sometimes it does not store the character sheet successfully
 
     """
 
@@ -2324,10 +2322,8 @@ class skillcatWin(blankWindow):
     def __closewin(self):
         '''!
         A method to destroy the current window and go back to MainWindow.
-        @fixes (D1) commits the reserved DP (__usedDP) into the character on
-              close-without-finalize; before the fix these two lines were
-              commented out and the reservation was silently lost. See
-              src/BUG_008_DP_DEDUCTION_ANALYSIS.md.
+        On close-without-finalize the reserved DP (__usedDP) is committed
+        into the character before the window is destroyed.
         '''
         if self.__usedDP > 0:
             self._character['lvlup'] -= 1
@@ -2991,15 +2987,9 @@ class skillcatWin(blankWindow):
         diff = newrank - oldval
         diffcost = 0
 
-        # lowval: index of the next unpaid DP slot for this skill.  Derived
-        # ONCE here, before the branches, because every branch below
-        # references it.  It used to be assigned only in the
-        # cat-not-changed + skill-exists sub-branch, so leveling a skill of a
-        # category that was already changed in this session (cat button first,
-        # then the same category's skill — the normal GUI flow) crashed with
-        # UnboundLocalError('lowval') and the skill deduction never happened.
-        # @bug fixed: UnboundLocalError 'lowval' in the cat-already-changed
-        #      branch of __takeValsSkill (and in all new-skill branches).
+        # lowval: index of the next unpaid DP slot for this skill. Derived
+        # once here, before the branches below, because every branch
+        # references it.
         _lv_source = None
         if cat in self._character['cat'] and 'Skill' in self._character['cat'][cat]:
             _lv_cand = self._character['cat'][cat]['Skill'].get(skill)
@@ -3245,8 +3235,7 @@ class skillcatWin(blankWindow):
         @todo -check out correct level up: ranks, costs etc. XXXX
         @note bkpusedDP is a snapshot of __usedDP taken BEFORE the
               reservation; the rollback branch restores that snapshot -
-              it is NOT a reset to zero
-              (see src/BUG_008_DP_DEDUCTION_ANALYSIS.md, defect D2).
+              it is NOT a reset to zero.
         '''
         ## @var currcat
         # current category name
@@ -3491,14 +3480,9 @@ class skillcatWin(blankWindow):
         This method renames all skill+ and adds new ones
         ----
         @todo checkup whether values exist in self.__changed. If so take rank value from self.__changed.
-        @fixes D3 (src/BUG_008_DP_DEDUCTION_ANALYSIS.md): the temporary
-        commit/restore dance is now an explicit rollback — on ANY failure
-        (rename target missing, rebuild raising) the character dict is
-        restored to its pre-rename state AND the DP reservation is put
-        back into the __usedDP ledger. On success the reservation stays
-        in the ledger too, so __finalize remains the sole commit point
-        (consistent with the D1 model). The old behaviour baked the
-        session reservation permanently into character['DP'].
+        On failure (rename target missing, rebuild raising) the character
+        dict is rolled back and the DP reservation is returned to the
+        __usedDP ledger; __finalize remains the sole commit point.
         '''
         from rpgtoolbox.rolemaster import progressionType
         reservedDP = self.__usedDP

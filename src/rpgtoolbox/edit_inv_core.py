@@ -5,10 +5,9 @@
 EditInventory core logic: carried-weight calculation, container/transport
 indexing, and moving items in and out of containers.
 
-\p Bug & todo history: see docs/bug_report_2026-08-26.md.
-  BUG-01 (transport_item_to_container, FIXED 2026-08-26) — note is attached
-  to that function below; the duplicate edit_inv_core import in
-  gui/modules/inventory_gui.py is an open @todo flagged at that import site.
+\p Open @todo: the duplicate edit_inv_core import in
+  gui/modules/inventory_gui.py (flagged at that import site).
+\p Bug history: see docs/bug_report_2026-08-26.md.
 """
 
 
@@ -93,11 +92,6 @@ def transport_item_to_container(character, gear_idx, container_name):
     @param container_name name of the target container
     @retval result {'success': True, 'placed_in': container_name} on success,
                    {'success': False, 'msg': ...} on an invalid index
-    @fixes BUG-01 (2026-08-26): the shallow copy
-           `item = dict(gear[gear_idx])` was missing (see sibling
-           unpack_container_item() below for the pattern) -> every call raised
-           NameError: name 'item' is not defined. Fixed + live-tested in
-           commit 98e5105; details: docs/bug_report_2026-08-26.md, BUG-01.
     """
     gear = character.get('inventory', {}).get('gear', []) or []
     if gear_idx < 0 or gear_idx >= len(gear):
