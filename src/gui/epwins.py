@@ -2991,6 +2991,36 @@ class skillcatWin(blankWindow):
         diff = newrank - oldval
         diffcost = 0
 
+        # lowval: index of the next unpaid DP slot for this skill.  Derived
+        # ONCE here, before the branches, because every branch below
+        # references it.  It used to be assigned only in the
+        # cat-not-changed + skill-exists sub-branch, so leveling a skill of a
+        # category that was already changed in this session (cat button first,
+        # then the same category's skill — the normal GUI flow) crashed with
+        # UnboundLocalError('lowval') and the skill deduction never happened.
+        # @bug fixed: UnboundLocalError 'lowval' in the cat-already-changed
+        #      branch of __takeValsSkill (and in all new-skill branches).
+        _lv_source = None
+        if cat in self._character['cat'] and 'Skill' in self._character['cat'][cat]:
+            _lv_cand = self._character['cat'][cat]['Skill'].get(skill)
+            if isinstance(_lv_cand, dict):
+                _lv_source = _lv_cand
+        if _lv_source is not None and 'lvlups' in _lv_source:
+            lowval = _lv_source['lvlups']
+            if lowval >= len(dpCosts):
+                # dpCosts exhausted — extend with parent category costs
+                parent_item = self.__tree.parent(self.__curItem)
+                if parent_item:
+                    parent_vals = self.__tree.item(parent_item)['values']
+                    raw_parent_dp = parent_vals[2]
+                    parent_dpCosts = raw_parent_dp.split() if isinstance(raw_parent_dp, str) else raw_parent_dp
+                    extended = list(dpCosts)
+                    for i in range(len(dpCosts), len(parent_dpCosts)):
+                        extended.append(int(parent_dpCosts[i]))
+                    dpCosts = extended
+        else:
+            lowval = 0
+
         if cat not in list(self.__changed['cat'].keys()):
             self.__changed['cat'][cat] = self._character['cat'][cat]
             newtotal = newbonus + self.__changed['cat'][cat]['total bonus']
