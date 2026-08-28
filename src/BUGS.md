@@ -113,7 +113,7 @@
 | BUG-005 | ✅ FIXED | print(os.getcwd()) entfernt |
 | BUG-006 | ✅ FIXED | Channeling/Leitmagie check korrekt |
 | BUG-009 | ✅ GECHECKT | logger-Pfad in findherbs.py OK |
-| BUG-010 | ❓ CHECK | treasure.py und charactertools.py relative imports |
+| BUG-010 | ✅ GECHECKT | 2026-08-28: Imports in treasure.py/charactertools.py headless getestet — relative/absolute Imports laufen ohne Fehler |
 | BUG-011 | ✅ DUPLICAT | Duplicate of BUG-006 |
 
 ## TIEFERER AUDIT - GEFUNDENE MUSTER NACH BEHABUNGsort der vorherigen Manuellen Fixes
