@@ -2119,6 +2119,9 @@ class priorizeWeaponsWin(blankWindow):
         @bug on windows while creating a new dwarf character
         param['ppd'] = progressionType[param['ppd'] + param['race']]
         KeyError: 'Dwarves'
+        @fixes realm still unchosen ('choice') yields ppd '' with no progressionType
+        entry (KeyError '<Race>') -> now guarded to progressionType['null']
+        (BUG-018); test: gui/test_choice_realm.py
         '''
         from rpgtoolbox.rolemaster import races, realms, ppds, magicstats, progressionType, speccat
         param = {}
@@ -2137,13 +2140,24 @@ class priorizeWeaponsWin(blankWindow):
                 param['Stats'] = magicstats[realms[l].index(self.character['realm'])]
 
         if type(param['ppd']) == type(''):
-            logger.debug(f"try to set progressionType[{param['ppd'] + param['race']}] from {list(progressionType.keys())}")
-            param['ppd'] = progressionType[param['ppd'] + param['race']]
+            if param['ppd'] == '':
+                # guard: realm still unchosen ('choice') -> ppd '' has no
+                # progressionType entry (KeyError '<Race>') -> null progression
+                param['ppd'] = progressionType['null']
+            else:
+                logger.debug(f"try to set progressionType[{param['ppd'] + param['race']}] from {list(progressionType.keys())}")
+                param['ppd'] = progressionType[param['ppd'] + param['race']]
 
         elif type(param['ppd']) == type([]):
 
             for i in range(0, len(param['ppd'])):
-                param['ppd'][i] = progressionType[param['ppd'][i] + param['race']]
+                key = param['ppd'][i] + param['race']
+                if not param['ppd'][i] or key not in progressionType:
+                    # guard: empty entry (realm 'choice') or unknown combo -> null
+                    key = 'null'
+                else:
+                    logger.debug(f"try to set progressionType[{key}] from {list(progressionType.keys())}")
+                param['ppd'][i] = progressionType[key]
 
             if param['ppd'][0] > param['ppd'][1]:
                 param['ppd'] = param['ppd'][0]

@@ -103,6 +103,31 @@
   (skill), EXIT=0. Regression: `src/gui/test_dp_repro.py` EXIT=0;
   `test_d3_rename.py` ALL GREEN; `test_d1_close.py` OK.
 
+## [BUG-018] `KeyError('Dwarves')` in `priorizeWeaponsWin.__setPPD` bei neuem Zwerg mit ungewähltem Realm ✅ FIXED
+
+- **Datei:** src/gui/epwins.py (`priorizeWeaponsWin.__setPPD`).
+- **Status:** FIXED — 2026-08-28, hermes_dev.
+- **Beschreibung:** Neues Zwerg-Charakter mit noch ungewähltem Realm
+  (`realm == 'choice'` — realms[0]) → `ppds[0] == ''` (leere String).
+  Der Lookup `progressionType['' + 'Dwarves']` = `progressionType['Dwarves']`
+  existiert nicht — in progressionType sind nur geprefixte Kombos wie
+  `PPD Chan Dwarves`, `PPD Ess Dwarves`, `PPD Ment Dwarves` + `BD Dwarves`
+  vorhanden → harter `KeyError: 'Dwarves'` im `__init__`/Char-Fluss.
+- **Root Cause:** `ppds[0]` (choice) ist der Empty-String statt einer
+  PPD-Präfix; der str-Zweig und der List-Zweig von `__setPPD` prüfen
+  keinen Guard für leere/ppd-None Einträge.
+- **Fix:** Beide Zweige (str- und list-typed `ppd`) werden per
+  `if not entry or key not in progressionType: key = 'null'` abgesichert;
+  Fallback = `progressionType['null']` = `(0, 0, 0, 0, 0)` (keine
+  Progression, bis das Realm gewählt ist). Logger-Zeile bleibt im
+  normalen Fall (keine Behavior-Änderung bei gültigen Realms).
+- **Verifiziert:** Neue Harness `src/gui/test_choice_realm.py` — 3 Cases
+  (realm='choice' → null-Fallback; realm='Channeling' → `PPD Chan Dwarves`;
+  realm=['Channeling','Mentalism'] → max der beiden). Pre-fix: Case 1
+  `KeyError: 'Dwarves'` (rot); post-fix: EXIT=0. Regressions:
+  `test_d1_close.py`, `test_d3_rename.py`, `test_dp_repro.py`,
+  `test_skill_after_cat.py` alle GREEN.
+
 ## BEREITS GEFIXT - NICHT MEHR AKTUELL
 
 | Bug | Status | Details |
