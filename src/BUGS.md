@@ -128,6 +128,40 @@
   `test_d1_close.py`, `test_d3_rename.py`, `test_dp_repro.py`,
   `test_skill_after_cat.py` alle GREEN.
 
+## [BUG-2248] `skillcatWin` — Charakterblatt "manchmal nicht abgespeichert" ✅ FIXED
+
+- **Datei:** src/gui/epwins.py (`skillcatWin.__finalize` L3427ff, `__save` L3574ff).
+- **Status:** FIXED — Stand in diesem Commit (hermes_dev).
+- **Beschreibung:** Symptom "sometimes it does not store the character
+  sheet successfully". Zwei Root Causes:
+  - **A (KeyError im Commit-Pfad):** `__finalize` indizierte
+    `self.__changed["cat"][cat]["rank"]` bzw. `["total bonus"]`
+    ungezwungen für jede Kategorie in `__changed["cat"]`. Ein
+    verwaister Legacy-/Rename-Eintrag ohne diese Keys löste den
+    `KeyError` NACH der DP-Reservierung aus → Finalize brach ab,
+    weder `.json` noch `.changes.json` entstand, das Fenster lief
+    aber weiter wie ein Erfolg → "sporadisch nicht gespeichert".
+  - **B (still loss in `__save`):** `__save` baute
+    `spath/player/name+ending`, ohne das Zielverzeichnis
+    `os.makedirs(..., exist_ok=True)` zu erzeugen. `writeJSON`
+    (`rpgtoolbox/globaltools.py` L353) *swallowed* jeden IO-Fehler
+    (`except Exception: logger.error`) → fehlendes Verzeichnis
+    (`FileNotFoundError`) bedeutete Silent Data Loss; der
+    Rest-Flow (`.changes.json`-Write, Fenster-Reset) lief auf.
+- **Fix:** (A) defensive `.get()`-Kopien der zwei Werte statt
+  ungezwungenen Indexes — ein fehlender Key wird übersprungen
+  statt abzuwerfen. (B) `__save` sichert nun
+  `os.makedirs(os.path.dirname(pathfile), exist_ok=True)` vor dem
+  `writeJSON`-Call.
+- **Verifiziert:** Neue Harness `src/gui/test_final_save.py` —
+  Case A (KeyError-Sim) FAIL-PATH pre-fix, PASS post-fix;
+  Case B (fehlendes Zielverzeichnis) — pre-fix: `FileNotFoundError`
+  (silent, `.json` nicht da); post-fix: Verzeichnis wird erzeugt,
+  `.json` liegt an Ort und Stelle, `.snap` ebenfalls (EXIT=0, 3/3).
+  Regression: `test_choice_realm.py` (3/3), `test_dp_repro.py`
+  (2/2), `test_skill_after_cat.py` (4/4), `test_d1_close.py`,
+  `test_d3_rename.py` — alle GREEN.
+
 ## BEREITS GEFIXT - NICHT MEHR AKTUELL
 
 | Bug | Status | Details |

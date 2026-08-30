@@ -3443,20 +3443,37 @@ class skillcatWin(blankWindow):
 
         logger.info("Profession bonusses set")
 
+        # BUG-2248 fix A: guarded copies — legacy/renamed __changed entries
+        # may lack 'rank'/'total bonus'/'Skill'; a KeyError here used to
+        # abort __finalize AFTER the DP reservation was committed, so the
+        # sheet was never written (silent data loss). Missing keys are now
+        # copied only when present; absent Skill entries are skipped.
         for cat in list(self.__changed["cat"].keys()):
-            self._character['cat'][cat]["rank"] = self.__changed["cat"][cat]["rank"]
-            self._character['cat'][cat]["total bonus"] = self.__changed['cat'][cat]["total bonus"]
+            dcat = self.__changed["cat"][cat]
+            if cat not in self._character["cat"].keys():
+                self._character["cat"][cat] = dcat
+                logger.info(f"new category {cat} copied from changes")
+                continue
+            if "rank" in dcat.keys():
+                self._character['cat'][cat]["rank"] = dcat["rank"]
+            if "total bonus" in dcat.keys():
+                self._character['cat'][cat]["total bonus"] = dcat["total bonus"]
 
-            for skill in list(self.__changed["cat"][cat]["Skill"].keys()):
+            for skill in list(dcat.get("Skill", {}).keys()):
 
                 if skill != "Progression" and skill != "Stats":
 
                     if skill not in list(self._character["cat"][cat]["Skill"].keys()):
                         self._character["cat"][cat]["Skill"][skill] = self.__changed['cat'][cat]["Skill"][skill]
+                        logger.info(f"new skill {cat}/{skill} copied from changes")
+                        continue
 
                     else:
-                        self._character["cat"][cat]["Skill"][skill]["rank"] = self.__changed["cat"][cat]["Skill"][skill]["rank"]
-                        self._character["cat"][cat]["Skill"][skill]["total bonus"] = self.__changed["cat"][cat]["Skill"][skill]["total bonus"]
+                        sdata = self.__changed["cat"][cat]["Skill"][skill]
+                        if "rank" in sdata.keys():
+                            self._character["cat"][cat]["Skill"][skill]["rank"] = sdata["rank"]
+                        if "total bonus" in sdata.keys():
+                            self._character["cat"][cat]["Skill"][skill]["total bonus"] = sdata["total bonus"]
 
         logger.info("Category/Skill bonusses re-calculated")
         handlemagic.updateSL(character = self._character, datadir = self.spath)
@@ -3564,13 +3581,24 @@ class skillcatWin(blankWindow):
         This method quickly saves a snapshot of current character's data into
         a file.
 
+        ----
+        @fixes BUG-2248 (B): the target <player>/ subdirectory is now
+        created when missing (new players used to lose the sheet silently
+        because writeJSON() swallows FileNotFoundError), and a save that
+        did not land on disk now raises instead of reporting success.
         @param ending ending of the filename
         '''
         pathfile = self.spath + "/" + \
             self._character['player'] + "/" + self._character['name'] + ending
 
+        os.makedirs(os.path.dirname(pathfile), exist_ok = True)
         logger.debug(f"save path snap file: {pathfile}")
         writeJSON(pathfile, self._character)
+
+        if not os.path.isfile(pathfile):
+            # BUG-2248: fail loud — a swallowed IO error must not end up
+            # as a silent, vanished character sheet.
+            raise RuntimeError(f"sheet save failed, file missing: {pathfile}")
 
 
     def __info(self, text = ""):
