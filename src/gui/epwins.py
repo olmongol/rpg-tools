@@ -2950,9 +2950,14 @@ class skillcatWin(blankWindow):
         @todo The following__chgtree has to be implemented:
         -# check whether it is a new skill.
         -# undone level ups have to add DP to total DP
-        @bug
-        - after finalize button use 'edit' and levelups of already partially leveled skills can not be leveled to the given limit.
-        - submitting of more then one level up does not deliver the correct new ranks but only the correct lvlups
+        @fixes
+        - BUG: after finalize button use 'edit' and levelups of already partially leveled
+          skills can not be leveled to the given limit.
+        - BUG: submitting of more then one level up does not deliver the correct new ranks
+          but only the correct lvlups.
+        Fixed 2026-08-31: over-max level-ups no longer raise IndexError, and rank is only
+        written when a level-up slot is actually available (rank/lvlups stay consistent).
+        See BUGS.md BUG-2249 and gui/test_lvlup_rank.py.
         '''
         #--- POSSIBLE DEBUGS IF ONLY SKILL WAS CHOOSEN
         #self.__takeValsCat()
@@ -3065,8 +3070,11 @@ class skillcatWin(blankWindow):
 
                     if  diff > 0:
 
-                        for i  in range(lowval, lowval + diff):
-                            diffcost += int(dpCosts[i])
+                        if lowval + diff <= len(dpCosts):
+                            for i  in range(lowval, lowval + diff):
+                                diffcost += int(dpCosts[i])
+                        else:
+                            self.__info(screenmesg['epwins_no_dp'][self.lang])
                     else:
 
                         for i in range(lowval + diff, lowval):
@@ -3082,7 +3090,7 @@ class skillcatWin(blankWindow):
 
                         logger.info(f"{cat}/{skill} lvlups: {self.__changed['cat'][cat]['Skill'][skill]['lvlups']}")
 
-                        if self.__changed['cat'][cat]["Skill"][skill]['lvlups'] <= len(dpCosts):
+                        if self.__changed['cat'][cat]["Skill"][skill]['lvlups'] < len(dpCosts):
                             self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
                             self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
                             self.__usedDP += diffcost
@@ -3098,8 +3106,11 @@ class skillcatWin(blankWindow):
 
                     if diff > 0:
 
-                        for i  in range(lowval, lowval + diff):
-                            diffcost += int(dpCosts[i])
+                        if lowval + diff <= len(dpCosts):
+                            for i  in range(lowval, lowval + diff):
+                                diffcost += int(dpCosts[i])
+                        else:
+                            self.__info(screenmesg['epwins_no_dp'][self.lang])
 
                     else:
 
@@ -3113,7 +3124,7 @@ class skillcatWin(blankWindow):
                         if 'lvlups' not in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
                             self.__changed['cat'][cat]["Skill"][skill]['lvlups'] = 0
 
-                        if self.__changed['cat'][cat]["Skill"][skill]['lvlups'] <= len(dpCosts):
+                        if self.__changed['cat'][cat]["Skill"][skill]['lvlups'] < len(dpCosts):
                             self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
                             logger.info(f"{cat}/{skill} lvlups: {self.__changed['cat'][cat]['Skill'][skill]['lvlups']}")
                             self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
@@ -3134,8 +3145,11 @@ class skillcatWin(blankWindow):
 
                 if diff > 0:
 
-                    for i  in range(lowval, lowval + diff):
+                    if lowval + diff <= len(dpCosts):
+                        for i  in range(lowval, lowval + diff):
                             diffcost += int(dpCosts[i])
+                    else:
+                        self.__info(screenmesg['epwins_no_dp'][self.lang])
                 else:
 
                     for i in range(lowval + diff, lowval):
@@ -3150,7 +3164,7 @@ class skillcatWin(blankWindow):
 
                     logger.info(f"{cat}/{skill} lvlups: {self.__changed['cat'][cat]['Skill'][skill]['lvlups']}")
 
-                    if self.__changed['cat'][cat]["Skill"][skill]['lvlups'] <= len(dpCosts):
+                    if self.__changed['cat'][cat]["Skill"][skill]['lvlups'] < len(dpCosts):
                         self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
                         self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
                         self.__usedDP += diffcost
@@ -3173,8 +3187,11 @@ class skillcatWin(blankWindow):
 
                 if diff > 0:
 
-                    for i  in range(lowval, lowval + diff):
+                    if lowval + diff <= len(dpCosts):
+                        for i  in range(lowval, lowval + diff):
                             diffcost += int(dpCosts[i])
+                    else:
+                        self.__info(screenmesg['epwins_no_dp'][self.lang])
                 else:
 
                     for i in range(lowval + diff, lowval):
@@ -3189,7 +3206,7 @@ class skillcatWin(blankWindow):
 
                     logger.info(f"{cat}/{skill} lvlups: {self.__changed['cat'][cat]['Skill'][skill]['lvlups']}")
 
-                    if self.__changed['cat'][cat]["Skill"][skill]['lvlups'] <= len(dpCosts):
+                    if self.__changed['cat'][cat]["Skill"][skill]['lvlups'] < len(dpCosts):
                         self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
                         self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal
                         self.__usedDP += diffcost
@@ -3222,7 +3239,7 @@ class skillcatWin(blankWindow):
                     if 'lvlups' not in list(self.__changed['cat'][cat]['Skill'][skill].keys()):
                         self.__changed['cat'][cat]["Skill"][skill]['lvlups'] = 0
 
-                    if self.__changed['cat'][cat]["Skill"][skill]['lvlups'] <= len(dpCosts):
+                    if self.__changed['cat'][cat]["Skill"][skill]['lvlups'] < len(dpCosts):
                         self.__changed['cat'][cat]['Skill'][skill]['rank'] = newrank
                         logger.info(f"{cat}/{skill} lvlups: {self.__changed['cat'][cat]['Skill'][skill]['lvlups']}")
                         self.__changed['cat'][cat]['Skill'][skill]['total bonus'] = newtotal

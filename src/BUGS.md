@@ -162,6 +162,30 @@
   (2/2), `test_skill_after_cat.py` (4/4), `test_d1_close.py`,
   `test_d3_rename.py` — alle GREEN.
 
+## [BUG-2249] `skillcatWin.__takeValsSkill` — Levelup nach Finalize: falsche Ranks / IndexError über Max ✅ FIXED
+
+- **Datei:** src/gui/epwins.py (`skillcatWin.__takeValsSkill`, 5 Level-up-Arme bei ~L3066/3104/3141/3178/3213).
+- **Status:** FIXED 2026-08-31 (hermes_dev).
+- **Beschreibung:** zwei verwandte Defekte im Skill-Level-up-Pfad:
+  - **A (IndexError):** `for i in range(lowval, lowval + diff): dpCosts[i]`
+    las bei bereits max-gelevelten Skills **eine Stelle über**
+    `dpCosts` → `IndexError: dpCosts[3]`, wenn per Re-Edit (nach
+    Finalize) über die Max-Rank hinaus gelevelt wurde.
+  - **B (falsche Ranks):** Rank-Write `if lvlups <= len(dpCosts)`
+    aber `lvlups += diff` unter `if lvlups < len(dpCosts)` — an der
+    Grenze `lvlups == len(dpCosts)` wurde **rank geschrieben ohne
+    lvlups** → rank ohne Level-up-Slot dahinter; `__finalize` committet
+    den inkonsistenten Stand (Symptom „lvlups correct, rank wrong").
+- **Fix:** alle 5 Level-up-Arme: (1) Cost-Loop nur ausführen wenn
+  `lowval + diff <= len(dpCosts)`, sonst `info(epwins_no_dp)` (kein
+  Partial-Write); (2) 5× Guard `<=` → `<`, damit Rank und Levelups
+  atomar nur im verfügbaren Slot-Fenster bleiben.
+- **Verifiziert:** Neue Harness `src/gui/test_lvlup_rank.py` —
+  pre-fix: `0→1` GREEN, `0→3` GREEN, `3→4` CRASH (IndexError).
+  Post-fix: 3/3 GREEN (Rank 3 bleibt, Levelups ≤ 3, keine Exception).
+  Regression: `test_final_save.py` `test_choice_realm.py` `test_dp_repro.py`
+  `test_skill_after_cat.py` `test_d1_close.py` `test_d3_rename.py` — alle EXIT=0.
+
 ## BEREITS GEFIXT - NICHT MEHR AKTUELL
 
 | Bug | Status | Details |
