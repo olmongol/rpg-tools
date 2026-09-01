@@ -313,17 +313,39 @@ class equipmentPenalities(object):
     def getAT(self):
         """
         This gets the armor type of equipped armor.
+
+        Defensiv gegen Fehl-Strukturen in ``character["inventory"]["armor"]``:
+
+        * fehlt das Attribut ``name`` oder ist es kein String -> wird
+          übersprungen (kein ``KeyError``/``AttributeError``, sondern
+          die Stufe bleibt so, wie sie ist).
+        * ``AT`` wird nur dann gewertet, wenn es ``int`` ist
+          (``type(armor["AT"]) == type(2)`` bleibt).  Ein String
+          ``"9"`` z. B. wird bewusst ignoriert, nicht ``int()``-gecastet.
+        * eine leere ``armor``-Liste / fehlender Key ``armor`` liefert
+          ``self.AT == 1`` (Initialwert) statt einer Exception.
         """
         greaves = 0
-        for armor in self.character["inventory"]["armor"]:
-            if armor["location"] == "equipped":
+        character = self.character if isinstance(self.character, dict) else {}
+        inventory = character.get("inventory")
+        if not isinstance(inventory, dict):
+            inventory = {}
+        armor_list = inventory.get("armor")
+        if not isinstance(armor_list, list):
+            armor_list = []
+        for armor in armor_list:
+            if not isinstance(armor, dict):
+                continue
+            if armor.get("location") != "equipped":
+                continue
 
-                if type(armor["AT"]) == type(2):
-                    if armor["AT"] > self.AT:
-                        self.AT = armor["AT"]
+            if type(armor.get("AT")) == type(2):
+                if armor["AT"] > self.AT:
+                    self.AT = armor["AT"]
 
-                if "greaves" in armor["name"].lower():
-                    greaves += 0.5
+            name = armor.get("name")
+            if isinstance(name, str) and "greaves" in name.lower():
+                greaves += 0.5
         if greaves > 1:
             greaves = 1
 
@@ -350,6 +372,9 @@ class equipmentPenalities(object):
         if self.AT == 6:
             self.maxmanmod = -20 + self.character["cat"]["Armor - Light"]["Skill"]["Soft Leather"]["total bonus"]
             self.misatpen = -5
+            # @bug AT 6: minmanmod/armqupen sind in der RoLe-Tabelle nicht belegt -> 0 (User-Entscheidung 2026-09-01, Default)
+            self.minmanmod = 0
+            self.armqupen = 0
         elif self.AT == 7:
             self.minmanmod = -10
             self.maxmanmod = -40 + self.character["cat"]["Armor - Light"]["Skill"]["Soft Leather"]["total bonus"]
@@ -363,6 +388,9 @@ class equipmentPenalities(object):
         elif self.AT == 9:
             self.minmanmod = -5
             self.maxmanmod = -50 + self.character["cat"]["Armor - Light"]["Skill"]["Rigid Leather"]["total bonus"]
+            # @bug AT 9: RoLe misst AT 9 keine Fernwaffen-/Quen-Penalty zu -> 0 (User-Entscheidung 2026-09-01, Default)
+            self.misatpen = 0
+            self.armqupen = 0
         elif self.AT == 10:
             self.minmanmod = -10
             self.maxmanmod = -70 + self.character["cat"]["Armor - Light"]["Skill"]["Rigid Leather"]["total bonus"]
@@ -381,6 +409,8 @@ class equipmentPenalities(object):
         elif self.AT == 13:
             self.minmanmod = -10
             self.maxmanmod = -70 + self.character["cat"]["Armor - Medium"]["Skill"]["Chain"]["total bonus"]
+            # @bug AT 13: RoLe misst AT 13 keinen Fernwaffen-Penalty zu -> 0 (User-Entscheidung 2026-09-01, Default)
+            self.misatpen = 0
             self.armqupen = -5
         elif self.AT == 14:
             self.minmanmod = -15
@@ -400,6 +430,8 @@ class equipmentPenalities(object):
         elif self.AT == 17:
             self.minmanmod = -15
             self.maxmanmod = -90 + self.character["cat"]["Armor - Heavy"]["Skill"]["Plate"]["total bonus"]
+            # @bug AT 17: RoLe misst AT 17 keinen Fernwaffen-Penalty zu -> 0 (User-Entscheidung 2026-09-01, Default)
+            self.misatpen = 0
             self.armqupen = -10
         elif self.AT == 18:
             self.minmanmod = -20
