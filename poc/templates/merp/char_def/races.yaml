@@ -1,0 +1,24 @@
+# MERP — Rassen (CharGen), echtes Schema + Validierung (loader._validate_char_def):
+#   races: [ {name, stats: {Abkuerzung: Bonus}, rr?: {...}, bgo?: int, hobby_ranks?} ]
+#
+#   Jede Referenz in `stats` MUSS zu einer deklarierten Stat-Abbkürzung
+#   (ST/SS/DX/IN/HE) passen; `bgo` muss int sein — sonst TemplateLoadError.
+#   Beweist, dass der char_def-Loader ein Zweit-System mit eigenem Rassen-
+#   Layout und anderen Stat-Boni sauber lädt und validiert.
+races:
+  - name: Human
+    stats: {ST: 0, DX: 0}
+    bgo: 5
+    hobby_ranks: 10
+  - name: Elf
+    stats: {DX: 2, HE: -2}
+    bgo: 4
+    hobby_ranks: 8
+  - name: Dwarven
+    stats: {ST: 2, DX: -2}
+    bgo: 5
+    hobby_ranks: 10
+  - name: Halfling
+    stats: {ST: -4, DX: 4, HE: 2}
+    bgo: 5
+    hobby_ranks: 12

@@ -1,0 +1,133 @@
+# Rolemaster (RM) — System-Definition (Referenz: FINRION)
+# Formeln verifiziert gegen src/data/Marcus/Finrion.json
+api_version: 1
+system: rolemaster
+display_name: Rolemaster
+
+engine_contract:
+  evaluator: "rein, deterministisch: f(state, spec) → int"
+  rounding: floor
+  null_policy: "fehlt eine Referenz → Term = 0"
+  validation: "alle Term-Referenzen bei Load auflösbar"
+  integer_output: true
+
+stats:
+  - {abbr: St, name: Strength}
+  - {abbr: Ag, name: Agility}
+  - {abbr: Re, name: Reaction}
+  - {abbr: Co, name: Composure}
+  - {abbr: Pr, name: Presence}
+  - {abbr: Me, name: Memory}
+  - {abbr: In, name: Intelligence}
+  - {abbr: Qu, name: Quickness}
+  - {abbr: Em, name: Emotion}
+  - {abbr: SD, name: Self-Discipline}
+
+# State-Vertrag (Task 8): stats.<A>={std,race,spec,loss?};
+# cat.<N>={stats,rank,rank_bonus,prof_bonus,spec_bonus}; skill analog.
+
+# RANK-PROGRESSION (Quelle: src/rpgtoolbox/rolemaster.py progressionType)
+# progression = [p0(r=0), p1 (r 1-10), p2 (r 11-20), p3 (r 21-30), p4 (r 31+)]
+# rankbonus(rank, ...): r=0->p0; r<=10->p1*r; r<=20->p1*10+p2*(r-10);
+#                       r<=30->(p1+p2)*10+p3+(r-20); r>30->(p1+p2+p3)*10+p4*(r-30)
+# BD*/PPD*-Tabellen sind Rassen-Daten -> races.* (Task 9), nicht hier
+rank_progression:
+  standard_skill: [-15, 3, 2, 1, 0.5]
+  Combined: [-30, 5, 3, 2, 0.5]
+  standard_cat: [-15, 2, 1, 0.5, 0]
+
+categories:
+  - {name: Armor - Heavy,        stats: [St, St, Ag]}
+  - {name: Armor - Light,        stats: [St, St, Ag]}
+  - {name: Armor - Medium,       stats: [St, St, Ag]}
+  - {name: Artistic - Active,    stats: [Pr, Em, Ag]}
+  - {name: Artistic - Passive,   stats: [Em, In, Pr]}
+  - {name: Athletic - Brawn,     stats: [St, Co, Ag]}
+  - {name: Athletic - Endurance, stats: [Co, Ag, St]}
+  - {name: Athletic - Gymnastics, stats: [Ag, Ag, Qu]}
+  - {name: Awareness - Perception, stats: [In, In, SD]}
+  - {name: Awareness - Searching,  stats: [In, Re, SD]}
+  - {name: Awareness - Senses,     stats: [In, SD, In]}
+  - {name: Body Development,     stats: [Co, Co, SD]}
+  - {name: Combat Maneuvers,     stats: [Ag, Qu, SD]}
+  - {name: Communications,       stats: [Re, Me, Em]}
+  - {name: Crafts,               stats: [Ag, Me, SD]}
+  - {name: Directed Spells,      stats: [Ag, Ag, SD]}
+  - {name: Influence,            stats: [Re, Em, In]}
+  - {name: Lore - General,       stats: [Me, Me, Re]}
+  - {name: Lore - Magical,       stats: [Me, Me, Re]}
+  - {name: Lore - Obscure,       stats: [Me, Me, Re]}
+  - {name: Lore - Technical,     stats: [Me, Me, Re]}
+  - {name: Martial Arts - Striking, stats: [St, St, Ag]}
+  - {name: Martial Arts - Sweeps, stats: [Ag, Ag, St]}
+  - {name: Outdoor - Animal,     stats: [Em, Em, Ag]}
+  - {name: Outdoor - Environmental, stats: [SD, In, Me]}
+  - {name: Power Awareness,      stats: [Em, In, Pr]}
+  - {name: Power Manipulation,   stats: [Em, In, Pr]}
+  - {name: Power Point Development, stats: [In]}
+  - {name: Science/Analytic - Basic, stats: [Re, Me, Re]}
+  - {name: Science/Analytic - Specialized, stats: [Re, Me, Re]}
+  - {name: Self Control,         stats: [SD, SD, Pr]}
+  - {name: Special Attacks,      stats: [St, Ag, SD]}
+  # Quelle Finrion.json hat hier leere Stats — kanonisch St,Ag,SD
+  - {name: Special Defenses,     stats: [St, Ag, SD]}
+  - {name: Spells - Arcane Open Lists, stats: [In]}
+  - {name: Spells - Other Realm Base Lists, stats: [In]}
+  - {name: Spells - Other Realm Closed Lists, stats: [In]}
+  - {name: Spells - Other Realm Open Lists, stats: [In]}
+  - {name: Spells - Own Realm Closed Lists, stats: [In]}
+  - {name: Spells - Own Realm Open Lists, stats: [In]}
+  - {name: Spells - Own Realm Other Base Lists, stats: [In]}
+  - {name: Spells - Own Realm Own Base Lists, stats: [In]}
+  - {name: Subterfudge - Attack,   stats: [Ag, SD, In]}
+  - {name: Subterfudge - Mechanics, stats: [In, Ag, Re]}
+  - {name: Subterfudge - Stealth,  stats: [Ag, SD, In]}
+  - {name: Technical/Trade - General, stats: [Re, Me, SD]}
+  - {name: Technical/Trade - Professional, stats: [Re, Me, In]}
+  # Quelle: Me,in,Re ('in' normalisiert)
+  - {name: Technical/Trade - Vocational, stats: [Me, In, Re]}
+  - {name: Urban,                stats: [In, Pr, Re]}
+  - {name: Weapon - 1-H Concussion, stats: [St, Ag, St]}
+  - {name: Weapon - 1-H Edged, stats: [St, Ag, St]}
+  - {name: Weapon - 2-Handed,    stats: [St, Ag, St]}
+  - {name: Weapon - Missile,     stats: [Ag, St, Ag]}
+  - {name: Weapon - Missile Artillery, stats: [In, Ag, Re]}
+  - {name: Weapon - Pole Arms,   stats: [St, Ag, St]}
+  - {name: Weapon - Thrown,      stats: [Ag, St, Ag]}
+
+char_generation:
+  steps:
+    - {id: race,       title: Rasse}
+    - {id: folk,       title: Volk}
+    - {id: occupation, title: Beruf}
+    - {id: stats,      title: "Attribute würfeln"}
+    - {id: categories, title: Kategorien + Skills}
+    - {id: equipment,  title: "Ausrüstung"}
+    - {id: bgos,       title: BGOs}
+    - {id: finalize,   title: Finalisieren}
+
+# BGO-Mechanik (Entscheidung 2026-08: nur bei Erschaffung, Kostentabellen,
+# Nachteil=0 Kosten, Wahl oder Wuelfel). Listen sind Rasse-/Berufs-Daten.
+bgo:
+  budget_from_race: true
+  cost_tiers: [0, 1, 3, 5, 10, 15]
+  disadvantage_cost: 0
+  selection: [choose, roll]
+
+# RR (Reaction Rating) — Legacy: RRroll(attacklvl, targetlvl, roll) 1d100
+# Erfolg wenn roll >= Zielwert(attacklvl,targetlvl). Level-Brackets:
+#   attack <6:  50+(a-1)*5 | 6-10: 70+(a-5)*3 | 11-14: 85+(a-10)*2 | >=15: 90+(a-15)
+#   target  senkt analog (siehe rpgtools.py:172)
+rr:
+  die: [100, 1]
+  mode: meets_target
+  target_from: [attack_level, defense_level]
+
+# pro-Kategorie-Progression (Default: standard_cat / standard_skill)
+# Verifiziert: Combat-Maneuver-Skills nutzen combined
+progression_overrides:
+  - {category: "Combat Maneuvers", default: combined}
+
+# XP (Mechanik; Wuerfel-Tabellen sind System-Daten, Task 9)
+xp:
+  points_per_level_base: 1000

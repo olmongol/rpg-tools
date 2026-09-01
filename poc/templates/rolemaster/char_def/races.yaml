@@ -1,0 +1,48 @@
+# Rolemaster — Rassen (CharGen Schritt 1).
+# Quelle: src/rpgtoolbox/rolemaster.py raceAbilities (legacy, unverändert extrahiert).
+# stats: Abkuerzung -> Bonus (nur != 0). rr: RR-Kanal -> Bonus.
+# bgo: BGO-Kosten-Budget. hobby_ranks: Hobby-Ranken-Budget.
+races:
+  - name: Common Men
+    stats: {St: 2, SD: 2}
+    bgo: 6
+    hobby_ranks: 12
+  - name: Mixed Men
+    stats: {St: 2, Co: 2, Pr: 2, SD: 2}
+    bgo: 5
+    hobby_ranks: 12
+  - name: High Men
+    stats: {St: 4, Ag: -2, Co: 4, Pr: 4, Qu: -2}
+    rr: {RREss: -5, RRChan: -5, RRMent: -5}
+    bgo: 4
+    hobby_ranks: 10
+  - name: Wood Elves
+    stats: {Ag: 4, Pr: 2, Me: 2, Qu: 2, Em: 2, SD: -5}
+    rr: {RREss: -5, RRChan: -5, RRMent: -5, RRPoison: 10, RRDisease: 100}
+    bgo: 4
+    hobby_ranks: 10
+  - name: Grey Elves
+    stats: {Ag: 2, Pr: 4, Me: 2, Qu: 4, Em: 2, SD: -5}
+    rr: {RREss: -5, RRChan: -5, RRMent: -5, RRPoison: 10, RRDisease: 100}
+    bgo: 3
+    hobby_ranks: 8
+  - name: High Elves
+    stats: {Ag: 2, Pr: 6, Me: 2, Qu: 6, Em: 2, SD: -5}
+    rr: {RREss: -5, RRChan: -5, RRMent: -5, RRPoison: 10, RRDisease: 100}
+    bgo: 2
+    hobby_ranks: 6
+  - name: Half Elves
+    stats: {St: 2, Ag: 2, Co: 2, Pr: 4, Qu: 4, SD: -3}
+    rr: {RREss: -5, RRChan: -5, RRMent: -5, RRDisease: 50}
+    bgo: 4
+    hobby_ranks: 10
+  - name: Dwarves
+    stats: {St: 2, Ag: -2, Co: 6, Pr: -4, Qu: -2, Em: -4, SD: 2}
+    rr: {RREss: 40, RRMent: 40, RRPoison: 20, RRDisease: 15}
+    bgo: 5
+    hobby_ranks: 12
+  - name: Halflings
+    stats: {St: -8, Ag: 6, Co: 6, Pr: -6, Qu: 4, Em: -2, SD: -4}
+    rr: {RREss: 50, RRMent: 40, RRPoison: 30, RRDisease: 15}
+    bgo: 5
+    hobby_ranks: 12

@@ -1,0 +1,42 @@
+# MERP — Zweit-System-Definition (Gate-Beweis für die allgemeine Engine).
+# Kanonische Classic MERP / Mongoose 1e: FÜNF Stats, eine gemeinsame Skala
+# (jede 4d6, niedrigste zwei verwerfen -> 2..12), 1d6-Skills, 3-test.
+#
+# Der Loader (rpgpoc/loader.py) verlangt: `system`, `stats[].abbr`, und
+# deckt calc/probes/rules/char_def gegen genau diese deklarierten Stats ab.
+# Diese Datei ist der Nachweis, dass dieselbe Engine auch ein System mit
+# 5 statt RMs 10 Stats sauber lädt, validiert, berechnet und rendert.
+api_version: 1
+system: merp
+display_name: MERP
+
+engine_contract:
+  evaluator: "rein, deterministisch: f(state, spec) -> int"
+  rounding: round
+  null_policy: "fehlt eine Referenz -> Term = 0"
+  validation: "alle Term-Referenzen bei Load auflösbar"
+  integer_output: true
+
+stats:
+  - {abbr: ST, name: Strength}
+  - {abbr: SS, name: Speed}
+  - {abbr: DX, name: Dexterity}
+  - {abbr: IN, name: Intelligence}
+  - {abbr: HE, name: Health}
+
+# Character-Generation (MERP-Kanal): Würfeln + Punkte-Einteilung,
+# bewusst kürzer als RMs 8-Schritte — pro System eigene Schritte.
+char_generation:
+  steps:
+    - {id: concept,     title: Konzept & Rasse}
+    - {id: stats,       title: "Attribute (4d6)"}
+    - {id: skills,      title: "Skills (1d6-Tests)"}
+    - {id: equipment,   title: Ausrüstung}
+    - {id: finalize,    title: Finalisieren}
+
+# 3-test (1d6): Erfolg wenn Wurf <= Ziel (Ziel = IN/2 bei reinen Stat-Tests).
+# Der Wurf zur Laufzeit; hier nur die Wurf-Deklaration (siehe probes.yaml).
+skill_test:
+  die: [6, 1]
+  mode: meets_or_below
+  target_from: [skill_value]

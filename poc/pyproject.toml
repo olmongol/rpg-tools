@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rpgpoc"
+version = "0.0.1"
+description = "rpg-tools PoC — calc + probes + rules Säulen, RM-Beleg mit Finrion"
+requires-python = ">=3.10"
+dependencies = ["PyYAML>=6", "Jinja2>=3.1"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["rpgpoc*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --tb=short"

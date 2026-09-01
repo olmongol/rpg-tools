@@ -1,0 +1,99 @@
+# RoleMaster — Reactive rules (Saeule 3).
+#
+# Schema (rpgpoc/rules.py): jede Regel =
+#   on:     [event_typen]      (Regel reagiert nur auf diese)
+#   when:   "eine Compare-Formel"   AST-Whitelist: nur + - * / und Punkt-Referenzen;
+#                                   KEIN and/or und KEINE String-Vergleiche im PoC
+#   action: {type: rule_applied, name: ...}     (Audit-Trail-Eignung)
+#
+# Bedingungskontext:
+#   state.<Pfad>       — der reduzierte Zustand (reducer.py::empty_state)
+#   event.payload.<k>  — das Payload des ausloesenden Events
+#
+# ---------------------------------------------------------------------------
+# SCOPE-EHRLECHTKEIT (diese Datei referenziert EVENT-TYPEN UEBER die 7 Engine-
+# Kern-Events hinaus). Der PoC-Reducer kennt nur: character_created,
+# item_added, stat_*, bgo_purchased, rule_applied. Die RR-/Disease-/Poison-
+# Events unten sind System-Ereignisse, die die Engine NOCH ergänzen muss,
+# bevor sie feuern. Bis dahin sind die Regeln inert (keine derartigen Events
+# im Log) — sie sind die Deklaration, was das System regeln SOLL.
+#
+# WICHTIG (PoiC-Constraint): `when` ist genau EINE Vergleichs-Formel.
+# Jede mehrstufige Bedingung steckt im Event-TYP (z.B. `healed_while_bleeding`
+# impliziert bereits "healed AND bleeding"), NICHT in `when`. Die Vergleichs-
+# Formel prüft nur noch ein Payload-Feld.
+# ---------------------------------------------------------------------------
+
+# --- RR (Reaction Rating, 1d100 vs bracket target — see definition.rr) ----
+# Das RR-Ergebnis (hit/miss) wird vom Engine-Event `rr_check` getragen.
+# Das Ziel (attack/defense level bracket) ist DATEN, nicht Calc-Formel:
+#   die calc-Minilanguage hat keine Verzweigung, also kein Stufen-Bracket.
+#   Die Brackets kommen als Daten (Task 7) in rules/Engine-Runtime.
+
+rr_resisted:
+  event_types: [rr_check]
+  when: "event.payload.resisted == 1"
+  action:
+    type: rule_applied
+    name: rr_resisted
+
+rr_failed:
+  event_types: [rr_check]
+  when: "event.payload.resisted == 0"
+  action:
+    type: rule_applied
+    name: rr_failed
+
+# --- Bleed-Pause-on-Heal (Task-7 example, rules.py module docstring) ------
+# Wenn HP erholt wird WÄHREND des Char blutet, pausiert die Blutung
+# (Regelwerk: "ein Heilen stoppt die Blutung").
+# Die Bedingung "healed AND bleeding" steckt im EVENT-TYP (healed_while_bleeding);
+# `when` bleibt eine triviale true-Formel (valid per AST, fires on every
+# `healed_while_bleeding` event — der Event-Typ selbst ist die Bedingung).
+
+# (kein `when` — der Event-TYP IST die Bedingung; `on` genügt, rules.py
+#  fires on every matching event when `when` is absent)
+pause_bleed_on_heal:
+  event_types: [healed_while_bleeding]
+  action:
+    type: rule_applied
+    name: pause_bleed_on_heal
+
+# --- Disease (stapelbar pro Stage — decision) ---
+disease_stage_up:
+  event_types: [disease_rr_failed]
+  # only counts when the stage actually advanced (numeric Payload flag)
+  when: "event.payload.stage_advanced == 1"
+  action:
+    type: rule_applied
+    name: disease_stage_up
+
+disease_cured:
+  event_types: [disease_cured]
+  action:
+    type: rule_applied
+    name: disease_cured
+
+# --- Poison (stapelbar, source=poison — decision) ---
+poison_stage_up:
+  event_types: [poison_rr_failed]
+  when: "event.payload.stage_advanced == 1"
+  action:
+    type: rule_applied
+    name: poison_stage_up
+
+poison_cured:
+  event_types: [poison_cured]
+  # source=poison is checked by the engine at event-creation time (string
+  # comparison is NOT in the calc AST whitelist — it's a Payload field).
+  action:
+    type: rule_applied
+    name: poison_cured
+
+# --- XP / Level (placeholder for task-9 XP-tables) -------------------------
+level_up_cost_checked:
+  event_types: [xp_spend_proposed]
+  when: "event.payload.affordable == 1"
+  action:
+    type: rule_applied
+    name: level_up_cost_checked

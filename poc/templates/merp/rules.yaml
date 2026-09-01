@@ -1,0 +1,30 @@
+# MERP — Reaktive Regeln (Säule 3), echtes Schema (rpgpoc/rules.py):
+#   name -> { event_types: [...], when?: "eine Compare-Formel",
+#             action: {type: rule_applied, name: ...} }
+#
+# WICHTIG: Key ist `event_types:` (Nicht `on:`  — YAML-1.1-Boolean-Falle).
+# `when` ist genau EINE Vergleichs-Formel (AST-Whitelist: + - * /, Punkt-Ref).
+# Wie bei RM: komplexe Bedingungen stecken in der Event-TYP, nicht in `when`.
+
+# Skill-Test bestanden -> Fortschritt vorgeschlagen
+skill_advance:
+  event_types: [stat_test_passed]
+  when: "event.payload.success == 1"
+  action:
+    type: rule_applied
+    name: skill_advance
+
+# Kampf-Kritischer Treffer (natürliche 6) -> Bonus-Schaden vorgeschlagen
+combat_critical:
+  event_types: [combat_hit]
+  action:
+    type: rule_applied
+    name: combat_critical
+
+# Schaden -> Moral-Check
+morale_check:
+  event_types: [combat_hit]
+  when: "event.payload.morale_tested == 1"
+  action:
+    type: rule_applied
+    name: morale_check

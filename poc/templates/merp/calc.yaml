@@ -1,0 +1,40 @@
+# MERP — calc-Blöcke (Säule 1), echtes Schema aus rpgpoc/calc.py:
+#   Jeder Block = { pipeline: [{expr: "minilang"} ...],
+#                   rounding: floor|round|ceil, clamp?: [lo, hi] }
+#   Terms sind dot-Referenzen gegen den per-Entity-Context, der von der
+#   Engine generische Keys trägt (stat.*, genau wie bei Rolemaster).
+#   Fehlende Referenz = 0 (null_policy: zero). Ausgabe IMMER integer.
+#
+# GENERICITY-BEHERRSCHUNG: derselbe stat_total-Block-Shape wird für alle
+# 5 MERP-Stats herangezogen — die Engine speist, welcher Stat bewertet
+# wird; die Template-Formel bleibt stat-agnostisch.
+
+# Basis-Wert = std + race + spec (gleicher generischer Context wie RM)
+stat_total:
+  pipeline:
+    - expr: "stat.std"
+    - expr: "stat.race"
+    - expr: "stat.spec"
+  rounding: floor
+
+# Weiche Stärke (classic MERP) = ST / 2 — Minilang-Teilung + clamp.
+soft_strength:
+  pipeline:
+    - expr: "stat.total / 2"
+  rounding: round
+  clamp: [2, 12]
+
+# Kampf-Modifikator = (Stat - 10) + Spec-Modifier/2; integer, -4..+4 gesättigt.
+combat_modifier:
+  pipeline:
+    - expr: "stat.total - 10"
+    - expr: "stat.spec / 2"
+  rounding: floor
+  clamp: [-4, 4]
+
+# Skill-Punktekosten = Stat / 2 (Intelligenz-gesteuert), 1..6.
+skill_cost:
+  pipeline:
+    - expr: "stat.total / 2"
+  rounding: round
+  clamp: [1, 6]

@@ -1,0 +1,48 @@
+# RoleMaster — calc-Blocks (Saeule 1).
+#
+# Schema (07 §10, rpgpoc/calc.py): every block is
+#   { pipeline: [ {expr: "minilang"} ... ], rounding: floor|round|ceil, clamp?: [lo, hi] }
+#
+# ENGINE CONTRACT (this is the part of the template that matters):
+#   * Terms are dotted references resolved against a *context* dict; a missing
+#     path is 0 (null_policy: zero, the default).
+#   * A single block is evaluated PER ENTITY by the engine calling
+#     evaluate_block(context, template.calc.<block>). The engine builds the
+#     context with GENERIC keys, so the SAME block works for every stat /
+#     category / skill:
+#       stat_total  -> context = {"stat": {std, race, spec, pot, temp}}
+#       cat_total   -> context = {"cat":  {stat_bonus, rank_bonus, spec, item}}
+#       skill_total -> context = {"skill": {rank_bonus, item_bonus, spec_bonus,
+#                                            cat_total}}
+#   * This is why no stat ABBR is hard-coded here — the template is generic and
+#     the engine supplies which stat/cat/skill to score. (Definition.yaml lists
+#     the canonical 10 abbrs for validation; calc stays stat-agnostic.)
+#   * All emitted values are integers (rounding: floor per the decision).
+
+# stat-total = std + race + spec
+# (verified against legacy Finrion St: std 10 + race 2 + spec 8 = total 20)
+stat_total:
+  pipeline:
+    - expr: "stat.std"
+    - expr: "stat.race"
+    - expr: "stat.spec"
+  rounding: floor
+
+# category-total = stat_bonus + rank_bonus + spec + item
+cat_total:
+  pipeline:
+    - expr: "cat.stat_bonus"
+    - expr: "cat.rank_bonus"
+    - expr: "cat.spec"
+    - expr: "cat.item"
+  rounding: floor
+
+# skill-total = cat_total + rank_bonus + item_bonus + spec_bonus
+# (legacy: rank bonus + total cat bonus + skill item bonus + skill spec bonus)
+skill_total:
+  pipeline:
+    - expr: "skill.cat_total"
+    - expr: "skill.rank_bonus"
+    - expr: "skill.item_bonus"
+    - expr: "skill.spec_bonus"
+  rounding: floor

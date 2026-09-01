@@ -1,0 +1,22 @@
+# MERP — Proben / Würfel (Säule: Dice), echtes Schema (rpgpoc/probes.py):
+#   name -> { die: int, modifier: int?, clamp?: [lo, hi] }
+#
+# Der *Wurf* passiert erst zur Laufzeit. Diese Datei DECLARIERT nur, welche
+# Würfel das Zweit-System kennt — bewusst ANDERES Die-Profil als Rolemaster
+# (RM: 1d100 RR + 1d10 Schadens/Steigerung), um die System-Unabhängigkeit
+# der Dice-Säule zu beweisen: MERP würfelt 1d6 (3-test / Skill / Schaden).
+
+d6_skill_test:
+  die: 6
+  modifier: 0
+  # 3-test: 1d6, Erfolg wenn Wurf <= Ziel (Ziel aus Stat/Skill, zur Laufzeit).
+
+d6_combat:
+  die: 6
+  modifier: 0
+  # Angriffswurf, gleiche 1d6-Mechanik.
+
+d6_morale:
+  die: 6
+  modifier: 0
+  # Moral-/Kampfgeist-Check, 1d6 gegen Tabellenwert.

@@ -1,0 +1,41 @@
+# RoleMaster — Probes / Wuerfel (Saeule: Dice).
+#
+# Schema (rpgpoc/probes.py::make_probes_block): jede Probe =
+#   die:      int          (Wuerfelseiten, dN)
+#   modifier: int          (optional, default 0; darf negativ sein)
+#   clamp?:   [lo, hi]     (optional)
+#
+# WICHTIG: Der *Wurf* passiert erst zur Laufzeit (rules / live play). Diese
+# Datei DECLARIERT nur, welche Wuelfel/Proben das System kennt.
+#
+# RR-Modell (definition.yaml :: rr): 1d100 WURF, verglichen gegen ein
+#   Ziel, das aus Angriff- und Verteidigungs-Stufe gebildet wird
+#   (Stufen-Bracket-Formel — SAEULE "Daten", Task 7 rules berechnet das Ziel).
+#   Die Probe selbst waehlt nur den Wuelfel (d100) + ggf. Clamping.
+
+rr:
+  die: 100
+  modifier: 0
+  # success = WURF >= rr_target(attack_level, defense_level)   [definition.rr.mode = meets_target]
+  # rr_target is RESOLVED AT RUNTIME by the rules pillar from the attack/defense
+  # level bracket table (see definition.yaml :: rr + rpgtools.RRroll). It is NOT
+  # expressable in the calc minilang (no branch operators), hence a data table.
+
+hp_loss_on_injury:
+  die: 10
+  modifier: 0
+  # injury table: roll d10 + stat modifier; the wound table (System-Daten, Task 9).
+
+pp_loss_on_injury:
+  die: 10
+  modifier: 0
+
+stat_gain:
+  die: 10
+  modifier: 0
+  # temporary-stat gain/loss (rpgtools.statGain): two d10, lower vs higher.
+
+disease_progression:
+  die: 10
+  modifier: 0
+  # disease/poison RR progression (rr_stage, stapelbar — see rules.yaml disease/poison).
