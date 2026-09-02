@@ -162,6 +162,27 @@
   (2/2), `test_skill_after_cat.py` (4/4), `test_d1_close.py`,
   `test_d3_rename.py` — alle GREEN.
 
+## [BUG-2250] `inventory_gui.calcMMP` — 3 `calcMMP`-Methods packen `shop_logic.calc_mmp()` (1 Float → Marktmacht) in 5 Variablen → `TypeError: cannot unpack non-sequence float` ✅ FIXED
+
+- **Datei:** `src/gui/modules/inventory_gui.py` — `InventoryWin.calcMMP` (L468), `shopWin.calcMMP` (L1631), `editinventory.calcMMP` (L4410).
+- **Status:** FIXED (dieser Commit, hermes_dev).
+- **Beschreibung:** `shop_logic.calc_mmp()` (rpgtoolbox/shop_logic.py L89) berechnet die **Marktmacht** aus `lvl * 50 * prof_multiplier` und liefert **einen Float** (z. B. `825.0`). Alle drei `calcMMP`-Methods in `inventory_gui.py` dekonstruierten diesen Float in 5 Variablen:
+
+      mmp, at, misslepen, armqupen, armmanmod = calc_mmp(self.character)
+
+  → `TypeError: cannot unpack non-sequence float` beim ersten Aufruf der drei Fenster (`InventoryWin`, `shopWin`, `editinventory`). Der eigentliche Ziel-Zweck (MMP = Movement Maneuver Penalty, `AT`, `misslepen`, `armquickpen`, `armmanmod` auf `character` setzen + `wcont["MMP"]` befüllen) blieb dadurch unerreichbar.
+- **Semantik-Grund:** MMP = **Bewegungsmanövermod. / Movement Maneuver Penalty** (`lang.py` L730–733, `rolemaster.py` L474) — NOT Marktmacht. Die fünf Werte stammen aus `rpgtoolbox.rpgtools.equipmentPenalities`:
+  - `MMP`          ← `ep.weightpenalty`
+  - `AT`           ← `ep.AT`
+  - `misslepen`    ← `ep.misatpen`
+  - `armquickpen`  ← `ep.armqupen`
+  - `armmanmod`    ← `ep.maxmanmod`  (nicht `minmanmod`; kanonischer Produzent: `edit_inv_core.py:163`)
+- **Fix:** Alle drei `calcMMP`-Methods ersetzen jetzt `ep = rpg.equipmentPenalities(character)` + Attribut-Reads für alle fünf Werte; `wcont["MMP"]` und `character["MMP"]` werden wie zuvor gesetzt; die `shopWin`-/`editinventory`-Versions schreiben zusätzlich `character["AT"]`/`misslepen`/`armquickpen`/`armmanmod` zurück (wie in der originalen Intent-Body sichtbar).
+- **Verifiziert:**
+  - `test_inventory_mmp.py` (neuer Standalone-Test, `main()`-Runner, keine `tk.Tk()`) — GREEN: 3 Fälle (Finrion mit AT=15, leeres inventory, unvollständige char) ohne Exception, MMP/AT/Penalties korrekt auf `character` + `wcont` gesetzt.
+  - Pyright: keine neuen Fehler für die geänderten Zeilen; pre-existing warning `equipmentPenalities.__init__(character=None)` bleibt (unabhängig vom Fix).
+- **Offener Rest:** `edit_win`-Fenster nutzt noch `calc_mmp` (Markt-Power) für Preis-Checks — korrekt, nicht zu verwechseln.
+
 ## [BUG-2249] `skillcatWin.__takeValsSkill` — Levelup nach Finalize: falsche Ranks / IndexError über Max ✅ FIXED
 
 - **Datei:** src/gui/epwins.py (`skillcatWin.__takeValsSkill`, 5 Level-up-Arme bei ~L3066/3104/3141/3178/3213).

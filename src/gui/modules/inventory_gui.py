@@ -467,7 +467,24 @@ class InventoryWin(blankWindow):
 
 
     def calcMMP(self):
-        mmp, at, misslepen, armqupen, armmanmod = calc_mmp(self.character)
+        """
+        This calculates the Movement Maneuver Penalty (MMP) for the
+        InventoryWin status display.
+
+        Reads the current value from ``rpg.equipmentPenalities(character)``
+        (NOT from ``shop_logic.calc_mmp`` which computes market power and
+        returns a single float — unpacking it into 5 variables raised
+        ``TypeError: cannot unpack non-sequence float``).
+
+        Mapping:  character["MMP"]  <-  ep.weightpenalty
+
+        ----
+        @bug 2250: unpacked ``calc_mmp()`` (1 float) into 5 vars → TypeError.
+        @fixes 2250: now reads ``equipmentPenalities.weightpenalty`` directly.
+        @see rpgtools.equipmentPenalities
+        """
+        ep = rpg.equipmentPenalities(self.character)
+        mmp = ep.weightpenalty
         self.wcont["MMP"].set(mmp)
 
 
@@ -1615,9 +1632,36 @@ class shopWin(blankWindow):
 
 
     def calcMMP(self):
-        """Thin wrapper around rpgtoolbox.shop_logic.calc_mmp"""
-        mmp, at, misslepen, armqupen, armmanmod = calc_mmp(self.character)
+        """
+        This calculates the Movement Maneuver Penalty (MMP) plus the
+        armor-derived AT / missile / quickness / man-mana modifiers.
+
+        Reads all five values from ``rpg.equipmentPenalities(character)``
+        (NOT from ``shop_logic.calc_mmp`` which computes market power and
+        returns a single float — unpacking it into 5 variables raised
+        ``TypeError: cannot unpack non-sequence float``).
+
+        Mapping (mirrors ``edit_inv_core.calculate_equipment_mmp``):
+
+            character["MMP"]          <-  ep.weightpenalty
+            character["AT"]           <-  ep.AT
+            character["misslepen"]    <-  ep.misatpen
+            character["armquickpen"]  <-  ep.armqupen
+            character["armmanmod"]    <-  ep.maxmanmod
+
+        ----
+        @bug 2250: unpacked ``calc_mmp()`` (1 float) into 5 vars → TypeError.
+        @fixes 2250: now reads the five ``equipmentPenalities`` attributes directly.
+        @see rpgtools.equipmentPenalities
+        """
+        ep = rpg.equipmentPenalities(self.character)
+        mmp        = ep.weightpenalty
+        at         = ep.AT
+        misslepen  = ep.misatpen
+        armqupen   = ep.armqupen
+        armmanmod  = ep.maxmanmod
         self.wcont["MMP"].set(mmp)
+        self.character["MMP"] = mmp
         self.character["AT"] = at
         self.character["misslepen"] = misslepen
         self.character["armquickpen"] = armqupen
@@ -4367,8 +4411,34 @@ class editinventory(blankWindow):
 
 
     def calcMMP(self):
-        """Thin wrapper around rpgtoolbox.shop_logic.calc_mmp"""
-        mmp, at, misslepen, armqupen, armmanmod = calc_mmp(self.character)
+        """
+        This calculates the Movement Maneuver Penalty (MMP) plus the
+        armor-derived AT / missile / quickness / man-mana modifiers.
+
+        Reads all five values from ``rpg.equipmentPenalities(character)``
+        (NOT from ``shop_logic.calc_mmp`` which computes market power and
+        returns a single float — unpacking it into 5 variables raised
+        ``TypeError: cannot unpack non-sequence float``).
+
+        Mapping (mirrors ``edit_inv_core.calculate_equipment_mmp``):
+
+            character["MMP"]          <-  ep.weightpenalty
+            character["AT"]           <-  ep.AT
+            character["misslepen"]    <-  ep.misatpen
+            character["armquickpen"]  <-  ep.armqupen
+            character["armmanmod"]    <-  ep.maxmanmod
+
+        ----
+        @bug 2250: unpacked ``calc_mmp()`` (1 float) into 5 vars → TypeError.
+        @fixes 2250: now reads the five ``equipmentPenalities`` attributes directly.
+        @see rpgtools.equipmentPenalities
+        """
+        ep = rpg.equipmentPenalities(self.character)
+        mmp        = ep.weightpenalty
+        at         = ep.AT
+        misslepen  = ep.misatpen
+        armqupen   = ep.armqupen
+        armmanmod  = ep.maxmanmod
         self.character["AT"] = at
         self.character["misslepen"] = misslepen
         self.character["armquickpen"] = armqupen
