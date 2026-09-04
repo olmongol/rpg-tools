@@ -1,18 +1,26 @@
-"""Print-Renderer: jinja2 statt ==>Key-Replace-Kette (Dok 09).
+r'''
+\file renderer.py
+\brief Print-Renderer: jinja2 statt ==>Key-Replace-Kette (Dok 09).
 
-Sektionen:
-- render_stats(ctx, tpl)          (bestehend, Task 8)
-- render_rr_at_db(ctx, tpl)       (Task 9 — RR/AT/DB)
-- render_cats(ctx, tpl)           (Task 10 — Kategorien + Skills, byte-equiv. legacy)
-- build_rr_at_db_ctx(char)        (char sheet context, 1:1 legacy.createRRATDB)
-- build_cats_ctx(char, short)     (char sheet context, 1:1 legacy.createCatSkill)
-- _cat_skill_rows(char, short)    (interne, byte-exakte Replikation)
-"""
+Rendert die RoLe-Sheet-Sektionen aus Jinja2-Templates
+(``templates/rolemaster/*.tex.j2``), 1:1 repliziert die legacy
+``latexexport``-CharSheet-Methoden:
+
+- ``render_stats``          (Task 8 — Stats)
+- ``render_rr_at_db``       (Task 9 — RR/AT/DB, 1:1 ``createRRATDB``)
+- ``render_cats``           (Task 10 — Kategorien + Skills, 1:1 ``createCatSkill``)
+- ``render_gen_info``       (Task 11 — Hintergrund, 1:1 ``createGenInfo``)
+- ``render``                (Main-Doc, 1:1 ``createMainLatex``)
+'''
 from __future__ import annotations
 
 
 def _d(value):
-    """d-Filter: int(value); None oder bruchig -> Fehler (kein Still-Schwund)."""
+    """d-Filter: int(value); None oder bruchig -> Fehler (kein Still-Schwund).
+
+    @param value Zahl aus dem Charakter-State
+    @return int, unverändert (nur Typ-/Integritäts-Check)
+    """
     if value is None:
         raise ValueError("d: None (Wert fehlt)")
     n = int(value)
@@ -22,7 +30,12 @@ def _d(value):
 
 
 def render_section(ctx, template_path):
-    """Gemeinsamer jinja2-Aufruf für eine Sektion. StrictUndefined, no autoescape."""
+    """Gemeinsamer jinja2-Aufruf für eine Sektion. StrictUndefined, no autoescape.
+
+    @param ctx dict mit den Template-Variablen (String-Keys)
+    @param template_path absolute Pfad zum .tex.j2-Template
+    @return gerendert Text (str)
+    """
     from jinja2 import Environment, FileSystemLoader, StrictUndefined
     from pathlib import Path
     p = Path(template_path)
@@ -39,6 +52,12 @@ def render_section(ctx, template_path):
 
 # Alias für Abwärtskompatibilität mit Task 8
 def render_stats(ctx, template_path):
+    """Rendert stats.tex.j2 (Task 8, 1:1 legacy.createStats).
+
+    @param ctx dict {Abkürzung: {temp, pot, std, race, spec, total}}
+    @param template_path absolute Pfad zum template
+    @return gerendert Text (str)
+    """
     return render_section(ctx, template_path)
 
 
@@ -47,6 +66,12 @@ def build_context(state, template_root, system="rolemaster", definition=None):
 
     Reihenfolge/Abkürzungen aus definition.yaml; jeder Entry braucht die
     sechs Felder (temp, pot, std, race, spec, total).
+
+    @param state Charakter-State aus dem Reducer
+    @param template_root root für ``templates/<system>/``
+    @param system Systemname (default: "rolemaster")
+    @param definition optional: direkter Pfad auf definition.yaml
+    @return ctx dict für render_stats
     """
     import yaml
     from pathlib import Path
@@ -74,6 +99,10 @@ def build_context(state, template_root, system="rolemaster", definition=None):
 def build_rr_at_db_ctx(char: dict) -> dict:
     """Context für templates/rolemaster/rr_at_db.tex.j2.
 
+    1:1 Replikation von ``latexexport.charSheet.createRRATDB`` (L225-252).
+    MMP = **Movement Maneuver Penalty** (``char["MMP"]``) — NICHT
+    ``shop_logic.calc_mmp`` (Max. Market Power, Preisleiste).
+
     Tokens (identisch zu legacy template_rr_at_db.tex):
     RRChan, RRC/E, RREss, RRC/M, RRMent, RRE/M, RRArc, RRDisease, RRFear, RRPoison
     + AT, missilepen, armmanmod, MMP, armquickpen (15 Tokens, int(char[v]) wenn
@@ -82,6 +111,9 @@ def build_rr_at_db_ctx(char: dict) -> dict:
     + BD    = char['cat']['Body Development']['Skill']['Body Development']['total bonus']
     + PP    = char['cat']['Power Point Development']['Skill']['Power Point Development']['total bonus']
     + AdrenalDef = rank>0 ? total bonus : '______'
+
+    @param char Charakter-State (legacy-JSON-Struktur)
+    @return ctx dict mit den Template-Variablen (als Strings)
     """
     ctx: dict = {}
     vals = [
@@ -101,6 +133,12 @@ def build_rr_at_db_ctx(char: dict) -> dict:
 
 
 def render_rr_at_db(ctx, template_path):
+    """Rendert rr_at_db.tex.j2 (Task 9, 1:1 legacy.createRRATDB-Byte).
+
+    @param ctx aus build_rr_at_db_ctx
+    @param template_path absolute Pfad zum template
+    @return gerendert Text (str)
+    """
     return render_section(ctx, template_path)
 
 
@@ -109,12 +147,21 @@ def render_rr_at_db(ctx, template_path):
 # -----------------------------------------------------------------------------
 
 def _fmt_seq(x):
-    """str(list).replace('', '/') für Progression/Costs (legacy-Byte-Verhalten)."""
+    """str(list).replace(', ', '/') für Progression/Costs (legacy-Byte-Verhalten).
+
+    @param x Liste von Zahlen (Progression/Costs-Skilling-Entry)
+    @return String mit '/'-Trennung (identisch zu legacy-L197)
+    """
     return str(x).replace(", ", "/")
 
 
 def _color_for(cat_name: str) -> str:
-    """legacy.createCatSkill: Reihenfolge-Winner."""
+    """Zeilen-Farbe einer Kategorie, legacy createCatSkill-Reihenfolge-Winner-Regel.
+
+    @param cat_name Kategorien-Name (String)
+    @return ``\\rowcolor{...} ``-Präfix (leer wenn keine Regel matcht)
+    @return ``\rowcolor{...} ``-Präfix (leer wenn keine Regel matcht)
+    """
     if "Weapon" in cat_name:
         return "\\rowcolor{Red!30} "
     elif "Development" in cat_name:
@@ -125,6 +172,13 @@ def _color_for(cat_name: str) -> str:
 
 
 def _cat_row(color: str, cat: str, d: dict) -> str:
+    """Single Kategorie-Zeile (inkl. 8 Bonus-Spalten + 10 &), 1:1 legacy-Row.
+
+    @param color Zeilen-Farben-Präfix (aus _color_for)
+    @param cat Kategorien-Name
+    @param d Kategorien-Dict (Progression/Costs/rank/.../total bonus)
+    @return eine TeX-Zeile inkl. Zeilenende
+    """
     return (
         color
         + "{} & {} & {} & {} & {} & {} &{} &{} &{}&{}\\\\\n".format(
@@ -143,6 +197,13 @@ def _cat_row(color: str, cat: str, d: dict) -> str:
 
 
 def _skill_row(color: str, name: str, d: dict) -> str:
+    """Einzelne Skill-Zeile unter der Kategorie (7 Spalten, -- für Stat-Bonus).
+
+    @param color Zeilen-Farben-Präfix
+    @param name Skill-Name
+    @param d Skill-Dict (Progression/Costs/rank/.../total bonus)
+    @return eine TeX-Zeile inkl. Zeilenende
+    """
     return (
         color
         + "\\hspace{4mm} "
@@ -168,6 +229,10 @@ def _skill_skip(cat_name: str, skill_name: str) -> bool:
       -> niemals als String matcht; praktisch: nur 'Progression' wird übersprungen, 'Costs' NICHT).
     Alle Zweige: '+' im Skill-Namen -> Übersprung.
     Spells: zusätzlich 'Stats' übersprungen.
+
+    @param cat_name Kategorien-Name (bestimmt den Zweig)
+    @param skill_name Skill-Name
+    @return True, wenn der Skill in diesem Zweig nicht als eigene Zeile erscheint
     """
     if "+" in skill_name:
         return True
@@ -181,6 +246,11 @@ def _skill_skip(cat_name: str, skill_name: str) -> bool:
 
 
 def _cat_branch(cat_name: str) -> str:
+    """Branch-Label für Templates (legacy-if-Else-Kette, 1:1 createCatSkill).
+
+    @param cat_name Kategorien-Name
+    @return ``weapon`` | ``development`` | ``spells`` | ``plain``
+    """
     if "Weapon" in cat_name:
         return "weapon"
     elif "Development" in cat_name:
@@ -191,7 +261,11 @@ def _cat_branch(cat_name: str) -> str:
 
 
 def _cat_skill_rows(char: dict) -> str:
-    """1:1 legacy.createCatSkill, short=False. Rohe Row-Zeilen (ohne Table-Wrapper)."""
+    """1:1 legacy.createCatSkill, short=False. Rohe Row-Zeilen (ohne Table-Wrapper).
+
+    @param char Charakter-State (legacy-JSON-Struktur)
+    @return concatenated Row-Zeilen-Block (str)
+    """
     rows: list[str] = []
     for cat in sorted(char["cat"].keys()):
         cd = char["cat"][cat]
@@ -210,11 +284,22 @@ def _cat_skill_rows(char: dict) -> str:
 
 
 def build_cats_ctx(char: dict) -> dict:
+    """Context für templates/rolemaster/cats.tex.j2 (Template erwartet das eine
+    Schlüsselwort 'rows'; sonst StrictUndefined-Fehler).
+
+    @param char Charakter-State (legacy-JSON-Struktur)
+    @return dict {"rows": <concatenierter Row-Block>}
+    """
     return {"rows": _cat_skill_rows(char)}
 
 
 def render_cats(char: dict, template_path: str | None = None) -> str:
-    """Komplettes Catskill-Sheet: Template + Rows (1:1 legacy.createCatSkill)."""
+    """Komplettes Catskill-Sheet: Template + Rows (1:1 legacy.createCatSkill).
+
+    @param char Charakter-State (legacy-JSON-Struktur)
+    @param template_path optional Pfad; default: templates/rolemaster/cats.tex.j2
+    @return gerendert Text (str)
+    """
     if template_path is None:
         from pathlib import Path
         template_path = str(Path(__file__).resolve().parents[1] / "templates" / "rolemaster" / "cats.tex.j2")
@@ -233,6 +318,9 @@ def build_gen_info_ctx(char: dict) -> dict:
     - 28 Datenfelder: char[top-level] → str(x).strip('[]'); sonst
       char['background']; sonst recovery/pprecovery-Formel; sonst '______'.
     - soul dep → Key 'souldeparture' (Template-Token ==souldeparture), + ' rd'.
+
+    @param char Charakter-State (legacy-JSON-Struktur)
+    @return ctx dict mit den Template-Variablen (Strings)
     """
     data = ["name", "prof", "race", "culture", "lord", "parents", "siblings", "partner",
             "children", "deity", "sex", "skin", "eyes", "hair", "height", "weight", "app_age",
@@ -288,7 +376,12 @@ def build_gen_info_ctx(char: dict) -> dict:
 
 
 def render_gen_info(char: dict, template_path: str | None = None) -> str:
-    """Gen-Info-Sektion (1:1 legacy.createGenInfo)."""
+    """Gen-Info-Sektion (1:1 legacy.createGenInfo).
+
+    @param char Charakter-State (legacy-JSON-Struktur)
+    @param template_path optional Pfad; default: templates/rolemaster/gen_info.tex.j2
+    @return gerendert Text (str)
+    """
     if template_path is None:
         from pathlib import Path
         template_path = str(Path(__file__).resolve().parents[1] / "templates" / "rolemaster" / "gen_info.tex.j2")
@@ -298,10 +391,15 @@ def render_gen_info(char: dict, template_path: str | None = None) -> str:
 def render(char: dict, template_root=None, system: str = "rolemaster") -> str:
     """Hauptdokument (1:1 legacy.createMainLatex, L123-130).
 
-    Preamble + \\input{{name_<sektion>.tex}} — Sektionen werden gemäß
+    Preamble + \\input{name_<sektion>.tex} — Sektionen werden gemäß
     Doku 09 ("jinja2 rendert jede Sektion separat") über die
     render_<sektion>-Aufrufe als eigene Dateien erzeugt; dieses Main-Doc
     verlinkt sie nur (Legacy-Struktur bleibt erhalten).
+
+    @param char Charakter-State (legacy-JSON-Struktur)
+    @param template_root optional Root; default: <poc-Verzeichnis>
+    @param system Systemname (default: "rolemaster")
+    @return gerendertes Main-Doc (str)
     """
     from pathlib import Path
     root = Path(template_root) if template_root else Path(__file__).resolve().parents[1]

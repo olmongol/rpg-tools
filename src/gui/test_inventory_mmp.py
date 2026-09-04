@@ -10,7 +10,8 @@ Marktmacht) in fünf Variablen:
 ``InventoryWin``/``shopWin``/``editinventory``.
 
 Nach dem Fix holen die drei Methods die fünf Werte direkt aus
-``rpgtoolbox.rpgtools.equipmentPenalities(character)``:
+``rpgtoolbox.rpgtools.equipmentPenalities(character)`` —
+MMP = **Movement Maneuver Penalty**:
 
     MMP          <- ep.weightpenalty
     AT           <- ep.AT

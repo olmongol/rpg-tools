@@ -263,7 +263,7 @@ def statGain(dicelow = 1, dicehigh = 1, temp = 50, pot = 75):
 
 class equipmentPenalities(object):
     """
-    This class calculates MMP and armor penalties.
+    This class calculates the Movement Maneuver Penalty (MMP) and armor penalties.
 
     ----
     @bug sometimes armor penalties are not correctly calculated
