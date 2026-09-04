@@ -1,0 +1,53 @@
+\begin{commentbox}
+\begin{center}
+  \textcolor{Maroon}{\Huge  {{ ctx['name'] }}}
+\end{center}
+\end{commentbox}
+
+\begin{tabular}{p{0.45\textwidth}p{0.55\textwidth}}
+%  \rule{\textwidth}
+  \hline
+  \begin{minipage}[h!]{0.45\textwidth}
+    \begin{tabular}{p{2cm}p{6.5cm}}
+      \textcolor{Maroon}{Beruf: } & {{ ctx['prof'] }}\\
+      \textcolor{Maroon}{Volk:}   & {{ ctx['race'] }} \\
+      \textcolor{Maroon}{Kultur:} & {{ ctx['culture'] }}\\
+      \textcolor{Maroon}{Heimatort:} & {{ ctx['home'] }}\\
+      \textcolor{Maroon}{Herrscher:} & {{ ctx['lord'] }}\\
+
+      \textcolor{Maroon}{Eltern:} & {{ ctx['parents'] }} \\
+      \textcolor{Maroon}{Geschwister:} & {{ ctx['siblings'] }} \\
+      \textcolor{Maroon}{Partner(in):} & {{ ctx['partner'] }}\\
+      \textcolor{Maroon}{Kinder:}      & {{ ctx['children'] }}\\
+      \textcolor{Maroon}{Gottheit:} & {{ ctx['deity'] }}\\
+
+      \textcolor{Maroon}{Geschlecht:} & {{ ctx['sex'] }}\\
+      \textcolor{Maroon}{Haut:} & {{ ctx['skin'] }}\\
+      \textcolor{Maroon}{Augen:} & {{ ctx['eyes'] }}\\
+      \textcolor{Maroon}{Haar:} & {{ ctx['hair'] }}\\
+      \textcolor{Maroon}{Größe:} & {{ ctx['height'] }}\\
+      \textcolor{Maroon}{Gewicht:} & {{ ctx['weight'] }}\\
+      \textcolor{Maroon}{scheinbares\newline Alter:} & {{ ctx['app_age'] }}\\
+      \textcolor{Maroon}{tatsächl.\newline Alter:} & {{ ctx['act_age'] }} \\
+      \textcolor{Maroon}{Aussehen:} & \colorbox{Yellow}{{ '{' }}{{ ctx['looking'] }}{{ '}' }} \\
+      \textcolor{Maroon}{Soul Dep.:} & \colorbox{Yellow}{{ '{' }}{{ ctx['souldeparture'] }}{{ '}' }}\\
+      \textcolor{Maroon}{Erholung:} & \colorbox{Yellow}{{ '{' }}{{ ctx['recovery'] }}{{ '}' }}\\
+      \textcolor{Maroon}{Erholung (Magie):} & \colorbox{Yellow}{{ '{' }}{{ ctx['pprecovery'] }}{{ '}' }}\\
+      \textcolor{Maroon}{Stufe:} & \colorbox{lightgray}{{ '{' }}{{ ctx['lvl'] }}{{ '}' }}\\
+    \end{tabular}
+  \end{minipage} &
+                   \begin{minipage}[h!]{0.55\textwidth}
+                     \begin{tabular}{p{2.5cm}p{7cm}}
+                       \multicolumn{2}{c}{\fbox{\includegraphics[height=8cm]{{ '{' }}{{ ctx['piclink'] }}{{ '}' }}}}\\
+
+                       \textcolor{Maroon}{Persönlichkeit:} & {{ ctx['pers'] }}\\
+                       \textcolor{Maroon}{Motivation:} & {{ ctx['motiv'] }}\\
+
+                       \textcolor{Maroon}{Magiebereich:}\par{} & \colorbox{lightgray}{{ '{' }}{{ ctx['realm'] }}{{ '}' }}\\
+                       \textcolor{Maroon}{Erfahrungspunkte:} &\colorbox{lightgray}{{ '{' }}{{ ctx['exp'] }}{{ '}' }}\\
+
+                     \end{tabular}
+                   \end{minipage} \\
+  \hline
+\end{tabular}\\
+\\

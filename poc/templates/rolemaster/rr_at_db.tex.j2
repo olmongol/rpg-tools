@@ -1,0 +1,69 @@
+\begin{tabular}{ccc}
+  \begin{minipage}[h!]{0.33\textwidth}
+    \begin{commentbox}
+      \begin{center}
+         \textcolor{Maroon}{Widerstandwürfe}
+
+      {\fontsize{10}{10}\selectfont
+      \begin{tabular}[h!]{lr}
+        \hline\hline
+        \textcolor{Maroon}{WW Leit:} & {{ ctx['RRChan'] }} \\
+         \textcolor{Maroon}{WW Leit/Ess:} &  {{ ctx['RRC/E'] }}\\
+        \textcolor{Maroon}{WW Ess:} &  {{ ctx['RREss'] }} \\
+        \textcolor{Maroon}{WW Leit/Ment:} & {{ ctx['RRC/M'] }}\\
+        \textcolor{Maroon}{WW Ment:} &  {{ ctx['RRMent'] }} \\
+        \textcolor{Maroon}{WW Ess/Ment:} &  {{ ctx['RRE/M'] }}\\
+        \textcolor{Maroon}{Arcane:} &  {{ ctx['RRArc'] }} \\
+        \textcolor{Maroon}{WW Krankheit:} &  {{ ctx['RRDisease'] }}\\
+        \textcolor{Maroon}{Furcht:} &  {{ ctx['RRFear'] }} \\
+        \textcolor{Maroon}{WW Gift:} &  {{ ctx['RRPoison'] }} \\
+      \end{tabular}
+      }
+    \end{center}
+  \end{commentbox}
+  \end{minipage}
+  &
+  \begin{minipage}{0.28\textwidth}
+    \begin{commentbox}
+      {\fontsize{10}{10}\selectfont
+      \begin{tabular}[h!]{lr}
+        \textcolor{Maroon}{Rüstungstyp:} & {{ ctx['AT'] }} \\
+        \textcolor{Maroon}{Fernkampf-}  &  \\
+        \textcolor{Maroon}{modifikator:} & {{ ctx['misslepen'] }}\\
+        \textcolor{Maroon}{Bewegungs-}  &  \\
+        \textcolor{Maroon}{mannöver-} & \\
+        \textcolor{Maroon}{modifikator:} & {{ ctx['armmanmod'] }} \\
+       \textcolor{Maroon}{Gewichtsmod:}  & {{ ctx['MMP'] }} \\
+       \hline
+        & \\
+      \textcolor{Maroon}{Hits:}  & \_\_/{{ ctx['BD'] }} \\
+      \textcolor{Maroon}{PP:}  & \_\_/{{ ctx['PP'] }}\\
+        & \\
+      \end{tabular}
+      }
+    \end{commentbox}
+  \end{minipage}
+  &
+  \begin{minipage}[h!]{0.33\textwidth}
+    \begin{commentbox}
+      \begin{center}
+        \textcolor{Maroon}{Defensivbonus}
+
+        \begin{tabular}[h!]{lr}
+          \hline\hline
+          \textcolor{Maroon}{3x Quickness} &  {{ ctx['ThreeQ'] }}\\
+          \textcolor{Maroon}{1x Qu-Penalty} & {{ ctx['armquickpen'] }} \\
+          \textcolor{Maroon}{Adrenal Defense} & {{ ctx['AdrenalDef'] }} \\
+          \textcolor{Maroon}{Shield Bonus} & \_\_ \\
+          \textcolor{Maroon}{Magic (Spells, Items, etc.)} & \_\_ \\
+          \hline
+          \textcolor{Maroon}{Total DB} & \_\_ \\
+        & \\
+        & \\
+        \end{tabular}
+      \end{center}
+    \end{commentbox}
+  \end{minipage}
+  \\
+
+\end{tabular}
