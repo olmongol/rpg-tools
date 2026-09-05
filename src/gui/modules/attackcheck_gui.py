@@ -749,7 +749,9 @@ class monstercreatorWin(blankWindow):
         #     self.currDataSet["piclink"] = self.__currdir + "/" + self.currDataSet["piclink"][1:]
 
         try:
-            picpath = self.GMcontent[0].get("piclink", "")
+            # @bug 2251 — vorher GMcontent[0]; zeigt jetzt das Bild des AKTUELLEN
+            #            Eintrags (self.__index) an, nicht immer das erste Bild.
+            picpath = self.GMcontent[self.__index].get("piclink", "")
             if not picpath:
                 raise ValueError("piclink is empty or None")
             _img = _pilimg.open(picpath).resize((300, 300), _pilimg.Resampling.LANCZOS)
@@ -836,22 +838,27 @@ class monstercreatorWin(blankWindow):
     def __getOBm (self, event = None):
         r"""! This determines the selected attack for missile OB string
 
-
+        @bug 2252 — wurde updateCurrentSet() NACH dem Setzen von
+                   currDataSet["OB missile"] aufgerufen, übertrug sie den
+                   noch LEEREN Widget-Stand zurück (Value leer → Dummy
+                   "0xx"). updateCurrentSet() läuft jetzt VOR dem Setzen —
+                   analog zum Melee-Handler __getOB (der funktioniert).
         """
+        self.updateCurrentSet()
         self.currDataSet["OB missile"] = f"{self.__obstringmis.get()}/{self.__obmval.get()} {self.__attacks[self.__selectOBmis.get()]}".strip("/")
 
-        self.updateCurrentSet()
         self.updateWindow()
 
 
     def __getOBmag(self, event = None):
         r"""! This determins the selected attack for magic OB string
          ---
+        @bug 2252 — gleicher Reihenfolge-Fehler wie __getOBm.
         @todo this has to be implemented fully.
         """
+        self.updateCurrentSet()
         self.currDataSet["OB magic"] = f"{self.__obstringmagic.get()}/{self.__obmagval.get()} {self.__attacks[self.__selectOBmagic.get()]}".strip("/")
 
-        self.updateCurrentSet()
         self.updateWindow()
 
 
@@ -935,6 +942,10 @@ class monstercreatorWin(blankWindow):
         logger.info("NPCcat set")
         logger.debug(self.NPCcat)
         self.__datatemplate = dict.fromkeys(list(self.GMcontent[0].keys()), "")
+        # Verbess. 2253: Standardwerte für neue NSC/Monster (User-Liste 2026-09-05)
+        for _k, _v in (("lvl", "1"), ("hits", "10"), ("AT", "4"), ("size", "M"),
+                       ("Qu", "0"), ("DBm", "0"), ("DB", "0"), ("enc", "1-1")):
+            self.__datatemplate[_k] = _v
         pprint(self.__datatemplate)
         if self.nscpicpath[-1] == "/":
             self.__datatemplate["piclink"] = self.nscpicpath + "default.jpg"

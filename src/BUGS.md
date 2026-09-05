@@ -128,6 +128,41 @@
   `test_d1_close.py`, `test_d3_rename.py`, `test_dp_repro.py`,
   `test_skill_after_cat.py` alle GREEN.
 
+## [BUG-2251] `monstercreatorWin.updateWindow` — Bild zeigt immer `GMcontent[0]`, nicht das aktuelle NSC/Monster ✅ FIXED
+
+- **Datei:** `src/gui/modules/attackcheck_gui.py` — `monstercreatorWin.updateWindow` (Bild-Lade-Block).
+- **Status:** FIXED (hermes_dev).
+- **Beschreibung:** Das geladene Bild stammte aus `self.GMcontent[0].get("piclink", "")` — also **immer aus dem ersten Tabelleneintrag**, unabhängig vom aktuellen Index `self.__index`. Beim Umschalten auf den 2./3./… NSC bzw. Monster wurde weiterhin das Bild des ersten Eintrags angezeigt; bei `__newElement` (neue Anlage, Index zeigt auf den neuen letzten Eintrag) ebenso. Die Daten (CSV) enthielten korrekt pro Eintrag die eigene `piclink`-Spalte.
+- **Fix:** Lade jetzt aus `self.GMcontent[self.__index]`; leerer `piclink` bleibt `ValueError` (→ `default.jpg`, wie BUG-013).
+- **Verifiziert:** `src/gui/test_monstercreator_fixes.py` — `test_update_window_pic_index`: Index=1 → öffnet `pics_nsc/second.jpg` statt `first.jpg` (pre-fix rot: `first.jpg`).
+
+## [BUG-2252] `monstercreatorWin.__getOBm`/`__getOBmag` — „add"-Button schreibt Dummy `0xx` statt `<value> <abkürzung>` ✅ FIXED
+
+- **Datei:** `src/gui/modules/attackcheck_gui.py` — `monstercreatorWin.__getOBm`, `__getOBmag` (Missile/Magic-Waffen-Zeilen am „add"-Button).
+- **Status:** FIXED (hermes_dev).
+- **Beschreibung:** Beide Handler setzen korrekt `currDataSet["OB missile"/"OB magic"] = f"{obstring} {attacks[auswahl]}"` (z. B. `10 Warp`), rufen dann aber `updateCurrentSet()` — und die liest die `Text-`Widgets **nochmals** aus: die beiden OB-Schwerpunkt-Textfelder sind vom User unbetätigt leer → `"" .strip("/")` = `""` → `updateCurrentSet` **überschreibt** den frisch gesetzten Wert mit `0/xx` → `0/xx` bzw. Magic-String leer. Melee (`__getOB`) rufen `updateCurrentSet()` **nicht** auf → funktioniert daher korrekt (User-Vergleichsbezug „Zeile darüber").
+- **Fix:** `updateCurrentSet()`-Aufruf in beiden Handlers entfernt (redundant: `updateWindow`/`__save` pflegen die Widgets beim Wechsel/Neuanlage; `currDataSet` bleibt als einzige Quelle maßgeblich).
+- **Verifiziert:** `test_obm_add_button`/`test_obmag_add_button` — Missile `10 Wp`, Magic `15 FB` (pre-fix: `0/xx` / `""`).
+
+## [2253] `monstercreatorWin` — Standardwerte bei Neuanlage von NSC/Monster (Verbesserung) ✅ ERledigt
+
+- **Datei:** `src/gui/modules/attackcheck_gui.py` — `loadGMTable` (Erstellung `__datatemplate`).
+- **Status:** ERledigt (hermes_dev, User-Vorschlag 2026-09-05).
+- **Beschreibung:** Bei `__newElement` wurden alle Template-Felder mit `""` initialisiert. Jetzt tragen neue Einträge die vereinbarten Standardwerte:
+
+| Feld   | Default |
+|--------|---------|
+| lvl    | 1       |
+| hits   | 10      |
+| AT     | 4       |
+| size   | M       |
+| Qu     | 0       |
+| DBm    | 0       |
+| DB     | 0       |
+| enc    | 1-1     |
+
+- **Verifiziert:** `test_new_element_defaults` — alle 8 Keys im Template (pre-fix: `""`).
+
 ## [BUG-2248] `skillcatWin` — Charakterblatt "manchmal nicht abgespeichert" ✅ FIXED
 
 - **Datei:** src/gui/epwins.py (`skillcatWin.__finalize` L3427ff, `__save` L3574ff).
