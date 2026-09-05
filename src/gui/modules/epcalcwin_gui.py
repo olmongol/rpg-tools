@@ -722,11 +722,25 @@ class EPCalcWin(blankWindow):
             return out
 
         def _learned_blocks(char):
-            """only lists the character actually learned (cat OR list bonus > 0)"""
+            """
+            Collects only the spell-list blocks the character actually learned
+            (list rank > 0).
+
+            A character may know a list (rank > 0) without having trained any
+            bonus into it yet; a list with a positive bonus but rank 0 is an
+            item/gear source, not a learned list, and is excluded here.
+
+            @param char character dict (or None for no list at all)
+            @return learned spell-list blocks as produced by _spell_blocks
+            @bug BUG-2254
+            """
             res = []
             for b in _spell_blocks(char):
-                if (isinstance(b['total bonus'], int) and b['total bonus'] > 0) or \
-                   (isinstance(b['cat total bonus'], int) and b['cat total bonus'] > 0):
+                try:
+                    r = int(b.get("rank", 0))
+                except (TypeError, ValueError):
+                    r = 0
+                if r > 0:
                     res.append(b)
             return res
 
@@ -771,15 +785,40 @@ class EPCalcWin(blankWindow):
         char_names = char_names_uniq if char_names_uniq else ['universell']
 
         char_var = StringVar(top)
+        char_var.set('universell')  # BUG-2257: window must open with a valid selection
         list_var = StringVar(top)
         spell_var = StringVar(top)
 
-        def _set_options(menu, var, options):
-            """replace OptionMenu options dynamically and re-select first entry"""
+        def _set_options(menu, var, options, on_change=None):
+            """
+            Replaces the OptionMenu options dynamically and re-selects the first
+            (or the still valid old) entry.
+
+            Every new menu entry gets the same command callback as the original
+            OptionMenu construction, so selecting an entry after a rebuild still
+            fires on_change as before.
+
+            @param menu OptionMenu whose internal menu is refilled
+            @param var StringVar bound to the OptionMenu
+            @param options new option labels (may be empty)
+            @param on_change Optional callback invoked after a selection change
+            @bug BUG-2255
+            """
             old = var.get()
             menu['menu'].delete(0, 'end')
             for o in options:
-                menu['menu'].add_command(label=o, command=lambda x=o: var.set(x))
+                def _pick(o=o):
+                    """!\
+                    Menu entry action: stores the selection in the bound
+                    StringVar and then notifies the change callback, so the
+                    spell dropdown / info text are rebuilt on every selection.
+
+                    @bug BUG-2255
+                    """
+                    var.set(o)
+                    if on_change is not None:
+                        on_change()
+                menu['menu'].add_command(label=o, command=_pick)
             if options:
                 var.set(old if old in options else options[0])
             else:
@@ -787,7 +826,7 @@ class EPCalcWin(blankWindow):
 
         # --- spell info output ----------------------------------------------------
         info = Text(top, height=6, width=56, wrap='word')
-        info.grid(row=4, column=0, columnspan=4, sticky='WE', padx=2, pady=2)
+        info.grid(row=6, column=0, columnspan=4, sticky='WE', padx=2, pady=2)
         info.config(state='disabled')
 
         def _show_spell_info():
@@ -838,7 +877,7 @@ class EPCalcWin(blankWindow):
                     except (TypeError, ValueError):
                         pass
                     names.append(str(s.get('Spell', '?')))
-            _set_options(spell_menu, spell_var, names)
+            _set_options(spell_menu, spell_var, names, _show_spell_info)
             _show_spell_info()
 
         def _rebuild_lists():
@@ -848,7 +887,7 @@ class EPCalcWin(blankWindow):
             """
             blocks, _realm, _caster = _current_blocks()
             list_opts = [b['name'] for b in blocks]
-            _set_options(list_menu, list_var, list_opts)
+            _set_options(list_menu, list_var, list_opts, _rebuild_spells)
             _rebuild_spells()
 
         # --- input fields -------------------------------------------------------
@@ -858,22 +897,33 @@ class EPCalcWin(blankWindow):
         rr_mod_var = IntVar(top);  rr_mod_var.set(0)
         d100_var = IntVar(top)
 
-        Label(top, text='Stufe Zaub.:', bg='#333333').grid(row=1, column=0, sticky='E', padx=1, pady=1)
-        Entry(top, width=5, textvariable=st_z_var).grid(row=1, column=1, sticky='W', padx=1, pady=1)
-        Label(top, text='Stufe Ziel:', bg='#333333').grid(row=1, column=2, sticky='E', padx=1, pady=1)
-        Entry(top, width=5, textvariable=st_t_var).grid(row=1, column=3, sticky='W', padx=1, pady=1)
+        def _lbl(text):
+            """!\
+            Builds a readable label: light text (fg) on the standard
+            dark window background, otherwise it renders black-on-dark.
 
-        Label(top, text='Name Ziel:', bg='#333333').grid(row=2, column=0, sticky='E', padx=1, pady=1)
-        Entry(top, width=14, textvariable=name_t_var).grid(row=2, column=1, sticky='W', padx=1, pady=1)
-        Label(top, text='RR-Ziel-Mod.:', bg='#333333').grid(row=2, column=2, sticky='E', padx=1, pady=1)
-        Entry(top, width=5, textvariable=rr_mod_var).grid(row=2, column=3, sticky='W', padx=1, pady=1)
+            @param text label text
+            @return configured tk.Label widget
+            @bug BUG-2256
+            """
+            return Label(top, text=text, bg='#333333', fg='#e8e8e8')
 
-        Label(top, text='Wuerfel:', bg='#333333').grid(row=3, column=0, sticky='E', padx=1, pady=1)
-        Entry(top, width=5, textvariable=d100_var).grid(row=3, column=1, sticky='W', padx=1, pady=1)
+        _lbl('Stufe Zaub.:').grid(row=3, column=0, sticky='E', padx=1, pady=1)
+        Entry(top, width=5, textvariable=st_z_var).grid(row=3, column=1, sticky='W', padx=1, pady=1)
+        _lbl('Stufe Ziel:').grid(row=3, column=2, sticky='E', padx=1, pady=1)
+        Entry(top, width=5, textvariable=st_t_var).grid(row=3, column=3, sticky='W', padx=1, pady=1)
+
+        _lbl('Name Ziel:').grid(row=4, column=0, sticky='E', padx=1, pady=1)
+        Entry(top, width=14, textvariable=name_t_var).grid(row=4, column=1, sticky='W', padx=1, pady=1)
+        _lbl('RR-Ziel-Mod.:').grid(row=4, column=2, sticky='E', padx=1, pady=1)
+        Entry(top, width=5, textvariable=rr_mod_var).grid(row=4, column=3, sticky='W', padx=1, pady=1)
+
+        _lbl('Wuerfel:').grid(row=5, column=0, sticky='E', padx=1, pady=1)
+        Entry(top, width=5, textvariable=d100_var).grid(row=5, column=1, sticky='W', padx=1, pady=1)
 
         # --- result output -------------------------------------------------------
         res = Text(top, height=8, width=56, wrap='word')
-        res.grid(row=5, column=0, columnspan=4, sticky='WE', padx=2, pady=2)
+        res.grid(row=7, column=0, columnspan=4, sticky='WE', padx=2, pady=2)
         res.config(state='disabled')
 
         def _emit(text=''):
@@ -1040,15 +1090,15 @@ class EPCalcWin(blankWindow):
                 _emit('  ERGEBNIS       : ZIEL WIDERSTEHT NICHT  -  Zaubern GELINGT.')
 
         # --- menus + buttons -------------------------------------------------------
-        Label(top, text='Charakter:').grid(row=0, column=0, sticky='E', padx=1, pady=1)
+        _lbl('Charakter:').grid(row=0, column=0, sticky='E', padx=1, pady=1)
         char_menu = OptionMenu(top, char_var, *char_names, command=lambda x: _rebuild_lists())
         char_menu.grid(row=0, column=1, columnspan=3, sticky='WE', padx=1, pady=1)
 
-        Label(top, text='Spruchliste:').grid(row=1, column=0, sticky='E', padx=1, pady=1)
+        _lbl('Spruchliste:').grid(row=1, column=0, sticky='E', padx=1, pady=1)
         list_menu = OptionMenu(top, list_var, '-', command=lambda x: _rebuild_spells())
         list_menu.grid(row=1, column=1, columnspan=3, sticky='WE', padx=1, pady=1)
 
-        Label(top, text='Zauber:').grid(row=2, column=0, sticky='E', padx=1, pady=1)
+        _lbl('Zauber:').grid(row=2, column=0, sticky='E', padx=1, pady=1)
         spell_menu = OptionMenu(top, spell_var, '-', command=lambda x: _show_spell_info())
         spell_menu.grid(row=2, column=1, columnspan=3, sticky='WE', padx=1, pady=1)
 
@@ -1058,9 +1108,9 @@ class EPCalcWin(blankWindow):
                           bg='#3a7d3a', fg='white', padx=6, pady=2)
         btn_close = Button(top, text=_t('but_clos', 'schliessen'), command=top.destroy,
                            bg='#555555', fg='white', padx=6, pady=2)
-        btn_roll.grid(row=9, column=0, sticky='WE', padx=2, pady=2)
-        btn_cast.grid(row=9, column=1, sticky='WE', padx=2, pady=2)
-        btn_close.grid(row=9, column=2, columnspan=2, sticky='E', padx=2, pady=2)
+        btn_roll.grid(row=8, column=0, sticky='WE', padx=2, pady=2)
+        btn_cast.grid(row=8, column=1, sticky='WE', padx=2, pady=2)
+        btn_close.grid(row=8, column=2, columnspan=2, sticky='E', padx=2, pady=2)
 
         # initial population + focus
         _rebuild_lists()

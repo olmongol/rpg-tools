@@ -242,6 +242,80 @@
   Regression: `test_final_save.py` `test_choice_realm.py` `test_dp_repro.py`
   `test_skill_after_cat.py` `test_d1_close.py` `test_d3_rename.py` — alle EXIT=0.
 
+## [BUG-2254] `epcalcWin.__winCasting` — „erlernte" Spruchlisten-Filter: `total bonus > 0` statt `rank > 0` ✅ FIXED
+
+- **Datei:** src/gui/modules/epcalcwin_gui.py (`__winCasting` > `_learned_blocks`).
+- **Status:** FIXED 2026-09-05 (hermes_dev).
+- **Beschreibung:** Der Filter für „erlernte" Spruchlisten prüfte
+  `int(total bonus) > 0`. Zwei Fehlerfolgen:
+  - **A (fehlend):** frisch erlernte Listen mit `rank > 0` und noch
+    `total bonus == 0` (kein Bonus ausgerechnet) wurden **nicht**
+    angeboten, obwohl erlernt.
+  - **B (falsch positiv):** Listen mit `total bonus > 0` aber
+    `rank == 0` (Item-/Ausrüstungs-/Waffen-Quellen) wurden **fälschlich**
+    als erlernte Spruchliste in das Menü aufgenommen.
+- **Fix:** Filter auf `int(rank) > 0` umgestellt; `total bonus` bleibt nur
+  als Anzeige-/Sortierwert erhalten.
+- **Verifiziert:** `src/gui/test_epcalcwin_casting.py` —
+  `Moving Ways` (rank 2, bonus 0) jetzt vorhanden, `Path Mastery`
+  (rank 0, bonus 9) jetzt ausgeschlossen; beide Fälle pre-fix umgekehrt.
+
+## [BUG-2255] `epcalcWin.__winCasting` — `_set_options` überschreibt den Menü-Callback bei Refill ✅ FIXED
+
+- **Datei:** src/gui/modules/epcalcwin_gui.py (`_set_options`).
+- **Status:** FIXED 2026-09-05 (hermes_dev).
+- **Beschreibung:** `_set_options(menu, var, options)` befüllte bei jedem
+  Refill das Menü neu mit `command=lambda x: var.set(x)`. Der beim
+  `tk.OptionMenu(..., command=...)` gesetzte Callback — der die
+  abhängtieferen Ebenen auffrischt (`_rebuild_spells`, `_show_spell_info`)
+  — **wurde bei jeder Refill überschrieben**. Nach der ersten
+  Charakter-/Listen-Änderung reagierte die untere Ebene (Spell-Liste,
+  Info-Text) nicht mehr auf Auswahl; das Fenster zeigte stehende
+  Daten, ohne Fehlermeldung.
+- **Fix:** `_set_options(menu, var, options, on_change=None)` —
+  zusätzliche `on_change`-Closure, die nach `var.set(o)` den
+  übergebenen Rebuild-Ruf auslöst (`on_change()` ohne Argument, da
+  `_rebuild_spells`/`show_spell_info` keine Parameter nehmen).
+  Alle 4 Call-Sites (char_menu → `_rebuild_lists + _rebuild_spells`;
+  list_menu → `_rebuild_spells`; spell_menu → `_show_spell_info`) angepasst.
+- **Verifiziert:** `test_epcalcwin_casting.py` —
+  `Inner Walls → Frost`, `→ Moving Ways → Run`,
+  Info-Text zeigt `Run` nach Auswahl (pre-fix: stehende `Frost`/leer).
+
+## [BUG-2256] `epcalcWin.__winCasting` — Grid-Kollisionen + nicht lesbare Labels auf dunklem Hintergrund ✅ FIXED
+
+- **Datei:** src/gui/modules/epcalcwin_gui.py (`__winCasting` Layout).
+- **Status:** FIXED 2026-09-05 (hermes_dev).
+- **Beschreibung:** Zwei Layout-Defekte im Zaubern-Dialogfenster:
+  - **A (Kollisionen):** Drei Menüs (char/list/spell, je `colspan=3`/`4`)
+    lagen auf `row=1-3`; die Eingabefelder (Stufe Zaubern, Stufe Ziel,
+    Name, RR) lagen auf denselben Zeilen → Tk-Grid warnte
+    `cell already occupied`, Widgets überlappten visuell.
+  - **B (unlesbar):** Labels ohne explizite `fg` auf dem Standard-Hintergrund
+    des blank-Windows (`#333333`): System-vordergrund war ebenfalls
+    sehr dunkel → schwarzer Text auf dunklem Grund, praktisch nicht lesbar.
+- **Fix:** (A) Input-Zeilen nach `row=4-5` verschieben, Menüs konsolidiert
+  in `row=0-2`, `info`/`res` Texte auf `row=6`/`7` mit `columnspan`-Anpassung.
+  (B) `_lbl()`-Helfer mit `fg='#ffffff'` als Label-Zwang; alle Labels
+  in diesem Block über den Helper erzeugt.
+- **Verifiziert:** `test_epcalcwin_casting.py` — 0 Grid-Kollisionen
+  (pre-fix: mehrere), alle Labels auf #333333 mit fg != #333333.
+
+## [BUG-2257] `epcalcWin.__winCasting` — `char_var` ohne Initialwert → Fenster öffnet mit leerer Auswahl ✅ FIXED
+
+- **Datei:** src/gui/modules/epcalcwin_gui.py (`__winCasting`, Initialisierung).
+- **Status:** FIXED 2026-09-05 (hermes_dev).
+- **Beschreibung:** `char_var = StringVar(top)` ohne `.set(...)`. Das
+  Fenster öffnete daher mit `char_var.get() == ""`: Spruchlisten-Dropdown
+  und Zauber-Dropdown wurden nicht befüllt (Filter auf leeren Key), das
+  Info-Feld zeigte „(kein Zauber gewaehlt)". Der Benutzer musste zuerst
+  einen Charakter manuell auswählen, bevor etwas funktionierte.
+- **Fix:** Nach Initialisierung `char_var.set('universell')`, so dass
+  die Fenster-Standardansicht die „universelle" Rolle zeigt und die
+  Abhängigen-Ebenen beim Öffnen bereits befüllt sind.
+- **Verifiziert:** `test_epcalcwin_casting.py` — char-Auswahl initial
+  != leer, Spruchlisten-Menü initial befüllt.
+
 ## BEREITS GEFIXT - NICHT MEHR AKTUELL
 
 | Bug | Status | Details |
