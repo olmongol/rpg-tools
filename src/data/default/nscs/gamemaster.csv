@@ -1180,6 +1180,38 @@ Im Kampf ist er hinterhältig und wendet jeden schmutzigen Trick an, um sich ein
 
 
 ",,1-1,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/rogue01.jpg,,,,,
+Campagne Eis des Nordens,Nirka,10,10,,8,80,0,M,85 H ss,67 cb,0xx,,,,35,10,"Nirka wirkt mit ihren weißen Haaren und den Bernstein-farbenen Augen auf fasziniernde Weise anziehend und unheimlich zugleich.
+Sie kleidet sich ganz in Leder (AT-8) und träng häufig einen schwarzen Umhang. Ihre Stimmungslage pendelt ständig zwischen Extremen: oft ist sie fröhlich, ausgelassen ja sogar wild, und dann im nächsten Moment plötzlich versclossen und melancholisch.
+
+Sie kann sich in einen Wolf verwandeln (so wie Beorninger sich in Bären verwandeln)
+
+
+",,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Nirka.png,,,,,
+Campagne Eis des Nordens,Het'Ham,24,5,,9,83,0,M,87 H sp/56 H ss,0xx,,,,,20,ß,"Er ist mit seinen 61 Jahren der älteste Teilnehmer an diesem Treck. Het'ham mischt sich oft in Diskussionen ein und meint, allein sein Alter gäbe ihm das Recht auf das letzte Wort. (Nirka respektiert er allerdings.) Der Alte ist ein kleiner, gebeugter Mann mit einem Gesicht, das der Wind der Steppe in eine grandiose Falten-Landschaft verwandelt hat. Trotz seines Alters ist er sehr stark.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+",,1-1,,,/home/mongol/git/rpg-tools/src/data/default//pics_nsc/hetham.jpeg,,,,,
+Campagne Eis des Nordens,Hem'sen,5,10,,9,67,0,M,56 H ss/45 H da,60 sb,,,,,25,5,"Der junge Krieger ist bis über beide Ohren in Phanta verliebt. Solle die Lossoth einen Charakter finden, den sie betören kann, wird sie Hem'sen fortan völlig ignorieren. Ansonsten gebraucht sie ihn für allerlei Gefällgkeiten. Der junge Krieger ist zu jeder Verzweiflungstat bereit, um Phantas Gunst zu gewinnen.
+
+Einem Abenteurer der die Aufmerksamkeit seiner Geliebten gewonnen hat, wird er auf kurz oder lang zum Duel fordern. Ansonsten präsentiert sich Hem'sen als ein fröhlicher ausgelassener Gefährte.
+
+
+
+",,1-1,,,/home/mongol/git/rpg-tools/src/data/default//pics_nsc/hemsen.jpeg,,,,,
 Campagne Hogo Tarosvan,Baen Naeld,1,5,,1,10,0,M,10 H cl,0xx,0xx,,,,10,10,"
 
 
@@ -3718,8 +3750,11 @@ water beast,Squid (large),1,8,FA/FA,1,20,0,S,50 S Gr,0xx,0xx,50SGr100,OSpi √,-
 water beast,Turtle (large sea),3,8,FA/MD,12,120,0,L,40 M Pi,0xx,0xx,40MPi100,-,-,40,0,"
 ","If not in water, as above.",,,,data/default/pics_nsc/default.jpg,,,,,
 water beast,Whale (Sperm Whale),8,4,MF/MF,8,700,0,L*,60 S Gr/75 H Ba,0xx,0xx,60SGr50,75HBa50,-,50,0,"
+
 ",'E' Gr crit means target is swallowed.,,,,data/default/pics_nsc/default.jpg,,,,,
 water beast,SLIRDU,1,8,MF/FA,3,25,0,Size/Crit,30 S Bi,0xx,0xx,30SBi,-,-,40,0,"across The Slird (pl. 'Slirdu') is a strange arboreal creature found only in the forests of the remote islands off the southeast coast of Middle-earth. Most live in colonies of 2-40 individuals on the isle of Vulm Shryac. Green or green with red stripes, Slirdu are fouror five-armed invertebrates that resemble both Squids and Starfish. They are distantly related to both creatures and have adapted to life on land by developing true lungs and a sophisticated network or extremely thick, tough, well-insulated nerves that serve as aquasiskeleton. Each of the Slird's prehensile appendages joins with a trunk that resembles a Squid's body and houses the beast's two eyes and beak-like mouth. An opening just below the mouth connects with an ink sack. Slirdu reside in nests near the tops of trees and move through the forest with alarming speed by grasping tree-limbs with their powerful arms. True carnivores, they hunt mammals, birds, and reptiles and consume about twenty pounds of meat a day. A Slird catches its prey by enveloping it with one or more arms. Each arm is equipped with a patch of suction-like pads that immobilize most victims. In addition, the Slird can spray its prey with a slightly toxic (2nd lvl) ink that stuns (RR failure 01 -50), blinds (RR failure 51 -75), or knocks out (RR failure 76+) the victim. The creature occasionally uses this thick, greenish liquid to cover its retreat, precisely spraying an area as wide as 20' at ranges of up to 100'. Slirdu are not particularly intelligent, since their rudimentary brain is essentially a massive nerve root/brain stem. Instead, they are more akin to well-honed killing organisms.
+
+
 
 
 ",Normal. Attractive. lively Monkeys.,2-200,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/,,hnw,FCDJE,7, 15-25ft
@@ -3728,11 +3763,21 @@ water beast,Crab (Giant),3,4,MF/MF,16,60,0,M,75 L Pi,0xx,0xx,75LPi100,-,-,20,0,"
 
 
 
+
+
 ",Assumes Crab is 4 feet wide.,,,,data/default/pics_nsc/default.jpg,,,,,
-Campagne Eis des Nordens,Nirka,10,10,,8,80,0,M,85 H ss,67 cb,0xx,,,,35,10,"Nirka wirkt mit ihren weißen Haaren und den Bernstein-farbenen Augen auf fasziniernde Weise anziehend und unheimlich zugleich.
-Sie kleidet sich ganz in Leder (AT-8) und träng häufig einen schwarzen Umhang. Ihre Stimmungslage pendelt ständig zwischen Extremen: oft ist sie fröhlich, ausgelassen ja sogar wild, und dann im nächsten Moment plötzlich versclossen und melancholisch.
+Campagne Eis des Nordens,Phanta,8,,,9,86,0,M,56 H da,0xx,,,,,20,15,"Die junge Lossoth-Frau leidet sehr darunter, durch die Pockennarben ihre Schönheit verloren zu haben (obwohl sie immer noch recht hübsch ist). Sie würde alles dafür geben, von Quacksalbern ein paar Schönheits- oder Liebestränke zu erwerben, die die mangelde Schöhnheit in den Augen des Partners ausgleichen sollen.
 
-Sie kann sich in einen Wolf verwandeln (so wie Beorninger sich in Bären verwandeln)
+Wenn nur einer der Charaktere etwas nett zur ihr ist, wird sie sich unsterblich in ihn verlieben. In den Augen von Hem'sen, der selbst aufrichtig in sie verliebt ist, würde der Charakter zum verhaßten Rivalen.
+
+Bei ihren Leuten gilt die Lossoth als ausgezeichnete Reiterin und Bogenschützin.
 
 
-",,,,,/home/mongol/git/rpg-tools/src/data/default/pics_nsc/Nirka.png,,,,,
+
+",,1-1,,,/home/mongol/git/rpg-tools/src/data/default//pics_nsc/phanta.jpeg,,,,,
+Campagne Eis des Nordens,Tse Kal,13,15,,9,147,0,M,124 H wp/89 H ja,105 ja,,,,,35,5,"
+se Kal ist ein verhärmter Mann um die Dreißig. Seine ganze Familie ist während der Pockenepedemie gestorben. Er sucht die Einsamkeit und meldet sich während des Trecks freiwillig, wann immer es gilt einen günstigen Weg auszukundschaften oder ein paar versprengten Karens nachzujagen. Abends am Lagerfeuer spielt er oft traurige Melodien auf seiner selbstgeschnitzten Flöte. Tse Kal ist ein Meister im Umgang mit der Peitsche.
+
+",,1-1,,,/home/mongol/git/rpg-tools/src/data/default//pics_nsc/tse kal.jpeg,,,,,
+Campagne Eis des Nordens,Oblong,6,0,,9,77,0,M,67 H cl/54 H da,34 da,,,,,15,0,"Er ist ein kleiner dicker Mann um die Vierzig. Obwohl sein gesamtes Kochgerät nie richtig sauber ist, bereitet er vorzügliche Mahlzeiten zu. Während des Trecks kümmert er sich ausschließlich ums Kochen und das Lager. Als Viehtreiber tritt Oblong nur dann auf, wenn wirklich Not am Mann ist. Sonst ist er für gewöhnlich bei seinen Maultieren zu finden, für die er sich den ganzen Tag die phantasievollsten Flüche ausdenkt.
+",,1-1,,,/home/mongol/git/rpg-tools/src/data/default//pics_nsc/Oblong2.jpeg,,,,,
