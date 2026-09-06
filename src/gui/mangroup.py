@@ -14,7 +14,6 @@ from rpgtoolbox.lang import *
 from tkinter import filedialog
 import json
 import os
-import re
 
 
 
@@ -96,25 +95,26 @@ class groupWin(blankWindow):
 
     def __remChar(self):
         '''
-        This method removes Characters from listbox and from character list
+        Removes the selected Listbox entries from the listbox AND from the
+        character list, deleting by position (listbox entry i <-> charlist[i];
+        both are filled in the same order by __open / __addChar and deleted
+        together here, so the pairing stays valid). Removing several
+        characters at once deletes in descending index order, so the shifting
+        indices are always safe. The old label-regex approach (re.match on the
+        listbox text) broke on names with umlauts (e.g. "Gruenblatt" with a
+        real ue-umlaut): the entry left the listbox but stayed in charlist and
+        was written back on __save.
+        @param select (inherited) none — reads self.charbox.curselection()
+        @return None
+        @fixes BUG-2258
+        @see __open, __addChar, __save
         '''
-        select = self.charbox.curselection()
-        regex = re.compile(r"^([a-zA-Z ]+): ([a-zA-Z 0-9]+) \(.+\)$")
-        rmlist = []
-
-        for i in select:
-            selchar = self.charbox.get(i)
-            lookup = regex.match(selchar)
-            if lookup:
-                for c in range(0, len(self.charlist)):
-                    if self.charlist[c]["player"] == lookup.group(1) and self.charlist[c]["name"] == lookup.group(2):
-                        rmlist.append(c)
-
-            for rm in rmlist:
-                del(self.charlist[rm])
-
-            for elem in select:
-                self.charbox.delete(elem)
+        select = list(self.charbox.curselection())
+        keep = [i for i in select if 0 <= i < len(self.charlist)]
+        for i in sorted(set(keep), reverse=True):
+            del self.charlist[i]
+        for i in sorted(select, reverse=True):
+            self.charbox.delete(i)
 
 
     def __addChar(self):

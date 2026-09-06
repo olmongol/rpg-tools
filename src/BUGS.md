@@ -316,6 +316,32 @@
 - **Verifiziert:** `test_epcalcwin_casting.py` — char-Auswahl initial
   != leer, Spruchlisten-Menü initial befüllt.
 
+## [BUG-2258] `groupWin.__remChar` — Charakter-Entfernung bei Umlaut-Namen verlor den Eintrag aus `charlist` → beim Speichern zurückgeschrieben ✅ FIXED
+
+- **Datei:** src/gui/mangroup.py (`groupWin.__remChar`).
+- **Status:** FIXED 2026-09-05 (hermes_dev).
+- **Beschreibung:** `__remChar` parste das Listbox-Label mit
+  `re.match(r"^([a-zA-Z ]+): ([a-zA-Z 0-9]+) \(.+\)$")` und entfernte
+  den Charakter aus `charlist` **nur bei Regex-Treffer**.
+  - **A (Datenverlust-Umweg):** Namen mit Umlauten (z.B.
+    „Alchemilla Grünblatt") passen nicht auf `[a-zA-Z ]+`/`[a-zA-Z 0-9]+`;
+    das Listbox-Item wurde gelöscht, `charlist` blieb aber unangetastet →
+    `__save` schrieb die Gruppe mit dem „gelöschten" Charakter zurück.
+    Verifiziert an `data/ForagingGroup.json`: Katrin (Grünblatt) NOMATCH,
+    alle 5 anderen MATCH.
+  - **B (Mehrfach-Auswahl):** Die `del`/`delete`-Loops lagen innerHALB
+    der Selektions-For-Schleife → bei mehreren gewählten Einträgen
+    wurden Indizes mehrfach/versetzt verwandt (falsche Löschung bzw.
+    IndexError-Bruchlage).
+- **Fix:** Löschung per Listenposition statt Label-Verparse: Listbox-Eintrag
+  `i` ↔ `charlist[i]` (beide werden in `__open`/`__addChar` in gleicher
+  Reihenfolge befüllt und hier gemeinsam entfernt). Sortierte
+  Absteigende Index-Reihenfolge beider Listen; Mehrfach-Auswahl sicher.
+  `import re` damit entfallen.
+- **Verifiziert:** `src/gui/test_mangroup_del.py` — 4 Szenarien
+  (Umlaut-Single, normaler Single, Mehrfach inkl. Umlaut, leere Auswahl),
+  alle 11 Checks grün; pre-fix: Katrin-Entfernung lässt charlist unangetastet.
+
 ## BEREITS GEFIXT - NICHT MEHR AKTUELL
 
 | Bug | Status | Details |
