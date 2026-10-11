@@ -14,7 +14,7 @@ Healer,In*;Pr*;SD,Channeling;Mentalism,Awareness:5;Body Development:10;Lore - Ma
 Mystic,Em*;Pr*;SD,Essence;Mentalism,Awareness:5;Influence:5;Lore - Magical:5;Power Awareness:10;Power Manipulation:5;Power Point Development:5;Self Control:5;Spells:5;Subterfudge - Stealth:5
 Sorcerer,Em*;In*;SD,Channeling;Essence,Directed Spells:5;Lore - Magical:10;Power Awareness:10;Power Manipulation:15;Power Point Development:5;Spells:5
 Ranger,In*;Co,Channeling,Athletic:0;Awareness:10;Body Development:5;Outdoor:20;Subterfuge - Stealth:5;Weapon:5
-Paladin,In*;SD,Channeling,Athlethic:5;Armor:5;Awareness:5;Body Development:10;Combat Maneuvers:10;Poer Manipulation:5;Weapon:10
+Paladin,In*;SD,Channeling,Athlethic:5;Armor:5;Awareness:5;Body Development:10;Combat Maneuvers:10;Power Manipulation:5;Weapon:10
 Monk,Em*;SD,Essence,Athletic - Gymnastics:5;Awareness:5;Body Development:5;Martial Arts:10;Power Awareness:5;Self Control:10;Subterfudge - Stealth:5;Weapon:5
 Dabbler,Em*;Ag,Essence,Awareness:10;Body Development:5;Influence:5;Lore - Magical:5;Power Awareness:5;Power Manipulation:5;Subterfudge:5;Urban:5;Weapon:5
 Bard,Pr*;Me,Mentalism,Artistic - Active:5;Awareness:5;Body Development:5;Communications:5;Influence:5;Lore:10;Power Awareness:5;Self Control:5;Weapon:5
