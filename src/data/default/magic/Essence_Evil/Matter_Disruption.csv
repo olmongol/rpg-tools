@@ -1,1 +1,22 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Un-Ice I,100 cu',P,100',F,Turns 100 cubic feet of ice into water vapor.
+2,Earth to Dust I,10 cu',P,100',F,Turns 10 cubic feet of earth into fine dust.
+3,Cracks Call,1000 cu',P,100',F,"Any previous cracks or flaws within a section of any normal material 1,000 cubic feet (10'x10'x10') will extend to their limit. See Section 7.1.7."
+4,Powder Stone I,10 cu',P,100',F,Turns 10 cubic feet of stone into fine powder.
+5,Un-Ice X,1000 cu',P,100',F,"As UnIce I, except affects up to 1,000 cubic feet."
+6,Disruption I,1 cu',P,10',F,Turns 1 cubic foot of any inorganic material to fine powder (must be one object).
+7,Earth to Dust X,100 cu',P,100',F,"As Earth to Dust I, except affects up to 100 cubic feet."
+8,Shatter,1 cu',P,10',F,"Can shatter an inorganic object, up to 1 cubic foot in volume; all within 5' take an 'A' Impact critical, holder takes a 'C' Impact critical. Metal objects get a +30 RR modification."
+9,Powder Stone X,100 cu',P,100',F,"As Powder Stone I, except affects up to 100 cubic feet."
+10,Un-Ice True,100 cu'/lvl,P,100',F,"As UnIce I, except affects up to 100 cubic feet per level of the caster."
+11,Disruption X,10 cu',P,10',F,"As Disruption I, except affects up to 10 cubic feet."
+12,Earth to Dust True,1000 cu',P,100',F,"As Earth to Dust I, except affects up to 1,000 cubic feet."
+13,Cause Cracks,100 cu',P,100',F,"Causes cracks to appear in up to 100 cubic feet of nonmetal, inorganic material."
+14,Powder Stone True,1000 cu',P,100',F,"As Powder Stone I, except affects 1,000 cubic feet."
+15,Disintegration I,1 cu',P,100',F,Completely disintegrates 1 cubic feet of inorganic material.
+17,Long Matter Disruption,varies,P,300',F,"As any single spell (10th level or lower) from this list, except with a range of 300'"
+19,Disintegration X,10' cu',P,100',F,"As Disintegration I, except affects 10 cubic feet."
+20,Mass Earth to Dust,100 cu'/lvl,P,300',F,"As Earth to Dust I, except affects up to 100 cubic feet per level of the caster"
+25,Mass Powder Stone,100 cu'/lvl,P,300',F,"As Powder Stone I, except affects up to 100 cubic feet per level of the caster"
+30,Mass Disruption,varies,P,10',F,"As Disruption I, except up to as many objects (up to 1 cubic foot each) as the caster's level can be affected, and range is 100'."
+50,Disintegration True,100 cu',P,300',F,"As Disintegration I, except affects objects up to 100 cubic feet and range is 300'."
