@@ -1,1 +1,24 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Quiet I,1'R,1 min/lvl,self,E,Any sounds originating within the area of effect cannot be heard outside the area of effect. This results in a +25 bonus to Stalking. See Sectioin 7.1.7.
+2,Sonic Law I,1'R,C,self,E,"Caster may manipulate sound within the area of effect. He can create any single sound he wants, and, if he desires, that sound can be heard outside the area of effect."
+3,,,,,,
+4,Silence I,10'R,1 min/lvl,self,E,"As Quiet I, except area of effect is 10'R."
+5,Sonic Law II,10'R,C,self,E,"As Sonic Law II, except area of effect is 10'R."
+6,Sudden Sound,1 target,1 rnd/5 fail,100',F,"Causes a very loud, sudden sound next to the target's ears. The target is stunned for the duration."
+7,Deafen,1 target,1 rnd/5 fail,100',F,Target cannot hear sounds occurring more than 6' from his ears.
+8,Cracks,1000 cu',—,100',F,"Certain sound waves cause any cracks or flaws in solid, inanimate material (up to 1,000 cubic feet) to expand to their limit. See Section 7.1.13 for more on material integrity and cracks."
+9,,,,,,
+10,Silence III,50'R,1 min/lvl,self,E,"As Silence I, except area of effect is 50R'."
+11,Sonic Law III,100'R,C,self,E,"As Sonic Law I, except area of effect is 100'R."
+12,,,,,,
+13,Shatter Blast,1 object,—,10',F,"Causes a non-metal, inanimate object to shatter (up to 1 cubic foot in size). All within a 5'R take an 'A' Impact critical (someone holding the object takes a 'C')."
+14,Waiting Sound,varies,1 min/lvl,touch,E,A set series of sounds can be concentrated upon and then delayed up to 24 hours or until triggered by a specified sound.
+15,Sonic Law IV,10'R/lvl,C,self,E,"As Sonic Law I, except area of effect is 10'R per level of the caster."
+16,Long Sudden Sound,1 target,1 rnd/5 fail,300',F,"As Sudden Sound I, except for range."
+17,,,,,,
+18,Mind's Song *,20'R,1 rnd/5 fail,self,F,All targets within the area of effect are stunned due to ultrasonics (this includes animals).
+19,,,,,,
+20,Crumble,1000 cu',—,100',F,"As Cracks, except material with cracks will crumble to dust. See Section 7.1.13 for more on material integrity and cracks."
+25,Silence True,100'R,1 min/lvl,self,E,"As Silence I, except area of effect is 100'R."
+30,Mind's Song True *,50'R,1 rnd/5 fail,self,F,"As Mind's Song, except for area of effect."
+50,Sonic Law True,10'/lvl,1 min/lvl,self,E,"As Sonic Law I, except sounds can be programmed, delayed (up to 24 hours), there can be more than one sound at a time, and sounds are instantly changeable."

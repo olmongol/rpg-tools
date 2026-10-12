@@ -1,1 +1,24 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Body Weaponry I,caster,1 rnd/lvl,self,U,Caster gets a +5 bonus to all Martial Arts attacks.
+2,Adrenal Focus II *,caster,—,self,U,Caster gets a +20 bonus for all Adrenal Moves.
+3,Missile's Master II *,caster,—,self,U,"Caster gets a +20 for attempts to deflect, block, or parry one missile attack."
+4,,,,,,
+5,Shattering Blow I,caster,—,self,U,"Caster can strike an inanimate object and deliver damage to it (taking no damage himself). Caster makes a normal Martial Arts Strikes attack against the object. In addition, there is a chance that the object that is struck will break if it has any flaws (e.g., cracks, fractures, etc.) in it. The chance is equal to 10% plus 1% per degree of severity of the critical delivered in the attack (i.e., 'A' critical = 5%, 'B' critical = 10%, etc.). This chance is modified by +10% to +50% depending on the severity of the flaws."
+6,Adrenal Focus III *,caster,—,self,U,"As Adrenal Focus II, except bonus is +30."
+7,Body Weaponry II,caster,1 rnd/lvl,self,U,"As Body Weaponry I, except bonus is +10."
+8,Missile's Master III *,caster,—,self,U,"As Missile's Master II, except bonus is +30."
+9,Body Armor III,caster,1 rnd/lvl,self,U,"For the duration of this spell, the caster's skin is treated as AT 3 (this is only effective if the caster is wearing no armor at all)."
+10,Lion's Heart,caster,1 min/lvl,self,U,"The caster may ignore the effects of the first critical strike made against him. At the end of this spell's duration, all effects apply normally. Only one wound can be ignored in this fashion at a time (i.e., the caster cannot have more than one Lion's Heart spell active at any given time)."
+11,Adrenal Focus IV *,caster,—,self,U,"As Adrenal Focus II, except bonus is +40."
+12,Shattering Blow II,caster,—,self,U,"As Shattering Blow I, except the chance of breaking the object is 25% plus 3% per degree of severity of the critical."
+13,Body Weaponry III,caster,1 rnd/lvl,self,U,"As Body Weaponry I, except bonus is +15."
+14,Missile's Master IV *,caster,—,self,U,"As Missile's Master II, except bonus is +40."
+15,Adrenal Focus V *,caster,—,self,U,"As Adrenal Focus II, except bonus is +50."
+16,Body Armor IV,caster,1 rnd/lvl,self,U,"For the duration of this spell, the caster's skin is treated as AT 4 (this is only effective if the caster is wearing no armor at all)."
+17,Shattering Blow III,caster,—,self,U,"As Shattering Blow I, except the chance of breaking the object is 40% plus 6% per degree of severity of the critical."
+18,Missile's Master V *,caster,—,self,U,"As Missile's Master II, except bonus is +50."
+19,Body Weaponry IV,caster,1 rnd/lvl,self,U,"As Body Weaponry I, except bonus is +20."
+20,Adrenal Focus True *,caster,—,self,U,"As Adrenal Focus II, except bonus is +75."
+25,Body Weaponry True,caster,1 rnd/lvl,self,U,"As Body Weaponry I, except bonus is +30."
+30,Shattering Blow True,caster,—,self,U,"As Shattering Blow I, except the chance of breaking the object is 50% plus 10% per degree of severity of the critical."
+50,Mind Over Matter,caster,1 rnd/lvl,self,U,"Caster may use any one of the lower level spells on this list, once per round."

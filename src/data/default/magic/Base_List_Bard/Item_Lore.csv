@@ -1,1 +1,24 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Jewel/Metal Assessment,1 object,—,touch,I,Caster can assess the value of jewels and metals to within 10% of their actual value. This spell allows the caster to calculate different values for the different cultures he is familiar with. This spell only assesses the value of the materials (not the craftsmanship).
+2,Item Assessment,1 object,—,touch,I,"As Jewel/Metal Assessment, except will determine the value of the object including the craftsmanship of the object. Magic capabilities are not included."
+3,Detect Power,1 object,1 rnd/lvl (C),touch,I,"Detects power in an item, but not the realm or how much. A different item can be examined each round by concentrating."
+4,Item Analysis I,1 object,—,touch,I,"Caster has a 10% chance for each ability of determining what enchanted abilities the item has. Once an Item Analysis spell has been cast on an item, it may not be cast on that item again until the caster has reached a new level of experience. See Section 7.1.4."
+5,Assessment True,1 object,—,touch,I,"As Item Assessment, except anything can be assessed (livestock, houses, boats, etc.)."
+6,Significance,1 object,—,touch,I,"Determines if the item examined has any cultural or historical significance, but not specifically what significance."
+7,Item Analysis II,1 object,—,touch,I,"As Item Analysis I, except there is a 20% chance for each ability."
+8,Origins,1 object,—,touch,I,"Gives the area of origin of the item, the race of the being who made it, and when it was made (within 100 years)."
+9,Item Vision,1 object,—,touch,I,Gives a vision of the most significant event in the item's past. The event cannot have occured more than 1 hour per level of the caster in the past.
+10,Item Analysis III,1 object,—,touch,I,"As Item Analysis I, except there is a 30% chance for each ability."
+11,Detect Curse,1 object,—,touch,I,Determines if an item has a curse on it.
+12,,,,,,
+13,Significance True,1 object,—,touch,I,"As Significance, except it determines the exact cultural and historical significance."
+14,,,,,,
+15,Item Analysis IV,1 object,—,touch,I,"As Item Analysis I, except there is a 40% chance for each ability."
+16,Death's Lore,1 object,—,touch,I,"Gives a vision of how someone died and an image of their killer. When this spell is cast, the caster must be touching an object that had significance in the death (i.e., the murder weapon, the body, etc.)."
+17,Item Vision True,1 object,—,touch,I,"As Item Vision, except without a time limit."
+18,Item Analysis V,1 object,—,touch,I,"As Item Analysis I, except there is a 50% chance for each ability."
+19,,,,,,
+20,Item Analysis VI,1 object,—,touch,I,"As Item Analysis I, except there is a 60% chance for each ability."
+25,Origins True,1 object,—,touch,I,"As Origins, except it gives the exact place of origin, the being who made it, and when it was made."
+30,Item Analysis VII,1 object,—,touch,I,"As Item Analysis I, except there is a 70% chance for each ability."
+50,Item Analysis True,1 object,—,touch,I,"As Item Analysis I, except all abilities are known automatically."

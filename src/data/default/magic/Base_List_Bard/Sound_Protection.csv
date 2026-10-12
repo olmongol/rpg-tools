@@ -1,1 +1,24 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Long Whisper I,1 point,C,100',E,Caster can whisper and the whisper can be heard at any point he chooses within the range.
+2,Sounding II,caster,C,self,E,Caster's voice is amplified two times. This is useful for talking to large crowds.
+3,Song Sounding II *,1 spell,varies,self,U,Doubles the range of a spell on the Controlling Songs spell list. The spell from that list must be cast within one minute after completing this spell.
+4,Song II *,1 spell,varies,self,U,Allows the caster to affect 2 targets with a spell off the Controlling Songs spell list. The spell from that list must be cast within 1 minute after completing this spell.
+5,Long Whisper III,1 point,C,300',E,"As Long Whisper I, except range is 300'."
+6,Sounding V,caster,C,self,E,"As Sounding II, except amplification is five times."
+7,Great Song I *,1 spell,varies,self,U,"As Song II, except everyone within a 10'R of the caster is a target."
+8,Song Sounding III *,1 spell,varies,self,U,"As Song Sounding II, except range is three times normal."
+9,Long Whisper V,1 point,C,500',E,"As Long Whisper I, except range is 500'."
+10,Song III *,1 spell,varies,self,U,"As Song II, except 3 targets may be affected."
+11,Silent Song *,1 spell,varies,self,U,"When this spell is cast with a spell off the Controlling Songs spell list, no one but the target(s) will hear the song. The spell from the Controlling Songs list must be cast within 1 minute after completing this spell."
+12,Song Sounding IV *,1 spell,varies,self,U,"As Song Sounding II, except range is four times normal."
+13,Long Whisper X,1 point,C,"1,000'",E,"As Long Whisper I, except range is 1,000'."
+14,Song V *,1 spell,varies,self,U,"As Song II, except 5 targets may be affected."
+15,Great Song V *,1 spell,varies,self,U,"As Great Song I, except area of effect is 50'R."
+16,Song Sounding V *,1 spell,varies,self,U,"As Song Sounding II, except range is five times normal."
+17,Long Whisper True,1 point,C,100'/lvl,E,"As Long Whisper I, except range is 100' per level of the caster."
+18,Song X *,1 spell,C,self,U,"As Song II, except 10 targets may be affected."
+19,,,,,,
+20,Song Sounding VII *,1 spell,varies,self,U,"As Song Sounding II, except range is seven times normal."
+25,Great Song True *,mult. tgts,varies,100'R,U,"As Great Song I, except area of effect is 5'R per level."
+30,Song Sounding X *,1 spell,varies,self,U,"As Song Sounding II, except range is ten times normal."
+50,Song Mastery *,caster,1 rnd/lvl,self,U,Any of the spells below can be cast at a rate of one per round for the duration of the spell. Any controlling songs must be cast separately (taking up time out of the duration) and additional power points must be expended for them.

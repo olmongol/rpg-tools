@@ -1,1 +1,24 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Balance *,caster,1 minute,self,U,"Adds +50 to any rolls for any maneuvers performed at a walking pace (e.g., walking a 3' beam)."
+2,Contractions,caster,C,self,U,"Allows the caster to slightly alter his muscles, limbs, and torso. This facilitates escaping from bonds and small places. Gives a +25 to +50 bonus to maneuvers utilizing Contortion skill."
+3,Concentration II *,caster,1 round,self,U,Adds +20 to any one maneuver. No other action can be performed the round this maneuver is resolved.
+4,Unpain I *,caster,1 min/lvl,self,Us,"Caster is able to sustain an additional 25% of his total concussion hits before passing out, hits are still taken and remain when the spell lapses."
+5,Face Shifting,caster,10 min/lvl,self,U,Allows caster to alter form of his face to resemble someone else.
+6,Waterlungs,caster,1 min/lvl,self,U,Caster can breathe water but not air for the duration of this spell.
+7,Concentration III *,caster,1 round,self,U,"As Concentration I, except bonus is 30."
+8,Strength II *,caster,1 round,self,U,"In melee, the caster does double normal concussion hits and his Strength stat bonus is doubled."
+9,Unpain II *,caster,1 min/lvl,self,Us,"As Unpain I, except 50% additional hits may be sustained."
+10,Body Shifting,caster,10 min/lvl,self,U,"As Face Shifting, except the form of the body can be altered slightly to the general shape and size of the desired humanoid race (must be within 25% of the caster's normal mass)."
+11,Concentration IV *,caster,1 round,self,U,"As Concentration I, except bonus is 40."
+12,Strength III *,caster,1 round,self,U,"As Strength II, except caster delivers triple concussion damage and his Strength stat bonus is tripled."
+13,Awake *,caster,—,self,Us,"Awakens the caster from any unnatural sleep (e.g., Sleep spell, sleeping drug, etc.). Caster takes one round to awaken."
+14,Gaslungs,caster,10 min/lvl,self,U,Caster can breathe any gas as if it were normal air.
+15,Unpain III *,caster,1 min/lvl,self,Us,"As Unpain I, except 75% additional hits may be sustained."
+16,Concentration V *,caster,1 round,self,U,"As Concentration I, except bonus is 50."
+17,Monk's Sleep,caster,varies,self,U,"This spell halves the normal amount of time needed for rest. For example, after a normal day, instead of needed only 8 hours of sleep, the caster will need only 4. This spell will remain in effect for the duration of the sleep."
+18,Unpain IV *,caster,1 min/lvl,self,Us,"As Unpain I, except 100% additional hits may be sustained."
+19,Meditative Sleep,caster,varies,self,U,"During a normal sleep, the caster may make Perception rolls (that are not based upon sight), at no penalty."
+20,Self Keeping *,caster,varies,self,Us,"Upon receiving a death blow, the caster goes into a state of suspended animation, until he is cured or his brain is destroyed."
+25,Monk's Sleep True,caster,varies,self,U,As Monk's Sleep and Meditative Sleep operating at the same time.
+30,Strength IV *,caster,1 round,self,U,"As Strength II, except caster delivers four times normal concussion damage and his strength stat bonus is quadrupled."
+50,Unpain True *,caster,1 min/lvl,self,Us,"As Unpain I, except caster ignores all pain. Thus, he ignores all penalties (i.e., negative modifiers to actions) due to wounds and his hit total is double his normal hits plus his constitution (on a 1-100 scale). When he exceeds this limit he does not pass out, he dies from system shock."

@@ -1,1 +1,24 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Leaping I *,caster,1 rnd,self,F,Allows caster to leap 50' laterally or 20' vertically in the round that the spell is cast.
+2,Landing *,caster,varies,self,U,"Allows the caster to land safely in a fall of up to 20' per level, and to take that distance off the severity of any longer fall."
+3,Traction,caster,10 min/lvl,self,U,"Caster can run on even, unstable surfaces (sand, ice, etc.) as he would on a hard, stable surface."
+4,Edgerunning,caster,1 min/lvl,self,U,"Caster can run on even, narrow (at least 2' wide) surfaces as if he were on normal ground."
+5,Leaping III *,caster,1 rnd,self,U,"As Leaping I, except the caster can execute 3 'leaps' in succession. Each leap must be within 90° of the last leap's direction."
+6,Cornering I *,caster,—,self,U,Allows caster to execute a turn up to 180° with no deceleration or unbalance (this spell can be used with any Running spells).
+7,Levitation *,caster,1 min/lvl,self,U,Allows caster to move up and down vertically at a rate of 10' per rond. Horizontal movement is possible only through normal means.
+8,Landing True *,caster,varies,self,U,"As Landing, except caster can land safely from any fall 99% of the time."
+9,Wallwalking,caster,1 min/lvl (C),self,U,Caster can walk on solid surfaces up to 90° as if he were on normal ground.
+10,Great Leap *,caster,1 rnd,self,U,"As Leaping I, except limit is 10' per level laterally and 5' per level vertically."
+11,Cornering III *,caster,1 rnd,self,U,"As Cornering I, except caster may execute 3 such turns in one round."
+12,Wall Flip *,caster,—,self,U,"If the caster has a wall within 10', he can leap up to the wall, bounce off and land up to 25' from the wall (facing any direction—no orientation roll required)."
+13,Wallrunning,caster,1 min/lvl(C),self,U,"As Wallwalking, except caster may run."
+14,Leaving I,caster,—,self,U,"Caster teleports to a point up to 100' away. There can be no intervening 'barriers' in a direct line between the caster and the point. A 'barrier' is defined as anything the caster could not physically go through (e.g., a closed door is a barrier, a pit is not)."
+15,Breezerunning,caster,1 min/lvl(C),self,U,"Caster can run on air if there is a wind blowing. However, he cannot run into the wind; and when running in any other direction, the wind's speed will modify his movement rate (i.e., like the effect of wind on a sail boat)."
+16,Fluidrunning,caster,1 min/lvl,self,U,Caster may run on any fluid surface as if on level ground.
+17,,,,,,
+18,Leaving III,caster,—,self,U,"As Leaving I, except range is 300'."
+19,Breezerunning True,caster,1 min/lvl(C),self,U,"As Breezerunning, except may run against the wind, and his movement rate is unaffected by the wind speed."
+20,Ceilingwalking,caster,C,self,U,Caster can walk on any solid surfaces as if he were on normal ground (includes ceilings).
+25,Ceilingrunning,caster,C,self,U,"As Ceilingwalking, except caster may run."
+30,Run True,caster,1 rnd/lvl,self,U,Caster can use any one of the lower level 'running' spells (on this list) each round.
+50,Monk's Bridge,caster,1 rnd/lvl,self,U,Caster can use any one of the lower level spells (on this list) each round.

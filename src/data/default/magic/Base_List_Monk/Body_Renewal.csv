@@ -1,1 +1,24 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Flow Stoppage I *,caster,varies,self,U,"Reduces caster's bleeding by 1, as long as the caster concentrates or is immobile. For example, this will take a wound that is bleeding at a rate of 4 hits per round down to 3 hits per round. If the caster is suffering from multiple bleeding wounds, this only affects one of them."
+2,Clotting I *,caster,varies,self,Us,"As Flow Stoppage I, except after 1 hour the stoppage is permanent. If caster is unconscious, this spell will operate without concentration."
+3,Stun Relief I *,caster,—,self,Us,Caster is relieved of 1 round's worth of accumulated stun.
+4,Pain Relief I *,caster,C,self,Us,"Heals 1 hit per minute for as long as the caster concentrates. If caster is unconscious, this spell will operate without concentration."
+5,Cut Repair I,caster,—,self,U,"As Clotting I, except the permanent stoppage occurs immediately."
+6,Fracture Repair,caster,varies,self,U,Concentrating with this spell for 2 hours per day for 1-10 days (depending on the severity) will repair a broken bone (not a shattered or destroyed bone).
+7,Mus./Tend. Repair,caster,varies,self,U,"As Fracture Repair, except cut or damaged muscles or tendons may be repaired."
+8,Clotting III *,caster,varies,self,Us,"As Clotting I, except bleeding wounds can be reduced by 3."
+9,Stun Relief III *,caster,—,self,Us,"As Stun Relief I, except 3 rounds are relieved."
+10,Resist Poison *,caster,C,self,Us,Delays the effect of a poison as long as the caster concentrates.
+11,Pain Relief II *,caster,C,self,Us,"As Pain Relief I, except heals 2 hits per minute."
+12,Vein/Artery Repair,caster,varies,self,U,"As Fracture Repair, except repairs a vein or artery."
+13,Cut Repair III,caster,—,self,U,"As Cut Repair I, except bleeding wounds can be reduced by 3."
+14,Fracture Repair True,caster,varies,self,U,"As Fracture Repair, except repair only takes 2 hours of concentration for 1 day."
+15,Mus./Tend. Rep. True,varies,P(C),self,U,"As Fracture Repair True, except cut or broken muscles can be repaired."
+16,Minor Nerve Repair,caster,varies,self,U,Repairs minor damage to one nerve. Requires a 1 day recovery period. Minor damage is defined as any nerve damage that results in penalties up to -20.
+17,Eye/Ear Repair,caster,varies,self,U,"Concentrating with this spell for 2 hours per day for 1-10 days (depending on the severity) will repair any external damage to his ear (including ear loss) or eye (including corneal scratch, removal of foreign objects, etc.)."
+18,Self Joining *,caster,varies,self,U,Allows caster to reattach a severed limb; limb is fully fuctional after 1-10 days (caster must concentrate with this spell for 2 hours each day).
+19,Neutralize Disease *,caster,varies,self,Us,"Has a 50% chance of neutralizing a disease (modified by the potency of the disease) if the caster is unconscious or concentrates for 1 hour. In any case, it delays the poison for as long as the caster can concentrate."
+20,Neutralize Poison *,caster,varies,self,Us,"Has a 50% chance of neutralizing a poison (modified by potency of the poison) if the caster is unconscious or concentrates for 1 hour. In any case, it delays the poison for as long as the caster can concentrate."
+25,Clotting True *,caster,varies,self,Us,"As Clotting I, except stops all bleeding and is permanent after 1 minute of concentration for each hit stopped."
+30,Neut. Pois./Dis. True *,caster,varies,self,Us,"As Neutralize Poison and Neutralize Disease operating at the same time, except chance of neutralization is 100% (modified)."
+50,Renewal True,caster,varies,self,Us,"While in a trance (from the Self Keeping spell on the Body Reins list), the caster can use the lower level healing spells on this list to repair himself."

@@ -1,1 +1,24 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Sly Ears *,caster,10 min/lvl,self,U,"Caster gains double normal hearing. This results in +50 to Perception involving only hearing, +25 to Perception involving hearing and other senses."
+2,Nightvision *,caster,10 min/lvl,self,U,Caster can see 100' on a normal night as if it were daylight. See Section 7.1.19.
+3,Sidevision *,caster,10 min/lvl,self,U,Caster has a 300° field of vision. The flank bonus for attacks against the caster is lowered to +5 and the rear bonus are lowered to +15.
+4,Scent *,caster,10 min/lvl,self,U,"Caster gains an extremely acute sense of smell. This results in +50 to Perception involving only smell, +25 to Perception involving smell and other senses."
+5,Watervision *,caster,10 min/lvl,self,U,Caster can see 100' in any water (including murky water) as if it were daylight.
+6,Fogvision *,caster,10 min/lvl,self,U,Caster can see 100' in any precipitation (including thick fog) as if it were daylight.
+7,Touch *,caster,10 min/lvl,self,U,"Caster gains extreme tactile sensitivity. This results in a +25 to all actions that depend on the tactile sense (e.g., pick locks, disarm traps, etc.)."
+8,Darkvision *,caster,10 min/lvl,self,U,"As Nightvision, except any darkness can be seen through. Also, no light is needed for this spell to work."
+9,Detect Invisible,5'R,1 min/lvl (C),100',U,Detects any invisible object in the area of effect. Caster can concentrate on a different 5'R each round.
+10,Detect Illusion,5'R,—,100',U,Caster can check one object or place (up to 5'R) and tell if is an illusion or has an illusion on it.
+11,Scent True *,caster,10 min/lvl,self,U,"As Scent, except caster can detect extremely faint scents (e.g., up to 48 hours old, after rain storms, through snow, etc.)."
+12,Disillusion,100'R,—,self,U,One illusion within the area of effect ceases to exist for the caster only.
+13,Touch True *,caster,10 min/lvl,self,U,"As Touch, except bonus is +50."
+14,Woodsight,caster,C,self,U,Caster can see through wood (up to 1' per level).
+15,See Invisible,caster,10 min/lvl,50',U,"Caster can see all invisible things anywhere that he can normally see. In addition, he suffers no penalties against invisible targets (as they are not invisible to him)."
+16,,,,,,
+17,Long Vision,caster,10 min/lvl,self,U,"As any of the lower level Vision spells on this list but without a range limit (i.e., they will allow the caster to see anywhere he could normally see)."
+18,Illusionsight,caster,1 min/lvl,self,U,Caster cannot see any visual illusions. This does not affect any of the other senses.
+19,Stonesight,caster,C,self,U,"As Woodsight, except stone can be seen through."
+20,Monkvision,caster,10 min/lvl,self,U,As all lower level Vision spells functioning at the same time.
+25,Ironsight,caster,C,self,U,"As Woodsight, except iron (or steel) can be seen through."
+30,Metalsight,caster,C,self,U,"As Woodsight, except any metal can be seen through."
+50,Monksense,caster,1 rnd/lvl,self,U,Caster can use any one of the lower level spells (on this list) each round.
