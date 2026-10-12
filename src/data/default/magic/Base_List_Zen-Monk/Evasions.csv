@@ -3,22 +3,22 @@ Lvl,Spell,Area of Effect,Duration,Range,Type,Description
 2,Speed I *,caster,1 round,self,U,"Caster may act at twice his normal rate (i.e., 200% activity per round), but immediately afterwards, he must spend a number of rounds equal to the rounds speeded at half rate (i.e., only 50% activity per round)."
 3,Dodging I *,1 attack,1 round,self,U,"Allows caster to ''dodge'' one nonspell attack (missile or melee) that occurs during the same round that this spell is cast. The caster must be able to see the attack (i.e., they cannot be from the rear or invisible) and he must have room to dodge the attack; this results in the attack receiving a -50 modification."
 4,Swing III *,caster,---,self,U,"As Swing I, except three Swing I’s may be executed in rapid succession."
-5,,caster,---,self,U,
-6,,caster,1 round,self,U,
-7,,caster,3 rounds,self,U,
-8,,3 attacks,1 round,self,U,
-9,,caster,---,self,U,
-10,,caster,5 rounds,self,U,
-11,,caster,varies,self,U,
-12,,caster,3 rounds,self,U,
-13,,4 attacks,1 round,self,U,
+5,Flip I,caster,---,self,U,"Allows caster to ''flip'' in any direction, landing up to 10' away (facing in any direction)."
+6,Haste I,caster,1 round,self,U,"As Speed I, except no half rate rounds are required."
+7,Speed III,caster,3 rounds,self,U,"As Speed I, except duration is 3 rounds."
+8,Dodging III,3 attacks,1 round,self,U,"As Dodging I, except 3 attacks can be dodged."
+9,Swing V,caster,---,self,U,"As Swing I, except five Swing I's may be executed in rapid succession."
+10,Speed V,caster,5 rounds,self,U,"As Speed I, except duration is 5 rounds."
+11,Flip III,caster,varies,self,U,"As Flip I, except three Flip I's may be executed in rapid succession."
+12,Haste III,caster,3 rounds,self,U,"As Haste I, except duration is 3 rounds."
+13,Dodging IV,4 attacks,1 round,self,U,"As Dodging I, except 4 attacks can be dodged."
 14,Swing 10 *,caster,1 round,self,U,"As Swing I, except ten Swing I’s may be executed in rapid succession."
-15,,caster,7 rounds,self,U,
-16,,caster,4 rounds,self,U,
-17,,caster,---,self,U,
-18,,4 attacks,1 round,self,U,
-19,,caster,10 rounds,self,U,
-20,,caster,5 rounds,self,U,
-25,,all attacks,1 round,self,U,
-30,,caster,10 rounds,self,U,
-50,,caster,1 round,self,U,
+15,Speed VII,caster,7 rounds,self,U,"As Speed I, except duration is 7 rounds."
+16,Haste IV,caster,4 rounds,self,U,"As Haste I, except duration is 4 rounds."
+17,Great Flip,caster,---,self,U,"As Flip I, except total distance travelled is 1' per level."
+18,Dodging V,4 attacks,1 round,self,U,"As Dodging I, except 5 attacks can be dodged."
+19,Speed X,caster,10 rounds,self,U,"As Speed I, except duration is 10 rounds."
+20,Haste V,caster,5 rounds,self,U,"As Haste I, except duration is 5 rounds."
+25,Dodging True,all attacks,1 round,self,U,"As Dodging I, except all attacks can be dodged."
+30,Haste X,caster,10 rounds,self,U,"As Haste I, except duration is 10 rounds."
+50,Monk’s Move True,caster,1 round,self,U,Caster can use any one of the lower level non- Speed/Haste spells (on this list) each round.

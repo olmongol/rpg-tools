@@ -1,21 +1,21 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
-1,,1 target,C,50',Fm,
-2,,1 target,C,50',Fm,
-3,,1 target,C,50',Fm,
+1,Calm Song,1 target,C,50',Fm,"Target is calmed and cannot take aggressive (offensive) action, while caster concentrates."
+2,Holding Song,1 target,C,50',Fm,"As Calm Song, except target only has 25% of his normal activity each round."
+3,Stun Song,1 target,C,50',Fm,"As Calm Song, except target is stunned."
 4,,1 target,C,50',Fm,
-5,,1 target,C,50',Fm,
-6,,1 target,C,50',Fm,
-7,,1 target,C,50',Fm,
-8,,1 target,C(2x),50',Fm,
-9,,1 target,C(2x),50',Fm,
-10,,1 target,P,50',Fm,
-11,,1 target,C(2x),50',Fm,
-12,,1 target,C,50',Fm,
-13,,1 target,C,50',Fm,
-15,,1 target,C(2x),50',Fm,
-17,,1 target,C(2x),50',Fm,
-19,,1 target,varies,50',Fm,
-20,,1 target,C(3x),50',Fm,
-25,,1 target,C(2x),50',Fm,
-30,,1 target,varies,50',Fm,
-50,,1 target,varies,50',Fm,
+5,Sleep Song,1 target,C,50',Fm,"As Calm Song, except target falls into a light sleep. Target gets another RR if someone attempts to wake him while this spell is still active. When the duration is up, the target can be awakened normally."
+6,Charm Song,1 target,C,50',Fm,"As Calm Song, except target believes caster is a good friend."
+7,Fear’s Song,1 target,C,50',Fm,"As Calm Song, except target fears caster and tries to flee from him. Fleeing usually equates to moving at maximum pace away from the caster."
+8,Calm Song True,1 target,C(2x),50',Fm,"As Calm Song, except after the caster stops concentrating the effect will continue for as many rounds the caster has already concentrated. For example, if the caster sings to a target for 3 rounds, the target will be calmed for those 3 rounds plus the following 3 rounds."
+9,Stun Song True,1 target,C(2x),50',Fm,"As Calm Song True, except target is stunned."
+10,Forgetting Song,1 target,P,50',Fm,Target will forget what transpired in a certain period of time specified by the caster (the beginning of the time period must be within 1 day per level of the caster in the past). The length of the ''forgetting'' time period is equal to the amount of time the caster plays/sings (concentrates).
+11,Charm Song True,1 target,C(2x),50',Fm,"As Calm Song True, except target believes caster is his good friend."
+12,Panic’s Song,1 target,C,50',Fm,"As Calm Song, except target panics (routs) and flees, dropping or throwing away most of his equipment to speed his departure. This results in moving at maximum pace without thought toward direction moved (so long as it is away from the caster)."
+13,Song of Mastery,1 target,C,50',Fm,"As Calm Song, except target must obey the caster. He will not do anything that is completely alien to him (e.g., no suicide orders, no blinding himself, etc.)."
+15,Sleep Song True,1 target,C(2x),50',Fm,"As Calm Song True, except target falls asleep (as in Sleep Song)."
+17,Panic’s Song True,1 target,C(2x),50',Fm,"As Calm Song True, except target panics and flees (as in Panic's Song)."
+19,Song of Seeking,1 target,varies,50',Fm,Target must perform a task specified by the caster. Failure to complete the task results in a penalty determined by the GM (ignoring the task suffers the same effects as failure). Completing the task must be within the target's capabilities. The effects of this spell last until the task is completed.
+20,Song True,1 target,C(3x),50',Fm,"As any once of the Song True spells above (caster's choice), except when the caster stops concentrating, the duration of the spell is twice the time the caster has already concentrated."
+25,Song of Mastery True,1 target,C(2x),50',Fm,"As Calm Song True, except target must obey caster."
+30,Song of Coma,1 target,varies,50',Fm,"Target falls into a deep coma, from which he will awaken only if the caster cancels this spell or the spell is dispelled."
+50,Slaying Song,1 target,varies,50',Fm,"As Song of Coma, except target dies instantly if his RR failure is more than 50."
