@@ -1,0 +1,15 @@
+Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Animal Sight I,caster,C,100',P,Caster can see through the eyes of any nonintelligent animal in range. The animal must be seen or located via Presence or located via Mind Store & Finding (for the initial contact only)
+3,Animal Sense I,caster,C,100',P,"As Animal Sight, except all of the animal's senses can be used"
+5,Sight Merge I,caster,C,100',P,"As Animal Sight, except any being may be used"
+6,Animal Sight III,caster,C,300',P,"As Animal Sight I, except the range is 300'"
+8,Animal Sense III,caster,C,300',P,"As Animal Sense I, except the range is 300'"
+10,Sight Merge III,caster,C,300',P,"As Sight Merge I, except the range is 300'"
+11,Animal Sight V,caster,C,500',P,"As Animal Sight I, except the range is 500'"
+12,Sensory Merge I,caster,C,100',P,"As Sight Merge I, except all of the being's senses can be used"
+13,Animal Sense V,caster,C,500',P,"As Animal Sense I, except the range is 500'"
+15,Sight Merge V,caster,C,500',P,"As Sight Merge I, except the range is 500'"
+20,Animal Sense True,caster,C,1 mi/lvl,P,"As Animal Sense I, except the range is 1 mile/lvl"
+25,Sight Merge True,caster,C,1 mi/lvl,P,"As Sight Merge I, except the range is 1 mile per level of the caster"
+30,Sensory Merge II,caster,C,1 mi/lvl,P,"As Sensory Merge I, except the range is 1 mile per level"
+50,Sensory Merge True,,caster,C,u,"As Sensory Merge I, except the range is unlimited. SENSE THROUGH OTHERS"

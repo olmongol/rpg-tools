@@ -1,0 +1,17 @@
+Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Guess,caster,—,self,I,"When faced with a choice about which he has little or no information (e.g., which corridor leads outside the quickest) the caster may cast this spell and the Gamemaster will determine which way he goes, biasing the choice favorable by 25% (e.g., roll 1-100: correct on 26-100, incorrect on 01-25)"
+2,Intuition I,caster,—,self,I,Caster gets a vision of what will happen in the next minute if he takes a specified action
+4,Intuition III,caster,—,self,I,"As Intuitions I, except caster gets to gaze 3 minutes into the future"
+5,Vision Guide,caster,varies,touch,I,"This spell gives the caster the ability to scan the past by ""feeling the temporal location for significant events."" The caster must cast a Vision Behind spell within one minute after completing this spell"
+6,Vision Behind III,caster,C,touch,I,Caster gets a vision up to 1 hour per level into the past (includes sight and sound). Vision must be associated with a place or item touched at the time the spell is cast. Caster is in a trance as long as he concentrates
+7,Anticipation,1 target,—,100',I,"Predicts most probable action of a being in the next round. The target must declare one of his actions for the next round, before the caster declares his action. The target is free to change his action, but must suffer the penalties for changing actions once the round has begun. If the target's action includes affecting someone else, the caster does not gain that information (e.g., the target would have to reveal that he was attacking, but not who he was attacking). If the target's action includes casting a spell, he only has to reveal the Type of spell being cast, not the actual spell (e.g., the target would have to reveal that he is casting a Force spell, but not that he is casting a Sleep V)"
+8,Intuition V,caster,—,self,I,"As Intuition I, except caster gets to gaze 5 minutes into the future"
+10,Vision Behind IV,caster,C,touch,I,"As Vision Behind I, except caster can view up to 1 day per level into the past"
+11,Spell Anticipation,1 target,—,100',I,"As Anticipation, except if action is to cast a spell, the exact spell and target are learned"
+12,Anticipation III,3 targets,—,100',I,"As Anticipation, except caster can either predict the actions of three beings for the next round or the actions of one being for the next three rounds"
+13,Intuition X,caster,—,self,I,"As Intuition I, except caster gets to gaze 10 minutes into the future"
+15,Intuition True,caster,—,self,I,"As Intuition I, except caster gets to gaze into the future for a number of minutes equal his level"
+20,Vision Behind V,caster,C,touch,I,"As Vision Behind I, except caster can view up to 1 yr/lvl into the past"
+25,Anticipation True,varies,—,100'R,I,"As Anticipation, except caster can predict actions of all beings within 100' of him"
+30,Vision Behind VII,caster,C,touch,I,"As Vision Behind I, except caster can view up to 100 yr/lvl into the past"
+50,Time Returning,caster,1 min/lvl,self,F,"Caster is able to travel physically up to 10 year per level into the past for the duration of the spell. Caster's actions in the past may alter the present, at the Gamemaster's discretion. SPECIAL NOTES When using Guess, the caster must have a limited number of options (i.e., finite and countable). After the spell is cast, the caster may not cast another Guess for the same information until his experience level has increased (see Section 7.1.4). TIME'S BRIDGE"

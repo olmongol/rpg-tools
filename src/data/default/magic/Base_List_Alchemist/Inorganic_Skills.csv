@@ -1,0 +1,16 @@
+Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Work Iron,caster,24 hr,self,F,"For the duration of this spell, the caster will gain the ability to work iron"
+2,Work Steel I,caster,24 hr,self,F,"As Work Iron, except steel can be worked (to make +5 nonmagic items)"
+3,Work Normal Metals,caster,24 hr,self,F,"As Work Iron, except any single normal metal other than iron and steel can be worked (if the material would make an item with no bonuses)"
+4,Work Alloy I,caster,24 hr,self,F,"As Work Iron, except certain alloys can be worked. Items made from these alloys will have no bonuses"
+5,Make Steel,caster,24 hr,self,F,"For the duration of this spell, the caster can make steel from iron. The amount that can be made in a day depends on the available equipment"
+6,Work Steel II,caster,24 hr,self,F,"As Work Steel I, except steel can be worked to make +10 nonmagic items"
+7,Make Alloys,caster,24 hr,self,F,"As Make Steel, except alloys of normal metals may be made if the component metals are available"
+8,Work Stone,caster,24 hr,self,F,"As Work Iron, except the caster can work stone if, for some reason, he wishes to make a stone item"
+10,Work Alloy II,caster,24 hr,self,F,"As above, except allows working of alloys that could create up to +15 nonmagic items"
+11,Work Jewels,caster,24 hr,self,F,"As Work Iron, except allows caster to work jewels"
+15,Work Mithril,caster,24 hr,self,F,"As Work Iron, except allows caster to work any inorganic mineral that would create an item with a +20 bonus (Mithril is an example of this)"
+20,Work Laen,caster,24 hr,self,F,"As Work Iron, except caster can work any inorganic material that would make +25 items (Laen is a superhard volcanic glass that could be used in a world system to fit this description)"
+25,Work Eog,caster,24 hr,self,F,"As Work Iron, except caster can work any inorganic material that would make +30 items. (Eog is an extremely dense, hard metal that is very difficult to work and find; it could be used to fit this description.)"
+30,Make Eog,caster,24 hr,self,F,Allows caster to make any metal or glass from the appropriate source material(s)
+50,Make/Work,caster,24 hr,self,F,"Allows caster to make and work any metal, alloy, or inorganic mineral (e.g., Kregora is an alloy that has intense anti-Essence, anti-Channeling and anti-Mentalism properties, it could only be worked through the use of this spell). SPECIAL NOTES 1) The spells manipulating material for nonmagic weapons can also be used to make other nonmagic objects with bonuses where strength and durability are essential (usually armor and shields). 2) See Section 7.4 for more information on alchemy. INORGANIC SKILLS"

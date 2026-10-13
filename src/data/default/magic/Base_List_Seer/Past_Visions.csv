@@ -1,0 +1,18 @@
+Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Origins,caster,—,touch,I,Gives a general idea of the place of origin of an item
+2,Detect Curse,caster,—,touch,I,Determines if there is a curse is on an item
+3,Vision Behind I,caster,C,touch,I,Caster gets a vision up to 1 minute per level into the past (includes sight and sound). Vision must be associated with a place or item touched at the time the spell is cast. Caster is in a trance as long as he concentrates
+4,Power Lore,caster,—,touch,I,Gives the origin of an item's power
+5,Vision Guide,caster,varies,touch,I,"This spell gives the caster the ability to scan the past by ""feeling the temporal location for significant events."" The caster must cast a Vision Behind spell within one minute after completing this spell"
+6,Item Vision,caster,—,touch,I,Gives a vision of a significant event in an item's past
+7,Vision Behind II,caster,C,touch,I,"As Vision Behind I, except time limit is 10 minutes per level"
+9,Vision Behind III,caster,C,touch,I,"As Vision Behind I, except time limit is 1 hour per level"
+10,Delving,caster,—,touch,I,Gives significant details concerning an item's construction and purpose (not specific powers)
+11,Vision Behind IV,caster,C,touch,I,"As Vision Behind I, except time limit is 1 day per level"
+13,Past Store,caster,—,self,I,Caster may cast this spell while in a Vision Behind; it saves an image of a person or place that can later be used by another Vision Behind to key in on the saved image in another place or time
+14,Curse Analysis,caster,—,touch,I,"Gives an analysis of the origin of a curse, the source of its power, and an idea of its effectiveness (i.e., level)"
+15,Vision Behind V,caster,C,touch,I,"As Vision Behind I, except time range is 1 year per level"
+20,Vision Location,caster,—,self,I,"If caster has general information concerning an event or place, casting this spell before a Vision Behind will cause the Vision Behind to key in on the event most closely matching the description"
+25,Vision Behind,caster,C,touch,I,"AsVision Behind I, except time limit is 10 years per level"
+30,Vision Behind,caster,C,touch,I,"AsVision Behind I, except time limit is 100 years per level"
+50,Vision Behind,caster,C,touch,I,"AsVision Behind I, except there is no time limit. PAST VISIONS"

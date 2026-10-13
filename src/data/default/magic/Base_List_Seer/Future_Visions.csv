@@ -1,0 +1,16 @@
+Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Intuitions I,caster,—,self,I,Caster gets a vision of what will happen in the next minute if he takes a specified action
+3,Intuitions III,caster,—,self,I,"As Intuitions I, except caster gets to gaze 3 minutes into the future"
+4,Dream I,caster,sleep,self,P,Caster has a dream relating to a topic decided upon just before retiring. The caster must sleep for a normal sleep cycle (minimum of 4 hours) for this spell to work)
+5,Intuitions V,caster,—,self,I,"As Intuitions I, except caster gets to gaze 5 minutes into the future"
+6,Anticipations I,caster,—,100',P,"Predicts most probable action of a being in the next round. The target must declare one of his actions for the next round, before the caster declares his action. The target is free to change his action, but must suffer the penalties for changing actions once the round has begun. If the target's action includes affecting someone else, the caster does not gain that information (e.g., the target would have to reveal that he was attacking, but not who he was attacking). If the target's action includes casting a spell, he only has to reveal the Type of spell being cast, not the actual spell (e.g., the target would have to reveal that he is casting a Force spell, but not that he is casting a Sleep V)"
+8,Dream II,caster,sleep,self,P,"As Dreams I, except limit is 2 dreams per night on different topics"
+9,Spell Anticipations,caster,—,100',P,"As Anticipation, except if action is to cast a spell, the exact spell and target are learned"
+10,Intuitions X,caster,—,self,I,"As Intuitions I, except caster gets to gaze 10 minutes into the future"
+11,Dreams III,caster,sleep,self,P,"As Dreams I, except limit is 3 dreams per night on different topics"
+13,Anticipations III,caster,—,self,P,"As Anticipations I, except caster can either predict the actions of three beings for the next round or the actions of one being for the next three rounds"
+15,Intuitions True,caster,—,self,P,"As Intuitions, except caster gets to gaze 1 minute per level into the future"
+20,Anticipations V,caster,—,self,P,"As Anticipations I, except actions of 5 beings may be predicted or the actions of one being for the next five rounds"
+25,Dream True,caster,sleep,self,P,"As Dream I, except limit is 5 dreams per night on any combination of topics the caster chooses"
+30,Anticipations True,caster,—,self,P,"As Anticipation I, except caster can predict actions of all beings within 100' of him"
+50,Spell Anticipation True,caster,—,self,P,"As Anticipations True, except spell type and target are known as well as the actions. SPECIAL NOTES See Section 7.1.2 for more on dreams and symbology in divination. FUTURE VISIONS"

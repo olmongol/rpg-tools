@@ -1,0 +1,15 @@
+Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Projected Light,50' beam,10 min/lvl,self,F,"Beam of light (like flashlight) springs from the caster's palm (with a 50' effective range). If the caster closes his hand (into a fist), the light will ""turn off."" If the fist is opened before the duration expires, the light will ""turn on."""
+2,Self Aura,caster,10 min/lvl,self,F,"Generates a bright aura about the caster, making him appear more powerful and subtracting 5 from all attacks"
+3,Light II,20'R,10 min/lvl,touch,F,"Lights a 20'R area about the point touched. If the point is on a mobile target, it will move with the target"
+4,Light Eruption,10'R,—,100',F,"[RR Mod: -10] Causes a 10'R sphere of intense light, all within are stunned for 1 round per 10 failure"
+5,Shock Bolt I,1 target,—,100',E,"A bolt of intense, charged light is shot form the palm of the caster. The attack is resolved on the Shock Bolt Attack Table"
+8,Flare,500'R,3 rnd/lvl,500',F,"A 6"" R ball of light is shot from the palm of the caster. It will travel to the limit of the range, explode (as a flare), burn with a bright light (as a flare), drift slowly to earth, and go out. An area equal to the range is lit if the flare can raise to its full range. The flare drops 10' per round. If fired at a target, resolve the attack as a Shock Bolt that delivers Heat criticals"
+10,Beacon,5 mi ray,C,self,F,A ray of light (any color) springs from caster's palm. This ray can be up to 5 miles long
+11,Light VI,60'R,10 min/lvl,100',F,"As Light, except that the range is 100' and caster may generate a single source of up to 60'R or three 20'R sources"
+14,Lord Aura,caster,10 min/lvl,self,F,"As Self Aura, except spell subtracts 15 from all attacks"
+15,Blinding,,1 target,1 rnd/10 fail 100',F,Brilliant flash blinds target for 1 round per 10 failure
+20,Aura Blaze,10'R,1 rnd/lvl,self,F,Caster is illuminated in a blinding light. All within 10' suffer must resist as in Blinding. All attacks against the caster subtract 25
+25,Starfires,1 point,C,500',E,"Focuses star or moonlight as a lens, must be focused initially on a fixed point. After 1 round it can be moved at the rate of 1' per round. It will burn through a 1' diameter at a rate of 6"" per round (in wood), 1"" per round (in stone), or 0.5"" per round (in metal)"
+30,Starhand,1 point,C,"6""",E,"As Starfires, except the range and focus is 6"" from open palm of caster (caster is immune) and it can be moved at the rate of 10' per round. It can be used in a combat, striking as a Fire Bolt with an OB of 30 (plus the caster's directed spell bonus with Starhand). Concentration is not required if being used in melee"
+50,Starfires True,1 point,C,varies,E,"As Starfires or Starhand, but star/moonlight is not required. STARLIGHTS"

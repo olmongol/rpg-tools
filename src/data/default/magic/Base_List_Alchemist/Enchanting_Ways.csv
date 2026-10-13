@@ -1,0 +1,19 @@
+Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Research,caster,24 hr,self,I,Allows the caster to research enchanted abilities to be placed in items
+2,Empathy,1 item,24 hr,touch,F,"Allows the caster to enchant an item with ""empathy."" See Section 7.4 for more information on this type of enchantment"
+3,Low Intelligence,1 item,24 hr,touch,F,"As Empathy, except ""low intelligence"" can be enchanted"
+4,Weapon I,1 weapon,24 hr,touch,F,Allows the caster to enchant a +5 bonus (magical) into a weapon
+5,Armor I,1 armor,24 hr,touch,F,"As Weapon I, except armor and shields can be enchanted"
+6,General I,1 item,24 hr,touch,F,"As Weapon I, except general type magic items with bonuses can be enchanted. Also, items like spell adders and spell multipliers are described in Section 8.6.1"
+7,Medium Intelligence,1 item,24 hr,touch,F,"As Empathy, except ""medium intelligence"" can be enchanted"
+8,Weapon II,1 weapon,24 hr,touch,F,"As Weapon I, except +10 bonuses can be enchanted"
+9,Armor II,1 armor,24 hr,touch,F,"As Armor I, except +10 bonuses can be enchanted"
+10,General II,1 item,24 hr,touch,F,"As General I, except +10 bonuses can be enchanted"
+12,High Intelligence,1 item,24 hr,touch,F,"As Empathy, except ""high intelligence"" can be enchanted"
+13,Weapon III,1 weapon,24 hr,touch,F,"As Weapon I, except +15 bonuses can be enchanted"
+14,Armor III,1 armor,24 hr,touch,F,"As Armor I, except +15 bonuses can be enchanted"
+15,General III,1 item,24 hr,touch,F,"As General I, except +15 bonuses can be enchanted"
+20,Weapon IV,1 weapon,24 hr,touch,F,"As Weapon I, except +20 bonuses can be enchanted"
+25,Armor IV,1 armor,24 hr,touch,F,"As Armor I, except +20 bonuses can be enchanted"
+30,Very High Intelligence,1 item,24 hr,touch,F,"As Empathy, except ""very high intelligence"" can be enchanted"
+50,General IV,1 item,24 hr,touch,F,"As General I, except +20 bonuses can be enchanted. SPECIAL NOTES 1) Special enchanted abilities are left off, because a Gamemaster must decide which abilities he wants items to have in his world system (e.g., slaying weapons, holy weapons, weapons with bonuses vs. certain creatures, etc.). 2) See Section 7.4 for more information on using alchemy. ENCHANTING WAYS"

@@ -1,0 +1,16 @@
+Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Work Liquid,caster,24 hr,self,F,Allows caster to work with non-magic liquids
+3,Potion I,caster,24 hr,self,F,Allows caster to make one dose of a potion that can have a first level spell imbedded in it. The caster must also cast an Imbed spell to place the spell into the potion
+4,Minor Poison,caster,24 hr,self,F,"Allows caster to safely handle, prepare, and process minor poisons"
+5,Work Gas,caster,24 hr,self,F,"As Work Liquid, except allows caster to work with nonmagic gas"
+6,Potion II,caster,24 hr,self,F,"As Potion I, except up to a second level spell can be imbedded"
+9,Potion III,caster,24 hr,self,F,"As Potion I, except up to a third level spell can be imbedded"
+10,Major Poison,caster,24 hr,self,F,"As Minor Poison, except works with all but the most deadly poisons"
+12,Potion IV,caster,24 hr,self,F,"As Potion I, except up to a fourth level spell can be imbedded"
+15,Potion V,caster,24 hr,self,F,"As Potion I, except up to a fifth level spell can be imbedded"
+17,Potion VII,,caster,24 hr,s,"As Potion I, except up to a seventh level spell can be imbedded"
+19,Potion IX,,caster,24 hr,s,"As Potion I, except up to a ninth level spell can be imbedded"
+20,Potion X,caster,24 hr,self,F,"As Potion I, except up to a tenth level spell can be imbedded"
+25,Poisons True,caster,24 hr,self,F,"As Major Poison, except works with all poisons"
+30,Multiple Doses,caster,24 hr,self,F,"As Potion I, except allows a Potion # spell to be used to create multiple doses. For example, a Potion V could be used to create 5 doses of a first level spell, or 1 dose of a 3rd lvl spell and 1 dose of a 2nd or 2 doses of a 2nd lvl spell and 1 dose of a 1st or etc"
+50,Lord Potion,caster,24 hr,self,F,"As Potion I, except up to a twentieth level spell can be imbedded. SPECIAL NOTES See Section 7.4 for more information on alchemy. LIQUID-GAS SKILLS"

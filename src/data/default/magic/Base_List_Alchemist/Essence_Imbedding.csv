@@ -1,0 +1,21 @@
+Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Research,caster,24 hr,self,I,Allows the caster to research special imbedding spells to be used in creating items
+3,Imbed I,caster,24 hr,self,F,Allows the caster to imbed a first level Essence spell in an item or potion
+4,Charge Wand,caster,24 hr,self,F,Allows the caster to charge a wand that casts Essence spells (or has Essence abilities) back to its full number of charges
+5,Imbed II,caster,24 hr,self,F,"As Imbed I, except up to a second level spell can be imbedded"
+6,Daily I,caster,24 hr,self,F,Allows the caster make an imbedded first level spell (in an item) usable once per day. Note that the caster must also cast an Imbed spell to place the spell in the item
+7,Imbed III,caster,24 hr,self,F,"As Imbed I, except up to a third level spell can be imbedded"
+8,Charge Rod,caster,24 hr,self,F,"As Charge Wand, except rods (with Essence spells/abilities) can be charged"
+9,Imbed IV,caster,24 hr,self,F,"As Imbed I, except up to a fourth level spell can be imbedded"
+10,Daily III,caster,24 hr,self,F,"As Daily I, except the item can have up to a third level spell that can be cast either three times per day (for a first level spell) or one time per day (for a second or third level spell)"
+11,Imbed V,caster,24 hr,self,F,"As Imbed I, except up to a fifth level spell can be imbedded"
+12,Charge Staff,caster,24 hr,self,F,"As Charge Wand, except staves (with Essence spells/abilities) can be charged"
+13,Imbed VI,caster,24 hr,self,F,"As Imbed I, except up to a sixth level spell can be imbedded"
+14,Daily V,caster,24 hr,self,F,"As Daily I, except the item can have up to a fifth level spell that can be cast either four times per day (for a first level spell), three times per day (for a second level spell), two times per day (for a third level spell), or one time per day (for a fourth or fifth level spell)"
+15,Imbed VII,caster,24 hr,self,F,"As Imbed I, except up to a seventh level spell can be imbedded"
+17,Imbed VIII,caster,24 hr,self,F,"As Imbed I, except up to a eighth level spell can be imbedded"
+19,Imbed IX,caster,24 hr,self,F,"As Imbed I, except up to a ninth level spell can be imbedded"
+20,Imbed X,caster,24 hr,self,F,"As Imbed I, except up to a tenth level spell can be imbedded"
+25,Daily True,caster,24 hr,self,F,"As Daily I, except the item can have up to a tenth level spell that can be cast either five times per day (for a first level spell), four times per day (for a second or third level spell), three times per day (for a fourth or fifth level spell), two times per day (for a sixth or seventh level spell), or one time per day (for an eighth, ninth, or tenth level spell)"
+30,Constant,caster,24 hr,self,F,"As Daily True, except certain spells can be imbedded to operate constantly. See Section 7.4 for restrictions on what spells can be made constant"
+50,Imbed True,caster,24 hr,self,F,"As Imbed I, except any level spell can be imbedded (will only be castable once if the spell is over tenth level). ESSENCE IMBEDDING"

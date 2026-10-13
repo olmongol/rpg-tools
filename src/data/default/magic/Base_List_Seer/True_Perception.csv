@@ -1,0 +1,18 @@
+Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Presence,caster,C,10'/lvl,P,Caster is aware of the presence of all thinking/ sentient beings within his range
+2,Detect Illusion,5'R,—,100',U,Caster can check one object or place (up to a 5'R) and tell if it is an illusion or has an illusion on it
+3,Mind Store,1 target,—,10'/lvl,I,Caster stores the mental pattern of target; can be used later to locate specific person through Finding
+4,Analysis,1 target,—,10'/lvl,I,"Caster can determine one of the following concerning a target: profession, race, or level"
+5,Minor Finding,caster,C,100'/lvl,I,Caster gets direction & distance to a unshielded mind which he has a mental pattern of from Mind Store
+6,Mind Typing,1 target,—,10'/lvl,I,"As Analysis, except caster learns race, profession, and level"
+7,Awareness III,caster,C,30'R,I,"As Presence, plus a general knowledge of the actions of each being (e.g., being is casting a spell, but not what spell is being cast"
+8,Long Ear,caster,C,10'/lvl,U,"Caster's point of hearing may be moved up to 10'/ lvl away (moves at 10'/rnd); he must be physically able to go there (e.g., he could not send his point of hearing through walls or closed doors)"
+10,Awareness True,caster,C,10'R/lvl,I,"As Awareness III, except radius is 10'/ lvl"
+11,Long Mind Store,1 target,—,100'/lvl,I,"As Mind Store, except range is 100'/lvl if the target is sensed (mentally or by sight)"
+13,Long Mind Typing,1 target,—,100'/lvl,I,"As Mind Typing, except range is 100'/ lvl if target is sensed (mentally or by sight)"
+14,Finding I,caster,C,1 mi/lvl,I,"As Minor Finding, except range is 1 mi/lvl"
+15,Long Sense,caster,C,10'/lvl,U,"As Long Ear, except all senses are involved"
+20,Finding V,caster,C,5 mi/lvl,I,"As Minor Finding, except range is 5 miles/lvl"
+25,Greater Long Sense,caster,C,1 mi/lvl,U,"As Long Sense, except range is 1 mile/lvl"
+30,Long Sense True,,caster,C,U,"As Long Sense, except range is unlimited"
+50,Finding True,,caster,C,U,"As Finding, except no range limit. TRUE PERCEPTION"

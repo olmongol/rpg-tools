@@ -1,0 +1,16 @@
+Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Question I,1 target,—,10',M,Target must answer one single-concept question. Question is asked and answered mentally
+3,Question III,1 target,3 rnds,10',M,"As Question I, except target must answer 3 questions (a new question can be asked each round)"
+5,Thoughts,1 target,1 rnd/lvl,100',M,Caster receives surface thoughts from target. If the target makes his RR by more than 50 he realizes what is happening. Caster can concentrate on one target each round
+6,Mind Typing,1 target,—,10'/lvl,I,"Caster learns the race, profession, and level of the target"
+7,Truth I,caster,1 min,10'R,I,Caster knows when anyone within the radius is lying
+8,Truth,1 target,C,100',I,Caster knows if the target is lying
+10,Inner Thoughts,1 target,1 rnd/lvl,100',M,"As Thoughts, except caster also learns reasoning and thought patterns behind surface thoughts"
+11,Truth III,caster,3 min,10'R,I,"As Truth I, except duration is 3 minutes"
+13,Truth V,caster,5 min,10'R,I,"As Truth I, except duration is 5 minutes"
+14,Long Truth,1 target,C,10'/lvl,I,"As Truth, except range is 10' per level of the caster"
+15,Mind Scan,1 target,1 rnd/lvl,100',M,"As in Inner Thoughts, except caster also gets target's conscious memories (at a rate of 1 scene each round)"
+20,Past Truth,caster,1 min,10'R,I,"As Truth I, except that it can be cast during a Vision Behind spell on the (see the Past Visions spell list). This spell detects lying from anyone speaking in the vision"
+25,Mind Probe,1 target,1 rnd/lvl,100',M,"As Mind Scan, except caster can probe target's subconscious memories (i.e., all experiences)"
+30,Thought Steal,,1 target,1 rnd/lvl(C) 100',M,Caster can remove one thought or memory from the target's mind each round
+50,Truth True,varies,V,varies,I,As Truth I with a duration of 1 minute per level or as Truth with a range of 100' per level. MIND VISIONS

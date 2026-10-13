@@ -1,0 +1,15 @@
+Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Starpaths,caster,C,self,I,"Caster (on a clear night, when stars are visible) gains perfect directional and distance sense. For the duration of this spell, he will always know where he is in relation to known landmarks"
+2,Dream I,caster,sleep,self,I,Caster has a dream relating to a topic decided upon just before retiring. The caster must sleep for a normal sleep cycle (minimum of 4 hours) for this spell to work)
+3,Origins,1 item,—,touch,I,Gives a general idea of the place of origin of an item
+4,Text Analysis,1 text,—,touch,I,"Caster knows whether a text is cursed, what language it is in, and other general information; but only understand basic concepts of it"
+5,Item Vision,1 item,varies,touch,I,Gives a vision of a significant event in the item's past
+6,Dreams II,caster,sleep,self,I,"As Dreams I, except limit is 2 dreams per night on different topics"
+9,Dreams III,caster,sleep,self,I,"As Dreams I, except limit is 3 dreams per night on different topics"
+10,Commune I,caster,—,self,I,"Caster receives (usually from his patron deity) a ""yes"" or a ""no"" to a question on a single topic. This spell may be used a maximum of once per day"
+12,Origins True,1 item,—,touch,I,"As Origins, but caster gets clear vision of the location of origin of an item, including creator and approximate date"
+15,Commune III,caster,C,self,I,"As Commune I, except caster receives answers to three questions"
+20,True Dreams,caster,sleep,self,I,"As Dream I, except limit is 5 dreams per night on any combination of topics the caster chooses"
+25,Commune True,caster,C,self,I,"As Commune I, except caster can receive a more detailed answer (e.g., a name or short phrase) to a question involving only 1 concept"
+30,Dream Mastery,caster,sleep,self,I,"As Dream I, except caster is able to manipulate his dream in a limited way to gain more information on a specific topic. For example, while he is in the dream he can ask a question (but there is no guarantee it will be answered)"
+50,High Prayer,caster,C,self,I,Caster receives detailed information from his deity on a single topic question. SPECIAL NOTES See Section 7.1.2 for more on dreams and symbology in divination. HOLY VISION

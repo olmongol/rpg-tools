@@ -1,0 +1,15 @@
+Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Star Voice,1 target,C,100',I,Caster may mentally speak with another Astrologer
+2,Mind Voice I,1 target,C,100',I,Caster may mentally speak with any thinking being
+4,Mind Voice III,1 target,C,300',I,"As Mind Voice I, except range is 300'"
+5,Star Voice True,1 target,C,varies,I,"As Star Voice, except caster may speak to another Astrologer as far as the horizon if it is clear and night (500' at any other time)"
+6,Mind Voice V,1 target,C,500',I,"As Mind Voice I, except range is 500'"
+8,Mind Voice X,1 target,C,1000',I,"As Mind Voice I, except range is 1000'"
+10,Star Merge,1 target,C,touch,I,"On a clear night outdoors caster may interchange thoughts with a willing target. If both are Astrologers, the two may interchange power points"
+12,Waiting Voice,1 target,24 hr,10',F,"As Mind Voice I, except caster leaves a message of 25 words or less, set to be triggered by a specific mental pattern (known through Mind Store:) or a time limit"
+14,Greater Mind Voice,1 target,C,1 mile,I,"As Mind Voice I, except range is one mile. The target must be located by Finding or other means"
+15,Ready Merge,1 target,C,varies,I,"As Star Merge, except caster and target must have merged before and the range is up to horizon, outdoors on a clear night (100' at any other time)"
+20,Lord Voice,1 point,C,100'/lvl,F,"Caster an cause his voice to be heard at a point up to 100' per level away (in amplified tones). If the location is out of sight, the caster must have been there"
+25,Mind Voice True,1 target,C,1 mi/lvl,I,"As Mind Voice I, but range is 1 mile per level"
+30,Far Voice,1 target,C,unlimited,I,"As Mind Voice I, except range is unlimited"
+50,True Voice,1 point,C,unlimited,F,"As Lord Voice, except range is unlimited. FAR VOICE"

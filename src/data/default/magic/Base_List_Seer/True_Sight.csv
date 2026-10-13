@@ -1,0 +1,20 @@
+Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Watersight,caster,C,self,U,Caster can see through 10' of water per level (even murky water) as if it were day
+2,Nightsight,caster,C,self,U,"As Watersight, except caster can see in normal darkness"
+3,Woodsight,caster,C,self,U,"As Watersight, except caster can see through 1' of wood per level"
+4,Watch I,caster,C,10',U,"Caster can pick a point up to 10' away and he will have a field of vision from that point. He can rotate the point of vision, but not move it (there can be intervening objects between the caster and the point)"
+5,Long Eye I,caster,C,10'/lvl,U,"Caster's point of sight may be moved independently up to 10' per level away (moves at the rate of 10' per round). The caster must be physically able to go there (e.g., he could not send his point of sight through walls or closed doors)"
+6,See Invisible,caster,C,self,U,"As Watersight, except caster can see invisible objects"
+7,Stonesight,caster,C,self,U,"As Woodsight, except caster can see through 6"" of stone per level"
+8,Ironsight,caster,C,self,U,"As Woodsight, except caster can see through 1"" of iron or steel per level"
+9,Illusionsight,caster,C,self,U,"As Watersight, except caster can see through all illusions"
+10,Watch II,caster,C,10'/lvl,U,"As Watch I, except point of vision can be up to 10' per level away"
+11,Metalsight,caster,C,self,U,"As Ironsight, except any ""non-enchanted"" metal can be seen through"
+12,Utterdarksight,caster,C,self,U,"As Nightsight, except caster may also see through magically created darkness"
+13,Greater Watch,caster,C,100',U,"As Watch, except 2 points up to 100' away may be observed simultaneously"
+14,Watch III,caster,C,100'/lvl,U,"As Watch I, except range is 100' per level"
+15,Waiting Watch,,caster,1 day/lvl 100'/lvl,U,"As Watch III, except caster doesn't have to concentrate until the spell is triggered by some movement that could be seen from the Watch point. The caster must be within 100' per level when the spell is triggered"
+20,Wallsight,caster,C,self,U,"As Woodsight, except caster can see through any ""non-enchanted"" wall"
+25,Long Eye II,caster,C,100'/lvl,U,"As Long Eye I, except range is 100' per level"
+30,Watch True,,caster,1 min/lvl 100'/lvl,U,"As Watch III, except caster need not concentrate (i.e., he just glances once every couple of rounds), and the duration is 1 minute per level"
+50,Sight True,caster,1 min/lvl,self,U,Caster can see through any and all inanimate material within 10' per level. TRUE SIGHT

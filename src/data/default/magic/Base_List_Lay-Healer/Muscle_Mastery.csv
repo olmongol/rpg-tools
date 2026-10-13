@@ -1,1 +1,22 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Sprain Repair,1 target,P,touch,U,Allows caster to repair (not replace) one sprain. Requires a one hour operation
+2,Muscle/Tendon Lore,1 target,—,touch,I,"Caster acquires complete understanding of any muscle and/or tendon damage, including the tools and methods required for healing. Caster does not receive the skill or power necessary to perform the cure"
+3,Muscle Repair I,1 target,P,touch,U,Allows caster to repair 1 damaged muscle. Requires a 1 minute operation. Recovery time is 1 day per muscle repaired
+4,Tendon Repair I,1 target,P,touch,U,Allows caster to repair 1 damaged tendon. Requires a 1 minute operation. Recovery time is 1 day per tendon repaired
+5,Limb Preservation,1 target,1 day/lvl,touch,U,Allows caster to prevent the deteriorization of 1 limb (even while severed). Requires the use of Limb Preservation from the Bone Mastery spell list as well
+6,Muscle Repair III,1 target,P,touch,U,"As Muscle Repair I, except that caster can repair 3 damaged muscles"
+7,Tendon Repair III,1 target,P,touch,U,"As Tendon Repair I, except that caster can repair 3 damaged tendons"
+8,Muscle Repair True,1 target,P,touch,U,"As Muscle Repair, except recovery time is instantaneous"
+9,Joining,1 target,P,touch,U,Allows caster to reattach 1 severed limb. Also requires the use of the other 3 Lay Healer Joining spells to make limb fully functional. Limb is fully functional after 10-100 days
+10,Tendon Repair True,1 target,P,touch,U,"As Tendon Repair, except recovery time is instantaneous"
+11,Soft Structure Repair,1 target,P,touch,U,Allows caster to repair all tendon and muscle damage in target's body. This requires a 1 hour operation. Recovery time is 1-10 days
+12,Muscle Transplant,1 target,P,touch,U,"Allows caster to transplant a healthy muscle into the target. This requires a 1 hour operation. Recovery time is 1-10 days. There is a chance that the target's body will reject the new bone: 10% if bone is from the same race as the target, 50% is the bone is from some other similiar race"
+14,Muscle Regeneration,1 target,P,touch,U,"Allows caster to regenerate 1 muscle. Regrowth takes 1-10 days, depending on extent of loss"
+15,Tendon Regeneration,1 target,P,touch,U,"Allows caster to regenerate 1 tendon. Regrowth takes 1-10 days, depending on extent of loss"
+17,Rapid Muscle Transplant,1 target,P,touch,U,"As Muscle Transplant, except recovery time is 1-10 hours"
+18,Rapid Muscle Regeneration,1 target,P,touch,U,"As Muscle Regeneration, except recovery time is 1-10 hours"
+19,Rapid Tendon Regeneration,1 target,P,touch,U,"As Tendon Regeneration, except recovery time is 1-10 hours"
+20,Joining True,1 target,P,touch,U,"As Joining, except caster must cast the other 3 Lay Healer Joining True spells and the limb is fully functional in 10 minutes"
+25,Muscle Regeneration True,1 target,P,touch,U,"As Muscle Regeneration, except that regrowth takes 10 minutes"
+30,Tendon Regeneration True,1 target,P,touch,U,"As Tendon Regeneration, except that regrowth takes 10 minutes"
+50,Soft Structure Repair True,1 target,P,touch,U,"As Soft Structure Repair, except that all tendons and muscles in target's body are repaired (not replaced). This requires a 10 minute operation. Recovery time is 1-10 days. SPECIAL NOTES 1) See Section 7.2 for more on damage and healing. 2) Some spells on this list require an operation to be effective. These spells have the same name as other healing spells (from the Channeling realm) and the GM may decide that the operation is not required. MUSCLE MASTERY"

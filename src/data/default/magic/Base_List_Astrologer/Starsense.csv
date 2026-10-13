@@ -1,0 +1,13 @@
+Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,,10'R/lvl,C,self,P,
+3,,caster,1 min/lvl,100',P,
+5,,1 target,—,10'/lvl,,
+6,,1 target,C,100'/lvl,,
+9,,1 target,—,10'/lvl,I,
+10,,1 target,—,1000'/lvl,I,
+13,,10'R/lvl,C,self,I,
+15,,,1 target,—,u,
+20,,,caster,1 min/lvl 20 miles,P,
+25,,1 target,—,unlimited,I,
+30,,1 target,—,unlimited,I,
+50,,1 target,—,unlimited,I,
