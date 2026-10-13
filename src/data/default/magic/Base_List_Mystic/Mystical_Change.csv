@@ -1,1 +1,23 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Study Form,caster,—,300',I,"Caster studies and memorizes the appearance and mannerisms of a being, for later use in a Face Shifting or Change type spell. The caster can only have as many forms studied as he has levels"
+2,Face Shifting True,caster,1 hr/lvl,self,U,Allows caster to alter the form of his face. If he has used Study Form on a being he can take on that being's exact form
+3,Change to Kind,caster,10 min/lvl,self,U,Caster can alter his entire body to the form of another humanoid race (no increase in mass). This cannot be a specific person. See Section 7.1.11
+4,Misfeel Kind,caster,C,self,E,Caster appears to be of any race he chooses to magical or mental detections
+5,Enlarge,caster,10 min/lvl,self,U,"Caster can increase his mass (and usually height) by 10% per level of the caster. However, there is no proportional increase in strength (other than for movement purposes)"
+6,Shrink,caster,10 min/lvl,self,U,"As Enlarge, except caster shrinks by 10% per level (to a maximum of 90%) and there is no proportional decrease in strength"
+7,Misfeel Calling,caster,C,self,E,"As Misfeel Kind, except profession may be misrepresented"
+8,Changing Lungs,caster,10 min/lvl,self,U,"Caster can breathe water, air, or gas at will (though only one at a time)"
+9,Change,caster,10 min/lvl,self,U,"As Change To Kind, except caster can assume any organic form within 1/2 and 2x his mass. The caster does not obtain any special abilities. See Section 7.1.11"
+10,Mystical Tongue,1 target,C,20',F,[RR Mod: -50] Caster can speak mentally with any sentient being; and to the being it will seem as if the caster was speaking in the being's own language
+11,Misfeel Power,caster,C,self,E,"As Misfeel Kind, except level can be misrepresented (ranging from first level to twice his actual level)"
+12,Impersonation Change,caster,10 min/lvl,self,U,"As Change, except a specific being can be duplicated if the being has been Studied"
+13,Unpresence,caster,C,self,E,"As Misfeel Kind, except target appears to have no presence"
+14,Misfeel,caster,C,self,E,"Allows caster to use all of the ""Misfeel"" spells at once"
+15,Changing,caster,10 min/lvl,self,U,"As Change, except caster can alter forms at will, by concentrating for one round/change"
+16,Great Change to Kind,caster,1 day/lvl,self,U,"As Change to Kind, except for duration"
+18,Great Change,caster,1 day/lvl,self,U,"As Change, except for duration"
+19,Misfeel True,caster,10 min/lvl,self,E,"As Misfeel, except caster does not have to concentrate"
+20,Great Impersonation Change,caster,1 day/lvl,self,U,"As Impersonation Change, except for duration"
+25,Impersonation Change True,caster,unlimited,self,U,"As Impersonation Change, except will last until the caster cancels the spell (or it is dispelled)"
+30,Holy Presence,caster,C,self,E,"As Misfeel, except caster can misrepresent his presence and power, so that he seems to be a minor deity"
+50,Submerge Self,caster,set period,self,E,"Caster develops an entire false persona and places his own persona deep in his subconscious. To all detection attempts (except, perhaps, Mind Probe), the caster seems to be the false persona. The caster has no control over his actions, until the set duration is over. The false persona can be a specific person if ""Study Form"" has been cast once/day (for 30 days) on that person. SPECIAL NOTES See Section 7.1.11 for more on changing forms. MYSTIC BASE 4.7.5 MYSTICAL CHANGE"

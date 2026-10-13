@@ -1,1 +1,24 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Suspicion,1 target,1 day/5 fail,100',Fm,Target suspects the actions of his associates (GM may give descriptions that arouse the player's own suspicions).
+2,Trait Subversion I,1 target,1 day/5 fail,100',Fm,"One of the target's personal traits is perverted (one trait is taken to an extreme). See Rolemaster Standard System for a complete discussion of role traits. Note that the character may have a middle of the road trait (i.e., neither thrifty or frivolous) that is taken to an extreme."
+3,Lying,1 target,1 day/5 fail,100',Fm,On any statement there is a 20% chance the target lies.
+4,Trait Subversion II,1 target,1 day/5 fail,100',Fm,"As Trait Subversion I, except 2 traits may be perverted."
+5,Cheating,1 target,1 day/5 fail,100',Fm,"Target will attempt to cheat on all matters (e.g., splitting loot, card games, etc.)"
+6,Vandal,1 target,1 day/5 fail,100',Fm,"The target has urges to commit minor property damage. When such an opportunity arises, there is an 60% chance the target must attempt to commit such damage."
+7,Stealing,1 target,1 day/5 fail,100',Fm,Target becomes a kleptomaniac and has a 10% chance of attempting to steal anything that catches his fancy (if it does not involve violence).
+8,Trait Subversion III,1 target,1 day/5 fail,100',Fm,"As Trait Subversion I, except 3 traits may be perverted."
+9,Pyromania,1 target,1 day/5 fail,100',Fm,The target has a fascination with burning things. Every day there is a 20% chance that he must try to burn something. He will burn things that do not result in injury to people or animals (though there is a 1% chance that he will injure himself in the attempt to burn things).
+10,Aggravated Theft,1 target,1 day/5 fail,100',Fm,"As Stealing, except target will use violence to steal."
+11,Trait Subversion V,1 target,1 day/5 fail,100',Fm,"As Trait Subversion I, except 5 traits may be perverted."
+12,Random Trait Subversion I,1 target,1 day/5 fail,100',Fm,"As Trait Subversion I, except a different trait will affected each day (with the previous day's trait reverting back to its normal state)."
+13,Assault,1 target,1 day/5 fail,100',Fm,There is a 5% chance target will assault any given person when he initially encounters him (the target must actually meet the person-this procludes people travelling in the street).
+14,Arson,1 target,1 day/5 fail,100',Fm,"As Pyromania, except target doesn't care if people (or animals) are injured. There is a 5% chance that he will injure himself in the attempt."
+15,Trait Subversion VII,1 target,1 day/5 fail,100',Fm,"As Trait Subversion I, except 7 traits may be perverted."
+16,Random Trait Subversion II,1 target,1 day/5 fail,100',Fm,"As Random Trait Subversion I, except 2 traits are affected at one time."
+17,Maim,1 target,1 day/5 fail,100',Fm,"As Assault, except there is a 10% chance that the target will attempt to maim any given person."
+18,Trait Subversion X,1 target,1 day/5 fail,100',Fm,"As Trait Subversion I, except 10 traits may be perverted."
+19,Random Trait Subversion III,1 target,1 day/5 fail,100',Fm,"As Random Trait Subversion I, except 3 traits are affected at one time."
+20,Homicide,1 target,1 day/5 fail,100',Fm,"As Assault, except target attempts to kill."
+25,Assassination,1 target,varies,100',Fm,"As Assault, except target will take note of a person and plan to assassinate him later. This spell will last until the target has made an assassination attempt on the target."
+30,Trait Subversion True,1 target,P,100',Fm,"As Trait Subversion I, except it is permanent."
+50,Suicide,1 target,1 day/5 fail,100',Fm,"As Suspicion, except whenever the target is injured, suffers humiliation, or fails in something, he will attempt suicide in some imaginative way."

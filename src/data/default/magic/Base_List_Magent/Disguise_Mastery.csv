@@ -1,1 +1,24 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Study Disguise,caster,—,500',I,Caster studies a person for use with disguise spells later on this list. The caster can only have as many disguises studied as he has levels
+2,Light Glamour,1 object,1 day/lvl,touch,E,Changes the visual appearance of one object. The target of the spell must be no larger than 10 pounds per level of the caster
+3,Facade I,caster,1 hour/lvl,self,E,Caster has a limited illusion on himself that allows him to look like any humanoid race within 20% of his own size. The illusion moves as the caster moves
+4,Shadow Assassin,caster,varies,self,E,"All deeds performed (while this spell is active) are ""shadowed"" to divination spells. For the purposes of a divination spell, the information gained about the caster will be shrouded in shadows. For example, a Death's Memory cast on the scene of a murder might reveal a shadowy figure performing the deeds (but no details about the identity of the figure)"
+5,Misfeel Kind,caster,C,self,E,"For the purposes of mental or magical detections, the caster appears to be of any race he chooses (racial type must be selected at the time of casting)"
+6,Facade II,caster,1 hour/lvl,self,E,"As Facade I, except one extra sense is added"
+7,Disguise I,caster,10 min/lvl,self,U,Caster physically changes to take on the form and visual appearance of any one studied person. This is strictly a physical change. The cster must already have cast a Study Disguise on this person
+8,Unknown Assassin,caster,varies,self,E,"As Shadow Assassin, except absolutely no information about the caster will be revealed. For example, a Death's Memory cast on the scen of a murder might show the victim collapsing with a knife in his chest (but no sign of the assassin)"
+9,Facade III,caster,1 hour/lvl,self,E,"As Facade I, except two extra senses are added"
+10,Disguise II,caster,10 min/lvl,self,U,"As Disguise I, except caster also takes on the vocal characteristics (i.e., he sounds like the person)"
+11,Misfeel Calling,caster,C,self,E,"As Misfeel Kind, except caster appears to be of any profession he chooses"
+12,Mind Tongue,caster+1 target,C,20',F,"aster may mentally speak with one target; to the target it will seem as if they are communicating normally (i.e., verbally)"
+13,Disguise III,caster,10 min/lvl,self,U,"As Disguise II, except caster also takes on the obvious mannerisms of the person. For example, if the person was left-handed, the caster is left-handed; if the person has a limp, the caster will have a limp"
+14,Facade V,caster,1 hour/lvl,self,E,"As Facade I, except all senses are included"
+15,Misfeel Power,caster,C,self,E,"As Misfeel Kind, except caster appears to be of any level he chooses (ranging from first level to twice his actual level)"
+16,Disguise VI,caster,10 min/lvl,self,U,"As Disguise III, except caster also takes on subtle mannerisms of the person. This makes him virtually undetectable to all but the closest of associates"
+17,Unpresence,caster,C,self,E,"As Misfeel Kind, except caster appears to have no presence (for presence detecting spells)"
+18,False Assassin,caster,varies,self,E,"As Shadow Assassin, except all deeds performed while this spell is active will appear as if the currently studied patsy is performing them (see Study Patsy on Assassination Mastery)"
+19,Disguise V,caster,10 min/lvl,self,U,"As Disguise IV, except even very subtle mannerisms are gained"
+20,Misfeel,caster,C,self,E,As all of the Misfeel spells on this list at the same time
+25,Nondetect,caster,C,self,E,Caster and objects on his person cannot be detected by any Detect... spells
+30,Misfeel True,caster,10 min/lvl,self,E,"As Misfeel, except caster need not concentrate"
+50,Disguise Mastery,caster,varies,self,U,"Caster may use any lower level spell on this list, one per round. MAGENT BASE 4.6.2 DISGUISE MASTERY"

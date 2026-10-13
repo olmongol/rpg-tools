@@ -1,1 +1,23 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Condensation,1 cu' water,P,touch,E,Condenses once cubic foot of water from the surrounding air into the caster's hands. The caster can then funnel the water into any available receptical
+2,Airwall,10'x10'x3',C,10',E,"Creates 10'x10'x3' wall of dense air. This wall reduces all movement through it by 50%. In addition, all attacks through the wall suffer a -50 penalty"
+3,Fog II,20'R,1 min/lvl,100',E,Creates dense fog in a 20'R
+4,Vacuum A,5'R,—,100',F,"Creates a 5'R near vacuum, all in radius take a 'A' Impact critical, as air leaves and rushes back in"
+5,Air Stop I,10'R,C,touch,F,"Stops all generalized air movement (e.g., wind) up to 30 mph and cuts stronger winds by 30 mph"
+6,Fog X,100'R,1 min/lvl,10',F,"As Fog I, except the area of effect is 100'"
+7,Airwall True,10'x10'x3',1 min/lvl,10',E,"As Airwall, except has a fixed duration of 1 minute per level"
+8,Fire Bolt I,1 target,—,100',D,A bolt of fire is shot from the palm of the caster. Attack is resolved on the Fire Bolt Table (a fire source must be within 10')
+9,Vacuum B,5'R,—,100',F,"As Vacuum A, except results in a 'B' Impact critical"
+10,Air Stop V,50'R,C,touch,F,"As Airstop I, except the area of effect is 50'"
+11,Fog XXX,300'R,1 min/lvl,10',E,"As Fog I, except the area of effect is 300'"
+12,Gas-Air,10'R,P,touch,F,"All gas within 10'R of the caster is converted to normal, breathable air"
+13,Vacuum C,5'R,—,100',F,"As Vacuum A, except results in a 'C' Impact critical"
+14,Oxygenation,50'R,C,100',E,Creates a 50'R of high oxygen content air. All within receive a +20 bonus to their OBs and all fire attacks deal double damage
+15,Whirling Winds,10'R,C,touch,E,Creates a whirlwind about caster. The whirlwind moves with the caster and has a 10'R. No missile attacks can penetrate it and any movement or melee (except for caster's) into or through it is cut by 80%
+16,Firebolt III,1 target,—,300',D,"As Firebolt, except range is 300'"
+17,Vacuum D,5'R,—,100',F,"As Vacuum A, except results in a 'D' Impact critical"
+19,Reverse Winds,100'R/lvl,C,100'/lvl,E,Allows the caster to change the direction of the wind within the radius
+20,Fog True,100'R/lvl,1 hr/lvl,10',E,"As Fog, except duration is 1 hour per level and area of effect is 100' per level"
+25,Vacuum E,5'R,—,100',F,"As Vacuum, except causes an 'E' Impact critical"
+30,Cloud Shaping,clouds,C,self,F,"Caster has complete control of clouds within range (includes fog). He can control storm clouds and cause them to rain, but he cannot create them"
+50,Transmutation,1000 cu' gas,P,20',F,May transmute 1000 cubic of gas (no part can be more than 20' away) into another non-magical gas that the caster has a sample of. This spell takes 8 hours of uninterrupted concentration. SPECIAL NOTES 1) All vacuums created by the spells on this list also create a loud noise. The larger the radius the louder the noise. The GM may wish to rule that all within the radius must make a second RR or be deafened for 1 round per 10 failure (RR attack level equals the radius of the vacuum. 2) An elemental creature made of gas will be cut to 20% activity if attacks with an Air Stop spell (and the creature fits into the area of effect. A Vacuum spell thrown upon an elemental creature made of gas will result in a Slaying Critical on the creature. A Whirling Winds has no effect on an elemental creature made of gas. MYSTIC BASE 4.7.2 GAS ALTERATION

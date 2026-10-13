@@ -1,1 +1,21 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Question,1 target,—,10',F,
+2,Sleep,1 target,—,50',F,
+3,Charm Kind,1 target,10 min/lvl,50',F,
+4,Calm,1 target,1 min/lvl,100',F,
+5,Confusion,1 target,1 rnd/5 fail,100',F,
+6,Fear,1 target,1 min/10 fail 100',Fm,,
+7,Suggestion,1 target,varies,10',F,
+8,Hold Kind,1 target,C,50',F,
+9,Emotions,1 target,1 min/lvl,100',F,"Causes any desired emotion. Possible emotions include hate, love, sadness, anger, etc"
+10,Master of Kind,1 target,10 min/lvl,10',F,Target must obey the caster as specified in Suggestion
+11,Coma,,1 target,1 day/10 fail 100',F,[RR Mod: +20] Target falls into a coma
+12,True Charm,1 target,10 min/lvl,50',F,"As Charm Kind, except works on any sentient creature"
+14,Hold True,1 target,C,50',F,"As Hold Kind, except any sentient being can be affected"
+15,Geas,1 target,varies,10',F,"Target is given 1 task. Failure results in a penalty determined by GM (task must be within target's capabilities). If the target ignores the task, he will suffer the same effects of failure"
+16,Hold Kind True,1 target,C,50',F,[RR Mod: -20] Target is totally paralyzed (0% action)
+18,Mind Break,1 target,P,50',F,Target is a blathering idiot. He may be led around but he can take no action
+20,True Sleep,,1 target,1 min/10 fail 100',F,[RR Mod: -20] Target is unconscious and unwakeable
+25,True Geas,1 target,varies,10',F,"As Geas, except failure is punished by the target suffering five 'E' criticals (choose which critical types randomly)"
+30,Mind Control True,,1 target,1 min/lvl (C) 300',F,"When he concentrates, caster has total control of target's mind. After the initial casting, the range for control is 1 mile per level of the caster"
+50,Mind Master,1 target,P (C),300',F,"As Mind Control True, except duration is permanent (until dispelled). The caster need only concentrate to give commands. Only one target can be controlled in this fashion at a time. MENTALIST BASE 4.4.2 MIND CONTROL"

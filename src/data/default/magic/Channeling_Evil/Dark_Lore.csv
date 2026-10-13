@@ -1,1 +1,20 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Afterthoughts,caster,—,self,I,Allows caster virtually total recall of any conversation or writing he encountered within a period of days equal to his level.
+2,Detect Good,5'R,1 min/lvl,100',P,"Detects ""true good"" in an animate or inanimate target. Caster can concentrate on a 5'R area each round."
+3,Detect Blessing,5'R,1 min/lvl,100',P,"As Detect Good, except detects blessings in an animate or inanimate target."
+4,Detect Emotion,5'R,1 min/lvl,100',P,"Detects extreme emotions in the living mind of a target, or in an object forged under extreme emotion. Caster can concentrate on a 5'R area each round."
+5,Dark Lore I,1 item,—,10',P,"Caster can ascertain the origin point and nature of any 1 item ""of darkness"" or ""of evil."" The caster will not learn specific capabilities."
+6,Detections Holy,10'R,1 min/lvl,100',P,"As Detect Good, except detects ""holy"" items and detection area is 10'R."
+8,Dream I,caster,sleep,self,I,Caster has a dream relating to a topic decided upon just before retiring; limited to once per night. The caster must sleep a minimum of four hours.
+10,Bless Tales,1 blessing,—,self,P,"Caster can determine the author, origin, and complete history of a given blessing. He also learns the nature and specific powers."
+11,Dark Lore II,varies,—,10',P,"As Dark Lore I, except caster can ascertain the origin point and nature of any 2 items of darkness or evil or caster can determine the nature, origin point, and the exact significance of any 1 item of darkness or evil."
+12,Dreams II,caster,sleep,self,I,"As Dream I, except limit is 2 dreams per night on different topics."
+13,Emotion Analysis,1 target,—,10',Pm,Caster can determine the nature and origin of active extremes in emotion found within any 1 target (inanimate or animate). The degree and other details of such emotion can also be acquired.
+14,Dark Lore III,varies,—,10',P,"As Dark Lore I, except caster can ascertain the origin point and nature of any 3 items of evil or darkness or caster can determine the age, origin point, nature, specific capabilities, and the name of the creator of any 1 item of evil or darkness. Caster also learns item's specific capabilities."
+15,Dreams III,caster,sleep,self,I,"As Dream I, except limit is 3 dreams per night on different topics."
+16,Light Lore I,1 item,—,10',P,"As Dark Lore I, except caster can ascertain the origin point and nature of any 1 item ""of light"" or ""of good."""
+19,Light Lore II,varies,—,10',P,"As Light Lore I, except caster can ascertain the origin point and nature of any 2 items of good or light or caster can determine the nature, origin point, and the exact significance of any 1 item of light or good."
+20,Black Lore,1 item,—,100',P,"Caster can ascertain the exact nature, origin, purpose, and history of any 1 item of evil or darkness; it allows caster to visualize all who have possessed the item."
+25,Light Lore III,varies,—,10',P,"As Light Lore I, except caster can ascertain the origin point and nature of any 3 items of good or light or caster can determine the age, origin point, nature, specific capabilities, and the name of the creator of any 1 item of good or light. Caster also learns item's specific capabilities."
+30,White Lore,1 item,—,100',P,"As Black Lore, except it can only be used on an item ""of darkness"" or ""of evil."""
+50,Black Lore Mastery,varies,—,100',P,"As Black Lore, except caster can acquire the information on all items of evil or darkness within 100'."

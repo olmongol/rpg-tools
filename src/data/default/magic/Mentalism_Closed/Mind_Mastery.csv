@@ -1,1 +1,22 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Storing,1 spell,varies,self,U,Caster may cast this spell with any spell he wants to store. The spell to be stored must be cast within one minute after the Spell Store is cast. The stored spell may be cast later as an instantaneous spell. The Storing spell costs the same number of PPs as the spell stored. No other spell may be cast while a spell is stored
+2,Presence,20'R,C,self,U,Caster is aware of the presence of all sentient/ thinking beings within 20'
+3,Inner Wall I,caster,1 min/lvl,self,U,Caster gets a +5 bonus to his RRs versus mind attacks
+5,Recall,caster,varies,self,U,"Caster gets a 25% chance of recalling some key fact or occurrence that he has experienced. This information should relate to the current situation (could be from his background or something he has forgotten, GM's discretion). This spell gives the caster a +25 modification his Memory stat bonus for the duration of one maneuver (e.g., the use of a Lore skill, one hand of a card game, etc.)"
+6,Misfeel Kind,caster,C,self,U,"For the purposes of mental or magical detections, the caster appears to be of any race he is familiar with"
+7,Observation,caster,1 round,self,U,Caster gains insight or facts by observing a person or thing with intense concentration. Gives the caster a +50 modification to his Perception skill bonus
+8,Inner Wall II,caster,1 min/lvl,self,U,"As Inner Wall I, except bonus is +10"
+9,Misfeel Calling,caster,C,self,U,"As Misfeel Kind, except caster's profession may appear to be of any profession that he is familiar with"
+10,Correlation,caster,varies,self,U,"Caster is able to correlate known facts to obtain conclusions. This spell gives the caster a +25 modification to his Reasoning stat bonus for the duration of one maneuver (e.g., the use of a Lore skill, picking a lock, etc.)"
+11,Misfeel Power,caster,C,self,U,"As Misfeel Kind, except caster's level may appear to any level from 1 to double his current level"
+12,Resolve,caster,varies,self,U,"Caster is able to intensely focus and control himself for one situation or maneuver. This spell gives the caster a +25 modification to his Self Discipline stat bonus for the duration of one maneuver (e.g., one meditation session, hiding from a foe, one ""contortions"" attempt, etc.)"
+13,Inner Wall III,caster,1 min/lvl,self,U,"As Inner Wall I, except bonus is +15"
+15,Unpresence,caster,C,self,U,"As Misfeel Kind, except caster appears to have no presence (i.e., he cannot be detected by Presence spells)"
+16,Inner Wall V,caster,1min/lvl,self,U,"As Inner Wall I, except bonus is +25"
+17,Total Recall,caster,varies,self,U,"As Recall, except recall is nearly automatic and, in effect, gives the caster a photographic memory. Memory stat bonus modification is +50"
+18,Misfeel,caster,C,self,U,"Allows caster to use all of the ""Misfeel"" spells at once. Does not include the use of Unpresence"
+19,Inner Wall True,caster,1 min/lvl,self,U,"As Inner Wall I, except bonus is +50"
+20,Observation True,caster,varies,self,U,"As Observation, except virtually every detail in even a large situation is noticed. The bonus to a Perception skill bonus is +100"
+25,Correlation True,caster,varies,self,U,"As Correlation, except obtaining conclusions is nearly automatic. The Reasoning stat bonus modification is +50"
+30,Resolve True,caster,varies,self,U,"As Resolve, except focus/control is nearly total. The Self Discipline stat bonus modification is +50"
+50,Mirrormind,caster,C,self,U,"Caster reflects all mind attacks back on the attacker who must then make a RR against his own spell. SPECIAL NOTES All ""mind attack"" spells (on all spell lists) are listed with a lower case ""m"" after their spell type. CLOSED MENTALISM 4.2.3 MIND MASTERY"

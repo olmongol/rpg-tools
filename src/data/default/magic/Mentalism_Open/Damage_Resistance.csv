@@ -1,1 +1,17 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Heat Resistance,caster,1 min/lvl,self,U,"Caster is protected from natural heat up to 170˚F (treat as if target were in 70˚F temperature). For temperatures above 170˚F, subtract 100˚F to determine the effective temperature for the target. Caster also receives +20 to all RRs versus heat spells and heat attacks (+20 DB versus elemental fire and heat attacks)"
+2,Cold Resistance,caster,1 min/lvl,self,U,"Caster is protected from natural cold down to 20˚F (treat as if target were in 70˚F temperature). For temperatures below 20˚F, add 50˚F to determine the effective temperature for the target. Caster also receives +20 to all RRs versus cold spells and cold attacks (+20 DB versus elemental cold and cold attacks)"
+5,Unpain I,caster,1 min/lvl,self,U,Caster is able to sustain an additional 25% of his total concussion hits (round off) before passing out. Hits are still taken and remain when the duration expires
+6,Stun Relief I,caster,—,self,U,Relieves 1 round's worth of accumulated stun
+7,Resist Poison,caster,C,self,U,Delays the effect of a poison as long as the caster concentrates
+10,Unpain II,caster,1 min/lvl,self,U,"As Unpain I, except 50% additional hits may be sustained"
+11,Stun Relief III,caster,—,self,U,"As Stun Relief I, except 3 rounds are relieved"
+12,Neutralize Poison,caster,varies,self,U,"Has a 50% chance of neutralizing a poison (modified by potency of the poison) if the caster is unconscious or concentrates for one hour. In any case, it delays the poison for as long as the caster can concentrate"
+14,Awake,caster,—,self,U,"Will awaken the caster from any unnatural sleep (e.g., Sleep spell, sleeping drug, etc.). Caster takes one round to awaken"
+15,Unpain III,caster,1 min/lvl,self,U,"As Unpain I, except 75% additional hits may be sustained"
+17,Heat Resistance True,caster,1 min/lvl,self,U,"As Heat Resistance, except caster is immune to natural heat and takes 50% normal damage from heat spells"
+18,Cold Resistance True,caster,1 min/lvl,self,U,"As Cold Resistance, except caster is also immune to natural cold and takes 50% normal damage from cold spells"
+20,Unpain IV,caster,1 min/lvl,self,U,"As Unpain I, except 100% additional hits may be sustained"
+25,Neutralize Poison True,caster,varies,self,U,"As Neutralize Poison, except chance of neutralization is 100% (modified)"
+30,Awake True,caster,—,self,U,"As Awake, except there is no delay and it can be used with normal sleep and set to be triggered by any activity (e.g., attack, danger, etc.)"
+50,Unpain True,caster,1 min/lvl,self,U,"As Unpain IV, except caster ignores all pain. He will be active until he takes more than: [2 x normal hits + Temporary Constitution]. He ignores all penalties due to wounds (i.e., negative modifications to actions). When he exceeds this limit, he does not pass out; he dies from system shock. SPECIAL NOTES For more information on healing, see Section 7.2. OPEN MENTALISM 4.1.5 DAMAGE RESISTANCE"

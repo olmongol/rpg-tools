@@ -1,1 +1,22 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Warm Solid,1 cu'/lvl,24 hr,touch,F,"For each level of the caster, warms 1 cubic foot of any solid, inanimate material up to 100˚F at a rate of 1 cubic foot per round of concentration (without further concentration the material will remain at its current temperature for the remainder of the duration)"
+2,Heat Solid I,1 cu'/lvl,1 min/lvl,touch,F,"As Warm Solid except temperature limit is 500˚F. In addition, caster must concentrate for 1 round to raise the temperature 50˚F (up to the maximum). Caster need only touch the target when the spell is cast"
+3,Cool Solid,1 cu'/lvl,24 hr,touch,F,"As Warm Solid, except it can cool down to 0˚F"
+4,Cracks Call,10'x10'x10',—,100',F,Any previous cracks or flaws in material up to 10'x10'x10' section will extend to their limit
+5,Door,1 door,—,touch,F,Can cause a door to expand or contract due to subtle temperature changes. Door can be jammed or loosened (+50 to -50 on attempts to break down the door)
+6,Woodfires,1'R,—,touch,F,Causes any wood to ignite and burn. All woo dignited must be within 1' of caster's palm
+8,Heat Solid II,1 cu'/lvl,1 min/lvl,50',F,"As Heat Solid I, except the range is 50'"
+9,Chill Solid,1 cu'/lvl,1 min/lvl,50',F,"As Chill Solid, except the range is 50' and the temperature decreases 50˚F each round that the caster concentrates (down to a minimum of -200˚F)"
+10,Wall of Ice,10'x10'x2',varies,10',E,"Creates a 10'x10'x(2' at base, 1' at top) transparent wall of ice. It can be melted or chopped through or toppled (if not against a solid surface). Requires a source of water within 10'"
+11,Solid Door I,3'x6'x1',P,touch,F,"Creates a doorway through any solid, inanimate material. The Doowary can be up to 3'x6'x1'"
+12,Stone/Earth/Mud,100 cu',P,touch,F,"Will turn 100 cubic feet of stone to packed earth, or 100 cubic feet of earth to mud, or 100 cubic feet mud to earth, or 100 cubic feet of earth to stone"
+13,Shatter,1 object,—,10',F,"Causes a non-metal, inanimate object to shatter (up to 1 cubic foot in size). All within 5'R take an 'A' Impact critical (anyone holding the object takes a 'C'). Metal objects get a +30 RR modification"
+14,Solid Door II,4'x8'x5',P,touch,F,"As Solid Door I, except size is 4'x8'x5'"
+15,Mold Solid,1 cu',P,touch,F,"By molding with his hands, caster may shape 1 cubic foot of solid, inanimate material as if it were putty or clay. At the end of the spell's duration, the stone will harden to normal consistency"
+16,Break Solid,1 cu',P,100',F,"1 cubic foot of any solid, inanimate material becomes very brittle. This causes the object to break if struck (the GM may rule that certain objects get an RR to resist breakage)"
+17,Unstone,100 cu',P,100',F,"Disintegrates (i.e., nothing is left of) the target 100 cubic feet of stone"
+19,Unmetal,1 cu',P,100',F,"As Unstone, except affects 1 cubic foot of metal"
+20,Solid Tunnel,4'Dx5'/lvl,1 min/lvl,touch,F,"Creates a tunnel through solid, inanimate material that is 4' in diameter and 5' per level long"
+25,Solid Door True,6'x12'10',P,touch,F,"As Solid Door, except size is 6'x12'x10'"
+30,Solid Tunnel True,3'x6'x1'/lvl,P,touch,F,"As Solid Tunnel, except that it is permanent and size is 3'x6'x(1' per level)"
+50,Transmutation,1 oz.,P,touch,F,"May transmute 1 oz. of any solid material into another non-magical solid material that the caster has a sample of. This spell takes 8 hours of continues, uninterrupted concentration. SPECIAL NOTES See Section 7.1.13 for notes on construction and destruction of solid materials. MYSTIC BASE 4.7.6 SOLID ALTERATION"

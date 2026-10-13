@@ -1,1 +1,23 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Blur,caster,1 min/lvl,self,U,"Causes caster to appear blurred to attackers, subtracting 10 from all attacks"
+2,Unseen I,1 object,24 hr,touch,E,"A single object is made invisible (1 garment, 1 naked body, etc.) until 24 hrs pass, the object is struck by a violent blow (being hit by a weapon, falling, etc.), or the object makes a violent move (i.e., an attack)"
+3,Shadow,caster,10 min/lvl,self,U,"The caster and objects on his person appear to be a shadow. Thus, they are almost invisible in dark areas. In many situations this could be handled with a Stalking/Hiding bonus between +25 and +75"
+4,Silence,1'R,1 min/lvl,self,E,Any sounds originating within a 1'R of the caster's body are completely muffled. This results in a +25 bonus to Stalking
+5,Invisibility I,1 target,24 hr,touch,E,"As Unseen I, except everything within 1' of the target is invisible as long as it is within the 1'R and none of the Unseen termination conditions occur. See Section 7.1.10"
+6,Invisibility II,1 target,24 hr,touch,E,"As Invisibility I, except the caster can vary the radius up to 1'"
+7,Screens,1000 sq',C,100',E,Creates a 1000 square foot screen on which the caster can place any static scene. The scene seems 3-dimensional and normal
+8,Displacement I,caster,1 min/lvl,self,E,"Caster appears to be offset from where he really is, all attacks have no effect 10% of the time (no normal RRs). Each time a foe misses him, the chance of ""no effect"" for that foe goes down by 5%"
+9,No Sense,1 target,24 hr,touch,E,"As Invisibility I, except caster is also undetectable by smell and sound"
+10,Shadow Mystic,varies,1 min/lvl,100',E,"Creates a duplicate of the caster. If the caster concentrates, it will move as he wills; otherwise, it does exactly as he does. With a round of concentration, the caster can merge the shadow mystic with himself and then split apart again"
+11,Invisibility Sphere I,1 target,24 hr,touch,E,"As Invisibility I, except radius is 10'"
+12,Displacement II,caster,1 min/lvl,self,E,"As Displacement I, except base chance of missing is 20%"
+13,Flattening,caster,10 min/lvl,self,U,"Caster is flattened until he has only two dimensions. Thus, he can slide through cracks (and can't be seen from the side)"
+14,Merging,caster,10 min/lvl,self,U,"Caster can merge into any inanimate, solid material. While merged, the caster cannot move or perceive. When the caster emerges, he can emerge from any side or face of the material. The caster caster cannot move ""through"" any material greater in width than his own body size plus 2 feet"
+15,Unpresence,caster,C,self,E,"Caster has no ""presence"" (for the purposes of presence detection spells)"
+16,Displacement III,caster,1 min/lvl,self,E,"As Displacement I, except base chance of missing is 30%"
+17,Passing,caster,1 min/lvl,self,U,Caster can pass through 1' per level of any inorganic material at the rate of 2' per minute
+19,Great Merge,caster,10 min/lvl,self,U,"As Merging, except caster may turn within the material and perceive the world outside the material if within 6"" of the surface"
+20,Displacement IV,caster,1 min/lvl,self,E,"As Displacement I, except base chance of missing is 40%"
+25,Nondetect,caster,1 min/lvl,self,U,"Caster and objects on his person cannot be detected by any ""Detect ..."" spells"
+30,Displacement V,caster,1 min/lvl,self,E,"As Displacement I, except base chance of missing is 50%"
+50,Hiding True,caster,C,self,U,"Caster can ""Merge"" into a material, use ""Unpresence,"" use ""Nondetect"" and observe surrounding activity; all with this one spell. SPECIAL NOTES See Section 7.1.10 for more on Invisibility. MYSTIC BASE 4.7.3 HIDING"

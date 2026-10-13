@@ -1,0 +1,174 @@
+{
+ "controlling": {
+  "1": [
+   "Calm Song",
+   "Target is calmed and cannot take aggressive (offensive) action, while caster concentrates."
+  ],
+  "2": [
+   "Holding Song",
+   "As Calm Song, except target only has 25% of his normal activity each round."
+  ],
+  "3": [
+   "Stun Song",
+   "As Calm Song, except target is stunned."
+  ],
+  "5": [
+   "Sleep Song",
+   "As Calm Song, except target falls into a light sleep. Target gets another RR if someone attempts to wake him while this spell is still active. When the duration is up, the target can be awakened normally."
+  ],
+  "6": [
+   "Charm Song",
+   "As Calm Song, except target believes caster is a good friend."
+  ],
+  "7": [
+   "Fear’s Song",
+   "As Calm Song, except target fears caster and tries to flee from him. Fleeing usually equates to moving at maximum pace away from the caster. CONTROLLING SONGS 1) Calm Song 2) Holding Song 3) Stun Song 4) 5) Sleep Song Area of Effect Duration Range Type ., ., ., ., ., ., ., ., ., ., ., ., ., ., ., ., ., ., ., ., ., ., ., .,"
+  ],
+  "8": [
+   "Calm Song True",
+   "As Calm Song, except after the caster stops concentrating the effect will continue for as many rounds the caster has already concentrated. For example, if the caster sings to a target for 3 rounds, the target will be calmed for those 3 rounds plus the following 3 rounds."
+  ],
+  "9": [
+   "Stun Song True",
+   "As Calm Song True, except target is stunned."
+  ],
+  "10": [
+   "Forgetting Song",
+   "Target will forget what transpired in a certain period of time specified by the caster (the beginning of the time period must be within 1 day per level of the caster in the past). The length of the “forgetting” time period is equal to the amount of time the caster plays/sings (concentrates)."
+  ],
+  "11": [
+   "Charm Song True",
+   "As Calm Song True, except target believes caster is his good friend."
+  ],
+  "12": [
+   "Panic’s Song",
+   "As Calm Song, except target panics (routs) and flees, dropping or throwing away most of his equipment to speed his departure. This results in moving at maximum pace without thought toward direction moved (so long as it is away from the caster)."
+  ],
+  "13": [
+   "Song of Mastery",
+   "As Calm Song, except target must obey the caster. He will not do anything that is completely alien to him (e.g., no suicide orders, no blinding himself, etc.)."
+  ],
+  "15": [
+   "Sleep Song True",
+   "As Calm Song True, except target falls asleep (as in Sleep Song)."
+  ],
+  "17": [
+   "Panic’s Song True",
+   "As Calm Song True, except target panics and flees (as in Panic’s Song)."
+  ],
+  "19": [
+   "Song of Seeking",
+   "Target must perform a task specified by the caster. Failure to complete the task results in a penalty determined by the GM (ignoring the task suffers the same effects as failure). Completing the task must be within the target’s capabilities. The effects of this spell last until the task is completed."
+  ],
+  "20": [
+   "Song True",
+   "As any once of the Song True spells above (caster’s choice), except when the caster stops concentrating, the duration of the spell is twice the time the caster has already concentrated."
+  ],
+  "25": [
+   "Song of Mastery True",
+   "As Calm Song True, except target must obey caster."
+  ],
+  "30": [
+   "Song of Coma",
+   "Target falls into a deep coma, from which he will awaken only if the caster cancels this spell or the spell is dispelled."
+  ],
+  "50": [
+   "Slaying Song",
+   "As Song of Coma, except target dies instantly if his RR failure is more than 50. All of the spells on this list require that the Bard provide some form of entertainment for the target (this is the “concentration” duration). This could take the form of singing, tale telling, juggling, etc. SPell Law"
+  ]
+ },
+ "evasions": {
+  "1": [
+   "Pain",
+   "Target feels pain, and he takes 20% of his remaining hits."
+  ],
+  "2": [
+   "Impair I",
+   "Target has one of his physical stats (characteristics) temporarily lowered by d10. Only the temporary stat is lowered. Physical stats include Strength, Agility, Quickness, Constitution, Presence, and Self Discipline (one is selected at random). When the duration expires, the stat will go back up by the same amount that it went down (with a maximum of whatever the potential for the stat is)."
+  ],
+  "3": [
+   "Ache",
+   "As Pain, except the ache seems natural and reduces target’s hits by 10% until cured (caster must specify nature of ache). The target is unaware that the spell has been cast on him, because it affects him gradually (target loses 1 hit per minute). The GM should describe the ache as a natural thing (and may choose not inform the player that the character has reduced hits)."
+  ],
+  "4": [
+   "Fire Nerves",
+   "As Pain, except target takes 40% of his remaining hits."
+  ],
+  "5": [
+   "Trait Erosion I",
+   "As Impair I, except affects temporary and potential stats."
+  ],
+  "6": [
+   "Impair III",
+   "As Impair I, except decrease is 3d10."
+  ],
+  "7": [
+   "Pang",
+   "As Ache, except target’s hits are reduced by 20%."
+  ],
+  "8": [
+   "Shatter",
+   "Can shatter an inorganic object, up to 1 cubic foot in volume; all within 5' take an 'A' Impact critical, holder takes a 'C' Impact critical. Metal objects get a +30 RR modification."
+  ],
+  "9": [
+   "Agony",
+   "As Pain, except target takes 60% of his remaining hits."
+  ],
+  "10": [
+   "Trait Erosion II",
+   "As Trait Erosion I, except decrease is 2d10."
+  ],
+  "11": [
+   "Impair V",
+   "As Impair I, except decrease is 5d10."
+  ],
+  "12": [
+   "Spasm",
+   "As Ache, except target’s hits are reduced by 40%."
+  ],
+  "13": [
+   "Mass Pain",
+   "As Pain, except as many targets as the caster’s level can be affected."
+  ],
+  "15": [
+   "Trait Erosion III",
+   "As Trait Erosion I, except decrease is 3d10."
+  ],
+  "16": [
+   "Mass Impair I",
+   "As Impair I, except affects a number of targets equal to the caster’s level."
+  ],
+  "17": [
+   "Long Matter Disruption",
+   "As any single spell (10th level or lower) from this list, except with a range of 300'"
+  ],
+  "18": [
+   "Mass Fire Nerves",
+   "As Fire Nerves, except affects a number of targets equal to the caster’s level."
+  ],
+  "19": [
+   "Mass Trait Erosion I",
+   "As Trait Erosion I, except affects a number of targets equal to the caster’s level."
+  ],
+  "20": [
+   "Impair X",
+   "As Impair I, except decrease is 10d10."
+  ],
+  "25": [
+   "Mass Agony",
+   "As Agony, except as many targets as the caster’s level can be affected."
+  ],
+  "30": [
+   "Trait Erosion V",
+   "As Trait Erosion I, except decrease is 5d10."
+  ],
+  "50": [
+   "Trait Erosion True",
+   "As Trait Erosion I, except one physical stat is reduced to 1. 1) Spells on this list cannot lower a stat to less than 1. 2) In a 3d6 system, every 5 points of stat (above) translates to 1 point. Spell Law 3) See Section 7.3 for more information on using evil spell lists. OPEN ESSENCE LISTS DELVING WAYS 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) Text Analysis I Stone Analysis Metal Analysis Gas Analysis Text Analysis II Liquid Analysis Delving Spell Analysis Death Analysis Text Analysis III Power Analysis Conveyance Death’s Delving Analysis Mass Analysis Power Analysis True Conveyance True ESSENCE HAND Vibrations I Staying I Telekinesis I Vibrations II Staying II Telekinesis II Vibrations III Staying III Vibrations IV Aiming Telekinesis III Staying IV Mass Vibrations I Telekinesis IV Staying V Hurling I Telekinesis V Mass Vibrations III Lord Aim Staying True Great Telekinesis Aim True DETECTING WAYS ESSENCE’S PERCEPTIONS 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) Detect Essence Detect Mentalism Detect Channeling Detect Invisible Detect Traps Detect Evil Location I Perceive Power I Detect Death Location III Detect Spell Location V Perceive Power III Greater Location Detect Detections Detect True Location True ELEMENTAL SHIELDS 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) Resist Light Resist Heat Resist Cold Resist Light Sphere Resist Heat Sphere Resist Cold Sphere Lightarmor Heatarmor Coldarmor Lightarmor Sphere Heatarmor Sphere Coldarmor Sphere Lightning Armor Fire Armor Ice Armor Mass Lightarmor Mass Heatarmor Mass Coldarmor True Armor 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) Presence * Listen I Long Ear I Watch I Long Eye I Listen II Telepathy Watch II Long Ear II Listen III Long Eye II Watch III Listen IV Watch IV Listen True Watch True PHYSICAL ENHANCEMENT 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) Ventriloquism Sound/Light Mirage Taste/Smell Mirage Illusions II Phantasm I Light Glamour Waiting Illusion II Illusions III Phantasm II Waiting Phantasm II Waiting Illusion III Phantasm III Illusions V Waiting Illusion IV Waiting Phantasm III Waiting Illusion V Phantasm IV Waiting Phantasm IV Illusions VII Waiting Illusion VI Phantasm V Illusions X Phantasm X Changing Lungs Mass Balance Mass Nightvision Mass Watervision Vision * Mass Waterlungs Mass Gaslungs Mass Vision 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) Lock Magic Lock Locklore Opening I Traplore Disarm I Jamming Weakening Open Prison I Opening II Undoor I Disarm II Greater Magic Look True Lock Undoor II Open Prison II Undoor III Magic Lock True Undoor True New Gate Lock Mastery Trap Mastery Gate Cleaver 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ RUNE MASTERY 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) LESSER ILLUSIONS Mannish Scale * Sly Ears Balance * Nightvision Sidevision Sounding Watervision Waterlungs Heatvision Gaslungs Resist Poison * Darkvision UNBARRING WAYS Spell Store Rune I Rune II Rune III Rune V Sign of Shock Rune VI Sign of Fear Rune VII Sign of Sleep Rune VIII Sign of Blinding Rune IX Sign of Paralysis Rune X Lord Research Lord Rune Mass Sign SPELL WALL 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) Protection I Cancel Essence Protection Sphere I Cancel Mentalism Protection II Cancel Channeling Protection Sphere II Dispel Essence Sphere I Essence Shield Mind Shield Protection III Dispel Mentalism Sphere I Channeling Shield Spell Shield Protection IV Dispel Channeling Sphere I Spell Shield True Protection V Essence Resistance Mentalism Resistance Channeling Resistance Resistance True CLOSED ESSENCE LISTS DISPELLING WAYS 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) Cancel Essence I Cancel Mentalism I Cancel Channeling I Dispel Essence I Dispel Mentalism I Dispel Channeling I Dispel Ess. Sphere I Dispel Ment. Sphere I Dispel Chan. Sphere I Dispel Ess. Sphere V Dispel Ment. Sphere V Dispel Chan. Sphere V Dispel Ess. Sphere X Dispel Ment. Sphere X Dispel Chan. Sphere X Unessence Unmentalism Unchanneling Cancel True Dispel Essence True Dispel True Dispel Sphere True LIVING CHANGE 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) GATE MASTERY 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) Familiar Summons I Companion Summons II Control Demon I Summons III Lesser Demonic Gate Summons V Control Demon II Summons X Summon Folk Control Demon III Companion True Waiting Summons Lord Summons Lesser Waiting Gate Greater Demonic Gate Control Demon IV Mass Summons Demon Mastery II Waiting Gate Control Demon V 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) Unseen I Invisibility I Invisibility II Invisibility Sphere I Unseen III Invisibility Sphere II Unseen V Invisibility Split Unseen X Invis. Split Sphere Invisibility Sphere III Mass Unseen Mass Invisibility True Invisibility Change to Kind Shrink Enlarge Change True Change Changing Merging Invulnerability Passing Mass Enlarge Mass Change Mass Merging LOFTY BRIDGE 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) INVISIBLE WAYS Shrink Self Enlarge Self Change Lore Leaping * Landing * Leaving I Levitation Fly I Portal Fly II Long Door I Leaving III Teleport I Fly III Long Door III Teleport III Portal True Long Door V Teleport V Fly True Teleport X Mass Leaving Lord Teleport Mass Long Door Mass Teleport Teleport True SHIELD MASTERY 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) Run I * Speed I * Speed Reading Speed II * Sprint I * Haste I * Speed III * Haste II * Fast Sprint * Speed V * Run III * Haste III * Sprint III * Haste V * Run V * Speed X * Sprint V * Haste X * Mass Run * Mass Speed * Mass Haste * Deflections II * Aim Untrue I * Bladeturn II * Deflections III * Aim Untrue II * Bladeturn III * Re-aiming * Aim Untrue III * Mass Deflections * Mass Bladeturn * Mass Aim Untrue * Re-aiming True * 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) Sleep V Charm Kind Sleep VII Confusion Suggestion Sleep X Hold Kind Master of Kind Lord Sleep True Charm Quest Word of Stunning * Word of Pain * Hold True Word of Sleep * Word of Discord * Word of Calling * Waiting Word * Word of Death * True Quest Phrase * Mass Word * Spirit Mastery 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ ____________________ SPELL ENHANCEMENT 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) RAPID WAYS Enchanted Shield Shield * Blur * Enchanted Robes Deflections I * Enchanted Leather Bladeturn I * SPIRIT MASTERY Special Effects * Extension II Ranging I Extension III Instant Ranging I * Increased Radius I Ranging II Extensions IV Instant Ranging II * Increased Radius II Ranging III Extension V Instant Ranging III * Increased Radius III Ranging IV Extension X Instant Ranging IV * Increased Radius IV Ranging V Greater Extension Extension True Permanent SPELL REINS 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) Spell Store Identify Casting * Spell Hold I * Spell Bending I * Spell Hold II * Spell Bending II * Spell Hold III * Reverse Spell I * Spell Bending III * Spell Hold IV * Power Loan Spell Bending IV * Spell Hold V * Reverse Spell II * Spell Bending V * Spell Hold X * Lord Spell Hold * Spell Bending True * Spell Hold True * Reversal True * MAGICIAN BASE LISTS ILLUSIONIST BASE LISTS FEEL-TASTE-SMELL 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) Smell Mirage Strike I Taste Mirage Tear Cloud I Feel Mirage I F./T./S. Glamour Strike III Tear Cloud II Feel Mirage III Strike V Feel Terrain Mass Smell/Taste Tear Cloud V Feel Mirage V Mass Feel Feel Mirage VIII Feel Mirage X Smell Mirage True Taste Mirage True Feel Mirage True GUISES 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) Blur * Shadow Facade I Signs Displacement I Facade II Imper. Facade I Facade III Imper. Facade II Displacement II False Image Imper. Facade III Mass Blur Facade V Displacement III Imper. Facade IV Imper. Study * Imper. Facade True Displacement IV Mass Facade I Displacement V Changing Facade LIGHT MOLDING 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) Illusion II Phantasm I Illusion III Waiting Illusion II Phantasm II Illusion V Waiting Phantasm I Waiting Illusion III Phantasm III Illusion VII Waiting Phantasm III Phantasm IV Waiting Illusion V Phantasm V Illusion X Waiting Phantasm V Phantasm VII Waiting Illusion VII Illusory Terrain Phantasm X Waiting Illusion X Illusion True Phantasm True Light Mirage Projected Light Light Control I Sudden Light Shock Bolt I Light Glamour Blind Light Control V Utterlight Light Terrain Beacon I Utterdark Light Control X Shock Bolt III Beacon V Lightning Bolt I Greater Light Control Lightning Bolt III Light Control True 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) MIND SENSE MOLDING ILLUSION MASTERY 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) EARTH LAW 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) Detect Illusion Detect Invisible Misfeel Kind Misfeel Power I Presence Mirage Misfeel Calling Misfeel Power III Reduce Power Eman. Misfeel Power V Disillusion I Detect Illusion True Misfeel Power X Disillusion III Misfeel Unpresence I Disillusion V Unpresence III Disillusion True Unpresence V Misfeel True Lord Unpresence Mass Misfeel 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) Sound Mirage Silence I Sound Control I Sudden Sound Sound Control V Sound Glamour Deafen Silence V Minor Ultrasonics Sound Control X Sudden Sound Sphere Sound Terrain Silence X Deafen Sphere Greater Sound Control Long Silence Long Sound Control Long Sudden Sound Long Deafen Mass Deafening Mass Silence Sound Control True Major Ultrasonics Earthwall Cracks Call Repair Stonewall Earthen Spikes Stone/Earth Earthwall True Earth/Mud Earth/Stone Stonewall True Mud/Earth Unearth Meld Wall Stone/Mud Curved Wall Unstone Unmetal Tremors Earth Mastery 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) FIRE LAW 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) SOUND MOLDING Enchanted Rope Loosen Earth LIGHT LAW Boil Liquid Warm Solid Woodfires Wall of Fire Heat Solid Fire Bolt I Call Flame I Fire Ball Ignite Circle Aflame Fire Bolt III Call Flame II Waiting Flame Firestorm Metal Fires Triad of Flame Fire Bolt V Waiting Firestorm Call Flame V Corner Fires Following Fires Stone Fires Fire Mastery 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) Freeze Liquid Cool Solid Wall of Cold Chill Solid Ice Bolt I Cold Ball II Wall of Ice Call Cold I Circle of Cold Ice Bolt III Water/Ice Chill Metal Call Cold II Ice Bolt V Triad of Ice Call Cold V Cold Ball IV Rain/Snow Cold True Cold Mastery Lightning Bolt III Utterlight Utterdark Beacon X Lightning Bolt V Corner Lightn. Bolt Following Lightn. Bolt Light Mastery WATER LAW 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) ICE LAW Projected Light Shock Bolt I Light I Shade Sudden Light Dark I Light V Shock Bolt III Dark V Lightning Bolt I Waiting Light Shock Bolt V Beacon V Condensation Fog Waterwall Water Bolt I Unfog Calm Water Waterwall True Water Bolt III Call Rain Water Bolt V Triad of Water Command Current Calm Water True Whirlpool Part Water Sea Storm Water Mastery WIND LAW 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) Breezes Airwall Slumber Mist Stun Cloud I Air Stop I Stun Cloud II Vacuum I Air Stop II Slumber Cloud Stun Cloud IV Death Cloud I Vacuum II Air Stop X Whirlwind Death Cloud II Vacuum IV Great Vacuum Stun Cloud True Reverse Winds Hard Wind Storm Call Wind Mastery DABBLER BASE LISTS CONCEALMENT MASTERY 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) Shadow Unseen III Conceal I Locate Object Darkness Secret I Unseen V Displacement I Conceal III Unseen X Displacement II Secret III Unseen XV Conceal V Lord Unseen Secret V Displacement III Conceal X Unseen True Secret X Concealment Mastery MOVEMENT MASTERY 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) INFLUENCES 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) Sleep III Charm Animals Charm Kind Sleep V Suggestion Telepathy I Sleep VII Hold Kind Greater Charm Kind Sleep X Greater Suggestion Master of Kind Sleep XII Greater Hold Kind Telepathy II Sleep XV Gr. Master of Kind Quest Lord Sleep Sleep True Telepathy True Quest True 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) Machine Lore Tune Jam I Unlock I Untrap I Operate I Detect Active Power Jam II Unlock II Untrap II Operate II Jam III Unlock III Untrap III Operate III Jam IV Unlock IV Untrap IV Operate IV Jam True Unlock True Untrap True Operate True Run * Longjump * Landing * Shadow Steps Underwater Movement Balance I * Spider’s Step Long Dive * Traceless Passing * Spider’s Step True Float * Spider’s Walk Balance II * Shadow Landing * Spider’s Run Glide I Balance III * Spider’s Walk True Windwalking Balance True * Movement Mastery * BODY REINS SENSES 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) MECHANISMS Sly Ears Nightvision Scent Sensory Marker Far Sense I Sidevision Touch Watervision Darkvision Far Sense II Woodsight Lightvision Greater Far Sense I Long Far Sense I Stonesight Greater Far Sense II Ironsight Long Far Sense II Vision True Senses True Sense Mastery 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) 1) 2) 3) 4) 5) 6) 7) 8) 9) 10) 11) 12) 13) 14) 15) 16) 17) 18) 19) 20) 25) 30) 50) Gauge Wealth Weigh Pockets Mark Target Find Buyer I Locate Target Jewel/Metal Assess. Item Assessment Find Buyer II Detect Power Item Analysis I Find Owner I Find Buyer III Assessment True Significance Find Owner II Find Buyer IV Origins Find Owner III Owner Vision Item Vision Origins True Find Owner True"
+  ],
+  "14": [
+   "Torment",
+   "As Pain, except target takes 90% of his remaining hits."
+  ]
+ }
+}

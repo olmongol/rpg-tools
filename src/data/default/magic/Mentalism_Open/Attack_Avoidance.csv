@@ -1,1 +1,16 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Turn Missile,1 missile,—,self,U,Caster adds +20 to his DB versus one missile fired at the caster. The caster must be able to see the attack
+2,Turn Blade,1 attack,—,self,U,"As Turn Missile, except applies to a melee attack"
+3,Shield,caster/front,—,self,U,Creates an invisible force shield in front of the caster; it subtracts 25 from melee and missile attacks and functions as a normal shield
+5,Deflect I,1 missle,—,self,U,Deflects one missile fired at the caster; that missile has 100 subtracted from its attack (caster must be able to see the attack)
+6,Bladeturn I,1 attack,—,self,U,"As Deflect I, except its effect is against one melee attack"
+8,Aim Untrue I,1 missile,—,self,U,"As Deflect I, except missile automatically misses"
+10,Still Air,"1""R/lvl",1 min/lvl,self,U,"Creates a pocket of still air 1"" per level on all sides of the caster, that no outside gas can come into. The duration of the spell is how long it will take for one person to consume all the oxygen inside the pocket"
+11,Deflect II,2 missles,—,self,U,"As Deflect I, except affects 2 missiles"
+13,Spell Deflect I,1 spell,—,self,U,Deflects one elemental spell against caster. The attack roll has -50 added to it (must be in the caster's field of vision)
+15,Bladeturn II,2 atttacks,—,self,U,"As Bladeturn I, except affects 2 melee attacks"
+18,Deflect III,3 missles,—,self,U,"As Deflect I, except affects 3 missiles"
+20,Spell Deflect II,2 spells,—,self,U,"As Spell Deflect I, except affects 2 elemental attack spells"
+25,Bladeturn III,3 attacks,—,self,U,"As Bladeturn I, except affects 3 melee attacks"
+30,Spell Deflect III,3 spells,—,self,U,"As Spell Deflect I, except affects 3 elemental attack spells"
+50,Deflect True,3 attacks,—,self,U,"As Deflect I, Bladeturn I, and Spell Deflect I; except any 3 attacks can be deflected. OPEN MENTALISM 4.1.2 ATTACK AVOIDANCE"

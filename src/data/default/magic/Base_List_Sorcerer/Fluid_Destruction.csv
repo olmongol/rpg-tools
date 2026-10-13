@@ -1,1 +1,22 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Vaporize Fluid,10 cu'/lvl,P,100',F,"For each level of the caster, he may vaporize 10 cubic feet of liquid"
+2,Freeze Fluid,10 cu'/lvl,P,100',F,"For each level of the caster, he may freeze 10 cubic feet of liquid. Caster is immune to the cold"
+3,Evaporate I,1000 cu',P,100',F,"Causes 1,000 cubic feet of liquid to rapidly evaporate (over the course of 1 hour)"
+4,Unwater I,100 cu',P,100',F,Instantly disintegrates 100 cubic feet of water
+5,Calm Water,100'R,C,100',F,Water within the area of effect is calmed. Waves are cut 20' in center and less towards the perimeter
+6,Water Bolt I,1 target,—,100',D,A bolt of water is shot from the palm of the caster. Attack is resolved on the Water Bolt Attack Table
+7,Unrain,100'R,4 hrs/lvl,100',E,No precipitation will occur in the area of effect for the duration of this spell
+8,Dehydrate,1 cu',P,100',F,Removes all the liquid (usually water) from 1 cubic foot of inanimate material
+9,Evaporate II,"10,000 cu'",P,100',F,"As Evaporate I, except 10,000 cubic feet are affected"
+10,Unwater II,1000 cu',P,100',F,"As Unwater I, except 1000 cubic feet are affected"
+11,Unrain True,500'R/lvl,1 day/lvl,100',E,"As Unrain, except area of effect and duration"
+12,Dehydrate True,10 cu',P,100',F,"As Dehydrate, except affects 10 cubic feet"
+13,Evaporate III,"100,000 cu'",P,100',F,"As Evaporate I, except affects 100,000 cubic feet"
+14,Unwater III,"10,000 cu'",P,100',F,"As Unwater I, except affects 10,000 cubic feet"
+15,Greater Calm Water,100'R/lvl,C,100'/lvl,F,"As Calm Water, except waves are cut by 50' in center"
+17,Long Fluid Destruction,,varies,300',F,"As any single 10th level or lower spell on this list, except with a range of 300'"
+19,Desiccation,1 target,P,100',F,"The target immediately begins to dehydrate and weather as if in a wind-blown, sandy desert. The target is immediately at -10% to activity and takes 1% of his total hits. For each round that the caster concentrates, the target loses another 5% activity and 1% of his total hits. If the caster maintains concentration for 28 consecutive rounds, animate targets will be reduced to dried out husks (i.e., when the activity penalty reaches 150%). If the caster is prevented from completing his rounds of concentration or the target gets out of the range of the spell, the target keeps the accumulated activity penalty and hits lost. The hits may be healed normally, but the activity penalty only recovers at the rate of 10% per day. Alternatively, the GM may allow the activity penalty to be removed with a Cure Disease spell (or its equivalent) cast after all of the hits are restored"
+20,Dehumidify,1 mi R,P,1 mi,F,"For every minute that the caster concentrates, the humidity drops 1% of the original humidity (up to 50%). The humidity will gradually increase at a rate of 5% (of original humidity) per day until the original humidity is reached. Note that this change in humidity levels could affect an area's climate (in turn affecting the area's vegetation)"
+25,Evaporate True,"1,000,000 cu'",P,100',F,"As Evaporate I, except 1,000,000 cubic feet can be affected"
+30,Calm Water True,1000'R/lvl,C,1000'/lvl,F,"As Calm Water, except area of effect is 1,000'R per level of the caster"
+50,Dehumidify True,1000'R/lvl,P,1000'/lvl,F,"Every minute that the caster concentrates, the humidity drops 5% of the original humidity (up to 95%). The humidity increases as in Dehumidify. Note that this change in humidity levels could affect an area's climate (in turn affecting the area's vegetation). SORCERER BASE LIST 3.7.2 FLUID DESTRUCTION"

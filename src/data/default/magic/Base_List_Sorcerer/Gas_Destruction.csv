@@ -1,1 +1,22 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Unfog,10'R/lvl,P,100',F,Disperses all fog in a 10'/lvl R
+2,Air Stop I,10'R,C,100',F,"Cuts all generalized air movement (e.g., wind) by 30 mph in a 10'R (will not affect breathing)"
+3,Vacuum I,5'R,—,100',F,Creates a 5'R near vacuum; anyone within the radius must make a successful RR or take a 'B' Impact critical as the air leaves and rushes back in
+4,Deoxygenation I,10'R,C,100',F,Caster can remove the oxygen in a 10'R at the rate of 1% of the original oxygen each round
+5,Air Stop II,20'R,C,100',F,"As Air Stop I, except affects a radius of 20'"
+6,Vacuum II,10'R,—,100',F,"As Vacuum I, except affects a radius of 10'"
+7,Deoxygenation II,20'R,C,100',F,"As Deoxygenation I, except affects a radius of 20'"
+8,Gas To Air,1 cu'/rnd,P,100',F,Changes any gas to normal air at a rate of 1cubic per round as long as the caster concentrates
+9,Air Stop X,100'R,C,100',F,"As Air Stop I, except affects a radius of 100'"
+10,Vacuum IV,20'R,—,100',F,"As Vacuum I, except affects a radius of 20'"
+11,Great Vacuum I,5'R,—,100',F,"As Vacuum I, except delivers a 'D' Impact critical"
+12,Fast Deoxygenation I,10'R,C,100',F,"As Deoxygenation I, except removal rate is 5% per round"
+13,Deoxygenation V,50'R,C,100',F,"As Deoxygenation I, except affects a radius of 50'"
+14,Great Vacuum II,10'R,—,100',F,"As Great Vacuum I, except affects a radius of 10'"
+15,Fast Deoxygenation II,20'R,C,100',F,"As Mass Deoxygenation I, except affects a radius of 20'"
+17,Long Gas Destruction,varies,varies,300',F,"As any single 10th level or lower spell on this list, except with a range of 300'"
+19,Major Deoxygenation,20'R,C,100',F,"As Deoxygenation I, except affects a radius of 20' and removeal rate is 10% per round"
+20,Major Vacuum,5'R,—,100',F,"As Vacuum I, except delivers an 'E' Impact critical"
+25,Deoxygenation True,20'R,C,100',F,"As Deoxygenation I, except affects a radius of 20' and removal rate is 20% per round"
+30,Vacuum True,10'R,—,100',F,"As Major Vacuum, except affects a 10'R"
+50,Implosion,"1,000,000 cu'",—,300',F,"Destroys gases in a single enclosure (e.g., usually a building) up to a size of 100'x100'x100' (or 1,000,000 cu'). The building has a chance of collapsing (dependent on construction) and everyone inside takes an 'E' Impact critical from falling debris. This results in a very loud explosion. If the building collapses, everyone within 100' of the building takes a 'C' Impact critical from the explosion. SPECIAL NOTES 1) All vacuums created by spells on this list also create a loud noise. The larger the radius, the louder the noise. The GM may wish to rule that all within the radius must make a second RR or be deafened for 1 round per 10 failure (RR attack level equals the radius of the vacuum). 2) An elemental creature made of gas will be cut to 20% activity if it is the target of an Air Stop spell (and the creature fits into the area of effect). A Vacuum spell thrown upon an elemental creature made of gas will result in a Slaying critical on the creature. 3) When the oxygen in an area of effect falls below 50% of normal, anyone in the area of effect must make a RR (attack level is 1) or fall asleep (this RR is modified by -2 for every 1% under 50%). Of course, if the % drops below 10%, suffocation becomes a danger. All fire spells in an area of low oxygen are modified by -2 (or -2 % effectiveness for non-attack spells) for every 1% under 50% of normal oxygen. SORCERER BASE LIST 3.7.3 GAS DESTRUCTION"

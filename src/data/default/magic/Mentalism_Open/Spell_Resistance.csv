@@ -1,1 +1,17 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Protection I,caster,1 min/lvl,self,U,Subtracts 5 from elemental attack rolls against the caster and adds 5 to all of the caster's RRs vs. spells
+2,Cancel Mentalism,1 spell,C,self,F,"When the caster is a target of a spell from the Mentalism, the ""incoming"" spell must first make an RR before the caster makes an RR. For RR purposes, each spell uses a level equal its caster's level. If the ""incoming"" spell passes the RR, it may target the caster of this spell normally; otherwise the incoming spell has no effect on this target"
+4,Cancel Essence,1 spell,C,self,F,"As Cancel Mentalism, except affects spells from the realm of Essence"
+5,Protection II,caster,1 min/lvl,self,U,"As Protection I, except bonuses are 10"
+6,Cancel Channeling,1 spell,C,self,F,"As Cancel Mentalism, except affects spells from the realm of Channeling"
+8,Mind Shield,caster,C,self,U,"Creates a shimmering shield in front of the caster. The shield subtracts 10 from all frontal Mentalism attack rolls on the caster (base and elemental). If the caster performs no other actions during a round, he can ""parry"" (as with a normal shield) one spell attack. The parry bonus is equal to the sum of all the bonuses that the caster would normally have for his spell's base attack roll"
+10,Essence Shield,caster,C,self,U,"As Mind Shield, except is effective only against Essence spells"
+11,Protection III,caster,1 min/lvl,self,U,"As Protection I, except bonuses are 15"
+13,Channeling Shield,caster,C,self,U,"As Mind Shield, except is effective only against Channeling spells"
+15,Spell Shield II,caster,C,self,U,"As Mind Shield, except it is effective against any two of the three realms"
+17,Protection V,caster,1 min/lvl,self,U,"As Protection I, except bonuses are 25"
+19,Spell Shield True,caster,C,self,U,"As Mind Shield, except is effective against all spells"
+20,Mentalism Resistance,caster,C,self,U,Gives a +50 to all RRs against all Mentalism spells
+25,Essence Resistance,caster,C,self,U,"As Mind Resistance, except is only effective against Essence spells"
+30,Channeling Resistance,caster,C,self,U,"As Mind Resistance, except is only effective against Channeling spells"
+50,Resistance True,caster,C,self,U,"As Mind Resistance, except is effective against two of the three realms. OPEN MENTALISM 4.1.10 SPELL RESISTANCE"

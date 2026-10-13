@@ -1,1 +1,18 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Run,caster,10 min/lvl,self,U,"Caster may run (2x walking pace) without tiring (i.e., requires exhaustion points as if he were walking), but once he stops or performs any other action the spell is canceled"
+2,Speed Reading,caster,10 min/lvl,self,U,Caster reads 10 pages per minute
+3,Speed I,caster,varies,self,U,"For the duration of the spell, caster has 200% activity each round. Afterwards, the caster must spend as many rounds in rest (maximum of 50% activity) as he spent under the effects of Speed"
+5,Speed II,caster,2 rnd,self,U,"As Speed I, except duration is 2 rounds"
+6,Haste I,caster,1 rnd,self,U,"As Speed I, except no resting rounds are required"
+7,Speed III,caster,3 rnd,self,U,"As Speed I, except duration is three rounds"
+8,Sprint,caster,10 min.lvl,self,U,"As Run, except caster may move at 3x walking pace"
+9,Haste II,caster,2 rnd,self,U,"As Haste I, except duration is 2 rounds"
+10,Fast Swim,caster,10 min/lvl,self,U,"As Run, except caster swims double normal pace"
+11,Speed V,caster,5 rnd,self,U,"As Speed I, except duration is 5 rounds"
+12,Haste III,caster,3 rnd,self,U,"As Haste I, except duration is 3 rounds"
+15,Haste V,caster,5 rnd,self,U,"As Haste I, except duration is 5 rounds"
+17,Fast Sprint,caster,10 min/lvl,self,U,"As Run, except caster may move at 4x walking pace"
+20,Speed X,caster,10 rnd,self,U,"As Speed I, except duration is 10 rounds"
+25,Haste X,caster,10 rnd,self,U,"As Haste I, except duration is 10 rounds"
+30,Speed True,caster,special,self,U,"As Speed I, except duration is until caster sleeps, rests, or cancels the spell (with a maximum duration of 8 hours)"
+50,Haste True,caster,special,self,U,"As Haste I, except duration is until caster sleeps, rests, or cancels the spell (with a maximum duration of 8 hours). SPECIAL NOTES See Section 7.1.24 for more on Haste and Speed. CLOSED MENTALISM 4.2.9 SPEED"

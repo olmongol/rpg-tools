@@ -1,1 +1,23 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Sly Ears,caster,10 min/lvl,self,U,"Caster gains double normal hearing. This spell confers a +50 to Perception involving only hearing, +25 to Perception involving hearing and other senses"
+2,Nightvision,caster,10 min/lvl,self,U,Caster can see 100' on a clear night as if it were day. At least some small amount of residual light is required for this spell to work. See Section 7.1.19 for more on the environment's effect on vision
+3,Sidevision,caster,10 min/lvl,self,U,Caster has a 300˚ field of vision. The flank bonus is reduced to +5 and the rear bonus is reduced to +15
+4,Detect Illusion,5'R,—,100',U,Caster can check one object or place (up to a 5'R) and tell if it is an illusion or has an illusion on it. See Section 7.1.27 for more on Illusions
+5,Watervision,caster,10 min/lvl,self,U,"As Nightvision, except affects vision underwater (and other liquids)"
+6,Scent,caster,10 min/lvl,self,U,"Caster gains extremely acute sense of smell. This spell confers +50 to Perception involving only smell, +25 to Perception involving smell and other senses"
+7,Fogvision,caster,10 min/lvl,self,U,"As Nightvision, except works in any precipitation or gas"
+8,Touch,caster,10 min/lvl,self,U,"Caster gains extreme tactile sensitivity. This results in a bonus to all actions that require a sense of touch. For example, caster might receive +25 to picking locks, disarming traps, opening secret doors, etc. In addition, this spell confers a +50 to Perception involving only touch, +25 to Perception involving touch and other senses"
+9,Darkvision,caster,10 min/lvl,self,U,"As Nightvision, except no light is required and caster can see even in magically created darkness"
+10,Mentalist Ear,,caster,1 min/lvl(C)100'/lvl,U,Caster can pick a point up to 100' per level away and he will hear as if he were at that point (there can be intervening objects such as walls); he must have been at the location before or the location must be within his field of vision
+11,Mentalist Eye,,caster,1 min/lvl(C)100'/lvl,U,"As Mentalist Ear, except caster can see instead of listening"
+12,Disillusion,100'R,1 min/lvl,self,U,"For the duration of the spell, one illusion within the area of effect ceases to exist (for the caster only). Caster must know that something is an illusion before this spell is cast"
+13,Detect Illusion True,,5'R,1 min/lvl(C) 100',U,"As Detect Illusion, except caster can check one object or place per round"
+14,Vision,caster,10 min/lvl,self,U,As all lower level Vision spells functioning at the same time
+15,Nightvision True,caster,10 min/lvl,self,U,"As Nightvision, except range is the range of normal daylight vision"
+17,Disillusion True,100'R,1 min/lvl,self,U,"As Disillusion, except all illusions within range cease to exist for the caster. Caster need not be aware of any illusions within the range before casting this spell"
+18,Watervision True,caster,10 min/lvl,self,U,"As Watervision, except range is the range of normal daylight vision"
+19,Fogvision True,caster,10 min/lvl,self,U,"As Fogvision, except range is the range normal daylight vision"
+20,Vision True,caster,10 min/lvl,self,U,As all lower level Vision True spells functioning at the same time
+25,Mentalist Ear True,,caster,1 min/lvl(C)1 mi/lvl,U,"As Mentalist Ear, except range is 1 mile per level"
+30,Mentalist Eye True,,caster,1 min/lvl(C)1 mi/lvl,U,"As Mentalist Eye, except range is 1 mile per level"
+50,Sensory Merge,,caster,C,F,"Caster can ""merge"" his senses with those of a subject whose exact location is known. Exact location can be established through a prior arrangement. If target of spell is not at the specified location, the PPs for this spell are still expended. CLOSED MENTALISM 4.2.6 SENSE MASTERY"

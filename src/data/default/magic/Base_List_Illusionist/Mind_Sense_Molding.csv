@@ -1,1 +1,23 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Detect Illusion,5'R,—,100',P,Caster can check one object or place (up to a 5'R) and tell if it is an illusion or has an illusion on it
+2,Detect Invisible,5'R,1 min/lvl (C) 100',P,,Detects all invisible objects or beings in the area of effect. Caster can concentrate on a different 5'R each round. All attacks against something so detected are modified by -50. See Section 7.1.10 for rules on invisibility
+3,Misfeel Kind,1 target,10 min/lvl,10',E,"For the purposes of mental or magical detections, target appears to be of any race the caster chooses"
+4,Misfeel Power I,1 target,10 min/lvl,10',E,"As Misfeel Kind, except target's level may be misrepresented by 1 level (up or down)"
+5,Presence Mirage,10'R,10 min/lvl,100',E,Creates a false presence (for the purposes of magical detections) in the area of effect
+6,Misfeel Calling,1 target,10 min/lvl,10',E,"As Misfeel Kind, except target's profession may be misrepresented"
+7,Misfeel Power III,1 target,10 min/lvl,10',E,"As Misfeel Power I, except target's level may be misrepresented by up to 3 levels (up or down)"
+9,Reduce Power Emanations,1 object,10 min/lvl,10',E,"As Misfeel Power I, except an object's power emanations may be reduced, so that a minor item's power is undetectable and major items seem like minor items (for spells such as Detect Essence, Detect Power, Detect Channeling, etc.)"
+10,Misfeel Power V,1 target,10 min/lvl,10',E,"As Misfeel Power I, except target's level may be misrepresented by up to 5 levels (up or down)"
+11,Disillusion I,1 illusion,1 min/lvl,self,U,One illusion within the area of effect ceases to exist (for the caster only)
+12,Detect Illusion True,,5'R,1 min/lvl(C) 100',P,"As Detect Illusion, except caster can concentrate on one object or place per round"
+13,Misfeel Power X,1 target,10 min/lvl,10',E,"As Misfeel Power I, except target's level can be misrepresented by up to 10 levels (up or down)"
+14,Disillusion III,100'R,1 min/lvl,self,U,"As Disillusion I, except up to three illusions within the area of effect cease to exist"
+15,Misfeel,1 target,10 min/lvl,10',E,Applies all the lower level Misfeels to a target at once (only one Misfeel Power can be applied)
+16,Unpresence I,1 target,10 min/lvl,10',E,"As Misfeel Kind, except target appears to have no presence"
+17,Disillusion V,100'R,1 min/lvl,self,U,"As Disillusion I, except up to five illusions within the area of effect cease to exist"
+18,Unpresence III,3 targets,10 min/lvl,10',E,"As Unpresence I, except will affect up to three targets"
+19,Disillusion True,100'R,1 min/lvl,self,U,"As Disillusion I, except all illusions within the area of effect cease to exist"
+20,Unpresence V,5 targets,10 min/lvl,10',E,"As Unpresence I, except affects up to five targets"
+25,Misfeel True,1 target,1 hr/lvl,10',E,"As Misfeel, except for duration"
+30,Lord Unpresence,20 tgts,10 min/lvl,10',E,"As Unpresence, except up to 20 targets may be affected"
+50,Mass Misfeel,1 tgt/lvl,10 min/lvl,10',E,"As Misfeel, except as many targets as the caster's level can be affected. SPECIAL NOTES See Section 7.1.27 for more information on illusions, mirages, etc. ILLUSIONIST BASE LIST 3.3.5 MIND SENSE MOLDING"

@@ -1,1 +1,23 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Locklore,1 lock,—,touch,I,"Gives the caster a +20 bonus for picking the lock analyzed. If the caster describes the information gained from this spell, that person will get a +10 bonus to picking the lock analyzed"
+2,Unlock I,1 lock,—,touch,U,"This spell has a 30% chance of opening any nonmagical lock. If the lock is not unlocked, there is a 10% chance that any traps associated with it are set off. Rolls are openended, and the sophistication of the lock may modify the roll (see Section 7.1.29)"
+3,Ungag,varies,—,touch,U,Any minor covering on the head of the caster made of organic material is loosened. This includes any gags or blindfolds
+4,Leave Item,1 object,—,50',U,"Caster ""teleports"" a single, inanimate object to a point up to 100' away from its current location. There can be no intervening barriers in a direct line between the target and the point (for these purposes, a barrier is anything the object could not physically go through). The object has a maximum weight limit of 1 pound per level of the caster"
+5,Unlock II,1 lock,—,touch,U,"As Unlock I, except has a 50% chance of opening the lock (and an 8% chance of setting off traps)"
+6,Untie,varies,—,touch,U,Any ropes (or similar bindings) that are binding the caster are untied. Note that this spell will suffer the standard penalty for the caster not having a free hand (if the caster's hands have been tied)
+7,Minor Long Door,caster,—,self,U,"Caster is teleported to a point up to 50' away. The caster can pass through objects by specifying the exact distance and direction to be travelled. If the arrival point coincides with solid or liquid material, the caster does not move. Instead, he is stunned for 1-10 rounds (the PPs are still spent for this spell)"
+8,Unlock III,1 lock,—,touch,U,"As Unlock I, except has a 70% chance of opening the lock (and a 6% chance of setting off traps)"
+9,Unbind,varies,—,touch,U,Each lock/shackle binding the caster has a 75% chance of opening (modified by the sophistication of the lock)
+10,Leaving I,caster,—,self,U,"The caster teleports to a location up to 100' away. There can be no intervening barriers between the caster and the point. A barrier is defined as anything the caster could not physically go through (e.g., a closed door is a barrier, a pit is not)"
+11,Passing,caster,1 min/lvl,self,U,Caster can pass through any inanimate material at the rate of 5' per minute
+12,Long Door Item I,1 object,—,50',U,"As Leave Item, except the object can pass through barriers by specifying exact direction and distance. If the arrival point coincides with solid or liquid material, the object does not move (though the caster loses the PPs for the spell)"
+13,Unlock IV,1 lock,—,touch,U,"As Unlock I, except has a 90% chance of opening the lock (and a 4% chance of setting off traps)"
+14,Long Door I,caster,—,self,U,"As Minor Long Door, except caster can move100'"
+15,Unbind True,varies,—,touch,U,"As Unbind, except will also work on fixed shackles (i.e., those that have been rivetted shut)"
+16,Leaving II,caster,—,self,U,"As Leaving I, except caster can move 200'"
+18,Flattening,caster,10 min/lvl,self,U,"Caster is flattened on his side until he has only two dimensions. Thus, he can slide through cracks (and cannot be seen from the side)"
+19,Long Door II,caster,—,self,U,"As Minor Long Door, except caster can move 200'"
+20,Passing True,caster,1 min/lvl,self,U,"As Passing, except rate is 10' per minute"
+25,Portal,3'x6'x3',1 rnd/lvl,touch,U,"Opens a 3' x 6' x 3' portal in any solid surface. At the end of the duration, the surface is returned to its previous state. If anyone is in the area of effect when the spell effect ends, he is forced back to his opint of entry. MAGENT BASE 4.6.3 ESCAPES"
+30,Unlock True,5'R/lvl,—,self,U,
+50,Teleport I,caster,—,self,U,

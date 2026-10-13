@@ -1,1 +1,18 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Bending,1000 cu',10 min/lvl,100',E,Makes an inanimate object (up to 1000 cubic feet) appear to be 10' to one side of its actual location
+3,Light/Sound Mirage,10'R,1 min/lvl,50',E,Creates any simple immobile image or scene up to 10'R or any constant (including repetitive) sounds coming from a 10'R
+5,Illusion II,10'R,1 min/lvl,50',E,Creates a simple immobile image or scene up to an area of 10'R. One of the following options may also be chosen: a) sound can be added to the illusion or b) the duration can be doubled or c) the range can be doubled or d) the radius of effect can be doubled. Note that all parts of the area of effect must be within the range of the spell
+6,Phantasm I,10'R,1 min/lvl(C) 100',E,,"Creates the image of one object or being, that will move however the caster wants while he concentrates. When the caster stops concentrating the image remains, but stops moving (the caster can resume concentration later and resume moving the phantasm). The image can be any size that would fit into a 10'R sphere"
+7,Light Glamour,1 object,1 day/lvl,50',E,"This spell may only be cast on one inanimate object of up to 10 pounds per level of the caster. The spell alters the visual appearance of the object, concealing its true appearance"
+8,Illusion III,10'R,1 min/lvl,50',E,"As Illusion II, except two of the options can be chosen"
+10,Waiting Illusion I,10'R,varies,50',E,"As Light/Sound Mirage, except the spell can be delayed up to 24 hours or until triggered by: a) time period, b) specified movements, or c) specified sounds"
+11,Illusion IV,10'R,1 min/lvl,50',E,"As Illusion II, except three of the options can be chosen"
+12,Phantasm II,,10'R,1 min/lvl(C) 100',E,"As Phantasm I, except one of the following options may also be chosen: a) sound can be added or b) the duration can be doubled or c) the radius of the sphere limiting the size of the image can be doubled or d) the range can be doubled or e) another image can be created and moved (all separate phantasms that move must be within the caster's field of vision and within range of the spell)"
+14,Waiting Illusion II,10'R,varies,50',E,"An Illusion II, but can be delayed as in Waiting Illusion I"
+15,Illusion V,10'R,1 min/lvl,50',E,"As Illusion II, except four of the options can be chosen"
+17,Phantasm III,,10'R,1 min/lvl (C) 100',E,"As Phantasm II, except two of the options can be chosen"
+19,Waiting Illusion III,10'R,varies,50',E,"As Illusion III, except can be delayed as in Waiting Illusion I"
+20,Illusion VII,10'R,1 min/lvl,50',E,"As Illusion II, except six of the options can be chosen"
+25,Waiting Illusion V,10'R,varies,50',E,"As Illusion V, except can be delayed as in Waiting Illusion I"
+30,Illusion X,10'R,1 min/lvl,50',E,"As Illusion II, except nine of the options can be chosen"
+50,Phantasm V,,10'R,1 min/lvl(C) 100',E,"As Phantasm II, except four of the options can be chosen. SPECIAL NOTES 1) For more information on Illusions, see Section 7.1.27.. 2) If more than one of the options may be chosen, the same option may be chosen more than once. For example, if two options were available, the range for an Illusion could be doubled to 100' and then doubled again to 200'. 3) Illusions created with spells off of this list are ""real"" in as much as they can be seen and/or heard. Detecting that an illusion is just an illusion can only be accomplished through spells or through the use of conflicting senses (i.e., you reach out to touch it and don't feel anything). OPEN MENTALISM 4.1.8 ILLUSIONS"

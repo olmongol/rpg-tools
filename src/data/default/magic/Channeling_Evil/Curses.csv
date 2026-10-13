@@ -1,1 +1,22 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Detect Curse,1 target,1 min/lvl,10',P,Detects a curse on an item or person.
+2,Nightvision Curse,1 target,special,100',F,"Target can see at night as if it were day, but he can only see in the day as if it were the darkest night."
+4,Ulcer Curse,1 target,special,100',F,Target can only eat bread or dairy products. Anything else will aggravate his ulcer (unless he makes an RR) and he will be incapacitated for 110 hours.
+5,Curse of Dake,1 target,special,100',F,Trget cannot move faster than a walking pace on his own (he may be carried or ride at a faster pace).
+6,Green Tongue,1 target,special,100',F,Target can only eat green leaves. Eating other food incapacitates him (if he fails a RR) for 110 hrs.
+7,Sea Curse,1 target,special,100',F,"Target will never voluntarily swim, enter any water (even a bath), or get into a boat."
+8,Curse of Furd,1 target,special,100',F,"All of target's fumble/failure ranges (weapon attacks, spell casting, and skill resolution) are doubled."
+9,Excommunication,1 target,1 day/10 fail,100',F,"Target loses all Channeling power points (PPs). He cannot cast any Channeling spells (even through bonus items). A hybrid spell user of Channeling (e.g., Sorcerer or Healer) would only lose half his PPs. A character suffering from this curse suffers no exhaustion for the lost PPs."
+10,Learning of Mins,1 target,special,100',F,Target can only speak and write his native language.
+11,Curse of Shar Bu,1 target,special,100',F,Target is sterile and impotent.
+12,Power Leech,1 target,special,100',F,"Target looses 1 power point every 10 min. Power points are recovered in a normal fashion (usually a sleep period), but begin to leak away as soon as they are regained."
+13,Beauty of Arraer,1 target,special,100',F,"Target's appearance is raised to the maximum possible (and then some). If anyone sees the uncovered face of the target or gets within 3' (and is of the opposite sexual persuasion and fails a RR), they will attempt to possess and carry off the the target (they will fight if necessary). Certain persons will get modifications to their RRs (eunuchs, hedonists, curties, morawoses, essceecees, icers, etc.)."
+14,Clotting Curse,1 target,special,100',F,"Target's blood will coagulate and create a blood clot around the area of any cut or wound (bleeding at least one hit per round). The clot will cut off circulation to the area fed by the given vessel and target will lose the affected body section after 220 minutes due to system damage (e.g., a thigh wound might ultimately mean loss of leg; a neck wound would be fatal)."
+15,Ugliness of Orn,1 target,special,100',F,"Target's appearance is lowered to 1. If a person sees the uncovered face of the target (or gets within 3'), he must make a RR. If he fails by 51 or more, he attacks the target. Even if the viewer is successful in his RR, he will experience extreme distaste (i.e., distain) for the target. For example, if the target went home after failing against this curse, his mother might resist (she gets a large modifier), but she might still make him sleep in the barn and eat on the porch."
+16,Curse of Oli,1 target,special,100',F,"Target will lie 50% of the time, regardless of the topic."
+18,Curse of Penth,1 target,special,100',F,Target may only speak the truth.
+19,Rewounding,1 target,special,100',F,"Once per day (at a random time), the target will experience the pain from an old wound. For new characters, treat this as an 'A' Krush critical strike 50% of the time and a d10 concussion hits the other 50% of the time. Alternatively, the GM can reopen a specific old wound."
+20,Running Death,1 target,special,100',F,"Target will move at fastest possilbe pace until he dies of exhaustion. He may be restrained, but whenever freed, he will begin to run again."
+25,Friendslayer,1 target,special,100',F,"Every time the target is in a combat situation near friend(s) who are within 10', there is a 10% chance each round (noncumulative) that he will attack one of his friends (random determination) and attempt to kill him. For these purposes a ""friend"" is any companion or associate."
+30,Excommunication True,1 target,special,100',F,As Excommunication except effect is permanent until removed.
+50,Dark Thoughts,1 target,special,100',F,"Target may not attack any ""evil"" creature and the target learns all evil languages and the target will obey the commands of any evil person who is 10 or more levels higher than himself."

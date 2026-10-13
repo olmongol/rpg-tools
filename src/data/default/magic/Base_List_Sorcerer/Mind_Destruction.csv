@@ -1,1 +1,24 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Minor Pain,1 target,10 min/5 fail 100',Fm,,"Target takes 25% of his remaining concussion hits (i.e., those not already taken). These hits are restored when the duration is up, provided target has not died"
+2,Jolts I,1 target,1 rnd/10 fail 100',Fm,,Target is stunned
+3,Disorientation,1 target,1 day/5 fail,100',F,"Target must subtract 25 from all orientation and perception rolls, and 5 from all initiative rolls"
+4,Unbalance,1 target,1 day/5 fail,100',F,Target must subtract 25 from all maneuver rolls
+5,Distortions,1 target,1 day/5 fail,100',F,Target must subtract 25 from all attack rolls
+6,Jolts III,1 target,3 rnd/10 fail 100',Fm,,"As Jolts I, except for duration"
+7,Major Pain,1 target,10 min/5 fail 100',Fm,,"As Minor Pain, except 50% of remaining hits are taken"
+8,Forget,1 target,P,10',F,"Target forgets a period of (1 minute per level) of his past, as desired by the caster"
+9,Word of Pain,1 target,P,100',F,"As Major Pain, except hits must be healed normally"
+10,Mind Shock,1 target,1 day/5 fail,100',F,"As Disorientation, Unbalance, and Distortions (all at once)"
+11,Mind Death,1 target,P,50',F,Target mind blanks out for a period of 10 minutes each day at random. Target is incapable of activity or thought during this period
+12,Jolts V,,1 target,5 rnd/10 fail 100',F,"As Jolts I, except for duration"
+13,Unminding,1 target,1 rnd/5 fail,100',F,"Target's mind is completely blank for the duration. He cannot perceive events, time, or activity. At the end of the duration of this spell, he is stunned for 1 round after his mind comes back"
+14,Mass Disorientation,1 target/lvl,1 hr/5 fail,300',F,"As Disorientation, except affects a number of targets equal to the caster's level"
+15,Mind Break,,1 target,1 day/10 fail 100',F,"Target is a blathering idiot. He can be lead around, but he can take no action"
+16,Mass Unbalance,1 target/lvl,1 day/5 fail,100',F,"As Unbalance, except affects a number of targets equal to the caster's level"
+17,Long Mind Destruction,1 target,varies,300',F,"As any single 10th level or lower spell on this list, except with a range of 300'"
+18,Mass Distortions,1 target/lvl,1 day/5 fail,100',F,"As Distortions, except affects a number of targets equal to the caster's level"
+19,Horror,1 target,varies,100',F,"[RR Mod: -20] The target believes he is being engaged by a creature of the his own worst fears. The target will be attacked each round by the creature (who has a +100 Martial Arts Strikes Rank I attack; the damage is real). Regardless of the damage done by the target (to the creature), the creature will only be defeated when the target makes his RR (one RR each minute), or when he loses consciousness"
+20,Lost Experience I,1 target,P,100',F,"Target loses 5% of his collected experience (usually experience points). Note that the target will not lose a level, only experience points (which means he will have to gain that many more experience points to gain his next level)"
+25,Mass Pain,,1 target/lvl,10 min/5 fail 300',F,"As Major Pain, except as many targets as the caster's level are affected, the duration is until healed, and the range is 300'"
+30,Mass Mind Shock,1 target/lvl,1 day/5 fail,300',F,"As Mind Shock, except as many targets as the caster's level can be affected and the range is 300'"
+50,Mass Unminding,1 target/lvl,1 rnd/5 fail,300',F,"As Unminding, except as many targets as the caster's level can be affected and the range is 300'. SORCERER BASE LIST 3.7.4 MIND DESTRUCTION"

@@ -1,1 +1,19 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Guess,caster,—,self,I,"When faced with a choice about which he has little or no information (e.g., which corridor leads outside the quickest), the caster may cast this spell and the GM will determine which way he goes, biasing the choice favorable by 25% (e.g., roll d100: correct on a 26-100, incorrect on 1-25)"
+3,Intuitions I,caster,—,self,I,Caster gains a vision of what will probably happen in the next minute if he takes a specified action
+4,Dream I,caster,sleep,self,I,Caster has a dream relating to a topic decided upon just before retiring. The caster must sleep for a normal sleep cycle (minimum of 4 hours) for this spell to work
+5,Intuitions III,caster,—,self,I,"As Intuitions I, except caster gets to gaze 3 minutes into the future"
+6,Death's Tale,caster,—,self,I,Caster gets a vision of the events surrounding the death of any 1 dead target through the eyes of the deceased. He also gets a view of the killer (if any). The caster must be within 10' of the corpse. Corpse must have died within a number of years equal to caster's level
+7,Channel Opening I,1 being,C,1 mile/lvl U,,Caster can make contact with any 1 known target he his acquainted with. This spell will enable the caster to learn the specific location (direction and distance only) of the other being. This spell is often used with a Channels spell (see Cleric Base List 2.4.1)
+8,Intuitions V,caster,—,self,I,"As Intuitions I, except caster may gaze 5 minutes into the future"
+10,Dreams III,caster,sleep,self,I,"As Dream I, except limit is 3 dreams per night on different topics"
+11,Intuitions X,caster,—,self,I,"As Intuitions I, except caster may gaze 10 minutes into the future"
+12,Commune I,caster,C,self,I,"Caster receives (usually from his patron deity) a ""yes"" or a ""no"" answer to a question on a single topic. This spell may be used a maximum of once per day"
+13,Magic Basin I,1 pool,1 min/lvl,10',I,"The target of this spell is a small pool of clear, clean water. The water must be calm (and remain calm for the duration of the spell). The caster may designate a topic and a vision will appear in the pool that relates to the topic. This vision normally takes 5-50 rounds"
+15,Channel Opening II,,1 being,C,U,"As Channel Opening I, except for range"
+18,Magic Basin II,1 pool,1 min/lvl,10',I,"As Magic Basin I, except up to two topics may be designated (5-50 rounds is required for each one)"
+19,Death's Tale True,caster,—,self,I,"Caster gets a vision of the events sur rounding the death of any 1 dead target within 10 feet. Caster gets an understanding of the reason(s) the deceased died, exactly who the killer was (if any), and who was ultimately responsible (if anyone). Corpse may be of any age"
+20,Commune True,caster,C,self,I,"As Commune I, except caster can receive a more detailed answer (e.g., a name or short phrase) to a question involving only 1 concept"
+25,Intuitions True,caster,—,self,I,"As Intuitions I, except caster may gaze into the future for a number of minutes equal to his level"
+30,Channel Opening True,,C,1 mile/lvl U,,"As Channel Opening I, except caster can open a channel to anyone he chooses, regardless of whether or not he is acquainted with the being The caster must specify the type of being he is seeking (e.g., a priest of a specific deity, a warrior with blue eyes, etc.)"
+50,High Prayer,caster,C,self,I,"Caster receives detailed information from his deity on a single topic question. CLERIC BASE LIST 2.4.2 COMMUNAL WAYS SPECIAL NOTES 1) When using Guess, the caster must have a limited number of options (i.e., finite and countable). After the spell is cast, the caster may not cast another Guess for the same information until his experience level has increased (See Section 7.1.4). 2) See Section 7.1.2 for more on dreams and symbology in divination"

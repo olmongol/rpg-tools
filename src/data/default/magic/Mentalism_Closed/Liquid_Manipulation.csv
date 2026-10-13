@@ -1,1 +1,20 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Boil Water,1 cu'/lvl,P,2',F,"Heats 1 cubic foot of liquid per level to boiling, at a rate of 50˚ per round of concentration. Caster is immune to the heat"
+2,Freeze Water,1 cu'/lvl,P,2',F,"As Boil Water, except the liquid can be cooled until frozen"
+3,Clear Water,1 cu'/lvl,P,2',F,"As Boil Water, except that it clears liquid of all sediment"
+5,Desalination,1 cu'/lvl,P,2',F,"As Boil Water, except that it removes all dissolved substances from the liquid"
+6,Waterwall,10'x10'x1',C,10',E,Creates a 10'x10'x1' wall of churning water (a water source must be within 10'). All attacks through the wall suffer a -80 penalty. All movement through the wall is reduced by 80%
+7,Evaporation,1 cu'/lvl,P,2',E,"As Boil Water, except all the liquid is evaporated at a rate of 1 cubic foot per round of concentration"
+8,Water Corridor I,100'x3'x10',C,10',F,"Creates a corridor through liquid up to 100' long, 3' wide, and 10' deep (must be open at the top)"
+9,Water Bolt,1 target,—,100',D,A bolt of water is shot from the palm of the caster (a water source must be within 10'). Attack results are determined on the Water Bolt Attack Table
+10,Curved Waterwall,10'x20'x1',C,touch,E,"As Waterwall, except wall is 10'x20'x1' and can be curved up to a semicircle"
+11,Calm Water,100'R,C,10',F,All water within a 100'R is calmed. Waves are cut by 20' in the center of the area of effect (less towards the perimeter). This will negate the effects of currents in the area of effect
+13,Waterwall True,10'x10'x1',1 min/lvl,10',E,"As Waterwall, except has a set duration"
+15,Water Corridor III,300'x4'x50',C,10',F,"As Water Corridor I, except limit is 300'x4'x50' deep"
+17,Whirlpool,20'R(200'R),C,300',F,Creates a 20'R whirlpool that will draw in any unpowered objects up to 200' away. Powered objects may make a very hard movement manuever to resist the pull of the whirlpool
+18,Wave,(1'x10')/lvl,—,100',F,Creates a wave moving away from the caster. Wave is 1' high per level at the center and 10' per level wide
+19,Water Bubble,10'R,C,self,E,"Creates a bubble of air (10'R) around the caster and others. The bubble will carry them in up to 100' of water (air is resuscitated). The caster must concentrate to move the bubble (without concentration it will simply rise to the surface). At the end of the duration, the bubble will begin to rise to the surface. All objects inside the bubble will rise with it. After reaching the surface, the bubble will burst"
+20,Calm Water True,100'R/lvl,C,10',F,"As Calm Water, except radius is 100' per level and waves are cut by 50'"
+25,Water Corridor True,,C,10',E,"As Water Corridor, except limit is 100' per level x 6' x 100' deep"
+30,Water Bubble True,20'R,C,self,E,"As Water Bubble, except radius is 20' and there is no depth limitation"
+50,Water Mastery,varies,1 rnd/lvl,10'/lvl,U,"The caster can use one of the lower spells on this list each round, with a range of 10'/lvl. SPECIAL NOTES 1) Unless otherwise stated, after the duration of any spell above, the material returns to its natural state. For example, water boiled with the Boil Water spell will begin to cool after the duration of the spell. 2) Unless specifically stated, all of the spells on this list apply to any liquid (not just water). 3) See Section 7.1.13 for more information on walls and on boiling/freezing points. CLOSED MENTALISM 4.2.2 LIQUID MANIPULATION"

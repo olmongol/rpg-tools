@@ -1,1 +1,22 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Wounding I *,1 target,P,2',F,Causes d10 concussion hits of damage.
+2,Cramp *,1 target,P,2',F,Causes one muscle to cramp in the target. Target will be at 10% to activity per 10 failure.
+3,Bleeding I *,1 target,P,2',F,Target will bleed at the rate of 1 hit per round.
+4,Wounding III *,1 target,P,2',F,"As Wounding I, except does 3d10 concussion hits of damage."
+5,Sensory Damage I *,1 target,P,2',F,"One external sensory organ (eye, nose, ear, etc.) is damaged. Foe will operate without that organ until healed. In addition, he will have a 10 modification per 10 failure to all actions that partially use that organ (100 for all actions involving that organ directly)."
+6,Fracture *,1 target,P,2',F,One of target's limbs suffers a minor fracture.
+7,Bleeding III *,1 target,P,2',F,"As Bleeding I, except target bleeds for 3 hits per round."
+8,Wounding V *,1 target,P,2',F,"As Wounding I, except does 5d10 concussion hits of damage."
+9,Sensory Damage II *,1 target,P,2',F,"As Sensory Damage I, except 2 organs are affected."
+10,Paralysis *,1 target,P,2',F,The area touched by the caster on the target is paralyzed.
+11,Wounding VII *,1 target,P,2',F,"As Wounding I, except does 7d10 concussion hits of damage."
+12,Drain Soul I *,1 target,P,2',F,"Target is drained of d10 Temporary Constitution points. If target's Constitution drops to 0 or below, he becomes a Class I Created Undead."
+13,Energy Drain I *,1 target,C,2',F,"Target loses 1 hit per round that the caster concentrates (and remains within 2' of the target). As each point is drained, the caster is restored 1 point (up to his maximum)."
+14,Bleeding V *,1 target,P,2',F,"As Bleeding I, except target bleeds for 5 hits per round."
+15,Wounding X *,1 target,P,2',F,"As Wounding I, except does 10d10 concussion hits of damage."
+16,Energy Drain II *,1 target,P,2',F,"As Energy Drain I, except drains 2 hits per round."
+18,Drain Soul II *,1 target,P,2',F,"As Drain Soul I, except drains 2d10 points and target becomes a Class II Created Undead if Constitution drops to 0 (or below)."
+20,Wounding XV *,1 target,P,2',F,"As Wounding I, except does 15d10 concussion hits of damage."
+25,Drain Soul True *,1 target,P,2',F,"As Drain Soul I, except drains 1 point per level of the caster and target becomes a Class III Created Undead if Constitution drops to 0 (or below)."
+30,Bleeding True *,1 target,P,2',F,"As Bleeding I, except target bleeds for 1 hit for every 5 levels of the caster."
+50,Wounding True *,1 target,P,2',F,"As Wounding I, except target loses all his hits and takes an additional 1 hit for each level of the caster."

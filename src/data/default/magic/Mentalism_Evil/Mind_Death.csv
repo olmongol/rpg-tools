@@ -1,1 +1,21 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Mental Block I,1 target,varies,100',Fm,"The target's memory of a 20 minute period is blanked. After a period of up to 1 hour (specified by the caster at the time of casting), the target will remember all that transpired during the period."
+2,Forget I,1 target,P,100',Fm,"Target forgets 10 contiguous minutes totally, caster's choice."
+3,Mind Blank I,1 target,1 round,100',Fm,Target's mind is temporarily blank and he can do nothing. The target will remember nothing that occurs during the period. His body stops (all voluntary actions cease).
+5,Forget X,1 target,P,100',Fm,"As Forget I, except 100 minutes can be erased."
+6,Mental Block II,1 target,varies,100',Fm,"As Mental Block I, except up to 1 hour of memories can be delayed for up to 24 hours."
+7,Mind Blank III,1 target,3 rounds,100',Fm,"As Mind Blank I, except duration is 3 rounds."
+9,Lord Forget,1 target,P,100',Fm,"As Forget I, except 200 minutes can be erased."
+10,Mind Death I,1 target,P,100',Fm,"Target's mind is blanked as in Mind Blank I, at random, for 10 contiguous minutes each and every day."
+11,Lost Experience I,1 target,P,50',Fm,Target loses 5% of his collected experience (usually experience points).
+12,Mental Block True,1 target,varies,100',Fm,"As Mental Block I, except memories of up to 1 hour/level can be delayed for up to 1 day per level."
+13,Mind Blank V,1 target,5 rounds,100',Fm,"As Mind Blank I, except duration is 5 rounds."
+14,Forget True,1 target,P,100',Fm,"As Forget I, except 1 hour per level of the caster can be erased."
+15,Mind Death II,1 target,P,100',Fm,"As Mind Death I, except the target blanks out twice per day."
+17,Mind Death III,1 target,P,100',Fm,"As Mind Death I, except the target blanks out three times per day."
+18,Mind Blank X,1 target,10 rounds,100',Fm,"As Mind Blank I, except duration is 10 rounds."
+19,Lost Experience II,1 target,P,50',Fm,"As Lost Experience I, except percentage lost is 10%."
+20,Mind Death V,1 target,P,100',Fm,"As Mind Death I, except target blanks out five times per day."
+25,Lost Experience III,1 target,P,50',Fm,"As Lost Experience I, except loss is 15%."
+30,Mind Death X,1 target,P,100',Fm,"As Mind Death I, except target blanks out ten times per day."
+50,Mind Blank True,1 target,P,100',Fm,"As Mind Blank I, except the target has a 5% chance of blanking out each round."

@@ -1,1 +1,20 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Leaping,caster,1 rnd,self,U,Allows caster to leap 50' laterally or 20' vertically
+2,Landing,caster,varies,self,U,"Allows caster to land safely in a fall up to 20' per level, and to take that distance off the severity of any longer fall"
+3,Levitation I,caster,1 min/lvl,self,U,Allows caster to move up and down vertically 10' per round. The spell does not provide a means for horizontal movement
+4,Wind Drift,caster,1 min/lvl,self,U,"Caster becomes weightless, but has no magical movement control. Weight gradually returns at the end of the duration"
+5,Underwater Movement,caster,10 min/lvl,self,U,Caster can take actions underwater as if on land
+6,Fly I,caster,1 min/lvl,self,U,"As Levitation I, except caster can fly at a rate of 15' per round (i.e., 1 mph)"
+7,Levitation V,caster,1 min/lvl,self,U,"As Levitation I, except rate is 50' per round"
+8,Long Dive,caster,—,self,U,"Caster can safely dive through the air up to 50' per level. At the end of the dive, the caster must land is water that is deep enough for the dive (at least 2' of water per 50' dived)"
+10,Merging,caster,10 min/lvl,self,U,"Caster can merge into any solid, inanimate material. While merged, the cster cannot move or perceive. When the caster emerges from the material, he can emerge from any side or face of the material. The caster cannot move ""through"" material greater in width than his own body size plus 2 feet. The caster can exit at any time up to 10 min/lvl"
+11,Fly II,caster,1 min/lvl,self,U,"As Fly I, except rate is 75' per round"
+12,Landing True,caster,—,self,U,"As Landing, except caster can land safely from any fall 99% of the time"
+13,Levitation XX,caster,1 min/lvl,self,U,"As Levitation I, except rate is 200' per round"
+14,Passing,caster,1 min/lvl,self,U,Caster can pass through any inanimate material up to 1' per level of the caster; it takes 1 round to pass through 2'
+15,Fly III,caster,1 min/lvl,self,U,"As Fly I, except rate is 300'/rnd"
+17,Great Merge,caster,10 min/lvl,self,U,"As Merging, except caster can turn within the material and can see outside if within 6"" of the surface"
+20,Merge True,caster,10 min/lvl,self,U,"As Great Merge, except caster can cast spells on himself while merged"
+25,Fly IV,caster,1 min/lvl,self,U,"As above, except rate is 400' per round"
+30,Passing True,caster,1 min/lvl,self,U,"As Passing, except caster can pass through as much material as the duration allows at a rate of 10' per round"
+50,Master of Movement,caster,1 min/lvl,self,U,"Caster may use the abilities of any one of the spells on this list each round. SPECIAL NOTES Unless otherwise stated, the amount of weight a caster can move is limited by both his level and his size. See Section 7.1.12 for the limitations on how much a caster can move with these spells. CLOSED MENTALISM 4.2.5 MOVEMENT"

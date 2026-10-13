@@ -1,1 +1,20 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Melt Ice,10 cu'/lvl,P,100',F,"For each level of the caster, he may melt up to 10 cubic feet of ice"
+2,Loosen Earth,100 cu',P,100',F,Loosens 100 cubic feet of earth to the consistency of plowed ground
+3,Erosions,100 cu'/lvl,P,100',F,"For each level of the caster, he causes a 100 cubic foot section of inorganic material to erode and deteriorate at 1,000 x normal rate"
+4,Cracks Call,10'x10'x10',P,100',F,"Any previous cracks or flaws in material up to 10'x10'x10' (not 1,000 cubic feet) section will extend to their limit. See Section 7.1.13"
+5,Undoor,"10'x10'x6""",P,10',F,"Will vaporize a non-magic door up to 6"" thick, 10' high, and 10' wide (if the door is thicker than 6"" it will vaporize the closest 6 inches). This will only work on an object that is used as a door (e.g., a caster cannot Undoor a section of wall)"
+6,Stone/Earth,100 cu',P,100',F,Changes 100 cubic feet of stone to packed earth. Change is gradual (taking 3 rounds for full effect)
+8,Earth/Mud,100 cu',P,100',F,"As Stone/Earth, except changes earth to soft mud"
+10,Corridor,3'x6'x1'/lvl,P,100',F,"Creates a 3'x6' corridor that is 1' per level long. It can cut through any non-metal, inorganic material. The corridor is created at a rate of 1' (length) per round as long as the caster concentrates"
+11,Shatter,1 cu',P,100',F,"Can shatter an inorganic object, up to 1 cubic foot. All within a 5'R take an 'A' Impact critical and holder takes a 'C'. Metal objects get a +30 RR modification"
+12,Unearth,100 cu',P,100',F,Disintegrates 100 cubic feet of earth
+13,Unstone,100 cu',P,100',F,"As Unearth, except affects stone"
+14,Undoor True,1 door,P,10',F,"As Undoor, except any single door is vaporized"
+15,Unmetal,1 cu',P,100',F,"As Unearth, except affects 1 cubic foot of metal"
+17,Long Solid Destruction,,varies,300',F,"As any single 10th level or lower spell on this list, except with a range of 300'"
+19,Crevasse,100'x10'x200',P,100',F,"Causes a large crack to open in the ground. The size of the crack will be up to 10' wide, up to 100' deep, and up to 200' long. The crack takes 2 rounds to open"
+20,Solid Destruction True,,P,100',F,"As Unearth, except it will disintegrate 1 cubic foot per level of the caster of any inanimate solid"
+25,Tremors,varies,1 rnd,100'/lvl,F,Causes a very minor earthquake which could cause shoddy construction to collapse (can be very terrifying). This is approximately 5.5 on the Richter scale
+30,Great Crack,varies,P,300',F,"Causes a large crevice to open in the ground (up to 10' per level deep, 1' per level wide and 20' per level long). The crevice takes 2 rounds to open. The caster can concentrate for 3 rounds to close the crevice"
+50,Quake,varies,varies,touch,F,"Caster can cause an earthquake, with the spot he touches as the epicenter. The quake can be delayed up to 1 rnd/ lvl. The severity of the quake on the Richter scale is determined by a d100 roll: (01-20) = 5.5, (21-45) = 6, (46-65) = 6.5, (66-80) = 7.0, (81-90) = 7.5, (91-95) = 8.0, (96-98) = 8.5, (99-100) = 9.0. SORCERER BASE LIST 3.7.5 SOLID DESTRUCTION"

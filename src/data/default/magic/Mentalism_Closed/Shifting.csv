@@ -1,1 +1,16 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Balance,caster,varies,self,U,"Adds +50 to any rolls for one slow moving maneuver (e.g., walking a 3"" beam, etc.)"
+2,Contraction,caster,C,self,U,"Allows caster to disjoint limbs, contract muscles, etc. to escape manacles/ropes and to slip through small places (+25 to +50 to Contortion maneuvers)"
+3,Face Shifting,caster,10 min/lvl,self,U,"Allows caster to alter the form of his face. The caster may specify a specific person, but the change will not be exact"
+5,Waterlungs,caster,1 min/lvl,self,U,"For the duration, the caster can breathe water but not air"
+7,Change to Kind,caster,10 min/lvl,self,U,"Caster can alter his form to the form of any desired humanoid race. The form cannot be a specific form. For example, a human caster could take on the form of a Dwarf, but the Dwarven king. Only physical form is gained (e.g., the target who becomes a Dwarf would not receive the Dwarves' ability to see in the dark). The caster can only alter his size by up to 25%. See Section 7.1.11"
+8,Gaslungs,caster,1 min/lvl,self,U,"As Waterlungs, except caster can breathe any gas as normal air"
+10,Greater Face Shifting,caster,1 hr/lvl,self,U,"As Face Shifting, except lasts 1 hour per level"
+11,Changing Lungs,caster,1 min/lvl,self,U,"As Waterlungs, except caster can breathe any air, water, and/or gas, at will"
+13,Change,caster,10 min/lvl,self,U,"As Change to Kind, except alteration can be to any organic form within 50% to 200% of the caster's current mass; does not confer any special abilities"
+15,Solid Form,caster,1 min/lvl,self,U,Caster becomes as if made of very dense stone (cannot move or cast spells)
+18,Shapechanging,caster,10 min/lvl,self,U,"As Change, except caster may assume a different form anytime during the spell. The change takes one round of concentration"
+20,Waterform,caster,1 min/lvl,self,U,"Caster takes the form of a liquid mass, able to seep through cracks as well as water. As a fluid, he can move through water at a rate of 10 mph. The caster may not cast spells while in this form"
+25,Mistform,caster,1 min/lvl,self,U,"Caster takes the form of a mist, able to fly at a rate of 20 mph. The caster may seep through cracks, extend himself to become virtually invisible, etc. The caster may not cast spells in this form"
+30,Form Master,caster,1 min/lvl,self,U,"As Waterform and Mistform, except the two forms are interchangeable at will. Changin from one form to another takes one round of concentration"
+50,Change Master,caster,1 min/lvl,self,U,"As Changing and Form Master, except all forms are interchangeable at will. Each change takes one round of concentration. The caster may vary his mass between 10% and 1000% of his own mass. SPECIAL NOTES See Section 7.1.11 for more on the abilities gained/retained when changing forms. CLOSED MENTALISM 4.2.7 SHIFTING"

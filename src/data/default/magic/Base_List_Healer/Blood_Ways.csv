@@ -1,0 +1,19 @@
+Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Clotting I,caster,---,self,Us,"Allows caster to stop bleeding on a wound that is bleeding 1 hit per round. For 1 hour, the caster may not be moved or bleeding will resume at prior rate."
+2,Cut Repair I,caster,P,self,Us,Allows caster to stop bleeding from one wound that is bleeding at a rate of 1 hit per round.
+3,Minor Vessel Repair,caster,P,self,Us,"Allows caster to completely mend a damaged minor blood vessel (a vessel that bleeds at up to 3 hits per round, not major arteries or veins)."
+4,Clotting V,caster,---,self,Us,"As Clotting I, except caster can stop bleeding in a wound that is bleeding up to 5 hits per round."
+5,Cut Repair III,caster,P,self,Us,"As Cut Repair I, except that caster can repair wound(s) that bleed(s) for up to 3 hits per round (total); three 1 hit per round wounds or one 3 hits per round wound or one 2 hits per round and one 1 hit per round wound can be healed."
+6,Major Vessel Repair I,caster,P,self,Us,"Allows caster to repair 1 damaged blood vessel of any size, including severed veins and arteries. Recovery time is 1-10 days (depending on severity of wound)."
+7,Joining \\textddagger *,caster,P,self,Us,"Allows caster to reattach severed limb. Also requires the use of Bone Ways, Muscle Ways, and Organ Ways Joining spells to restore limb to functional status. Limb will be fulling functional in 1-10 days."
+9,Mass Clotting,caster,---,self,Us,"As Clotting V, except caster can stop a bleeding in a wound that is bleeding a number of hits per round equal to his level. For example, a 9th lvl Healer could stop the bleeding in a wound that is bleeding 9 hits per round."
+10,Mass Cut Repair,caster,P,self,Us,"As Cut Repair III, except that caster can stop a number of hits per round equal to his level. For example, a 12th level Healer could stop bleeding wounds that were bleeding a total of 12 hits per round."
+11,Unclotting,caster,---,self,Us,"Allows caster to remove any one blood clot. This will counter Clotting Curse (on the Evil Cleric list, Curses). This spell has no effect on bleeding wounds that have clotted (i.e., "clots" in this sense apply only to internal blood clotting)."
+13,Major Vessel Repair III,caster,P,self,Us,"As Major Vessel Repair I, except caster can repair up to 3 veins and/or arteries."
+15,Joining True \\textddagger *,caster,P,self,Us,"As Joining, except caster must cast the other 3 Healer Joining True spells and recovery is instantaneous."
+17,Major Vessel Repair V,caster,P,self,Us,"As Major Vessel Repair I, except caster can repair up to 5 veins and/or arteries."
+19,Unclotting True,caster,---,self,Us,"As Unclotting, except all blood clots are removed."
+20,Regulations *,caster,varies,self,Us,"Caster can regulate his own blood flow and completely eliminate any blood loss without fear of harm. The duration of this spell is for as long as the caster is immobile. If the caster moves, the spell ends. For example, a Healer is bleeding for twenty-seven hits per round lies down and casts this spell. As long as he doesn’t move, he will not bleed and he may still cast other spells from this list (i.e., Cut Repair, etc.)."
+25,New Blood,caster,P,self,Us,Caster can restore all of the blood lost from his body. Recovery time is 1-10 hours.
+30,Blood Disease Cures,caster,P,self,Us,Caster can eliminate any blood disease from his body. Recovery time is 1-10 hours.
+50,Blood Repairs True,caster,1 rnd/lvl,self,Us,Caster can use any one of the lower spells on this list once per round.

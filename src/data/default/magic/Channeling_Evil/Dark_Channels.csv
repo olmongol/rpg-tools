@@ -1,1 +1,18 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+2,Dark Stunning *,1 target,1 rnd/5 fail,100',F,[RR Mod: 10] Caster points his arm (elbow locked and fist clenched) at the target and channels raw power source (usually a deity). The target is stunned.
+3,Channels I *,1 spell,—,varies,U,"When this spell is cast, the first level spell that the caster begins to cast the next round will be ""channeled"" to another spell user of the Channeling realm. The ""channeled"" spell is transmitted to the other spell user when it would normally take effect, and must be used by the receiving spell user immediately (i.e., the receiving spell user is now treated as the caster of the spell). All normal restrictions apply to the transmitted spell. The caster of the Channels spell must be able to see the receiver of the spell or know exactly where he is (direction and distance, or specific location). The receiver must know exactly when the spell is coming (though he need not know exactly what spell is coming). For example, if a Cleric was at a certain altar at midnight of a full moon ready to receive a spell; then another spell user who knew this could use Channels to send him a spell."
+5,Dark Sleep *,1 target,1 rnd/5 fail,100',F,"[RR Mod: 10] Caster points his arm (elbow locked and fist clenched) at the target and channels raw power source (usually a deity). The target falls into a deep, magical sleep."
+6,Channels III *,1 spell,—,varies,U,"As Channels I, except up to a third level spell may be transmitted."
+7,Channel Opening I,1 being,C,1 mile/lvl,U,Caster can make contact with any 1 known target he is acquainted with. This spell will enable the caster to learn the specific location (direction and distance only) of the other being. This spell is often used with Channels spell.
+8,Dark Blinding *,1 target,1 hr/10 fail,100',F,[RR Mod: 10] Caster points his arm (elbow locked and fist clenched) at the target and channels raw power source (usually a deity). The target is blinded.
+10,Black Channel I *,1 target,—,varies,F,Caster may cast one of the Black Channel I spells (see Section 7.1.23).
+11,Channels V *,1 spell,—,varies,U,"As Channels I, except up to a fifth level spell may be transmitted."
+13,Absolution *,1 target,1 week/10 fail,50',F,"[RR Mod: 20] Target's ""soul"" is torn from his body. The soul remains in whatever place ""souls"" go for the duration. The soul can be returned early only through Lifegiving. Target is unconscious until soul is restored. Even subconscious activity (healing, etc.) is performed with a 75 penalty."
+15,Black Channel II *,1 target,—,varies,F,"As Black Channel I, except a Black Channel II spell can be cast (see Section 7.1.23)."
+16,Channel Opening II,1 being,C,10 mile/lvl,U,"As Channeling Opening I, except for range."
+17,Channel VII *,1 spell,—,varies,U,"As Channels I, except up to a seventh level spell may be transmitted."
+19,Channel X *,1 spell,—,varies,U,"As Channels I, except up to a tenth level spell may be transmitted."
+20,Absolution Pure *,1 target,—,50',F,"As Absolution, except ""soul"" can only be brought back through Lifegiving."
+25,Black Channel III *,1 target,—,varies,F,"As Black Channel I, except a Black Channel III spell can be cast (see Section 7.1.23)."
+30,Dark Absolution *,1 target,—,50',F,"As Absolution Pure, except the ""soul"" is utterly destroyed."
+50,Unholy Gate,—,1 rnd,varies,U,"Opens a direct channel to the evil cleric's deity; results depend on the deity's personality, motives and powers. Any spell the deity can cast can be transmitted through the gate."

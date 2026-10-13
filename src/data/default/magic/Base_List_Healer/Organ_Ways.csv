@@ -1,1 +1,21 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Nasal Repair,caster,P,self,U,Caster can repair any nose damage short of complete nose loss
+2,Minor Nerve Repair,caster,P,self,U,Caster can repair any minor nerve damage in 1 area. Recovery time is 5-50 minutes
+3,Minor Ear Repair,caster,P,self,U,"Caster can repair any external ear damage, including ear loss (regeneration takes 5-50 minutes)"
+4,Minor Eye Repair,caster,P,self,U,"Caster can repair any minor eye damage (e.g., corneal scratch, removal of foreign object, etc.)"
+5,Major Nerve Repair,caster,P,self,U,"As Minor Nerve Repair, except caster can repair any 1 area of major nerve damage"
+6,Major Ear Repair,caster,P,self,U,"As Minor Ear Repair, except caster can also repair any internal ear damage (e.g., restore hearing). Recovery time is 1-10 hours"
+7,Joining,caster,P,self,U,"Allows caster to reattach severed limb. Also requires the use of Bone Ways, Muscle Ways, and Blood Ways Joining spells to restore limb to functional status. Limb will be fulling functional in 1-10 days"
+8,Major Eye Repair,caster,P,self,U,"As Minor Eye Repair, except caster can repair any eye damage short of complete eye loss. Recovery time is 1-10 hours"
+9,Minor Nerve Repair True,caster,P,self,U,"As Minor Nerve Repair, except that recovery is instantaneous"
+10,Organ Repair,caster,P,self,U,Caster can repair any damage to 1 organ (except the brain) that has not been completely destroyed. Recovery time is 1-10 hours
+12,Paralysis Cures,caster,P,self,U,Caster can cure any paralysis problem. Recovery time is 1-10 hours
+13,Mass Nerve Regeneration,caster,P,self,U,Caster can regenerate all the nerves in his body (outside brain area). Recovery time is 1-10 hours
+14,Major Nerve Repair True,caster,P,self,U,"As Major Nerve Repair, except that recovery is instantaneous"
+15,Joining True,caster,P,self,U,"As Joining, except caster must cast the other 3 Healer Joining True spells and recovery is instantaneous"
+17,Rapid Paralysis Cures,caster,P,self,U,"As Paralysis Cures, except recovery time is 5-50 hours"
+18,Rapid Mass Nerve Regeneration,caster,P,self,U,"As Mass Nerve Regeneration, except recovery time is 5-50 minutes"
+20,Brain Repair,caster,P,self,U,"Caster can repair brain damage (such as that caused by a skull fracture, etc. at the discretion of the GM). Experience lost by brain damage to the wounded being (the one from whom the damage is transfered) is not restored. Should the Healer have brain damage inflicted directly upon him (e.g., he is stuck in the head), he may suffer memory and/or experience loss. Recovery time is 1-10 hours"
+25,Organ Regeneration,caster,P,self,U,"Caster can regenerate any 1 organ (external or internal), but not the brain. Recovery time is 1-10 hours"
+30,Paralysis Cures True,caster,P,self,U,"As Paralysis Cures, except recovery is instantaneous"
+50,Reuniting,caster,P,self,U,"Caster may reunite his soul with his body, provided the body is functional. To restore a dead target to life, a Healer would first have to heal all of the target's wounds (without ""killing"" himself), and then restore the target's soul by giving up his own (for the target this process operates like the Lifegiving IV spell on the Cleric Base list, Life Mastery). While technically alive, but without his soul, the Healer would be affected as if he had been ""absolved"" (per Absolution Pure, on the Cleric Base List, Channels); thus, he could take no conscious actions and he would be at -75 for all subconscious actions. He may regain his own soul through the use of this spell or through someone else casting the appropriate spell. HEALER BASE LIST 2.7.5 ORGAN WAYS SPECIAL NOTES See Section 7.2 for more on healing"

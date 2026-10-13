@@ -1,1 +1,22 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Presence,10'R/lvl,C,self,U,Caster is aware of the presence of all sentient/ thinking beings within his range
+2,Feel I,1 target,—,10'/lvl,P,Caster gets general idea of the race and level of one being. The target must first be located by Presence or Presence True
+3,Mind Store,1 target,—,10'/lvl,P,"As Feel I, except caster stores mental pattern of target. This can be used with other spells (both on this list and others). The caster can only have as many patterns stored as the sum of his Memory and Presense temporary stats (not the bonuses). The caster can choose to release a stored pattern at any given time (the GM should require that a character keep track of all the patterns he has stored)"
+4,Transfer Mind Store,1 target,—,touch,U,"The caster can transfer a copy of any one Mind Stored person to another caster from the Mentalism realm (i.e., both casters now have the person stored). The target of this spell must know the Mind Store spell"
+5,Feel III,3 targets,—,10'/lvl,P,"As Feel I, except analyzes 3 targets at once (all targets must be within range)"
+6,Mind Typing,1 target,—,10'/lvl,P,"As Feel I, except caster learns race, profession, and level of target"
+7,Finding I,caster,C,100'/lvl,P,Caster gets direction and distance to any unshielded mind that he has a mental pattern of (from Mind Store)
+8,Direction I,caster,—,1000'/lvl Pm,,Caster gets direction to any unshielded mind which he has a mental pattern of (from Mind Store)
+9,Presence True,50'R,C,100'/lvl,P,Can get presences in one 50'R. The caster can concentrate on one 50'R area each round
+10,Awareness,caster,C,10'/lvl,P,"As Presence, plus a general knowledge of the target's actions. In a tactical situation, the caster can declare his actions after learning one of the target's actions for the round (and when he wants to perform the action). This does not prevent the target from changing his action (with the appropriate penalty for changing his action)"
+11,Direction II,,caster,—,1,"As above, except range is 1 mile per level"
+12,Long Feel,1 target,—,100'/lvl,P,"As Feel I, except that range is 100' per level"
+13,Feel V,5 targets,—,10'/lvl,P,"As Feel I, except analyzes 5 targets at once (all targets must be within range)"
+14,Mass Feel,1 target/rnd,C,10'/lvl,P,"As Feel I, except caster may ""feel"" one target per round"
+15,Mind Typing True,1 target,—,100'/lvl,P,"As Mind Typing, except range is 100' per level"
+18,Finding II,,caster,C,1,"As Finding I, except range is 1 mile per level"
+19,Feel X,10 targets,—,10'/lvl,P,"As Feel I, except analyzes 10 targets at once (all targets must be within range)"
+20,Awareness True,caster,C,10'/lvl,P,"As Awareness, except that caster learns all actions of the target"
+25,Finding III,,caster,C,5,"As Finding I, except range is 5 miles per level"
+30,Direction True,,caster,—,u,"As Direction I, except no range limitations"
+50,Finding True,,caster,C,u,"As Finding I, except no range limitations. MENTALIST BASE 4.4.5 PRESENCE"
