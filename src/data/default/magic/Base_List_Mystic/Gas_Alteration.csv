@@ -6,7 +6,7 @@ Lvl,Spell,Area of Effect,Duration,Range,Type,Description
 5,Air Stop I,10'R,C,touch,F,"Stops all generalized air movement (e.g., wind) up to 30 mph and cuts stronger winds by 30 mph"
 6,Fog X,100'R,1 min/lvl,10',F,"As Fog I, except the area of effect is 100'"
 7,Airwall True,10'x10'x3',1 min/lvl,10',E,"As Airwall, except has a fixed duration of 1 minute per level"
-8,Fire Bolt I,1 target,—,100',D,A bolt of fire is shot from the palm of the caster. Attack is resolved on the Fire Bolt Table (a fire source must be within 10')
+8,Fire Bolt I,1 target,—,100',DE,A bolt of fire is shot from the palm of the caster. Attack is resolved on the Fire Bolt Table (a fire source must be within 10')
 9,Vacuum B,5'R,—,100',F,"As Vacuum A, except results in a 'B' Impact critical"
 10,Air Stop V,50'R,C,touch,F,"As Airstop I, except the area of effect is 50'"
 11,Fog XXX,300'R,1 min/lvl,10',E,"As Fog I, except the area of effect is 300'"
@@ -14,7 +14,7 @@ Lvl,Spell,Area of Effect,Duration,Range,Type,Description
 13,Vacuum C,5'R,—,100',F,"As Vacuum A, except results in a 'C' Impact critical"
 14,Oxygenation,50'R,C,100',E,Creates a 50'R of high oxygen content air. All within receive a +20 bonus to their OBs and all fire attacks deal double damage
 15,Whirling Winds,10'R,C,touch,E,Creates a whirlwind about caster. The whirlwind moves with the caster and has a 10'R. No missile attacks can penetrate it and any movement or melee (except for caster's) into or through it is cut by 80%
-16,Firebolt III,1 target,—,300',D,"As Firebolt, except range is 300'"
+16,Firebolt III,1 target,—,300',DE,"As Firebolt, except range is 300'"
 17,Vacuum D,5'R,—,100',F,"As Vacuum A, except results in a 'D' Impact critical"
 19,Reverse Winds,100'R/lvl,C,100'/lvl,E,Allows the caster to change the direction of the wind within the radius
 20,Fog True,100'R/lvl,1 hr/lvl,10',E,"As Fog, except duration is 1 hour per level and area of effect is 100' per level"

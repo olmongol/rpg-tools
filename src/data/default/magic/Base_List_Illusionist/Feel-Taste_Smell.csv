@@ -1,14 +1,14 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
 1,Smell Mirage,10'R,10 min/lvl,100',E,Fills the area of effect with a set of immobile smells. The smells are real (no RR) and detecting that it is an illusion can normally only be accomplished through spells or the use of a sense other than sight
-2,Strike I,1 target,—,100',D,Target is struck with the equivalent of a bare fist (the attack is invisible unless combined with the visual sense in an Illusion or Phantasm). Treat as a Martial Arts Striking Rank I attack. Directed Spells skill may be developed for this attack
+2,Strike I,1 target,—,100',DE,Target is struck with the equivalent of a bare fist (the attack is invisible unless combined with the visual sense in an Illusion or Phantasm). Treat as a Martial Arts Striking Rank I attack. Directed Spells skill may be developed for this attack
 3,Taste Mirage,10'R,10 min/lvl,100',E,"As Smell Mirage, except a set of tastes can be created"
 4,Tear Cloud I,10'R,1 rnd/lvl,100',F,Creates a 10'R cloud of noxious gas that will stun anyone failing to resist (all targets must make a RR each round they are in cloud). The cloud drifts with the wind. Targets failing their RR are stunned for 1 round per 10 failure
 5,Feel Mirage I,10'R,10 min/lvl,100',E,"As Smell Mirage, except all the objects and surfaces in a 10'R can be made to feel differently than they really are. Striking an object or surface will cancel the spell for that object or surface only"
 6,Feel/Taste/Smell Glamour,1 object,1 day/lvl,50',E,"One object (up to 10 pounds per level) has either its taste, its smell, or the way its surface feels altered for the duration of the spell. Note that the visual aspects of the object do not change"
-7,Strike III,1 target,—,300',D,"As Strike I, except range is 300'"
+7,Strike III,1 target,—,300',DE,"As Strike I, except range is 300'"
 9,Tear Cloud II,20'R,1 rnd/lvl,100',F,"As Tear Cloud I, except radius is 20'"
 10,Feel Mirage III,10'R,10 min/lvl,100',E,"As Feel Mirage I, except objects with a feel mirage on them must be struck three times before the feeling is cancelled"
-11,Strike V,1 target,—,500',D,"As Strike I, except range is 500'"
+11,Strike V,1 target,—,500',DE,"As Strike I, except range is 500'"
 12,Feel Terrain,1000'R,1 day/lvl,100',E,"All of the terrain in the area of effect will feel differently than it actually does. The caster may designate in what way the terrain feels differently. For example, flat ground could be made to feel rocky; or rocky ground could be made to feel flat"
 13,Mass Smell/Taste,1 obj/lvl,1 rnd/lvl,10',E,As many objects as the caster's level can be given individual smells and tastes
 14,Tear Cloud V,50'R,1 rnd/lvl,100',F,"As Tear Cloud I, except radius is 50'"

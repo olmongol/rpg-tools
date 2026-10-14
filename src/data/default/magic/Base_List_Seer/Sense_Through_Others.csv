@@ -12,4 +12,4 @@ Lvl,Spell,Area of Effect,Duration,Range,Type,Description
 20,Animal Sense True,caster,C,1 mi/lvl,P,"As Animal Sense I, except the range is 1 mile/lvl"
 25,Sight Merge True,caster,C,1 mi/lvl,P,"As Sight Merge I, except the range is 1 mile per level of the caster"
 30,Sensory Merge II,caster,C,1 mi/lvl,P,"As Sensory Merge I, except the range is 1 mile per level"
-50,Sensory Merge True,,caster,C,u,"As Sensory Merge I, except the range is unlimited. SENSE THROUGH OTHERS"
+50,Sensory Merge True,,caster,C,U,"As Sensory Merge I, except the range is unlimited. SENSE THROUGH OTHERS"

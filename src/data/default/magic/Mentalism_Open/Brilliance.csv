@@ -4,7 +4,7 @@ Lvl,Spell,Area of Effect,Duration,Range,Type,Description
 3,Light I,10'R,10 min/lvl,touch,E,"Lights a 10'R area about the point touched. If the point is on a mobile object or being, it will move with the object/ being. See Section 7.1.19"
 4,Self Aura,caster,10 min/lvl,self,U,"Causes a bright aura about the caster, making him appear more powerful and subtracting 5 from all attacks"
 5,Light Eruption,10'R,—,100',F,[RR Mod: -10] Causes a 10'R sphere of intense light. All within are stunned for 1 round per 10 failure
-6,Shock Bolt,1 target,—,100',D,"A bolt of intense, charged light is shot form the palm of the caster. Results are determined on the Shock Bolt Attack Table"
+6,Shock Bolt,1 target,—,100',DE,"A bolt of intense, charged light is shot form the palm of the caster. Results are determined on the Shock Bolt Attack Table"
 7,Darkness,10'R,10 min/lvl,touch,E,"As Light, except a 10'R of normal darkness is created"
 8,True Aura,caster,10 min/lvl,self,U,"As Self Aura, except it makes him appear extremely powerful and subtracts 15 from all attacks"
 10,Light V,50'R,10 min/lvl,touch,E,"As Light I, except radius is 50'"
@@ -16,5 +16,5 @@ Lvl,Spell,Area of Effect,Duration,Range,Type,Description
 19,Utterdark,,,,,"Darkens a 100'R, no non-magical light can exist in the area and magic light (except for Utterlight) must make a RR or it is canceled"
 20,Sunfires,,,,,"Focuses sunlight as a lens, must be focused initially on a fixed point. After 1 round it can be moved at a rate of 1' per round. It will burn through a 1' diameter at a rate of 1' per round (for wood), 4"" per round (for stone), or 1"" per round (for metal). This spell cannot be used effectively in combat (as foes can easily move out of the way). However, if used on an immobile foe, see Hand of Fire for damage resolution process"
 25,Sunfires True,1 point,C,500',E,"As Sunfires, except doesn't need sunlight"
-30,Hand of Fire,1 point,1 rnd/lvl,"6""",D,"As Sunfires, except the range and focus is 6"" from open palm of caster (caster's arm is immune) and it can be moved 10' per round. It can be used in melee; striking on the Fire Bolt Attack Table (deliver double concussion hits) with an OB equal to (30 + caster's directed spell skill bonus with Hand of Fire). If the attack is fumbled (01-02 UM), the caster takes an automatic 'C' Heat Critical"
-50,Hand of Fire True,1 point,C,"6""",D,"As Hand of Fire, except doesn't need sunlight. SPECIAL NOTES None of the Aura spells(Self Aura and True Aura) are cumulative with each other or with the Blur spell. OPEN MENTALISM 4.1.3 BRILLIANCE"
+30,Hand of Fire,1 point,1 rnd/lvl,"6""",DE,"As Sunfires, except the range and focus is 6"" from open palm of caster (caster's arm is immune) and it can be moved 10' per round. It can be used in melee; striking on the Fire Bolt Attack Table (deliver double concussion hits) with an OB equal to (30 + caster's directed spell skill bonus with Hand of Fire). If the attack is fumbled (01-02 UM), the caster takes an automatic 'C' Heat Critical"
+50,Hand of Fire True,1 point,C,"6""",DE,"As Hand of Fire, except doesn't need sunlight. SPECIAL NOTES None of the Aura spells(Self Aura and True Aura) are cumulative with each other or with the Blur spell. OPEN MENTALISM 4.1.3 BRILLIANCE"

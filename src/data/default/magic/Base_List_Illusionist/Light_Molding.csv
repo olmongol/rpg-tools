@@ -3,7 +3,7 @@ Lvl,Spell,Area of Effect,Duration,Range,Type,Description
 2,Projected Light,50' beam,10 min/lvl,self,E,"Beam of light (like a flashlight) springs from the caster's palm. This light has a 50' effective range. If the caster closes his fist, the light will ""turn off;"" when the fist is opened, the light will come back on (so long as the duration of the spell has not expired)"
 3,Light Control I,10'R,C,10',E,"Caster can control the intensity of light within the area of effect. The intensity can vary from daylight to darkness (natural), and it can be different in different parts of the radius"
 4,Sudden Light,10'R,—,100',E,Causes a 10'R burst of intense light. All those in the area of effect are stunned 1 round per 5 failure
-5,Shock Bolt I,1 target,—,100',D,"A bolt of intense, charged light is shot from the palm of the caster. Attack is resolved on the Shock Bolt Attack Table"
+5,Shock Bolt I,1 target,—,100',DE,"A bolt of intense, charged light is shot from the palm of the caster. Attack is resolved on the Shock Bolt Attack Table"
 6,Light Glamour,1 object,1 day/lvl,50',E,One object (up to 10 pounds per level) has visual appearance altered for the duration of the spell. Note that the no other aspect of the object changes
 9,Blind,1 target,1 rnd/5 fail,100',F,Creates an area of darkness about the target's head that blinds him. It may be dispelled or cancelled by Utterlight. The area of effect moves with the target
 10,Light Control V,50'R,C,50',E,"As Light Control I, except area affected is 50'R"
@@ -12,9 +12,9 @@ Lvl,Spell,Area of Effect,Duration,Range,Type,Description
 13,Beacon I,1 mile,1 min/lvl,self,E,A ray of light (any color) springs from caster's palm. This ray can be up to 1 mile long
 14,Utterdark,100'R,1 min/lvl,100',E,"Darkens a 100'R area, no non-magic light can exist and magic light (except Utterlight) must make an RR)"
 15,Light Control X,100'R,C,100',E,"As Light Control I, except area affected is 100'R"
-16,Shock Bolt III,1 target,—,300',D,"As Shock Bolt I, except range is 300'"
+16,Shock Bolt III,1 target,—,300',DE,"As Shock Bolt I, except range is 300'"
 18,Beacon V,5 miles,1 min/lvl,self,E,"As Beacon I, except ray can be up to 5 miles long"
-20,Lightning Bolt I,1 target,—,100',D,"As Shock Bolt, except a Lightning Bolt is shot. Resolve attack on the Lightning Bolt Attack Table"
+20,Lightning Bolt I,1 target,—,100',DE,"As Shock Bolt, except a Lightning Bolt is shot. Resolve attack on the Lightning Bolt Attack Table"
 25,Greater Light Control,500'R,C,500',E,"As Light Control I, except area affected is 500'R"
-30,Lightning Bolt III,1 target,—,300',D,"As Lightning Bolt I, except range is 300'"
+30,Lightning Bolt III,1 target,—,300',DE,"As Lightning Bolt I, except range is 300'"
 50,Light Control True,100'R/lvl,C,100'/lvl,E,"As Light Control I, except area affected is 100'R/lvl. SPECIAL NOTE See Section 7.1.27 for more information on illusions, mirages, etc. ILLUSIONIST BASE LIST 3.3.4 LIGHT MOLDING"

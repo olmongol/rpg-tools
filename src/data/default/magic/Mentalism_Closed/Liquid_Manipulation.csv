@@ -6,7 +6,7 @@ Lvl,Spell,Area of Effect,Duration,Range,Type,Description
 6,Waterwall,10'x10'x1',C,10',E,Creates a 10'x10'x1' wall of churning water (a water source must be within 10'). All attacks through the wall suffer a -80 penalty. All movement through the wall is reduced by 80%
 7,Evaporation,1 cu'/lvl,P,2',E,"As Boil Water, except all the liquid is evaporated at a rate of 1 cubic foot per round of concentration"
 8,Water Corridor I,100'x3'x10',C,10',F,"Creates a corridor through liquid up to 100' long, 3' wide, and 10' deep (must be open at the top)"
-9,Water Bolt,1 target,—,100',D,A bolt of water is shot from the palm of the caster (a water source must be within 10'). Attack results are determined on the Water Bolt Attack Table
+9,Water Bolt,1 target,—,100',DE,A bolt of water is shot from the palm of the caster (a water source must be within 10'). Attack results are determined on the Water Bolt Attack Table
 10,Curved Waterwall,10'x20'x1',C,touch,E,"As Waterwall, except wall is 10'x20'x1' and can be curved up to a semicircle"
 11,Calm Water,100'R,C,10',F,All water within a 100'R is calmed. Waves are cut by 20' in the center of the area of effect (less towards the perimeter). This will negate the effects of currents in the area of effect
 13,Waterwall True,10'x10'x1',1 min/lvl,10',E,"As Waterwall, except has a set duration"

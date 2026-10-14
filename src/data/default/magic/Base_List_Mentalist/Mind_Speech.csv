@@ -16,7 +16,7 @@ Lvl,Spell,Area of Effect,Duration,Range,Type,Description
 16,Waiting Tongue,10'R,varies,100',F,"A 25-word mental message can be delayed. The triggering area must be no larger than 10'R and the trigger can be any of the following: a fixed time period up to 24 hours, specified movements, specified sounds, touch, reading, or by a specific Mind Stored person entering the area"
 17,Prepare Mind True,caster,C,self,U,"As Prepare Mind I, except range is increased by 1,000 times"
 18,Mind Tongue IV,caster+1 tgt,C,1 mile,F,"As Mind Tongue I, except range is 1 mile"
-19,Friend Speech True,,100'R,C,s,"As Friend Speech, except area of effect is 100'R"
+19,Friend Speech True,,100'R,C,U,"As Friend Speech, except area of effect is 100'R"
 20,Mind Speech True,2000'R,C,self,F,"As Mind Speech I, except area of effect is 2,000'R"
 25,Mind Tongue True,,C,1 mile/lvl Fm,,"As Mind Tongue I, except range is 1 mile per level"
 30,Waiting Speech,varies,varies,self,F,"As Waiting Tongue, except it is broadcast to all within a 300'R"
