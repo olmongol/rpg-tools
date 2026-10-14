@@ -1,18 +1,18 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
-1,Empathy,1 target/rnd,1 rnd/lvl (C),10',P,Caster learns target's basic feelings. The caster can concentrate on a new target each round
-2,Read Emotions,1 target/rnd,1 rnd/lvl (C),50',P,Caster learns target's emotions in detail. The caster can concentrate on a new target each round
-3,Merge With Mentalist,C,touch,U,,Allows two Mentalism spell users to communicate mentally and exchange power points
+1,Empathy,1 target/rnd,1 rnd/lvl (C),10',Pm,Caster learns target's basic feelings. The caster can concentrate on a new target each round
+2,Read Emotions,1 target/rnd,1 rnd/lvl (C),50',Pm,Caster learns target's emotions in detail. The caster can concentrate on a new target each round
+3,Merge With Mentalist,C,touch,U,U,Allows two Mentalism spell users to communicate mentally and exchange power points
 4,Focus Merge,caster,C,self,U,"When cast before (within 1 minute) a Mind Merge or a Ready Merge spell, this spell allows the caster to focus on a specific person as the target (that he has Mind Stored the person)"
-5,Thoughts,1 target/rnd,1 rnd/lvl (C) 100',Fm,,Caster receives surface thoughts from target. If target makes his RR by more than 25 he realizes that someone is trying to read his thoughts.. The caster can concentrate on a new target each round
+5,Thoughts,1 target/rnd,1 rnd/lvl (C) 100',Fm,Fm,Caster receives surface thoughts from target. If target makes his RR by more than 25 he realizes that someone is trying to read his thoughts.. The caster can concentrate on a new target each round
 6,Mind Merge I,caster+1 tgt,C,touch,U,"Allows caster and target to interchange thoughts; if both are Mentalism spell users they can interchange power points. They must be able to see each other or the caster must know the exact location of the target or the caster must use Focus Merge to locate the target (in all cases, the target must be within range)"
 7,Prepare Merge,caster,C,self,U,"The caster prepares himself to be the target of a Mind Merge or Ready Merge spell, thus, increases the range of the ""incoming"" spell. The increased range is equal to the original range times the number of Power Points used to cast the Prepare Merge spell (e.g., if a caster uses 18 Power Points, the range is 18x normal)"
 8,Mind Merge II,caster+1 tgt,C,100',U,"As Mind Merge I, except range is 100'"
-10,Inner Thoughts,1 target/rnd,1 rnd/lvl,100',F,"As in Thoughts, except caster also learns reasoning and thought patterns behind surface thoughts"
+10,Inner Thoughts,1 target/rnd,1 rnd/lvl,100',Fm,"As in Thoughts, except caster also learns reasoning and thought patterns behind surface thoughts"
 11,Ready Merge,caster+1 tgt,C,100'/lvl,U,"As in Mind Merge I, except for range and caster and target must have Merged before and it is instantaneous"
-13,Mind Switch,caster+1 tgt,1 day,touch,F,"Target and caster switch minds and spell casting abilities. Target (in caster's body) is in a coma if he is not also a Mentalist. If the target is unwilling, he may make a new RR every hour"
-15,Mind Scan,,1 target/rnd,1 rnd/lvl (C) 100',F,"As in Inner Thoughts, except caster can also scan target's conscious memories, at a rate of 1 scene every round"
+13,Mind Switch,caster+1 tgt,1 day,touch,Fm,"Target and caster switch minds and spell casting abilities. Target (in caster's body) is in a coma if he is not also a Mentalist. If the target is unwilling, he may make a new RR every hour"
+15,Mind Scan,,1 target/rnd,1 rnd/lvl (C) 100',Fm,"As in Inner Thoughts, except caster can also scan target's conscious memories, at a rate of 1 scene every round"
 18,Mind Merge True,caster+1 tgt,C,50'/lvl,U,"As Mind Merge I, except for range and caster must know the exact location of the target mentally or through some other means"
-20,Mind Probe,,1 target/rnd,1 rnd/lvl (C) 100',F,"As in Mind Scan, except caster can probe target's subconscious memories (i.e., all experiences)"
-25,Mind Switch True,caster+1 tgt,varies,touch,F,"As in Mind Switch, except lasts until the caster decides to return to his own body"
-30,Thought Steal,,1 target,1 rnd/lvl(C) 100',F,Caster can remove one thought or memory from the target's mind each round
-50,Ready Merge True,,C,unlimited U,,"As in Ready Merge, except range is unlimited. MENTALIST BASE 4.4.3 MIND MERGE"
+20,Mind Probe,,1 target/rnd,1 rnd/lvl (C) 100',Fm,"As in Mind Scan, except caster can probe target's subconscious memories (i.e., all experiences)"
+25,Mind Switch True,caster+1 tgt,varies,touch,Fm,"As in Mind Switch, except lasts until the caster decides to return to his own body"
+30,Thought Steal,,1 target,1 rnd/lvl(C) 100',Fm,Caster can remove one thought or memory from the target's mind each round
+50,Ready Merge True,,C,unlimited U,U,"As in Ready Merge, except range is unlimited. MENTALIST BASE 4.4.3 MIND MERGE"

@@ -20,4 +20,4 @@ Lvl,Spell,Area of Effect,Duration,Range,Type,Description
 20,Vision True,caster,10 min/lvl,self,U,As all lower level Vision True spells functioning at the same time
 25,Mentalist Ear True,,caster,1 min/lvl(C)1 mi/lvl,U,"As Mentalist Ear, except range is 1 mile per level"
 30,Mentalist Eye True,,caster,1 min/lvl(C)1 mi/lvl,U,"As Mentalist Eye, except range is 1 mile per level"
-50,Sensory Merge,,caster,C,F,"Caster can ""merge"" his senses with those of a subject whose exact location is known. Exact location can be established through a prior arrangement. If target of spell is not at the specified location, the PPs for this spell are still expended. CLOSED MENTALISM 4.2.6 SENSE MASTERY"
+50,Sensory Merge,,caster,C,Fm,"Caster can ""merge"" his senses with those of a subject whose exact location is known. Exact location can be established through a prior arrangement. If target of spell is not at the specified location, the PPs for this spell are still expended. CLOSED MENTALISM 4.2.6 SENSE MASTERY"

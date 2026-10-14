@@ -1,22 +1,22 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
 1,Jolts I,1 target,1 rnd/10 fail 100',Fm,,Target is stunned
 2,Hesitation,1 target,1 rnd/10 fail 100',Fm,,Target hesitates in any nondefensive action. He suffers a -20 to initiative rolls and he must parry with at least half of his OB
-3,Minor Pain,1 target,—,100',F,"Target takes 25% of his remaining concussion hits (i.e., those not already taken)"
-4,Shock A,1 target,—,100',F,Target takes an 'A' Electricity critical strike
+3,Minor Pain,1 target,—,100',Fm,"Target takes 25% of his remaining concussion hits (i.e., those not already taken)"
+4,Shock A,1 target,—,100',Fm,Target takes an 'A' Electricity critical strike
 5,Jolts III,1 target,3 rnd/10 fail 100',Fm,,"As Jolts I, except for duration"
 7,Paralyze I,1 target,1 rnd/10 fail 100',Fm,,Target is paralyzed
 8,Shock B,1 target,—,100',F,"As Shock A, except Electricity critical is a 'B'"
-9,Major Pain,1 target,—,100',F,"As Minor Pain, except 50% of remaining concussion hits are taken"
+9,Major Pain,1 target,—,100',Fm,"As Minor Pain, except 50% of remaining concussion hits are taken"
 10,Mind Shout I,10'R,1 rnd/10 fail,self,F,"Everyone within the area of effect is a target, all failing to resist are stunned"
 11,Jolts V,,1 target,5 rnd/10 fail 100',F,"As Jolts I, except for duration"
 12,Paralyze III,,1 target,3 rnd/10 fail 100',F,"As Paralyze I, except duration is 3 rounds per 10 failure"
-13,Shock C,1 target,—,100',F,"As Shock A, except Electricity critical is a 'C'"
-15,Mind Shout II,50'R,1 rnd/10 fail,self,F,"As Mind Shout I, except area of effect is 50'R"
-16,Shock D,1 target,—,100',F,"As Shock A, except Electricity critical is a 'D'"
+13,Shock C,1 target,—,100',Fm,"As Shock A, except Electricity critical is a 'C'"
+15,Mind Shout II,50'R,1 rnd/10 fail,self,Fm,"As Mind Shout I, except area of effect is 50'R"
+16,Shock D,1 target,—,100',Fm,"As Shock A, except Electricity critical is a 'D'"
 17,Paralyze V,,1 target,5 rnd/10 fail 100',F,"As Paralyze I, except duration is 5 rounds per 10 failure"
 18,Jolts X,,1 target,10 rnd/10 fail 100',F,"As Jolts I, except for duration"
 19,Mind Shout III,varies,1 rnd/10 fail,self,F,"As Mind Shout I, except area of efect is 100'R"
-20,Shock E,1 target,—,100',F,"As Shock A, except Electricity critical is an 'E'"
+20,Shock E,1 target,—,100',Fm,"As Shock A, except Electricity critical is an 'E'"
 25,Great Shout,50'R,1 rnd/10 fail,self,F,"As Mind Shout I, except area of effect is 50'R and any target failing by more than 50 is unconscious for eight hours"
 30,Mind Shout True,300'R,1 rnd/10 fail,self,F,"As Mind Shout I, except area of effect is 300'R"
-50,Shout True,50'R,varies,self,F,"As Mind Shout (50'R), except targets failing by 1-50 are unconscious, and targets failing by more than 50 are dead. RRs for Mentalism spell users are modified by -20. MENTALIST BASE 4.4.1 MIND ATTACK"
+50,Shout True,50'R,varies,self,Fm,"As Mind Shout (50'R), except targets failing by 1-50 are unconscious, and targets failing by more than 50 are dead. RRs for Mentalism spell users are modified by -20. MENTALIST BASE 4.4.1 MIND ATTACK"

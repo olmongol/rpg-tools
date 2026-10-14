@@ -1,11 +1,11 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
-1,Telekinesis I,1 lb,1 min/lvl (C) 100',F,,"Caster can move one object, up to 1 pound in mass, up to 1' per second (with no acceleration). If the caster stops concentration before the duration is up, the object remains stationary as if it had a Staying spell with an equal weight limit cast upon it"
+1,Telekinesis I,1 lb,1 min/lvl (C) 100',F,F,"Caster can move one object, up to 1 pound in mass, up to 1' per second (with no acceleration). If the caster stops concentration before the duration is up, the object remains stationary as if it had a Staying spell with an equal weight limit cast upon it"
 2,Staying II,5 lbs,1 min/lvl,100',F,Exerts 5 pounds of pressure on a person or object. Object cannot be moved by Staying alone and pressure can only be in one direction
-3,Telekinesis II,5 lbs,1 min/lvl (C) 100',F,,"As Telekinesis I, except mass limit is 5 pounds"
+3,Telekinesis II,5 lbs,1 min/lvl (C) 100',F,F,"As Telekinesis I, except mass limit is 5 pounds"
 4,Staying III,25 lbs,1 min/lvl,100',F,"As Staying II, except pressure limit is 25 pounds"
 5,Greater Staying II,varies,1 min/lvl,varies,F,"As Staying II, except 2 objects may be affected with 5 pounds total pressure or Staying II can be used to 200'"
-6,Greater Telekinesis II,varies,1 min/lvl (C) varies,F,,"As Telekinesis I, except 2 objects of 5 pounds total mass may be moved or Telekinesis I can be used at 200'"
-7,Telekinesis III,25 lbs,1 min/lvl (C) 100',F,,"As Telekinesis I, except mass limit is 25 pounds"
+6,Greater Telekinesis II,varies,1 min/lvl (C) varies,F,F,"As Telekinesis I, except 2 objects of 5 pounds total mass may be moved or Telekinesis I can be used at 200'"
+7,Telekinesis III,25 lbs,1 min/lvl (C) 100',F,F,"As Telekinesis I, except mass limit is 25 pounds"
 8,Staying IV,50 lbs,1 min/lvl,100',F,"As Staying II, except pressure limit is 50 pounds"
 9,Telekinesis IV,,50 lbs,1 min/lvl (C) 100',F,"As Telekinesis I, except mass limit is 50 pounds"
 10,Hurling I,1 lb,—,10',E,"Caster may ""hurl"" one object (that starts within 10' of him) of 1 pound or less with sufficient force to deliver an attack on the Sling Attack Table with a maximum range of 300' (see Arms Law). The caster's OB will equal his directed spell skill with this spell. If Arms Law is not available, use the Shock Bolt Attack Table (with a maximum range of 300') with Impact Critical results"

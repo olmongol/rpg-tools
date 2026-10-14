@@ -1,5 +1,5 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
-2,Clot I,caster,varies,self,U,"Clots wound to reduce bleeding (i.e., hits per round damage) by one as long as caster concentrates or is immobile. This effect is permanent after hour. If caster is unconscious, with spell will concentrate without concentration"
+2,Clot I,caster,varies,self,Us,"Clots wound to reduce bleeding (i.e., hits per round damage) by one as long as caster concentrates or is immobile. This effect is permanent after hour. If caster is unconscious, with spell will concentrate without concentration"
 4,Clot III,caster,varies,self,U,"As Clot I, except bleeding is reduced by up to 3 hits per round"
 5,Pain Relief I,caster,C,self,U,"Heals 1 hit per minute for as long as the caster concentrates. If caster is unconscious, this spell will operate without concentration"
 6,Fracture Repair,caster,varies,self,U,Concentrating with this spell for 2 hours will repair a broken bone (though not a shattered or destroyed bone)
@@ -8,10 +8,10 @@ Lvl,Spell,Area of Effect,Duration,Range,Type,Description
 10,Minor Nerve Repair,caster,varies,self,U,Repairs minor damage to one nerve. Requires a 1 day recovery period. Minor damage is defined as any nerve damage that results in penalties up to -20
 11,Eye/Ear Repair,caster,varies,self,U,"Concentrating with this spell for 2 hours per day for 1-10 days (depending on the severity) will repair any external damage to the caster's ear (including ear loss) or eye (including corneal scratches, removal of foreign objects, etc.)"
 12,Vein/Artery Repair,caster,varies,self,U,"As Fracture Repair, except repairs a vein or an artery"
-13,Pain Relief II,caster,C,self,U,"As Pain Relief I, except 2 hits per minute are healed"
-15,Self Keeping,caster,varies,self,U,"Upon receiving a death blow, the caster goes into a state of suspended animation. The caster will remain in this state until he is cured or his brain is destroyed"
-17,Self Joining,caster,varies,self,U,Allows caster to reattach a severed limb; limb is fully functional after 1-10 days (caster must concentrate with this spell 2 hours each day)
-20,Pain Relief True,caster,C,self,U,"As Pain Relief I, except heals 1 hit per round"
+13,Pain Relief II,caster,C,self,Us,"As Pain Relief I, except 2 hits per minute are healed"
+15,Self Keeping,caster,varies,self,Us,"Upon receiving a death blow, the caster goes into a state of suspended animation. The caster will remain in this state until he is cured or his brain is destroyed"
+17,Self Joining,caster,varies,self,Us,Allows caster to reattach a severed limb; limb is fully functional after 1-10 days (caster must concentrate with this spell 2 hours each day)
+20,Pain Relief True,caster,C,self,Us,"As Pain Relief I, except heals 1 hit per round"
 25,Limb Regeneration,caster,varies,self,U,Concentrating with this spell for 2 hours per day for 10-100 days will regenerate a limb
 30,Organ Regeneration,caster,varies,self,U,"After any organ (except brain) is destroyed, the caster may use Self Keeping and this spell. The organ is regenerated after 10-100 days of complete inactivity"
-50,Regeneration True,caster,varies,self,U,"As Organ Regeneration, except all damage (except brain) is regenerated in 10-100 days. SPECIAL NOTES See Section 7.2 for more on healing. OPEN MENTALISM 4.1.9 SELF HEALING"
+50,Regeneration True,caster,varies,self,Us,"As Organ Regeneration, except all damage (except brain) is regenerated in 10-100 days. SPECIAL NOTES See Section 7.2 for more on healing. OPEN MENTALISM 4.1.9 SELF HEALING"

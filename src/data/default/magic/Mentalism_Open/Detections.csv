@@ -6,7 +6,7 @@ Lvl,Spell,Area of Effect,Duration,Range,Type,Description
 5,Detect Invisible,5'R,1 min/lvl (C),50',P,"As Detect Mentalism, except detects all invisible things; all attacks against something so detected are at -50. See Section 7.1.10"
 6,Detect Evil,5'R,1 min/lvl (C),50',P,"As Detect Mentalism, except detects if a being is evil or an item created by evil or long used by a very evil person"
 7,Detect Traps,5'R,1 min/lvl (C),50',P,"As Detect Mentalism, except that it gives a 75% chance of detecting a trap (trap sophistication modifiers may reduce or enhance this chance). See Section 7.1.29"
-8,Perceive Power I,,,,,"As Detect Mentalism, except it will give an estimate of the power (i.e., level) of the person or item or spell examined"
+8,Perceive Power I,,,,P,"As Detect Mentalism, except it will give an estimate of the power (i.e., level) of the person or item or spell examined"
 10,Power Typing,5'R,1 min/lvl (C),50',P,"As Detect Mentalism, except it analyzes general spell type (in item or cast) and what list is was cast from. In the case of a person it gives the person's profession"
 11,Perceive Power II,,10'R,1 min/lvl (C) 100',P,"As Perceive Power I, except range is 100' and area is 10'R"
 13,See Invisible,5'R,1 min/lvl (C),50',P,"As Detect Invisible, except caster can see invisible things anywhere he can normally see. In addition, his attacks suffer no penalties against invisible targets he can see"

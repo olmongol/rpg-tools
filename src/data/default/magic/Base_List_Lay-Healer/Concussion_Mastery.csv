@@ -1,22 +1,22 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
-1,Healing I,1 target,P,touch,U,Target is healed of d10 concussion hits
-2,Stun Relief I,1 target,—,touch,U,Target is relieved of 1 round's worth of accumulated stun. See Section 7.1.1
-3,Frost/Burn Relief I,1 target,—,touch,U,Target is healed of one area of up to mild frostbite or 1st degree burns
-4,Regeneration I,1 target,C,touch,U,Will reduce damage target has by 1 hit every minute as long as the caster concentrates. If caster is unconscious this spell will operate without concentration. See Section 7.1.1 for more on unconscious spells
-5,Awakening,1 target,—,touch,U,Target is instantly awake
-6,Frost/Burn Relief II,1 target,—,touch,U,"As Frost/Burn Relief I, except heals 2 areas of mild damage or 1 area of moderate damage (e.g., 2nd degree burn)"
-7,Healing V,1 target,P,touch,U,"As Healing I, except heals 5d10 hits"
-8,Stun Relief III,1 target,—,touch,U,"As Stun Relief I, except 3 rounds of stun effects are relieved"
-9,Frost/Burn Relief III,1 target,—,touch,U,"As Frost/Burn Relief I, except heals 3 areas of mild damage or 1 area of severe damage (e.g., 3rd degree burn) or combination of 1 mild and 1 moderate area"
-10,Regeneration II,1 target,C,touch,U,"As Regeneration I, except damage reduction is 2 hits per minute"
-11,Healing X,1 target,P,touch,U,"As Healing I, except heals 10d10 hits"
-12,Frost/Burn Relief IV,1 target,—,touch,U,"As Frost/Burn Relief I, except heals 4 mild or2 moderate or 1 mild and 1 severe or 2 mild and 1 moderate area(s) of damage"
-13,Stun Relief V,1 target,—,touch,U,"As Stun Relief I, except target is relieved of 5 rounds of accumulated stun effects"
+1,Healing I,1 target,P,touch,Us,Target is healed of d10 concussion hits
+2,Stun Relief I,1 target,—,touch,Us,Target is relieved of 1 round's worth of accumulated stun. See Section 7.1.1
+3,Frost/Burn Relief I,1 target,—,touch,Us,Target is healed of one area of up to mild frostbite or 1st degree burns
+4,Regeneration I,1 target,C,touch,Us,Will reduce damage target has by 1 hit every minute as long as the caster concentrates. If caster is unconscious this spell will operate without concentration. See Section 7.1.1 for more on unconscious spells
+5,Awakening,1 target,—,touch,Us,Target is instantly awake
+6,Frost/Burn Relief II,1 target,—,touch,Us,"As Frost/Burn Relief I, except heals 2 areas of mild damage or 1 area of moderate damage (e.g., 2nd degree burn)"
+7,Healing V,1 target,P,touch,Us,"As Healing I, except heals 5d10 hits"
+8,Stun Relief III,1 target,—,touch,Us,"As Stun Relief I, except 3 rounds of stun effects are relieved"
+9,Frost/Burn Relief III,1 target,—,touch,Us,"As Frost/Burn Relief I, except heals 3 areas of mild damage or 1 area of severe damage (e.g., 3rd degree burn) or combination of 1 mild and 1 moderate area"
+10,Regeneration II,1 target,C,touch,Us,"As Regeneration I, except damage reduction is 2 hits per minute"
+11,Healing X,1 target,P,touch,Us,"As Healing I, except heals 10d10 hits"
+12,Frost/Burn Relief IV,1 target,—,touch,Us,"As Frost/Burn Relief I, except heals 4 mild or2 moderate or 1 mild and 1 severe or 2 mild and 1 moderate area(s) of damage"
+13,Stun Relief V,1 target,—,touch,Us,"As Stun Relief I, except target is relieved of 5 rounds of accumulated stun effects"
 14,Long Stun Relief,1 target,—,100',U,"As Stun Relief I, except 1 target within 100' of caster is relieved of 1 round accumulated stun effects"
-15,Regeneration III,1 target,C,touch,U,"As Regeneration I, except damage reduction is 3 hits per minute"
-17,Healing XV,1 target,P,touch,U,"As Healing I, except heals 15d10 hits"
-19,Stun Relief X,1 target,—,touch,U,"As Stun Relief I, except target is relieved of 10 rounds of accumulated stun effects"
-20,Healing XX,1 target,P,touch,U,"As Healing I, except heals 20d10 hits"
-25,True Healing,1 target,P,touch,U,"As Healing I, except target healed of all concussion hits"
-30,Frost/Burn Relief True,1 target,—,touch,U,"As Frost/ Burn Relief I, except target relieved of all burns or frostbite"
-50,Stun Relief True,1 target,—,touch,U,"As Stun Relief I, except target healed of all stun effects. SPECIAL NOTES See Section 7.2 for more on damage and healing. CONCUSSION MASTERY"
+15,Regeneration III,1 target,C,touch,Us,"As Regeneration I, except damage reduction is 3 hits per minute"
+17,Healing XV,1 target,P,touch,Us,"As Healing I, except heals 15d10 hits"
+19,Stun Relief X,1 target,—,touch,Us,"As Stun Relief I, except target is relieved of 10 rounds of accumulated stun effects"
+20,Healing XX,1 target,P,touch,Us,"As Healing I, except heals 20d10 hits"
+25,True Healing,1 target,P,touch,Us,"As Healing I, except target healed of all concussion hits"
+30,Frost/Burn Relief True,1 target,—,touch,Us,"As Frost/ Burn Relief I, except target relieved of all burns or frostbite"
+50,Stun Relief True,1 target,—,touch,Us,"As Stun Relief I, except target healed of all stun effects. SPECIAL NOTES See Section 7.2 for more on damage and healing. CONCUSSION MASTERY"

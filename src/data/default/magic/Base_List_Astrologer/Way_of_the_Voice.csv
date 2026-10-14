@@ -8,7 +8,7 @@ Lvl,Spell,Area of Effect,Duration,Range,Type,Description
 10,Voice Of Command,1 target,C,50',M,"Target is forced to obey caster as in Suggestion, for as long as caster concentrates and speaks to the target. Caster can concentrate on this spell and a Speech spell at the same time"
 11,Mind Speech I,100'R,C,self,I,"As Minor Mind Speech, except range is 100'"
 14,Mind Speech,300'R,C,self,I,"As Minor Mind Speech, except range is 300'"
-15,Word of Command,,1 target,—,,Target is forced into complete inaction for that round (the caster must command the target to stop)
+15,Word of Command,,1 target,—,M,Target is forced into complete inaction for that round (the caster must command the target to stop)
 20,Speech True,caster,C,self,P,"As Speech, except caster is absolutely fluent, has an accent as a native, and has complete idiomatic knowledge of language. For the duration of this spell, the caster has the equivalent of skill rank 4 in the language"
 25,Mind Shout,10'R,—,self,M,"Everyone within the area of effect, is stunned for 1 round per 10 failure (the caster is immune)"
 30,Mind Speech True,10'R,C,self,I,"As Mind Speech, except caster can limit broadcast to desired beings"

@@ -2,22 +2,22 @@ Lvl,Spell,Area of Effect,Duration,Range,Type,Description
 1,Distraction,1 target,C,100',F,Target suffers a -30 modification for all actions
 2,Confusion,1 target,1 rnd/5 fail,100',F,Target is incapable of making decisions or initiating action. He may continue to fight current foes or in selfdefense
 3,Blur Vision,1 target,C,100',F,"Target suffers a -100 OB modification for missile attacks, and a -50 modification for all other actions"
-4,Fear,1 target,1 min/10 fail 100',Fm,,Target fears caster and attempts to flee. Fleeing normally equates to moving at maximum pace away from the caster
-5,Stumble,1 target,—,100',F,"Target becomes unbalanced. If he is moving, he trips and falls (0% action for 1-5 rnds). If he is performing a maneuver, the manuever fails"
+4,Fear,1 target,1 min/10 fail 100',Fm,Fm,Target fears caster and attempts to flee. Fleeing normally equates to moving at maximum pace away from the caster
+5,Stumble,1 target,—,100',Fm,"Target becomes unbalanced. If he is moving, he trips and falls (0% action for 1-5 rnds). If he is performing a maneuver, the manuever fails"
 6,Fumble,1 target,—,100',F,Target fumbles any weapon or item in his hands. Roll on the appropriate Arms Law Fumble Table
 7,Hallucination,1 target,C,100',F,"Target sees a nonexistent foe and must fight him until the foe is ""defeated"" (i.e., takes damage that would drop the him). The foe has the same capabilities as target but does him no damage (i.e., always misses)"
 8,Spin,1 target,—,50',F,"Target is spun about a few times, and stops facing 180˚ away from his original facing. He spends the round attempting to recover"
 9,Weapon Alteration,1 target,1 rnd/lvl,100',F,"Target's weapon is altered to appear to him that it is some other similar weapon. When fighting with this weapon, he can only use the category bonus for his OB (i.e., the weapon is similar, but not the same)"
-10,Mirages,1 target,C,100',F,"Target sees all moving things clearly, but the caster can control the fixed scene that the target ""sees."""
+10,Mirages,1 target,C,100',Fm,"Target sees all moving things clearly, but the caster can control the fixed scene that the target ""sees."""
 11,Blinding,,1 target,1 rnd/10 fail 100',F,Target is blinded
 12,Shifting,,1 target,1 rnd/10 fail 100',F,"Target sees moving things displaced between 6"" and 18"" from where they really are. Any attack he makes against a moving foe has a 50% chance of having no effect"
 13,Mass Distraction,1 target/lvl,C,300',F,A number of targets equal to the caster's level can be distracted as in Distraction (all targets must all be in the caster's field of vision)
 14,Word of Fear,1 target,1 min/5 fail,100',F,"As Fear, except the spell is instantaneous and the duration is 1 minute per 5 failure"
-15,Amnesia,1 target,1 day/5 fail,100',F,"Target has amnesia, but loses none of his skills or abilities. He will forget his background and other memories (GM's discretion)"
+15,Amnesia,1 target,1 day/5 fail,100',Fm,"Target has amnesia, but loses none of his skills or abilities. He will forget his background and other memories (GM's discretion)"
 16,Shout of Confusion,50'R,1 rnd/5 fail,100',F,"As Confusion, except the spell is and instantaneous all beings within a 50'R are targets"
 17,Long Bewilderment,1 target,varies,300',F,"As any single spell from this list of 10th level or lower, except the range is increased to 300'"
-18,Shout of Fear,50'R,1 min/5 fail,100',F,"As Fear, except the spell is instantaneous and the duration is one round per 5 failure and all beings within a 50'R are targets"
-20,Lord Bewilderment,20 targets,varies,100',F,"As any single spell from this list of 10th level or lower, except affects up to 20 targets"
+18,Shout of Fear,50'R,1 min/5 fail,100',Fm,"As Fear, except the spell is instantaneous and the duration is one round per 5 failure and all beings within a 50'R are targets"
+20,Lord Bewilderment,20 targets,varies,100',Fm,"As any single spell from this list of 10th level or lower, except affects up to 20 targets"
 25,Amnesia True,1 target,P,100',F,"As Amnesia, except duration is permanent (unless dispelled)"
 30,Parallel Reality,1 target,1 day/5 fail,100',F,"Target sees and hears a world in which everything real has an image, but the image is changed or distorted (e.g., a Dwarf might seem to be an Orc, a house might seem to be a cave, etc.). The caster has no control over this reality"
-50,Bewilderment True,1 target/lvl,varies,300',F,"As any single spell from this list of 20th level or lower, except the range is increased to 300' and will affect up to 20 targets at once. MYSTIC BASE 4.7.1 CONFUSING WAYS"
+50,Bewilderment True,1 target/lvl,varies,300',Fm,"As any single spell from this list of 20th level or lower, except the range is increased to 300' and will affect up to 20 targets at once. MYSTIC BASE 4.7.1 CONFUSING WAYS"

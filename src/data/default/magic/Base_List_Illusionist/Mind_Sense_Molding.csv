@@ -1,6 +1,6 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
 1,Detect Illusion,5'R,—,100',P,Caster can check one object or place (up to a 5'R) and tell if it is an illusion or has an illusion on it
-2,Detect Invisible,5'R,1 min/lvl (C) 100',P,,Detects all invisible objects or beings in the area of effect. Caster can concentrate on a different 5'R each round. All attacks against something so detected are modified by -50. See Section 7.1.10 for rules on invisibility
+2,Detect Invisible,5'R,1 min/lvl (C) 100',P,P,Detects all invisible objects or beings in the area of effect. Caster can concentrate on a different 5'R each round. All attacks against something so detected are modified by -50. See Section 7.1.10 for rules on invisibility
 3,Misfeel Kind,1 target,10 min/lvl,10',E,"For the purposes of mental or magical detections, target appears to be of any race the caster chooses"
 4,Misfeel Power I,1 target,10 min/lvl,10',E,"As Misfeel Kind, except target's level may be misrepresented by 1 level (up or down)"
 5,Presence Mirage,10'R,10 min/lvl,100',E,Creates a false presence (for the purposes of magical detections) in the area of effect

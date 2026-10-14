@@ -1,6 +1,6 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
 1,Boil/Freeze Water,1 cu'/lvl,C,2',F,"For each level of the caster, 1 cubic foot of liquid can be heated to boiling or cooled to freezing (at the rate of 50˚ per round of concentration)"
-2,Clear/Desalinate Water,C,2',F,,"As Boil/Freeze Water, except removes all sediment and dissolved substances"
+2,Clear/Desalinate Water,C,2',F,F,"As Boil/Freeze Water, except removes all sediment and dissolved substances"
 3,Evaporate Water,1000 cu'/lvl,P(C),2',F,"As Boil/Freeze Water, except 1000 cu'/ lvl of liquid is evaporated at a rate of 100 cu'/rnd"
 4,Waterwall,10'x10'x1',C,10',E,Creates a 10'x10'x1' wall of churning water (a water source must be within 10'). All attacks through the wall suffer a -80 penalty. All movement through the wall is reduced by 80%
 5,Water Bolt I,1 target,—,100',DE,A bolt of water is shot from the palm of the caster (a water source must be within 10'). Attack is resolved on the Water Bolt Attack Table

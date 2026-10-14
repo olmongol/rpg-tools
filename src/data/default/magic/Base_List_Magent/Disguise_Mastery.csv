@@ -10,7 +10,7 @@ Lvl,Spell,Area of Effect,Duration,Range,Type,Description
 9,Facade III,caster,1 hour/lvl,self,E,"As Facade I, except two extra senses are added"
 10,Disguise II,caster,10 min/lvl,self,U,"As Disguise I, except caster also takes on the vocal characteristics (i.e., he sounds like the person)"
 11,Misfeel Calling,caster,C,self,E,"As Misfeel Kind, except caster appears to be of any profession he chooses"
-12,Mind Tongue,caster+1 target,C,20',F,"aster may mentally speak with one target; to the target it will seem as if they are communicating normally (i.e., verbally)"
+12,Mind Tongue,caster+1 target,C,20',Fm,"aster may mentally speak with one target; to the target it will seem as if they are communicating normally (i.e., verbally)"
 13,Disguise III,caster,10 min/lvl,self,U,"As Disguise II, except caster also takes on the obvious mannerisms of the person. For example, if the person was left-handed, the caster is left-handed; if the person has a limp, the caster will have a limp"
 14,Facade V,caster,1 hour/lvl,self,E,"As Facade I, except all senses are included"
 15,Misfeel Power,caster,C,self,E,"As Misfeel Kind, except caster appears to be of any level he chooses (ranging from first level to twice his actual level)"

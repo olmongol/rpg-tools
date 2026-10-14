@@ -2,7 +2,7 @@ Lvl,Spell,Area of Effect,Duration,Range,Type,Description
 1,Blur,1 target,1 min/lvl,10',U,"Causes target to appear blurred to attackers, subtracting 10 from all attacks"
 2,Shadow,1 target,10 min/lvl,10',U,"Target and objects on his person appear to be a shadow; and thus are almost invisible in dark areas (e.g., in many situations this could be handled with a Stalking/Hiding bonus between 25 and 75)"
 3,Facade I,1 target,1 hr/lvl,10',E,Target has a limited illusion on himself that allows him to look like any humanoid race within 20% of his own size. The illusion moves as the target moves
-4,Signs,1 target,C,20',F,"[RR Mod: -50] Caster can communicate simple ideas to the target through sign language (yes, no, hungry, good-bye, etc.). To the target it will seem as if the caster were speaking the target's language"
+4,Signs,1 target,C,20',Fm,"[RR Mod: -50] Caster can communicate simple ideas to the target through sign language (yes, no, hungry, good-bye, etc.). To the target it will seem as if the caster were speaking the target's language"
 5,Displacement I,1 target,1 min/lvl,10',E,"Target appears to be offset from where he actually is. All attacks have no effect 10% of the time. Each time a foe misses, the chance of foe missing again goes down by 5%"
 6,Facade II,1 target,1 hr/lvl,10',E,"As Facade I, except one of the other senses can be added"
 7,Impersonation Facade I,1 target,1 hr/lvl,10',E,"As Facade I, except that a specific person can be impersonated with regards to looks. The person must have been observed for at least 1 minute of concentration"

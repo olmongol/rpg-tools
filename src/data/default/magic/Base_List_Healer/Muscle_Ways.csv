@@ -1,20 +1,20 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
-1,Sprain Repair,caster,P,self,U,Caster can repair 1 sprain (no recovery time)
-2,Muscle Repair,caster,P,self,U,Caster can repair 1 damaged muscle. Recovery time is 5-50 minutes
-3,Tendon Repair I,caster,P,self,U,Caster can repair 1 damaged tendon. Recovery time is 5-50 minutes
-4,Muscle Repair III,caster,P,self,U,"As Muscle Repair I, except caster can repair 3 damaged muscles"
-5,Tendon Repair III,caster,P,self,U,"A Tendon Repair I, except caster can repair 3 damaged tendons"
-7,Joining,caster,P,self,U,"Allows caster to reattach severed limb. Also requires the use of Bone Ways, Blood Ways, and Organ Ways Joining spells to restore limb to functional status. Limb will be fulling functional in 1-10 days"
-8,Muscle Repair True,caster,P,self,U,"As Muscle Repair I, except recovery is instantaneous"
-9,Tendon Repair True,caster,P,self,U,"As Tendon Repair I, except recovery is instantaneous"
-11,Mass Muscle Repair,caster,P,self,U,Caster can repair a number of damaged muscles equal to his level. Recovery time is 5-50 minutes
-12,Muscle Regeneration,caster,P,self,U,Caster can regenerate any 1 muscle. Recovery time is 5-50 minutes
-13,Mass Tendon Repair,caster,P,self,U,Caster can repair a number of damaged tendons equal to his level. Recovery time is 5-50 minutes
-14,Tendon Regeneration,caster,P,self,U,Caster can regenerate any 1 tendon. Recovery time is 5-50 minutes
-15,Joining True,caster,P,self,U,"As Joining, except caster must cast the other 3 Healer Joining True spells and recovery is instantaneous"
-17,Rapid Muscle Regeneration,caster,P,self,U,"As Muscle Regeneration, except recovery time is 1-10 minutes"
-19,Rapid Tendon Regeneration,caster,P,self,U,"As Tendon Regeneration, except recovery time is 1-10 minutes. HEALER BASE LIST 2.7.4 MUSCLE WAYS SPECIAL NOTES See Section 7.2 for more on healing"
-20,Regeneration True,caster,P,self,U,Caster can regenerate any 1 muscle or tendon. Recovery time is instantaneous
-25,Total Muscle Regeneration,caster,P,self,U,Caster can regenerate all of the muscles in his body. Recovery time is 5-50 minutes
-30,Total Tendon Regeneration,caster,P,self,U,Caster can regenerate all of the tendons in his body. Recovery time is 5-50 minutes
-50,Mass Repairs True,caster,P,self,U,Caster can repair a number of damaged muscles and/or tendons equal to his level. Recovery is instantaneous
+1,Sprain Repair,caster,P,self,Us,Caster can repair 1 sprain (no recovery time)
+2,Muscle Repair,caster,P,self,Us,Caster can repair 1 damaged muscle. Recovery time is 5-50 minutes
+3,Tendon Repair I,caster,P,self,Us,Caster can repair 1 damaged tendon. Recovery time is 5-50 minutes
+4,Muscle Repair III,caster,P,self,Us,"As Muscle Repair I, except caster can repair 3 damaged muscles"
+5,Tendon Repair III,caster,P,self,Us,"A Tendon Repair I, except caster can repair 3 damaged tendons"
+7,Joining,caster,P,self,Us,"Allows caster to reattach severed limb. Also requires the use of Bone Ways, Blood Ways, and Organ Ways Joining spells to restore limb to functional status. Limb will be fulling functional in 1-10 days"
+8,Muscle Repair True,caster,P,self,Us,"As Muscle Repair I, except recovery is instantaneous"
+9,Tendon Repair True,caster,P,self,Us,"As Tendon Repair I, except recovery is instantaneous"
+11,Mass Muscle Repair,caster,P,self,Us,Caster can repair a number of damaged muscles equal to his level. Recovery time is 5-50 minutes
+12,Muscle Regeneration,caster,P,self,Us,Caster can regenerate any 1 muscle. Recovery time is 5-50 minutes
+13,Mass Tendon Repair,caster,P,self,Us,Caster can repair a number of damaged tendons equal to his level. Recovery time is 5-50 minutes
+14,Tendon Regeneration,caster,P,self,Us,Caster can regenerate any 1 tendon. Recovery time is 5-50 minutes
+15,Joining True,caster,P,self,Us,"As Joining, except caster must cast the other 3 Healer Joining True spells and recovery is instantaneous"
+17,Rapid Muscle Regeneration,caster,P,self,Us,"As Muscle Regeneration, except recovery time is 1-10 minutes"
+19,Rapid Tendon Regeneration,caster,P,self,Us,"As Tendon Regeneration, except recovery time is 1-10 minutes. HEALER BASE LIST 2.7.4 MUSCLE WAYS SPECIAL NOTES See Section 7.2 for more on healing"
+20,Regeneration True,caster,P,self,Us,Caster can regenerate any 1 muscle or tendon. Recovery time is instantaneous
+25,Total Muscle Regeneration,caster,P,self,Us,Caster can regenerate all of the muscles in his body. Recovery time is 5-50 minutes
+30,Total Tendon Regeneration,caster,P,self,Us,Caster can regenerate all of the tendons in his body. Recovery time is 5-50 minutes
+50,Mass Repairs True,caster,P,self,Us,Caster can repair a number of damaged muscles and/or tendons equal to his level. Recovery is instantaneous
