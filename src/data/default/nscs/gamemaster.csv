@@ -1028,12 +1028,11 @@ Bird,Echo Hawks,3,16,VF/BF,1,27,0,S,50 M Cl/40 M  Pi,0xx,0xx,50MCl,40MPi,-,65,0,
 
 
 ",Opportunistic. Often found near Green—flower vine.,1-2,,,data/default/pics_nsc/echo_hawk.jpeg,,wmskt,UVLRX,6,2-3 ft wingspan
-Bird,Bird (small),1,12,VF/FA,1,5,0,T,0 S Cl,0xx,0xx,0Ti100,6 or more-0SCl,-,70,0,"
+Bird,Bird (small),0,12,FA/FA,1,5,0,T,0TPi50/0TCl50/0SCl(6),0xx,0xx,0TPi50/0TCl50/Swarm-6 0SCl,-,-,70,0,,"Sparrows, doves, etc.",1-5,,,data/default/pics_nsc/small_bird.jpeg,,,,,
 
 
 
 
-","Sparrows, doves, etc.",1-5,,,data/default/pics_nsc/small_bird.jpeg,,,,,
 Bird,Bird (large),1,8,FA/FA,1,8,0,S,0 S Pi,0xx,0xx,0SPi100,3 or more-20MCl,-,50,0,"
 
 

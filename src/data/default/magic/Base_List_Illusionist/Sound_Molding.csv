@@ -1,0 +1,24 @@
+Lvl,Spell,Area of Effect,Duration,Range,Type,Description
+1,Sound Mirage,10'R,10 min/lvl,100',E,Creates any simple immobile set up sounds up to an area of 10'R.
+2,Silence I,10'R,1 min/lvl,100',E,"Creates a 5'R area into and out of which sound cannot travel. If the point is on a mobile object or being, it will move with the object/being. This results in a +25 to Stalking attempts. See Section 7.1.7."
+3,Sound Control I,10'R,C,10',E,"Caster can control the intensity of sounds within the area of effect. The intensity can vary from absolute silence to a very loud shout, and it can be different in different parts of the radius."
+4,Sudden Sound,1 target,—,100',F,"Causes a very loud, sudden sound next to the target's ears. The target is stunned for 1 round per 5 failure."
+5,Sound Control V,50'R,C,50',E,"As Sound Control I, except radius is 50'."
+6,Sound Glamour,1 object,1 day/lvl,50',E,One object (up to 10 pounds per level) has its sound altered for the duration of the spell. Note that no other aspect of the object changes.
+7,Deafen,1 target,1 hr/5 fail,100',F,"Target cannot hear sounds occurring more than 6"" from his ears, and no one can hear him speak from more than 6"" away."
+8,Silence V,50'R,1 min/lvl,100',E,"As Silence I, except radius is 50'."
+9,Minor Ultrasonics,50'R,1 rnd/lvl(C),self,F,All beings in the area of effect capable of hearing ultrasonic sounds (except for the caster) are stunned for 1 round per 10 failure. Animals capable of hearing ultrasonic sounds will panic and flee. A RR must be made each round while in radius.
+10,Sound Control X,100'R,C,100',E,"As Sound Control I, except radius is 100'."
+11,Sudden Sound Sphere,20'R,—,100',F,"As Sudden Sound, except everyone in the area of effect is affected."
+12,Sound Terrain,1000'R,1 day/lvl,100',E,"All of the terrain in the area of effect will have sounds that are different than it actually has. The caster may designate in what way the terrain sounds different. For example, an open plain could be made to sound like a rustling forest. Note that only the audio aspect of the terrain changes."
+13,Silence X,100'R,1 min/lvl,100',E,"As Silence I, except radius is 100'."
+14,Deafen Sphere,10'R,1 hr/5 fail,100',F,"As Deafen, except everyone in a 10'R is affected."
+15,Greater Sound Control,10'R/lvl,C,100',E,"As Sound Control I, except radius is 10'/lvl."
+16,Long Silence,5'R,1 min/lvl,10'/lvl,E,"As Silence I, except for range."
+17,Long Sound Control,10'R,C,10'/lvl,E,"As Sound Control I, except for range."
+18,Long Sudden Sound,1 target,—,10'/lvl,F,"As Sudden Sound, except for range."
+19,Long Deafen,10'R,1 hr/5 fail,10'/lvl,F,"As Deafen, except for range."
+20,Mass Deafening,1 tgt/lvl,1 hr/5 fail,100',F,"As Deafen, except as many targets as the caster's level can be affected."
+25,Mass Silence,1 tgt/lvl,1 min/lvl,100',E,"As Silence I, except as many targets as the caster's level can have a 1'R silence on them."
+30,Sound Control True,20'R/lvl,10 min/lvl (C),100',E,"As Sound Control, except radius is 20'/lvl and the caster does not have to concentrate."
+50,Major Ultrasonics,100'R,1 rnd/lvl (C),self,F,"As Minor Ultrasonics, except everyone (except for the caster) within a 100'R is affected. Anyone failing their RR by more than 40 is unconscious. Anyone failing their RR by more than 75 is dead."
