@@ -1,13 +1,13 @@
 Lvl,Spell,Area of Effect,Duration,Range,Type,Description
-1,,10'R/lvl,C,self,P,
-3,,caster,1 min/lvl,100',P,
-5,,1 target,—,10'/lvl,,
-6,,1 target,C,100'/lvl,,
-9,,1 target,—,10'/lvl,I,
-10,,1 target,—,1000'/lvl,I,
-13,,10'R/lvl,C,self,I,
-15,,,1 target,—,U,
-20,,,caster,1 min/lvl 20 miles,P,
-25,,1 target,—,unlimited,I,
-30,,1 target,—,unlimited,I,
-50,,1 target,—,unlimited,I,
+1,Presence,10'R/lvl,C,self,P,Caster is aware of the presence of all sentient/thinking beings within his range.
+3,Location,caster,1 min/lvl,100',P,Gives the direction and distance to any specific object or place that the caster is familiar with or has had described in detail.
+5,Mind Store,1 target,—,10'/lvl,,Caster stores mental pattern of target. This information can be used later to recognize the target or locate the target through Finding.
+6,Finding,1 target,C,100'/lvl,,Caster gets direction and distance to any one unshielded Mind Stored target within range.
+9,Mind Typing,1 target,—,10'/lvl,I,"Caster learns the race, the profession, and the level of target."
+10,Direction,1 target,—,1000'/lvl,I,Caster gets direction to any unshielded Mind Stored target within range.
+13,Awareness,10'R/lvl,C,self,I,"As Presence, plus a general knowledge of the actions of each being (e.g., being is casting a spell, but not what spell is being cast)."
+15,Starfinding,1 target,—,100'/lvl,U,"As Finding, but both the caster and target must be outdoors while stars are visible."
+20,Lord Location,caster,1 min/lvl,20 miles,P,"As Location, except range is 20 miles."
+25,Direction True,1 target,—,unlimited,I,"As Direction, except no range limitations."
+30,Finding True,1 target,—,unlimited,I,"As Finding, except no range limitations."
+50,Tracking,1 target,—,unlimited,I,"As Finding True, except Caster can 'track' target for the next 24 hours without further power point expenditure (though he must concentrate. He simply needs to concentrate for a round to determine current distance and direction)."
